@@ -1,0 +1,503 @@
+﻿@model  SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.AutoAdditionalAcceptanceCriteriaEntity
+@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Utility
+@using System.Data;
+@{
+    Layout = null;
+    string message = !string.IsNullOrEmpty(Convert.ToString(ViewBag.Message)) ? Convert.ToString(ViewBag.Message) : "";
+    int z = 0;
+    AjaxOptions ajaxOptionsAAC = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        UpdateTargetId = "divPartialWindowAAC",
+        LoadingElementId = "divProgress",
+        OnSuccess = "OnSuccessUpsertAutoAcceptance"
+    };
+    if (Model != null && Model.ConfidenceCode == "")
+    {
+        Model.ConfidenceCode = "";
+    }
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+    bool isAutoAcceptance = ViewBag.isAutoAcceptance == null ? true : (bool)ViewBag.isAutoAcceptance;
+    bool isLicesnceEnableTags = Helper.LicenseEnableTags;
+}
+<style>
+    .chosen-container {
+        width: 100% !important;
+    }
+    .multiselect-container > li > a > label {
+        padding: 3px 20px 3px 40px;
+        margin-bottom: 0 !important;
+        word-break: break-word;
+        white-space: normal;
+}
+</style>
+<div class="modal" id="InsertUpdateAutoAcceptanceModal" role="dialog" arial-modal="true" style="display: block;">
+    <div class="modal-dialog modal-dialog-centered modal-lg ui-draggable">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header ui-draggable-handle">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                @if (isAutoAcceptance)
+                {
+                    if (Model.CriteriaGroupId > 0)
+                    {
+                        <h4 class="modal-title">@DandBSettingLang.hdrEditAdditionalAutoAcceptanceRules</h4>
+                    }
+                    else
+                    {
+                        <h4 class="modal-title">@DandBSettingLang.hdrAddAdditionalAutoAcceptanceRules</h4>
+                    }
+                }
+                else
+                {
+                    <h4 class="modal-title">@DandBSettingLang.hdrAddAdditionalAutoAcceptanceRules</h4>
+                }
+            </div>
+            <div class="modal-body">
+                @Html.Hidden("UserRole", UserRoles)
+                @Html.Hidden("UserLOBTag", UserLOBTag)
+                @Html.Hidden("IsLicenseEnableAdvancedMatch", Helper.LicenseEnableAdvancedMatch)
+
+                @using (Ajax.BeginForm("InsertUpdateAutoAcceptance", "DNBIdentityResolution", null, ajaxOptionsAAC, new { @class = "formContent", id = "form_windowAAC", @autocomplete = "off" }))
+                {
+                    @Html.Hidden("isAutoAcceptance", isAutoAcceptance)
+                    @Html.Hidden("IsLicenseEnableTags", isLicesnceEnableTags)
+                    @Html.Hidden("AdditionalAcceptMessage", (string)ViewBag.MessageAAC)
+
+                    @Html.Hidden("AutoAcceptancneTagsList", Model.Tags)
+                    @Html.Hidden("CompanyGradeList", Model.CompanyGrade)
+                    @Html.Hidden("StreetGradeList", Model.StreetGrade)
+                    @Html.Hidden("StreetNameGradeList", Model.StreetNameGrade)
+                    @Html.Hidden("CityGradeList", Model.CityGrade)
+                    @Html.Hidden("StateGradeList", Model.StateGrade)
+                    @Html.Hidden("AddressGradeList", Model.AddressGrade)
+                    @Html.Hidden("PhoneGradeList", Model.PhoneGrade)
+                    @Html.Hidden("ZipGradeList", Model.ZipGrade)
+                    @Html.Hidden("DensityList", Model.Density)
+                    @Html.Hidden("UniquenessList", Model.Uniqueness)
+                    @Html.Hidden("SICList", Model.SIC)
+                    @Html.Hidden("CompanyCodeList", Model.CompanyCode)
+                    @Html.Hidden("StreetCodeList", Model.StreetCode)
+                    @Html.Hidden("StreetNameCodeList", Model.StreetNameCode)
+                    @Html.Hidden("CityCodeList", Model.CityCode)
+                    @Html.Hidden("StateCodeList", Model.StateCode)
+                    @Html.Hidden("AddressCodeList", Model.AddressCode)
+                    @Html.Hidden("PhoneCodeList", Model.PhoneCode)
+                    @Html.Hidden("ConfidenceCodeList", Model.ConfidenceCode)
+                    @Html.Hidden("ZipCodeList", Model.ZipCode)
+                    @Html.Hidden("DensityCodeList", Model.DensityCode)
+                    @Html.Hidden("UniquenessCodeList", Model.UniquenessCode)
+                    @Html.Hidden("SICCodeList", Model.SICCode)
+                    @Html.Hidden("MatchDataCriteriaList", Model.MatchDataCriteria)
+                    @Html.Hidden("OperatingStatusList", Model.OperatingStatus)
+                    @Html.Hidden("BusinessTypeList", Model.BusinessType)
+
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("Tags", z);
+                    @Html.Hidden("ConfidenceCode", z, new { @class = "customValidation" });
+                    @Html.Hidden("CompanyGrade", z, new { @class = "customValidation" });
+                    @Html.Hidden("StreetGrade", z, new { @class = "customValidation" });
+                    @Html.Hidden("StreetNameGrade", z, new { @class = "customValidation" });
+                    @Html.Hidden("CityGrade", z, new { @class = "customValidation" });
+                    @Html.Hidden("StateGrade", z, new { @class = "customValidation" });
+                    @Html.Hidden("AddressGrade", z, new { @class = "customValidation" });
+                    @Html.Hidden("PhoneGrade", z, new { @class = "customValidation" });
+                    @Html.Hidden("ZipGrade", z, new { @class = "customValidation" });
+                    @Html.Hidden("Density", z, new { @class = "customValidation" });
+                    @Html.Hidden("Uniqueness", z, new { @class = "customValidation" });
+                    @Html.Hidden("SIC", z, new { @class = "customValidation" });
+
+                    @Html.Hidden("CompanyCode", z, new { @class = "customValidation" });
+                    @Html.Hidden("StreetCode", z, new { @class = "customValidation" });
+                    @Html.Hidden("StreetNameCode", z, new { @class = "customValidation" });
+                    @Html.Hidden("CityCode", z, new { @class = "customValidation" });
+                    @Html.Hidden("StateCode", z, new { @class = "customValidation" });
+                    @Html.Hidden("AddressCode", z, new { @class = "customValidation" });
+                    @Html.Hidden("PhoneCode", z, new { @class = "customValidation" });
+                    @Html.Hidden("ZipCode", z, new { @class = "customValidation" });
+                    @Html.Hidden("UniquenessCode", z, new { @class = "customValidation" });
+                    @Html.Hidden("DensityCode", z, new { @class = "customValidation" });
+                    @Html.Hidden("SICCode", z, new { @class = "customValidation" });
+                    @Html.HiddenFor(m => m.CriteriaGroupId)
+                    @Html.Hidden("IsReview", (bool)ViewBag.IsReview)
+                    @Html.Hidden("IsReviewConfirm", ViewBag.IsReviewConfirm == null ? false : (bool)ViewBag.IsReviewConfirm)
+                    <div id="popWindowAAC">
+                        <div class="matchdata-select">
+                            <div class="row">
+                                @if (Helper.LicenseEnableAdvancedMatch)
+                                {
+                                    <div class="col-sm-3 col-xs-3">
+                                        <label class="text-right font-weight-bold mr-2 mb-1 thColor">@DandBSettingLang.lblMatchDataCriteria</label>
+                                        <div class="AutoAcceptanceMatchGrade">
+                                            @Html.DropDownList("MatchDataCriteria", new SelectList(new CommonDropdown().GetCVRefTypeByTypeCodeAutoAcceptance(108, this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Description", Model.MatchDataCriteria), new { @class = "form-control selectbox", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    if (Helper.Branding == Branding.Matchbook.ToString())
+                                    {
+                                        <div class="col-sm-3 col-xs-3">
+                                            <label class="text-right font-weight-bold mr-2 mb-1 thColor">@DandBSettingLang.lblMatchDataCriteria</label>
+                                            <div class="AutoAcceptanceMatchGrade" title="@BrandingLang.msgMBFeature">
+                                                @Html.DropDownList("MatchDataCriteria", new SelectList(new CommonDropdown().GetCVRefTypeByTypeCodeAutoAcceptance(108, this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Description", Model.MatchDataCriteria), new { @class = "form-control selectbox", @autocomplete = "off", disabled = "disabled" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (Helper.Branding == Branding.DandB.ToString())
+                                    {
+                                        <div class="col-sm-3 col-xs-3">
+                                            <label class="text-right font-weight-bold mr-2 mb-1 thColor">@DandBSettingLang.lblMatchDataCriteria</label>
+                                            <div class="AutoAcceptanceMatchGrade" title="@BrandingLang.msgDNBFeature">
+                                                @Html.DropDownList("MatchDataCriteria", new SelectList(new CommonDropdown().GetCVRefTypeByTypeCodeAutoAcceptance(108, this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Description", Model.MatchDataCriteria), new { @class = "form-control selectbox", @autocomplete = "off", disabled = "disabled" })
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                <div class="col-sm-3 col-xs-3">
+                                    <label class="text-right font-weight-bold mr-2 mb-1 thColor">@DandBSettingLang.lblConfidenceCode<span class="requireField">*</span></label>
+                                    <div class="AutoAcceptanceMatchGrade" title="@BrandingLang.msgMBFeature">
+                                        @Html.DropDownList("ConfidenceCodeValue", new SelectList(new CommonDropdown().ComboboxItems("AutoSettingConfidenceCode"), "Value", "Text", Model.ConfidenceCode), new { @class = "form-control selectbox", multiple = "true", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                                @if (Helper.LicenseEnableAdvancedMatch)
+                                {
+                                    <div class="col-sm-2 col-xs-2">
+                                        <label class="text-right font-weight-bold mr-2 mb-1">@DandBSettingLang.lblOperatingStatus</label>
+                                        <div class="AutoAcceptanceMatchGrade">
+                                            @Html.DropDownList("OperatingStatus", new SelectList(new CommonDropdown().GetCVRefTypeByTypeCodeAutoAcceptance(109, this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Description", Model.OperatingStatus), new { @class = "form-control selectbox", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    if (Helper.Branding == Branding.Matchbook.ToString())
+                                    {
+                                        <div class="col-sm-2 col-xs-2">
+                                            <label class="text-right font-weight-bold mr-2 mb-1">@DandBSettingLang.lblOperatingStatus</label>
+                                            <div class="AutoAcceptanceMatchGrade" title="@BrandingLang.msgMBFeature">
+                                                @Html.DropDownList("OperatingStatus", new SelectList(new CommonDropdown().GetCVRefTypeByTypeCodeAutoAcceptance(109, this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Description", Model.OperatingStatus), new { @class = "form-control selectbox", @autocomplete = "off", disabled = "disabled" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (Helper.Branding == Branding.DandB.ToString())
+                                    {
+                                        <div class="col-sm-2 col-xs-2">
+                                            <label class="text-right font-weight-bold mr-2 mb-1">@DandBSettingLang.lblOperatingStatus</label>
+                                            <div class="AutoAcceptanceMatchGrade" title="@BrandingLang.msgDNBFeature">
+                                                @Html.DropDownList("OperatingStatus", new SelectList(new CommonDropdown().GetCVRefTypeByTypeCodeAutoAcceptance(109, this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Description", Model.OperatingStatus), new { @class = "form-control selectbox", @autocomplete = "off", disabled = "disabled" })
+                                            </div>
+                                        </div>
+                                    }
+                                }
+
+                                <div class="col-sm-2 col-xs-2">
+                                    <label class="text-right font-weight-bold mr-2 mb-1">@DandBSettingLang.lblMatchGradeComponent</label>
+                                    <div>
+                                        @if (Helper.LicenseEnableAdvancedMatch)
+                                        {
+                                            <div>
+                                                @Html.DropDownListFor(@model => @model.MatchGradeComponentCount, new List<SelectListItem>
+                                                {
+                                                new SelectListItem{ Text="All", Value = "0" },
+                                                new SelectListItem{ Text="7 - " + DandBSettingLang.msgMatchEngineGolfGmc, Value = "7" },
+                                                new SelectListItem{ Text="11 - " + DandBSettingLang.msgMatchEngineNextGen, Value = "11" },
+                                                new SelectListItem{ Text="99 - " + DandBSettingLang.msgAME, Value = "99" },
+                                                }, new { @class = "form-control" })
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            if (Helper.Branding == Branding.Matchbook.ToString())
+                                            {
+                                                <div title="@BrandingLang.msgMBFeature">
+                                                    @Html.DropDownListFor(@model => @model.MatchGradeComponentCount, new List<SelectListItem>
+                                                    {
+                                                    new SelectListItem{ Text="All", Value = "0" },
+                                                    new SelectListItem{ Text="7 - " + DandBSettingLang.msgMatchEngineGolfGmc, Value = "7" },
+                                                    new SelectListItem{ Text="11 - " + DandBSettingLang.msgMatchEngineNextGen, Value = "11" },
+                                                    new SelectListItem{ Text="99 - " + DandBSettingLang.msgAME, Value = "99" },
+                                                    }, new { @class = "form-control", disabled = "disabled", @autocomplete = "off" })
+
+                                                </div>
+                                            }
+                                            else if (Helper.Branding == Branding.DandB.ToString())
+                                            {
+                                                <div title="@BrandingLang.msgDNBFeature">
+                                                    @Html.DropDownListFor(@model => @model.MatchGradeComponentCount, new List<SelectListItem>
+                                                    {
+                                                    new SelectListItem{ Text="All", Value = "0" },
+                                                    new SelectListItem{ Text="7 - " + DandBSettingLang.msgMatchEngineGolfGmc, Value = "7" },
+                                                    new SelectListItem{ Text="11 - " + DandBSettingLang.msgMatchEngineNextGen, Value = "11" },
+                                                    new SelectListItem{ Text="99 - " + DandBSettingLang.msgAME, Value = "99" },
+                                                    }, new { @class = "form-control", disabled = "disabled", @autocomplete = "off" })
+
+                                                </div>
+                                            }
+                                        }
+                                        <span id="matchGradeComponentText" class="font-weight-bold"></span>
+                                    </div>
+                                </div>
+                                @if (Helper.LicenseEnableAdvancedMatch)
+                                {
+                                    <div class="col-sm-2 col-xs-2">
+                                        <label class="text-right font-weight-bold mr-2 mb-1">@DandBSettingLang.lblBusinessType</label>
+                                        <div class="AutoAcceptanceMatchGrade">
+                                            @Html.DropDownList("BusinessType", new SelectList(new CommonDropdown().GetCVRefTypeByTypeCodeAutoAcceptance(110, this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Description", Model.BusinessType), new { @class = "form-control selectbox", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    if (Helper.Branding == Branding.Matchbook.ToString())
+                                    {
+                                        <div class="col-sm-2 col-xs-2">
+                                            <label class="text-right font-weight-bold mr-2 mb-1">@DandBSettingLang.lblBusinessType</label>
+                                            <div class="AutoAcceptanceMatchGrade" title="@BrandingLang.msgMBFeature">
+                                                @Html.DropDownList("BusinessType", new SelectList(new CommonDropdown().GetCVRefTypeByTypeCodeAutoAcceptance(110, this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Description", Model.BusinessType), new { @class = "form-control selectbox", @autocomplete = "off", disabled = "disabled" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (Helper.Branding == Branding.DandB.ToString())
+                                    {
+                                        <div class="col-sm-2 col-xs-2">
+                                            <label class="text-right font-weight-bold mr-2 mb-1">@DandBSettingLang.lblBusinessType</label>
+                                            <div class="AutoAcceptanceMatchGrade" title="@BrandingLang.msgDNBFeature">
+                                                @Html.DropDownList("BusinessType", new SelectList(new CommonDropdown().GetCVRefTypeByTypeCodeAutoAcceptance(110, this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Description", Model.BusinessType), new { @class = "form-control selectbox", @autocomplete = "off", disabled = "disabled" })
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-sm-3 col-xs-3">
+                                    <label class="text-right font-weight-bold mr-2 mb-1">@DandBSettingLang.lblCountryGroup</label>
+                                    <div class="DisplayFlex AddContrygroupCls">
+                                        @Html.DropDownListFor(@model => @model.GroupId, new SelectList(new CommonDropdown().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName", Model.GroupId), new { @class = "form-control selectbox AddableCountryGroup", @autocomplete = "off" })
+                                        @if (Helper.UserType.ToLower() != "steward")
+                                        {<em class="fa fa-plus CreateCountyGroup" onclick="addNewCountryGroup()"></em>}
+                                        <span class="error" id="spnGroupId" style="display:none">@DandBSettingLang.lblGroupIdRequired</span>
+                                    </div>
+                                </div>
+                                @if (Helper.LicenseEnableTags)
+                                {
+                                    <div class="col-sm-3 col-xs-3">
+                                        <label class="text-right font-weight-bold mr-2 mb-1">@DandBSettingLang.lblTags</label>
+                                        <div class="DisplayFlex">
+                                            @Html.DropDownList("TagsValue", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.Tags), new { @class = "form-control chzn-select", multiple = "true", @autocomplete = "off" })
+                                            @if (Helper.UserType.ToLower() != "steward")
+                                            {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>}
+                                        </div>
+                                        <span id="spnTags" class="error" style="display:none;">@DandBSettingLang.lblTagRequired</span>
+                                    </div>
+                                }
+                                <div class="col-sm-6 col-xs-6 d-flex align-items-center mt-3">
+                                    <div class="checkbox-inline d-flex justify-content-between">
+                                        <div class="form-check">
+                                            <input type="checkbox" id="ExcludeFromAutoAccept" value="true" name="ExcludeFromAutoAccept" checked="@Model.ExcludeFromAutoAccept">
+                                            <span class="ExcludedLable @(Model.ExcludeFromAutoAccept==true?"Excluded":null)">@DandBSettingLang.lblExcludeFromAutoAccept</span>
+                                        </div>
+                                        <div class="form-check">
+                                            @if (Helper.LicenseEnableAdvancedMatch)
+                                            {
+                                                <input type="checkbox" id="SingleCandidateMatchOnly" value="true" name="SingleCandidateMatchOnly" checked="@Model.SingleCandidateMatchOnly">
+                                            }
+                                            else
+                                            {
+                                                if (Helper.Branding == Branding.Matchbook.ToString())
+                                                {
+                                                    <input type="checkbox" id="SingleCandidateMatchOnly" value="true" name="SingleCandidateMatchOnly" checked="@Model.SingleCandidateMatchOnly" title="@BrandingLang.msgMBFeature" disabled="disabled">
+                                                }
+                                                else if (Helper.Branding == Branding.DandB.ToString())
+                                                {
+                                                    <input type="checkbox" id="SingleCandidateMatchOnly" value="true" name="SingleCandidateMatchOnly" checked="@Model.SingleCandidateMatchOnly" title="@BrandingLang.msgDNBFeature" disabled="disabled">
+                                                }
+                                            }
+                                            <span class="SingleCandidateMatchLabel">@DandBSettingLang.lblSingleCandidateMatch</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row sectiontopmrg">
+                            <div class="col-md-9">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5 text-right"><span><strong>@DandBSettingLang.lblMatchGrade </strong></span></div>
+                                <div class="col-md-5 text-right"><span><strong>@DandBSettingLang.lblMDPValue </strong></span></div>
+                            </div>
+                            <div class="col-md-2">
+                                <span><strong>@DandBSettingLang.lblMinMatchScore</strong></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-2 text-right"><span>@DandBSettingLang.lblCompany</span></div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("CompanyGradeValue", new SelectList(new CommonDropdown().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.CompanyGrade), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                    @Html.DropDownList("CompanyCodeValue", new SelectList(new CommonDropdown().LoadMatchGradesEntities("Company", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.CompanyCode), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="col-md-2 paddingright30">
+                                @if (Helper.LicenseEnableAdvancedMatch)
+                                {
+                                    @Html.DropDownListFor(m => m.CompanyScore, new SelectList(new CommonDropdown().ComboboxItems("CompanyScore"), "Value", "Text"), new { @class = "form-control selectbox", autocomplete = "off" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(m => m.CompanyScore, new SelectList(new CommonDropdown().ComboboxItems("CompanyScore"), "Value", "Text"), new { @class = "form-control selectbox", autocomplete = "off", disabled = "disabled" })
+                                }
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-2 text-right">
+                                    <span>@DandBSettingLang.lblStreet</span>
+                                </div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("StreetGradeValue", new SelectList(new CommonDropdown().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.StreetGrade), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                    @Html.DropDownList("StreetCodeValue", new SelectList(new CommonDropdown().LoadMatchGradesEntities("StreetNo", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.StreetCode), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="col-md-2 paddingright30">
+                                <span style="position:absolute">
+                                    <strong>
+                                        <span style="">@DandBSettingLang.lblScoreRange</span>
+                                        <br />
+                                        <span>@DandBSettingLang.lblA&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;@DandBSettingLang.lblTextForA</span><br />
+                                        <span>@DandBSettingLang.lblB&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;@DandBSettingLang.lblTextForB</span><br />
+                                        <span>@DandBSettingLang.lblF&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;@DandBSettingLang.lblTextForF</span><br />
+                                        <span>@DandBSettingLang.lblZ&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;@DandBSettingLang.lblTextForZ</span>
+                                    </strong>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-2 text-right"><span>@DandBSettingLang.lblStreetName</span></div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("StreetNameGradeValue", new SelectList(new CommonDropdown().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.StreetNameGrade), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                    @Html.DropDownList("StreetNameCodeValue", new SelectList(new CommonDropdown().LoadMatchGradesEntities("StreetName", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.StreetNameCode), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-2 text-right"><span>@DandBSettingLang.lblCity</span></div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("CityGradeValue", new SelectList(new CommonDropdown().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.CityGrade), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                    @Html.DropDownList("CityCodeValue", new SelectList(new CommonDropdown().LoadMatchGradesEntities("City", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.CityCode), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-2 text-right"><span>@DandBSettingLang.lblState</span></div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("StateGradeValue", new SelectList(new CommonDropdown().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.StateGrade), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                    @Html.DropDownList("StateCodeValue", new SelectList(new CommonDropdown().LoadMatchGradesEntities("State", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.StateCode), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-2 text-right"><span>@DandBSettingLang.lblPOBox</span></div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("AddressGradeValue", new SelectList(new CommonDropdown().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.AddressGrade), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                    @Html.DropDownList("AddressCodeValue", new SelectList(new CommonDropdown().LoadMatchGradesEntities("PoBox", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.AddressCode), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-2 text-right Custome-padding-left-0"><span>@DandBSettingLang.lblPhoneNumber :</span></div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("PhoneGradeValue", new SelectList(new CommonDropdown().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.PhoneGrade), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                    @Html.DropDownList("PhoneCodeValue", new SelectList(new CommonDropdown().LoadMatchGradesEntities("Phone", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.PhoneCode), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-2 text-right"><span>@DandBSettingLang.lblZipCode</span></div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("ZipGradeValue", new SelectList(new CommonDropdown().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.ZipGrade), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                    @Html.DropDownList("ZipCodeValue", new SelectList(new CommonDropdown().LoadMatchGradesEntities("PostalCode", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.ZipCode), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-2 text-right"><span>@DandBSettingLang.lblDensity</span></div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade">@Html.DropDownList("DensityValue", new SelectList(new CommonDropdown().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.Density), new { @class = "form-control selectbox", @autocomplete = "off", multiple = "multiple" })</div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                    @Html.DropDownList("DensityCodeValue", new SelectList(new CommonDropdown().LoadMatchGradesEntities("Density", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.DensityCode), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-2 text-right"><span>@DandBSettingLang.lblUniqueness</span></div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("UniquenessValue", new SelectList(new CommonDropdown().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.Uniqueness), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                    @Html.DropDownList("UniquenessCodeValue", new SelectList(new CommonDropdown().LoadMatchGradesEntities("Uniqueness", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.UniquenessCode), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="col-md-2 text-right"><span>@DandBSettingLang.lblSIC</span></div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("SICValue", new SelectList(new CommonDropdown().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.SIC), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-5 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                    @Html.DropDownList("SICCodeValue", new SelectList(new CommonDropdown().LoadMatchGradesEntities("SIC", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.SICCode), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            @if (isAutoAcceptance)
+                            {
+                                if (Model.CriteriaGroupId > 0)
+                                {
+                                    <input type="submit" value="@DandBSettingLang.lblUpdate" id="btnAutoAcceptanceSubmit" class="btn btn-primary " />
+                                }
+                                else
+                                {
+                                    <input type="submit" value="@DandBSettingLang.lblAdd" id="btnAutoAcceptanceSubmit" class="btn btn-primary " />
+                                }
+                            }
+                            <input type="button" value="@DandBSettingLang.lblPreview" id="btnAutoAcceptancePreview" class="btn @(isAutoAcceptance ? "" : "btn-primary")" @(Helper.oUser.EnablePreviewMatchRules == true ? "" : "disabled") />
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+

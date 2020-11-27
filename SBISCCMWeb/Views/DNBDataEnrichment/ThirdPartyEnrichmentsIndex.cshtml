@@ -1,0 +1,81 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model List<ThirdPartyEnrichmentsEntity>
+@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility;
+
+<article class="col-md-12 sortable-grid ui-sortable" id="articleThirdPartyEnrichment">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrDataEnrichmentList</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                @if (!ViewBag.IsThirdPartyProvidersAvailable)
+                {
+                    <p>@DandBSettingLang.msgThirdPartyProviderNotFound1 &nbsp;<a href="mailto:helpdesk@matchbookservices.com">helpdesk@matchbookservices.com</a> &nbsp;@DandBSettingLang.msgThirdPartyProviderNotFound2</p>
+                }
+                else
+                {
+                    <table class="table table-bordered ThirdPartyEnrichmentTB">
+                        <thead>
+                            <tr>
+                                <th width="10%">Provider</th>
+                                <th width="10%">Description</th>
+                                <th width="50%" class="WordBreak">Fields</th>
+                                <th width="10%">@DandBSettingLang.lblCountryGroup</th>
+                                @if (Helper.LicenseEnableTags)
+                                {
+                                    <th width="10%">@DandBSettingLang.lblTags</th>
+                                }
+                                @if (Helper.UserType.ToLower() != "steward")
+                                {
+                                    <th width="10%" class="nosort">@DandBSettingLang.lblDelete </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    var EnrichId = @Utility.GetEncryptedString(Convert.ToString(item.EnrichmentId)).Replace("+", Utility.urlseparator);
+                                    <tr data-EnrichId="@EnrichId">
+                                        <td width="10%">@item.ThirdPartyProvider</td>
+                                        <td width="10%">@item.EnrichmentDescription</td>
+                                        <td width="50%" class="WordBreak">@(!string.IsNullOrEmpty(item.EnrichmentURL) && !string.IsNullOrEmpty(item.ThirdPartyProvider) ? item.EnrichmentURL.ToLower().Replace(System.Configuration.ConfigurationManager.AppSettings[item.ThirdPartyProvider].ToLower(), "") : "")</td>
+                                        <td width="10%">@item.CountryGroupName</td>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <td width="10%">@item.Tags</td>
+                                        }
+
+                                        @if (Helper.UserType.ToLower() != "steward")
+                                        {
+                                            <td width="10%">
+                                                <a href="javascript:void(0)" id="@EnrichId" class="deleteThirdPartyEnrichment">@DandBSettingLang.lblDelete</a>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "Third Party Enrichment" && ViewBag.IsThirdPartyProvidersAvailable)
+{
+    <script>
+        $(document).ready(function () {
+            InitDandBThirdPartyEnrichmentDataTable();
+            $("table.ThirdPartyEnrichmentTB tbody tr:first").addClass('current');
+            var enrichId = $("table.ThirdPartyEnrichmentTB tbody tr:first").attr("data-EnrichId");
+            GetThirdPartyEnrichmentsByEnrichId(enrichId);
+        });
+    </script>
+}

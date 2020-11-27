@@ -1,0 +1,134 @@
+﻿@model  SBISCCMWeb.Models.UsersModel
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        UpdateTargetId = "divPartialCountryGrp",
+        LoadingElementId = "divProgress",
+        OnSuccess = "CountryGrpSuccess"
+    };
+}
+@Html.Hidden("CountryGrpMessage", (string)ViewBag.Message)
+@using (Ajax.BeginForm("popupConfigCountryGrp", "ConfigurationData", null, ajaxOptions, new { @class = "formContent" }))
+{
+    @Html.AntiForgeryToken()
+    <div id="content" style="opacity: 1;">
+        <section id="widget-grid" class="">
+            <article class="sortable-grid ui-sortable col-md-12">
+                <div class="form-group">
+                    <div class="text-center margin-10">
+                        @if (ViewBag.Message != null)
+                        {
+                            <div class="alert alert-block alert-success" style="display:none;">
+                                <a class="close" href="#" data-dismiss="alert" onclick="closemsg()">×</a>
+                                <h4 class="alert-heading">
+                                    <i class="fa fa-check-square-o"></i>
+                                    @ViewBag.Message
+                                </h4>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div id="wid-id-1" class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            @if (Model.objCountryGroup.GroupId > 0)
+                            {
+                                <strong>Edit Country Group</strong>
+                            }
+                            else
+                            {
+                                <strong>Add Country Group</strong>
+                            }
+
+                        </h2>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content">
+                                <div id="hr1" class="tab-pane fade active in CustomHidden">
+                                    <div id="popupConfigData">
+                                        <table class="textBlue borderNone table table-bordered panel-group customTable2  match-table">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="tableBorder-none">
+                                                        <div class="form-group popupAACRow textGroupName">
+                                                            <div class="row">
+
+                                                                <label class="control-label col-md-4 text-right">Group Name :</label>
+                                                                <div class="col-md-4 ">
+                                                                    @Html.TextBoxFor(@model => @model.objCountryGroup.GroupName, new { @class = "form-control" })
+                                                                    <span id="spnGroupName" class="error" style="display:none;">Please fill Group Name.</span>
+                                                                    <br /><span id="spnOptionValue" class="error" style="display:none;">Please select atleast one country.</span>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group popupAACRow">
+                                                            <div class="col-md-12">
+                                                                <div class="col-md-2 col-sm-2">
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3">
+                                                                    @Html.ListBoxFor(@model => @model.objCountryGroup.AddSelectedCountry, new SelectList(Model.countries, "ISOAlpha2Code", "CountryWithISOCode"), new { @class = "form-control selectbox", @size = 19 })
+                                                                </div>
+                                                                <div class="col-md-1 col-sm-1">
+                                                                    <div>
+                                                                        <input value=">" id="btnConfigCountryGroup" name="btnConfigCountryGroup" type="submit" class="btn btn-primary btnSaveSetting" />
+                                                                    </div>
+                                                                    <div>
+                                                                        <input value=">>" id="btnConfigCountryGroup" name="btnConfigCountryGroup" type="submit" class="btn btn-primary btnSaveSetting" />
+                                                                    </div>
+                                                                    <div>
+                                                                        <input value="<" id="btnConfigCountryGroup" name="btnConfigCountryGroup" type="submit" class="btn btn-primary btnSaveSetting" />
+                                                                    </div>
+                                                                    <div>
+                                                                        <input value="<<" id="btnConfigCountryGroup" name="btnConfigCountryGroup" type="submit" class="btn btn-primary btnSaveSetting" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3">
+                                                                    @Html.HiddenFor(@model => @model.objCountryGroup.ISOAlpha2Codes)
+                                                                    @*@Html.ListBoxFor(@model => @model.objCountryGroup.lstCountries, new SelectList(Model.objCountryGroup.lstCountries, "ISOAlpha2Code", "CountryWithISOCode"), new { @class = "form-control selectbox", @size = 19 })*@
+                                                                    @Html.ListBoxFor(@model => @model.objCountryGroup.RemoveSelectedCountry, Model.objCountryGroup.lstCountries != null ? new SelectList(Model.objCountryGroup.lstCountries, "ISOAlpha2Code", "CountryWithISOCode") : new MultiSelectList(""), new { @class = "form-control selectbox", @size = 19 })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group popupAACRow">
+                                                            <div class="row">
+                                                                <div class="col-md-11 text-center">
+                                                                    @Html.HiddenFor(@model => @model.objCountryGroup.GroupId)
+                                                                    @Html.HiddenFor(@model => @model.objCountryGroup.tmpName)
+                                                                    @if (Model.objCountryGroup.GroupId > 0)
+                                                                    {
+                                                                        <input type="submit" value="Update" id="btnConfigCountryGroup" name="btnConfigCountryGroup" class="btn btn-primary  btnConfigCountryGroup" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input type="submit" value="Add" id="btnConfigCountryGroup" name="btnConfigCountryGroup" class="btn btn-primary btnConfigCountryGroup" />
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+        </section>
+    </div>
+    <div class="loaderMain" id="divProgress">
+        <div class="loaderDiv">
+            <p class="loaderTxt">Please wait while processing...</p>
+        </div>
+    </div>
+}

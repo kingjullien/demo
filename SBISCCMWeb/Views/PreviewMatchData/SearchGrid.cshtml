@@ -1,0 +1,166 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCompanyCleanseMatchBusiness.Objects
+@using SBISCCMWeb.LanguageResources;
+@model Tuple<IPagedList<SBISCCMWeb.Models.PreviewMatchData.MatchOutPutModel>, SBISCCMWeb.Models.PreviewMatchData.PreviewMatchDataModel>
+
+@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchFacade.Objects;
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divPreviewTable",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET"
+    };
+}
+@if (Model != null)
+{
+    <div id="divPreviewTable" class="widget-body">
+
+        <div class="table-responsive wrap">
+            @{
+                var i = 0;
+                if (Model != null && Model.Item1.Count > 0)
+                {
+                    <table id="accordion" class="table table-bordered panel-group customTable" role="grid">
+                        <thead>
+                            <tr>
+                                <th class="nosort"></th>
+                                <th>
+                                    @PreviewMatchedDataLang.lblDunsNumbers
+                                </th>
+                                <th>
+                                    @PreviewMatchedDataLang.lblSrcRecordId
+                                </th>
+                                <th>
+                                    @PreviewMatchedDataLang.lblCompanyName
+                                </th>
+                                <th>
+                                    @PreviewMatchedDataLang.lblAddress
+                                </th>
+                                <th>
+                                    @PreviewMatchedDataLang.lblCity
+                                </th>
+                                <th>
+                                    @PreviewMatchedDataLang.lblState
+                                </th>
+                                <th>
+                                    @PreviewMatchedDataLang.lblPostalCode
+                                </th>
+                                <th>
+                                    @PreviewMatchedDataLang.lblCountry
+                                </th>
+                                <th>
+                                    @PreviewMatchedDataLang.lblAcceptedBy
+                                </th>
+                                <th>@PreviewMatchedDataLang.lblEnrichmentData</th>
+                                <th>@PreviewMatchedDataLang.lblDownload</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model.Item1)
+                            {
+                                string CollapsName= "Collaps" + i;
+                                i++;
+                                <tr class="panel panel-default tdlength partialrow @(i % 2 == 0 ? "AlternateRow" : null) @(i == 1 ? "current" : null)" title="@(Helper.LicenseEnableTags == true ? item.Tag != "" ? "Tag : " + item.Tag : "" : "")">
+                                    @if (Helper.Branding == Branding.Matchbook.ToString())
+                                    {
+                                        <td class="panel-heading tdlength">
+                                            <a class="collapsed" href="#@CollapsName" data-parent="#accordion" data-toggle="collapse" aria-expanded="false"></a>
+                                        </td>
+                                    }
+                                    else if (Helper.Branding==Branding.DandB.ToString())
+                                    {
+                                        <td class="panel-heading tdlength">
+                                            <a class="collapsed" href="#@CollapsName" data-parent="#accordion" data-toggle="collapse" aria-expanded="false"></a>
+                                        </td>
+                                    }
+                                    <td>
+                                        @item.DnBDUNSNumber
+                                        @*<a href="/PreviewMatchData/ViewDetails">@item.DnBDUNSNumber</a>*@<a href="/PreviewMatchData/ViewDetails"></a><a href="/PreviewMatchData/ViewDetails"></a><a href="/PreviewMatchData/ViewDetails"></a>
+                                    </td>
+                                    <td>
+                                        @item.SrcRecordId
+                                    </td>
+                                    <td>
+                                        @item.CompanyName
+                                    </td>
+                                    <td>
+                                        @item.Address
+                                    </td>
+                                    <td>
+                                        @item.City
+                                    </td>
+                                    <td>
+                                        @item.State
+                                    </td>
+                                    <td>
+                                        @item.PostalCode
+                                    </td>
+                                    <td>
+                                        @item.CountryISOAlpha2Code
+                                    </td>
+                                    <td>
+                                        @item.AcceptedBy
+                                    </td>
+                                    <td class="text-center">
+                                        <a class="PreviewMatchDunsPopup" href="javascript:void(0);" title="@PreviewMatchedDataLang.titlePreviewenrichmentdata" data-dunsnumber="@item.DnBDUNSNumber">
+                                            <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/file-blue1x.png"))">
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <a title="@PreviewMatchedDataLang.titleDownloadinpdf" href="@Url.Action("ViewDetails", new { Parameters=Utility.GetEncryptedString(Convert.ToString(item.DnBDUNSNumber)).Replace("+", Utility.urlseparator), isDownload=true })" data-dunsnumber="@item.DnBDUNSNumber"><i class='fa fa-download fa-lg'></i></a>
+                                    </td>
+                                </tr>
+                                <tr></tr>
+                                <tr class="trMatchedItemView preview_match_data" style="display:none">
+                                    <td colspan="12">
+                                        <div>
+                                            <div id="@CollapsName" class="panel-collapse collapse">
+                                                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable searchResult widget-data reviewZindex">
+                                                    @Html.Partial("_MatchOutput", item)
+                                                </article>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+                    <p>
+                        @PreviewMatchedDataLang.lblNodataareavailable
+                    </p>
+                }
+            }
+        </div>
+        @if (Model != null)
+        {
+            <div class="dt-toolbar-footer">
+                <div class="col-sm-6 col-xs-12 hidden-xs">
+                    <div id="datatable_tabletools_info_preview" class="dataTables_info" style="float:right;" role="status" aria-live="polite">
+                        @Html.PagedListPager(Model.Item1, page => Url.Action("Pagging", "PreviewMatchData", new { page = page, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder, pagevalue = ViewBag.pagevalue, Tag = ViewBag.Tag, ImportProcess = ViewBag.ImportProcess, LobTag = ViewBag.LobTag, SrcRecordId = ViewBag.SrcRecordId, IsExactMatch = ViewBag.IsExactMatch, ConfidenceCode = ViewBag.ConfidenceCode, AcceptedBy = ViewBag.AcceptedBy, UserId = ViewBag.UserId }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divPreviewTable", LoadingElementId = "divProgress" }))
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<script type="text/javascript">
+    $(document).ajaxStart(function () {
+        $('#divProgress').show();
+    }).ajaxStop(function () {
+        $('#divProgress').hide();
+    });
+    $(document).ready(function () {
+        $("#divProgress").hide();
+        $("#pagevalue").val($("#pagevalue option:first").val());
+        $("li_Base").addClass("active")
+    });
+</script>
+

@@ -1,0 +1,125 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.OI;
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.Controllers;
+@using SBISCCMWeb.LanguageResources;
+@model OIUserSessionFilterEntity
+@{
+    Layout = null;
+    ViewBag.Title = OIUserSessionFilterLang.titleAddFilter ;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "OnSuccessOIUserSessionFilter"
+    };
+}
+<div class="modal" id="OIMatchSessionFilterModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">
+                    @if (Model.UserId > 0)
+                    {
+                        <span>@OIUserSessionFilterLang.hdrEditFilter</span>
+                    }
+                    else
+                    {
+                        <span>@OIUserSessionFilterLang.hdrAddFilter</span>
+                    }
+                </h4>
+            </div>
+            <div class="modal-body">
+                @using (Ajax.BeginForm("popupUserFilter", "OIUserSessionFilter", null, ajaxOptions, new { @autocomplete = "off" }))
+                {
+                    @Html.Hidden("hidenImportProcess", Model.ImportProcess)
+                    @Html.AntiForgeryToken()
+                    @Html.Raw(ViewBag.CloseAlert)
+                    <div class="table-bordered match-table">
+                        <div class="row">
+                            <label class="control-label col-md-2 text-right lbltop">@OIUserSessionFilterLang.lblSrcIdFilter :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(model => model.SrcRecordId, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                            <label class="control-label col-md-2 text-right lbltop">@OIUserSessionFilterLang.lblCompanyName :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="row paddingto5">
+                            <label class="control-label col-md-2 text-right lbltop">@OIUserSessionFilterLang.lblCity :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(model => model.City, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                            <label class="control-label col-md-2 text-right lbltop">@OIUserSessionFilterLang.lblState :</label>
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(model => model.State, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="row paddingto5">
+                            <label class="control-label col-md-2 text-right lbltop">@OIUserSessionFilterLang.lblCountry :</label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(model => model.CountryISOAlpha2Code, new SelectList(CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text", Model.CountryISOAlpha2Code), OIUserSessionFilterLang.lblSelectCountry, new { @class = "form-control selectbox", @autocomplete = "off" })
+                            </div>
+                            <label class="control-label col-md-2 text-right lbltop">@OIUserSessionFilterLang.lblImportProcess :</label>
+                            <div class="col-md-4 custom-dropdown-search chosenPopup">
+                                @Html.DropDownListFor(model => model.ImportProcess, new SelectList(CommonDropdown.GetDataImportProcess(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text", Model.ImportProcess), OIUserSessionFilterLang.lblSelectImportProcess, new { @class = "form-control selectbox chzn-select", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="row paddingto5">
+                            <label class="control-label col-md-2 text-right lbltop">@OIUserSessionFilterLang.lblCountryGroup :</label>
+                            <div class="col-md-4">
+                                <div class="DisplayFlex AddContrygroupCls">
+                                    @Html.DropDownListFor(@model => @model.CountryGroupId, new SelectList(new CommonDropdown().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName", Model.CountryGroupId), OIUserSessionFilterLang.lblSelectCountryGroup, new { @class = "form-control selectbox AddableCountryGroup", @autocomplete = "off" })
+                                    @if (Helper.UserType.ToLower() != "steward")
+                                    {<i class="fa fa-plus CreateCountyGroup" onclick="addNewCountryGroup()"></i>}
+                                </div>
+                            </div>
+                            <label class="control-label col-md-2 text-right lbltop">@OIUserSessionFilterLang.lblOrderByColumn :</label>
+                            <div class="col-md-4">
+                                @Html.DropDownListFor(model => model.OrderByColumn, new SelectList(SBISCCMWeb.Models.OI.OIUserSessionFilterModel.GetOrderColumn()), new { @class = "form-control selectbox", @autocomplete = "off" })
+                            </div>
+                        </div>
+
+
+                        @if (Helper.LicenseEnableTags)
+                        {
+                            <div class="row paddingto5">
+                                <label class="control-label col-md-2 text-right lbltop">@OIUserSessionFilterLang.lblTag :</label>
+                                <div class="col-md-4 tagstylebox">
+                                    @Html.DropDownList("Tag", new SelectList(CommonDropdown.GetAllOrbTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text"), OIUserSessionFilterLang.lblSelectTag, new { @class = "form-control selectbox", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        }
+                        <div class="form-group popupAACRow">
+                            <div class="row paddingto5">
+                                <div class="col-md-12 text-center">
+                                    @Html.HiddenFor(model => model.UserId)
+
+                                    @if (Model.UserId > 0)
+                                    {
+                                        <input type="submit" value="@OIUserSessionFilterLang.lblUpdate" id="btnUserSessionFilter" name="btnUserSessionFilter" class="btn btn-primary" />
+                                        <input type="button" value="@OIUserSessionFilterLang.lblClear" class="btn DeleteFilter">
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" value="@OIUserSessionFilterLang.lblApply" id="btnUserSessionFilter" name="btnUserSessionFilter" class="btn btn-primary" />
+                                        <input type="button" value="@OIUserSessionFilterLang.lblClear" class="btn" disabled="disabled">
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+

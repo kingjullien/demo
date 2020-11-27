@@ -1,0 +1,581 @@
+﻿@using SBISCCMWeb.LanguageResources
+@model IPagedList<SBISCCMWeb.Utility.BuildList.SearchCandidate>
+@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchFacade.Objects;
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divBuildList",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnSuccess = "OnSuccess"
+    };
+}
+<style>
+    .bottomPad_10 {
+        padding-bottom: 10px;
+    }
+</style>
+
+
+<div class="table-responsive">
+
+    <div id="divBuildList">
+        <label class="select pull-right">
+            @BuildAListLang.lblPageSize :  @Html.DropDownList("pagevalue", new SelectList(SBISCCMWeb.Utility.CommonDropdown.GetPageSize(), Convert.ToInt32(SessionHelper.BuildList_pageno)), new { id = "pagevalue", @class = "pagevalueChange", @autocomplete = "off" })<em></em>
+        </label>
+        <table id="accordion" class="table table-bordered panel-group customTable divBuildSearch" role="grid">
+            <thead>
+                <tr>
+                    <th class="tdlength"></th>
+                    <th>@BuildAListLang.lblDUNS</th>
+                    <th>@BuildAListLang.lblCompanyName</th>
+                    <th>@BuildAListLang.lblDomain</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var i = 0;
+                    if (Model != null)
+                    {
+                        foreach (var item in Model)
+                        {
+                            string CollapsName = "Collaps" + i;
+                            i++;
+                            <tr class="panel panel-default tdlength partialrow">
+                                @if (Helper.Branding == Branding.Matchbook.ToString())
+                                {
+                                    <td class="panel-heading tdlength">
+                                        <a class="collapsed" href="#@CollapsName" data-parent="#accordion" data-toggle="collapse" aria-expanded="false"></a>
+                                    </td>
+                                }
+                                else if (Helper.Branding == Branding.DandB.ToString())
+                                {
+                                    <td class="panel-heading tdlength">
+                                        <a class="collapsed" href="#@CollapsName" data-parent="#accordion" data-toggle="collapse" aria-expanded="false"></a>
+                                    </td>
+                                }
+                                <td>@item.organization.duns</td>
+                                <td>@item.organization.primaryName</td>
+                                <td>@item.organization.domain</td>
+                            </tr>
+                            <tr class="trMatchedItemView " style="display: none ">
+                                <td class="panel-heading border-right-none"></td>
+                                <td colspan="3">
+                                    <div>
+                                        <div id="@CollapsName" class="panel-collapse collapse">
+                                            <div id="tabs" class="tabs">
+                                                <ul>
+                                                    <li>
+                                                        <a href="#tabs-CompanyDetails">@BuildAListLang.lblCompanyDetails</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#tabs-RegistrationInfo">@BuildAListLang.lblRegistrationInfo</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#tabs-EmployeeInfo">@BuildAListLang.lblEmployeeInfo</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#tabs-FinancialInfo">@BuildAListLang.lblFinancialInfo</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#tabs-corporateLinkage">@BuildAListLang.lblCorporateLinkage</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#tabs-primaryIndustryCodes">@BuildAListLang.lblPrimaryIndustryCodes</a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="#tabs-OtherInfo">@BuildAListLang.lblOtherInfo</a>
+                                                    </li>
+                                                </ul>
+
+
+                                                <div id="tabs-CompanyDetails">
+                                                    <div class="row">
+                                                        <article class="col-xs-6 sortable-grid ui-sortable keyword">
+                                                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                                <header role="heading">
+                                                                    <h2>
+                                                                        <strong>@BuildAListLang.lblCompanyInfo</strong>
+                                                                    </h2>
+                                                                </header>
+                                                                <div style="padding:5px">
+                                                                    <table class="table table-bordered panel-group">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>@BuildAListLang.lblDUNS</td>
+                                                                                <td>@item.organization.duns</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>@BuildAListLang.lblCompanyName</td>
+                                                                                <td>@item.organization.primaryName</td>
+                                                                            </tr>
+
+                                                                            <tr>
+                                                                                <td>@BuildAListLang.lblPhoneNo</td>
+                                                                                <td>
+                                                                                    @if (item.organization.telephone != null)
+                                                                                    {
+                                                                                        @item.organization.telephone.FirstOrDefault().telephoneNumber
+                                                                                    }
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>@BuildAListLang.lblTickerSymbol</td>
+                                                                                <td>@item.organization.tickerSymbol</td>
+                                                                            </tr>
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+
+                                                        <article class="col-xs-6 sortable-grid ui-sortable keyword">
+                                                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                                <header role="heading">
+                                                                    <h2>
+                                                                        <strong>@BuildAListLang.lblPrimaryAddress</strong>
+                                                                    </h2>
+                                                                </header>
+                                                                <div style="padding:5px">
+                                                                    @if (item.organization.primaryAddress.streetAddress != null)
+                                                                    {
+                                                                        if (!string.IsNullOrEmpty(item.organization.primaryAddress.streetAddress.line1))
+                                                                        {
+                                                                            @item.organization.primaryAddress.streetAddress.line1 <text>,</text>
+                                                                        }
+                                                                        if (!string.IsNullOrEmpty(item.organization.primaryAddress.streetAddress.line2))
+                                                                        {
+                                                                            @item.organization.primaryAddress.streetAddress.line2 <text>,</text>
+                                                                        }
+                                                                    }
+                                                                    @if (item.organization.primaryAddress.addressLocality != null && !string.IsNullOrEmpty(item.organization.primaryAddress.addressLocality.name))
+                                                                    {
+                                                                        @item.organization.primaryAddress.addressLocality.name <text>,</text>
+                                                                    }
+                                                                    @if (item.organization.primaryAddress.addressRegion != null && !string.IsNullOrEmpty(item.organization.primaryAddress.addressRegion.name))
+                                                                    {
+                                                                        @item.organization.primaryAddress.addressRegion.name <text>,</text>
+                                                                    }
+                                                                    @if (item.organization.primaryAddress.postalCode != null && !string.IsNullOrEmpty(item.organization.primaryAddress.postalCode))
+                                                                    {
+                                                                        @item.organization.primaryAddress.postalCode <text>,</text>
+                                                                    }
+
+                                                                    @if (item.organization.primaryAddress.addressCountry != null && !string.IsNullOrEmpty(item.organization.primaryAddress.addressCountry.isoAlpha2Code))
+                                                                    {
+                                                                        @item.organization.primaryAddress.addressCountry.isoAlpha2Code
+                                                                    }
+                                                                    <br />
+                                                                    <strong>Lat:</strong>  @item.organization.primaryAddress.latitude ,
+                                                                    <strong>Long:</strong> @item.organization.primaryAddress.longitude ,
+
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                        <article class="col-xs-6 sortable-grid ui-sortable keyword">
+                                                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                                <header role="heading">
+                                                                    <h2>
+                                                                        <strong>@BuildAListLang.lblBusinessEntity</strong>
+                                                                    </h2>
+                                                                </header>
+                                                                <div style="padding:5px">
+                                                                    <table class="table table-bordered panel-group">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>@BuildAListLang.lblDescription</th>
+                                                                                <th>@BuildAListLang.lblDnbCode</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    @if (item.organization.businessEntityType != null)
+                                                                                    {
+                                                                                        if (!string.IsNullOrEmpty(item.organization.businessEntityType.description))
+                                                                                        {
+                                                                                            @item.organization.businessEntityType.description
+                                                                                        }
+                                                                                    }
+                                                                                </td>
+                                                                                <td>
+                                                                                    @if (item.organization.businessEntityType != null)
+                                                                                    {
+                                                                                        @item.organization.businessEntityType.dnbCode
+                                                                                    }
+                                                                                </td>
+
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </div>
+                                                <div id="tabs-RegistrationInfo">
+                                                    <div class="row">
+                                                        <section class="form-group w-100">
+                                                            <section class="col col-md-12">
+                                                                <table class="table table-bordered panel-group">
+                                                                    <thead>
+                                                                        <tr></tr>
+                                                                        <tr>
+                                                                            <th><strong>@BuildAListLang.lblRegistrationNumber</strong></th>
+                                                                            <th><strong>@BuildAListLang.lblDescription</strong></th>
+                                                                            <th><strong>DnbCode</strong></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @if (item.organization.registrationNumbers != null && item.organization.registrationNumbers.Any())
+                                                                        {
+                                                                            foreach (var regNo in item.organization.registrationNumbers)
+                                                                            {
+                                                                                <tr>
+                                                                                    <td>@regNo.registrationNumber</td>
+                                                                                    <td>@regNo.typeDescription</td>
+                                                                                    <td>@regNo.typeDnBCode</td>
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <tr> <td class="noContain" colspan="3">@BuildAListLang.lblNodataareavailable</td></tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+
+                                                            </section>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                                <div id="tabs-EmployeeInfo">
+                                                    <div class="row">
+                                                        <section class="form-group w-100">
+                                                            <section class="col col-md-12">
+                                                                <table class="table table-bordered panel-group">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th><strong>@BuildAListLang.lblValue</strong></th>
+                                                                            <th><strong>@BuildAListLang.lblInformationScopeDescription</strong></th>
+                                                                            <th><strong>@BuildAListLang.lblInformationScopeDnBCode</strong></th>
+                                                                            <th><strong>@BuildAListLang.lblReliabilityDescription</strong></th>
+                                                                            <th><strong>@BuildAListLang.lblReliabilityDnBCode</strong></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @if (item.organization.numberOfEmployees != null && item.organization.numberOfEmployees.Any())
+                                                                        {
+                                                                            foreach (var emp in item.organization.numberOfEmployees)
+                                                                            {
+                                                                                <tr>
+                                                                                    <td>@emp.value</td>
+                                                                                    <td>@emp.informationScopeDescription</td>
+                                                                                    <td>@emp.informationScopeDnBCode</td>
+                                                                                    <td>@emp.reliabilityDescription</td>
+                                                                                    <td>@emp.reliabilityDnBCode</td>
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <tr class="noContain"> <td colspan="5">@BuildAListLang.lblNodataareavailable</td>  </tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </section>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                                <div id="tabs-FinancialInfo">
+                                                    <div class="row">
+                                                        <section class="col col-md-12">
+                                                            <table class="table table-bordered panel-group">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            <strong>@BuildAListLang.lblValue</strong>
+                                                                        </th>
+                                                                        <th>
+                                                                            <strong>@BuildAListLang.lblCurrency</strong>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @if (item.organization.financials != null && item.organization.financials.Any())
+                                                                    {
+                                                                        foreach (var fin in item.organization.financials)
+                                                                        {
+                                                                            if (fin.yearlyRevenue != null)
+                                                                            {
+                                                                                foreach (var rev in fin.yearlyRevenue)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>@rev.value</td>
+                                                                                        <td>@rev.currency</td>
+                                                                                    </tr>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <tr class="noContain" colspan="2">@BuildAListLang.lblNodataareavailable</tr>
+                                                                    }
+                                                                </tbody>
+                                                            </table>
+                                                        </section>
+                                                    </div>
+                                                </div>
+                                                <div id="tabs-corporateLinkage">
+                                                    <div class="row">
+                                                        <article class="col-xs-12 sortable-grid ui-sortable">
+                                                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                                <header role="heading">
+                                                                    <h2>
+                                                                        <strong>@BuildAListLang.lblCorporateLinkage</strong>
+                                                                    </h2>
+                                                                </header>
+                                                                <div style="padding:5px" class="col-xs-12">
+                                                                    @{
+                                                                        if (item.organization.corporateLinkage != null)
+                                                                        {
+                                                                            <div class="col-md-5">
+                                                                                <table class="table table-bordered panel-group col-xs-5">
+                                                                                    <tr>
+                                                                                        <td>@BuildAListLang.lblIsBranch</td>
+                                                                                        <td>@item.organization.corporateLinkage.isBranch</td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>@BuildAListLang.lblGlobalUltimateFamilyTreeMembersCount</td>
+                                                                                        <td>@item.organization.corporateLinkage.globalUltimateFamilyTreeMembersCount</td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                            <div class="col-md-5">
+                                                                                <div class="col-md-12">
+                                                                                    <table class="table table-bordered panel-group col-xs-12">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>@BuildAListLang.lblFamilytreeRoleDescription</th>
+                                                                                                <th>@BuildAListLang.lblFamilytreeRoleCode</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody>
+                                                                                            @if (item.organization.corporateLinkage.familytreeRolesPlayed != null && item.organization.corporateLinkage.familytreeRolesPlayed.Any())
+                                                                                            {
+                                                                                                foreach (var familytreeRolesPlayed in item.organization.corporateLinkage.familytreeRolesPlayed)
+                                                                                                {
+
+                                                                                                    <tr>
+                                                                                                        <td>@familytreeRolesPlayed.description</td>
+                                                                                                        <td>@familytreeRolesPlayed.dnbCode</td>
+                                                                                                    </tr>
+                                                                                                }
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <tr><td class="noContain" colspan="2">@BuildAListLang.lblNodataareavailable</td></tr>
+                                                                                            }
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </div>
+                                                <div id="tabs-primaryIndustryCodes">
+                                                    <div class="row">
+                                                        <article class="col-xs-6 sortable-grid ui-sortable keyword">
+                                                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                                <header role="heading">
+                                                                    <h2>
+                                                                        <strong>@BuildAListLang.lblPrimaryIndustryCodes</strong>
+                                                                    </h2>
+                                                                </header>
+                                                                <div style="padding:5px">
+                                                                    <table class="table table-bordered panel-group">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <td>@BuildAListLang.lblusSicV4</td>
+                                                                                <td>@BuildAListLang.lblusSicV4Description</td>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @if (item.organization.primaryIndustryCodes != null && item.organization.primaryIndustryCodes.Any())
+                                                                            {
+                                                                                foreach (var primaryIndustryCodes in item.organization.primaryIndustryCodes)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>@primaryIndustryCodes.usSicV4</td>
+                                                                                        <td>@primaryIndustryCodes.usSicV4Description</td>
+                                                                                    </tr>
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <tr><td class="noContain" colspan="2">@BuildAListLang.lblNodataareavailable</td></tr>
+                                                                            }
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </div>
+                                                <div id="tabs-OtherInfo">
+                                                    <div class="row">
+                                                        <article class="col-xs-4 sortable-grid ui-sortable keyword">
+                                                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                                <header role="heading">
+                                                                    <h2>
+                                                                        <strong>@BuildAListLang.lblTradeStyleNames</strong>
+                                                                    </h2>
+                                                                </header>
+                                                                <div style="padding:5px">
+                                                                    <table class="table table-bordered panel-group">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>@BuildAListLang.lblName</th>
+                                                                                <th>@BuildAListLang.lblPriority</th>
+                                                                            </tr>
+                                                                        </thead>
+
+                                                                        <tbody>
+                                                                            @if (item.organization.tradeStyleNames != null && item.organization.tradeStyleNames.Any())
+                                                                            {
+                                                                                foreach (var tradeStyleNames in item.organization.tradeStyleNames)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>@tradeStyleNames.name</td>
+                                                                                        <td>@tradeStyleNames.priority</td>
+                                                                                    </tr>
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <tr><td class="noContain" colspan="2">@BuildAListLang.lblNodataareavailable</td></tr>
+                                                                            }
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+
+                                                        <article class="col-xs-4 sortable-grid ui-sortable keyword">
+                                                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                                <header role="heading">
+                                                                    <h2><strong>@BuildAListLang.lblRegisteredAddress</strong></h2>
+                                                                </header>
+                                                                <div style="padding:5px">
+                                                                    @if (item.organization.registeredAddress != null)
+                                                                    {
+                                                                        if (item.organization.registeredAddress.streetAddress != null)
+                                                                        {
+                                                                            if (!string.IsNullOrEmpty(item.organization.registeredAddress.streetAddress.line1))
+                                                                            {
+                                                                                @item.organization.registeredAddress.streetAddress.line1 <text>,</text>
+                                                                            }
+                                                                            if (!string.IsNullOrEmpty(item.organization.registeredAddress.streetAddress.line2))
+                                                                            {
+                                                                                @item.organization.registeredAddress.streetAddress.line2 <text>,</text>
+                                                                            }
+                                                                        }
+                                                                        if (item.organization.registeredAddress.addressLocality != null && !string.IsNullOrEmpty(item.organization.registeredAddress.addressLocality.name))
+                                                                        {
+                                                                            @item.organization.registeredAddress.addressLocality.name <text>,</text>
+                                                                        }
+
+                                                                        if (item.organization.registeredAddress.addressRegion != null && !string.IsNullOrEmpty(item.organization.registeredAddress.addressRegion.name))
+                                                                        {
+                                                                            @item.organization.registeredAddress.addressRegion.name <text>,</text>
+                                                                        }
+                                                                        if (item.organization.registeredAddress.postalCode != null && !string.IsNullOrEmpty(item.organization.registeredAddress.postalCode))
+                                                                        {
+                                                                            @item.organization.registeredAddress.postalCode <text>,</text>
+                                                                        }
+
+                                                                        if (item.organization.registeredAddress.addressCountry != null && !string.IsNullOrEmpty(item.organization.registeredAddress.addressCountry.isoAlpha2Code))
+                                                                        {
+                                                                            @item.organization.registeredAddress.addressCountry.isoAlpha2Code
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="noContain">@BuildAListLang.lblNodataareavailable</div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </article>
+
+                                                        <article class="col-xs-4 sortable-grid ui-sortable keyword">
+                                                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                                <header role="heading">
+                                                                    <h2><strong>@BuildAListLang.lblPOBox</strong></h2>
+                                                                </header>
+                                                                <div style="padding:5px">
+                                                                    @if (item.organization.mailingAddress != null)
+                                                                    {
+                                                                        if (item.organization.mailingAddress != null && item.organization.mailingAddress.streetAddress != null)
+                                                                        {
+                                                                            if (!string.IsNullOrEmpty(item.organization.mailingAddress.streetAddress.line1))
+                                                                            {
+                                                                                @item.organization.mailingAddress.streetAddress.line1 <text>,</text>
+                                                                            }
+                                                                            if (!string.IsNullOrEmpty(item.organization.mailingAddress.streetAddress.line2))
+                                                                            {
+                                                                                @item.organization.mailingAddress.streetAddress.line2 <text>,</text>
+                                                                            }
+                                                                        }
+                                                                        if (item.organization.mailingAddress.addressLocality != null && !string.IsNullOrEmpty(item.organization.mailingAddress.addressLocality.name))
+                                                                        {
+                                                                            @item.organization.mailingAddress.addressLocality.name <text>,</text>
+                                                                        }
+                                                                        if (item.organization.mailingAddress.addressRegion != null && !string.IsNullOrEmpty(item.organization.mailingAddress.addressRegion.name))
+                                                                        {
+                                                                            @item.organization.mailingAddress.addressRegion.name <text>,</text>
+                                                                        }
+                                                                        if (item.organization.mailingAddress.postalCode != null && !string.IsNullOrEmpty(item.organization.mailingAddress.postalCode))
+                                                                        {
+                                                                            @item.organization.mailingAddress.postalCode <text>,</text>
+                                                                        }
+                                                                        if (item.organization.mailingAddress.addressCountry != null && !string.IsNullOrEmpty(item.organization.mailingAddress.addressCountry.isoAlpha2Code))
+                                                                        {
+                                                                            @item.organization.mailingAddress.addressCountry.isoAlpha2Code
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="noContain">@BuildAListLang.lblNodataareavailable</div>
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="dt-toolbar-footer">
+            <div class="col-sm-6 col-xs-12 hidden-xs MainPagginationArea">
+                <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", "BuildList", new { page = page, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder, pagevalue = ViewBag.pagevalue }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divBuildList", LoadingElementId = "divProgress", OnSuccess = "OnSuccess" }))
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

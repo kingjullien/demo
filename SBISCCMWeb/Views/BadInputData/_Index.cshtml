@@ -1,0 +1,48 @@
+﻿@using PagedList.Mvc;
+@using SBISCCMWeb.Utility;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.LanguageResources;
+@model PagedList.IPagedList<CompanyEntity>
+
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + CleanDataLang.titleCleanData;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + CleanDataLang.titleCleanData;
+    }
+    WebGrid grid = new WebGrid(Model, canPage: true, rowsPerPage: Model.PageSize, ajaxUpdateContainerId: "dgBanInputData");
+    bool Compliance = Helper.LicenseADACompliance;
+}
+@{
+
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divBadinputData",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess",
+
+    };
+    bool LicenseEnablePurgeData = Helper.oUser.EnablePurgeData;
+
+}
+@Html.AntiForgeryToken()
+@Html.Hidden("LicenseEnablePurgeData", LicenseEnablePurgeData)
+
+
+<div class="jarviswidget-editbox"></div>
+<div class="widget-body minHeight35">
+    <strong class="@(Compliance ? "pull-left fontsize-12 ColorZ" : "pull-left error")">@SessionHelper.CleanQueueMessage</strong>
+    <label class="select pull-right">
+        @CleanDataLang.lblPageSize :  @Html.DropDownList("pagevalue", new SelectList(CommonDropdown.GetDataStewardshipPageSize(),Convert.ToInt32(SessionHelper.CleanMatchPageNo)), new { id = "pagevalue", @class = "pagevalueChange", @autocomplete = "off" })<em></em>
+        @*<input id="btnDefaultPageSize" value="Set Default Page Size" type="button" class="btn btn-primary" />*@
+        <a title="@CleanDataLang.titleSetDefaultPageSize" href="javascript:void(0)" id="btnDefaultPageSize"><img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/Default.png"))" height="18" style="padding-bottom:1px"></a>
+    </label>
+    <div id="example_wrapper input-data" class="dataTables_wrapper  no-footer">
+        @{Html.RenderPartial("~/Views/BadInputData/_ListCleanData.cshtml");}
+
+    </div>
+</div>

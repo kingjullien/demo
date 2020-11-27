@@ -1,0 +1,42 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@model IPagedList<MonitoringElementConditionsEntity>
+@{ Layout = null;}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>@DandBSettingLang.lblElement</th>
+            <th>@DandBSettingLang.lblCondition</th>
+            <th>@DandBSettingLang.lblValue</th>
+            <th class="col-md-4">@DandBSettingLang.lblEdit</th>
+            <th class="col-md-4">@DandBSettingLang.lblDelete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+
+                    <tr>
+                        <th class="col-md-4">@item.ElementName</th>
+                        <th class="col-md-4">@item.ChangeCondition</th>
+                        <th class="col-md-4">@item.Condition.Replace("@#$", " ")</th>
+                        <td>@Html.ActionLink(@DandBSettingLang.lblEdit, "", "", new { @id = item.TempConditionId, href = "#", @class = "EditMAinConditon" })</td>
+                        <td>@Html.ActionLink(@DandBSettingLang.lblDelete, "", "", new { @id = item.TempConditionId, href = "#", @class = "DeleteMAinConditon" })</td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+<div class="dt-toolbar-footer">
+    <div class="col-sm-7 col-xs-7 hidden-xs">
+        <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+            <a id="pagingFormAction" href="@Url.Action("BusinessElement", "DNBMonitoring", new {  page = 1, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder })" style="display:block"></a>
+            @Html.PagedListPager(Model, page => Url.Action("BusinessElement", "DNBMonitoring", new { page = page, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "DivElementConditions", LoadingElementId = "divProgress" }))
+        </div>
+    </div>
+</div>

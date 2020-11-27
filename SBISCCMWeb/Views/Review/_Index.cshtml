@@ -1,0 +1,255 @@
+﻿@using SBISCCMWeb.LanguageResources
+@model PagedList.IPagedList<dynamic>
+
+@using SBISCCMWeb.Utility;
+@{
+
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divReview",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+    int i = 0;
+    bool EnableCreateAutoAcceptRules = Helper.oUser.EnablePreviewMatchRules;
+}
+
+@Html.Hidden("EnableCreateAutoAcceptRules", EnableCreateAutoAcceptRules)
+@Html.Hidden("UserType", Helper.oUser.UserType)
+<style>
+    .context-menu-root {
+        z-index: 9 !important;
+    }
+	.disabled {
+    color: #ccc !important;
+}
+</style>
+<script>
+    function scrollMain(objThis) {
+        if (objThis.offsetHeight + objThis.scrollTop == objThis.scrollHeight) {
+            return false;
+        }
+        else {
+            var scrollPx = $(objThis).scrollTop();
+            $('.inner_table').scrollTop(scrollPx);
+        }
+    }
+    var curPosition = 0;
+    function scrollInside(objThis) {
+        var scrollPx = $(objThis).scrollTop();
+        var newPosition = scrollPx + (scrollPx > 5 ? 25 : 0)
+        //console.log(scrollPx, curPosition);
+        if (scrollPx < curPosition) {
+            newPosition = scrollPx - (scrollPx > 5 ? 25 : 0)
+        }
+        curPosition = newPosition;
+        $(objThis).attr('onscroll', '');
+        $(objThis).scrollTop(newPosition);
+        $('.clsMatchoverlay').scrollTop(newPosition);
+        setTimeout(function () {
+            $(objThis).attr('onscroll', 'scrollInside(this)');
+        }, 50);
+    }
+    $(document).ready(function () {
+        $('.clsMatchoverlayInside').height($('#Review').height() + 15);
+        $('.inner_table').width($('.tableFixedHeader').width());
+    });
+
+</script>
+
+@Scripts.Render("~/bundles/review_index")
+@if (Model != null)
+{
+    <div class="jarviswidget-editbox"></div>
+    <div class="widget-body">
+        <div id="example_wrapper" class="dataTables_wrapper form-inline no-footer" style="position:relative;">
+            <div class="clsMatchoverlay" onscroll="scrollMain(this);">
+                <div class="clsMatchoverlayInside" style="width:100%">
+
+                </div>
+            </div>
+            <div id="divReviewTable" class="table-responsive wrap">
+                <div class="" style="" onscroll="scrollInside(this);">
+                    <table id="Review" class="table @(Model.Count > 0?"table-fixed":"") table-bordered panel-group customTable table-autosort table-autofilter tableSection head" role="grid">
+                        <thead>
+                            <tr>
+                                <th>InputId</th>
+                                <th>SrcId</th>
+                                <th>DnBDUNSNumber</th>
+                                <th>DnBConfidenceCode</th>
+                                <th>DnBMatchGradeText</th>
+                                <th>DnBMatchDataProfileText</th>
+                                <th>CompanyName</th>
+                                <th>DnBOrganizationName</th>
+                                <th>MGVCompanyName</th>
+                                <th>MDPVCompanyName</th>
+                                <th>DnBTradeStyleName</th>
+                                <th>DnBSeniorPrincipalName</th>
+                                <th>Address</th>
+                                <th>DnBStreetAddressLine</th>
+                                <th>MGVStreetNo</th>
+                                <th>MDPVStreetNo</th>
+                                <th>MGVStreetName</th>
+                                <th>MDPVStreetName</th>
+                                <th>City</th>
+                                <th>DnBPrimaryTownName</th>
+                                <th>MGVCity</th>
+                                <th>MDPVCity</th>
+                                <th>State</th>
+                                <th>DnBTerritoryAbbreviatedName</th>
+                                <th>MGVState</th>
+                                <th>MDPVState</th>
+                                <th>MGVMailingAddress</th>
+                                <th>MDPVMailingAddress</th>
+                                <th>PhoneNbr</th>
+                                <th>DnBTelephoneNumber</th>
+                                <th>MGVTelephone</th>
+                                <th>MDPVTelephone</th>
+                                <th>PostalCode</th>
+                                <th>DnBPostalCode</th>
+                                <th>DnBPostalCodeExtensionCode</th>
+                                <th>MGVZipCode</th>
+                                <th>DnBCountryISOAlpha2Code</th>
+                                <th>DnBAddressUndeliverable</th>
+                                <th>DnBOperatingStatus</th>
+                                <th>DnBFamilyTreeMemberRole</th>
+                                <th>DnBStandaloneOrganization</th>
+                                <th>DnBDisplaySequence</th>
+                                <th>MGVDensity</th>
+                                <th>MGVUniqueness</th>
+                                <th>MGVSIC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    i++;
+                                    <tr class="context-menu-one @(i==1?"current":null) @(i%2==0?"AlternateRow": null)" id="@item.InputId" data-ConfidenceCode="@item.DnBConfidenceCode" data-SrcRecordId="@item.SrcRecordId" data-prev="@(i > 1 ? Model[i - 2].InputId : null)" data-next="@(Model.Count > i ? Model[i].InputId : null)" data-DnBMatchGradeText="@item.DnBMatchGradeText" data-DnBMatchDataProfileText="@item.DnBMatchDataProfileText" data-Country="@SessionHelper.CountryGroupId" data-DUNS="@item.DnBDUNSNumber" data-InputId="@item.InputId" title="@(Helper.LicenseEnableTags == true ? !(string.IsNullOrEmpty(Convert.ToString(item.Tags))) ? "Tags: " + item.Tags : "" : "")" data-Tags="@item.Tags">
+                                        <td>@item.InputId</td>
+                                        <td>@item.SrcRecordId</td>
+                                        <td class="clsViewMatchedItemDetails hidetd" data-SrcRecordId="@item.SrcRecordId" data-prev="@(i > 1 ? Model[i - 2].InputId : null)" data-next="@(Model.Count > i ? Model[i].InputId : null)" data-Country="@SessionHelper.CountryGroupId" data-DUNS="@item.DnBDUNSNumber" data-InputId="@item.InputId">@item.DnBDUNSNumber</td>
+                                        <td>@item.DnBDUNSNumber</td>
+                                        <td>@item.DnBConfidenceCode</td>
+                                        <td>@item.DnBMatchGradeText</td>
+                                        <td>@item.DnBMatchDataProfileText</td>
+                                        <td>@item.CompanyName</td>
+                                        <td>@item.DnBOrganizationName</td>
+                                        <td>@item.MGVCompanyName</td>
+                                        <td>@item.MDPVCompanyName</td>
+                                        <td>@item.DnBTradeStyleName</td>
+                                        <td>@item.DnBSeniorPrincipalName</td>
+                                        <td>@item.Address</td>
+                                        <td>@item.DnBStreetAddressLine</td>
+                                        <td>@item.MGVStreetNo</td>
+                                        <td>@item.MDPVStreetNo</td>
+                                        <td>@item.MGVStreetName</td>
+                                        <td>@item.MDPVStreetName</td>
+                                        <td>@item.City</td>
+                                        <td>@item.DnBPrimaryTownName</td>
+                                        <td>@item.MGVCity</td>
+                                        <td>@item.MDPVCity</td>
+                                        <td>@item.State</td>
+                                        <td>@item.DnBTerritoryAbbreviatedName</td>
+                                        <td>@item.MGVState</td>
+                                        <td>@item.MDPVState</td>
+                                        <td>@item.MGVMailingAddress</td>
+                                        <td>@item.MDPVMailingAddress</td>
+                                        <td>@item.PhoneNbr</td>
+                                        <td>@item.DnBTelephoneNumber</td>
+                                        <td>@item.MGVTelephone</td>
+                                        <td>@item.MDPVTelephone</td>
+                                        <td>@item.PostalCode</td>
+                                        <td>@item.DnBPostalCode</td>
+                                        <td>@item.DnBPostalCodeExtensionCode</td>
+                                        <td>@item.MGVZipCode</td>
+                                        <td>@item.DnBCountryISOAlpha2Code</td>
+                                        <td><input type="checkbox" id="DnBAddressUndeliverable" name="DnBAddressUndeliverable" readonly disabled checked="@item.DnBAddressUndeliverable"></td>
+                                        <td>@item.DnBOperatingStatus</td>
+                                        <td>@item.DnBFamilyTreeMemberRole</td>
+                                        <td><input type="checkbox" id="DnBStandaloneOrganization" name="DnBStandaloneOrganization" readonly disabled checked="@item.DnBStandaloneOrganization"></td>
+                                        <td>@item.DnBDisplaySequence</td>
+                                        <td>@item.MGVDensity</td>
+                                        <td>@item.MGVUniqueness</td>
+                                        <td>@item.MGVSIC</td>
+                                    </tr>
+
+                                }
+                            }
+                            else
+                            {
+                                <tr class="noData" @*style="display:none"*@>
+                                    <td class="noContain" colspan="2">@ReviewMatchLang.lblNoDataAreAvailable</td>
+                                    <td class="hidetd noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                    <td class="noContain"></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="dt-toolbar-footer">
+            <div class="col-sm-12 col-xs-12 hidden-xs">
+                <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                    <a id="pagingFormAction" href="@Url.Action("Index", "Review", new { page = 1, pagevalue = ViewBag.pagevalue, CountryGroup = SessionHelper.CountryGroupId, ConfidenceCode = ViewBag.lstConfidanceCode, TopMatchCandidate = ViewBag.TopMatchCandidate, OrderBy = ViewBag.OrderBy, Tags = ViewBag.Tags, IsLoad = false })" style="display:block"></a>
+                    @*@Html.PagedListPager(Model, page => Url.Action("Index", "Review", new { page = page, pagevalue = ViewBag.pagevalue, CountryGroup = ViewBag.CountryGroup, ConfidenceCode = ViewBag.lstConfidanceCode, TopMatchCandidate = ViewBag.TopMatchCandidate, OrderBy = ViewBag.OrderBy, Tags = ViewBag.Tags }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "divReview", LoadingElementId = "divProgress", OnSuccess = "OnSuccess()" }))*@
+                    @Html.PagedListPager(Model, page => Url.Action("Index", "Review", new { page = page, pagevalue = ViewBag.pagevalue, CountryGroup = SessionHelper.CountryGroupId, ConfidenceCode = ViewBag.lstConfidanceCode, TopMatchCandidate = ViewBag.TopMatchCandidate, OrderBy = ViewBag.OrderBy, Tags = ViewBag.Tags, IsLoad = false }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { UpdateTargetId = "divReview", LoadingElementId = "divProgress", OnSuccess = "OnSuccess()" }))
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).ready(function () {
+        //$(".noData").css("display", "block");
+    });
+</script>
+
+
+

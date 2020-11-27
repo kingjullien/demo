@@ -1,0 +1,52 @@
+﻿@model SBISCCMWeb.Models.UsersModel
+@using SBISCCMWeb.Utility;
+<div class="table-responsive">
+    <table class="table table-bordered ">
+        <thead>
+            <tr>
+                @*<th>Attribute ID</th>*@
+                <th>Attribute Name </th>
+                <th>Attribute DataType</th>
+                @if (Helper.UserType.ToLower() != "steward")
+                {
+                    <th>Edit </th>
+                    <th>Delete </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.objCustomAttributes != null)
+            {
+                foreach (var item in Model.objCustomAttributes)
+                {
+                    <tr>
+                        @*<td>@item.AttributeId</td>*@
+                        <td>@item.AttributeName</td>
+                        <td>@item.TypeDescription</td>
+                        @if (Helper.UserType.ToLower() != "steward")
+
+                        {
+
+                            var AttributeId = @Utility.GetEncryptedString(Convert.ToString(item.AttributeId)).Replace("+", Utility.urlseparator);
+                            <td>
+                                <a href="javascript:void(0);" id="@AttributeId" class="editCostomAttribute">Edit</a>
+                            </td>
+                                                <td>
+                                                    @*<a href="@Url.Action("DeleteCustomAttribute", "ConfigurationData", new { Parameters = @AttributeId }, null)" id="@AttributeId" class="delete">Delete</a>*@
+                                                    <a href="javascript:void(0)" id="@AttributeId" class="deleteAttribute">Delete</a>
+                                                </td>
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+@if (Helper.UserType.ToLower() != "steward")
+{
+    <div class="row">
+        <div class="col-md-12 text-center padding-10">
+            <input type="button" value="Add" id="btnAddCUstomAttribute" name="btnAddCUstomAttribute" class="btn btn-primary" />
+        </div>
+    </div>
+}

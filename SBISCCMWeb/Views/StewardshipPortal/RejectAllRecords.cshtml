@@ -1,0 +1,307 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.Controllers;
+@using SBISCCMWeb.LanguageResources;
+@{
+    ViewBag.Title = MatchDataLang.titleRejectAllMatches;
+    //Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+    //string Count = !string.IsNullOrEmpty(Convert.ToString(ViewBag.Count)) ? Convert.ToString(ViewBag.Count) : "";
+    //string message = !string.IsNullOrEmpty(Convert.ToString(ViewBag.Message)) ? Convert.ToString(ViewBag.Message) : "";
+    bool IsMatchData = Convert.ToBoolean(ViewBag.IsMatchData);
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+}
+@Html.Hidden("UserRole", UserRoles)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+@Html.AntiForgeryToken()
+@Html.Hidden("GetCountsOnly", "true")
+@Html.Hidden("IsMatchData", IsMatchData)
+
+
+<div class="modal" id="divPurgeDataModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                @if (IsMatchData)
+                {
+                    <h4 class="modal-title">@MatchDataLang.lblRejectRecords</h4>
+                }
+                else
+                {
+                    <h4 class="modal-title">@MatchDataLang.hdrPurgeRecords</h4>
+                }
+            </div>
+            <div class="modal-body">
+                <div class="margin-bottom-10 text-align-center toggle-text">
+                    @if (IsMatchData)
+                    {
+                        <span class="spnUsingRecords thColor"><strong>@MatchDataLang.lblRejectRecords &nbsp;&nbsp;&nbsp;</strong></span>
+                    }
+                    else
+                    {
+                        <span class="spnUsingRecords thColor"><strong>@MatchDataLang.hdrPurgeRecords &nbsp;&nbsp;&nbsp;</strong></span>
+                    }
+
+                    <label class="switch">
+                        <input type="checkbox" name="RecordFileToggle" id="RecordFileToggle">
+                        <span class="Toggleslider round"></span>
+                    </label>
+                    <span class="spnFromFile"><strong>&nbsp;&nbsp;&nbsp;@MatchDataLang.titleFromFile</strong></span>
+                </div>
+                <div id="popupConfigData">
+                    <div id="" style="opacity: 1;">
+                        <section id="widget-grid" class="">
+                            <article class="sortable-grid ui-sortable  ">
+                                <div id="wid-id-1" class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-editbutton="false" role="widget">
+                                    <header role="heading">
+                                        <h2>
+                                            @if (IsMatchData)
+                                            {
+                                                <strong>@MatchDataLang.lblRejectRecords</strong>
+                                            }
+                                            else
+                                            {
+                                                <strong>@MatchDataLang.hdrPurgeRecords</strong>
+                                            }
+                                        </h2>
+                                        <ul id="widget-tab-Company" class="nav pull-right nav-pills ">
+                                            <li></li>
+                                        </ul>
+                                    </header>
+                                    <div role="content">
+                                        <div class="jarviswidget-editbox"></div>
+                                        <div class="widget-body no-padding">
+                                            <div class="tab-content">
+                                                <div id="hr1" class="tab-pane fade active in CustomHidden">
+                                                    <div class="table-bordered match-table">
+                                                        <table class="textBlue borderNone table panel-group customTable2">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="tableBorder-none divPurgeRecords">
+                                                                        <div class="form-group popupAACRow">
+                                                                            <div class="row">
+                                                                                <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@MatchDataLang.lblSrcRecordId :</label>
+                                                                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                                                                    @Html.TextBox("SrcRecordId", "", new { @class = "form-control", @autocomplete = "off" })
+                                                                                </div>
+                                                                                <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@MatchDataLang.lblImportProcess :</label>
+                                                                                <div class="col-md-3 col-sm-3 col-xs-3 custom-dropdown-search chosenPopup">
+                                                                                    @Html.DropDownList("ImportPorcess", new SelectList(new CommonMethod().GetStewImportProcess(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ImportProcess.RejectData.ToString(), IsMatchData), "Value", "Text"), CommonMessagesLang.lblSelectImportProcess, new { @class = "form-control selectbox chzn-select", @autocomplete = "off" })
+                                                                                </div>
+                                                                                @*}*@
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                        <div class="form-group popupAACRow">
+                                                                            <div class="row">
+                                                                                <label class="control-label col-md-2  col-sm-2 col-xs-2 text-right lbltop">@MatchDataLang.lblCity :</label>
+                                                                                <div class="col-md-3 col-sm-3 col-xs-3">
+                                                                                    @Html.TextBox("City", "", new { @class = "form-control CityName" })
+                                                                                    <label class="Checkbox">
+                                                                                        <input type="checkbox" id="chkCityExactMatch" name="chkCityExactMatch" title="@MatchDataLang.titleCityExactMatch" disabled="disabled"><span class="control-label">&nbsp; @MatchDataLang.lblCityExactMatch</span>
+                                                                                    </label>
+                                                                                </div>
+                                                                                <label class="control-label col-md-2  col-sm-2 col-xs-2 text-right lbltop">@MatchDataLang.lblState :</label>
+                                                                                <div class="col-md-3 col-sm-3 col-xs-3">
+
+                                                                                    @Html.TextBox("State", "", new { @class = "form-control StateName" })
+                                                                                    <label class="Checkbox">
+                                                                                        <input type="checkbox" id="chkStateExactMatch" name="chkStateExactMatch" title="@MatchDataLang.titleStateExactMatch" disabled="disabled"><span class="control-label">&nbsp; @MatchDataLang.lblStateExactMatch</span>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        @if (IsMatchData)
+                                                                        {
+                                                                            <div class="form-group popupAACRow">
+                                                                                <div class="row">
+                                                                                    <label class="control-label col-md-2  col-sm-2 col-xs-2 text-right lbltop">@MatchDataLang.lblCountry :</label>
+                                                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                                                        @Html.DropDownList("CountryISOAlpha2Code", new SelectList(CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text"), CommonMessagesLang.lblSelectCountry, new { @class = "form-control selectbox", @autocomplete = "off" })
+                                                                                    </div>
+                                                                                    <label class="control-label col-md-2  col-sm-2 col-xs-2 text-right lbltop">@MatchDataLang.lblCountryGroup :</label>
+                                                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                                                        <div class="AddContrygroupCls DisplayFlex">
+                                                                                            @Html.DropDownList("CountryGroupId", new SelectList(new CommonDropdown().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName"), CommonMessagesLang.lblSelectCountryGroup, new { @class = "form-control selectbox AddableCountryGroup", @autocomplete = "off" })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-1 col-sm-1 margin-left--17">
+                                                                                        <div class="DisplayFlex AddContrygroupCls">
+                                                                                            @if (Helper.UserType.ToLower() != "steward")
+                                                                                            {<i class="fa fa-plus CreateCountyGroup" onclick="addNewCountryGroup()"></i>}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="form-group popupAACRow">
+                                                                                <div class="row">
+                                                                                    <label class="control-label col-md-2 col-sm-2 col-xs-2  text-right lbltop">@MatchDataLang.lblConfidenceCode :</label>
+                                                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                                                        @Html.DropDownList("ConfidenceCode", new SelectList(new CommonDropdown().ComboboxItems("AutoSettingConfidenceCode"), "Value", "Text"), CommonMessagesLang.lblSelectConfidenceCode, new { @class = "form-control selectbox", @autocomplete = "off" })
+                                                                                    </div>
+                                                                                    @if (Helper.LicenseEnableTags)
+                                                                                    {
+                                                                                        <label class="control-label col-md-2 col-sm-2 col-xs-2  text-right lbltop">
+                                                                                            @MatchDataLang.lblTags :
+                                                                                            @*@if (UserRoles == UserRole.LOB.ToString())
+                                                                                        { <span class="error">*</span>}*@
+                                                                                        </label>
+                                                                                        <div class="col-md-3 col-sm-3 col-xs-3 pull-md-left tagstylebox">
+                                                                                            @Html.DropDownList("Tag", new SelectList(new CommonMethod().GetStewTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, IsMatchData), "Value", "Text"), CommonMessagesLang.lblSelectTag, new { @class = "form-control selectbox", @autocomplete = "off" })
+                                                                                            @*<span class="error" id="SpnTag" style="display:none;">Tag is required.</span>*@
+                                                                                        </div>
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        if (Helper.Branding == Branding.Matchbook.ToString())
+                                                                                        {
+                                                                                            <label class="col-md-2 col-sm-2 col-xs-2"></label>
+                                                                                            <div class="col-md-8 col-sm-10 col-xs-10 pull-md-left tagstylebox">
+                                                                                                <input type="checkbox" id="chkRejectAll" name="Purge" title="@MatchDataLang.titlePurgefromMatchbook"><span class="control-label">&nbsp; @MatchDataLang.lblPurgeFromMatchbook</span>
+                                                                                                <br />
+                                                                                                <span>@MatchDataLang.lblNoRecordsInMatchQueue</span>
+                                                                                            </div>
+                                                                                        }
+                                                                                        else if (Helper.Branding == Branding.DandB.ToString())
+                                                                                        {
+                                                                                            <label class="col-md-2 col-sm-2 col-xs-2"></label>
+                                                                                            <div class="col-md-8 col-sm-10 col-xs-10 pull-md-left tagstylebox">
+                                                                                                <input type="checkbox" id="chkRejectAll" name="Purge" title="@MatchDataLang.titlePurgefromMatchbook"><span class="control-label">&nbsp; @MatchDataLang.lblPurgeFromMatchbook</span>
+                                                                                                <br />
+                                                                                                <span>@MatchDataLang.lblNoRecordsInMatchQueue</span>
+                                                                                            </div>
+                                                                                        }
+
+                                                                                    }
+                                                                                    @*<label class="control-label col-md-2 text-right lbltop">Import Process :</label>
+                                                                                <div class="col-md-3 col-sm-3">
+                                                                                    @Html.DropDownList("ImportPorcess", new SelectList(new CommonMethod().GetStewImportProcess(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Value", "Text"), "Select Import Process", new { @class = "form-control selectbox" })
+                                                                                </div>*@
+                                                                                </div>
+                                                                            </div>
+
+
+
+                                                                            <div class="form-group popupAACRow">
+                                                                                <div class="row">
+                                                                                    @if (Helper.LicenseEnableTags)
+                                                                                    {
+                                                                                        if (Helper.Branding == Branding.Matchbook.ToString())
+                                                                                        {
+                                                                                            <label class="col-md-2 col-sm-2 col-xs-2 "></label>
+                                                                                            <div class="col-md-8 col-sm-10 col-xs-10 pull-md-left tagstylebox">
+                                                                                                <input type="checkbox" id="chkRejectAll" name="Purge" title="@MatchDataLang.titlePurgefromMatchbook"><span class="control-label">&nbsp; @MatchDataLang.lblPurgeFromMatchbook</span>
+                                                                                                <br />
+                                                                                                <span>@MatchDataLang.lblNoRecordsInMatchQueue</span>
+                                                                                            </div>
+                                                                                        }
+                                                                                        else if (Helper.Branding == Branding.DandB.ToString())
+                                                                                        {
+                                                                                            <label class="col-md-2 col-sm-2 col-xs-2 "></label>
+                                                                                            <div class="col-md-8 col-sm-10 col-xs-10 pull-md-left tagstylebox">
+                                                                                                <input type="checkbox" id="chkRejectAll" name="Purge" title="@MatchDataLang.titlePurgefromMatchbook"><span class="control-label">&nbsp; @MatchDataLang.lblPurgeFromMatchbook</span>
+                                                                                                <br />
+                                                                                                <span>@MatchDataLang.lblNoRecordsInMatchQueue</span>
+                                                                                            </div>
+                                                                                        }
+                                                                                    }
+
+                                                                                </div>
+                                                                            </div>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <div class="form-group popupAACRow">
+                                                                                <div class="row">
+                                                                                    <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@MatchDataLang.lblCountry :</label>
+                                                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                                                        @Html.DropDownList("CountryISOAlpha2Code", new SelectList(CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text"), CommonMessagesLang.lblSelectCountry, new { @class = "form-control selectbox", @autocomplete = "off" })
+                                                                                    </div>
+                                                                                    <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@MatchDataLang.lblCountryGroup :</label>
+                                                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                                                        <div class="AddContrygroupCls DisplayFlex">
+                                                                                            @Html.DropDownList("CountryGroupId", new SelectList(new CommonDropdown().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName"), CommonMessagesLang.lblSelectCountryGroup, new { @class = "form-control selectbox AddableCountryGroup", @autocomplete = "off" })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-1 col-sm-1 col-xs-1 margin-left--17">
+                                                                                        <div class="DisplayFlex AddContrygroupCls">
+                                                                                            @if (Helper.UserType.ToLower() != "steward")
+                                                                                            {<i class="fa fa-plus CreateCountyGroup" onclick="addNewCountryGroup()"></i>}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            if (Helper.LicenseEnableTags)
+                                                                            {
+                                                                                <div class="form-group popupAACRow">
+                                                                                    <div class="row">
+
+
+                                                                                        <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">
+                                                                                            @CleanDataLang.lblTag :
+                                                                                            @*@if (UserRoles == UserRole.LOB.ToString())
+                                                                                        { <span class="error">*</span>}*@
+                                                                                        </label>
+                                                                                        <div class="col-md-3 col-sm-3 col-xs-3 col-xs-3 pull-md-left tagstylebox">
+                                                                                            @Html.DropDownList("Tag", new SelectList(new CommonMethod().GetStewTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, IsMatchData), "Value", "Text"), CommonMessagesLang.lblSelectTag, new { @class = "form-control selectbox", @autocomplete = "off" })
+                                                                                            @*<span id="SpnTag" class="error" style="display:none;">Tag is required.</span>*@
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            }
+                                                                        }
+                                                                        <div class="form-group popupAACRow">
+                                                                            <div class="row">
+                                                                                <div class="col-md-12 text-center">
+                                                                                    @if (IsMatchData)
+                                                                                    {
+                                                                                        <input type="button" value="@MatchDataLang.lblRejectRecords" id="btnRejectAll" name="btnRejectAll" class="btn btn-primary" />
+                                                                                    }
+                                                                                    else
+                                                                                    {
+                                                                                        <input type="button" value="@MatchDataLang.lblPurgeRecords" id="btnRejectAll" name="btnRejectAll" class="btn btn-primary" />
+
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </section>
+                    </div>
+                </div>
+                <div id="divPurgeFromFile" style="display:none">
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("select.chzn-select").chosen({
+            no_results_text: "Oops, nothing found!",
+            width: "100%",
+            search_contains: true
+        });
+    });
+</script>

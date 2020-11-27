@@ -1,0 +1,78 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility
+@model List<DataSourceConfigurationEntity>
+@{
+    Layout = null;
+}
+<article class="col-md-12 sortable-grid ui-sortable" id="ArticleCountryGrp">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@PortalSettingLang.hdrExternalDataSource</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                <li>
+                    <div class="btn btn-sm btn-Secondary" id="AddDataSource" title="@PortalSettingLang.lblAddExternalSource">
+                        <span class="fa fa-plus"></span>
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div class="table-responsive">
+                        <table class="table table-bordered TbDataSourceConfiguration">
+                            <thead>
+                                <tr>
+                                    <th>@PortalSettingLang.lblExternalDataStoreName</th>
+                                    <td class="nosort">@PortalSettingLang.lblEdit</td>
+                                    @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                    {
+                                        if (Helper.UserType.ToLower() != "steward")
+                                        {
+                                            <td class="nosort">@PortalSettingLang.lblDelete</td>
+                                        }
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        var Id = Utility.GetEncryptedString(Convert.ToString(item.Id)).Replace("+", Utility.urlseparator);
+                                        <tr data-FTPConfigurationId="@Id">
+                                            <td>@item.ExternalDataStoreName</td>
+                                            <td><a href="javascript:void(0)" id="@Id" class="editExternalDataSourceConfiguration">@PortalSettingLang.lblEdit</a></td>
+                                            @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                            {
+                                                if (Helper.UserType.ToLower() != "steward")
+                                                {
+                                                    <td>
+                                                        <a href="javascript:void(0)" id="@item.Id" data-UserId=@item.UserId class="deleteExternalDataSourceConfiguration">@PortalSettingLang.lblDelete</a>
+                                                    </td>
+                                                }
+                                            }
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "Configuration Settings")
+{
+    <script>
+        $(document).ready(function () {
+            InitPortalDataSourceConfigurationDataTable();
+            $('table.TbDataSourceConfiguration tbody tr:first').addClass('current');
+        });
+    </script>
+}

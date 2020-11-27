@@ -1,0 +1,54 @@
+﻿@using SBISCCMWeb.Utility
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.DandB) + " | Match Data";
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.DandB) + " | Match Data";
+    }
+}
+@{
+    bool UserFilterExists = Convert.ToBoolean(TempData["UserFilterExists"]);
+    string UserSesionText = TempData["UserSesionText"] != null ? Convert.ToString(TempData["UserSesionText"]) : "Session Filters: No Filters Set";
+    int userId = Helper.oUser.UserId;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divUserSessionFilter",
+        InsertionMode = InsertionMode.Replace
+    };
+    var SessionFiltersContent = Convert.ToString(TempData.Peek("SessionFilters")) ?? string.Empty;
+}
+<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" data-widget-editbutton="false" role="widget">
+        <header role="heading" class="sessionFilter">
+            <h2>
+             
+                <strong>@UserSesionText</strong>
+            </h2>
+            <ul id="widget-tab-Match" class="nav pull-right nav-pills Custom-pill">
+
+                @if (UserFilterExists)
+                {
+
+                    <li>
+                        <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn userFilter" href="javascript:void(0);" data-original-title="Edit Session Filter"><i class="fa  fa-edit "></i></a>
+                    </li>
+                    <li>
+                        <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn DeleteFilter" href="javascript:void(0);" data-original-title="Delete Filter"><strong> X</strong></a>
+                        
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn userFilter" href="javascript:void(0);" data-original-title="Add Filter"><i class="fa  fa-plus "></i></a>
+                    </li>
+                }
+            </ul>
+        </header>
+
+    </div>
+</article>
+

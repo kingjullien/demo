@@ -1,0 +1,110 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Models;
+@model List<TempMonitoring>
+@using SBISCCMWeb.Utility;
+@{
+    Layout = null;
+    int z = 0;
+    int ConditionCount = Convert.ToInt32(SessionHelper.ConditionCount);
+
+}
+@Html.AntiForgeryToken()
+@Html.Hidden("ConditionCount", ConditionCount)
+<div class="Mainconditons">
+    @if (Model != null && Model.Count > 0)
+    {
+        foreach (var items in Model)
+        {
+            if (items.objM != null)
+            {
+                if (items.objM.Conditon != MonitoringType.Group.ToString() && items.objM.Conditon != MonitoringType.AndGroup.ToString() && items.objM.Conditon != MonitoringType.ORGroup.ToString())
+                {
+                    <div id="conditons" class="row count-@z divConditon">
+                        <div class="col-sm-2">
+                            <span class="Elements context-menu-Elements" id="Elements" data-Id="@items.objM.TempConditionId" data-node="@items.objM.Conditon">@items.objM.Element</span>
+                        </div>
+                        <div class="col-sm-3">
+                            <span class="Operators context-menu-Operators ConditonOperators" data-Id="@items.objM.TempConditionId" data-node="@items.objM.Conditon" id="ConditonOperators-@z">@items.objM.ConditonOpetator</span>
+                        </div>
+                        <div class="col-sm-2">
+                            <input id="txtValue-@z" type="text" autocomplete="off" name="ConditonValue" class="form-control txtValue" placeholder="@DandBSettingLang.placeholderEnterValue" data-node="@items.objM.Conditon" data-Id="@items.objM.TempConditionId" value="@(items.objM.ConditonValue == "" ? "" : items.objM.ConditonValue)" />
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="deleteCondition" id="deleteCondition-@z" data-Id="@items.objM.TempConditionId" data-node="@items.objM.Conditon" href="#"><span><i class="fa fa-times error" aria-hidden="true"></i></span></a>
+                        </div>
+                    </div>
+                }
+            }
+            if (items.objM.lstCondition != null)
+            {
+                <div class="col-xs-12" id="artGroup">
+
+                    <article class="col-xs-12  sortable-grid ui-sortable">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading">
+                                <h2>
+                                    <strong>@DandBSettingLang.hdrAddElementConditions</strong>
+                                </h2>
+                                <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                                    <li>
+                                        <a class="deleteCondition" id="deleteCondition-@z" data-Id="@items.objM.TempConditionId" data-node="@items.objM.Conditon" href="#"><span><i class="fa fa-times error" aria-hidden="true"></i></span></a>
+                                    </li>
+                                </ul>
+                            </header>
+
+                            <div role="content">
+                                <div class="jarviswidget-editbox"></div>
+                                <div class="widget-body no-padding custome-section">
+                                    <div class="tab-content padding-10">
+                                        <div id="hr2" class="tab-pane fade fade active in">
+                                            <div class="form-group">
+                                                <div class="row paddingto5">
+                                                    <div class="col-sm-6">
+                                                        <span class="context-menu-Grpone GrpConditon" data-val="GrpAnd" data-Id="@items.objM.TempConditionId">@DandBSettingLang.lblAnd</span>
+                                                        <a id="btnGrpSubmit" href="#"><span class="glyphicon glyphicon-plus" id="AddGrpCondition"></span></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="col-xs-12  sortable-grid ui-sortable">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark boxheight" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading">
+                                <h2>
+                                    <strong>@DandBSettingLang.lblConditions</strong>
+                                </h2>
+                                <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                                    <li>
+                                    </li>
+                                </ul>
+                            </header>
+
+                            <div role="content">
+                                <div class="jarviswidget-editbox"></div>
+                                <div class="widget-body no-padding">
+                                    <div id="ElementsList" class="tab-content padding-10">
+                                        @{Html.RenderPartial("_conditonListView", items.objM.lstCondition);}
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </article>
+
+                </div>
+
+            }
+
+            z++;
+
+        }
+        @Html.Hidden("strCondition", Helper.strCondition)
+
+    }
+
+</div>

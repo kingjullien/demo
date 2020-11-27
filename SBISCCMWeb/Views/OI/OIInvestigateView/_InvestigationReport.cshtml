@@ -1,0 +1,141 @@
+﻿@using PagedList.Mvc;
+@using SBISCCMWeb.Utility;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.LanguageResources;
+@model PagedList.IPagedList<InvestigateViewEntity>
+@{
+
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "InvestigateReport",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+    };
+}
+
+@using (Ajax.BeginForm("InvestigationReport", "OIInvestigateView", null, ajaxOptions, new { id = "form_InvestigateReprot", @autocomplete = "off" }))
+{
+    <table class="table table-bordered panel-group customTable table-autosort table-autofilter " role="grid">
+        <thead>
+            <tr>
+                <th>
+                    @Ajax.ActionLink(OIInvestigateLang.lblSrcRecordId, "InvestigationReport", new { SearchText = ViewBag.SearchText, strType = ViewBag.strType, Filter = ViewBag.Filter, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(OIInvestigateLang.lblCompanyName, "InvestigationReport", new { SearchText = ViewBag.SearchText, strType = ViewBag.strType, Filter = ViewBag.Filter, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 2, sortorder = (ViewBag.SortBy == 2 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(OIInvestigateLang.lblAddress, "InvestigationReport", new { SearchText = ViewBag.SearchText, strType = ViewBag.strType, Filter = ViewBag.Filter, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 3, sortorder = (ViewBag.SortBy == 3 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(OIInvestigateLang.lblPhoneNumber, "InvestigationReport", new { SearchText = ViewBag.SearchText, strType = ViewBag.strType, Filter = ViewBag.Filter, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 4, sortorder = (ViewBag.SortBy == 4 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(OIInvestigateLang.lblOrbNumber, "InvestigationReport", new { SearchText = ViewBag.SearchText, strType = ViewBag.strType, Filter = ViewBag.Filter, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 5, sortorder = (ViewBag.SortBy == 5 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(OIInvestigateLang.lblEIN, "InvestigationReport", new { SearchText = ViewBag.SearchText, strType = ViewBag.strType, Filter = ViewBag.Filter, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 6, sortorder = (ViewBag.SortBy == 6 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(OIInvestigateLang.lblWebsite, "InvestigationReport", new { SearchText = ViewBag.SearchText, strType = ViewBag.strType, Filter = ViewBag.Filter, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 7, sortorder = (ViewBag.SortBy == 7 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(OIInvestigateLang.lblEmail, "InvestigationReport", new { SearchText = ViewBag.SearchText, strType = ViewBag.strType, Filter = ViewBag.Filter, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 8, sortorder = (ViewBag.SortBy == 8 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(OIInvestigateLang.lblRequestedDate, "InvestigationReport", new { SearchText = ViewBag.SearchText, strType = ViewBag.strType, Filter = ViewBag.Filter, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 9, sortorder = (ViewBag.SortBy == 9 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.SrcRecordId
+                            </td>
+                            <td>
+                                @item.CompanyName
+                            </td>
+                            <td>
+                                @{
+                                    string DisplayAddress = "";
+                                    if (!string.IsNullOrEmpty(item.Address1))
+                                    {
+                                        DisplayAddress += "," + item.Address1;
+                                    }
+                                    if (!string.IsNullOrEmpty(item.Address2))
+                                    {
+                                        DisplayAddress += "," + item.Address2;
+                                    }
+                                    if (!string.IsNullOrEmpty(item.city))
+                                    {
+                                        DisplayAddress += "," + item.city;
+                                    }
+                                    if (!string.IsNullOrEmpty(item.state))
+                                    {
+                                        DisplayAddress += "," + item.state;
+                                    }
+                                    if (!string.IsNullOrEmpty(item.PostalCode))
+                                    {
+                                        DisplayAddress += "," + item.PostalCode;
+                                    }
+                                    if (!string.IsNullOrEmpty(item.CountryISOAlpha2Code))
+                                    {
+                                        DisplayAddress += "," + item.CountryISOAlpha2Code;
+                                    }
+}
+                                @(string.IsNullOrEmpty(DisplayAddress) ? "" : DisplayAddress.TrimStart(','))
+                            </td>
+                            <td>
+                                @item.PhoneNbr
+                            </td>
+                            <td>
+                                @item.OrbNum
+                            </td>
+                             <td>
+                                @item.EIN
+                            </td>
+                             <td>
+                                @item.Website
+                            </td>
+                             <td>
+                                @item.Email
+                            </td>
+                            <td>
+                                @item.RequestedDateTime.ToDatetimeFull()
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="10">@OIInvestigateLang.lblNodataareavailable</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="10">@OIInvestigateLang.lblNodataareavailable</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="dt-toolbar-footer">
+        <div class="col-sm-7 col-xs-7 hidden-xs">
+            <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                <a id="pagingFormAction" href="@Url.Action("InvestigationReport", "OIInvestigateView", new { SearchText = ViewBag.SearchText, strType = ViewBag.strType, Filter = ViewBag.Filter, page = 1, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder })" style="display:block"></a>
+                @Html.PagedListPager(Model, page => Url.Action("InvestigationReport", "OIInvestigateView", new { SearchText = ViewBag.SearchText, strType = ViewBag.strType, Filter = ViewBag.Filter, page = page, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "InvestigateReport", LoadingElementId = "divProgress"}))
+            </div>
+        </div>
+    </div>
+
+}
+

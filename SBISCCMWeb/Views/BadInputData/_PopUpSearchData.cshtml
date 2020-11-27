@@ -1,0 +1,637 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCompanyCleanseMatchFacade.Objects
+@using SBISCCMWeb.LanguageResources
+@model Tuple<MainMatchEntity, CompanyEntity>
+@using SBISCCMWeb.Utility;
+@{
+    MainMatchEntity matchesEntity = Model.Item1;
+    var companyEntity = Model.Item2;
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + CleanDataLang.titleSearchData;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + CleanDataLang.titleSearchData;
+    }
+    Layout = null;
+    var i = 0;
+    string conditions = "";
+    if (Convert.ToBoolean(Helper.IsExpandCleanData) == true)
+    {
+        conditions = "<script type='text/javascript'>$('#SearchPopupModal #lnkCollapse i').removeClass('fa-plus').addClass('fa-minus');$('#SearchPopupModal .detailview').addClass('show in');</script>";
+    }
+    bool LicenseEnableInvestigations = Helper.LicenseEnableInvestigations;
+    if (LicenseEnableInvestigations)
+    {
+        LicenseEnableInvestigations = Helper.oUser.EnableInvestigations;
+    }
+
+    string Language = ViewBag.inLanguage == null ? string.IsNullOrEmpty(companyEntity.inLanguage) ? "" : companyEntity.inLanguage : ViewBag.inLanguage;
+    string IsLanguageFlag = ViewBag.IsLanguageFlag == null ? "" : ViewBag.IsLanguageFlag;
+    int InputId = Convert.ToInt32(ViewBag.InputId);
+    var ActivateFeature = "";
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ActivateFeature = BrandingLang.msgMBFeature;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ActivateFeature = BrandingLang.msgDNBFeature;
+    }
+    string APITypeForInvestigation = Helper.lstThirdPartyAPIs.Where(x => x.Code == "DNB_INVESTIGATIONS").Select(x => x.APIType).FirstOrDefault();
+    string APItype = CommonMethod.GetThirdPartyProperty(ThirdPartyCode.DNB_TYPEAHEAD_SEARCH.ToString(), ThirdPartyProperties.APIType.ToString());
+}
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divSearchData",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "ReloadSuccess"
+    };
+    string srcRecId = @ViewBag.SrcRecordId;
+    string Data = Convert.ToString(ViewBag.Company);
+
+}
+<style>
+    .cleanSearchPopup {
+        /*width: 1200px;
+        height: 760px;*/
+    }
+</style>
+@using (Ajax.BeginForm("SearchData", "BadInputData", null, ajaxOptions, new { id = "form_SearchData" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("Data", Data)
+    @Html.Hidden("InputId", InputId)
+    @Html.Hidden("APItype", APItype)
+    @Html.Hidden("ActivateFeature", ActivateFeature)
+    @Html.Hidden("IsLanguageFlag", IsLanguageFlag)
+    @Html.Hidden("HiddenLanguage", Language)
+    @Html.Hidden("LicenseEnableInvestigations", LicenseEnableInvestigations)
+    <div class="modal" id="SearchPopupModal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg cleanSearchPopup">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        @if (!string.IsNullOrEmpty(APItype) && APItype.ToLower() == ApiLayerType.Directplus.ToString().ToLower())
+                        {
+                            <div class="input-group-btn d-flex align-items-center pull-right">
+                                <strong class="lblTypeAhead margin-bottom-5">@CommonMessagesLang.lblTypeAhead</strong> &nbsp;&nbsp;&nbsp;
+                                <label class="Toggleswitch switch lblToggleTypeAhead">
+                                    <input type="checkbox" name="TypeAheadToggle" class="TypeAheadToggle">
+                                    <span class="Toggleslider round"></span>
+                                </label>&nbsp;&nbsp;&nbsp;
+                            </div>
+                        }
+                    </div>
+                    <h4 class="modal-title">@CleanDataLang.hdrSearchData</h4>
+                </div>
+                <div class="modal-body">
+                    @*<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable srtSearchDataGrid">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading">
+                                <h2>
+
+                                    <strong>@CleanDataLang.hdrSearchData </strong>
+                                </h2>
+                                <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                                    <li>
+
+                                    </li>
+                                </ul>
+                            </header>
+                            <div role="content">
+                                <div class="jarviswidget-editbox"></div>
+                                <div class="widget-body no-padding">
+                                    <div class="tab-content padding-10">
+                                        <div class="tab-pane fade active in">*@
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-5 paddingto5">
+                                <span id="SrcId" data-Id="@ViewBag.SrcRecordId" data-InputId="@companyEntity.InputId"><strong>@CleanDataLang.lblSrcRecID : @ViewBag.SrcRecordId</strong></span>
+                                @Html.Hidden("SrcRecId", srcRecId)
+
+                            </div>
+                        </div>
+                        <div class="row paddingto5">
+
+                            <div class="col-md-3">
+                                <span><strong>@CleanDataLang.lblCompany</strong></span>
+                                <input id="txtCompany" autocomplete="off" type="" name="Company" class="form-control" value="@Helper.CompanyName" data-val="@Helper.CompanyName" />
+                                <div id="imgCompanyLoadForCleanData" class="loader" style="display:none;">
+                                    <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("/Images/Loading1.gif"))" style="width:8%;height: 20px;width: 20px;">
+                                </div>
+                                <span id="spnCompany" class="error" style="display:none;">Please fill Company </span>
+                            </div>
+                            <div class="col-md-3">
+                                <span><strong>@CleanDataLang.lblAddress1</strong></span>
+                                <input id="txtAddress" autocomplete="off" type="text" name="Address" class="form-control" value="@Helper.Address" data-val="@Helper.Address" />
+                            </div>
+                            <div class="col-md-3">
+                                <span><strong>@CleanDataLang.lblAddress2</strong></span>
+                                <input id="txtAddress2" autocomplete="off" type="text" name="Address2" class="form-control" value="@Helper.Address1" data-val="@Helper.Address1" />
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span><strong>@CleanDataLang.lblCity</strong></span>
+                                        <input id="txtCity" autocomplete="off" type="text" name="City" class="form-control" value="@Helper.City" data-val="@Helper.City" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span><strong>@CleanDataLang.lblState</strong></span>
+                                        <input id="txtState" autocomplete="off" type="text" name="State" class="form-control" value="@Helper.State" data-val="@Helper.State" />
+                                        <span id="spnstate" class="error" style="display:none;">Please fill State</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row CleansMatchfields">
+
+                            <div class="col-md-3 marginleft-13">
+                                <span>
+                                    <strong id="lblCompany">
+                                        @if (Helper.CompanyName.Trim() != "")
+                                        {
+                                            <em class="fa fa-arrow-circle-up fontsize-16 btnCompany cursor-pointer" data-Company="@Helper.CompanyName" title="@CleanDataLang.lblCopy"></em>
+                                        }
+                                        @Helper.CompanyName
+                                    </strong>
+                                </span>
+                            </div>
+                            <div class="col-md-3">
+                                <span>
+                                    <strong id="lblAddress">
+                                        @if (Helper.Address.Trim() != "")
+                                        {
+                                            <em class="fa fa-arrow-circle-up fontsize-16 btnAddress cursor-pointer" data-Address="@Helper.Address" title="@CleanDataLang.lblCopy"></em>
+                                        }
+                                        @Helper.Address
+                                    </strong>
+                                </span>
+                            </div>
+                            <div class="col-md-3">
+                                <span>
+                                    <strong>
+                                        @if (Helper.Address1.Trim() != "")
+                                        {
+                                            <em class="fa fa-arrow-circle-up fontsize-16 btnAddress1 cursor-pointer" title="@CleanDataLang.lblCopy"></em>
+                                        }
+                                        @Helper.Address1
+                                    </strong>
+                                </span>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <span>
+                                            <strong id="lblCity">
+                                                @if (Helper.City.Trim() != "")
+                                                {
+                                                    <em class="fa fa-arrow-circle-up fontsize-16 btnCity cursor-pointer" data-City="@Helper.City" title="@CleanDataLang.lblCopy"></em>
+                                                }
+                                                @Helper.City
+                                            </strong>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <span>
+                                            <strong id="lblState">
+                                                @if (Helper.State.Trim() != "")
+                                                {
+                                                    <em class="fa fa-arrow-circle-up fontsize-16 btnState cursor-pointer" data-State="@Helper.State" title="@CleanDataLang.lblCopy"></em>
+                                                }
+                                                @Helper.State
+                                            </strong>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row paddingto5">
+
+                            <div class="col-md-3">
+                                <span><strong>@CleanDataLang.lblPhone</strong></span>
+                                <input id="txtPhone" type="text" autocomplete="off" name="Phone" class="form-control" value="@Helper.PhoneNbr" data-val="@Helper.PhoneNbr" />
+                            </div>
+                            <div class="col-md-3">
+                                <span><strong>@CleanDataLang.lblZip</strong></span>
+                                <input id="txtZip" type="text" autocomplete="off" name="Zip" class="form-control" value="@Helper.Zip" data-val="@Helper.Zip" />
+                            </div>
+                            <div class="col-md-3">
+                                <span><strong>@CleanDataLang.lblCountry</strong></span>
+                                @Html.DropDownList("Country", (CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectCountry), new { @value = @ViewBag.Country, @class = "form-control", autocomplete = "off" })
+                                <span id="spnCountry" class="error" style="display:none;">@CleanDataLang.lblRequiredCountry</span>
+                            </div>
+                            @if (CommonMethod.IsLanguageAllow())
+                            {
+                                <div class="col-md-3">
+                                    <span><strong>@CleanDataLang.lblLanguage</strong></span>
+                                    @Html.DropDownList("Language", (CommonDropdown.GetLanguageCodes(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectLanguage), new { @value = Language, @class = "form-control", Name = "inLanguage", autocomplete = "off" })
+                                    <span id="spnLanguage" class="error" style="display:none;">@CleanDataLang.lblPleaseSelectLanguage</span>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="row CleansMatchfields">
+                            <div class="col-md-3 marginleft-13">
+                                <span>
+                                    <strong>
+                                        @if (Helper.PhoneNbr.Trim() != "")
+                                        {
+                                            <em class="fa fa-arrow-circle-up fontsize-16 btnPhoneNbr cursor-pointer" title="@CleanDataLang.lblCopy"></em>
+                                        }
+                                        @Helper.PhoneNbr
+                                    </strong>
+                                </span>
+                            </div>
+                            <div class="col-md-3">
+                                <span>
+                                    <strong>
+                                        @if (Helper.Zip.Trim() != "")
+                                        {
+                                            <em class="fa fa-arrow-circle-up fontsize-16 btnZip cursor-pointer" title="@CleanDataLang.lblCopy"></em>
+                                        }
+                                        @Helper.Zip
+                                    </strong>
+                                </span>
+                            </div>
+                            <div class="col-md-3">
+                                <span><strong><em class="fa fa-arrow-circle-up fontsize-16 btnCountry cursor-pointer" title="@CleanDataLang.lblCopy"></em> @ViewBag.Country</strong></span>
+                            </div>
+                            @if (CommonMethod.IsLanguageAllow())
+                            {
+                                <div class="col-md-3">
+                                    <span><strong>@Language</strong></span>
+                                </div>
+                            }
+                        </div>
+
+                        <div class="checkbox-sec  paddingto5">
+                            <div class="checkbox-field">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" class="SetCheckbox" value="true" name="ExcludeNonHeadQuarters" id="ExcludeNonHeadQuarters" @((bool)ViewBag.ExcludeNonHeadQuarters == true ? "checked" : "")>
+                                        <strong>@CleanDataLang.lblExcludeNonHeadQuarters</strong>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="checkbox-field">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="true" class="SetCheckbox" name="ExcludeNonMarketable" id="ExcludeNonMarketable" @((bool)ViewBag.ExcludeNonMarketable == true ? "checked" : "")>
+                                        <strong>@CleanDataLang.lblExcludeNonMarketable</strong>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="checkbox-field">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="true" class="SetCheckbox" name="ExcludeOutofBusiness" id="ExcludeOutofBusiness" @((bool)ViewBag.ExcludeOutofBusiness == true ? "checked" : "")>
+                                        <strong>@CleanDataLang.lblExcludeOutofBusiness</strong>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="checkbox-field">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="true" class="SetCheckbox" name="ExcludeUndeliverable" id="ExcludeUndeliverable" @((bool)ViewBag.ExcludeUndeliverable == true ? "checked" : "")>
+                                        <strong>@CleanDataLang.lblExcludeUndeliverable</strong>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="checkbox-field">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" value="true" class="SetCheckbox" name="ExcludeUnreachable" id="ExcludeUnreachable" @((bool)ViewBag.ExcludeUnreachable == true ? "checked" : "")>
+                                        <strong>@CleanDataLang.lblExcludeUnreachable</strong>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="" class="sectiontopmrg">
+                            <section id="widget-grid" class="additional-main">
+                                <div class="row">
+                                    <article class="col-md-12 ui-sortable">
+                                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark additional-icon-change" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                            <header role="heading">
+                                                <h2>
+                                                    <strong>@CleanDataLang.lblAdditionalFields</strong>
+                                                </h2>
+                                                <ul id="widget-tab-Company" class="nav pull-right nav-pills addbtnstyle">
+                                                    <li>
+                                                        <a id="lnkCollapse" role="button" data-toggle="collapse" data-parent="#accordionSearch" href="#accordionSearch" aria-expanded="false" aria-controls="accordionSearch">
+                                                            <em class="more-less fa fa-plus ColorZ"></em>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </header>
+
+                                            <div role="content" class="table-cal-space collapse transition-fast panel panel-default detailview" id="accordionSearch">
+                                                <div class="jarviswidget-editbox"></div>
+                                                <div class="widget-body no-padding">
+                                                    <div class="tab-content padding-10">
+                                                        <div id="hr2" class="tab-pane  active in additional-border-style new-additional-table">
+                                                            <div class="row">
+                                                                <div class="col-sm-3">
+                                                                    <span><strong>@CleanDataLang.lblInpDUNSNO:</strong></span>
+                                                                    <span>@companyEntity.DUNSNumber</span>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <span><strong>@CleanDataLang.lblCEOName :</strong></span>
+                                                                    <span>@companyEntity.CEOName</span>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <span><strong>@CleanDataLang.lblWebsite :</strong></span>
+                                                                    @{
+                                                                        string WebsiteUrl = !string.IsNullOrEmpty(companyEntity.Website) ? companyEntity.Website.Contains("http") ? companyEntity.Website : "http://" + companyEntity.Website : companyEntity.Website;
+                                                                    }
+                                                                    <span><a onclick="window.open('@WebsiteUrl')" href="javascript:void(false)" id="alt_Website" data-val="@companyEntity.Website">@companyEntity.Website</a></span>
+                                                                    @Html.Hidden("HiddenWebsite", companyEntity.Website)
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    @if (!string.IsNullOrEmpty(companyEntity.AltCompanyName))
+                                                                    {
+                                                                        <img class="AltCompany cursor-pointer margin-left--27" src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/swap.png"))" data-Company="@companyEntity.AltCompanyName" />
+                                                                    }
+                                                                    <span><strong>@CleanDataLang.lblAltCompanyName :</strong></span>
+                                                                    <span id="spnAltCompanyName">@companyEntity.AltCompanyName</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    @if (!string.IsNullOrEmpty(companyEntity.AltAddress))
+                                                                    {
+                                                                        <img class="AltAddress cursor-pointer margin-left--27" src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/swap.png"))" data-Address="@companyEntity.AltAddress" data-City="@companyEntity.AltCity" data-State="@companyEntity.AltState" data-PostalCode="@companyEntity.AltPostalCode" data-address2="@companyEntity.AltAddress1" />
+                                                                    }
+                                                                    <span><strong>@CleanDataLang.lblAltAddress :</strong></span>
+                                                                    <span id="spnAltAddress">@companyEntity.AltAddress</span>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <span><strong>@CleanDataLang.lblAltAddress2 :</strong></span>
+                                                                    <span id="spnAltAddress2">@companyEntity.AltAddress1</span>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <span><strong>@CleanDataLang.lblAltCity :</strong></span>
+                                                                    <span id="spnAltCity">@companyEntity.AltCity</span>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <span><strong>@CleanDataLang.lblAltState :</strong></span>
+                                                                    <span id="spnAltState">@companyEntity.AltState</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <span><strong>@CleanDataLang.lblAltPostalCode :</strong></span>
+                                                                    <span id="spnAltPostalCode">@companyEntity.AltPostalCode</span>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <span><strong>@CleanDataLang.lblAltCountry :</strong></span>
+                                                                    <span>@companyEntity.AltCountry</span>
+                                                                </div>
+                                                                <div class="col-md-3">
+                                                                    <span><strong>@CleanDataLang.lblRegistrationNumber :</strong></span>
+                                                                    <span id="alt_registrationNum" data-val="@companyEntity.RegistrationNbr">@companyEntity.RegistrationNbr</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-3">
+                                                                    <span><strong>@CleanDataLang.lblEmail :</strong></span>
+                                                                    <span>@companyEntity.Email</span>
+                                                                    @Html.Hidden("HiddenEmail", companyEntity.Email)
+                                                                </div>
+                                                                @if (Helper.LicenseEnableTags)
+                                                                {
+                                                                    <div class="col-sm-9">
+                                                                        <span><strong>@CleanDataLang.lblTags :</strong></span>
+                                                                        <span>@companyEntity.Tags</span>
+                                                                    </div>
+                                                                }
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </section>
+                        </div>
+                        <div class=" newbuttonposition">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn dropdown-toggle btn-Secondary" data-toggle="dropdown" tabindex="-1">
+                                    @CleanDataLang.lblAdditionalActions <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a href="javascript:void(0);" class="btnDomainOrEmailSearch">@CleanDataLang.lblSearchByAltFields</a></li>
+                                    <li><a href="javascript:void(0);" id="btnSearchByAddress">@CleanDataLang.lblSearchByAddress</a><a id="btnSearchByAddressdisabled" class="disabled clsDisable" style="display:none;">@CleanDataLang.lblSearchByAddress</a></li>
+                                    <li><a href="javascript:void(0);" id="btnSearchByCompany">@CleanDataLang.lblSearchByCompany</a><a id="btnSearchByCompanydisabled" class="disabled clsDisable" style="display:none;">@CleanDataLang.lblSearchByCompany</a></li>
+                                    @if (Helper.LicenseEnableBingSearch)
+                                    {
+                                        <li><a id="btnBingSearch" title="@CleanDataLang.lblBingsearches">@CleanDataLang.lblBingSearch</a></li>
+                                    }
+                                    else
+                                    {
+                                        if (Helper.Branding == Branding.Matchbook.ToString())
+                                        {
+                                            <li><a id="" href="javascript:void(0)" class="clsDisable" title="@BrandingLang.msgMBFeature">@CleanDataLang.lblBingSearch</a></li>
+                                        }
+                                        else if (Helper.Branding == Branding.DandB.ToString())
+                                        {
+                                            <li><a id="" href="javascript:void(0)" class="clsDisable" title="@BrandingLang.msgDNBFeature">@CleanDataLang.lblBingSearch</a></li>
+                                        }
+                                    }
+                                    @if (Helper.LicenseEnableGoogleMap)
+                                    {
+                                        <li><a href="javascript:void(0);" id="btnValidateInputAddress">@CleanDataLang.lblValidateInputAddress</a></li>
+                                        <li><a href="javascript:void(0);" id="btnGoogleSearch">@CleanDataLang.lblGoogleSearch</a></li>
+                                    }
+                                    <li class="divider"></li>
+                                    <li><a href="javascript:void(0);" class="btnUpdateData">@CleanDataLang.lblUpdateRecord</a></li>
+
+                                    @if (Helper.oUser.EnablePurgeData)
+                                    {
+                                        <li><a href="javascript:void(0)" id="btnPurgeData" data-StreetName="@companyEntity.StreetName" data-InputId="@companyEntity.InputId" data-Tags="@companyEntity.Tags">@CleanDataLang.lblPurgeRecord</a></li>
+                                    }
+                                    else
+                                    {
+                                        if (Helper.Branding == Branding.Matchbook.ToString())
+                                        {
+                                            <li><a href="javascript:void(0)" class="clsDisable" title="@BrandingLang.msgMBFeature">@CleanDataLang.lblPurgeRecord</a></li>
+                                        }
+                                        else if (Helper.Branding == Branding.DandB.ToString())
+                                        {
+                                            <li><a href="javascript:void(0)" class="clsDisable" title="@BrandingLang.msgDNBFeature">@CleanDataLang.lblPurgeRecord</a></li>
+                                        }
+                                    }
+                                    @if (Helper.LicenseEnableInvestigations && Helper.oUser.EnableInvestigations && APITypeForInvestigation == "DirectPlus")
+                                    {
+                                        <li><a href="javascript:void(0)" class="btnInvestigation" data-InputId="@companyEntity.InputId" data-StreetName="@companyEntity.State" data-Tags="@companyEntity.Tags">@CleanDataLang.lblInvestigate</a></li>
+                                    }
+                                    else
+                                    {
+                                        if (Helper.Branding == Branding.Matchbook.ToString())
+                                        {
+                                            <li><a href="javascript:void(0)" class="clsDisable" title="@BrandingLang.msgMBFeature">@CleanDataLang.lblInvestigate</a></li>
+                                        }
+                                        else if (Helper.Branding == Branding.DandB.ToString())
+                                        {
+                                            <li><a href="javascript:void(0)" class="clsDisable" title="@BrandingLang.msgDNBFeature">@CleanDataLang.lblInvestigate</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </div>
+
+                            <input id="btnSearchData" class="btn btn-primary" type="submit" name="btnSearchData" title="@CleanDataLang.lblSearch" value="@CleanDataLang.lblSearch" />
+                        </div>
+                    </div>
+                    @*</div>*@
+                    <br />
+                    <div id="divSearchData">
+                        @{
+                            Html.RenderPartial("_SearchData", matchesEntity);
+                        }
+                    </div>
+
+                    @*</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>*@
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+}
+<div id="MatchDetailModalMain"></div>
+<div id="SearchByAltFieldsModalMain"></div>
+<div id="EnrichmentDetailModalMain"></div>
+@Html.Raw(conditions)
+<script>
+    $(document).ready(function () {
+        $("select#Language").val($("#HiddenLanguage").val());
+        var language = $("#Language").val();
+        var country = $("#Country").val();
+        var IsLanguageFlag = $("#IsLanguageFlag").val();
+
+        if (language != undefined) {
+            changeLanguage(country, IsLanguageFlag);
+        }
+        var Company = $('#txtCompany').val().trim();
+        if (Company == "") {
+            //$('#btnSearchByCompany').attr("class", "disabled clsDisable");
+            $('#btnSearchByCompany').hide();
+            $('#btnSearchByCompanydisabled').show();
+        } else {
+            $('#btnSearchByCompany').show();
+            $('#btnSearchByCompanydisabled').hide();
+            //$('#btnSearchByCompany').attr("class", "");
+        }
+        SearchByAddressValidation();
+    });
+
+
+    $("#txtCompany").keypress(function () {
+        var APItype = $("#APItype").val();
+        if (APItype == "DirectPlus") {
+            LoadTypeAhead();
+        }
+    });
+    $('body').on('change', '#Country', function () {
+        var language = $("#Language").val();
+        var country = $(this).val();
+        if (language != undefined)
+            changeLanguage(country);
+        var APItype = $("#APItype").val();
+        if (APItype == "DirectPlus") {
+            LoadTypeAhead();
+        }
+    });
+
+</script>
+<script>
+
+    $(document).on("click", "dropdown-menu li a", function () {
+        (".clsAdditionActionFilter>.input-group-btn").removeClass('open');
+    });
+    $('body').on('click', '.btnCompany', function () {
+        var Company = $(this).attr('data-Company');
+        var parser = new DOMParser;
+        var dom = parser.parseFromString(
+            '<!doctype html><body>' + Company,
+            'text/html');
+        Company = dom.body.textContent;
+        $("#txtCompany").val(Company);
+    });
+    $('body').on('click', '.btnAddress', function () {
+        var Address = $(this).attr('data-Address');
+        var parser = new DOMParser;
+        var dom = parser.parseFromString(
+            '<!doctype html><body>' + Address,
+            'text/html');
+        Address = dom.body.textContent;
+        $("#txtAddress").val(Address);
+    });
+    $('body').on('click', '.btnAddress1', function () {
+        var Address1 = "@Helper.Address1";
+        var parser = new DOMParser;
+        var dom = parser.parseFromString(
+            '<!doctype html><body>' + Address1,
+            'text/html');
+        Address1 = dom.body.textContent;
+        $("#txtAddress2").val(Address1);
+    });
+    $('body').on('click', '.btnCity', function () {
+        var City = $(this).attr('data-City');
+        var parser = new DOMParser;
+        var dom = parser.parseFromString(
+            '<!doctype html><body>' + City,
+            'text/html');
+        City = dom.body.textContent;
+        $("#form_SearchData #txtCity").val(City);
+    });
+    $('body').on('click', '.btnState', function () {
+        var State = $(this).attr('data-State');
+        var parser = new DOMParser;
+        var dom = parser.parseFromString(
+            '<!doctype html><body>' + State,
+            'text/html');
+        State = dom.body.textContent;
+        $("#txtState").val(State);
+    });
+    $('body').on('click', '.btnPhoneNbr', function () {
+        var PhoneNbr = "@Helper.PhoneNbr";
+        var parser = new DOMParser;
+        var dom = parser.parseFromString(
+            '<!doctype html><body>' + PhoneNbr,
+            'text/html');
+        PhoneNbr = dom.body.textContent;
+        $("#txtPhone").val(PhoneNbr);
+    });
+    $('body').on('click', '.btnZip', function () {
+        var Zip = "@Helper.Zip";
+        var parser = new DOMParser;
+        var dom = parser.parseFromString(
+            '<!doctype html><body>' + Zip,
+            'text/html');
+        Zip = dom.body.textContent;
+        $("#txtZip").val(Zip);
+    });
+    $('body').on('click', '.btnCountry', function () {
+        var Country = "@ViewBag.Country";
+        $("#Country").val(Country);
+    });
+</script>
+

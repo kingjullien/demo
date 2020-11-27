@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="lblActiveDataQueue" xml:space="preserve">
+    <value>Cola de datos activa</value>
+    <comment>Active Data Queue</comment>
+  </data>
+  <data name="lblApiLayer" xml:space="preserve">
+    <value>capa API</value>
+    <comment>Api Layer</comment>
+  </data>
+  <data name="lblBoth" xml:space="preserve">
+    <value>Ambos</value>
+    <comment>Both</comment>
+  </data>
+  <data name="lblCancel" xml:space="preserve">
+    <value>Cancelar</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="lblCancelled" xml:space="preserve">
+    <value>Cancelado</value>
+    <comment>Cancelled</comment>
+  </data>
+  <data name="lblCompanyData" xml:space="preserve">
+    <value>Datos de la compañia</value>
+    <comment>Company Data</comment>
+  </data>
+  <data name="lblCountryGroup" xml:space="preserve">
+    <value>Grupo de países</value>
+    <comment>Country Group</comment>
+  </data>
+  <data name="lblCSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>CSV</comment>
+  </data>
+  <data name="lblCustomDelimiter" xml:space="preserve">
+    <value>Delimitador personalizado</value>
+    <comment>Custom Delimiter</comment>
+  </data>
+  <data name="lblDelete" xml:space="preserve">
+    <value>Eliminar</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="lblDelimiter" xml:space="preserve">
+    <value>delimitador</value>
+    <comment>Delimiter</comment>
+  </data>
+  <data name="lblDownload" xml:space="preserve">
+    <value>Descargar</value>
+    <comment>Download</comment>
+  </data>
+  <data name="lblEnrichment" xml:space="preserve">
+    <value>Enriquecimiento</value>
+    <comment>Enrichment</comment>
+  </data>
+  <data name="lblEnrichmentOutput" xml:space="preserve">
+    <value>Salida de enriquecimiento</value>
+    <comment>Enrichment Output</comment>
+  </data>
+  <data name="lblExcel" xml:space="preserve">
+    <value>Excel</value>
+    <comment>Excel</comment>
+  </data>
+  <data name="lblExportOptions" xml:space="preserve">
+    <value>Opciones de exportación</value>
+    <comment>Export Options</comment>
+  </data>
+  <data name="lblExportStatus" xml:space="preserve">
+    <value>Estado de la exportación</value>
+    <comment>Export Status</comment>
+  </data>
+  <data name="lblFailed" xml:space="preserve">
+    <value>Falló</value>
+    <comment>Failed</comment>
+  </data>
+  <data name="lblFileName" xml:space="preserve">
+    <value>Nombre del archivo</value>
+    <comment>File Name</comment>
+  </data>
+  <data name="lblFileNameRequire" xml:space="preserve">
+    <value>Por favor, ingrese el nombre del archivo.</value>
+    <comment>Please enter file name.</comment>
+  </data>
+  <data name="lblFormat" xml:space="preserve">
+    <value>Formato</value>
+    <comment>Format</comment>
+  </data>
+  <data name="lblFormatRequire" xml:space="preserve">
+    <value>Por favor, seleccione el formato.</value>
+    <comment>Please select format.</comment>
+  </data>
+  <data name="lblImportProcess" xml:space="preserve">
+    <value>Proceso de importación</value>
+    <comment>Import Process</comment>
+  </data>
+  <data name="lblIncludeExportDateAndTime" xml:space="preserve">
+    <value>Incluir fecha y hora de exportación</value>
+    <comment>Include Export Date and Time</comment>
+  </data>
+  <data name="lblIncludeHeader" xml:space="preserve">
+    <value>Incluir encabezado</value>
+    <comment>Include Header</comment>
+  </data>
+  <data name="lblIncludeSrcRecordID" xml:space="preserve">
+    <value>incluir SrcRecordID</value>
+    <comment>Include SrcRecordID</comment>
+  </data>
+  <data name="lblIncludeSubdomain" xml:space="preserve">
+    <value>incluir subdominio</value>
+    <comment>Include Subdomain</comment>
+  </data>
+  <data name="lblInProcess" xml:space="preserve">
+    <value>En proceso</value>
+    <comment>In Process</comment>
+  </data>
+  <data name="lblInsertDelimiter" xml:space="preserve">
+    <value>Insertar delimitador</value>
+    <comment>InsertDelimiter</comment>
+  </data>
+  <data name="lblIsExactMatch" xml:space="preserve">
+    <value>es una coincidencia exacta</value>
+    <comment>Is Exact Match</comment>
+  </data>
+  <data name="lblLOBTags" xml:space="preserve">
+    <value>Etiquetas de LOB</value>
+    <comment>LOB Tags</comment>
+  </data>
+  <data name="lblLowConfidenceQueue" xml:space="preserve">
+    <value>Cola de baja confianza</value>
+    <comment>Low Confidence Queue</comment>
+  </data>
+  <data name="lblMarkAsExported" xml:space="preserve">
+    <value>Marcar como exportado</value>
+    <comment>Mark As Exported</comment>
+  </data>
+  <data name="lblMatchOutput" xml:space="preserve">
+    <value>Salida de coincidencia</value>
+    <comment>Match Output</comment>
+  </data>
+  <data name="lblMonitoringNotification" xml:space="preserve">
+    <value>Notificación de monitoreo</value>
+    <comment>Monitoring Notification</comment>
+  </data>
+  <data name="lblMonitoringNotificationDataStatus" xml:space="preserve">
+    <value>Estado de los datos de la notificación de monitoreo</value>
+    <comment>Monitoring Notification Data Status</comment>
+  </data>
+  <data name="lblMonitoringNotifications" xml:space="preserve">
+    <value>Notificaciones de monitoreo</value>
+    <comment>Monitoring Notifications</comment>
+  </data>
+  <data name="lblNoMatchQueue" xml:space="preserve">
+    <value>Sin cola de coincidencias</value>
+    <comment>No Match Queue</comment>
+  </data>
+  <data name="lblNoRecordfound" xml:space="preserve">
+    <value>No se encontraron registros</value>
+    <comment>No Record(s) found</comment>
+  </data>
+  <data name="lblNoTag" xml:space="preserve">
+    <value>Sin etiqueta</value>
+    <comment>No Tag</comment>
+  </data>
+  <data name="lblNoteMarkAsExported" xml:space="preserve">
+    <value>Nota: Marcar como exportado no rige para salidas de la cola de baja confianza y de la cola de sin coincidencias.</value>
+    <comment>Note: Mark as Exported does not apply to Low Confidence Queue and No Match Queue outputs</comment>
+  </data>
+  <data name="lblOutputfileName" xml:space="preserve">
+    <value>Nombre del archivo de salida</value>
+    <comment>Output file Name</comment>
+  </data>
+  <data name="lblOutputQueue" xml:space="preserve">
+    <value>Cola de salida</value>
+    <comment>Output Queue</comment>
+  </data>
+  <data name="lblOutputTypeRequire" xml:space="preserve">
+    <value>Por favor, seleccione al menos un tipo de salida</value>
+    <comment>Please select atleast one output type</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>Tamaño de página</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblProcessing" xml:space="preserve">
+    <value>Por favor espere mientras procesa ...</value>
+    <comment>Please wait while processing...</comment>
+  </data>
+  <data name="lblQualifierAllColumns" xml:space="preserve">
+    <value>Calificador todas las columnas</value>
+    <comment>Qualifier All Columns</comment>
+  </data>
+  <data name="lblReady" xml:space="preserve">
+    <value>Listo</value>
+    <comment>Ready</comment>
+  </data>
+  <data name="lblReExportData" xml:space="preserve">
+    <value>Volver a exportar datos</value>
+    <comment>Re-Export Data</comment>
+  </data>
+  <data name="lblRequestedDate" xml:space="preserve">
+    <value>Fecha en que fue solicitado</value>
+    <comment>Requested Date</comment>
+  </data>
+  <data name="lblRequiredDelimiter" xml:space="preserve">
+    <value>Por favor llene el delimitador</value>
+    <comment>Please fill Delimiter</comment>
+  </data>
+  <data name="lblSave" xml:space="preserve">
+    <value>Salvar</value>
+    <comment>Save</comment>
+  </data>
+  <data name="lblSrcRecID" xml:space="preserve">
+    <value>SrcRecID</value>
+    <comment>SrcRecID</comment>
+  </data>
+  <data name="lblSrcRecordId" xml:space="preserve">
+    <value>SrcRecordId</value>
+    <comment>SrcRecordId</comment>
+  </data>
+  <data name="lblSrcRecordIdList" xml:space="preserve">
+    <value>SrcRecordIdList</value>
+    <comment>SrcRecordIdList</comment>
+  </data>
+  <data name="lblStatus" xml:space="preserve">
+    <value>Estado</value>
+    <comment>Status</comment>
+  </data>
+  <data name="lblStep1SelectFilters" xml:space="preserve">
+    <value>Paso 1 - Seleccionar filtros (Opcional)</value>
+    <comment>Step 1 - Select Filters (Optional)</comment>
+  </data>
+  <data name="lblStep2SelectOutput" xml:space="preserve">
+    <value>Paso 2 - Seleccionar salida</value>
+    <comment>Step 2 - Select Output</comment>
+  </data>
+  <data name="lblStep3FinalizeExport" xml:space="preserve">
+    <value>Paso 3 - Finalizar exportación</value>
+    <comment>Step 3 - Finalize Export</comment>
+  </data>
+  <data name="lblStep3SelectOutput" xml:space="preserve">
+    <value>Paso 4 - Seleccionar formato de salida</value>
+    <comment>Step 3 - Select Output Format</comment>
+  </data>
+  <data name="lblStep4FinalizeExport" xml:space="preserve">
+    <value>Paso 5 - Finalizar exportación (Opcional)</value>
+    <comment>Step 4 - Finalize Export (Optional)</comment>
+  </data>
+  <data name="lblSubmit" xml:space="preserve">
+    <value>Enviar</value>
+    <comment>Submit</comment>
+  </data>
+  <data name="lblTabSeparated" xml:space="preserve">
+    <value>Separado pestaña</value>
+    <comment>Tab Separated</comment>
+  </data>
+  <data name="lblTags" xml:space="preserve">
+    <value>Etiquetas</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="lblTransferredDuns" xml:space="preserve">
+    <value>Duns transferidos</value>
+    <comment>Transferred Duns</comment>
+  </data>
+  <data name="lblUnflagExportedData" xml:space="preserve">
+    <value>Desmarcar datos exportados</value>
+    <comment>Un-flag Exported Data</comment>
+  </data>
+  <data name="lblValidFileName" xml:space="preserve">
+    <value>Por favor, ingrese un nombre de archivo válido.</value>
+    <comment>Please enter valid file name.</comment>
+  </data>
+  <data name="lblZip" xml:space="preserve">
+    <value>.Código Postal</value>
+    <comment>.Zip</comment>
+  </data>
+  <data name="msgApiLayer" xml:space="preserve">
+    <value>Capa Api</value>
+    <comment>Api Layer</comment>
+  </data>
+  <data name="msgCancelExportDataRequest" xml:space="preserve">
+    <value>¿Está seguro de que desea cancelar esta solicitud de exportación de datos?</value>
+    <comment>Are you sure, you want to cancel this export data request ?</comment>
+  </data>
+  <data name="msgDataRejected" xml:space="preserve">
+    <value>Datos rechazados con éxito</value>
+    <comment>Data rejected successfully</comment>
+  </data>
+  <data name="msgDataUnflagged" xml:space="preserve">
+    <value>Los datos no están marcados y puede exportar utilizando las opciones de exportación.</value>
+    <comment>Data are Un-Flagged and you can export using Export options.</comment>
+  </data>
+  <data name="msgDeleteRecord" xml:space="preserve">
+    <value>¿Estás seguro de que quieres eliminar el registro?</value>
+    <comment>Are you sure you want to delete record ?</comment>
+  </data>
+  <data name="msgDelimiterValue" xml:space="preserve">
+    <value>Valor delimitador</value>
+    <comment>Delimiter Value</comment>
+  </data>
+  <data name="msgExportDataSave" xml:space="preserve">
+    <value>Su solicitud de datos se ha enviado con éxito, le notificaremos una vez que su archivo esté listo para descargar.</value>
+    <comment>Your data request has been submitted successfully, we will notify you once your file is ready to download.</comment>
+  </data>
+  <data name="msgFileExists" xml:space="preserve">
+    <value>FileName ya existe, ingrese un nombre de archivo diferente.</value>
+    <comment>FileName is already exists, please enter different filename.</comment>
+  </data>
+  <data name="msgFileNameExists" xml:space="preserve">
+    <value>FileName ya existe, ingrese un nombre de archivo diferente.</value>
+    <comment>FileName is already exists, please enter different filename.</comment>
+  </data>
+  <data name="msgImportProcess" xml:space="preserve">
+    <value>Proceso de importación</value>
+    <comment>Import Process</comment>
+  </data>
+  <data name="msgIsExactMatch" xml:space="preserve">
+    <value>Es coincidencia exacta</value>
+    <comment>Is Exact Match</comment>
+  </data>
+  <data name="msgJobCancel" xml:space="preserve">
+    <value>La solicitud de exportar datos se canceló con éxito</value>
+    <comment>Export data request cancelled successfully</comment>
+  </data>
+  <data name="msgJobInProcess" xml:space="preserve">
+    <value>Su solicitud de exportar datos ya está en proceso, no podemos cancelarla</value>
+    <comment>Your export data request is already in process, we can't cancel it</comment>
+  </data>
+  <data name="msgLOBTag" xml:space="preserve">
+    <value>Día LOB</value>
+    <comment>LOB Tag</comment>
+  </data>
+  <data name="msgMarkAsExported" xml:space="preserve">
+    <value>Marcar como exportado</value>
+    <comment>Mark As Exported</comment>
+  </data>
+  <data name="msgMarkDataAsExported" xml:space="preserve">
+    <value>¿Desea marcar datos como exportados?</value>
+    <comment>Do you want to mark data as exported?</comment>
+  </data>
+  <data name="msgNoDataFound" xml:space="preserve">
+    <value>Datos no encontrados.</value>
+    <comment>Data not found.</comment>
+  </data>
+  <data name="msgNoFilterSelected" xml:space="preserve">
+    <value>Nota: No hay un filtro seleccionado, descargarás todos tus datos contenidos en la caja de fósforos</value>
+    <comment>Note : There is no filter selected , you will be downloading all your data contained within matchbook</comment>
+  </data>
+  <data name="msgNoRecordFound" xml:space="preserve">
+    <value>No se han encontrado datos.</value>
+    <comment>Data not found.</comment>
+  </data>
+  <data name="msgNoRecordsAffected" xml:space="preserve">
+    <value>El total de registros 0 se ve afectado, ¿está seguro de que desea continuar?</value>
+    <comment>Total 0 records are affected, are you sure you want to continue ?</comment>
+  </data>
+  <data name="msgNoRecordsFound" xml:space="preserve">
+    <value>No se encontraron registros</value>
+    <comment>No record(s) found</comment>
+  </data>
+  <data name="msgOutputFormat" xml:space="preserve">
+    <value>Formato de salida</value>
+    <comment>Output Format</comment>
+  </data>
+  <data name="msgSelectedOutput" xml:space="preserve">
+    <value>Salida seleccionada</value>
+    <comment>Selected Output</comment>
+  </data>
+  <data name="msgSrcRecordId" xml:space="preserve">
+    <value>ID de registro de Src</value>
+    <comment>Src Record Id</comment>
+  </data>
+  <data name="msgTag" xml:space="preserve">
+    <value>Etiqueta</value>
+    <comment>Tag</comment>
+  </data>
+  <data name="msgUnFlagData" xml:space="preserve">
+    <value>Los datos no están marcados y se pueden exportar usando las opciones de exportación.</value>
+    <comment>Data are Un-Flagged and you can export using Export options.</comment>
+  </data>
+  <data name="titleCSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>CSV</comment>
+  </data>
+  <data name="titleCustomDelimiter" xml:space="preserve">
+    <value>Delimitador personalizado</value>
+    <comment>Custom Delimiter</comment>
+  </data>
+  <data name="titleDataMatch" xml:space="preserve">
+    <value>Coincidencia de datos</value>
+    <comment>Data Match</comment>
+  </data>
+  <data name="titleDownload" xml:space="preserve">
+    <value>Descargar</value>
+    <comment>Download</comment>
+  </data>
+  <data name="titleExcel" xml:space="preserve">
+    <value>Sobresalir</value>
+    <comment>Excel</comment>
+  </data>
+  <data name="titleExportData" xml:space="preserve">
+    <value>Exportar datos</value>
+    <comment>Export Data</comment>
+  </data>
+  <data name="titleTabSeparated" xml:space="preserve">
+    <value>Separador separado</value>
+    <comment>Tab Separated</comment>
+  </data>
+</root>

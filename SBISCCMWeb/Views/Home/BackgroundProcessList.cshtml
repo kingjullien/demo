@@ -1,0 +1,30 @@
+﻿@using SBISCCMWeb.LanguageResources;
+
+<div class="modal progress_background" id="BackgroundProcessListModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <span class="alignUTCTime">
+                        <strong id="currentUTCTime">@HomeLang.lblCurrentUTCTime : @DateTime.UtcNow</strong>
+                    </span>
+                </div>
+
+                <h4 class="modal-title">@HomeLang.hdrBackgroundProcessLogs</h4>
+
+            </div>
+            <div class="modal-body">
+                <div id="BackGroundProcessFilterMain">
+                    @Html.Partial("~/Views/Shared/FilterPartial.cshtml")
+                    <br />
+                    <div id="divPartialBackgroundProcess">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

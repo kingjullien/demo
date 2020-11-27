@@ -1,0 +1,54 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.LanguageResources;
+@model OISettingEntity
+@using SBISCCMWeb.Utility;
+@{
+    Layout = null;
+}
+@{ AjaxOptions OrbLicenseajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "SuccessOrbLicense"
+    };
+}
+@using (Ajax.BeginForm("IndexOILicense", "OISetting", null, OrbLicenseajaxOptions, new { @class = "frmOrbLicense m-style", id = "frmOrbLicense" }))
+{
+    @Html.AntiForgeryToken();
+
+    <div class="form-group">
+        <div class="row form-group">
+            <div class="col-md-12">
+                <label for="UserName"><strong>@OISettingLang.lbAPIKey</strong></label>
+                @Html.TextBoxFor(model => model.ORB_API_KEY, new { @class = "form-control sideTextboxes", autocomplete = "off", onfocus = "this.removeAttribute('readonly');", @readonly = true })
+                <span id="spnOrbApiKey" style="display:none;" class="error">@OISettingLang.lblAPIkeyisrequired</span>
+            </div>
+        </div>
+        @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+        {
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <input type="submit" value="@OISettingLang.lblUpdate" name="btnSubmitOrbLicense" id="btnSubmitOrbLicense" class="btn btn-primary" onclick="return CheckCredentialValidation()" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+}
+@if (ViewBag.SelectedTab == "OI Auto Acceptance")
+{
+    <script>
+        var divOrbLicense = document.getElementById("OrbLicenceTab");
+        divOrbLicense.style.display = "block";
+    </script>
+}
+else if (ViewBag.SelectedTab == "OI License")
+{
+    <script>
+        var divOrbAutoAcceptance = document.getElementById("OrbIdentityResolutionTab");
+        divOrbAutoAcceptance.style.display = "none";
+    </script>
+
+}

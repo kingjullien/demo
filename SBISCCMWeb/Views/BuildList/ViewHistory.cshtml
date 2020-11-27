@@ -1,0 +1,116 @@
+﻿@using SBISCCMWeb.LanguageResources
+@model SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.SearchListEntity
+@{
+    Layout = null;
+}
+
+@Styles.Render("~/Content/popupcss")
+
+<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable paddingtop8">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+        <header role="heading">
+            <h2>
+                <strong>@BuildAListLang.lblViewHistory</strong>
+            </h2>
+        </header>
+        <div class="col-md-12">
+
+            <div class="col-md-5">
+                <div class="col-md-12" style="padding-right:0px !important">
+                    <strong>@BuildAListLang.lblRequest</strong>
+                    <button id="CopyRequest" class="pull-right" style="margin-bottom:5px">@BuildAListLang.lblCopyJosn</button>
+                </div>
+
+                <pre style="min-height:600px;overflow:auto" class="" id="Request"></pre>
+            </div>
+            <div class="col-md-7">
+                <div class="col-md-12" style="padding-right:0px !important">
+                    <strong>@BuildAListLang.lblResponse</strong>
+                    <button id="CopyResponse" class="pull-right" style="margin-bottom:5px">@BuildAListLang.lblCopyJosn</button>
+                </div>
+                <pre style="max-height:600px;overflow:auto" class="" id="Response"></pre>
+            </div>
+        </div>
+    </div>
+</article>
+@section scripts{
+    @Scripts.Render("~/bundles/common")
+}
+<script>
+    $(function () {
+        AjaxPostWithJsonObjectCall("/BuildList/ViewHistory", JSON.stringify({ Id: window.parent.$("#hdnSearchResultsId").val() }), function (response) {
+            if (response.Success) {
+                $("#Request").text(JSON.stringify(JSON.parse(response.Object[0].RequestJson), null, '\t'));
+                $("#Response").text(JSON.stringify(JSON.parse(response.Object[0].ResponseJson), null, '\t'));
+            } else {
+            }
+        });
+    });
+
+    document.getElementById("CopyRequest").addEventListener("click", function () {
+        copyToClipboardMsg(document.getElementById("Request"));
+    });
+    document.getElementById("CopyResponse").addEventListener("click", function () {
+        copyToClipboardMsg(document.getElementById("Response"));
+    });
+
+    function copyToClipboardMsg(elem) {
+        var succeed = copyToClipboard(elem);
+        var msg;
+        if (!succeed) {
+            msg = "Copy not supported or blocked.  Press Ctrl+c to copy."
+        } else {
+            msg = "Text copied to the clipboard."
+        }
+    }
+
+    function copyToClipboard(elem) {
+        // create hidden text element, if it doesn't already exist
+        var targetId = "_hiddenCopyText_";
+        var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+        var origSelectionStart, origSelectionEnd;
+        if (isInput) {
+            // can just use the original source element for the selection and copy
+            target = elem;
+            origSelectionStart = elem.selectionStart;
+            origSelectionEnd = elem.selectionEnd;
+        } else {
+            // must use a temporary form element for the selection and copy
+            target = document.getElementById(targetId);
+            if (!target) {
+                var target = document.createElement("textarea");
+                target.style.position = "absolute";
+                target.style.left = "-9999px";
+                target.style.top = "0";
+                target.id = targetId;
+                document.body.appendChild(target);
+            }
+            target.textContent = elem.textContent;
+        }
+        // select the content
+        var currentFocus = document.activeElement;
+        target.focus();
+        target.setSelectionRange(0, target.value.length);
+
+        // copy the selection
+        var succeed;
+        try {
+            succeed = document.execCommand("copy");
+        } catch (e) {
+            succeed = false;
+        }
+        // restore original focus
+        if (currentFocus && typeof currentFocus.focus === "function") {
+            currentFocus.focus();
+        }
+
+        if (isInput) {
+            // restore prior selection
+            elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+        } else {
+            // clear temporary content
+            target.textContent = "";
+        }
+        return succeed;
+    }
+</script>

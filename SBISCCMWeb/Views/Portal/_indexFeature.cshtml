@@ -1,0 +1,73 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+
+<article class="col-md-12 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong> @PortalSettingLang.hdrProcessSetting</strong>
+            </h2>
+        </header>
+        <div role="content" class="portal_section">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body ">
+                <div class="tab-content padding-10 border-0">
+                    <div class="row">
+                        <div class="col-md-2 col-xs-2 paddingTop-4 width200px"><strong class="@(Helper.oUser.UserRole == UserRole.GLOBAL.ToString() ? "" : "txt-color-gray")">@PortalSettingLang.lblEnableDataReset</strong></div>
+                        <div class="col-md-1">
+                            <label class="switch">
+                                <input type="checkbox" name="EnableDataReset" id="EnableDataReset" checked="@(Convert.ToBoolean(ViewBag.IsEnableDataReset))" @(Helper.oUser.UserRole == UserRole.GLOBAL.ToString() ? "" : "disabled='disabled'")>
+                                <span class="Toggleslider round @(Helper.oUser.UserRole == UserRole.GLOBAL.ToString() ? "" : "txt-color-togglesDisabled")"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    @*Settings UI to Pause Data Purging as well as Duration(MP-382)*@
+                    <div class="row">
+                        <div class="col-md-2 col-xs-2 paddingTop-4 width200px"><strong>@PortalSettingLang.lblDisablePurgeProcess</strong></div>
+                        <div class="col-md-1" style="width:70px;  flex: inherit;">
+                            <label class="switch">
+                                <input type="checkbox" name="EnablePurgeArchiveProcess" id="EnablePurgeArchivet" checked="@(Convert.ToBoolean(ViewBag.PurgeArchivetProcess))">
+                                <span class="Toggleslider round"></span>
+                            </label>
+                        </div>
+
+                        <div class="col-md-1" style="width: 70px; margin-bottom: 2px; flex: inherit;">
+                            <input type="text" name="ArchivePeriodDays" id="ArchivePeriodDays" autocomplete="off" class="form-control OnlyDigit" onkeypress="return isNumber(event)" value="@ViewBag.ArchiveRetentionPeriodDays" maxlength="3" style="width:60px;border-color: black;" />
+                        </div>
+                        <div class="col-md-7 paddingTop-4"><span> @PortalSettingLang.lblArchivePeriodDaysNote</span>  </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2 col-xs-2 paddingTop-4 width259">
+                            <strong> @PortalSettingLang.lblInactiveDays</strong>
+                        </div>
+                       
+                        <div class="col-md-1" style="width: 70px; flex: inherit; margin-left:11px">
+                            <input type="text" name="InactiveDays" id="InactiveDays" autocomplete="off" class="form-control OnlyDigit" onkeypress="return isNumber(event)" maxlength="3" style="width:60px;border-color: black;" value="@ViewBag.INACTIVITY_PERIOD_USER_LOCKOUT" />
+                        </div>
+                        <div class="col-md-7 paddingTop-4 InactiveDaysError text-danger" hidden="hidden"><span> @PortalSettingLang.lblValidInactiveDays</span>  </div>
+                    </div>
+                </div>
+                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                {
+                    if (Helper.UserType.ToLower() != "steward")
+                    {
+                        <div class="tab-content padding-10 border-0">
+                            <input type="button" class="btn btn-primary" id="UpdateFeatureSubmit" name="btnSubmit" value="@PortalSettingLang.lblUpdate">
+                        </div>
+                    }
+                }
+
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedTab == "Features")
+{
+    <script>
+        $(document).ready(function () {
+            $("#divPartialFeature").html();
+        });
+    </script>
+}

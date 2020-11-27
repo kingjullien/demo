@@ -1,0 +1,291 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model SBISCCMWeb.Models.PreviewMatchData.MatchOutPutModel
+<style>
+    .row table#tblStandardized tr:nth-child(even) {
+    }
+
+    .row table#tblStandardized tr:nth-child(odd) {
+        /*background-color: #f3f3f3;*/
+    }
+
+    .tblDnbInformation .col-md-6 {
+        padding: 0px !important;
+    }
+
+    .tblStandardized .col-md-6 {
+        padding: 0px !important;
+    }
+
+    .tblMailingInformation .col-md-6 {
+        padding: 0px !important;
+    }
+</style>
+
+
+<div role="content">
+    <div class="row" id="1" style="display:block;">
+        <article class="col-xs-10 sortable-grid ui-sortable keyword">
+            <div class="panel panel-default jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                <div class="panel-heading padding-left-0" style="padding-bottom:5px;padding-left:0px !important;">
+                    <div class="col-md-12 padding-left-0" style="padding-left:0px !important">
+                        <div class="col-md-8">
+                            <h3 class="panel-title" style="margin-bottom:9px; margin-top:0 !important">
+                                <strong>@Model.DnBOrganizationName</strong>
+                                @if (!string.IsNullOrEmpty(Model.DnBTradeStyleName))
+                                {
+                                    <i><span> (@PreviewMatchedDataLang.lblTradeStyle : </span>@Model.DnBTradeStyleName<span>)</span></i>
+                                }
+                            </h3>
+                        </div>
+                        <div class="col-md-4 pull-right" style="text-align:right">
+                            <span style="font-size:medium;"><strong>@PreviewMatchedDataLang.lblMatched <img class="matchIcon" style="width:18px!important" src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/check_yes.png"))"></strong></span>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-md-12 padding-left-0" style="padding-left:0px !important">
+                        @if (!string.IsNullOrEmpty(Model.DnBSeniorPrincipalName))
+                        {
+                            <div class="col-md-12">
+                                @PreviewMatchedDataLang.lblSeniorPrincipalName : @Model.DnBSeniorPrincipalName
+                            </div>
+                        }
+                    </div>
+                    <div class="clearfix"> </div>
+                    <div class="col-md-12 padding-left-0" style="padding-left:0px !important">
+                        @if (!string.IsNullOrEmpty(Model.DnBDUNSNumber))
+                        {
+                            <div class="col-md-12">
+                                @PreviewMatchedDataLang.lblDUNSNumber : @Model.DnBDUNSNumber
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.DnBFamilyTreeMemberRole))
+                        {
+                            <div class="col-md-12">
+                                @PreviewMatchedDataLang.lblRole : @Model.DnBFamilyTreeMemberRole
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.DnBStandaloneOrganization))
+                        {
+                            <div class="col-md-12">
+                                @{
+                                    <text> @PreviewMatchedDataLang.lblStandaloneOrganization :</text>
+                                    if (Model.DnBStandaloneOrganization == "0")
+                                    {
+                                        <text>@PreviewMatchedDataLang.lblFalse</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@PreviewMatchedDataLang.lblTrue</text>
+                                    }
+                                }
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.DnBOperatingStatus))
+                        {
+                            <div class="col-md-12">
+                                @PreviewMatchedDataLang.lblStatus : @Model.DnBOperatingStatus
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.DnBConfidenceCode))
+                        {
+                            <div class="col-md-12">
+                                @PreviewMatchedDataLang.lblConfidenceCode : @Model.DnBConfidenceCode
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.DnBMatchGradeText))
+                        {
+                            <div class="col-md-12">
+                                @PreviewMatchedDataLang.lblMatchGrade : @Model.DnBMatchGradeText
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(Model.DnBMatchDataProfileText))
+                        {
+                            <div class="col-md-12">
+                                @PreviewMatchedDataLang.lblMDP : @Model.DnBMatchDataProfileText
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Model.DnBMarketabilityIndicator))
+                        {
+                            <div class="col-md-12">
+                                @{
+                                    if (Model.DnBMarketabilityIndicator == "1")
+                                    {
+                                        <strong>@PreviewMatchedDataLang.lblMarketable</strong>
+                                    }
+                                    else
+                                    {
+                                        <strong>@PreviewMatchedDataLang.lblNonMarketable</strong>
+                                    }
+                                }
+                            </div>
+                        }
+                    </div>
+                    <div class="clearfix" style="padding-bottom:11px"></div>
+                        <article class="col-xs-4 sortable-grid ui-sortable keyword">
+                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                                <header role="heading">
+                                    <h2>
+                                        <strong>@PreviewMatchedDataLang.hdrStandardizedInformation</strong>
+                                    </h2>
+                                </header>
+                                <div style="padding:5px">
+                                    @if (!string.IsNullOrEmpty(Model.StandardizedOrganizationName))
+                                    {
+                                        <div class="col-12">
+                                            @Model.StandardizedOrganizationName
+                                        </div>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.StandardizedAddressLine))
+                                    {
+                                        @Model.StandardizedAddressLine<text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.StandardizedPrimaryTownName))
+                                    {
+                                        @Model.StandardizedPrimaryTownName<text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.StandardizedTerritoryName))
+                                    {
+                                        @Model.StandardizedTerritoryName<text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.StandardizedPostalCode))
+                                    {
+                                        @Model.StandardizedPostalCode<text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.StandardizedCountryName))
+                                    {
+                                        @Model.StandardizedCountryName
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.StandardizedAddressTypeValue))
+                                    {
+                                        <div class="col-12">
+                                            <strong>@PreviewMatchedDataLang.lblAddressType:</strong>
+                                            @Model.StandardizedAddressTypeValue
+                                        </div>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.StandardizedDeliveryPointValidationStatusValue))
+                                    {
+                                        <div class="col-12">
+                                            <strong>@PreviewMatchedDataLang.lblDeliveryValidationStatus:</strong>
+                                            @Model.StandardizedDeliveryPointValidationStatusValue
+                                        </div>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.StandardizedDeliveryPointValidationCMRAValue))
+                                    {
+                                        <div class="col-12">
+                                            <strong>@PreviewMatchedDataLang.lblDeliveryValidationCMRA:</strong>
+                                            @Model.StandardizedDeliveryPointValidationCMRAValue
+                                        </div>
+                                    }
+                                    @{
+                                        <div class="col-12">
+                                            <strong>InexactAddressIndicator:</strong>
+                                            @if (Model.StandardizedInexactAddressIndicator == "0")
+                                            {
+                                                <text>@PreviewMatchedDataLang.lblFalse</text>
+                                            }
+                                            else
+                                            {
+                                                <text>@PreviewMatchedDataLang.lblTrue</text>
+                                            }
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                        </article>
+                        <article class="col-xs-4 sortable-grid ui-sortable keyword">
+                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                                <header role="heading">
+                                    <h2>
+                                        <strong> @PreviewMatchedDataLang.hdrPrimaryAddress</strong>
+                                    </h2>
+                                </header>
+                                <div style="padding:5px">
+                                    @if (!string.IsNullOrEmpty(Model.DnBStreetAddressLine))
+                                    {
+                                        @Model.DnBStreetAddressLine <text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.DnBPrimaryTownName))
+                                    {
+                                        @Model.DnBPrimaryTownName <text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.DnBTerritoryAbbreviatedName))
+                                    {
+                                        @Model.DnBTerritoryAbbreviatedName <text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.DnBPostalCode))
+                                    {
+                                        @Model.DnBPostalCode <text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.DnBCountryISOAlpha2Code))
+                                    {
+                                        @Model.DnBCountryISOAlpha2Code
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.DnBAddressUndeliverable) && Model.DnBAddressUndeliverable == "0")
+                                    {
+                                        <img class="matchIcon" src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/mb_slash.png"))">
+                                    }
+                                    <div class="clearfix"></div>
+                                    @if (!string.IsNullOrEmpty(Model.DnBTelephoneNumber))
+                                    {
+                                        <div class="col-12">
+                                            <strong>@PreviewMatchedDataLang.lblTelephoneNumber:</strong>
+                                            @Model.DnBTelephoneNumber
+                                            @if (!string.IsNullOrEmpty(Model.DnBTelephoneNumberUnreachableIndicator) && Model.DnBTelephoneNumberUnreachableIndicator == "0")
+                                            {
+                                                <img class="matchIcon" style="width:11px!important;margin-top:-3px!important" src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/phone-Unreachable.png"))">
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                                <header role="heading">
+                                    <h2>
+                                        <strong>@PreviewMatchedDataLang.hdrMailingAddress</strong>
+                                    </h2>
+                                </header>
+                                <div style="padding:5px">
+                                    @if (!string.IsNullOrEmpty(Model.DnBMailingStreetAddressLine))
+                                    {
+                                        @Model.DnBMailingStreetAddressLine <text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.DnBMailingPrimaryTownName))
+                                    {
+                                        @Model.DnBMailingPrimaryTownName <text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.DnBMailingTerritoryAbbreviatedName))
+                                    {
+                                        @Model.DnBMailingTerritoryAbbreviatedName <text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.DnBMailingPostalCode))
+                                    {
+                                        @Model.DnBMailingPostalCode<text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.DnBMailingCountryISOAlpha2Code))
+                                    {
+                                        @Model.DnBMailingCountryISOAlpha2Code
+                                    }
+                                    @if (!string.IsNullOrEmpty(Model.DnBMailingAddressUndeliverable) && Model.DnBMailingAddressUndeliverable == "0")
+                                    {
+                                        <img class="matchIcon" src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/mb_slash.png"))">
+                                    }
+                                </div>
+                            </div>
+                        </article>
+                    
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+
+
+

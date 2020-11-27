@@ -1,0 +1,704 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrCompanyDetailSearch" xml:space="preserve">
+    <value>公司详细信息搜索</value>
+    <comment>Company Detail Search</comment>
+  </data>
+  <data name="hdrKeywordDUNSTelephoneDomainSearch" xml:space="preserve">
+    <value>关键词/DUNS/电话/域名搜索</value>
+    <comment>Keyword / DUNS / Telephone / Domain Search</comment>
+  </data>
+  <data name="hdrRegistrationDetail" xml:space="preserve">
+    <value>報名詳情</value>
+    <comment>Registration Detail</comment>
+  </data>
+  <data name="hdrusSicV4Detail" xml:space="preserve">
+    <value>usSicV4 详细信息</value>
+    <comment>usSicV4 Detail</comment>
+  </data>
+  <data name="lblAction" xml:space="preserve">
+    <value>操作</value>
+    <comment>Action</comment>
+  </data>
+  <data name="lblAdd" xml:space="preserve">
+    <value>加</value>
+    <comment>Add</comment>
+  </data>
+  <data name="lblAddress" xml:space="preserve">
+    <value>地址</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAddressInfo" xml:space="preserve">
+    <value>地址信息</value>
+    <comment>Address Info</comment>
+  </data>
+  <data name="lblAddressRequired" xml:space="preserve">
+    <value>必填地址至少应包含 3 个字符</value>
+    <comment>Address required atleast three characters</comment>
+  </data>
+  <data name="lblBulidAListsearchReqire" xml:space="preserve">
+    <value>这表示独立参数；请求中必须至少包含一个独立参数。</value>
+    <comment>This indicates standalone parameter; at least one standalone parameter must be included in the request.</comment>
+  </data>
+  <data name="lblBusinessEntity" xml:space="preserve">
+    <value>企业实体</value>
+    <comment>Business Entity</comment>
+  </data>
+  <data name="lblCircleRadius" xml:space="preserve">
+    <value>指定要考慮的單位的圓半徑以及用於定位實體的緯度和經度。</value>
+    <comment>The circle radius in the units specified to be considered along with the latitude and longitude to locate entities.</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>市/县</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCityOrTownship" xml:space="preserve">
+    <value>這標識了實體所在的城市，城鎮，鄉鎮，村莊，自治市鎮等。</value>
+    <comment>This identifies the city, town, township, village, borough, etc. where the entity is located.</comment>
+  </data>
+  <data name="lblClear" xml:space="preserve">
+    <value>明確</value>
+    <comment>Clear</comment>
+  </data>
+  <data name="lblCode" xml:space="preserve">
+    <value>代表檢查請求值的範圍的代碼。</value>
+    <comment>A code that represents the scope the requested values are checked against.</comment>
+  </data>
+  <data name="lblCompanyDetails" xml:space="preserve">
+    <value>公司详细信息</value>
+    <comment>Company Details</comment>
+  </data>
+  <data name="lblCompanyInfo" xml:space="preserve">
+    <value>公司信息</value>
+    <comment>Company Info</comment>
+  </data>
+  <data name="lblCompanyName" xml:space="preserve">
+    <value>公司名称</value>
+    <comment>Company Name</comment>
+  </data>
+  <data name="lblCompName" xml:space="preserve">
+    <value>公司名稱用於通過名稱查找實體。</value>
+    <comment>Company Name used to find entities by the name.</comment>
+  </data>
+  <data name="lblConsolidated" xml:space="preserve">
+    <value>合并</value>
+    <comment>Consolidated</comment>
+  </data>
+  <data name="lblCopyJosn" xml:space="preserve">
+    <value>复制 Josn</value>
+    <comment>Copy Josn</comment>
+  </data>
+  <data name="lblCorporateLinkage" xml:space="preserve">
+    <value>企业联系</value>
+    <comment>Corporate Linkage</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>国家/地区</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCountryCode" xml:space="preserve">
+    <value>由國際標準化組織（ISO）ISO 3166-1計劃定義的2個字母的國家/地區代碼，用於標識實體的國家/地區。</value>
+    <comment>The 2-letter country code, defined by the International Organization for Standardization (ISO) ISO 3166-1 scheme identifying the country of the entity.</comment>
+  </data>
+  <data name="lblCurrency" xml:space="preserve">
+    <value>货币</value>
+    <comment>Currency</comment>
+  </data>
+  <data name="lblDelete" xml:space="preserve">
+    <value>删除</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="lblDescription" xml:space="preserve">
+    <value>描述</value>
+    <comment>Description</comment>
+  </data>
+  <data name="lblDnbCode" xml:space="preserve">
+    <value>Dnb代碼</value>
+    <comment>DnbCode</comment>
+  </data>
+  <data name="lblDomain" xml:space="preserve">
+    <value>域名</value>
+    <comment>Domain</comment>
+  </data>
+  <data name="lblDomainNames" xml:space="preserve">
+    <value>4至216個字符，用於通過域名查找實體</value>
+    <comment>4 to 216 characters used to find entities by their domain names</comment>
+  </data>
+  <data name="lblDomainRequire" xml:space="preserve">
+    <value>必填域名至少应包含 4 个字符</value>
+    <comment>Domain required atleast four characters</comment>
+  </data>
+  <data name="lblDUNS" xml:space="preserve">
+    <value>DUNS</value>
+    <comment>DUNS</comment>
+  </data>
+  <data name="lblDunsNo" xml:space="preserve">
+    <value>通過D＆B分配的D-U-N-S號標識實體的數字字符串。</value>
+    <comment>Numeric string identifying the entity by its D&amp;B assigned D-U-N-S number.</comment>
+  </data>
+  <data name="lblDUNSNumber" xml:space="preserve">
+    <value>DUNS 编号</value>
+    <comment>DUNS Number</comment>
+  </data>
+  <data name="lblEdit" xml:space="preserve">
+    <value>编辑</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="lblEmployeeInfo" xml:space="preserve">
+    <value>员工信息</value>
+    <comment>Employee Info</comment>
+  </data>
+  <data name="lblEmployeeInformationScope" xml:space="preserve">
+    <value>员工信息范围</value>
+    <comment>Employee Information Scope</comment>
+  </data>
+  <data name="lblEmployeeRequire" xml:space="preserve">
+    <value>请输入最少员工人数或最多员工人数</value>
+    <comment>Please enter Min or Max Employee</comment>
+  </data>
+  <data name="lblExcludeDisconnectedTelephone" xml:space="preserve">
+    <value>无法接通的电话除外</value>
+    <comment>Exclude Disconnected Telephone</comment>
+  </data>
+  <data name="lblExcludeMailUndeliverable" xml:space="preserve">
+    <value>无法投递的邮件除外</value>
+    <comment>Exclude Mail Undeliverable</comment>
+  </data>
+  <data name="lblExcludeNonMarketable" xml:space="preserve">
+    <value>无法营销除外</value>
+    <comment>Exclude Non-Marketable</comment>
+  </data>
+  <data name="lblExcludeOutOfBusiness" xml:space="preserve">
+    <value>停止营业除外</value>
+    <comment>Exclude Out Of Business</comment>
+  </data>
+  <data name="lblExclusionFilters" xml:space="preserve">
+    <value>排除筛选条件</value>
+    <comment>Exclusion Filters</comment>
+  </data>
+  <data name="lblExportToExcel" xml:space="preserve">
+    <value>導出到電子表格</value>
+    <comment>Export to Excel</comment>
+  </data>
+  <data name="lblFamilytreeRoleCode" xml:space="preserve">
+    <value>FamilytreeRole Code</value>
+    <comment>FamilytreeRole Code</comment>
+  </data>
+  <data name="lblFamilytreeRoleDescription" xml:space="preserve">
+    <value>FamilytreeRole Description</value>
+    <comment>FamilytreeRole Description</comment>
+  </data>
+  <data name="lblFeet" xml:space="preserve">
+    <value>脚</value>
+    <comment>Feet</comment>
+  </data>
+  <data name="lblFinancialInfo" xml:space="preserve">
+    <value>财务信息</value>
+    <comment>Financial Info</comment>
+  </data>
+  <data name="lblFinancialLinkageInfo" xml:space="preserve">
+    <value>财务/联系信息</value>
+    <comment>Financial/Linkage Info</comment>
+  </data>
+  <data name="lblGlobalUltimateFamilyTreeMembersCount" xml:space="preserve">
+    <value>全球終極家譜會員人數</value>
+    <comment>GlobalUltimateFamilyTreeMembersCount</comment>
+  </data>
+  <data name="lblIndividual" xml:space="preserve">
+    <value>个人</value>
+    <comment>Individual</comment>
+  </data>
+  <data name="lblInformationScopeDescription" xml:space="preserve">
+    <value>信息範圍說明</value>
+    <comment>InformationScopeDescription</comment>
+  </data>
+  <data name="lblInformationScopeDnBCode" xml:space="preserve">
+    <value>信息範圍DnB代碼</value>
+    <comment>InformationScopeDnBCode</comment>
+  </data>
+  <data name="lblIsBranch" xml:space="preserve">
+    <value>IsBranch</value>
+    <comment>IsBranch</comment>
+  </data>
+  <data name="lblKilometers" xml:space="preserve">
+    <value>公里数</value>
+    <comment>Kilometers</comment>
+  </data>
+  <data name="lblLatitude" xml:space="preserve">
+    <value>纬度</value>
+    <comment>Latitude</comment>
+  </data>
+  <data name="lblLatitudeRequire" xml:space="preserve">
+    <value>请输入纬度</value>
+    <comment>Please enter latitude</comment>
+  </data>
+  <data name="lblLatitudes" xml:space="preserve">
+    <value>用作半徑搜索中心的緯度。</value>
+    <comment>The latitude to be used as the center of the radius search.</comment>
+  </data>
+  <data name="lblLinkageInfo" xml:space="preserve">
+    <value>联系信息</value>
+    <comment>Linkage Info</comment>
+  </data>
+  <data name="lblLocalArea" xml:space="preserve">
+    <value>這標識了形成一個中央管理國家的一部分的局部管理區域的名稱，以標識該地址所在的位置。</value>
+    <comment>This identifies the name of the locally governed area that forms part of a centrally governed nation to identify where the address is located.</comment>
+  </data>
+  <data name="lblLocationRadius" xml:space="preserve">
+    <value>位置半径</value>
+    <comment>Location Radius</comment>
+  </data>
+  <data name="lblLongitude" xml:space="preserve">
+    <value>经度</value>
+    <comment>Longitude</comment>
+  </data>
+  <data name="lblLongitudeRequire" xml:space="preserve">
+    <value>请输入经度</value>
+    <comment>Please enter longitude</comment>
+  </data>
+  <data name="lblLongitudes" xml:space="preserve">
+    <value>用作半徑搜索中心的經度。</value>
+    <comment>The longitude to be used as the center of the radius search.</comment>
+  </data>
+  <data name="lblMaxEmployee" xml:space="preserve">
+    <value>最多员工人数</value>
+    <comment>Max# Employee</comment>
+  </data>
+  <data name="lblMaxEmployees" xml:space="preserve">
+    <value>一個實體可以擁有並包含在搜索結果中的最大僱員數。有效值：1至999999</value>
+    <comment>The maximum number of employees an entity can have and be included in the search results. Valid value : 1 to 999999</comment>
+  </data>
+  <data name="lblMaxFamilyTree" xml:space="preserve">
+    <value>一個實體可以擁有並包含在搜索結果中的最大家族樹成員。</value>
+    <comment>The maximum family tree members an entity can have and be included in the search results.</comment>
+  </data>
+  <data name="lblMaximumFamilyTreeMember" xml:space="preserve">
+    <value>最多家庭树成员</value>
+    <comment>Maximum Family Tree Member</comment>
+  </data>
+  <data name="lblMaxYearlyRevenue" xml:space="preserve">
+    <value>用來限制搜索的最大年度收入（從客戶銷售公司商品和/或服務中獲得的收入的貨幣價值）。</value>
+    <comment>The maximum amount of yearly revenue (the monetary value of income received from customers from the sale of the business' goods and/or services) used to limit the search.</comment>
+  </data>
+  <data name="lblMeters" xml:space="preserve">
+    <value>仪表</value>
+    <comment>Meters</comment>
+  </data>
+  <data name="lblMiles" xml:space="preserve">
+    <value>迈尔斯</value>
+    <comment>Miles</comment>
+  </data>
+  <data name="lblMinEmployee" xml:space="preserve">
+    <value>最少员工人数</value>
+    <comment>Min# Employee</comment>
+  </data>
+  <data name="lblMinEmployees" xml:space="preserve">
+    <value>實體可以擁有並包含在搜索結果中的最小僱員數。有效值：1至999999</value>
+    <comment>The minimum number of employees an entity can have and be included in the search results. Valid value : 1 to 999999</comment>
+  </data>
+  <data name="lblMinFamilyTree" xml:space="preserve">
+    <value>一個實體可以擁有並包含在搜索結果中的最小家族樹成員。</value>
+    <comment>The minimum family tree members an entity can have and be included in the search results.</comment>
+  </data>
+  <data name="lblMinimumFamilyTreeMember" xml:space="preserve">
+    <value>最少家庭树成员</value>
+    <comment>Minimum Family Tree Member</comment>
+  </data>
+  <data name="lblMinMaxEmployee" xml:space="preserve">
+    <value>字段的值必须在 1 到 999999 之间。</value>
+    <comment>The field must be in range 1 to 999999.</comment>
+  </data>
+  <data name="lblMinMaxFamilyTree" xml:space="preserve">
+    <value>字段的值必须在 1 到 999999 之间。</value>
+    <comment>The field must be in range 1 to 999999.</comment>
+  </data>
+  <data name="lblMinMaxRevenue" xml:space="preserve">
+    <value>字段的值必须在 1 到 100000000000000 之间。</value>
+    <comment>The field must be in range 1 to 100000000000000.</comment>
+  </data>
+  <data name="lblMinYearlyRevenue" xml:space="preserve">
+    <value>用於限制搜索的最低年收入金額（從客戶銷售公司商品和/或服務中獲得的收入的貨幣價值）。</value>
+    <comment>The minimum amount of yearly revenue (the monetary value of income received from customers from the sale of the business' goods and/or services) used to limit the search.</comment>
+  </data>
+  <data name="lblName" xml:space="preserve">
+    <value>名称</value>
+    <comment>Name</comment>
+  </data>
+  <data name="lblNodataareavailable" xml:space="preserve">
+    <value>无可用数据</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNoOfRecordRequire" xml:space="preserve">
+    <value>请选择记录量</value>
+    <comment>Please select no of record</comment>
+  </data>
+  <data name="lblNoOfRecords" xml:space="preserve">
+    <value>记录量</value>
+    <comment>No of records</comment>
+  </data>
+  <data name="lblNumericCoding" xml:space="preserve">
+    <value>由美國政府開發的1987年版4位數字編碼系統，用於對工業活動進行分類，以表示該業務實體從事其大部分業務的行業。</value>
+    <comment>The 1987 version of a 4-digit numeric coding system developed by the US Government for the classification of industrial activities to denote the industry in which the business entity does most of it's business.</comment>
+  </data>
+  <data name="lblOtherInfo" xml:space="preserve">
+    <value>其他信息</value>
+    <comment>Other Info</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>页面大小</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblPhoneNo" xml:space="preserve">
+    <value>电话号码</value>
+    <comment>Phone No</comment>
+  </data>
+  <data name="lblPOBox" xml:space="preserve">
+    <value>邮政信箱</value>
+    <comment>PO Box</comment>
+  </data>
+  <data name="lblPopupContent" xml:space="preserve">
+    <value>弹出内容</value>
+    <comment>Popup content</comment>
+  </data>
+  <data name="lblPostalCode" xml:space="preserve">
+    <value>邮编</value>
+    <comment>Postal Code</comment>
+  </data>
+  <data name="lblPostalCode1" xml:space="preserve">
+    <value>這是實體的郵政編碼（當地國家/地區的郵政當局使用的標識符，用於標識地址所在的位置）。</value>
+    <comment>This is entity's postal code (an identifier used by the local country's postal authority to identify where the address is located).</comment>
+  </data>
+  <data name="lblPrimaryAddress" xml:space="preserve">
+    <value>主地址</value>
+    <comment>Primary Address</comment>
+  </data>
+  <data name="lblPrimaryIndustryCodes" xml:space="preserve">
+    <value>主行业代码</value>
+    <comment>Primary Industry Codes</comment>
+  </data>
+  <data name="lblPriority" xml:space="preserve">
+    <value>优先级</value>
+    <comment>Priority</comment>
+  </data>
+  <data name="lblRadius" xml:space="preserve">
+    <value>半径</value>
+    <comment>Radius</comment>
+  </data>
+  <data name="lblRadiusRequire" xml:space="preserve">
+    <value>请输入半径</value>
+    <comment>Please enter radius</comment>
+  </data>
+  <data name="lblRegisteredAddress" xml:space="preserve">
+    <value>注册地址</value>
+    <comment>Registered Address</comment>
+  </data>
+  <data name="lblRegistrationInfo" xml:space="preserve">
+    <value>注册信息</value>
+    <comment>Registration Info</comment>
+  </data>
+  <data name="lblRegistrationNo" xml:space="preserve">
+    <value>注册编号</value>
+    <comment>Registration No</comment>
+  </data>
+  <data name="lblRegistrationNumber" xml:space="preserve">
+    <value>注册编号</value>
+    <comment>Registration Number</comment>
+  </data>
+  <data name="lblReliabilityDescription" xml:space="preserve">
+    <value>可靠性描述</value>
+    <comment>ReliabilityDescription</comment>
+  </data>
+  <data name="lblReliabilityDnBCode" xml:space="preserve">
+    <value>可靠性DnBCode</value>
+    <comment>ReliabilityDnBCode</comment>
+  </data>
+  <data name="lblRequest" xml:space="preserve">
+    <value>请求</value>
+    <comment>Request</comment>
+  </data>
+  <data name="lblRequestedDate" xml:space="preserve">
+    <value>请求日期</value>
+    <comment>Requested Date</comment>
+  </data>
+  <data name="lblResponse" xml:space="preserve">
+    <value>回复</value>
+    <comment>Response</comment>
+  </data>
+  <data name="lblSearch" xml:space="preserve">
+    <value>搜索</value>
+    <comment>Search</comment>
+  </data>
+  <data name="lblSearchRequire" xml:space="preserve">
+    <value>必填文本至少包含 2 个字符</value>
+    <comment>text required atleast two characters</comment>
+  </data>
+  <data name="lblSearchResults" xml:space="preserve">
+    <value>搜索结果</value>
+    <comment>Search Results</comment>
+  </data>
+  <data name="lblSearchTerm" xml:space="preserve">
+    <value>搜索术语</value>
+    <comment>Search Term</comment>
+  </data>
+  <data name="lblSearchTerms" xml:space="preserve">
+    <value>用於通過實體的主要名稱或貿易樣式名稱查找實體的搜索文本。</value>
+    <comment>Search text used to find entities by their primary or tradestyle names.</comment>
+  </data>
+  <data name="lblSearchText" xml:space="preserve">
+    <value>搜索文本</value>
+    <comment>Search Text</comment>
+  </data>
+  <data name="lblSelect" xml:space="preserve">
+    <value>选择</value>
+    <comment>Select</comment>
+  </data>
+  <data name="lblSelectDropdown" xml:space="preserve">
+    <value>- 选择 -</value>
+    <comment>--Select--</comment>
+  </data>
+  <data name="lblSomeText" xml:space="preserve">
+    <value>此处有若干文本……</value>
+    <comment>Some text here..</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>州</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblStockExchange" xml:space="preserve">
+    <value>1到6個字符，用於標識實體在主要證券交易所進行股票交易的目的，該實體在該交易所進行大部分交易。</value>
+    <comment>1 to 6 characters that identifies the entity for share trading purposes at the primary Stock Exchange where the business entity does most of the trading.</comment>
+  </data>
+  <data name="lblStreetAddress" xml:space="preserve">
+    <value>實體街道地址的第一行。</value>
+    <comment>First line of the entity's street address.</comment>
+  </data>
+  <data name="lblTelephoneNumber" xml:space="preserve">
+    <value>电话号码</value>
+    <comment>Telephone Number</comment>
+  </data>
+  <data name="lblTelephoneRequire" xml:space="preserve">
+    <value>必填电话号码至少应包含 5 个字符</value>
+    <comment>Telephone Number required atleast five characters</comment>
+  </data>
+  <data name="lblTelNo" xml:space="preserve">
+    <value>與實體進行語音通信的電話號碼的5到20個字符。</value>
+    <comment>5 to 20 characters of the telephone number used for voice communication with the entity.</comment>
+  </data>
+  <data name="lblTickerSymbol" xml:space="preserve">
+    <value>工单符号</value>
+    <comment>Ticker Symbol</comment>
+  </data>
+  <data name="lblTradestyle" xml:space="preserve">
+    <value>2至30個字符，用於通過其商品樣式名稱之一查找實體。</value>
+    <comment>2 to 30 characters used to find entities by one of its tradestyle names.</comment>
+  </data>
+  <data name="lblTradestyleName" xml:space="preserve">
+    <value>Tradestyle Name</value>
+    <comment>Tradestyle Name</comment>
+  </data>
+  <data name="lblTradestyleNameRequire" xml:space="preserve">
+    <value>必填交易类型至少应包含 2 个字符</value>
+    <comment>Trade Style required atleast two characters</comment>
+  </data>
+  <data name="lblTradeStyleNames" xml:space="preserve">
+    <value>交易类型名称</value>
+    <comment>Trade Style Names</comment>
+  </data>
+  <data name="lblUniqueNo" xml:space="preserve">
+    <value>由外部機構或D＆B分配的編號，它唯一地標識或幫助標識組織。</value>
+    <comment>The number assigned by an external body or by D&amp;B that either uniquely identifies or helps to identify an organization.</comment>
+  </data>
+  <data name="lblUnit" xml:space="preserve">
+    <value>单位</value>
+    <comment>Unit</comment>
+  </data>
+  <data name="lblUnitOfMeasure" xml:space="preserve">
+    <value>指定半徑的度量單位。</value>
+    <comment>The unit of measure for the specified radius.</comment>
+  </data>
+  <data name="lblUnitRequire" xml:space="preserve">
+    <value>请输入单位</value>
+    <comment>Please enter unit</comment>
+  </data>
+  <data name="lblusSicV4" xml:space="preserve">
+    <value>usSicV4</value>
+    <comment>usSicV4</comment>
+  </data>
+  <data name="lblusSicV4Description" xml:space="preserve">
+    <value>usSicV4說明</value>
+    <comment>usSicV4Description</comment>
+  </data>
+  <data name="lblValue" xml:space="preserve">
+    <value>值</value>
+    <comment>Value</comment>
+  </data>
+  <data name="lblViewHistory" xml:space="preserve">
+    <value>查看历史</value>
+    <comment>View History</comment>
+  </data>
+  <data name="lblYards" xml:space="preserve">
+    <value>码</value>
+    <comment>Yards</comment>
+  </data>
+  <data name="lblYearlyMaximumRevenue" xml:space="preserve">
+    <value>最高年收入</value>
+    <comment>Yearly Maximum Revenue</comment>
+  </data>
+  <data name="lblYearlyMinimumRevenue" xml:space="preserve">
+    <value>最低年收入</value>
+    <comment>Yearly Minimum Revenue</comment>
+  </data>
+  <data name="msgAllowOnlyNumbers" xml:space="preserve">
+    <value>僅接受數值。</value>
+    <comment>Only numeric values accepted.</comment>
+  </data>
+  <data name="msgDelete" xml:space="preserve">
+    <value>删除</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="msgEdit" xml:space="preserve">
+    <value>编辑</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="msgNoDataAreAvailable" xml:space="preserve">
+    <value>无可用数据</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="msgNoDataFound" xml:space="preserve">
+    <value>沒有找到數據。</value>
+    <comment>No data found.</comment>
+  </data>
+  <data name="msgStandaloneParameter1" xml:space="preserve">
+    <value>至少一个独立参数</value>
+    <comment>At least one standalone parameter</comment>
+  </data>
+  <data name="msgStandaloneParameter2" xml:space="preserve">
+    <value>（搜索词，DUN，TradeStyle名称，股票代码，电话号码，域，地址，公司名称，位置半径，usSicV4，注册号）</value>
+    <comment>(Search term, DUNs, TradeStyle Name, Ticker Symbol, Telephone Number, Domain, Address, Company Name, Location Radius,usSicV4,registration no)</comment>
+  </data>
+  <data name="msgStandaloneParameter3" xml:space="preserve">
+    <value>需要提交请求。</value>
+    <comment>required to submit request.</comment>
+  </data>
+  <data name="titleBuildList" xml:space="preserve">
+    <value>建立清單</value>
+    <comment>Build List</comment>
+  </data>
+</root>

@@ -1,0 +1,37 @@
+﻿@using SBISCCMWeb.LanguageResources;
+<div class="row">
+    <div class="FilterContainer">
+        <div class="filtergroup filter0" id="filter0" filter-id="0" data-default="false">
+            @Html.Hidden("FilterDataurl", "")
+            @Html.Hidden("updateTargetId", "")
+            @Html.Hidden("DataTableId", "")
+            @Html.Hidden("AvailOperators","")
+            <div id="divfilterControls0" class="filterControls">
+                <div class="custom-dropdown-filter">
+                    <select name="filterColumn0" id="filterColumn0" class="filterColumn"></select>
+                </div>
+                <div class="custom-dropdown-filter">
+                    <select name="filterOperator0" id="filterOperator0" class="filterOprator">
+                        <option value="equalto">==</option>
+                        <option value="notEqualTo">!=</option>
+                        <option value="contains">Contains</option>
+                        <option value="notContains">!Contains</option>
+                    </select>
+                </div>
+                <div id="divFilterValue0">
+                </div>
+            </div>
+            <div id="divFilterInfo0" style="display:none" class="filterDetails">
+                <span id="ColumnDetail0"></span>
+                <span id="OperatorDetail0"></span>
+                <span id="ValueDetail0" data-detail="value"></span>
+                <span class="close_button"><a href="javascript:void(0);" class="removeFilter" id="0"><i class="fa fa-times-circle"></i></a></span>
+            </div>
+        </div>
+        <div class="divFilterAddButton">
+            <button class="btn btn-primary" id="btnAddFilter">@CommonMessagesLang.msgAddFilter</button>
+        </div>
+    </div>
+</div>
+
+

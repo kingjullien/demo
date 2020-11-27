@@ -1,0 +1,67 @@
+﻿@using SBISCCMWeb.Utility;
+@model IPagedList<SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.TagsEntity>
+
+@{
+    AjaxOptions ajaxOptionsForUserPaging = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialManageTags",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+    string sortorder = Convert.ToString(ViewBag.sortorder);
+    string SortBy = Convert.ToString(ViewBag.SortBy);
+}
+@Html.Hidden("ManageTagPageValue", Convert.ToInt32(TempData["Tagpagevalue"]))
+@Html.Hidden("ManageTagSortOrder", sortorder)
+@Html.Hidden("ManageTagSortBy", SortBy)
+
+<div class="table-responsive">
+    <label class="select pull-right" style="padding-right:10px;">
+        Page Size :  @Html.DropDownList("Tagspagevalue", new SelectList(SBISCCMWeb.Utility.CommonMethod.GetPageSize(), Convert.ToInt32(TempData["Tagpagevalue"])), new { id = "Tagspagevalue", @class = "TagspagevalueChange", @autocomplete = "off" })<i></i>
+    </label>
+    <table class="table table-bordered ">
+        <thead>
+            <tr>
+                <th> @Ajax.ActionLink("Tag", "indexManageTags", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptionsForUserPaging)</th>
+                <th> @Ajax.ActionLink("Description", "indexManageTags", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 2, sortorder = (ViewBag.SortBy == 2 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptionsForUserPaging)</th>
+                @if (Helper.UserType.ToLower() != "steward")
+                {
+                    <th>Delete </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Tag</td>
+                    <td>@item.TagDescription</td>
+                    @if (Helper.UserType.ToLower() != "steward")
+                    {
+                        var TagId = Utility.GetEncryptedString(Convert.ToString(item.TagId)).Replace("+", Utility.urlseparator);
+                        <td>
+                            <a href="javascript:void(0)" id="@TagId" class="deleteTag">Delete</a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="dt-toolbar-footer pull-right">
+        <div class="hidden-xs New-Paging">
+            <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                <a id="pagingFormAction" href="@Url.Action("indexManageTags", "ConfigurationData", new {  page = 1, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder })" style="display:block"></a>
+                @Html.PagedListPager(Model, page => Url.Action("indexManageTags", "ConfigurationData", new { page = page, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divPartialManageTags", LoadingElementId = "divProgress", OnSuccess = "OnSuccess()" }))
+            </div>
+        </div>
+    </div>
+</div>
+@if (Helper.UserType.ToLower() != "steward")
+{
+    <div class="row">
+        <div class="col-md-12 text-center padding-10">
+            <input type="button" value="Add" id="btnAddManageTag" name="btnAddManageTag" class="btn btn-primary" />
+        </div>
+    </div>
+}

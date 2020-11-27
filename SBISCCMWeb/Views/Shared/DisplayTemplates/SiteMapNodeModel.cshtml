@@ -1,0 +1,121 @@
+﻿@model MvcSiteMapProvider.Web.Html.Models.SiteMapNodeModel
+@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Utility
+
+@if (Model.IsCurrentNode && Model.SourceMetadata["HtmlHelper"].ToString() != "MvcSiteMapProvider.Web.Html.MenuHelper")
+{<text>@Model.Title</text>}
+else if (Model.IsClickable)
+{
+
+
+
+if (@Model.Description.ToLower() == "investigation report")
+{
+
+    if (Helper.LicenseEnableInvestigations && Helper.oUser.EnableInvestigations)
+    {
+        <a href="@(Model.Url.Contains("#") ? "#" : Model.Url)" title="@Model.Description">
+            @if (Model.Attributes.ContainsKey("icon") && Model.SourceMetadata["HtmlHelper"].ToString() == "MvcSiteMapProvider.Web.Html.MenuHelper")
+            {<i class="@Model.Attributes["icon"] "></i>} <span class="menu-item-parent">@Model.Title</span>
+        </a>
+    }
+    else
+    {
+        if (Helper.Branding == Branding.Matchbook.ToString())
+        {
+            <a href="javascript:void(0)" title="@BrandingLang.msgMBFeature" class="clsDisable">
+                @if (Model.Attributes.ContainsKey("icon") && Model.SourceMetadata["HtmlHelper"].ToString() == "MvcSiteMapProvider.Web.Html.MenuHelper")
+                {<i class="@Model.Attributes["icon"] "></i>} <span class="menu-item-parent">@Model.Title</span>
+            </a>
+        }
+        else if (Helper.Branding == Branding.DandB.ToString())
+        {
+            <a href="javascript:void(0)" title="@BrandingLang.msgDNBFeature" class="clsDisable">
+                @if (Model.Attributes.ContainsKey("icon") && Model.SourceMetadata["HtmlHelper"].ToString() == "MvcSiteMapProvider.Web.Html.MenuHelper")
+                {<i class="@Model.Attributes["icon"] "></i>} <span class="menu-item-parent">@Model.Title</span>
+            </a>
+        }
+    }
+}
+else if (@Model.Description.ToLower() == "import data")
+{
+    if (Helper.LicenseEnabledOrb || Helper.LicenseEnabledDNB)
+    {
+        <a href="@(Model.Url.Contains("#") ? "#" : Model.Url)" title="@Model.Description">
+            @if (Model.Attributes.ContainsKey("icon") && Model.SourceMetadata["HtmlHelper"].ToString() == "MvcSiteMapProvider.Web.Html.MenuHelper")
+            {<i class="@Model.Attributes["icon"] "></i>} <span class="menu-item-parent">@Model.Title</span>
+        </a>
+    }
+}
+else if (@Model.Description.ToLower() == "manage family tree (beta)")
+{
+    if (Helper.LicenseEnableFamilyTree)
+    {
+        <span title="@Model.Description">
+            @if (Model.Attributes.ContainsKey("icon") && Model.SourceMetadata["HtmlHelper"].ToString() == "MvcSiteMapProvider.Web.Html.MenuHelper")
+            {<i class="@Model.Attributes["icon"] "></i>} <span class="menu-item-parent">@Model.Title</span>
+        </span>
+    }
+}
+else if (@Model.Description.ToLower() == "orb intelligence" || @Model.Description.ToLower() == "orb intelligence data")
+{
+    if (Helper.LicenseEnabledOrb)
+    {
+        <a href="@(Model.Url.Contains("#") ? "#" : Model.Url)" title="@Model.Description">
+            @if (Model.Attributes.ContainsKey("icon") && Model.SourceMetadata["HtmlHelper"].ToString() == "MvcSiteMapProvider.Web.Html.MenuHelper")
+            {<i class="@Model.Attributes["icon"] "></i>} <span class="menu-item-parent">@Model.Title</span>
+        </a>
+    }
+}
+else if (@Model.Description.ToLower() == "d & b" || @Model.Description.ToLower() == "d & b data")
+{
+    if (Helper.LicenseEnabledDNB)
+    {
+        <a href="@(Model.Url.Contains("#") ? "#" : Model.Url)" title="@Model.Description">
+            @if (Model.Attributes.ContainsKey("icon") && Model.SourceMetadata["HtmlHelper"].ToString() == "MvcSiteMapProvider.Web.Html.MenuHelper")
+            {<i class="@Model.Attributes["icon"] "></i>} <span class="menu-item-parent">@Model.Title</span>
+        </a>
+    }
+}
+else if (Model.Description.ToLower() == "build a list")
+{
+    string APIType = CommonMethod.GetThirdPartyProperty(ThirdPartyCode.DNB_BUILD_A_LIST.ToString(), ThirdPartyProperties.APIType.ToString());
+    if (Helper.LicenseBuildAList && APIType.ToLower() == ApiLayerType.Directplus.ToString().ToLower())
+    {
+        <a href="@(Model.Url.Contains("#") ? "#" : Model.Url)" title="@Model.Description">
+            @if (Model.Attributes.ContainsKey("icon") && Model.SourceMetadata["HtmlHelper"].ToString() == "MvcSiteMapProvider.Web.Html.MenuHelper")
+            {<i class="@Model.Attributes["icon"] "></i>} <span class="menu-item-parent">@Model.Title</span>
+        </a>
+    }
+    else
+    {
+        string buildListfeatureTitle = string.Empty;
+        if (Helper.Branding == Branding.Matchbook.ToString())
+        {
+            buildListfeatureTitle = BrandingLang.msgMBFeature;
+        }
+        else if (Helper.Branding == Branding.DandB.ToString())
+        {
+            buildListfeatureTitle = BrandingLang.msgDNBFeature;
+        }
+        <a href="javascript:void(0)" title="@buildListfeatureTitle " class="clsDisable">
+            @if (Model.Attributes.ContainsKey("icon") && Model.SourceMetadata["HtmlHelper"].ToString() == "MvcSiteMapProvider.Web.Html.MenuHelper")
+            {<i class="@Model.Attributes["icon"] "></i>} <span class="menu-item-parent">@Model.Title</span>
+        </a>
+    }
+}
+else
+{
+    <span title="@Model.Description">
+        @if (Model.Attributes.ContainsKey("icon") && Model.SourceMetadata["HtmlHelper"].ToString() == "MvcSiteMapProvider.Web.Html.MenuHelper")
+        {<i class="@Model.Attributes["icon"] "></i>} <span class="menu-item-parent">@Model.Title</span>
+    </span>
+}
+}
+else
+{
+if (Model.Title.ToLower() != "home")
+{
+    <text>@Model.Title</text>
+}
+}

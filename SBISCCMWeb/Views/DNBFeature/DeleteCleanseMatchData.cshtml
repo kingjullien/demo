@@ -1,0 +1,71 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Models;
+@using SBISCCMWeb.Utility;
+@model List<DownloadCacheDataModel>
+@{
+    ViewBag.Title = DandBSettingLang.hdrDeleteCleanseMatchData;
+    string ClientCode = ViewBag.ClientCode;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "OnSuccessDeleteCleanseMatchData"
+    };
+}
+<div class="modal" id="myModalCleanseMatch">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@ViewBag.Title</h4>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="widget-body">
+                    @using (Ajax.BeginForm("DeleteCleanseMatchData", "DNBFeature", null, ajaxOptions, new { @class = "formContent", @autocomplete = "off" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            @Html.Hidden("ClientCode", ClientCode)
+                            <div class="col-xs-12">
+                                @Html.Label(DandBSettingLang.lblAPIFamily)
+                                @Html.DropDownList("APIFamily", new SelectList(CommonDropdown.GetCleanseMatchAPItype(), "Value", "Text"), new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <div class="col-xs-6">
+                                @Html.Label(DandBSettingLang.lblBeginDate)
+                                @Html.TextBox("BeginDateTime", "", new { @class = "form-control", @autocomplete = "off", @readonly = "readonly" })
+                            </div>
+                            <div class="col-xs-6">
+                                @Html.Label(DandBSettingLang.lblEndDate)
+                                @Html.TextBox("EndDateTime", "", new { @class = "form-control", @autocomplete = "off", @readonly = "readonly" })
+                            </div>
+                            <div class="col-xs-12 margin-top-10">
+                                <input type="submit" value="@DandBSettingLang.lblSubmit" class="btn btn-primary" id="btnDeleteCleanseMatch" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#BeginDateTime').datepicker({
+            prevText: '<',
+            nextText: '>'
+
+        });
+        $('#EndDateTime').datepicker({
+             prevText: '<',
+             nextText: '>'
+        });
+    });
+  
+</script>

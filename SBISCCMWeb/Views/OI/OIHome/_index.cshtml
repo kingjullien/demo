@@ -1,0 +1,183 @@
+﻿@using SBISCCMWeb.Models
+@using SBISCCMWeb.LanguageResources;
+@model OIDashboard
+@{
+    Layout = null;
+}
+<div id="content" style="opacity: 1;overflow-x:hidden; padding-left:15px; padding-right:15px">
+    <section id="widget-grid" class="">
+        <div class="row">
+            <div class="well">
+                <div class="row OIDashboard">
+                    <div class="col-md-8 col-sm-8">
+                        <div class="row">
+                            <div class="col-md-8 col-sm-8 rightborder ">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <span><strong class="fontsize-20">@OIHomeLang.lblDataQueue</strong> </span>
+                                        &nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="fontsize-20" id="btnOIActiveDataRefresh" title="@OIHomeLang.titleRefreshActiveDataQueueStatistics"><i class="fa fa-refresh"></i></a>
+                                        <div id="" class="btn-header pull-right">
+                                            <a href="javascript:void(0)" class="formContent pull-right" id="ShowOIAPIUsageTable" title="@OIHomeLang.titleActiveDataQueueDetailReport"><i class="fa fa-table fa-2x"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row paddingto5 divOIDataQueueStatistics">
+                                    <div class="col-md-2 custom-col-md-2 text-center">
+                                        <div class="text-center minhightbox">@OIHomeLang.lblInput</div>
+                                        <div class="circleText" id="TitleOIActualMatchCnt" data-toggle="tooltip" title="@Model.FormatInputRecordCount">
+                                            <div class="input-record-count">
+                                                <span class="recordtext" id="SpnOIActualMatchCnt"><a><strong> @Model.InputRecordCount</strong> </a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2 custom-col-md-2 text-center">
+                                        <div class="text-center minhightbox">@OIHomeLang.lblUnMatched</div>
+                                        <div class="circleText" id="TitleOIUnMatchedCnt" data-toggle="tooltip" title="@Model.FormatUnMatchRecordCount">
+                                            <div class="exported-record-count">
+                                                <span class="recordtext" id="SpnOIUnMatchedCnt"><a href="/OI/MatchData"><strong> @Model.UnMatchRecordCount</strong></a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 custom-col-md-2 text-center">
+                                        <div class="text-center minhightbox">@OIHomeLang.lblMatchOutput</div>
+                                        <div class="circleText" id="TitleMatchOutputCnt" data-toggle="tooltip" title="@Model.FormatMatchedOutputQueueCount">
+                                            <div class="bad-Input-count">
+                                                <span class="recordtext" id="SpnMatchOutputCnt"><a href="/OI/ExportView"><strong>@Model.MatchedOutputQueueCount</strong></a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 custom-col-md-2 text-center">
+                                        <div class="text-center minhightbox">@OIHomeLang.lblFirmographics</div>
+                                        <div class="circleText" id="TitleFirmographicsCnt" data-toggle="tooltip" title="@Model.FirmographicsExportQueueCount">
+                                            <div class="exported-record-count">
+                                                <span class="recordtext" id="SpnFirmographicsCnt"><a href="/OI/ExportView"><strong> @Model.FormatFirmographicsExportQueueCount </strong></a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 custom-col-md-2 text-center">
+                                        <div class="text-center minhightbox">@OIHomeLang.lblCompanyTree</div>
+                                        <div class="circleText" id="TitleCompanyTreeCnt" data-toggle="tooltip" title="@Model.FormatCorporateTreeExportQueueCount">
+                                            <div class="exported-record-count">
+                                                <span class="recordtext" id="SpnCompanyTreeCnt"><a href="/OI/ExportView"><strong> @Model.CorporateTreeExportQueueCount </strong></a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4 borderright">
+                                <div class="row">
+                                    <div class="text-center w-100">
+                                        <span class="fontsize-20"><strong>@OIHomeLang.lblBackgroundProcess</strong> </span>
+                                        &nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="fontsize-20" id="btnBackgroundtatisticsRefresh" title="@OIHomeLang.titleRefreshBackgroundProcessStatistics"><i class="fa fa-refresh "></i></a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 text-center">
+                                        <strong><span>@OIHomeLang.lblMatchEnrichProcess : </span><span class="spnOICleanmatch"></span></strong>
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-md-12"><div id="chtOICleanMatchBackgroundProcess"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <span>
+                                    <strong class="fontsize-20">
+                                        @OIHomeLang.lblAPIUsage
+                                        &nbsp;<a href="javascript:void(0)" class="fontsize-20" id="btnOIAPIUsagestatisticsRefresh" title="@OIHomeLang.titleRefreshDataStewardshipStatistics"><i class="fa fa-refresh "></i></a>
+                                    </strong>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="row paddingto5 mobilebox">
+                                <div class="col-md-2 text-center">
+                                </div>
+                                <div class="col-md-4 text-center">
+                                    <div class="col-md-12 text-center minhightbox">@OIHomeLang.lblCurrentMonth</div>
+                                    <div class="circleTextAPI  tooltip-change" data-toggle="tooltip" id="titleOIMonthCnt" title="@Model.MonthCount">
+                                        <div class="current-month">
+                                            <span class="recordtext" id="spnOIMonthCnt"><a>@Model.FormatMonthCount</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<div class="col-md-3 text-center">
+                                        <div class="col-md-12 text-center minhightbox">YTD</div>
+                                        <div class="circleTextAPI" data-toggle="tooltip" id="titleOIYTD" title="@Model.YTDCount">
+                                            <div class="ytd">
+                                                <span class="recordtext" id="spnOIYTD"><a>@Model.FormatYTDCount</a></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 text-center">
+                                        <div class="col-md-12 text-center minhightbox">All</div>
+                                        <div class="circleTextAPI" data-toggle="tooltip" id="titleOIAllCount" title="@Model.AllAPIUsageCount">
+                                            <div class="all">
+                                                <span class="recordtext" id="spnOIAllCount"><a> @Model.FormatAllAPIUsageCount</a></span>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                <div class="col-md-4 text-center">
+                                    <div class="col-md-12 text-center minhightbox">@OIHomeLang.lblLast24Hours</div>
+                                    <div class="circleTextAPI  tooltip-change" data-toggle="tooltip" id="titleLastOneDay" title="@Model.HourlyAPIUsageCount">
+                                        <div class="lastoneday">
+                                            <span class="recordtext" id="spnLastOneDay"><a>@Model.FormatHourlyAPIUsageCount</a></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="row">
+                                <div class="col-md-4">
+                                    <div class="col-md-12 divAPIUsages">
+                                        <div class="col-md-6 lblAPIMatch">
+                                            <label>Match</label>
+                                            <h2>
+                                                <strong>@Model.MatchMonth</strong>
+                                                <span>Month</span>
+                                            </h2>
+                                            <h2>
+                                                <strong>@Model.MatchYear</strong>
+                                                <span>YTD</span>
+                                            </h2>
+                                            <h2>
+                                                <strong>
+                                                    <strong>@Model.MatchAll</strong>
+                                                </strong>
+                                                <span>All</span>
+                                            </h2>
+                                        </div>
+                                        <div class="col-md-6 lblAPIEnrich">
+                                            <label class="">Enrich</label>
+                                            <h2>
+                                                <strong>@Model.EnrichMonth</strong>
+                                                <span>Month</span>
+                                            </h2>
+                                            <h2>
+                                                <strong>@Model.EnrichYear</strong>
+                                                <span>YTD</span>
+                                            </h2>
+                                            <h2>
+                                                <strong>@Model.EnrichAll</strong>
+                                                <span>All</span>
+                                            </h2>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div id="DivSuccessNfailures" style="height: 270px;margin-top: 10px;"></div>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+    </section>
+</div>

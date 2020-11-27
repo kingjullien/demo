@@ -1,0 +1,70 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model InpCompanyEntity
+@using SBISCCMWeb.Utility
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | Data";
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | Data";
+    }
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+}
+<style>
+    .form-control {
+        height: 25px;
+        padding:3px 6px;
+    }
+
+    .top10 {
+        top: 10px;
+    }
+
+    .bottom13 {
+        bottom: 13px !important;
+    }
+
+    .chosen-container {
+        width: 100% !important; 
+    }
+</style>
+<div class="modal" id="SingleEntryFormModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@ImportDataLang.lblSingleEntryImport</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    @Html.Hidden("UserRole", UserRoles)
+                    @Html.Hidden("UserLOBTag", UserLOBTag)
+                    <div class="SingleEntryPopup">
+                        <div class="importRadio">
+                            <strong class="dataImport">@ImportDataLang.lblCleanseMatchEnrichment</strong></span> &nbsp;&nbsp;&nbsp;
+                            <label class="Toggleswitch switch">
+                                <input type="checkbox" name="rBtnImportDataOption" class="rButtonImportData">
+                                <span class="Toggleslider round "></span>
+                            </label>&nbsp;&nbsp;&nbsp;
+                            <strong class="matchRefresh">@ImportDataLang.lblEnrichmentOnly</strong></span> &nbsp;&nbsp;&nbsp;
+                        </div>
+                        <div class="SingleEntryMain">
+                            @Html.Partial("_SingleFormEntry", Model)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<div id="AddTagsModalMain"></div>
+<script src="~/Scripts/CustomJS/SingleEntryForm.js"></script>
+

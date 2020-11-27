@@ -1,0 +1,43 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@model Tuple<MatchEntity, CompanyEntity>
+
+@{
+    var mathChEntity = Model.Item1;
+    var companyEntity = Model.Item2;
+    var innerItem = mathChEntity;
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.Matchbook) + " | Match Records Details";
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.DandB) + " | Match Records Details";
+    }
+    Layout = null;
+}
+@Scripts.Render("~/bundles/popupjs")
+@Styles.Render("~/Content/popupcss")
+<link href="~/Content/Custom.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+@*<script src="/Scripts/modernizr-2.6.2.js"></script>*@
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<link href="~/Content/Template/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Scripts/plugin/magnific/magnific-popup.css" rel="stylesheet" />
+<script src="~/Scripts/plugin/magnific/jquery.magnific-popup.min.js"></script>
+
+@Html.AntiForgeryToken()
+<div id="MatchedcontentPopup">
+    @{ Html.RenderPartial("~/Views/ApproveMatchData/_MatchDetails.cshtml", Model);}
+</div>
+<div class="loaderMain" id="divProgress">
+    <div class="loaderDiv">
+        <p class="loaderTxt">Please wait while processing...</p>
+    </div>
+</div>
+
+<script src="~/Scripts/CustomJS-minified/MatchDetailReviews.js?jh=78456"></script>
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/notification/SmartNotification.min.js"></script>
+<script src="~/Scripts/smartwidgets/jarvis.widget.min.js"></script>

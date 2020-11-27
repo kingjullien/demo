@@ -1,0 +1,425 @@
+﻿.smart-form .input-validation-error
+{
+    background: #fff0f0 !important;
+    border-color: #A90329 !important;
+}
+
+
+.smart-form .field-validation-error
+{
+    display: block;
+    margin-top: 6px;
+    padding: 0 1px;
+    font-style: normal;
+    font-size: 11px;
+    line-height: 15px;
+    color: #D56161;
+}
+
+img
+{
+    max-width: 100%;
+}
+/*
+.smart-form .rating.state-error + em
+{
+    margin-top: -4px;
+    margin-bottom: 4px;
+}
+
+.smart-form .state-error select + i
+{
+    background: #FFF0F0;
+    box-shadow: 0 0 0 9px #FFF0F0;
+}
+
+.state-error .icon-append, .state-error .icon-prepend
+{
+    color: #ed1c24;
+}
+
+.smart-form .checkbox.state-success i, .smart-form .radio.state-success i, .smart-form .state-success input, .smart-form .state-success select, .smart-form .state-success textarea, .smart-form .toggle.state-success i
+{
+    background: #f0fff0;
+    border-color: #7DC27D;
+}
+
+.smart-form .toggle.state-success input:checked + i
+{
+    background: #f0fff0;
+}
+
+.smart-form .note-success
+{
+    color: #6fb679;
+}
+
+.smart-form .state-success select + i
+{
+    background: #f0fff0;
+    box-shadow: 0 0 0 9px #f0fff0;
+}
+*/
+
+
+.bigImage
+{
+    max-width: 280px;
+    display: block;
+    border: 1px solid #bdbdbd;
+}
+
+.optionimage
+{
+    display: block;
+    max-width: 300px;
+}
+
+    .optionimage li
+    {
+        max-width: 40px;
+        border: 1px solid #bdbdbd;
+        list-style: none;
+        display: inline-block;
+        margin: 0 2px;
+        margin-top: 5px;
+    }
+
+.imagecenter
+{
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.sectionBox-label
+{
+    border: 1px solid #ddd;
+}
+
+.sectionBox
+{
+    border: 1px solid #ddd;
+    margin-bottom: 10px !important;
+}
+
+    .sectionBox .content_material
+    {
+        padding: 10px !important;
+    }
+
+    .sectionBox label.title
+    {
+        background: none repeat scroll 0 0 grey;
+        color: #fff;
+        display: block;
+        font-weight: bold;
+        height: 25px;
+        line-height: 25px;
+        padding-left: 10px;
+    }
+
+.sectionBox-label
+{
+    border: 1px solid #ddd;
+}
+
+    .sectionBox-label .content_material
+    {
+        padding: 10px !important;
+    }
+
+    .sectionBox-label label.title
+    {
+        background: none repeat scroll 0 0 grey;
+        color: #fff;
+        display: block;
+        font-weight: bold;
+        height: 25px;
+        line-height: 25px;
+        padding-left: 10px;
+    }
+
+.col3_inner
+{
+    text-align: center;
+    display: block;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.col-back-color
+{
+    background-color: #403e3d;
+}
+
+.col-height
+{
+    min-height: 100%;
+}
+
+.label-block
+{
+    display: block;
+}
+
+.same-size-button
+{
+    /*text-align: center;*/
+}
+
+    .same-size-button button.btn
+    {
+        width: 160px;
+    }
+
+
+
+.section-back-color
+{
+    background-color: #eeeeee;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.section-label-date
+{
+    padding-left: 5%!important;
+    margin: 2% 0%!important;
+}
+
+.check-box-space
+{
+    margin-right: 5px!important;
+}
+
+.sectionBox-round
+{
+    border-radius: 10px;
+}
+
+.label-round
+{
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.label-bigger
+{
+    font-size: 25px;
+}
+
+.label-gap
+{
+    margin: 5% 0%!important;
+}
+
+.label-big
+{
+    font-size: 18px;
+}
+
+button.btn
+{
+    cursor: pointer;
+    font: 300 15px/29px 'Open Sans',Helvetica,Arial,sans-serif;
+    height: 31px;
+    margin: 10px 0 0 5px;
+    padding: 0 4%;
+}
+
+
+.left-h1
+{
+    margin-bottom: 10px;
+}
+
+.right-row
+{
+    margin-right: 30px;
+}
+
+
+.col-sm-padding
+{
+    padding-left: 13px;
+    padding-right: 13px;
+}
+
+.p-tag-margin
+{
+    margin: 0 0 9px;
+}
+
+.smart-form .col-11
+{
+    width: 90%;
+}
+
+.smart-form .col-12
+{
+    width: 100%;
+}
+
+.align-right
+{
+    float: right;
+}
+
+.custom-text-align-left
+{
+    text-align: left;
+}
+
+.custom-text-align-right
+{
+    text-align: right;
+}
+
+.custom-text-align-center
+{
+    text-align: center;
+}
+
+.custom-text-align-padding
+{
+    padding-left: 10px;
+}
+
+.label-block-color
+{
+    color: black;
+}
+
+.div-separator
+{
+    display: none;
+}
+
+.custom-scroll
+{
+    height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border: 1px solid #bdbdbd;
+}
+
+.section_new
+{
+    display: block;
+}
+
+.div-separator
+{
+    display: none;
+}
+
+.div-separatornews
+{
+    display: none;
+}
+
+
+.grid-height
+{
+    min-height: initial!important;
+}
+
+.ui-accordion .ui-accordion-header
+{
+    padding: 0!important;
+}
+
+.ui-accordion .ui-accordion-content
+{
+    padding: 0px!important;
+}
+
+/*
+.ui-accordion .ui-accordion-header
+{
+     padding: 10px 15px 10px 17px !important;
+}*/
+
+.the-price
+{
+    background-color: #fff!important;
+}
+
+.text-justify
+{
+    text-align: justify;
+}
+
+table.dataTable
+{
+    margin-top: 0px !important;
+}
+
+.margin-btn .btn
+{
+    margin-top :0px !important;
+}
+
+.check .checkbox
+{
+    display: inline-block!important;
+}
+
+.margin-top-security
+{
+    margin-top: 10px;
+}
+.extra-padding
+{
+    padding: 6px 12px !important;
+}
+.margin-left-top-label{
+    margin-left: 15px;
+    margin-top: 19px;
+}
+@media only screen and (max-width:640px)
+{
+    .div-separator
+    {
+        background: none repeat scroll 0 0 #efefef;
+        border-top: 1px solid #ccc;
+        display: block;
+        height: 10px;
+    }
+
+    .div-separatornews
+    {
+        background: none repeat scroll 0 0 #efefef;
+        border-bottom: 1px solid #ccc;
+        display: block;
+        height: 10px;
+    }
+
+    .col-media-new
+    {
+        width: 33%;
+    }
+
+    .section-back-color
+    {
+        background: none;
+        float: left;
+        width: auto;
+    }
+}
+
+@media only screen and (max-width:768px)
+{
+    .div-separator-media
+    {
+        background: none repeat scroll 0 0 #efefef;
+        border-top: 1px solid #ccc;
+        display: block;
+        height: 10px;
+    }
+}
+
+.overflow-hidden {
+    overflow:hidden !important;
+}

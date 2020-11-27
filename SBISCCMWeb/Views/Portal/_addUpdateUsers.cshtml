@@ -1,0 +1,198 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility
+@model  UsersEntity
+@using SBISCCMWeb.Controllers;
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "UserUpdateSuccess",
+    };
+    string Messgae = Convert.ToString(ViewBag.Message);
+    int z = 0;
+}
+<article class="col-md-12 sortable-grid ui-sortable" id="articleAddUpdateUsers">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+
+        <header role="heading">
+            <h2>
+                <strong>@PortalSettingLang.hdrUser</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                @if (Helper.UserType.ToLower() != "steward")
+                {
+                    <li>
+                        <div class="btn btn-sm btn-Secondary" id="AddUser" title="@PortalSettingLang.titleAddUser">
+                            <span class="fa fa-plus"></span>
+                        </div>
+                    </li>
+                }
+                <li>
+                    @if (Helper.oUser.UserId == Model.UserId)
+                    {
+                        <div class="btn btn-sm btn-Secondary disabled" title="@PortalSettingLang.titleEditUser">
+                            <span class="fa fa-pencil"></span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="btn btn-sm btn-Secondary" id="editUser" title="@PortalSettingLang.titleEditUser">
+                            <span class="fa fa-pencil"></span>
+                        </div>
+                    }
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+
+                    @using (Ajax.BeginForm("AddUpdateUsers", "Portal", null, ajaxOptions, new { @class = "formContent", autocomplete = "off", id = "form_ConfigData" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("TagList", Model.Tags)
+                        @Html.Hidden("Tags", z)
+                        <div class="form-group">
+                            <div class="row ">
+                                <div class="col-md-3">
+                                    <span><strong>@PortalSettingLang.lblName</strong></span>
+                                    @Html.TextBoxFor(@model => @model.UserName, new { @class = "form-control", disabled = "disabled", @autocomplete = "off" })
+                                <span id="spnUserName" class="error" style="display:none;">@PortalSettingLang.lblUserNameRequire</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <span><strong>@PortalSettingLang.lblEmail</strong></span>
+                                    @Html.TextBoxFor(@model => @model.EmailAddress, new
+                               {@*onfocus = "this.removeAttribute('readonly');", @readonly = true,*@@class = "form-control",
+autocomplete = "off",
+disabled = "disabled"
+})
+                                <span id="spnEmail" class="error" style="display:none;">@PortalSettingLang.lblEmailRequire</span>
+                                </div>
+                                <div class="col-md-3">
+                                    <span><strong>@PortalSettingLang.lblUserStatusCode</strong></span>
+                                    @Html.DropDownListFor(@model => @model.UserStatusCode, new SelectList(new PortalController().LoadUserStatus(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Code", "Value"), new { @class = "form-control selectbox", disabled = "disabled", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-3">
+                                    <span><strong>@PortalSettingLang.lblUserTypeCode</strong></span>
+                                    @Html.DropDownListFor(@model => @model.UserTypeCode, new SelectList(new PortalController().LoadUserTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Code", "Value", "-1"), new { @class = "form-control selectbox", disabled = "disabled", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="row paddingto5">
+
+                                <div class="col-md-3 UsermultiSelect">
+                                    @Html.Hidden("IsApprover")
+                                    @Html.Hidden("EnableInvestigations")
+                                    @Html.Hidden("EnablePurgeData")
+                                    @Html.Hidden("EnableSearchByDUNS")
+                                    @Html.Hidden("EnableCreateAutoAcceptRules")
+                                    @Html.Hidden("EnablePreviewMatchRules")
+                                    @Html.Hidden("LicenseAllowEnrichment")
+                                    @Html.Hidden("EnableImportData")
+                                    @Html.Hidden("EnableExportData")
+                                    @Html.Hidden("EnableCompliance")
+
+                                    <span><strong>@PortalSettingLang.lblPermissions</strong></span>
+                                    @Html.DropDownList("MultiSelectSecurityOptions", new List<SelectListItem>
+                                                {
+                                                //new SelectListItem{ Text="Is Approver", Value = "IsApprover" ,Selected=Model.IsApprover ? true : false},
+                                                new SelectListItem{ Text=PortalSettingLang.lblEnableInvestigations, Value = "EnableInvestigations" ,Selected=Model.EnableInvestigations ? true : false,Disabled=Helper.LicenseEnableInvestigations?false:true},
+                                                new SelectListItem{ Text=PortalSettingLang.lblEnableRejectdata, Value = "EnablePurgeData",Selected=Model.EnablePurgeData ? true : false},
+                                                new SelectListItem{ Text=PortalSettingLang.lblEnableSearchByDUNS, Value = "EnableSearchByDUNS",Selected=Model.EnableSearchByDUNS ? true : false},
+                                                new SelectListItem{ Text=PortalSettingLang.lblEnableCreateAutoAcceptRules, Value = "EnableCreateAutoAcceptRules" ,Selected=Model.EnableCreateAutoAcceptRules ? true : false},
+                                                new SelectListItem{ Text=PortalSettingLang.lblEnablePreviewMatchRules, Value = "EnablePreviewMatchRules" ,Selected=Model.EnablePreviewMatchRules ? true : false},
+                                                new SelectListItem{ Text=PortalSettingLang.lblEnableEnrichmentinUI, Value = "LicenseAllowEnrichment" ,Selected=Model.LicenseAllowEnrichment ? true : false},
+                                                new SelectListItem{ Text=PortalSettingLang.lblEnableImportdata, Value = "EnableImportData" ,Selected=Model.EnableImportData ? true : false},
+                                                new SelectListItem{ Text=PortalSettingLang.lblEnableExportdata, Value = "EnableExportData" ,Selected=Model.EnableExportData ? true : false},
+                                                new SelectListItem{ Text=PortalSettingLang.lblEnableCompliance, Value = "EnableCompliance" ,Selected=Model.EnableCompliance ? true : false},
+                                                }, new { @class = "form-control selectbox UserRoleMultiSelect", multiple = "true", disabled = "disabled", title = "Test", @autocomplete = "off" })
+                                </div>
+
+                                @if (Helper.SAMLSSO)
+                                {<div class="col-md-3">
+                                        <span><strong>@PortalSettingLang.lblSAMLUser</strong></span>
+                                        <div>
+                                            @Html.TextBoxFor(@model => @model.SSOUser, new { @class = "form-control", disabled = "disabled", @autocomplete = "off" })
+                                            <span id="spnSSOUser" class="error" style="display:none;">@PortalSettingLang.lblSSOUserRequire</span>
+                                        </div>
+                                    </div>
+                                }
+                                @if (Helper.LicenseEnableTags)
+                                {
+                                    if (Helper.oUser.UserRole == UserRole.LOB.ToString())
+                                    {
+                                        <div class="col-md-3">
+                                            <span><strong>@PortalSettingLang.lblLOBTag</strong></span>
+                                            @Html.DropDownList("ddLOBTag", new SelectList(CommonDropdown.GetTagByTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", Model.LOBTag), CommonMessagesLang.lblSelectLOBTag, new { @class = "form-control", disabled = "disabled", @autocomplete = "off" })
+                                        </div>
+                                        @Html.HiddenFor(model => model.LOBTag);
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-3">
+                                            <span><strong>@PortalSettingLang.lblLOBTag</strong></span>
+                                            @Html.DropDownList("LOBTag", new SelectList(CommonDropdown.GetTagByTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag"), CommonMessagesLang.lblSelectLOBTag, new { @class = "form-control", disabled = "disabled", @autocomplete = "off" })
+                                        </div>
+                                    }
+                                    <div class="col-md-3">
+                                        <span><strong>@PortalSettingLang.lblSecurityTags</strong></span>
+                                        <div class="DisplayFlex">
+                                            @Html.DropDownList("TagsValue", new SelectList(CommonDropdown.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag"), new { @class = "form-control chzn-select", multiple = "true", disabled = "disabled", @autocomplete = "off" })
+                                            <i class="fa fa-plus OpenTags" onclick="addNewTagsPopup()" style="display:none;"></i>
+                                        </div>
+                                    </div>
+                                }
+                                @if (!Helper.SAMLSSO)
+                                {
+                                    <div class="col-md-3 d-flex align-items-center sectiontopmrg">
+                                        @Html.CheckBoxFor(m => m.TagsInclusive, new { disabled = "disabled" })
+                                        <div class="pl-1">
+                                            <span><strong>@PortalSettingLang.lblInclusiveTags</strong></span>
+                                        </div>
+
+                                    </div>
+                                }
+                            </div>
+                            <div class="row">
+                                @*User gets locked out after account is re-activated (MP-625)*@
+                                @if (Helper.SAMLSSO)
+                                {
+                                    <div class="col-md-1 DisplayFlex sectiontopmrg">
+                                        @Html.CheckBoxFor(m => m.TagsInclusive, new { disabled = "disabled" })
+                                        <div class="paddingTop-2">
+                                            <span><strong>@PortalSettingLang.lblInclusiveTags</strong></span>
+                                        </div>
+
+                                    </div>
+                                }
+                            </div>
+                            <div class="row ">
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12 text-right">
+                                        @Html.HiddenFor(@model => @model.UserId)
+                                        @Html.HiddenFor(@model => @model.tmpName)
+                                        @Html.HiddenFor(@model => @model.SecurityStamp)
+
+                                        @if (Model.UserId > 0)
+                                        {
+                                            <input type="submit" value="@PortalSettingLang.lblUpdate" id="btnConfigDataUser" name="btnConfigDataUser" class="btn btn-primary btnConfigDataUser" style="display:none;" />
+                                        }
+                                        else
+                                        {
+                                            <input type="submit" value="@PortalSettingLang.lblAdd" id="btnConfigDataUser" name="btnConfigDataUser" class="btn btn-primary btnConfigDataUser" />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

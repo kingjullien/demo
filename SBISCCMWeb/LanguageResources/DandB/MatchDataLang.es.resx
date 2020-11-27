@@ -1,0 +1,1008 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name=";lblMinimumConfidenceCode" xml:space="preserve">
+    <value>Código de confianza mínima</value>
+    <comment>Minimum Confidence Code</comment>
+  </data>
+  <data name="hdrAcceptFromFile" xml:space="preserve">
+    <value>Aceptar del archivo</value>
+    <comment>Accept From File</comment>
+  </data>
+  <data name="hdrCompanyAttributes" xml:space="preserve">
+    <value>Atributos de la compañía</value>
+    <comment>Company Attributes</comment>
+  </data>
+  <data name="hdrCompanyFilter" xml:space="preserve">
+    <value>Filtro de la compañía</value>
+    <comment>Company Filter</comment>
+  </data>
+  <data name="hdrDandBData" xml:space="preserve">
+    <value>Datos de D&amp;B</value>
+    <comment>D&amp;B Data</comment>
+  </data>
+  <data name="hdrFiltermatchcandidatesonthecurrentpage" xml:space="preserve">
+    <value>Filtrar candidatos coincidentes en la página actual</value>
+    <comment>Filter match candidates on the current page</comment>
+  </data>
+  <data name="hdrFirmographicsDetails" xml:space="preserve">
+    <value>Detalles de la firma</value>
+    <comment>Firmographics Details</comment>
+  </data>
+  <data name="hdrGoogleMap" xml:space="preserve">
+    <value>Mapa de Google</value>
+    <comment>Google Map</comment>
+  </data>
+  <data name="hdrInput" xml:space="preserve">
+    <value>Ingresar</value>
+    <comment>Input</comment>
+  </data>
+  <data name="hdrMapFileToColumns" xml:space="preserve">
+    <value>Por favor, mapee las columnas de su archivo a las columnas de la tabla correspondiente</value>
+    <comment>Please map your file columns to the corresponding table columns</comment>
+  </data>
+  <data name="hdrMatchRecordDetailView" xml:space="preserve">
+    <value>Vista detallada del registro de coincidencias</value>
+    <comment>Match Record Detail View</comment>
+  </data>
+  <data name="hdrNote" xml:space="preserve">
+    <value>Nota</value>
+    <comment>Note</comment>
+  </data>
+  <data name="hdrPreviewEnrichmentData" xml:space="preserve">
+    <value>Vista previa de datos de enriquecimiento</value>
+    <comment>Preview Enrichment Data</comment>
+  </data>
+  <data name="hdrPurgeFromFile" xml:space="preserve">
+    <value>Depurar desde el archivo</value>
+    <comment>Purge From File</comment>
+  </data>
+  <data name="hdrPurgeRecords" xml:space="preserve">
+    <value>Depurar registros</value>
+    <comment>Purge Records</comment>
+  </data>
+  <data name="hdrRejectAllMatch" xml:space="preserve">
+    <value>Rechazar todas las coincidencias</value>
+    <comment>Reject All Match</comment>
+  </data>
+  <data name="hdrRejectFromFile" xml:space="preserve">
+    <value>Rechazar desde el archivo</value>
+    <comment>Reject From File</comment>
+  </data>
+  <data name="hdrSelectedMatch" xml:space="preserve">
+    <value>Coincidencia seleccionada</value>
+    <comment>Selected Match</comment>
+  </data>
+  <data name="hdrType" xml:space="preserve">
+    <value>Tipo</value>
+    <comment>Type</comment>
+  </data>
+  <data name="lbAddress" xml:space="preserve">
+    <value>Habla a</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAcceptRecordsfromFile" xml:space="preserve">
+    <value>Aceptar registros del archivo</value>
+    <comment>Accept Records from File</comment>
+  </data>
+  <data name="lblAcceptsExcelFile" xml:space="preserve">
+    <value>(Solo acepta archivos de Excel)</value>
+    <comment>(Accepts only Excel files)</comment>
+  </data>
+  <data name="lblAcceptsonlyExcelfiles" xml:space="preserve">
+    <value>(Solo acepta archivos de Excel)</value>
+    <comment>(Accepts only Excel files)</comment>
+  </data>
+  <data name="lblActive" xml:space="preserve">
+    <value>Activo</value>
+    <comment>Active</comment>
+  </data>
+  <data name="lblAdditionalActions" xml:space="preserve">
+    <value>acciones adicionales</value>
+    <comment>Additional Actions</comment>
+  </data>
+  <data name="lblAddress" xml:space="preserve">
+    <value>Dirección alt.</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAddressLine2" xml:space="preserve">
+    <value>Dirección2 alt.</value>
+    <comment>AddressLine2</comment>
+  </data>
+  <data name="lblAgent" xml:space="preserve">
+    <value>Agente</value>
+    <comment>Agent</comment>
+  </data>
+  <data name="lblAlt.Address" xml:space="preserve">
+    <value>Alt. Habla a</value>
+    <comment>Alt. Address</comment>
+  </data>
+  <data name="lblAlt.Address2" xml:space="preserve">
+    <value>Alt. Dirección 2</value>
+    <comment>Alt. Address2</comment>
+  </data>
+  <data name="lblAltCity" xml:space="preserve">
+    <value>Ciudad alt.</value>
+    <comment>Alt City</comment>
+  </data>
+  <data name="lblAltCompanyName" xml:space="preserve">
+    <value>Nombre alt. de la compañía</value>
+    <comment>Alt. Company Name</comment>
+  </data>
+  <data name="lblAltCountry" xml:space="preserve">
+    <value>País alt.</value>
+    <comment>Alt Country</comment>
+  </data>
+  <data name="lblAltPostalCode" xml:space="preserve">
+    <value>Código postal alt.</value>
+    <comment>Alt. PostalCode</comment>
+  </data>
+  <data name="lblAltState" xml:space="preserve">
+    <value>Estado alt.</value>
+    <comment>Alt. State</comment>
+  </data>
+  <data name="lblApplyMatchRules" xml:space="preserve">
+    <value>Aplicar reglas de coincidencia</value>
+    <comment>Apply Match Rules</comment>
+  </data>
+  <data name="lblAreaPopulationRank" xml:space="preserve">
+    <value>Rango del área poblacional</value>
+    <comment>Area Population Rank</comment>
+  </data>
+  <data name="lblBase" xml:space="preserve">
+    <value>Base</value>
+    <comment>Base</comment>
+  </data>
+  <data name="lblBusinessEntity" xml:space="preserve">
+    <value>Entidad comercial</value>
+    <comment>Business Entity</comment>
+  </data>
+  <data name="lblCC" xml:space="preserve">
+    <value>CC</value>
+    <comment>CC</comment>
+  </data>
+  <data name="lblCEOName" xml:space="preserve">
+    <value>Nombre del CEO</value>
+    <comment>CEO Name</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>Ciudad</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCityExactMatch" xml:space="preserve">
+    <value>City Exact Match</value>
+    <comment>City Exact Match</comment>
+  </data>
+  <data name="lblCityTown" xml:space="preserve">
+    <value>Ciudad/pueblo</value>
+    <comment>City/Town</comment>
+  </data>
+  <data name="lblCLASSIFICATION" xml:space="preserve">
+    <value>CLASIFICACIÓN</value>
+    <comment>CLASSIFICATION</comment>
+  </data>
+  <data name="lblClassificationType" xml:space="preserve">
+    <value>Tipo de clasificación</value>
+    <comment>Classification Type</comment>
+  </data>
+  <data name="lblClearCompanyFilter" xml:space="preserve">
+    <value>Limpiar filtro de empresa</value>
+    <comment>Clear Company Filter</comment>
+  </data>
+  <data name="lblClearMatchFilter" xml:space="preserve">
+    <value>Borrar filtro de coincidencia</value>
+    <comment>Clear Match Filter</comment>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>Compañía</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCompanyClassification" xml:space="preserve">
+    <value>Clasificación de la compañía</value>
+    <comment>Company Classification</comment>
+  </data>
+  <data name="lblCompanyHeader" xml:space="preserve">
+    <value>Empresa / Identificación nacional / URL / Correo electrónico / DUNS</value>
+    <comment>Header Company name</comment>
+  </data>
+  <data name="lblCompanyMap" xml:space="preserve">
+    <value>Empresa</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCompanyName" xml:space="preserve">
+    <value>Nombre de la compañía</value>
+    <comment>Company Name</comment>
+  </data>
+  <data name="lblConfidenceCode" xml:space="preserve">
+    <value>Código de confianza</value>
+    <comment>Confidence Code</comment>
+  </data>
+  <data name="lblConsolidateEmployeeCount" xml:space="preserve">
+    <value>Consolidar el recuento de empleados</value>
+    <comment>Consolidate Employee Count</comment>
+  </data>
+  <data name="lblControlOwnershipDate" xml:space="preserve">
+    <value>Fecha de control de la titularidad</value>
+    <comment>Control Ownership Date</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>País</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCountryGroup" xml:space="preserve">
+    <value>Grupo de países</value>
+    <comment>Country Group</comment>
+  </data>
+  <data name="lblDelisted" xml:space="preserve">
+    <value>Eliminado de la lista</value>
+    <comment>Delisted</comment>
+  </data>
+  <data name="lblDensity" xml:space="preserve">
+    <value>Densidad</value>
+    <comment>Density</comment>
+  </data>
+  <data name="lblDescription" xml:space="preserve">
+    <value>Descripción</value>
+    <comment>Description</comment>
+  </data>
+  <data name="lblDisplaySequence" xml:space="preserve">
+    <value>Secuencia de visualización</value>
+    <comment>Display Sequence</comment>
+  </data>
+  <data name="lblDomesticUltimate" xml:space="preserve">
+    <value>Último doméstico</value>
+    <comment>Domestic Ultimate</comment>
+  </data>
+  <data name="lblDUNS" xml:space="preserve">
+    <value>DUNS#</value>
+    <comment>DUNS#</comment>
+  </data>
+  <data name="lblDUNSNO" xml:space="preserve">
+    <value>Nro. DUNS</value>
+    <comment>DUNS NO</comment>
+  </data>
+  <data name="lblDUNSNumber" xml:space="preserve">
+    <value>Número de doons</value>
+    <comment>DUNS Number</comment>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>Correo electrónico</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblExporter" xml:space="preserve">
+    <value>Exportador</value>
+    <comment>Exporter</comment>
+  </data>
+  <data name="lblFalse" xml:space="preserve">
+    <value>Falso</value>
+    <comment>False</comment>
+  </data>
+  <data name="lblFamilyTreeRolesPlayed" xml:space="preserve">
+    <value>Roles del árbol genealógico</value>
+    <comment>FamilyTree Roles Played</comment>
+  </data>
+  <data name="lblFax" xml:space="preserve">
+    <value>Fax</value>
+    <comment>Fax</comment>
+  </data>
+  <data name="lblGlobalUltimate" xml:space="preserve">
+    <value>Último global</value>
+    <comment>Global Ultimate</comment>
+  </data>
+  <data name="lblHideInputDetails" xml:space="preserve">
+    <value>Ocultar detalles de entrada</value>
+    <comment>Hide Input Details</comment>
+  </data>
+  <data name="lblImporter" xml:space="preserve">
+    <value>Importador</value>
+    <comment>Importer</comment>
+  </data>
+  <data name="lblImportProcess" xml:space="preserve">
+    <value>Proceso de importación</value>
+    <comment>Import Process</comment>
+  </data>
+  <data name="lblIndividualEmployeeCount" xml:space="preserve">
+    <value>Recuento individual de empleados</value>
+    <comment>Individual Employee Count</comment>
+  </data>
+  <data name="lblIndustryclassification" xml:space="preserve">
+    <value>clasificación de la industria</value>
+    <comment>Industry classification</comment>
+  </data>
+  <data name="lblIndustryClassificationCode" xml:space="preserve">
+    <value>Código de clasificación de la industria</value>
+    <comment>Industry Classification Code</comment>
+  </data>
+  <data name="lblInpDUNSNO" xml:space="preserve">
+    <value>Inp Nro. DUNS</value>
+    <comment>Inp DUNS NO</comment>
+  </data>
+  <data name="lblInputHeader" xml:space="preserve">
+    <value>Ingresar encabezado</value>
+    <comment>Input Header</comment>
+  </data>
+  <data name="lblInvestigation" xml:space="preserve">
+    <value>Investigación</value>
+    <comment>Investigation</comment>
+  </data>
+  <data name="lblJobTitle" xml:space="preserve">
+    <value>Puesto</value>
+    <comment>Job Title</comment>
+  </data>
+  <data name="lblKEYINFORMATION" xml:space="preserve">
+    <value>INFORMACIÓN CLAVE</value>
+    <comment>KEY INFORMATION</comment>
+  </data>
+  <data name="lblLat" xml:space="preserve">
+    <value>lat</value>
+    <comment>Lat</comment>
+  </data>
+  <data name="lblLOCATION" xml:space="preserve">
+    <value>UBICACIÓN</value>
+    <comment>LOCATION</comment>
+  </data>
+  <data name="lblLong" xml:space="preserve">
+    <value>Long</value>
+    <comment>Long</comment>
+  </data>
+  <data name="lblMailingAddress" xml:space="preserve">
+    <value>Dirección postal</value>
+    <comment>Mailing Address</comment>
+  </data>
+  <data name="lblMailUndeliverable" xml:space="preserve">
+    <value>MailUndeliverable</value>
+    <comment>MailUndeliverable</comment>
+  </data>
+  <data name="lblMarketable" xml:space="preserve">
+    <value>Comercializable</value>
+    <comment>Marketable</comment>
+  </data>
+  <data name="lblMatch" xml:space="preserve">
+    <value>Coincidencia</value>
+    <comment>Match</comment>
+  </data>
+  <data name="lblMatchCandidates" xml:space="preserve">
+    <value>Candidatos del partido</value>
+    <comment>Match Candidates</comment>
+  </data>
+  <data name="lblMatchData" xml:space="preserve">
+    <value>Datos del partido</value>
+    <comment>Match Data</comment>
+  </data>
+  <data name="lblMatchDataCriteria" xml:space="preserve">
+    <value>Criterios de coincidencia</value>
+    <comment>Match Data Criteria Text</comment>
+  </data>
+  <data name="lblMatchDataProfile" xml:space="preserve">
+    <value>Perfil para emparejar datos</value>
+    <comment>Match Data Profile</comment>
+  </data>
+  <data name="lblMatches" xml:space="preserve">
+    <value>Partidos</value>
+    <comment>Matches</comment>
+  </data>
+  <data name="lblMatchFilter" xml:space="preserve">
+    <value>Filtro de partido</value>
+    <comment>Match Filter</comment>
+  </data>
+  <data name="lblMatchGrade" xml:space="preserve">
+    <value>Grado de coincidencia</value>
+    <comment>Match Grade</comment>
+  </data>
+  <data name="lblMDP" xml:space="preserve">
+    <value>MDP</value>
+    <comment>MDP</comment>
+  </data>
+  <data name="lblName" xml:space="preserve">
+    <value>Nombre</value>
+    <comment>Name</comment>
+  </data>
+  <data name="lblNationalID" xml:space="preserve">
+    <value>Identificación nacional</value>
+    <comment>NationalID</comment>
+  </data>
+  <data name="lblNext" xml:space="preserve">
+    <value>Siguiente</value>
+    <comment>Next</comment>
+  </data>
+  <data name="lblNo" xml:space="preserve">
+    <value>No</value>
+    <comment>No</comment>
+  </data>
+  <data name="lblNodataareavailable" xml:space="preserve">
+    <value>No hay datos disponibles</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNodataavailable" xml:space="preserve">
+    <value>No hay datos disponibles.</value>
+    <comment>No data available.</comment>
+  </data>
+  <data name="lblNonMarketable" xml:space="preserve">
+    <value>no comercializable</value>
+    <comment>Non Marketable</comment>
+  </data>
+  <data name="lblNoRecordsFound" xml:space="preserve">
+    <value>No se encontraron registros</value>
+    <comment>No Record(s) Found</comment>
+  </data>
+  <data name="lblNorecordsfounds" xml:space="preserve">
+    <value>No se encontraron registros</value>
+    <comment>No records found</comment>
+  </data>
+  <data name="lblNoRecordsInMatchQueue" xml:space="preserve">
+    <value>(Si elige depurar los registros, ya no estarán disponibles en la Cola de no coincidencias)</value>
+    <comment>(If you choose to purge the records, they will no longer be available in the No Match Queue)</comment>
+  </data>
+  <data name="lblOk" xml:space="preserve">
+    <value>Okay</value>
+    <comment>Ok</comment>
+  </data>
+  <data name="lblOperating" xml:space="preserve">
+    <value>Operativa</value>
+    <comment>Operating</comment>
+  </data>
+  <data name="lblOutofbusiness" xml:space="preserve">
+    <value>Cerrada</value>
+    <comment>Out of business</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>Tamaño de página</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblParent" xml:space="preserve">
+    <value>Padre</value>
+    <comment>Parent</comment>
+  </data>
+  <data name="lblPhone" xml:space="preserve">
+    <value>Teléfono</value>
+    <comment>Phone</comment>
+  </data>
+  <data name="lblPhoneNumber" xml:space="preserve">
+    <value>Número de teléfono</value>
+    <comment>Phone Number</comment>
+  </data>
+  <data name="lblPOBox" xml:space="preserve">
+    <value>PO Box</value>
+    <comment>PO Box</comment>
+  </data>
+  <data name="lblPostal" xml:space="preserve">
+    <value>Postal</value>
+    <comment>Postal</comment>
+  </data>
+  <data name="lblPostalCode" xml:space="preserve">
+    <value>Código postal</value>
+    <comment>Postal Code</comment>
+  </data>
+  <data name="lblPremisesAreaMeasurement" xml:space="preserve">
+    <value>Medición de la superficie de las instalaciones</value>
+    <comment>Premises Area Measurement</comment>
+  </data>
+  <data name="lblPrev" xml:space="preserve">
+    <value>Ant</value>
+    <comment>Prev</comment>
+  </data>
+  <data name="lblPrimaryAddress" xml:space="preserve">
+    <value>dirección primaria</value>
+    <comment>Primary Address</comment>
+  </data>
+  <data name="lblPrimaryNAICS" xml:space="preserve">
+    <value>NAICS primario</value>
+    <comment>Primary NAICS</comment>
+  </data>
+  <data name="lblPrimarySIC" xml:space="preserve">
+    <value>SIC primario</value>
+    <comment>Primary SIC</comment>
+  </data>
+  <data name="lblPrimarySIC8" xml:space="preserve">
+    <value>SIC8 primario</value>
+    <comment>Primary SIC8</comment>
+  </data>
+  <data name="lblPrimaryStock" xml:space="preserve">
+    <value>Acción primaria</value>
+    <comment>Primary Stock</comment>
+  </data>
+  <data name="lblPurge" xml:space="preserve">
+    <value>Purga</value>
+    <comment>Purge</comment>
+  </data>
+  <data name="lblPurgeFromDunBradstreet" xml:space="preserve">
+    <value>Purga de Dun &amp; Bradstreet</value>
+    <comment>Purge from Dun &amp; Bradstreet</comment>
+  </data>
+  <data name="lblPurgeFromMatchbook" xml:space="preserve">
+    <value>Purga de Matchbook</value>
+    <comment>Purge from Matchbook</comment>
+  </data>
+  <data name="lblPurgeRecords" xml:space="preserve">
+    <value>Purgar registros</value>
+    <comment>Purge Records</comment>
+  </data>
+  <data name="lblRegisteredAddress" xml:space="preserve">
+    <value>Dirección registrada</value>
+    <comment>Registered Address</comment>
+  </data>
+  <data name="lblRegistration#" xml:space="preserve">
+    <value>注册＃</value>
+    <comment>Registration#</comment>
+  </data>
+  <data name="lblRegistrationNumber" xml:space="preserve">
+    <value>Número de registro</value>
+    <comment>Registration Number</comment>
+  </data>
+  <data name="lblRegistrationNumbers" xml:space="preserve">
+    <value>Números de registro</value>
+    <comment>Registration Numbers</comment>
+  </data>
+  <data name="lblRegistrationNumberType" xml:space="preserve">
+    <value>Tipo de número de registro</value>
+    <comment>Registration Number Type</comment>
+  </data>
+  <data name="lblRegistrationType" xml:space="preserve">
+    <value>Tipo de registro</value>
+    <comment>Registration Type</comment>
+  </data>
+  <data name="lblReject" xml:space="preserve">
+    <value>Rechazar</value>
+    <comment>Reject</comment>
+  </data>
+  <data name="lblRejectfromFile" xml:space="preserve">
+    <value>Rechazar desde el archivo</value>
+    <comment>Reject from File</comment>
+  </data>
+  <data name="lblRejectRecords" xml:space="preserve">
+    <value>Rechazar Records</value>
+    <comment>Reject Records</comment>
+  </data>
+  <data name="lblRejectRecordsonthePage" xml:space="preserve">
+    <value>Rechazar registros de la página</value>
+    <comment>Reject Records on the Page</comment>
+  </data>
+  <data name="lblRejectUnmatchedCompanies" xml:space="preserve">
+    <value>Rechazar empresas inigualables</value>
+    <comment>Reject Unmatched Companies</comment>
+  </data>
+  <data name="lblRevenue" xml:space="preserve">
+    <value>Ingresos</value>
+    <comment>Revenue</comment>
+  </data>
+  <data name="lblRole" xml:space="preserve">
+    <value>Rol</value>
+    <comment>Role</comment>
+  </data>
+  <data name="lblSecondaryNAICS" xml:space="preserve">
+    <value>NAICS secundario</value>
+    <comment>Secondary NAICS</comment>
+  </data>
+  <data name="lblSecondarySIC" xml:space="preserve">
+    <value>SIC secundario</value>
+    <comment>Secondary SIC</comment>
+  </data>
+  <data name="lblSecondarySIC8" xml:space="preserve">
+    <value>SIC8 secundario</value>
+    <comment>Secondary SIC8</comment>
+  </data>
+  <data name="lblSelect" xml:space="preserve">
+    <value>Seleccionar</value>
+    <comment>Select</comment>
+  </data>
+  <data name="lblSelected" xml:space="preserve">
+    <value>Seleccionado</value>
+    <comment>Selected</comment>
+  </data>
+  <data name="lblSelectTop1Match" xml:space="preserve">
+    <value>Seleccione Top 1 Match</value>
+    <comment>Select Top 1 Match</comment>
+  </data>
+  <data name="lblSeniorManagement" xml:space="preserve">
+    <value>Alta gerencia</value>
+    <comment>Senior Management</comment>
+  </data>
+  <data name="lblSeq" xml:space="preserve">
+    <value>Sec nro.</value>
+    <comment>Seq#</comment>
+  </data>
+  <data name="lblSeqMap" xml:space="preserve">
+    <value>Seq</value>
+    <comment>Seq</comment>
+  </data>
+  <data name="lblSetGridViewasDefaultView" xml:space="preserve">
+    <value>Establecer vista de cuadrícula como vista predeterminada.</value>
+    <comment>Set Grid View as Default View.</comment>
+  </data>
+  <data name="lblShowInputDetails" xml:space="preserve">
+    <value>Mostrar detalles de entrada</value>
+    <comment>Show Input Details</comment>
+  </data>
+  <data name="lblSIC" xml:space="preserve">
+    <value>SIC</value>
+    <comment>SIC</comment>
+  </data>
+  <data name="lblSourceRecordId" xml:space="preserve">
+    <value>ID de registro de origen</value>
+    <comment>Source Record Id</comment>
+  </data>
+  <data name="lblSrc Id" xml:space="preserve">
+    <value>src Id</value>
+    <comment>Src Id</comment>
+  </data>
+  <data name="lblSrcId" xml:space="preserve">
+    <value>Buscar Id</value>
+    <comment>Src Id</comment>
+  </data>
+  <data name="lblSrcRecordId" xml:space="preserve">
+    <value>Buscar Id de registro</value>
+    <comment>Src Record Id</comment>
+  </data>
+  <data name="lblSrPrincipal" xml:space="preserve">
+    <value>Bus. principal</value>
+    <comment>Sr. Principal</comment>
+  </data>
+  <data name="lblSrPrincipalName" xml:space="preserve">
+    <value>Bus. nombre principal</value>
+    <comment>Sr. Principal Name</comment>
+  </data>
+  <data name="lblSrPrincipalResponsibilities" xml:space="preserve">
+    <value>Bus. responsabilidades principales</value>
+    <comment>Sr. Principal Responsibilities</comment>
+  </data>
+  <data name="lblStandalone" xml:space="preserve">
+    <value>Ser único</value>
+    <comment>Standalone</comment>
+  </data>
+  <data name="lblStartDate" xml:space="preserve">
+    <value>Fecha de inicio</value>
+    <comment>Start Date</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>Estado</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblStateExactMatch" xml:space="preserve">
+    <value>Partido exacto del estado</value>
+    <comment>State Exact Match</comment>
+  </data>
+  <data name="lblStatus" xml:space="preserve">
+    <value>Estado</value>
+    <comment>Status</comment>
+  </data>
+  <data name="lblStewardshipNotes" xml:space="preserve">
+    <value>Notas de la administración</value>
+    <comment>Stewardship Notes</comment>
+  </data>
+  <data name="lblStockDetail" xml:space="preserve">
+    <value>Detalle de la acción</value>
+    <comment>Stock Detail</comment>
+  </data>
+  <data name="lblStockSymbol" xml:space="preserve">
+    <value>Símbolo de la acción</value>
+    <comment>Stock Symbol</comment>
+  </data>
+  <data name="lblStreet" xml:space="preserve">
+    <value>calle #</value>
+    <comment>Street #</comment>
+  </data>
+  <data name="lblStreetName" xml:space="preserve">
+    <value>Nombre de la calle</value>
+    <comment>Street Name</comment>
+  </data>
+  <data name="lblStreetNo" xml:space="preserve">
+    <value>Calle no</value>
+    <comment>Street No</comment>
+  </data>
+  <data name="lblSubmit" xml:space="preserve">
+    <value>Enviar</value>
+    <comment>Submit</comment>
+  </data>
+  <data name="lblTableColumn" xml:space="preserve">
+    <value>Columna de la tabla</value>
+    <comment>Table Column</comment>
+  </data>
+  <data name="lblTags" xml:space="preserve">
+    <value>Etiquetas</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="lblTelephone" xml:space="preserve">
+    <value>Teléfono</value>
+    <comment>Telephone</comment>
+  </data>
+  <data name="lblTradeStyleName" xml:space="preserve">
+    <value>TradeStyleName</value>
+    <comment>TradeStyleName</comment>
+  </data>
+  <data name="lblTradeStyleNames" xml:space="preserve">
+    <value>Nombre comercial</value>
+    <comment>TradeStyle Name</comment>
+  </data>
+  <data name="lblTrue" xml:space="preserve">
+    <value>Cierto</value>
+    <comment>True</comment>
+  </data>
+  <data name="lblUniqueness" xml:space="preserve">
+    <value>Singularidad</value>
+    <comment>Uniqueness</comment>
+  </data>
+  <data name="lblUpdate" xml:space="preserve">
+    <value>Actualizar</value>
+    <comment>Update</comment>
+  </data>
+  <data name="lblURL" xml:space="preserve">
+    <value>URL</value>
+    <comment>URL</comment>
+  </data>
+  <data name="lblUSTaxID" xml:space="preserve">
+    <value>ID de impuestos estadounidense</value>
+    <comment>US Tax ID</comment>
+  </data>
+  <data name="lblValue" xml:space="preserve">
+    <value>Valor</value>
+    <comment>Value</comment>
+  </data>
+  <data name="lblViewCandidatesonMap" xml:space="preserve">
+    <value>Ver candidatos en el mapa</value>
+    <comment>View Candidates on Map</comment>
+  </data>
+  <data name="lblWebsite" xml:space="preserve">
+    <value>Sitio web</value>
+    <comment>Website</comment>
+  </data>
+  <data name="lblYes" xml:space="preserve">
+    <value>si</value>
+    <comment>Yes</comment>
+  </data>
+  <data name="lblZip" xml:space="preserve">
+    <value>Código Postal</value>
+    <comment>Zip</comment>
+  </data>
+  <data name="msgAddNewCompany" xml:space="preserve">
+    <value>Nueva empresa agregada con éxito</value>
+    <comment>New company added successfully</comment>
+  </data>
+  <data name="msgCommanAcceptFile" xml:space="preserve">
+    <value>Los datos se aceptaron con éxito</value>
+    <comment>Data accepted successfully</comment>
+  </data>
+  <data name="msgFormatsAllowed" xml:space="preserve">
+    <value>Solo los formatos permitidos son:</value>
+    <comment>Only formats allowed are :</comment>
+  </data>
+  <data name="msgInputAddress" xml:space="preserve">
+    <value>Dirección de entrada</value>
+    <comment>Input Address</comment>
+  </data>
+  <data name="msgNoRecords" xml:space="preserve">
+    <value>No se encontraron registros</value>
+    <comment>No record(s) found</comment>
+  </data>
+  <data name="msgNoRecordsFound" xml:space="preserve">
+    <value>No se encontraron registros</value>
+    <comment>No record(s) found</comment>
+  </data>
+  <data name="msgPurgeRecord" xml:space="preserve">
+    <value>¿Seguro que quieres purgar este registro?</value>
+    <comment>Are you sure you want to Purge this record ?</comment>
+  </data>
+  <data name="msgRejectCurrentPatgeRecords" xml:space="preserve">
+    <value>¿Está seguro de que desea rechazar todos los registros de la página actual?</value>
+    <comment>Are you sure you want to Reject all records for current page ?</comment>
+  </data>
+  <data name="msgUnsavedChanges" xml:space="preserve">
+    <value>Usted tiene cambios no guardados. ¿Estás seguro de que deseas cambiar de página y descartar los cambios?</value>
+    <comment>You have unsaved changes. Are you sure you want to change page and discard the changes?</comment>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Ingresar</value>
+    <comment>Input</comment>
+  </data>
+  <data name="String2" xml:space="preserve">
+    <value />
+    <comment>No data are available</comment>
+  </data>
+  <data name="titleAddmatchasanewcompany" xml:space="preserve">
+    <value>Agregar coincidencia como una nueva empresa</value>
+    <comment>Add match as a new company</comment>
+  </data>
+  <data name="titleAlertmessage" xml:space="preserve">
+    <value>Mensaje de alerta</value>
+    <comment>Alert message</comment>
+  </data>
+  <data name="titleApproveMatchData" xml:space="preserve">
+    <value>Aprobar datos de coincidencia</value>
+    <comment>Approve Match Data</comment>
+  </data>
+  <data name="titleCityExactMatch" xml:space="preserve">
+    <value>Coincidencia exacta de ciudad</value>
+    <comment>City Exact Match</comment>
+  </data>
+  <data name="titleClearCompanyFilter" xml:space="preserve">
+    <value>Borrar filtro de compañía</value>
+    <comment>Clear Company Filter</comment>
+  </data>
+  <data name="titleClearMatchFilter" xml:space="preserve">
+    <value>Borrar filtro d</value>
+    <comment>Clear Match Filter</comment>
+  </data>
+  <data name="titleCustomAttribute" xml:space="preserve">
+    <value>Atributo personalizado</value>
+    <comment>Custom Attribute</comment>
+  </data>
+  <data name="titleEnrichmentdetail" xml:space="preserve">
+    <value>Detalle del enriquecimiento</value>
+    <comment>Enrichment detail</comment>
+  </data>
+  <data name="titleFromFile" xml:space="preserve">
+    <value>Desde el archivo</value>
+    <comment>From File</comment>
+  </data>
+  <data name="titleHomePage" xml:space="preserve">
+    <value>Página de inicio</value>
+    <comment>Home Page</comment>
+  </data>
+  <data name="titleInvestigation" xml:space="preserve">
+    <value>Investigación</value>
+    <comment>Investigation</comment>
+  </data>
+  <data name="titleMatchBookData" xml:space="preserve">
+    <value>Datos del Matchbook</value>
+    <comment>MatchBookData</comment>
+  </data>
+  <data name="titleMatchData" xml:space="preserve">
+    <value>Datos del partido</value>
+    <comment>Match Data</comment>
+  </data>
+  <data name="titleMatchRecordsDetails" xml:space="preserve">
+    <value>Detalles de registros de partidos</value>
+    <comment>Match Records Details</comment>
+  </data>
+  <data name="titlePurgefromDunandBradstreet" xml:space="preserve">
+    <value>Depurar desde Dun &amp; Bradstreet</value>
+    <comment>Purge from Dun &amp; Bradstreet</comment>
+  </data>
+  <data name="titlePurgefromMatchbook" xml:space="preserve">
+    <value>Depurar desde Matchbook</value>
+    <comment>Purge from Matchbook</comment>
+  </data>
+  <data name="titleRejectAllMatches" xml:space="preserve">
+    <value>Rechazar todos los partidos</value>
+    <comment>Reject All Matches</comment>
+  </data>
+  <data name="titleRejectUnmatchedCompanies" xml:space="preserve">
+    <value>Rechazar compañías sin coincidencias</value>
+    <comment>Reject Unmatched Companies</comment>
+  </data>
+  <data name="titleSetDefaultPageSize" xml:space="preserve">
+    <value>Establecer el tamaño de página predeterminado</value>
+    <comment>Set Default Page Size</comment>
+  </data>
+  <data name="titleStateExactMatch" xml:space="preserve">
+    <value>Coincidencia exacta de estado</value>
+    <comment>State Exact Match</comment>
+  </data>
+  <data name="titleSubmit" xml:space="preserve">
+    <value>Enviar</value>
+    <comment>Submit</comment>
+  </data>
+  <data name="titleUpdate" xml:space="preserve">
+    <value>Actualizar</value>
+    <comment>Update</comment>
+  </data>
+  <data name="titleValidateInputAddress" xml:space="preserve">
+    <value>Validar dirección de entrada</value>
+    <comment>Validate Input Address</comment>
+  </data>
+</root>

@@ -1,0 +1,96 @@
+﻿@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.LanguageResources
+@model MPMPrecedenceSelection
+@{
+    string tag = Convert.ToString(ViewBag.Tag);
+    bool IsPrecedenceComplusory = ViewBag.IsPrecedenceComplusory;
+    List<MPMPrecedenceConfig> unSelected = Model.AvailablePrecedence.Where(x => !Model.SelectedPrecedence.Contains(x.Name)).ToList();
+    List<MPMPrecedenceConfig> selected = new List<MPMPrecedenceConfig>();
+    List<MPMPrecedenceConfig> selectedInOrder = new List<MPMPrecedenceConfig>();
+    foreach (var item in Model.AvailablePrecedence)
+    {
+        if (Model.SelectedPrecedence.Contains(item.Name))
+        {
+            selected.Add(new MPMPrecedenceConfig() { IsVerificationGroup = item.IsVerificationGroup, Name = item.Name });
+        }
+    }
+
+    foreach (var item in Model.SelectedPrecedence)
+    {
+        selectedInOrder.Add(selected.Where(x => x.Name == item).FirstOrDefault());
+    }
+
+    List<SelectListItem> itemavail = unSelected.ConvertAll(a =>
+    {
+        return new SelectListItem()
+        {
+            Text = a.Name,
+            Value = a.Name + "::" + a.IsVerificationGroup,
+            Selected = false
+        };
+    });
+
+    List<SelectListItem> itemSelected = selectedInOrder.ConvertAll(a =>
+    {
+        return new SelectListItem()
+        {
+            Text = a.Name,
+            Value = a.Name + "::" + a.IsVerificationGroup,
+            Selected = false
+        };
+    });
+}
+@Html.Hidden("TagInPrecedenceStep", tag)
+@Html.Hidden("IsPrecedenceComplusory", IsPrecedenceComplusory)
+<article class="sortable-grid ui-sortable" id="articleAddupdateDnbGroupAPI">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrMultiPassPrecedence</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <label>@DandBSettingLang.lblAvailablePrecedence</label>
+                        @Html.ListBox("AvialPrecendence", new SelectList(itemavail, "Value", "Text"), new { @class = "form-control selectbox height250px", @size = 19 })
+                        <br /><span class="precendenceErrormsg error" style="display:none">@DandBSettingLang.msgSelectPrecedence</span>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <br />
+                        <br />
+                        <br />
+                        <div>
+                            <input value=">" id="btnPrecedenceRight" name="btnPrecedenceGrp" type="submit" class="btn btnSaveSetting" disabled="disabled" />
+                        </div>
+                        <div>
+                            <input value=">>" id="btnPrecedenceAllRight" name="btnPrecedenceGrp" type="submit" class="btn btnSaveSetting" />
+                        </div>
+                        <div>
+                            <input value="<" id="btnPrecedenceLeft" name="btnPrecedenceGrp" type="submit" class="btn btnSaveSetting" disabled="disabled" />
+                        </div>
+                        <div>
+                            <input value="<<" id="btnPrecedenceAllLeft" name="btnPrecedenceGrp" type="submit" class="btn btnSaveSetting" />
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <label>@DandBSettingLang.lblSelectedPrecedence</label>
+                        @Html.ListBox("SelectedPrecendence", new SelectList(itemSelected, "Value", "Text"), new { @class = "form-control selectbox height250px", @size = 19 })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-align-right margin-top-15 margin-bottom-10">
+                        <input type="button" class="btn btn-Secondary" value="@ImportDataLang.lblPrev" id="MultiPassPrecendencePrev" />
+                        <input type="button" class="btn btn-primary margin-left-5" value="@ImportDataLang.lblFinish" id="MultiPassPrecendenceFinish" />
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+

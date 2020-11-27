@@ -1,0 +1,205 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using System.Configuration;
+@using SBISCCMWeb.LanguageResources;
+@model OIlstMatchDetails
+@{
+    Layout = null;
+    string GoogleAPIKey = Helper.GoogleAPIKey;
+}
+
+<div>
+    @if (Model.lstOIMatchDetail != null && Model.lstOIMatchDetail.Count > 0)
+    {
+        foreach (var innerItem in Model.lstOIMatchDetail)
+        {
+            <div style="display:none;" class="location" data-address="@("Input : "+ innerItem.name+", "+ innerItem.address1+", " + innerItem.city+", "+ innerItem.state+", "+ innerItem.zip)"></div>
+            <div style="display:none;" class="inputlocation" data-address=""></div>
+        }
+    }
+</div>
+<style>
+    #map_canvas img {
+        max-width: none;
+    }
+
+    .infoDiv {
+        height: 200px;
+        width: 300px;
+        -webkit-user-select: none;
+        background-color: white;
+    }
+
+    body {
+        background-color: white;
+    }
+</style>
+
+<div class="panel-group smart-accordion-default divleftSearchPanel" id="accordion-2" style="height: 100%; width:23%;float:left;overflow-y: auto;">
+    @Html.HiddenFor(model => model.lstOICompanyInput.InputId)
+    @if (Model.lstOISearchMatch != null && Model.lstOIMatchDetail != null)
+    {
+        foreach (var item in Model.lstOIMatchDetail)
+        {
+            string address = item.name;
+            if (!string.IsNullOrEmpty(item.address1))
+            {
+                address += "," + item.address1;
+            }
+            if (!string.IsNullOrEmpty(item.city))
+            {
+                address += "," + item.city;
+            }
+            if (!string.IsNullOrEmpty(item.state))
+            {
+                address += "," + item.state;
+            }
+            if (!string.IsNullOrEmpty(item.zip))
+            {
+                address += "," + item.zip;
+            }
+            if (!string.IsNullOrEmpty(item.iso_country_code))
+            {
+                address += "," + item.iso_country_code;
+            }
+
+
+            string htmlData = string.Empty;
+            htmlData = "<br/><div class='row no-margin'><div class='col-md-7 no-padding'>" + OIMatchDataLang.lblOrbNum + "  : <b>" + item.orb_num + "</b></div><div class='col-md-5 no-padding text-right'>" + OIMatchDataLang.lblRank + " : <b>" + item.MatchbookRank + "</b></div>";
+            htmlData += "<div class='row no-margin'><div class='col-md-12 no-padding'>" + OIMatchDataLang.lblCompany + " : <b>" + item.name + "</b></div></div>";
+            htmlData += "<hr style='margin: 8px 0;'/><div class='row no-margin'><div class='col-md-12 no-padding'><b>" + OIMatchDataLang.lblAddress + " </b><br/> <span style='font-size:11px;'>" + item.name + ", " + item.address1 + ", " + item.city + ", " + item.state + ", " + item.zip + "</span></div></div>";
+            htmlData += "<div class='row no-margin' style='margin-top: 12px !important;'>" + OIMatchDataLang.lblAssignOrb + " : <div class='btnUnselected btnAssignOrbNumber' data-OrbNum=" + (item.orb_num != null ? item.orb_num : "") + " style='display:inline-block; width: 80px; vertical-align: middle;'><span></span></div></div>";
+
+            <div class="MapDetalis">
+                <div><input type="checkbox" class="SetMapMarker" data-location="@address" data-LocationTitle="@htmlData" /></div>
+                <div class="row DetalisSection">
+                    <div class="">
+                        <div class="col-md-8 col-sm-8 col-xs-8">@OIMatchDataLang.lblORB : <span class="orbSpanValue">@item.orb_num</span></div>
+                        <div class="col-md-4 col-sm-4 col-xs-4 text-align-right"><span class="rnkSpan">@OIMatchDataLang.lblRank : </span> <span class="rnkvalue">@item.MatchbookRank</span></div>
+                    </div>
+                    <div class="">
+                        <div class="col-md-12 col-sm-12 col-xs-12"><span class="spanCmpnyName">@item.name</span> </div>
+                    </div>
+                    <div class="">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <span class="spanAddress">
+                                @if (!string.IsNullOrEmpty(item.address1))
+                                {
+                                    <span>@item.address1,</span>
+                                }
+                                @if (!string.IsNullOrEmpty(item.city))
+                                {
+                                    <span>@item.city,</span>
+                                }
+                                @if (!string.IsNullOrEmpty(item.state))
+                                {
+                                    <span>@item.state,</span>
+                                }
+                                @if (!string.IsNullOrEmpty(item.zip))
+                                {
+                                    <span>@item.zip,</span>
+                                }
+                                @if (!string.IsNullOrEmpty(item.iso_country_code))
+                                {
+                                    <span>@item.iso_country_code</span>
+                                }
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <span>@OIMatchDataLang.lblNorecordsfound</span>
+    }
+</div>
+<div id="map_canvas" style="height: 100%; width:77%;float:left"></div>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=@GoogleAPIKey&callback=initMap">google.maps.event.addDomListener(window, "load", initMap);</script>
+<script type="text/javascript">
+
+    var geocoder;
+    var map;
+    var gmarkers = []
+    var bounds;
+    //geocoder = new google.maps.Geocoder();
+    //google.maps.event.addDomListener(window, "load", initialize);
+
+    function initMap() {
+        bounds = new google.maps.LatLngBounds();
+        geocoder = new google.maps.Geocoder();
+        initialize();
+        var Location = $(".SetMapMarker:first").attr("data-location");
+        var LocationTitle = $(".SetMapMarker:first").attr("data-LocationTitle");
+        //LoadSearchMAp(Location, LocationTitle);
+    }
+
+    function initialize() {
+        map = new google.maps.Map(
+            document.getElementById("map_canvas"), {
+            center: new google.maps.LatLng(37.4419, -122.1419),
+            zoom: 13,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+    }
+    //$(document).ready(function () {
+    //    var Location = $(".SetMapMarker:first").attr("data-location");
+    //    var LocationTitle = $(".SetMapMarker:first").attr("data-LocationTitle");
+    //    LoadSearchMAp(Location, LocationTitle);
+    //});
+    function geocodeAddress(locations, inputAddress) {
+        var address = locations;
+        var url = locations;
+        geocoder.geocode({
+            'address': locations
+        },
+
+            function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var marker = new google.maps.Marker({
+                        icon: 'http://maps.google.com/mapfiles/ms/icons/blue.png',
+                        map: map,
+                        position: results[0].geometry.location,
+                        animation: google.maps.Animation.DROP,
+                        address: address,
+                        url: url,
+                    })
+                    gmarkers.push(marker);
+                    infoWindow(marker, map, address, url, inputAddress);
+                    bounds.extend(marker.getPosition());
+                    map.fitBounds(bounds);
+                }
+            });
+    }
+
+    function infoWindow(marker, map, address, url, inputAddress) {
+        google.maps.event.addListener(marker, 'click', function () {
+            var html = "<div>" + inputAddress + "</div>";
+            iw = new google.maps.InfoWindow({
+                content: html,
+                maxWidth: 300
+            });
+            iw.open(map, marker);
+        });
+    }
+    function LoadSearchMAp(Location, LocationTitle) {
+        geocodeAddress(Location, LocationTitle, 0);
+    }
+    $(document).on('change', ".SetMapMarker", function () {
+        var Location = $(this).attr("data-location");
+        var LocationTitle = $(this).attr("data-LocationTitle");
+        if ($(this).is(':checked')) {
+            LoadSearchMAp(Location, LocationTitle);
+        }
+        else {
+            for (i = 0; i < gmarkers.length; i++) {
+                if (gmarkers[i].address == Location) {
+                    gmarkers[i].setMap(null);
+                    gmarkers.splice(i, 0);
+                }
+            }
+        }
+    });
+</script>

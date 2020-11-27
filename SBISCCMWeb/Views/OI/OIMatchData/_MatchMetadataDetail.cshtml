@@ -1,0 +1,219 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model OIlstMatchMetaDetails
+@{
+    Layout = null;
+    string dataNext = Convert.ToString(ViewBag.dataNext);
+    string dataPrev = Convert.ToString(ViewBag.dataPrev);
+    var NextToNextDUNS = Convert.ToString(ViewBag.NextToNextDUNS);
+    var PrevToPrevDUNS = Convert.ToString(ViewBag.PrevToPrevDUNS);
+    Model.lstOICompanyInput.InpOrbNum = ViewBag.OrbNum;
+    string cc = string.Empty;
+    string MatchBookRank = string.Empty;
+    foreach (var item in Model.lstMatchQualityMetadatas)
+    {
+        cc = item.TotalCC + "/" + item.AvgCC + "/" + item.MaxCC + "/" + item.MinCC;
+        MatchBookRank = Convert.ToString(Model.lstMatchMetaDatas[0].result_number);
+    }
+}
+@Html.HiddenFor(m => m.lstOICompanyInput.InputId)
+<div class="table-responsive">
+    @if (Model != null && Model != null && Model.lstOICompanyInput != null)
+    {
+        <table class=" textBlue borderNone table popuptopcolor MatchedItem" style="margin-bottom: 0;">
+            <tbody>
+                <tr>
+                    <td colspan="3">@OIMatchDataLang.lblSrcId : <a href="javascript:void(0)" class="CustomAttribute">@Model.lstOICompanyInput.SrcRecordId</a></td>
+                </tr>
+                <tr>
+                    <td class="dnbOrbNumber" data-val="@(Model.lstOICompanyInput.InpOrbNum != null ? Model.lstOICompanyInput.InpOrbNum : "")">@OIMatchDataLang.lblORBNO : @(Model.lstOICompanyInput.InpOrbNum != null ? Model.lstOICompanyInput.InpOrbNum : "") </td>
+                    <td colspan="2">@OIMatchDataLang.lblCompanyName : @(Model.lstOICompanyInput.InpCompanyName != null ? Model.lstOICompanyInput.InpCompanyName : "")</td>
+                </tr>
+                <tr>
+                    <td>
+                        @OIMatchDataLang.lblCCTotAvgMaxMin @cc
+                    </td>
+                    <td>
+                        @{ string Address = Model.lstOICompanyInput.InpAddress1;
+                            Address += string.IsNullOrEmpty(Model.lstOICompanyInput.InpCity) ? "" : "," + Model.lstOICompanyInput.InpCity;
+                            Address += string.IsNullOrEmpty(Model.lstOICompanyInput.InpState) ? "" : "," + Model.lstOICompanyInput.InpState;
+                            Address += string.IsNullOrEmpty(Model.lstOICompanyInput.InpPostalCode) ? "" : "," + Model.lstOICompanyInput.InpPostalCode;
+                            Address += string.IsNullOrEmpty(Model.lstOICompanyInput.InpCountryISOAlpha2Code) ? "" : "," + Model.lstOICompanyInput.InpCountryISOAlpha2Code;
+                        }
+                        @OIMatchDataLang.lblAddress : @(string.IsNullOrEmpty(Address) ? "" : Address.TrimStart(','))
+                    </td>
+                    <td>
+                        <span>@OIMatchDataLang.lblSelect : </span>
+                        <div class="btnUnselected btnAssignOrn margin-left-5" data-OrbNum="@(Model.lstOICompanyInput.InpOrbNum != null ? Model.lstOICompanyInput.InpOrbNum : "")" style="display:inline-block;width: 80px;vertical-align: middle;">
+                            <span></span>
+                        </div>
+                    </td>
+
+                </tr>
+                <tr>
+                    <td>
+                        @{ string AltAddress = Model.lstOICompanyInput.InpAltAddress1;
+                            Address += string.IsNullOrEmpty(Model.lstOICompanyInput.InpAltCity) ? "" : "," + Model.lstOICompanyInput.InpAltCity;
+                            Address += string.IsNullOrEmpty(Model.lstOICompanyInput.InpAltState) ? "" : "," + Model.lstOICompanyInput.InpAltState;
+                            Address += string.IsNullOrEmpty(Model.lstOICompanyInput.InpAltPostalCode) ? "" : "," + Model.lstOICompanyInput.InpAltPostalCode;
+                            Address += string.IsNullOrEmpty(Model.lstOICompanyInput.InpAltCountryISOAlpha2Code) ? "" : "," + Model.lstOICompanyInput.InpAltCountryISOAlpha2Code;
+                        }
+                        @OIMatchDataLang.lblAltAddress : @(string.IsNullOrEmpty(AltAddress) ? "" : AltAddress.TrimStart(','))
+                    </td>
+                    <td>@OIMatchDataLang.lblTags : @(string.IsNullOrEmpty(Model.lstOICompanyInput.Tags) ? "" : Model.lstOICompanyInput.Tags)
+                    <td>@OIMatchDataLang.lblRanking :<span id="RankId"> @MatchBookRank</span>
+                </tr>
+                <tr></tr>
+            </tbody>
+        </table>
+    }
+</div>
+<div class="pull-right button-position" style="margin:10px 0 0 0;">
+    <div class="widget-toolbar" role="menu">
+        <ul class="pagination pagination-xs">
+            <li class="@(dataPrev ==""?"disabled":null)">
+                <a class="nav-link active" href="javascript:void(0)" onclick="prevClick(this);" class="matchdetail-Prev" data-val="@dataPrev" data-prev="@PrevToPrevDUNS" data-Id="@Model.lstOICompanyInput.InputId" @(string.IsNullOrEmpty(dataPrev) ? "Disabled='Disabled'" : "")>@OIMatchDataLang.lblPrev</a>
+            </li>
+            <li class="@(dataNext ==""?"disabled":null)">
+                <a  href="javascript:void(0)" onclick="nextClick(this);" class="matchdetail-Next" data-val="@dataNext" data-Next="@NextToNextDUNS" data-Id="@Model.lstOICompanyInput.InputId" @(string.IsNullOrEmpty(dataNext) ? "Disabled='Disabled'" : "")>@OIMatchDataLang.lblNext</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="">
+
+    @if (Model != null && Model.lstMatchMetaDatas != null)
+    {
+        <ul id="myTab1" class="nav nav-tabs bordered">
+            @foreach (var item in Model.lstMatchMetaDatas)
+            {
+                <li class="@(item.sequence_num==1?"active":"") nav-item" >
+                    <a class="nav-link active" href="#Search@(item.sequence_num)" data-toggle="tab" aria-expanded="true">@OIMatchDataLang.lblSearch @(item.sequence_num) </a>
+                </li>
+            }
+        </ul>
+        <div id="myTabContent1" class="tab-content padding-10">
+            @foreach (var item in Model.lstMatchMetaDatas)
+            {
+                var uri = new Uri(item.MatchUrl);
+                var query = HttpUtility.ParseQueryString(uri.Query);
+                <div class="tab-pane fade @(item.sequence_num==1?"active in":"")" id="Search@(item.sequence_num)">
+                    <table class="OIMatchMetadataDetailTB table borderNone MatchedItem no-margin">
+                        <thead>
+                            <tr>
+                                <th>@OIMatchDataLang.lblType</th>
+                                <th>@OIMatchDataLang.lblInput  </th>
+                                <th>@OIMatchDataLang.lblOrbData</th>
+                                <th>@OIMatchDataLang.lblMatchGrade</th>
+                                <th>@OIMatchDataLang.lblMDP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>@OIMatchDataLang.lblCompanyName</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(query.Get("CompanyName")))
+                                    {
+                                        <span>@query.Get("CompanyName")</span>
+                                    }
+                                </td>
+                                <td class="@(item.mg_name==null?"/ColorZ/":Helper.GetMatchColor(item.mg_name))">@item.name <strong style="color:black">@(string.IsNullOrEmpty(item.score_name) ? "" : " (" + item.score_name + ")") </strong></td>
+                                <td>@item.mg_name : @CommonMethod.GetMatchGrade(@item.mg_name) </td>
+                                <td>@(@item.mdp_name) </td>
+
+                            </tr>
+                            <tr>
+                                <td>@OIMatchDataLang.lblAddress1</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(query.Get("Address1")))
+                                    {
+                                        <span>@query.Get("Address1")</span>
+                                    }
+                                </td>
+                                <td class="@(item.mg_street_num==null?"/ColorZ/":Helper.GetMatchColor(item.mg_street_num))">@item.address1 </td>
+                                <td>@item.mg_street_num : @CommonMethod.GetMatchGrade(@item.mg_street_num) / @item.mg_street_name : @CommonMethod.GetMatchGrade(@item.mg_street_name)  </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>@OIMatchDataLang.lblAddress2</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(query.Get("Address2")))
+                                    {
+                                        <span>@query.Get("Address2")</span>
+                                    }
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>@OIMatchDataLang.lblCityTown</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(query.Get("City")))
+                                    {
+                                        <span>@query.Get("City")</span>
+                                    }
+                                </td>
+                                <td class="@(item.mg_city==null?"/ColorZ/":Helper.GetMatchColor(item.mg_city))">@item.city</td>
+                                <td>@item.mg_city: @CommonMethod.GetMatchGrade(@item.mg_city)</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>@OIMatchDataLang.lblState</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(query.Get("State")))
+                                    {
+                                        <span>@query.Get("State")</span>
+                                    }
+                                </td>
+                                <td class="@(item.mg_state==null?"/ColorZ/":Helper.GetMatchColor(item.mg_state))">@item.state</td>
+                                <td>@item.mg_state : @CommonMethod.GetMatchGrade(@item.mg_state)</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>@OIMatchDataLang.lblPhoneNumber</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(query.Get("PhoneNbr")))
+                                    {
+                                        <span>@query.Get("PhoneNbr")</span>
+                                    }
+                                </td>
+                                <td class="@(item.mg_phone==null?"/ColorZ/":Helper.GetMatchColor(item.mg_phone))">@item.matched_phone</td>
+                                <td>@item.mg_phone : @CommonMethod.GetMatchGrade(@item.mg_phone)</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>@OIMatchDataLang.lblPostalCode</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(query.Get("PostalCode")))
+                                    {
+                                        <span>@query.Get("PostalCode")</span>
+                                    }
+                                </td>
+                                <td class="@(item.mg_postal_code==null?"/ColorZ/":Helper.GetMatchColor(item.mg_postal_code))">@item.zip</td>
+                                <td>@item.mg_postal_code : @CommonMethod.GetMatchGrade(@item.mg_postal_code)</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>@OIMatchDataLang.lblWebDomain</td>
+                                <td>
+                                    @if (!string.IsNullOrEmpty(query.Get("CustomerSubDomain")))
+                                    {
+                                        @*<span>@query.Get("CustomerSubDomain")</span>*@
+                                    }
+                                </td>
+                                <td class="@(item.mg_webdomain==null?"/ColorZ/":Helper.GetMatchColor(item.mg_webdomain))"></td>
+                                <td>@item.mg_webdomain : @CommonMethod.GetMatchGrade(@item.mg_webdomain)</td>
+                                <td>@item.mdp_webdomain</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    }
+</div>

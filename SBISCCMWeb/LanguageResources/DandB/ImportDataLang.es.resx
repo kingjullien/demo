@@ -1,0 +1,1036 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrUploadFile" xml:space="preserve">
+    <value>Subir archivo</value>
+    <comment>Upload File</comment>
+  </data>
+  <data name="lblAcceptCSVFiles" xml:space="preserve">
+    <value>(Acepta solo archivos CSV)</value>
+    <comment>(Accepts only CSV files)</comment>
+  </data>
+  <data name="lblAcceptExcelFiles" xml:space="preserve">
+    <value>(Acepta solo archivos de Excel)</value>
+    <comment>(Accepts only Excel files)</comment>
+  </data>
+  <data name="lblAcceptTextFiles" xml:space="preserve">
+    <value>(Acepta solo archivos de texto)</value>
+    <comment>(Accepts only Text files)</comment>
+  </data>
+  <data name="lblActions" xml:space="preserve">
+    <value>Comportamiento</value>
+    <comment>Actions</comment>
+  </data>
+  <data name="lblAdditionalColumn" xml:space="preserve">
+    <value>columna adicional</value>
+    <comment>Additional Column</comment>
+  </data>
+  <data name="lblAdditionalFields" xml:space="preserve">
+    <value>Campos Adicionales</value>
+    <comment>Additional Fields</comment>
+  </data>
+  <data name="lblAdditonalActions" xml:space="preserve">
+    <value>Acciones Adicionales</value>
+    <comment>Additonal Actions</comment>
+  </data>
+  <data name="lblAddRow" xml:space="preserve">
+    <value>Añadir fila</value>
+    <comment>Add Row</comment>
+  </data>
+  <data name="lblAddTag" xml:space="preserve">
+    <value>Agregar etiqueta</value>
+    <comment>Add Tag</comment>
+  </data>
+  <data name="lblAltCity" xml:space="preserve">
+    <value>Ciudad alt.</value>
+    <comment>Alt. City</comment>
+  </data>
+  <data name="lblAltCompanyName" xml:space="preserve">
+    <value>Nombre alt. de la compañía</value>
+    <comment>Alt. Company Name</comment>
+  </data>
+  <data name="lblAltCountry" xml:space="preserve">
+    <value>País alt.</value>
+    <comment>Alt. Country</comment>
+  </data>
+  <data name="lblAltLookup" xml:space="preserve">
+    <value>Alt. Buscar</value>
+    <comment>Alt. Lookup</comment>
+  </data>
+  <data name="lblAltPostalCode" xml:space="preserve">
+    <value>Código postal alt.</value>
+    <comment>Alt. PostalCode</comment>
+  </data>
+  <data name="lblAltState" xml:space="preserve">
+    <value>Estado alt.</value>
+    <comment>Alt. State</comment>
+  </data>
+  <data name="lblAwaitingDataArchivalQueue" xml:space="preserve">
+    <value>Esperando depuración de datos: Archivo</value>
+    <comment>Awaiting data purge : Archival</comment>
+  </data>
+  <data name="lblCancel" xml:space="preserve">
+    <value>Cancelar</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="lblCEOName" xml:space="preserve">
+    <value>Nombre del Consejero delegado</value>
+    <comment>CEO Name</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>Ciudad</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCleanseMatchEnrichment" xml:space="preserve">
+    <value>Depuración, coincidencia y enriquecimiento</value>
+    <comment>Cleanse, Match &amp; Enrichment</comment>
+  </data>
+  <data name="lblColumnName" xml:space="preserve">
+    <value>Nombre de la columna</value>
+    <comment>Column Name</comment>
+  </data>
+  <data name="lblCompanyName" xml:space="preserve">
+    <value>Nombre de la compañía</value>
+    <comment>Company Name</comment>
+  </data>
+  <data name="lblConfigureImportSource" xml:space="preserve">
+    <value>Configurar fuente de importación</value>
+    <comment>Configure Import Source</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>País</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCountryNameRequired" xml:space="preserve">
+    <value>El campo del nombre del país es obligatorio.</value>
+    <comment>The country name field is required..</comment>
+  </data>
+  <data name="lblCSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>CSV</comment>
+  </data>
+  <data name="lblCustomDelimiter" xml:space="preserve">
+    <value>Delimitador personalizado</value>
+    <comment>Custom Delimiter</comment>
+  </data>
+  <data name="lblDataStewardship" xml:space="preserve">
+    <value>Administración de datos</value>
+    <comment>Data Stewardship</comment>
+  </data>
+  <data name="lblDataStewMatchData" xml:space="preserve">
+    <value>Cola de administración de datos: Cola de coincidencias</value>
+    <comment>Match Data</comment>
+  </data>
+  <data name="lblDataStewNoMatch" xml:space="preserve">
+    <value>Cola de administración de datos:  Cola de no coincidencias</value>
+    <comment>Data Stew Queue :  No Match Queue</comment>
+  </data>
+  <data name="lblDelete" xml:space="preserve">
+    <value>Eliminar</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="lblDelimiter" xml:space="preserve">
+    <value>delimitador</value>
+    <comment>Delimiter</comment>
+  </data>
+  <data name="lblDetails" xml:space="preserve">
+    <value>Detalles</value>
+    <comment>Details</comment>
+  </data>
+  <data name="lblDUNSNumber" xml:space="preserve">
+    <value>DUNSNumber</value>
+    <comment>DUNSNumber</comment>
+  </data>
+  <data name="lblDUNSNumberRequired" xml:space="preserve">
+    <value>El campo DUNSNumber es obligatorio.</value>
+    <comment>The DUNSNumber field is required..</comment>
+  </data>
+  <data name="lblEIN" xml:space="preserve">
+    <value>UNA</value>
+    <comment>EIN</comment>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>Correo electrónico</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblEnrichment" xml:space="preserve">
+    <value>Enriquecimiento</value>
+    <comment>Enrichment</comment>
+  </data>
+  <data name="lblEnrichmentOnly" xml:space="preserve">
+    <value>Solo enriquecimiento</value>
+    <comment>Enrichment Only</comment>
+  </data>
+  <data name="lblEnrichmentProcessing" xml:space="preserve">
+    <value>Procesamiento de enriquecimiento</value>
+    <comment>Enrichment Processing</comment>
+  </data>
+  <data name="lblEnterTemplateName" xml:space="preserve">
+    <value>Ingrese el nombre de la plantilla</value>
+    <comment>Enter Template Name</comment>
+  </data>
+  <data name="lblErrorMessage" xml:space="preserve">
+    <value>Mensaje de error</value>
+    <comment>Error Message</comment>
+  </data>
+  <data name="lblExample" xml:space="preserve">
+    <value>Ejemplo</value>
+    <comment>Example</comment>
+  </data>
+  <data name="lblExcel" xml:space="preserve">
+    <value>Excel</value>
+    <comment>Excel</comment>
+  </data>
+  <data name="lblExportQueueEnrichmentOutput" xml:space="preserve">
+    <value>Cola de exportación: Salida de enriquecimiento</value>
+    <comment>Export Queue : Enrichment output</comment>
+  </data>
+  <data name="lblExportQueueMatchOutput" xml:space="preserve">
+    <value>Cola de exportación: Salida de coincidencia</value>
+    <comment>Export Queue : Match output</comment>
+  </data>
+  <data name="lblFile" xml:space="preserve">
+    <value>Expediente</value>
+    <comment>File</comment>
+  </data>
+  <data name="lblFileColumn" xml:space="preserve">
+    <value>Columna del archivo</value>
+    <comment>File Column</comment>
+  </data>
+  <data name="lblFileName" xml:space="preserve">
+    <value>Nombre del archivo</value>
+    <comment>File Name</comment>
+  </data>
+  <data name="lblFileType" xml:space="preserve">
+    <value>Tipo de archivo</value>
+    <comment>File Type</comment>
+  </data>
+  <data name="lblFinish" xml:space="preserve">
+    <value>Terminar</value>
+    <comment>Finish</comment>
+  </data>
+  <data name="lblFixedWidth" xml:space="preserve">
+    <value>Ancho fijo</value>
+    <comment>Fixed Width</comment>
+  </data>
+  <data name="lblFormat" xml:space="preserve">
+    <value>Formato</value>
+    <comment>Format</comment>
+  </data>
+  <data name="lblHasHeader" xml:space="preserve">
+    <value>Tiene encabezado</value>
+    <comment>Has Header</comment>
+  </data>
+  <data name="lblHasHeaderRow" xml:space="preserve">
+    <value>Tiene fila de encabezado</value>
+    <comment>Has Header Row</comment>
+  </data>
+  <data name="lblImportData" xml:space="preserve">
+    <value>Importar datos</value>
+    <comment>Import Data</comment>
+  </data>
+  <data name="lblImportDataStatus" xml:space="preserve">
+    <value>Estado de importación de datos</value>
+    <comment>Import Data Status</comment>
+  </data>
+  <data name="lblImportFile" xml:space="preserve">
+    <value>Importar archivo</value>
+    <comment>Import File</comment>
+  </data>
+  <data name="lblImportFileStats" xml:space="preserve">
+    <value>Estadísticas de importación de archivos</value>
+    <comment>Import File Stats</comment>
+  </data>
+  <data name="lblImportFileTemplate" xml:space="preserve">
+    <value>Lista de plantillas de archivos de importación</value>
+    <comment>Import File Templates List</comment>
+  </data>
+  <data name="lblImportType" xml:space="preserve">
+    <value>Tipo de importación</value>
+    <comment>Import Type</comment>
+  </data>
+  <data name="lblinLanguage" xml:space="preserve">
+    <value>inLanguage</value>
+    <comment>inLanguage</comment>
+  </data>
+  <data name="lblInput" xml:space="preserve">
+    <value>Ingresar</value>
+    <comment>Input</comment>
+  </data>
+  <data name="lblInputData" xml:space="preserve">
+    <value>Ingresar datos</value>
+    <comment>Input Data</comment>
+  </data>
+  <data name="lblInputHeader" xml:space="preserve">
+    <value>Ingresar encabezado</value>
+    <comment>Input Header</comment>
+  </data>
+  <data name="lblLanguage" xml:space="preserve">
+    <value>Idioma</value>
+    <comment>Language</comment>
+  </data>
+  <data name="lblLength" xml:space="preserve">
+    <value>Longitud</value>
+    <comment>Length</comment>
+  </data>
+  <data name="lblLOBTag" xml:space="preserve">
+    <value>Etiqueta LOB</value>
+    <comment>LOB Tag</comment>
+  </data>
+  <data name="lblMapping" xml:space="preserve">
+    <value>Mapeo</value>
+    <comment>Mapping</comment>
+  </data>
+  <data name="lblMappingFile" xml:space="preserve">
+    <value>Por favor, mapee las columnas de su archivo a las columnas de la tabla correspondiente</value>
+    <comment>Please map your file columns to the corresponding table columns</comment>
+  </data>
+  <data name="lblMatch" xml:space="preserve">
+    <value>Coincidencia</value>
+    <comment>Match</comment>
+  </data>
+  <data name="lblMatchProcessing" xml:space="preserve">
+    <value>Procesamiento de coincidencia</value>
+    <comment>Match Processing</comment>
+  </data>
+  <data name="lblMessage" xml:space="preserve">
+    <value>Mensaje</value>
+    <comment>Message</comment>
+  </data>
+  <data name="lblNameAddressLookup" xml:space="preserve">
+    <value>Nombre Dirección Búsqueda</value>
+    <comment>Name Address Lookup</comment>
+  </data>
+  <data name="lblNext" xml:space="preserve">
+    <value>Próximo</value>
+    <comment>Next</comment>
+  </data>
+  <data name="lblNoMatch" xml:space="preserve">
+    <value>Sin coincidencia
+ Community verified
+Open in Google Translate	
+Feedback
+Web results
+
+Google Translatetranslate.google.co.in
+Google's free service instantly translates words, phrases, and web pages between English and over 100 other languages.
+‎About Google Translate · ‎Download &amp; use Google · ‎Google Translate Help
+
+Google Translatetranslate.google.com › ...
+Google's free service instantly translates words, phrases, and web pages between English and over 100 other languages.
+Videos
+
+PREVIEW
+2:25
+Inside Google Translate
+Google
+YouTube - Jul 10, 2010
+
+PREVIEW UNAVAILABLE
+1:23
+Introducing Tap to Translate
+Google
+YouTube - May 11, 2016
+
+PREVIEW UNAVAILABLE
+1:41
+Google Translate vs. “La Bamba”
+Google
+YouTube - Jul 29, 2015
+
+PREVIEW
+2:59
+Google Translate App Works Like Magic
+Rich DeMuro
+YouTube - Feb 11, 2015
+
+PREVIEW
+2:44
+Use Google translate from any app in Android
+Edtech4class
+YouTube - Feb 28, 2018
+
+11:49
+Google Translate Tutorial
+Technology for Teachers...
+YouTube - Apr 15, 2016
+
+PREVIEW
+4:28
+Google Translate gets very confused
+Random Týpek
+YouTube - Sep 30, 2019
+
+PREVIEW
+14:04
+Bilingual People Vs. Google Translate
+REACT
+YouTube - Sep 19, 2019
+
+1:33
+Text Translation on Google Translate
+Google
+YouTube - Nov 17, 2009
+
+PREVIEW
+3:52
+Hold conversations using Google Translate
+CNET
+YouTube - Jan 23, 2015
+Web results
+
+A Personal Interpreter on Your Phone or ... - Google Translatetranslate.google.com › intl › about
+Talk with someone who speaks a different language. Speak with Google Translate. For signs, menus, etc, just point your camera and get an instant translation.
+
+Google Translate – Apps on Google Playplay.google.com › store › apps › details › id=com.goog...
+Text translation: Translate between 103 languages by typing • Tap to Translate: Copy text in any app and tap the Google Translate icon to translate (all ...
+ Rating: 4.5 - ‎7,199,480 votes - ‎Free - ‎Android - ‎Utilities/Tools
+People also ask
+How can I translate a picture?
+
+What is your name in French translation Google?
+
+What is your name in Chinese Google Translate?
+
+What is the best translator app?
+
+Feedback
+Web results
+
+Download &amp; use Google Translate - Android - Google ...support.google.com › translate › answer
+You can translate text, handwriting, photos, and speech in over 100 languages with the Google Translate app. You can also use Translate on the web. Android ...
+
+Google Translate - Google Chromechrome.google.com › webstore › detail › google-translate
+Mar 17, 2020 - By Google. View translations easily as you browse the web. By the Google Translate team. Highlight or right-click on a section of text and click ...
+
+‎Google Translate on the App Storeapps.apple.com › app › google-translate
+Text translation: Translate between 108 languages by typing • Offline: Translate with no internet connection (59 languages) • Instant camera translation: ...
+ Rating: 4.5 - ‎57,614 reviews - ‎Free - ‎iOS - ‎Reference
+
+The Shallowness of Google Translate - The Atlanticwww.theatlantic.com › technology › archive › 2018/01
+Jan 30, 2018 - Google Translate isn't familiar with situations, period. It's familiar solely with strings composed of words composed of letters. It's all about ultra- ...
+
+Google Translate - Wikipediaen.wikipedia.org › wiki › Google_Translate
+Google Translate is a free multilingual statistical and neural machine translation service developed by Google, to translate text and websites from one language ...
+Searches related to google translate
+google translate english to hindi
+
+google translate app
+
+google translate english to spanish
+
+google translate audio
+
+translate to english
+
+translate to hindi
+
+google translate english to french
+
+google translate picture
+
+Page navigation
+1	
+2
+3
+4
+5
+6
+7
+8
+9
+10
+Next
+Complementary results
+Images</value>
+    <comment>No Match</comment>
+  </data>
+  <data name="lblNoRecordfound" xml:space="preserve">
+    <value>No se encontraron registros</value>
+    <comment>No Record(s) found</comment>
+  </data>
+  <data name="lblOrbNum" xml:space="preserve">
+    <value>OrbeNum</value>
+    <comment>OrbNum</comment>
+  </data>
+  <data name="lblOrbNumber" xml:space="preserve">
+    <value>Número de orbe</value>
+    <comment>Orb Number</comment>
+  </data>
+  <data name="lblOutput" xml:space="preserve">
+    <value>Salida</value>
+    <comment>Output</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>Tamaño de página</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblPhoneNbr" xml:space="preserve">
+    <value>PhoneNbr</value>
+    <comment>PhoneNbr</comment>
+  </data>
+  <data name="lblPostalCode" xml:space="preserve">
+    <value>Código postal</value>
+    <comment>PostalCode</comment>
+  </data>
+  <data name="lblPrev" xml:space="preserve">
+    <value>Anterior</value>
+    <comment>Prev</comment>
+  </data>
+  <data name="lblPreview" xml:space="preserve">
+    <value>Avance</value>
+    <comment>Preview</comment>
+  </data>
+  <data name="lblProcessing" xml:space="preserve">
+    <value>Procesando</value>
+    <comment>Processing</comment>
+  </data>
+  <data name="lblProcessStatus" xml:space="preserve">
+    <value>Estado del proceso</value>
+    <comment>Process Status</comment>
+  </data>
+  <data name="lblQueue" xml:space="preserve">
+    <value>Cola</value>
+    <comment>Queue</comment>
+  </data>
+  <data name="lblRecords" xml:space="preserve">
+    <value>Registros</value>
+    <comment>Records</comment>
+  </data>
+  <data name="lblRegistrationNumber" xml:space="preserve">
+    <value>Número de registro</value>
+    <comment>Registration Number</comment>
+  </data>
+  <data name="lblRegistrationType" xml:space="preserve">
+    <value>Tipo de registro</value>
+    <comment>Registration Type</comment>
+  </data>
+  <data name="lblRequestedDate" xml:space="preserve">
+    <value>Fecha en que fue solicitado</value>
+    <comment>Requested Date</comment>
+  </data>
+  <data name="lblRequiredCountryName" xml:space="preserve">
+    <value>El campo del nombre del país es obligatorio.</value>
+    <comment>The country name field is required..</comment>
+  </data>
+  <data name="lblRequiredTag" xml:space="preserve">
+    <value>Se requiere etiqueta.</value>
+    <comment>Tag is required.</comment>
+  </data>
+  <data name="lblRequiredTemplateName" xml:space="preserve">
+    <value>El nombre de la plantilla es obligatorio</value>
+    <comment>Template Name is required</comment>
+  </data>
+  <data name="lblSave" xml:space="preserve">
+    <value>Salvar</value>
+    <comment>Save</comment>
+  </data>
+  <data name="lblSaveasTemplate" xml:space="preserve">
+    <value>Guardar como plantilla</value>
+    <comment>Save as Template</comment>
+  </data>
+  <data name="lblSaveAsTemplateImport" xml:space="preserve">
+    <value>guardar como plantilla</value>
+    <comment>save as template</comment>
+  </data>
+  <data name="lblSaveData" xml:space="preserve">
+    <value>Guardar datos</value>
+    <comment>Save Data</comment>
+  </data>
+  <data name="lblSelectFileTemplate" xml:space="preserve">
+    <value>Seleccionar plantilla de archivo (opcional)</value>
+    <comment>Select File Template(optional)</comment>
+  </data>
+  <data name="lblSelectFileTemplateImport" xml:space="preserve">
+    <value>Seleccionar plantilla de archivo</value>
+    <comment>Select File Template</comment>
+  </data>
+  <data name="lblSelectFileType" xml:space="preserve">
+    <value>Seleccionar tipo de archivo</value>
+    <comment>Select File Type</comment>
+  </data>
+  <data name="lblSetcolumnwidth" xml:space="preserve">
+    <value>Establecer ancho de columna</value>
+    <comment>Set column width</comment>
+  </data>
+  <data name="lblSheetName" xml:space="preserve">
+    <value>Nombre de hoja</value>
+    <comment>Sheet Name</comment>
+  </data>
+  <data name="lblSingleEntryForm" xml:space="preserve">
+    <value>Formulario de una sola entrada</value>
+    <comment>Single Entry Form</comment>
+  </data>
+  <data name="lblSingleEntryImport" xml:space="preserve">
+    <value>Importación de una sola entrada</value>
+    <comment>Single Entry Import</comment>
+  </data>
+  <data name="lblSourceColumn" xml:space="preserve">
+    <value>Columna fuente</value>
+    <comment>Source Column</comment>
+  </data>
+  <data name="lblSrcRecordId" xml:space="preserve">
+    <value>SrcRecordId</value>
+    <comment>SrcRecordId</comment>
+  </data>
+  <data name="lblSrcRecordIdrequired" xml:space="preserve">
+    <value>El campo SrcRecordId es obligatorio.</value>
+    <comment>The SrcRecordId field is required..</comment>
+  </data>
+  <data name="lblStartPosition" xml:space="preserve">
+    <value>Posición de inicio</value>
+    <comment>Start Position</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>Estado</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblStatus" xml:space="preserve">
+    <value>Estado</value>
+    <comment>Status</comment>
+  </data>
+  <data name="lblStreetLineAddress" xml:space="preserve">
+    <value>Línea de calle Dirección</value>
+    <comment>Street Line Address</comment>
+  </data>
+  <data name="lblStreetLineAddress1" xml:space="preserve">
+    <value>Línea de calle Dirección1</value>
+    <comment>Street Line Address1</comment>
+  </data>
+  <data name="lblStreetLineAddress2" xml:space="preserve">
+    <value>Dirección de línea de calle2</value>
+    <comment>Street Line Address2</comment>
+  </data>
+  <data name="lblStreetLineAltAddress1" xml:space="preserve">
+    <value>Línea de calle alt. Dirección1</value>
+    <comment>Street Line Alt. Address1</comment>
+  </data>
+  <data name="lblStreetLineAltAddress2" xml:space="preserve">
+    <value>Línea de calle alt. Dirección2</value>
+    <comment>Street Line Alt. Address2</comment>
+  </data>
+  <data name="lblTableColumn" xml:space="preserve">
+    <value>columna mesa</value>
+    <comment>Table Column</comment>
+  </data>
+  <data name="lblTag" xml:space="preserve">
+    <value>Etiqueta</value>
+    <comment>Tag</comment>
+  </data>
+  <data name="lblTagRequire" xml:space="preserve">
+    <value>Por favor, ingrese un valor de etiqueta.</value>
+    <comment>Please enter tag value.</comment>
+  </data>
+  <data name="lblTagrequired" xml:space="preserve">
+    <value>Se requiere una etiqueta.</value>
+    <comment>Tag is required.</comment>
+  </data>
+  <data name="lblTags" xml:space="preserve">
+    <value>Etiquetas</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="lblTagType" xml:space="preserve">
+    <value>Por favor, seleccione tipo de etiqueta.</value>
+    <comment>Tag Type</comment>
+  </data>
+  <data name="lblTagTypeRequire" xml:space="preserve">
+    <value>Por favor, seleccione el tipo de etiqueta.</value>
+    <comment>Please select tag type.</comment>
+  </data>
+  <data name="lblTagValue" xml:space="preserve">
+    <value>Valor de la etiqueta</value>
+    <comment>Tag Value</comment>
+  </data>
+  <data name="lblTemplateList" xml:space="preserve">
+    <value>Lista de plantillas</value>
+    <comment>Template List</comment>
+  </data>
+  <data name="lblTemplateName" xml:space="preserve">
+    <value>Nombre de la plantilla</value>
+    <comment>Template Name</comment>
+  </data>
+  <data name="lblTotalImported" xml:space="preserve">
+    <value>Total importados</value>
+    <comment>Total Imported</comment>
+  </data>
+  <data name="lblTSV" xml:space="preserve">
+    <value>ЦВ</value>
+    <comment>TSV</comment>
+  </data>
+  <data name="lblUpdateTemplate" xml:space="preserve">
+    <value>Actualizar plantilla</value>
+    <comment>Update Template</comment>
+  </data>
+  <data name="lblValidTagRequire" xml:space="preserve">
+    <value>Por favor, ingrese solo caracteres alfanuméricos, guiones o guiones bajos</value>
+    <comment>Please enter only alphanumeric,hyphen or underscore</comment>
+  </data>
+  <data name="lblWebsite" xml:space="preserve">
+    <value>Sitio web</value>
+    <comment>Website</comment>
+  </data>
+  <data name="msgAlreadyBelongsToFile" xml:space="preserve">
+    <value>ya pertenece a este archivo</value>
+    <comment>already belongs to this file</comment>
+  </data>
+  <data name="msgColumnalreadyexists" xml:space="preserve">
+    <value>ya existe.</value>
+    <comment>already exists.</comment>
+  </data>
+  <data name="msgColumnMapping" xml:space="preserve">
+    <value>Mapeo de columnas</value>
+    <comment>Column Mapping</comment>
+  </data>
+  <data name="msgColumnname" xml:space="preserve">
+    <value>Nombre de columna</value>
+    <comment>Column name</comment>
+  </data>
+  <data name="msgConflictColumnImportProcessId" xml:space="preserve">
+    <value>La carga falló debido a un nombre de columna conflictivo en el archivo - ImportProcessId. Por favor, cambie el nombre de la columna.</value>
+    <comment>Upload failed due to conflicting column name in file - ImportProcessId. Please rename column.</comment>
+  </data>
+  <data name="msgDataImport" xml:space="preserve">
+    <value>Importación de datos</value>
+    <comment>Data Import</comment>
+  </data>
+  <data name="msgDataImportSuccessfully" xml:space="preserve">
+    <value>Datos importados con éxito a la base de datos</value>
+    <comment>Data successfully imported to Database</comment>
+  </data>
+  <data name="msgDataNotImportedToDatabase" xml:space="preserve">
+    <value>Los datos no se importan a la base de datos. Inténtalo de nuevo.</value>
+    <comment>Data does not imported to Database. Please try again.</comment>
+  </data>
+  <data name="msgDelimiter" xml:space="preserve">
+    <value>Delimitador</value>
+    <comment>Delimiter</comment>
+  </data>
+  <data name="msgEnterTemplateName" xml:space="preserve">
+    <value>Por favor, introduzca el nombre de la plantilla</value>
+    <comment>Please Enter Template Name</comment>
+  </data>
+  <data name="msgError" xml:space="preserve">
+    <value>Error</value>
+    <comment>Error</comment>
+  </data>
+  <data name="msgErrorOccurred" xml:space="preserve">
+    <value>La plantilla no coincide.</value>
+    <comment>Error occurred.</comment>
+  </data>
+  <data name="msgFileColumnMetadata" xml:space="preserve">
+    <value>Metadatos de columna de archivo</value>
+    <comment>File Column Metadata</comment>
+  </data>
+  <data name="msgFileFormat" xml:space="preserve">
+    <value>Formato de archivo</value>
+    <comment>File Format</comment>
+  </data>
+  <data name="msgFileFormateSupported" xml:space="preserve">
+    <value>Los únicos formatos permitidos son: xls, xlsx, csv, tsv, txt</value>
+    <comment>Only formats allowed are :xls,xlsx,csv,tsv,txt</comment>
+  </data>
+  <data name="msgFormatsAllowed" xml:space="preserve">
+    <value>Solo los formatos permitidos son:</value>
+    <comment>Only formats allowed are :</comment>
+  </data>
+  <data name="msgHasHeader" xml:space="preserve">
+    <value>Tiene encabezado</value>
+    <comment>Has Header</comment>
+  </data>
+  <data name="msgImportData" xml:space="preserve">
+    <value>Datos de importacion</value>
+    <comment>Import data</comment>
+  </data>
+  <data name="msgImportDataError" xml:space="preserve">
+    <value>No se pudo importar los datos a la base de datos. Por favor, inténtelo de nuevo.</value>
+    <comment>Data does not imported to Database. Please try again.</comment>
+  </data>
+  <data name="msgImportDataSuccessfully" xml:space="preserve">
+    <value>Su solicitud de importación de datos se ha guardado con éxito.</value>
+    <comment>Your data import request has been saved successfully.</comment>
+  </data>
+  <data name="msgImportType" xml:space="preserve">
+    <value>Tipo de importación</value>
+    <comment>Import Type</comment>
+  </data>
+  <data name="msgInLanguage" xml:space="preserve">
+    <value>En lenguaje</value>
+    <comment>In Language</comment>
+  </data>
+  <data name="msgInputHeader" xml:space="preserve">
+    <value>Encabezado de entrada</value>
+    <comment>Input Header</comment>
+  </data>
+  <data name="msgInsertDelimiter" xml:space="preserve">
+    <value>Por favor, seleccione un delimitador válido o cargue un archivo válido</value>
+    <comment>Please select valid delimiter or upload a valid file</comment>
+  </data>
+  <data name="msgInvalidFieldMapping" xml:space="preserve">
+    <value>Asignación de campo no válida seleccionada para este archivo.</value>
+    <comment>Invalid field mapping selected for this file.</comment>
+  </data>
+  <data name="msgInvalidTempate" xml:space="preserve">
+    <value>Plantilla no valida para el archivo seleccionado.</value>
+    <comment>Invalid template for the selected file.</comment>
+  </data>
+  <data name="msgIsUnicode" xml:space="preserve">
+    <value>IsUnicode</value>
+    <comment>IsUnicode</comment>
+  </data>
+  <data name="msgMatches" xml:space="preserve">
+    <value>Partidos</value>
+    <comment>Matches</comment>
+  </data>
+  <data name="msgMatchesbyUser" xml:space="preserve">
+    <value>Partidos por usuario</value>
+    <comment>Matches by User</comment>
+  </data>
+  <data name="msgNoRows" xml:space="preserve">
+    <value>El archivo no tiene filas.</value>
+    <comment>File has no rows.</comment>
+  </data>
+  <data name="msgRecords" xml:space="preserve">
+    <value>Registros</value>
+    <comment>Records</comment>
+  </data>
+  <data name="msgRemoveTemplate" xml:space="preserve">
+    <value>¿Seguro que quieres eliminar esta plantilla del archivo?</value>
+    <comment>Are you sure you want to remove this template from file ?</comment>
+  </data>
+  <data name="msgRequiredDelimiter" xml:space="preserve">
+    <value>Por favor, introduzca delimitador</value>
+    <comment>Please enter delimiter</comment>
+  </data>
+  <data name="msgRequiredFile" xml:space="preserve">
+    <value>Por favor seleccione el archivo primero.</value>
+    <comment>Please select file first.</comment>
+  </data>
+  <data name="msgRequiredSheetName" xml:space="preserve">
+    <value>Por favor seleccione el nombre de la hoja.</value>
+    <comment>Please select sheet name.</comment>
+  </data>
+  <data name="msgSelectValidDelimiter" xml:space="preserve">
+    <value>Seleccione un delimitador válido o cargue un archivo válido</value>
+    <comment>Please select valid delimiter or upload a valid file</comment>
+  </data>
+  <data name="msgSheetName" xml:space="preserve">
+    <value>Nombre de hoja</value>
+    <comment>Sheet Name</comment>
+  </data>
+  <data name="msgSomeFormatsAllowed" xml:space="preserve">
+    <value>Solo los formatos permitidos son:</value>
+    <comment>Only formats allowed are :</comment>
+  </data>
+  <data name="msgSomeFormatsAreAllowed" xml:space="preserve">
+    <value>Solo los formatos permitidos son: xls, xlsx, csv, tsv, txt</value>
+    <comment>Only formats allowed are :xls,xlsx,csv,tsv,txt</comment>
+  </data>
+  <data name="msgSpecialCharError" xml:space="preserve">
+    <value>No se permiten caracteres especiales en los nombres de las columnas.</value>
+    <comment>Special characters are not allowed in column names.</comment>
+  </data>
+  <data name="msgTableColumn" xml:space="preserve">
+    <value>Columna de tabla</value>
+    <comment>Table Column</comment>
+  </data>
+  <data name="msgTags" xml:space="preserve">
+    <value>Etiquetas</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="msgTemplateDetails" xml:space="preserve">
+    <value>Detalles de plantilla</value>
+    <comment>Template Details</comment>
+  </data>
+  <data name="msgTemplateName" xml:space="preserve">
+    <value>Nombre de la plantilla</value>
+    <comment>Template Name</comment>
+  </data>
+  <data name="msgTrue" xml:space="preserve">
+    <value>Verdadero</value>
+    <comment>true</comment>
+  </data>
+  <data name="msgUnableBlankFileImport" xml:space="preserve">
+    <value>No se puede importar un archivo en blanco</value>
+    <comment>Unable to import blank file</comment>
+  </data>
+  <data name="msgUnableImportBlankFile" xml:space="preserve">
+    <value>No se puede importar el archivo en blanco</value>
+    <comment>Unable to import blank file</comment>
+  </data>
+  <data name="msgUnableImportData" xml:space="preserve">
+    <value>No se pueden importar los datos a la base de datos. Por favor, inténtelo de nuevo o póngase en contacto con el servicio de asistencia de Matchbook si el problema persiste.</value>
+    <comment>Unable to import the data into the database. Please try again or contact Matchbook Services support if the issue continues.</comment>
+  </data>
+  <data name="msgUnableImportFileWithNoRows" xml:space="preserve">
+    <value>El archivo no tiene filas.</value>
+    <comment>File has no rows.</comment>
+  </data>
+  <data name="msgUnicodeFormatNotValid" xml:space="preserve">
+    <value>El formato Unicode no es válido para el archivo seleccionado con plantilla.</value>
+    <comment>Unicode format is not valid for selected file with template.</comment>
+  </data>
+  <data name="msgUnMappedColumns" xml:space="preserve">
+    <value>Columnas sin mapear</value>
+    <comment>UnMapped Columns</comment>
+  </data>
+  <data name="msgUpdatedDate" xml:space="preserve">
+    <value>Fecha actualizada</value>
+    <comment>Updated Date</comment>
+  </data>
+  <data name="msgUploadData" xml:space="preserve">
+    <value>Por favor, cargue los datos primero.</value>
+    <comment>Please Upload Data first.</comment>
+  </data>
+  <data name="msgUploadFailed" xml:space="preserve">
+    <value>La carga falló debido a un nombre de columna en conflicto en el archivo - ImportProcessId. Por favor, cambie el nombre de la columna.</value>
+    <comment>Upload failed due to conflicting column name in file - ImportProcessId. Please rename column.</comment>
+  </data>
+  <data name="msgUserId" xml:space="preserve">
+    <value>ID de usuario</value>
+    <comment>UserId</comment>
+  </data>
+  <data name="spnByImportProcess" xml:space="preserve">
+    <value>Estadísticas de cola de datos por proceso de importación</value>
+    <comment>Data Queue Statistics By ImportProcess</comment>
+  </data>
+  <data name="spnByTags" xml:space="preserve">
+    <value>Por etiquetas</value>
+    <comment>By Tags</comment>
+  </data>
+  <data name="titleData" xml:space="preserve">
+    <value>Datos</value>
+    <comment>Data</comment>
+  </data>
+  <data name="titleOrbData" xml:space="preserve">
+    <value>Matchbook | Orb Data</value>
+    <comment>Matchbook | Orb Data</comment>
+  </data>
+  <data name="titleProcessDetails" xml:space="preserve">
+    <value>Detalles del proceso</value>
+    <comment>Process Details</comment>
+  </data>
+  <data name="titleSaveData" xml:space="preserve">
+    <value>Guardar datos</value>
+    <comment>Save Data</comment>
+  </data>
+  <data name="titleTemplateDetail" xml:space="preserve">
+    <value>Detalle de plantilla</value>
+    <comment>Template detail</comment>
+  </data>
+</root>

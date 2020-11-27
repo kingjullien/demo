@@ -1,0 +1,101 @@
+﻿@model IPagedList<SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.OI.Result>
+@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchFacade.Objects;
+@using SBISCCMWeb.LanguageResources;
+<style>
+    .bottomPad_10 {
+        padding-bottom: 10px;
+    }
+</style>
+
+
+<div class="table-responsive">
+
+    <div id="divBuildList">
+        <label class="select pull-right">
+            @OIBuildListLang.lblPageSize :  @Html.DropDownList("pagevalue", new SelectList(SBISCCMWeb.Utility.CommonDropdown.GetOIBuildListPageSize(), ViewBag.pageno), new { id = "pagevalue", @class = "pagevalueChange", @autocomplete = "off" })<i></i>
+        </label>
+        <table id="accordion" class="table table-bordered panel-group customTable divOIBuildSearch" role="grid">
+            <thead>
+                <tr>
+                    <th>
+                        @OIBuildListLang.lblOrbNumber
+                    </th>
+                    <th>
+                        @OIBuildListLang.lblCompanyName
+                    </th>
+                    <th>
+                        @OIBuildListLang.lblEntityType
+                    </th>
+                    <th>
+                        @OIBuildListLang.lblCompanyStatus
+                    </th>
+                    <th>
+                        @OIBuildListLang.lblAddress
+                    </th>
+                    <th>
+                        @OIBuildListLang.lblIsStandAlone
+                    </th>
+                    <th>
+                        @OIBuildListLang.lblBranchCount
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.orb_num</td>
+                                <td>@item.name</td>
+                                <td>@item.entity_type</td>
+                                <td>@item.company_status</td>
+                                <td>
+                                    @{
+                                        string AddressDetails = item.address1;
+                                        if (!string.IsNullOrEmpty(item.city))
+                                        {
+                                            AddressDetails += "," + item.city;
+                                        }
+                                        if (!string.IsNullOrEmpty(item.state))
+                                        {
+                                            AddressDetails += "," + item.state;
+                                        }
+                                        if (!string.IsNullOrEmpty(item.country))
+                                        {
+                                            AddressDetails += "," + item.country;
+                                        }
+                                        if (!string.IsNullOrEmpty(item.zip))
+                                        {
+                                            AddressDetails += "," + item.zip;
+                                        }
+                                    }
+                                    @(string.IsNullOrEmpty(AddressDetails) ? "" : AddressDetails.TrimStart(','))
+                                </td>
+                                <td>@item.is_standalone_company</td>
+                                <td>@item.branches_count</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="7">@OIBuildListLang.lblNorecordsfound</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="dt-toolbar-footer">
+            <div class="col-sm-6 col-xs-12 hidden-xs MainPagginationArea">
+                <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", "OIBuildList", new { page = page, pagevalue = ViewBag.pagevalue }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", OnSuccess = "OnSearch" }))
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

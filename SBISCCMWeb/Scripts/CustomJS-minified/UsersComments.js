@@ -1,0 +1,1 @@
+﻿$("body").on("click", "#btnUsersComments", function () { var n = $("#Comment").val(); return "" == n || void 0 == n ? ($("#spnComment").show(), !1) : void 0 });

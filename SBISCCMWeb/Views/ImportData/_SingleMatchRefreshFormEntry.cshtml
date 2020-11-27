@@ -1,0 +1,85 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.LanguageResources
+@model InpCompanyDataRefershEntity
+@using SBISCCMWeb.Utility
+@{
+
+    string Message = Convert.ToString(ViewBag.Message);
+    var z = Model.Tags;
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+}
+<div class="tab-content">
+    <div class="tab-pane fade active in">
+        @using (Ajax.BeginForm("SingleMatchRefreshFormEntry", "ImportData", new AjaxOptions { HttpMethod = "POST", OnSuccess = "matchRefreshFormSuccess" }, new { @class = "padding-import-bottom", role = "form", @autocomplete = "off", @id = "matchRefreshForm" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("Message", Message)
+            @Html.Hidden("Tags", z);
+            @Html.ValidationSummary(true)
+            <div class="widget-body">
+                <ul id="myTab1" class="nav nav-tabs bordered">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#ImportData" data-toggle="tab" aria-expanded="false">@ImportDataLang.lblImportData</a>
+                    </li>
+                </ul>
+                <div id="myTabContent1" class="tab-content padding-10">
+                    <div class="row ">
+                        <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblSrcRecordId <span class="error">*</span></strong></span></div>
+                        <div class="col-xs-7">
+                            @Html.TextBoxFor(m => m.SrcRecordId, new { @class = "form-control", id = "txtSrcRecordid", @autocomplete = "off", maxlength = "50" })
+                            <span id="spnSrcRecordId" class="error pull-left" style="display:none;">@ImportDataLang.lblSrcRecordIdrequired </span>
+                        </div>
+                    </div>
+                    <div class="row margin-top-10 ">
+                        <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblDUNSNumber <span class="error">*</span></strong></span></div>
+                        <div class="col-xs-7">
+                            @Html.TextBoxFor(m => m.DUNSNumber, new { @class = "form-control", id = "txtDUNSNumber", @autocomplete = "off", maxlength = "15" })
+                            <span id="spnDUNSNumber" class="error pull-left" style="display:none;">@ImportDataLang.lblDUNSNumberRequired </span>
+                        </div>
+                    </div>
+                    <div class="row margin-top-10">
+                        <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblCountry <span class="error">*</span></strong></span></div>
+                        <div class="col-xs-7">
+                            @Html.DropDownListFor(m => m.Country, new SelectList(CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text", "US"), new { @class = "form-control", value = Model.Country, @autocomplete = "off" })
+                            <span id="spnCountry" class="error pull-left" style="display:none;">@ImportDataLang.lblCountryNameRequired</span>
+                        </div>
+                    </div>
+
+                    @if (Helper.LicenseEnableTags)
+                    {
+                        <div class="row margin-top-10">
+                            <div class="col-xs-4 margin-top-3 text-align-right">
+                                <span>
+                                    <strong>
+                                        @ImportDataLang.lblTags
+                                        @if (UserRoles == UserRole.LOB.ToString())
+                                        {<span class="error">*</span>}
+                                    </strong>
+                                </span>
+                            </div>
+                            <div class="col-xs-7 matchRefrshTagsDiv">
+                                <div class="DisplayFlex">
+                                    @*GetAllTags - Remove LOB Tags (MP-376)*@
+                                    @Html.DropDownList("TagsValue", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag"), new { @class = "form-control chzn-select", multiple = "true", value = Model.Tags, @autocomplete = "off" })
+                                </div>
+                                <span id="spnTags" class="error" style="display:none;">@ImportDataLang.lblTagrequired</span>
+                            </div>
+                            <div class="col-xs-1">
+                                <div class="DisplayFlex margin-left--27 margin-top-4">
+                                    <em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="row padding-top-15px">
+                    <div class="col-sm-12 text-center">
+                        <input type="submit" id="btnImportData" title="@ImportDataLang.titleSaveData" value="@ImportDataLang.titleSaveData" class="btn btn-primary btnBlack text-md-center" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script src="~/Scripts/CustomJS/SingleMatchRefreshEntryForm.js"></script>

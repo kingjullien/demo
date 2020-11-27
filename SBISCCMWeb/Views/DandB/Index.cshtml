@@ -1,0 +1,491 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@using SBISCompanyCleanseMatchFacade.Objects;
+@using SBISCCMWeb.Utility;
+@using Resources = ViewResources.BrandingTypes;
+@using SBISCCMWeb.Models;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility.Monitoring;
+@model dynamic
+@{
+    string ActivateFeature = "";
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + DandBSettingLang.titleDAndB;
+        ActivateFeature = BrandingLang.msgMBFeature;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + DandBSettingLang.titleDAndB;
+        ActivateFeature = BrandingLang.msgDNBFeature;
+    }
+    SettingFacade fac = new SettingFacade(this.LayoutModel.CurrentClient.ApplicationDBConnectionString);
+    string UserRoles = Helper.oUser.UserRole;
+    string UserLOBTag = Helper.oUser.LOBTag;
+    bool IsEnableDataReset = (Helper.IsEnableDataReset != null && Helper.IsEnableDataReset.ToLower() == "true");
+    //set these flages for decided which menu is active when UserType is steward
+    bool IsActiveDirect20 = false;
+    bool IsActiveDirectPlus = false;
+    if (Helper.UserType.ToLower() == "steward")
+    {
+        if (Helper.LicenseEnableMonitoring)
+        {
+            IsActiveDirect20 = true;
+        }
+        else if (Helper.LicenseEnableDPM)
+        {
+            IsActiveDirectPlus = true;
+        }
+    }
+
+    SelectList selectLists = CommonDropdown.GetLicensedAPIType(this.LayoutModel.CurrentClient.ApplicationDBConnectionString);
+    string Direct20Value = selectLists.Where(x => x.Value == ApiLayerType.Direct20.ToString()).Select(x => x.Value).FirstOrDefault();
+    string DirectPlusValue = selectLists.Where(x => x.Value.ToLower() == ApiLayerType.Directplus.ToString().ToLower()).Select(x => x.Value).FirstOrDefault();
+}
+@Html.Hidden("UserRole", UserRoles)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+<link href="~/Content/nouislider.min.css" rel="stylesheet" />
+@Html.AntiForgeryToken()
+@if (Helper.UserType.ToLower() != "steward")
+{<div class="row">
+        <div class="col-md-12">
+            @if (UserRoles == UserRole.GLOBAL.ToString())
+            {
+                if (Helper.Branding == Branding.DandB.ToString())
+                {
+                    <div class="text-md-right padding-10 ResetDataForDandB" style="@(IsEnableDataReset == true ? "display:block" : "display:none")">
+                        <input type="button" id="btnResetSystemData" name="btnResetSystemData" class="btn btn-Secondary" value="@DandBSettingLang.titleResetData" />
+                    </div>
+                }
+                else if (Helper.Branding == Branding.Matchbook.ToString())
+                {
+                    <div class="text-md-right padding-10 ResetData" style="@(IsEnableDataReset == true ? "display:block" : "display:none")">
+                        <input type="button" id="btnResetSystemData" name="btnResetSystemData" class="btn btn-Secondary" value="@DandBSettingLang.titleResetData" />
+                    </div>
+                }
+            }
+        </div>
+    </div>
+}
+else
+{
+    @Html.Hidden("IsActiveDirect20", IsActiveDirect20)
+    @Html.Hidden("IsActiveDirectPlus", IsActiveDirectPlus)
+}
+<div id="content" style="opacity: 1;" class="dandbbackimg">
+    @if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        <div class="dandbimg"><img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(Resources.Resource_Matchbook.DandBlogo))"></div>
+    }
+    <div class="tab-pane">
+        <section id="widget-grid" class="">
+            <div class="row">
+                <div class="widget-body dandbackground">
+                    <ul class="nav nav-tabs bordered" id="myTab1">
+                        @if (Helper.UserType.ToLower() != "steward")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(ViewBag.SelectedTab == "Feature" ? "active" : "")" data-toggle="tab" href="#FeatureTab" id="IdFeatureTab" aria-expanded="true">@DandBSettingLang.lblFeature</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(ViewBag.SelectedTab == "License" ? "active" : "")" data-toggle="tab" href="#LicenceTab" id="IdLicenceTab" aria-expanded="true">@DandBSettingLang.lblLicense</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(ViewBag.SelectedTab == "Identity Resolution" ? "active" : "")" data-toggle="tab" href="#IdentityResolutionTab" id="IdIdentityResolutionTab" aria-expanded="false">@DandBSettingLang.lblIdentityResolution</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(ViewBag.SelectedTab == "Data Enrichment" ? "active" : "")" data-toggle="tab" href="#DataEnrichmentTab" id="IdDataEnrichmentTab" aria-expanded="false">@DandBSettingLang.lblDataEnrichment</a>
+                            </li>
+                        }
+                        @if (Helper.LicenseEnableMonitoring && Direct20Value == ApiLayerType.Direct20.ToString())
+                        {
+                            <li class="@(IsActiveDirect20 ? "active" : "") nav-item">
+                                <a class="nav-link @(IsActiveDirect20 || ViewBag.SelectedTab == "Monitoring Direct 2.0" ? "active" : "")" data-toggle="tab" href="#MonitoringTab" id="IdMonitoringTab" aria-expanded="false">@DandBSettingLang.lblMonitoringDirect20</a>
+                            </li>
+                        }
+                        @if (Helper.LicenseEnableDPM && !string.IsNullOrEmpty(DirectPlusValue) && DirectPlusValue.ToLower() == ApiLayerType.Directplus.ToString().ToLower())
+                        {
+                            <li class="@(IsActiveDirectPlus ? "active" : "") nav-item">
+                                <a class="nav-link @(IsActiveDirectPlus || ViewBag.SelectedTab == "Monitoring Direct Plus" ? "active" : "")" data-toggle="tab" href="#MonitoringDirectPlusTab" id="IdMonitoringDirectPlusTab" aria-expanded="false">@DandBSettingLang.lblMonitoringDirectPlus</a>
+                            </li>
+                        }
+                    </ul>
+
+                    <div class="tab-content padding-10 righttabportal position-relative " id="">
+                        @if (Helper.UserType.ToLower() != "steward")
+                        {
+                            <div id="FeatureTab" class="tab-pane fade commontabstyle padding-10 @(ViewBag.SelectedTab == "Feature" ? "active in" : "")">
+                                <div class="row">
+                                    <div id="divPartialDandBFeature">
+                                        @if (ViewBag.SelectedTab == "Feature")
+                                        {
+                                            Html.RenderAction("IndexFeature", "DNBFeature");
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="LicenceTab" class="tab-pane commontabstyle padding-10 @(ViewBag.SelectedTab == "License" ? "active in" : "")">
+                                <div class="row">
+                                    <div id="divPartialDandBCredentials" style="width:100%">
+                                        @if (ViewBag.SelectedTab == "License")
+                                        {
+                                            Html.RenderPartial("DnBLicenseCredential", Model as List<ThirdPartyAPICredentialsEntity>);
+                                        }
+                                    </div>
+                                    <div class="default_key" style="width:100%">
+                                        <div id="divPartialDefaultInteractiveKeys" style="width:100%">
+                                            @if (ViewBag.SelectedTab == "License")
+                                            {
+                                                Html.RenderAction("DefaultInteractiveKeys", "DNBLicence");
+                                            }
+                                        </div>
+                                        <div class="divPartialBackgroundProcessSettings" style="width:100%">
+                                            @if (ViewBag.SelectedTab == "License")
+                                            {
+                                                Html.RenderAction("BackgroundProcessSettings", "DNBLicence");
+                                            }
+                                        </div>
+                                    </div>
+                                    <div id="divPartialDefaultKeysForEnrichment" style="width:100%">
+                                        @if (ViewBag.SelectedTab == "License")
+                                        {
+                                            Html.RenderAction("DefaultkeysForEnrichment", "DNBLicence");
+                                        }
+                                    </div>
+                                    @if (Helper.LicenseEnableStubData)
+                                    {
+                                        <div Id="divPartialCachedDataSettings">
+                                        </div>
+                                    }
+                                </div>
+                                <div class="row">
+                                    <div class="divPartialOverrideAPICredentials">   </div>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <div id="IdentityResolutionTab" class="commontabstyle tab-pane fade @(ViewBag.SelectedTab == "Identity Resolution" ? "active in" : "")">
+                                <div role="content">
+                                    <div class="jarviswidget-editbox"></div>
+                                    <div class="widget-body">
+                                        <div class="tabs-left">
+                                            @*<ul id="CleanseMatchTab" class="nav nav-tabs tabs-left">*@
+                                            <ul id="myTab1" class="nav nav-tabs tabs-left">
+                                                <li class="nav-item">
+                                                    <a class="nav-link @(ViewBag.SelectedIndividualTab == "Minimum Match Criteria" ? "active" : "")" data-toggle="tab" href="#RTabMinimumMatchCriteria " id="IdRTabMinimumMatchCriteria" aria-expanded="true">@DandBSettingLang.lblMinimumMatchCriteria</a>
+                                                </li>
+
+                                                <li class="nav-item">
+                                                    <a class="nav-link @(ViewBag.SelectedIndividualTab == "Exclusions Cleanse Match" ? "active" : "")" data-toggle="tab" href="#RTabExclusionsCleanseMatch" id="IdRTabExclusionsCleanseMatch" aria-expanded="false">@DandBSettingLang.lblExclusionsforCleanseMatchAPI</a>
+                                                </li>
+                                                @*<li class="">
+            <a data-toggle="tab" href="#RTabGlobalMatchAutoAcceptance" id="IdRTabGlobalMatchAutoAcceptance" aria-expanded="false">@DandBSettingLang.lblGlobalMatchAutoAcceptance</a>
+        </li>*@
+
+                                                <li class="nav-item">
+                                                    <a class="nav-link @(ViewBag.SelectedIndividualTab == "Auto Acceptance" ? "active" : "")" data-toggle="tab" href="#RTabAutoAcceptance" id="IdRTabAutoAcceptance" aria-expanded="false">@DandBSettingLang.lblAutoAcceptance</a>
+                                                </li>
+
+                                                <li class="nav-item">
+                                                    <a class="nav-link @(ViewBag.SelectedIndividualTab == "Auto Accept Directives" ? "active" : "")" data-toggle="tab" href="#RTabAutoAcceptDirectives" id="IdRTabAutoAcceptDirectives" aria-expanded="false">@DandBSettingLang.lblAutoAcceptDirectives</a>
+                                                </li>
+                                                @if (Helper.LicenseEnableMultiPassMatching && Helper.LicenseEnableTags)
+                                                {
+                                                    <li class="nav-item">
+                                                        <a class="nav-link @(ViewBag.SelectedIndividualTab == "Multi-Pass Configuration" ? "active" : "")" data-toggle="tab" href="#RTabMultiPassConfig" id="IdRTabMultiPassConfig" aria-expanded="false">@DandBSettingLang.hdrMultiPassConfiguration</a>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    <li class="nav-item clsDisable">
+                                                        <a class="nav-link" href="javascript:void(0)" title="@ActivateFeature">@DandBSettingLang.hdrMultiPassConfiguration</a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                            <div class="tab-content CommonTabContent padding-top-30px" id="CleanseMatchTabcontent">
+
+                                                <div id="RTabMinimumMatchCriteria" class="tab-pane @(ViewBag.SelectedIndividualTab == "Minimum Match Criteria" ? "active" : "") ">
+                                                    <div id="divPartialMinimumMatchCriteria">
+                                                        @if (ViewBag.SelectedIndividualTab == "Minimum Match Criteria")
+                                                        {
+                                                            Html.RenderPartial("IndexMinimumMatchCriteria", Model as ThirdPartyAPICredentialsEntity);
+                                                        }
+                                                    </div>
+                                                    @Html.Hidden("LicenseEnableTags", Helper.LicenseEnableTags)
+                                                    @if (Helper.LicenseEnableTags)
+                                                    {
+                                                        <article class="col-md-12 sortable-grid ui-sortable widget-data">
+                                                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                                                <header role="heading">
+                                                                    <h2>
+                                                                        <strong>@DandBSettingLang.lblMinimumMatchCriteriaOverride</strong>
+                                                                    </h2>
+                                                                </header>
+                                                                <div role="content">
+                                                                    <div class="jarviswidget-editbox"></div>
+                                                                    <div class="widget-body no-padding">
+                                                                        <div class="padding-10">
+                                                                            <div id="Auto-AcceptOverrite">
+                                                                                <div id="divPartialAddUpdateMinimumConfidenceCodeOverride">
+                                                                                    @if (ViewBag.SelectedIndividualTab == "Minimum Match Criteria")
+                                                                                    {
+                                                                                        Html.RenderPartial("~/Views/DNBIdentityResolution/UpsertMinimumConfidenceCodeOverride.cshtml", Model as ThirdPartyAPICredentialsEntity);
+                                                                                    }
+                                                                                </div>
+                                                                                <div id="divPartialMinimumConfidenceCodeOverride">
+                                                                                    @if (ViewBag.SelectedIndividualTab == "Minimum Match Criteria")
+                                                                                    {
+                                                                                        Html.RenderAction("IndexMinimumConfidenceCodeOverride", "DNBIdentityResolution");
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    }
+                                                </div>
+
+                                                <div id="RTabExclusionsCleanseMatch" class="tab-pane @(ViewBag.SelectedIndividualTab == "Exclusions Cleanse Match" ? "active" : "")">
+                                                    <div id="divPartialExclusionsCleanseMatch">
+                                                        @if (ViewBag.SelectedIndividualTab == "Exclusions Cleanse Match")
+                                                        {
+                                                            Html.RenderPartial("IndexExclusionsCleanseMatch", Model as CleanseMatchSettingsModel);
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div id="RTabAutoAcceptance" class="tab-pane @(ViewBag.SelectedIndividualTab == "Auto Acceptance" ? "active" : "")">
+                                                    <div id="divPartialAutoAcceptance">
+                                                        @if (ViewBag.SelectedIndividualTab == "Auto Acceptance")
+                                                        {
+                                                            Html.RenderPartial("IndexAutoAcceptance", Model as IPagedList<AutoAdditionalAcceptanceCriteriaEntity>);
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div id="RTabAutoAcceptDirectives" class="tab-pane @(ViewBag.SelectedIndividualTab == "Auto Accept Directives" ? "active" : "")">
+                                                    <div id="divPartialAutoAcceptDirectives">
+                                                        @if (ViewBag.SelectedIndividualTab == "Auto Accept Directives")
+                                                        {
+                                                            Html.RenderPartial("IndexAutoAcceptDirectives", Model as CleanseMatchSettingsModel);
+                                                        }
+                                                    </div>
+                                                </div>
+
+                                                <div id="RTabMultiPassConfig" class="tab-pane @(ViewBag.SelectedIndividualTab == "Multi-Pass Configuration" ? "active" : "")">
+                                                    <div id="divPartialMultiPassConfigList">
+                                                        @if (ViewBag.SelectedIndividualTab == "Multi-Pass Configuration")
+                                                        {
+                                                            Html.RenderPartial("IndexMultiPass", Model as List<MPMSummary>);
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div id="DataEnrichmentTab" class="tab-pane fade commontabstyle @(ViewBag.SelectedTab == "Data Enrichment" ? "active in" : "")">
+                                <div role="content">
+                                    <div class="jarviswidget-editbox"></div>
+                                    <div class="widget-body">
+                                        <div class="tabs-left">
+                                            @*<ul id="CommonRightTab" class="nav nav-tabs tabs-left enrichTabs">*@
+                                            <ul id="myTab1" class="nav nav-tabs tabs-left">
+                                                <li class="nav-item">
+                                                    <a class="nav-link @(ViewBag.SelectedIndividualTab == "Data Enrichments" ? "active" : "")" data-toggle="tab" href="#RTabEnrichment" id="IdRTabEnrichment" aria-expanded="true">@DandBSettingLang.lblDataEnrichment</a>
+                                                </li>
+                                                @if (Helper.LicenseSKU != System.Configuration.ConfigurationManager.AppSettings["LicenseSKU"])
+                                                {
+                                                    @*<li class="nav-item">
+                                                        <a class="nav-link @(ViewBag.SelectedIndividualTab == "Data Blocks" ? "active" : "")" data-toggle="tab" href="#RTabDataBlockGroups" id="IdRTabDataBlockGroups" aria-expanded="false">@DandBSettingLang.lblDataBlockGroups</a>
+                                                    </li>*@
+
+                                                    <li class="nav-item">
+                                                        <a class="nav-link @(ViewBag.SelectedIndividualTab == "Third Party Enrichment" ? "active" : "")" data-toggle="tab" href="#RTabThirdPartyEnrichment" id="IdRTabThirdPartyEnrichment" aria-expanded="true">@DandBSettingLang.hdrThirdPartyEnrichment</a>
+                                                    </li>
+                                                }
+                                                else
+                                                {
+                                                    @*<li class="nav-item clsDisable">
+                                                        <a class="nav-link" href="javascript:void(0)" title="@ActivateFeature">@DandBSettingLang.lblDataBlockGroups</a>
+                                                    </li>*@
+
+                                                    <li class="nav-item clsDisable">
+                                                        <a class="nav-link" href="javascript:void(0)" title="@ActivateFeature">@DandBSettingLang.hdrThirdPartyEnrichment</a>
+                                                    </li>
+                                                }
+
+                                            </ul>
+                                            <div class="tab-content CommonTabContent enrichContentDiv" id="">
+                                                <div id="RTabEnrichment" class="tab-pane @(ViewBag.SelectedIndividualTab == "Data Enrichments" ? "active" : "")">
+                                                    <div id="divPartialAddUdateDataEnrichmentSettings">
+                                                    </div>
+                                                    <div id="divPartialDataEnrichmentSettings">
+                                                        @if (ViewBag.SelectedIndividualTab == "Data Enrichments")
+                                                        {
+                                                            Html.RenderPartial("indexDataEnrichmentSettings");
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div id="RTabDataBlockGroups" class="tab-pane @(ViewBag.SelectedIndividualTab == "Data Blocks" ? "active" : "")">
+                                                    <div id="divPartialUpsertDataBlockGroup">
+                                                        @if (ViewBag.SelectedIndividualTab == "Data Blocks")
+                                                        {
+                                                            Html.RenderAction("UpsertDataBlockGroup", "DNBDataEnrichment"); 
+                                                                }
+                                                        </div>
+                                                    <div id="divPartialDataBlockGroup">
+                                                        @if (ViewBag.SelectedIndividualTab == "Data Blocks")
+                                                        {
+                                                            Html.RenderPartial("IndexDataBlockGroups", Model as List<DataBlockGroupsEntity>);
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div id="RTabThirdPartyEnrichment" class="tab-pane @(ViewBag.SelectedIndividualTab == "Third Party Enrichment" ? "active" : "")">
+                                                    <div id="divPartialDataThirdPartyEnrichmentAddUpdate">
+                                                    </div>
+                                                    <div id="divPartialDataThirdPartyEnrichment">
+                                                        @if (ViewBag.SelectedIndividualTab == "Third Party Enrichment")
+                                                        {
+                                                            Html.RenderPartial("ThirdPartyEnrichmentsIndex", Model as List<ThirdPartyEnrichmentsEntity>);
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="clearfix"></div>
+                        }
+                        @if (Helper.LicenseEnableMonitoring && Direct20Value == ApiLayerType.Direct20.ToString())
+                        {
+
+                            <div id="MonitoringTab" class="tab-pane  commontabstyle @(IsActiveDirect20 || ViewBag.SelectedTab == "Monitoring Direct 2.0" ? "active in" : "")">
+                                <div id="divPartialMonitoringDirectTwo">
+                                    @if (ViewBag.SelectedTab == "Monitoring Direct 2.0")
+                                    {
+                                        Html.RenderPartial("IndexMonitorProfile");
+                                    }
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        }
+                        @if (Helper.LicenseEnableDPM && !string.IsNullOrEmpty(DirectPlusValue) && DirectPlusValue.ToLower() == ApiLayerType.Directplus.ToString().ToLower())
+                        {
+                            <div id="MonitoringDirectPlusTab" class="tab-pane padding-10 commontabstyle @(IsActiveDirectPlus || ViewBag.SelectedTab == "Monitoring Direct Plus" ? "active in" : "")">
+                                <div id="divPartialMonitoringDirectPlus">
+                                    @if (ViewBag.SelectedTab == "Monitoring Direct Plus")
+                                    {
+                                        Html.RenderPartial("indexMonitoringDirectPlus", Model as MonitoringRegistrationDetailResponse);
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div id="DeDuplicateDataModalMain"></div>
+<div id="CachedDataModalMain"></div>
+<div id="ThirdPartAPICredModalMain"></div>
+<div id="DAndBAutoAcceptanceImportModalMain"></div>
+<div id="DeleteAutoAcceptanceModalMain"></div>
+<div id="DAndBAutoAcceptImportModalMain"></div>
+<div id="PreviewAutoAcceptanceModalMain"></div>
+<div id="ResetSystemDataModalMain"></div>
+<div id="MonitoringDirectPlusDUNSDetailModalMain"></div>
+<div id="AddDUNSMonitoringPlusModalMain"></div>
+<div id="RemoveDUNSMonitoringPlusModalMain"></div>
+<div id="BusinessElementModalMain"></div>
+<div id="AddBusinessElementModalMain"></div>
+<div id="ThirdPartAPICredEntitlementsModalMain"></div>
+
+@section scripts {
+    <script src="~/Scripts/jquery.pjax.js"></script>
+    @if (!string.IsNullOrEmpty(Convert.ToString(Session["Message"])))
+    {
+        <script type="text/javascript">
+            //show notification message instade of Bootbox Message...if you pass "success" than show Notification message and if you pass "error" than show bootbox message.
+            ShowMessageNotification("success", '@Convert.ToString(Session["Message"])', false);
+            // Clears the session value - Set session value null
+            $.post("@Url.Action("UpdateSessionValue","DandB")", function () {
+        });
+        </script>
+    }
+    <script>
+         var purgeDuplicatemsg = '@DandBSettingLang.msgPurgeDuplicateRecords';
+        var deleteDataBlockRecord = '@DandBSettingLang.msgDeleteDataBlockRecord';
+        var deleteAutoAcceptance = '@DandBSettingLang.msgDeleteAutoAcceptance';
+        var multipleDeleteAutoAccept = '@DandBSettingLang.msgMultipleDeleteAutoAccept';
+        var deleteMinCCOverride = '@DandBSettingLang.msgDeleteMinCCOverride';
+        var runRule = '@DandBSettingLang.msgRunRule';
+        var deleteThirdPartyAPICred = '@DandBSettingLang.msgDeleteThirdPartyAPICred';
+        var allowNumbers = '@DandBSettingLang.msgAllowNumbers';
+        var noRecordsFound = '@DandBSettingLang.msgNoRecordsFound';
+        var selectRecordtoDelete = '@DandBSettingLang.msgSelectRecordtoDelete';
+        var dataUpdated = '@DandBSettingLang.msgDataUpdated';
+        var resetData = '@DandBSettingLang.msgResetData';
+        var clientCodeNotFound = '@DandBSettingLang.msgClientCodeNotFound';
+        var nothingToMove = '@DandBSettingLang.msgNothingToMove';
+        var add = '@DandBSettingLang.lblAdd';
+        var update = '@DandBSettingLang.lblUpdate';
+        var createMonitoringProfile = '@DandBSettingLang.msgCreateMonitoringProfile';
+        var createUserPreference = '@DandBSettingLang.lblCreateUserPreference';
+        var createNotificationProfile = '@DandBSettingLang.msgCreateNotificationProfile';
+        var createDUNSRegistration = '@DandBSettingLang.msgCreateDUNSRegistration';
+        var confirmBox = '@CommonMessagesLang.lblConfirm';
+        var overwrite = '@DandBSettingLang.msgOverwrite';
+        var overwriteRulesConfirmMessage = '@DandBSettingLang.msgOverwriteRulesConfirmMessage';
+        var deleteElements = '@DandBSettingLang.msgDeleteElements';
+        var deleteMonitorProfile = '@DandBSettingLang.msgDeleteMonitorProfile';
+        var deleteRecord = '@DandBSettingLang.msgDeleteRecord';
+        var suppDUNS = '@DandBSettingLang.msgSuppDUNS';
+        var unSuppDUNS = '@DandBSettingLang.msgUnsuppDUNS';
+        var message = '@LayoutLang.lblMessage';
+        var selectConfidenceCode = '@DandBSettingLang.lblSelectConfidenceCode';
+        var selectCompanyGrade = '@DandBSettingLang.lblSelectCompanyGrade';
+        var selectCompanyCode = '@DandBSettingLang.lblSelectCompanyCode';
+        var selectStreetGrade = '@DandBSettingLang.lblSelectStreetGrade';
+        var selectStreetCode = '@DandBSettingLang.lblSelectStreetCode';
+        var selectStreetNameCode = '@DandBSettingLang.lblSelectStreetNameCode';
+        var selectStreetNameGrade = '@DandBSettingLang.lblSelectStreetNameGrade';
+        var selectCityGrade = '@DandBSettingLang.lblSelectCityGrade';
+        var selectCityCode = '@DandBSettingLang.lblSelectCityCode';
+        var selectStateGrade = '@DandBSettingLang.lblSelectStateGrade';
+        var selectAddressGrade = '@DandBSettingLang.lblSelectAddressGrade';
+        var selectStateCode = '@DandBSettingLang.lblSelectStateCode';
+        var selectAddressCode = '@DandBSettingLang.lblSelectAddressCode';
+        var selectPhoneGrade = '@DandBSettingLang.lblSelectPhoneGrade';
+        var selectPhoneCode = '@DandBSettingLang.lblSelectPhoneCode';
+        var selectZipGrade = '@DandBSettingLang.lblSelectZipGrade';
+        var selectDensity = '@DandBSettingLang.lblSelectDensity';
+        var selectUniqueness = '@DandBSettingLang.lblSelectUniqueness';
+        var selectSIC = '@DandBSettingLang.lblSelectSIC';
+        var disableRule = '@DandBSettingLang.msgDisableRule';
+        var monitoringRegistration = '@DandBSettingLang.msgSyncMonirotingRegistration';
+        var selectFile = '@PortalSettingLang.msgSelectFile';
+        var selectZipCode = '@DandBSettingLang.msgSelectZipCode';
+        var selectDensityCode = '@DandBSettingLang.msgSelectDensityCode';
+        var selectUniquenessCode = '@DandBSettingLang.msgSelectUniquenessCode';
+        var selectSICCode = '@DandBSettingLang.msgSelectSICCode';
+        var selectLookups = '@DandBSettingLang.lblSelectLookups';
+        var verificationGroupName = '@DandBSettingLang.lblVerificationGroupName';
+        var lookUpValidationmsg = '@DandBSettingLang.msgLookUpValidation';
+        var groupNameValidationmsg = '@DandBSettingLang.msgGroupNameValidation';
+        var groupConfigurationValidationmsg = '@DandBSettingLang.msgGroupConfigurationValidation';
+        var multipassGroupValidationmsg = '@DandBSettingLang.msgMultiPassGroupValidation';
+    </script>
+    @Scripts.Render("~/bundles/dandb")
+}

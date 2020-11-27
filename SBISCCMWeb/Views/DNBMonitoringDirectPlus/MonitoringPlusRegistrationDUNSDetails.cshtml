@@ -1,0 +1,59 @@
+﻿@using SBISCCMWeb.LanguageResources
+@model IPagedList<dynamic>
+@using SBISCCMWeb.Utility;
+
+@{
+    Layout = null;
+}
+<div class="modal" id="MonitoringDirectPlusDUNSDetailModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xs">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <div class="alignUTCTime">
+                        <button type="button" class="btn dropdown-toggle btn-Secondary" data-toggle="dropdown" tabindex="-1">
+                            @DandBSettingLang.lblAdditionalActions <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="right:auto !important;left: auto;">
+                            <li><a href="javascript:void(0);" id="btnAddDUNS">@DandBSettingLang.lblAddDUNSRegistration</a></li>
+                            <li><a href="javascript:void(0);" id="btnRemoveDUNS">@DandBSettingLang.lblRemoveDUNSregistration</a></li>
+                            <li>
+                                <a href="javascript:void(0);" id="btnExportDUNS">@DandBSettingLang.lblExportCSV</a>
+                                <form action="/DNBMonitoringDirectPlus/ExportDUNS" method="post" id="frmExportDUNS">
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("RegistrationName")
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <h4 class="modal-title">@DandBSettingLang.hdrMonitoringDUNSDetails</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" id="myInput" onchange="myFunction()" placeholder="Search for DUNS..." class="form-control">
+                    </div>
+                </div>
+                <label class="select pull-right" style="padding-right:10px;">
+                    @DandBSettingLang.lblPageSize :  @Html.DropDownList("DUNSPageValue", new SelectList(CommonDropdown.GetPageSize(), Convert.ToInt32(ViewBag.DUNSDetailsPagevalue)), new { id = "DUNSPageValue", @class = "DUNSPageValueChange", @autocomplete = "off" })<em></em>
+                </label>
+                <div class="MonitoringPlusDUNSDetails" id="MonitoringPlusDUNSDetails">
+                    @{Html.RenderPartial("_MonitoringPlusRegistrationDUNSDetails", Model);}
+                </div>
+
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+    if ($(".MonitoringPlusDUNSDetails span").text() == "No DUNS found.") {
+        $("#btnExportDUNS").hide();
+    }
+});
+</script>

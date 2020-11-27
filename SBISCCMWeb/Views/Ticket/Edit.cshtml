@@ -1,0 +1,206 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model TicketEntity
+@using SBISCCMWeb.Utility
+@using PagedList;
+@using SBISCCMWeb.LanguageResources;
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + TicketLang.titleTicketDesk;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + TicketLang.titleTicketDesk;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    List<string> lstFiles = new List<string>();
+    if (Model != null)
+    {
+        if (Model.Files != null)
+        {
+            string Files = Model.Files.TrimEnd(':');
+            for (int i = 0; i < Files.Split(':').Length; i++)
+            {
+                if (!string.IsNullOrEmpty(Files.Split(':')[i].ToString()))
+                {
+                    if (ImageHelper.IsFileExists(Files.Split(':')[i].ToString(), ImageHelper.PictureType.TicketImage))
+                    {
+                        lstFiles.Add(Files.Split(':')[i].ToString());
+                    }
+                }
+            }
+        }
+    }
+    IPagedList<string> pagedImage = new StaticPagedList<string>(lstFiles, 1, 10000, 0);
+
+    List<TicketHistory> lstHistory = null;
+    if (!string.IsNullOrEmpty(SessionHelper.TicketHistory))
+    {
+        lstHistory = Newtonsoft.Json.JsonConvert.DeserializeObject<List<TicketHistory>>(SessionHelper.TicketHistory);
+    }
+}
+
+@using (Html.BeginForm("Edit", "Ticket", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", onsubmit = "myFunction()", id = "AddUpdateticketFrm", @autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("hdnTicketId", Model.Id)
+    @Html.HiddenFor(m => m.Id)
+    <div id="content" style="opacity: 1;">
+        <section id="widget-grid" class="">
+            <div class="row">
+                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+                    <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark " data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <h2>
+                                <i class="glyphicon .glyphicon-tag"></i>
+                                <strong>@TicketLang.hdrEditTicket</strong>
+                            </h2>
+                        </header>
+                        <div role="content">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body no-padding">
+                                <div class="tab-content padding-10">
+                                    <div id="hr2" class="tab-pane fade fade active in">
+                                        <div class="form-group">
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.Hidden("AssignedTo", Model.AssignedTo)
+                                            <div class="row paddingto5">
+                                                <div class="col-md-12">
+                                                    <span><strong>@TicketLang.lblClientInformation </strong></span>
+                                                    @Html.TextBoxFor(m => m.ClientInformation, new { @class = "form-control col-md-9", @id = "txtClientInformation", @readonly = "true", @autocomplete = "off", maxlength = "200" })
+                                                    @Html.ValidationMessageFor(model => model.ClientInformation, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="row paddingto5">
+                                                <div class="col-md-12">
+                                                    <span><strong>@TicketLang.lblApplicationUser</strong></span>
+                                                    @Html.TextBoxFor(m => m.ApplicationUser, new { @class = "form-control col-md-9", @id = "txtApplicationUser", @readonly = "true", @autocomplete = "off", maxlength = "200" })
+                                                    @Html.ValidationMessageFor(model => model.ApplicationUser, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="row paddingto5">
+                                                <div class="col-md-12">
+                                                    <span><strong>@TicketLang.lblEnterBy</strong></span>
+                                                    @Html.TextBoxFor(m => m.EnteredBy, new { @class = "form-control col-md-9", @id = "txtEnteredBy", @readonly = "true", @autocomplete = "off", maxlength = "64" })
+                                                </div>
+                                            </div>
+
+                                            <div class="row paddingto5">
+                                                <div class="col-md-6">
+                                                    <span><strong>@TicketLang.lblEmail </strong></span>
+                                                    @Html.TextBoxFor(m => m.PrimaryEmailAddress, new { @class = "form-control col-md-9", @id = "txtPrimaryEmailAddress", @readonly = "true", @autocomplete = "off", maxlength = "200" })
+                                                    @Html.ValidationMessageFor(model => model.PrimaryEmailAddress, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span><strong>@TicketLang.lblContactNumber</strong></span>
+                                                    @Html.TextBoxFor(m => m.PrimaryContactNumber, new { @class = "form-control col-md-9", @id = "txtPrimaryContactNumber", @readonly = "true", @autocomplete = "off", maxlength = "25" })
+                                                    @Html.ValidationMessageFor(model => model.PrimaryContactNumber, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <div class="col-md-6">
+                                                    <span><strong>@TicketLang.lblPriority</strong></span>
+                                                    @Html.DropDownList("Priority", new SelectList(SBISCCMWeb.Controllers.TicketController.GetTicketStatus("101", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Code", "Value"), CommonMessagesLang.lblSelectPriority, new { @class = "form-control col-md-9", @autocomplete = "off" })
+                                                    @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span><strong>@TicketLang.lblStatus</strong></span>
+                                                    @Html.DropDownList("CurrentStatus", new SelectList(SBISCCMWeb.Controllers.TicketController.GetTicketStatus("102", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Code", "Value"), new { @class = "form-control col-md-9", @autocomplete = "off" })
+                                                    @Html.ValidationMessageFor(model => model.CurrentStatus, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <div class="col-md-6">
+                                                    <span><strong>@TicketLang.lblTicketSource</strong></span>
+                                                    @Html.DropDownListFor(model => model.TicketSource, new SelectList(SBISCCMWeb.Controllers.TicketController.GetTicketStatus("103", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Code", "Value"), new { @class = "form-control col-md-9", @disabled = "true", @autocomplete = "off" })
+                                                    @Html.ValidationMessageFor(model => model.TicketSource, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span><strong>@TicketLang.lblTicketType</strong></span>
+                                                    @Html.DropDownList("TicketType", new SelectList(SBISCCMWeb.Controllers.TicketController.GetTicketStatus("104", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Code", "Value"), CommonMessagesLang.lblSelectType, new { @class = "form-control col-md-9", @disabled = "true", @autocomplete = "off" })
+                                                    @Html.ValidationMessageFor(model => model.TicketType, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <div class="col-md-12">
+                                                    <span><strong>@TicketLang.lblTitle</strong></span>
+                                                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control col-md-9 ", @id = "txtTitle", @readonly = "true", @autocomplete = "off", maxlength = "200" })
+                                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5 titcketbox">
+                                                <div class="col-md-12">
+                                                    <span><strong>@TicketLang.lblDescription</strong></span>
+                                                    @Html.TextAreaFor(model => model.IssueDescription, new { @Class = "form-control", @rows = "6", @cols = "157", @readonly = "readonly", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5 titcketbox">
+                                                <div class="col-md-12">
+                                                    <span><strong>@TicketLang.lblNote</strong></span>
+                                                    @Html.TextAreaFor(model => model.Note, new { @rows = "6", @cols = "157", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                            <div id="divUploadImage">
+                                                @{Html.RenderPartial("_UploadImage", pagedImage);}
+                                            </div>
+                                            <div class="row paddingto5" style="display:none;">
+                                                <div>
+                                                    @if (!string.IsNullOrEmpty(Model.Files))
+                                                    {
+                                                        for (int i = 0; i < lstFiles.Count; i++)
+                                                        {
+                                                            if (!string.IsNullOrEmpty(Convert.ToString(lstFiles[i])))
+                                                            {
+                                                                string fileName = Convert.ToString(lstFiles[i]).Split('.')[1];
+                                                                if (fileName.ToLower() != "jpg" && fileName.ToLower() != "jpeg" && fileName.ToLower() != "png" && fileName.ToLower() != "gif" && fileName.ToLower() != "jpe")
+                                                                {
+                                                                    <div class="col-md-2">
+                                                                        <a href="@ImageHelper.GetFileURL(ImageHelper.PictureType.TicketImage, lstFiles[i])" download><img src="~/Images/FileIcon.png" class="browserimgEdit" /></a>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="col-md-2">
+                                                                        <img src="@ImageHelper.GetImageThumbURL(ImageHelper.PictureType.TicketImage, lstFiles[i])" class="browserimgEdit" /><br>
+                                                                    </div>
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <div class="col-md-12">
+                                                    <input type="submit" value="@TicketLang.lblUpdate" class="btn btn-default btn-primary CreateTicket" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+}
+<div>
+    @Html.ActionLink(TicketLang.lblBacktoList, "Index")
+</div>
+<div>
+    @{Html.RenderPartial("_TicketHistory", lstHistory);}
+</div>
+@section Scripts {
+    <script>
+        var confirmBox = '@CommonMessagesLang.lblConfirm';
+        var removeImageFile = '@TicketLang.msgRemoveImageFile';
+        var wrongFormat = '@CommonMessagesLang.msgWrongFormat';
+        var formatsAllowed = '@TicketLang.msgFormatsAllowed';
+    </script>
+    @Scripts.Render("~/bundles/ticket_edit")
+}

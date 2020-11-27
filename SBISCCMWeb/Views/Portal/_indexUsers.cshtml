@@ -1,0 +1,99 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model List<UsersEntity>
+@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchFacade.Objects;
+@{
+    SettingFacade fac = new SettingFacade(this.LayoutModel.CurrentClient.ApplicationDBConnectionString);
+    string DeleteUserCode = Convert.ToString(fac.GetUserStatus().Where(x => x.Value == "Account Deleted").Select(x => x.Code).FirstOrDefault());
+}
+@Html.AntiForgeryToken()
+<article class="col-md-12 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@PortalSettingLang.hdrUsersList</strong>
+            </h2>
+        </header>
+        <div role="content" class="pb-2">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+
+
+                    <div class="table-responsive" style="overflow-x:visible!important">
+                        <table class="table table-bordered wordwrap userTB">
+                            <thead>
+                                <tr>
+                                    <th>@PortalSettingLang.lblEmail </th>
+                                    <th>@PortalSettingLang.lblName </th>
+                                    <th>@PortalSettingLang.lblStatus </th>
+                                    <th class="whitespaceNowrap">@PortalSettingLang.lblType </th>
+                                    @if (Helper.LicenseEnableTags)
+                                    {
+                                        <th width="150px">@PortalSettingLang.lblLOBTag </th>
+                                        <th width="150px">@PortalSettingLang.lblSecurityTags</th>
+                                    }
+                                    @if (Helper.UserType.ToLower() != "steward")
+                                    {
+                                        <th class="nosort">@PortalSettingLang.lblDelete </th>
+                                        <th class="nosort">@PortalSettingLang.lblActivateUser</th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        var UserId = Utility.GetEncryptedString(Convert.ToString(item.UserId)).Replace("+", Utility.urlseparator);
+                                        <tr data-UserIds="@UserId">
+                                            <td>@item.EmailAddress</td>
+                                            <td>@item.UserName</td>
+                                            <td>@item.StatusDescription</td>
+                                            <td class="whitespaceNowrap">@item.TypeDescription</td>
+                                            @if (Helper.LicenseEnableTags)
+                                            {
+
+                                                <td width="150px">@item.LOBTag</td>
+                                                <td width="150px">@item.Tags</td>
+                                            }
+
+                                            @if (Helper.UserType.ToLower() != "steward")
+                                            {
+                                                <td>
+                                                    @if (item.UserId != Helper.oUser.UserId && item.UserStatusCode != DeleteUserCode)
+                                                    {
+                                                        <a href="javascript:void(0)" id="@UserId" class="deleteuser">@PortalSettingLang.lblDelete</a>
+                                                    }
+                                                </td>
+                                            }
+
+                                            <td>
+                                                @if (item.UserStatusCode == DeleteUserCode)
+                                                {
+                                                    <a href="javascript:void(0);" data-userid="@UserId" id="ActivateUser" class="Activateuser">@PortalSettingLang.lblActivate</a>
+                                                }
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+@if (ViewBag.SelectedTab == "Users")
+{
+    <script>
+    $(document).ready(function () {
+        InitPortalUserDataTable();
+        $('table.userTB tbody tr:first').addClass('current');
+        OnSuccessUser();
+    });
+    </script>
+}

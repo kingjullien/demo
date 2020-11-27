@@ -1,0 +1,56 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using System.Data;
+@model System.Data.DataTable
+@{
+    int totalMonth = 0;
+    int totalYear = 0;
+    int GrandTotal = 0;
+}
+
+
+<div class="col-md-12">
+    <div class="headertable">
+        <table>
+            <tbody>
+                <tr>
+                    <th width="11%">@ReportsListLang.lblEnrichmentCall</th>
+                    <th width="46%">@ReportsListLang.lblDnBAPIName</th>
+                    <th width="15%">@ReportsListLang.lblCurrentMonthCount</th>
+                    <th width="15%">@ReportsListLang.lblCurrentYearCount</th>
+                    <th width="13%">@ReportsListLang.lblTotalCount</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="contenttable">
+        <table>
+            @foreach (DataRow row in Model.Rows)
+            {
+                totalMonth += Convert.ToInt32(row["CurrentMonthCount"]);
+                totalYear += Convert.ToInt32(row["CurrentYearCount"]);
+                GrandTotal += Convert.ToInt32(row["TotalCalls"]);
+                <tr>
+                    <td width="11%">@row["CallType"]</td>
+                    <td width="46%">@row["DnBAPIName"]</td>
+                    <td width="15%">@row["CurrentMonthCount"]</td>
+                    <td width="15%">@row["CurrentYearCount"]</td>
+                    <td width="13%">@row["TotalCalls"]</td>
+
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="footertable">
+        <table>
+            <tbody>
+                <tr>
+                    <td width="11%">@ReportsListLang.lblTotal</td>
+                    <td width="46%">&nbsp;</td>
+                    <td width="15%">@totalMonth</td>
+                    <td width="15%">@totalYear</td>
+                    <td width="13%">@GrandTotal</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

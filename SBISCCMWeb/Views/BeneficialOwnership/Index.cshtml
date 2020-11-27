@@ -1,0 +1,138 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources
+@{
+    ViewBag.Title = "Matchbook | Compliance";
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divSearchDataList",
+        InsertionMode = InsertionMode.Replace,
+        //HttpMethod = "POST",
+        OnSuccess = "OnSuccessSearchBeneficialOwnershipData"
+    };
+    string Language = "en-US";
+    string Country = "US";
+    string APIType = CommonMethod.GetThirdPartyProperty(ThirdPartyCode.DNB_TYPEAHEAD_SEARCH.ToString(), ThirdPartyProperties.APIType.ToString());
+}
+
+<div id="content" style="padding-left:14px; padding-right:14px">
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable widget-data" id="divBenificiarySearchform">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            <em class="fa fa-filter"></em>
+                            <strong>@SearchDataLang.lblSearchData</strong>
+                        </h2>
+                        @if (!string.IsNullOrEmpty(APIType) && APIType.ToLower() == ApiLayerType.Directplus.ToString().ToLower())
+                        {
+                            <div class="input-group-btn  d-flex align-items-center pull-right">
+                                <strong class="lblTypeAhead">@CommonMessagesLang.lblTypeAhead</strong> &nbsp;&nbsp;&nbsp;
+                                <label class="Toggleswitch switch lblToggleTypeAhead margin-top-5">
+                                    <input type="checkbox" name="TypeAheadToggle" class="TypeAheadToggle">
+                                    <span class="Toggleslider round"></span>
+                                </label>&nbsp;&nbsp;&nbsp;
+                            </div>
+                        }
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body ">
+                            <div id="SearchBenificiaryModal">
+                                @using (Ajax.BeginForm("SearchDataForBenificiary", "BeneficialOwnership", null, ajaxOptions, new { id = "form_SearchBeneficialOwnershipData", @autocomplete = "off" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            <span><strong>@BeneficialOwnershipLang.spnDUNS</strong></span>
+                                            <input id="DUNSNumber" type="text" name="DUNS" autocomplete="off" class="form-control" />
+                                            <span class="error spnerrDUNS" style="display:none;">@BeneficialOwnershipLang.spnErrDUNS</span>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span><strong>@SearchDataLang.lblCompany</strong></span>
+                                            <input id="txtCompany" name="CompanyName" class="form-control" autocomplete="off" maxlength="240" />
+                                            <div id="imgCompanyLoad" class="loader" style="display:none;">
+                                                <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("/Images/Loading1.gif"))" style="width:8%;height: 20px;width: 20px;">
+                                            </div>
+                                            <span id="spnCompany" class="error" style="display:none;">@BeneficialOwnershipLang.spnErrDUNS</span>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span><strong>@SearchDataLang.lblAddress1</strong></span>
+                                            <input id="txtAddress" type="text" name="Address" class="form-control" autocomplete="off" maxlength="240" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span><strong>@SearchDataLang.lblAddress2</strong></span>
+                                            <input id="txtAddress2" type="text" name="Address2" class="form-control" autocomplete="off" maxlength="240" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span><strong>@SearchDataLang.lblCity</strong></span>
+                                            <input id="txtCity" type="text" name="City" class="form-control" autocomplete="off" maxlength="64" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span><strong>@SearchDataLang.lblState</strong></span>
+                                            <input id="txtState" type="text" name="State" class="form-control" autocomplete="off" maxlength="64" />
+                                            <span id="spnstate" class="error" style="display:none;">@SearchDataLang.lblStateRequire</span>
+                                        </div>
+                                    </div>
+                                    <div class="row paddingto5">
+                                        <div class="col-md-2">
+                                            <span><strong>@SearchDataLang.lblPhone</strong></span>
+                                            <input id="txtPhone" type="text" name="PhoneNbr" class="form-control" autocomplete="off" maxlength="50" />
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <span><strong>@SearchDataLang.lblPostalCode</strong></span>
+                                            <input id="txtZip" type="text" name="Zip" class="form-control" autocomplete="off" maxlength="32" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <span><strong>@SearchDataLang.lblCountry</strong></span>
+                                            @Html.DropDownList("Country", (CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectCountry), new { @value = Country, @class = "form-control", @autocomplete = "off" })
+                                            <span id="spnCountry" class="error" style="display:none;">@SearchDataLang.lblCountryRequire</span>
+                                        </div>
+                                        @if (CommonMethod.IsLanguageAllow())
+                                        {
+                                            <div class="col-md-2">
+                                                <span><strong>@SearchDataLang.lblLanguage</strong></span>
+                                                @Html.DropDownList("Language", (CommonDropdown.GetLanguageCodes(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectLanguage), new { @value = Language, @class = "form-control", @autocomplete = "off" })
+                                                <span id="spnLanguage" class="error" style="display:none;">@SearchDataLang.lblLanguageReqire</span>
+                                            </div>
+                                        }
+                                        <div class="col-md-2 margin-top-15">
+                                            <input id="btnSearchBeneficialOwnershipData" class="btn btn-primary" type="submit" title="@BeneficialOwnershipLang.titleSearchBeneficialOwnershipData" value="@BeneficialOwnershipLang.btnSearch" />
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <div id="divBeneficialOwnershipData" class="w-100" style="display:none"></div>
+            <div id="divSearchDataList" class="w-100"></div>
+        </div>
+    </section>
+</div>
+
+<div id="MatchDetailModalMain"></div>
+<div id="EnrichmentDetailModalMain"></div>
+<div id="BenificiaryGraphModalMain"></div>
+<div id="BenificiaryScreeningDetailsModalMain"></div>
+
+
+@section scripts{
+    <script>
+        var showInputDetails = '@MatchDataLang.lblShowInputDetails';
+        var hideInputDetails = '@MatchDataLang.lblHideInputDetails';
+        var success = '@CommonMessagesLang.msgSuccess';
+        var addNewCompany = '@SearchDataLang.msgAddNewCompany';
+        $('#form_SearchBeneficialOwnershipData #Country').val('US');
+    </script>
+    @if (CommonMethod.IsLanguageAllow())
+    {
+        <script>
+            $('#form_SearchBeneficialOwnershipData #Language').val('@Language');
+        </script>
+    }
+    @Scripts.Render("~/bundles/benificiaryownership")
+}
+

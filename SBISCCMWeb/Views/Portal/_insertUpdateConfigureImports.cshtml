@@ -1,0 +1,145 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model ImportFileConfigurationEntity
+@{
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "UpdateConfigureImportsSuccess",
+    };
+    bool IsFromImportData = ViewBag.IsFromImportData;
+    int TemplateId = 0;
+    string TemplateName = string.Empty;
+    if (IsFromImportData)
+    {
+        TemplateId = ViewBag.TemplateId;
+        TemplateName = ViewBag.TemplateName;
+    }
+}
+<style>
+    .checkbox, .radio {
+        padding-left: 20px;
+    }
+</style>
+<div class="modal" id="ConfigureImportsModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xs">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@PortalSettingLang.hdrConfigureImportProcess @if (IsFromImportData) { <span> - @TemplateName</span> }</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="tab-content">
+                    @using (Ajax.BeginForm("InsertUpdateConfigureImports", "Portal", null, ajaxOptions, new { autocomplete = "off" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(@model => @model.Id)
+                        @Html.Hidden("IsFromImportData", IsFromImportData)
+                        if (IsFromImportData)
+                        {
+                            @Html.Hidden("TemplateId", TemplateId)
+                        }
+                        if (!IsFromImportData)
+                        {
+                            <fieldset class="ConfigureImportFieldSet DownloadconfigurationImportsFieldSet">
+                                <legend>@PortalSettingLang.lblSelectFileTemplate</legend>
+                                <div class="row form-group">
+                                    <div class="col-md-6">
+                                        <div class="DisplayFlex">
+                                            @Html.DropDownListFor(model => model.TemplateId, new SelectList(SBISCCMWeb.Utility.CommonMethod.GetAllImportFileTemplates(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text").InsertEmptyFirst("Select File Template", "0"), new { @class = "form-control", @autocomplete = "off" })
+                                            <i class="fa fa-plus cursor-pointer" id="addTransferDunsTag" onclick="addNewTemplate()" style="margin: 10px 0 0 10px;" title="@PortalSettingLang.titleAddNewTemplate"></i>
+                                            <a href="javascript:void(0);" title="@PortalSettingLang.titlePreviewTemplateDetail" class="dropdownIcon" style="margin: 5px 0 0 10px;">
+                                            </a>
+                                        </div>
+                                        <span id="spnTemplateId" class="error" style="display:none;">@PortalSettingLang.lblRequiredTemplateName</span>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
+                        <fieldset class="ConfigureImportFieldSet DownloadconfigurationImportsFieldSet">
+                            <legend>@PortalSettingLang.lblSelectConfigurationName</legend>
+                            <div class="row form-group">
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(@model => @model.ConfigurationName, new { @class = "form-control", @placeholder = PortalSettingLang.placeholderConfigurationName, @autocomplete = "off" })
+                                    <span id="spnConfigurationName" class="error" style="display:none;">@PortalSettingLang.lblRequiredConfigurationName</span>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="ConfigureImportFieldSet DownloadconfigurationImportsFieldSet">
+                            <legend>@PortalSettingLang.lblSelectExternalDataSource</legend>
+                            <div class="row form-group">
+                                <div class="col-md-6">
+                                    @Html.DropDownListFor(model => model.ExternalDataStoreId, new SelectList(SBISCCMWeb.Utility.CommonMethod.GetExternalDataStore(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text").InsertEmptyFirst("Select External Data Source", ""), new { @class = "form-control", @autocomplete = "off" })
+                                    <span id="spnExternalDataStoreId" class="error" style="display:none;">@PortalSettingLang.lblRequiredExternalDataSource</span>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="ConfigureImportFieldSet DownloadconfigurationImportsFieldSet">
+                            <legend>@PortalSettingLang.lblSelectSourceFolderPath</legend>
+                            <div class="row form-group">
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(@model => @model.SourceFolderPath, new { @class = "form-control", @placeholder = PortalSettingLang.placeholderSourceFolderPath, @autocomplete = "off" })
+                                    <span id="spnSourceFolderPath" class="error" style="display:none;">@PortalSettingLang.lblRequiredSourceFolderPath</span>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="ConfigureImportFieldSet DownloadconfigurationImportsFieldSet">
+                            <legend>@PortalSettingLang.lblSelectFilePatternToMatch</legend>
+                            <div class="row form-group">
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(@model => @model.FileNamePattern, new { @class = "form-control", @placeholder = PortalSettingLang.placeholderFilePattern, @autocomplete = "off" })
+                                    <span id="spnFileNamePattern" class="error" style="display:none;">@PortalSettingLang.lblRequiredFilePatternToMatch</span>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="ConfigureImportFieldSet DownloadconfigurationImportsFieldSet">
+                            <legend>@PortalSettingLang.lblSelectPostLoadAction</legend>
+                            <div class="row form-group">
+                                <div class="col-md-6">
+                                    @Html.DropDownListFor(@model => model.PostLoadAction, new List<SelectListItem>{new SelectListItem{ Text="Delete", Value = "DELETE"}
+                                        ,new SelectListItem{ Text="Archive", Value = "ARCHIVE"}
+                                        ,new SelectListItem{ Text="Rename", Value = "RENAME"}
+                                        ,new SelectListItem{ Text="Do Nothing", Value = "DONOTHING"}
+                                       ,}, new { @class = "form-control", autocomplete = "off" })
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="ConfigureImportFieldSet DownloadconfigurationImportsFieldSet">
+                            <legend>@PortalSettingLang.lblSelectPostLoadActionParameters</legend>
+                            <div class="row form-group">
+                                <div class="col-md-6">
+                                    <div class="DisplayFlex">
+                                        @Html.TextBoxFor(@model => @model.PostLoadActionParameters, new { @class = "form-control", @placeholder = PortalSettingLang.placeholderPostLoadActionParameters, @autocomplete = "off" })
+                                    </div>
+                                    <span id="spnPostLoadActionParameters" class="error" style="display:none;">@PortalSettingLang.lblPleaseRequiredPostLoadActionParameters</span>
+                                </div>
+                                <div class="col-md-6 margin-top-5">
+                                    @Html.CheckBoxFor(model => model.AppendUTCTimestamp, new { autocomplete = "off", @class = "setCheckBoxForPostLoadAction" })
+                                    <span class="txtAppendUTCTime"><strong>@PortalSettingLang.lblAppendUTCTime</strong></span>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="next_button">
+                            @if (Model.Id > 0)
+                            {
+                                <button type="submit" class="btn btn-primary" onclick="return sumbitConfigureImport()">@PortalSettingLang.lblUpdate</button>
+                            }
+                            else
+                            {
+                                <button type="submit" class="btn btn-primary" onclick="return sumbitConfigureImport()">@PortalSettingLang.lblSave</button>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

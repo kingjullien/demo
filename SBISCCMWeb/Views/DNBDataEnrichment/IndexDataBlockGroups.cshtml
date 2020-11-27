@@ -1,0 +1,56 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.LanguageResources;
+@model List<DataBlockGroupsEntity>
+    @{ 
+        Layout = null;
+    }
+<article class="col-md-12 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrDataBlockGroup</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered dataBlockGroupsTB">
+                        <thead>
+                            <tr>
+                                <th>@DandBSettingLang.lblGroupName</th>
+                                <th>@DandBSettingLang.lblDataBlocks</th>
+                                <th class="nosort">@DandBSettingLang.lblDelete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr data-DataBlockGroupId="@item.DataBlockGroupId">
+                                        <td>@item.DataBlockGroupName</td>
+                                        <td class="WordBreak">@item.DataBlocks</td>
+                                        <td><a class="deleteDataBlockGroup" href="#" id="@item.DataBlockGroupId">@DandBSettingLang.lblDelete</a></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "Data Blocks")
+{
+<script>
+    $(document).ready(function () {
+            if ($("table.dataBlockGroupsTB tbody tr:first").html().indexOf("No record(s) Found") < 0) {
+                $("table.dataBlockGroupsTB tbody tr:first").addClass("current");
+            }            
+            selectFirstTRDataBlocks();
+            InitDandBDataBlocksDataTable();
+        });
+</script>
+}

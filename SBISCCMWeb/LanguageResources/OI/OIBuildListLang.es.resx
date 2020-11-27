@@ -1,0 +1,888 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrBasicInformationDetails" xml:space="preserve">
+    <value>Información básica</value>
+    <comment>Basic Information Details</comment>
+  </data>
+  <data name="hdrBasicInformationDetails1" xml:space="preserve">
+    <value>Información básica detalles</value>
+    <comment>Basic Information Details</comment>
+  </data>
+  <data name="hdrClassification" xml:space="preserve">
+    <value>Clasificación</value>
+    <comment>Classification</comment>
+  </data>
+  <data name="hdrClassification1" xml:space="preserve">
+    <value>Clasificación</value>
+    <comment>Classification</comment>
+  </data>
+  <data name="hdrKeyInformation" xml:space="preserve">
+    <value>Información clave</value>
+    <comment>Key Information</comment>
+  </data>
+  <data name="hdrKeyInformation1" xml:space="preserve">
+    <value>Información clave</value>
+    <comment>Key Information</comment>
+  </data>
+  <data name="hdrORBNumberAddressInformationTechnology" xml:space="preserve">
+    <value>Número de ORB/Información de dirección/Tecnología</value>
+    <comment>ORB Number/Address Information/Technology</comment>
+  </data>
+  <data name="hdrORBNumberAddressInformationTechnology1" xml:space="preserve">
+    <value>Número ORB / Dirección de Información / Tecnología</value>
+    <comment>ORB Number/Address Information/Technology</comment>
+  </data>
+  <data name="hdrProfileDetails" xml:space="preserve">
+    <value>Detalles del Perfil</value>
+    <comment>Profile Details</comment>
+  </data>
+  <data name="hdrProfileDetails1" xml:space="preserve">
+    <value>Detalles del Perfil</value>
+    <comment>Profile Details</comment>
+  </data>
+  <data name="hdrSearchResults" xml:space="preserve">
+    <value>Resultados de la búsqueda</value>
+    <comment>Search Results</comment>
+  </data>
+  <data name="hdrSearchResults1" xml:space="preserve">
+    <value>Resultados de la búsqueda</value>
+    <comment>Search Results</comment>
+  </data>
+  <data name="hdrSocialPlatformDetails" xml:space="preserve">
+    <value>Detalles de la plataforma social</value>
+    <comment>Social Platform Details</comment>
+  </data>
+  <data name="hdrSocialPlatformDetails1" xml:space="preserve">
+    <value>Detalles Plataforma Social</value>
+    <comment>Social Platform Details</comment>
+  </data>
+  <data name="hdrViewHistory" xml:space="preserve">
+    <value>Ver historial</value>
+    <comment>View History</comment>
+  </data>
+  <data name="lblAction" xml:space="preserve">
+    <value>Acción</value>
+    <comment>Action</comment>
+  </data>
+  <data name="lblAction1" xml:space="preserve">
+    <value>Acción</value>
+    <comment>Action</comment>
+  </data>
+  <data name="lblAddress" xml:space="preserve">
+    <value>Dirección</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAddress1" xml:space="preserve">
+    <value>Habla a</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAddressInformation" xml:space="preserve">
+    <value>Información de la dirección</value>
+    <comment>Address Information</comment>
+  </data>
+  <data name="lblAddressInformation1" xml:space="preserve">
+    <value>Datos del Domicilio</value>
+    <comment>Address Information</comment>
+  </data>
+  <data name="lblAltOrganization" xml:space="preserve">
+    <value>Organización alt.</value>
+    <comment>Alt Organization</comment>
+  </data>
+  <data name="lblAltOrganization1" xml:space="preserve">
+    <value>Organización alt</value>
+    <comment>Alt Organization</comment>
+  </data>
+  <data name="lblBranch" xml:space="preserve">
+    <value>Rama</value>
+    <comment>Branch</comment>
+  </data>
+  <data name="lblBranchCount" xml:space="preserve">
+    <value>BranchCount</value>
+    <comment>BranchCount</comment>
+  </data>
+  <data name="lblBranchCount1" xml:space="preserve">
+    <value>BranchCount</value>
+    <comment>BranchCount</comment>
+  </data>
+  <data name="lblBranchesCount" xml:space="preserve">
+    <value>Conteo de sucursales</value>
+    <comment>Branches Count</comment>
+  </data>
+  <data name="lblBranchesCount1" xml:space="preserve">
+    <value>ramas Count</value>
+    <comment>Branches Count</comment>
+  </data>
+  <data name="lblCategories" xml:space="preserve">
+    <value>categorías</value>
+    <comment>Categories</comment>
+  </data>
+  <data name="lblCategories1" xml:space="preserve">
+    <value>categorías</value>
+    <comment>Categories</comment>
+  </data>
+  <data name="lblCategoryName" xml:space="preserve">
+    <value>nombre de la categoría</value>
+    <comment>Category Name</comment>
+  </data>
+  <data name="lblCategoryName1" xml:space="preserve">
+    <value>nombre de la categoría</value>
+    <comment>Category Name</comment>
+  </data>
+  <data name="lblCategoryWeight" xml:space="preserve">
+    <value>Peso de la categoría</value>
+    <comment>Category Weight</comment>
+  </data>
+  <data name="lblCategoryWeight1" xml:space="preserve">
+    <value>Categoría Peso</value>
+    <comment>Category Weight</comment>
+  </data>
+  <data name="lblCIKCode" xml:space="preserve">
+    <value>Código CIK</value>
+    <comment>CIK Code</comment>
+  </data>
+  <data name="lblCIKCode1" xml:space="preserve">
+    <value>Código CIK</value>
+    <comment>CIK Code</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>Ciudad</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCity1" xml:space="preserve">
+    <value>Ciudad</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblClear" xml:space="preserve">
+    <value>Borrar</value>
+    <comment>Clear</comment>
+  </data>
+  <data name="lblClear1" xml:space="preserve">
+    <value>Claro</value>
+    <comment>Clear</comment>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>Empresa</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCompanyName" xml:space="preserve">
+    <value>Nombre de la compañía</value>
+    <comment>Company Name</comment>
+  </data>
+  <data name="lblCompanyName1" xml:space="preserve">
+    <value>nombre de empresa</value>
+    <comment>Company Name</comment>
+  </data>
+  <data name="lblCompanyStatus" xml:space="preserve">
+    <value>Estado de la compañía</value>
+    <comment>Company Status</comment>
+  </data>
+  <data name="lblCompanyStatus1" xml:space="preserve">
+    <value>Estado de la empresa</value>
+    <comment>Company Status</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>País</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCountry1" xml:space="preserve">
+    <value>País</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCUSIP" xml:space="preserve">
+    <value>CUSIP</value>
+    <comment>CUSIP</comment>
+  </data>
+  <data name="lblCUSIP1" xml:space="preserve">
+    <value>CUSIP</value>
+    <comment>CUSIP</comment>
+  </data>
+  <data name="lblDescription" xml:space="preserve">
+    <value>Descripción</value>
+    <comment>Description</comment>
+  </data>
+  <data name="lblDescription1" xml:space="preserve">
+    <value>Descripción</value>
+    <comment>Description</comment>
+  </data>
+  <data name="lblEIN" xml:space="preserve">
+    <value>EIN</value>
+    <comment>EIN</comment>
+  </data>
+  <data name="lblEIN1" xml:space="preserve">
+    <value>EIN</value>
+    <comment>EIN</comment>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>Correo electrónico</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblEmail1" xml:space="preserve">
+    <value>Email</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblEmailHosting" xml:space="preserve">
+    <value>EmailHosting</value>
+    <comment>EmailHosting</comment>
+  </data>
+  <data name="lblEmailHosting1" xml:space="preserve">
+    <value>EmailHosting</value>
+    <comment>EmailHosting</comment>
+  </data>
+  <data name="lblEmployees" xml:space="preserve">
+    <value>Empleados</value>
+    <comment>Employees</comment>
+  </data>
+  <data name="lblEmployees1" xml:space="preserve">
+    <value>Empleados</value>
+    <comment>Employees</comment>
+  </data>
+  <data name="lblEntityType" xml:space="preserve">
+    <value>Tipo de entidad</value>
+    <comment>Entity Type</comment>
+  </data>
+  <data name="lblEntityType1" xml:space="preserve">
+    <value>del tipo de entidad</value>
+    <comment>Entity Type</comment>
+  </data>
+  <data name="lblExchange" xml:space="preserve">
+    <value>Intercambio</value>
+    <comment>Exchange</comment>
+  </data>
+  <data name="lblExchange1" xml:space="preserve">
+    <value>Intercambiar</value>
+    <comment>Exchange</comment>
+  </data>
+  <data name="lblExporttoExcel" xml:space="preserve">
+    <value>Exportar a Excel</value>
+    <comment>Export to Excel</comment>
+  </data>
+  <data name="lblExporttoExcel1" xml:space="preserve">
+    <value>Exportar a Excel</value>
+    <comment>Export to Excel</comment>
+  </data>
+  <data name="lblFacebook" xml:space="preserve">
+    <value>Facebook</value>
+    <comment>Facebook</comment>
+  </data>
+  <data name="lblFacebook1" xml:space="preserve">
+    <value>Facebook</value>
+    <comment>Facebook</comment>
+  </data>
+  <data name="lblFalse" xml:space="preserve">
+    <value>Falso:</value>
+    <comment>False:</comment>
+  </data>
+  <data name="lblFax" xml:space="preserve">
+    <value>Fax</value>
+    <comment>Fax</comment>
+  </data>
+  <data name="lblFax1" xml:space="preserve">
+    <value>Fax</value>
+    <comment>Fax</comment>
+  </data>
+  <data name="lblFollowers" xml:space="preserve">
+    <value>seguidores</value>
+    <comment>Followers</comment>
+  </data>
+  <data name="lblFollowers1" xml:space="preserve">
+    <value>seguidores</value>
+    <comment>Followers</comment>
+  </data>
+  <data name="lblFullProfile" xml:space="preserve">
+    <value>Perfil completo</value>
+    <comment>Full Profile</comment>
+  </data>
+  <data name="lblFullProfile1" xml:space="preserve">
+    <value>el perfil completo</value>
+    <comment>Full Profile</comment>
+  </data>
+  <data name="lblHasEmail" xml:space="preserve">
+    <value>hasEmail</value>
+    <comment>HasEmail</comment>
+  </data>
+  <data name="lblHasEmail1" xml:space="preserve">
+    <value>hasEmail</value>
+    <comment>HasEmail</comment>
+  </data>
+  <data name="lblHasWebsite" xml:space="preserve">
+    <value>HasWebsite</value>
+    <comment>HasWebsite</comment>
+  </data>
+  <data name="lblHasWebsite1" xml:space="preserve">
+    <value>HasWebsite</value>
+    <comment>HasWebsite</comment>
+  </data>
+  <data name="lblImportanceScore" xml:space="preserve">
+    <value>Calificación de importancia</value>
+    <comment>Importance Score</comment>
+  </data>
+  <data name="lblImportanceScore1" xml:space="preserve">
+    <value>importancia Puntaje</value>
+    <comment>Importance Score</comment>
+  </data>
+  <data name="lblInclude" xml:space="preserve">
+    <value>Incluir</value>
+    <comment>Include</comment>
+  </data>
+  <data name="lblInclude1" xml:space="preserve">
+    <value>Incluir</value>
+    <comment>Include</comment>
+  </data>
+  <data name="lblIndividualEmployeeCount" xml:space="preserve">
+    <value>Recuento individual de empleados</value>
+    <comment>Individual Employee Count</comment>
+  </data>
+  <data name="lblIndividualEmployeeCount1" xml:space="preserve">
+    <value>Conteo de individuos Empleado</value>
+    <comment>Individual Employee Count</comment>
+  </data>
+  <data name="lblIndustry" xml:space="preserve">
+    <value>Industria</value>
+    <comment>Industry</comment>
+  </data>
+  <data name="lblIndustry1" xml:space="preserve">
+    <value>Industria</value>
+    <comment>Industry</comment>
+  </data>
+  <data name="lblIndustryclassification" xml:space="preserve">
+    <value>clasificación de la industria</value>
+    <comment>Industry classification</comment>
+  </data>
+  <data name="lblIndustryclassification1" xml:space="preserve">
+    <value>clasificación de la industria</value>
+    <comment>Industry classification</comment>
+  </data>
+  <data name="lblIndustryClassificationCode" xml:space="preserve">
+    <value>Código de clasificación de la industria</value>
+    <comment>Industry Classification Code</comment>
+  </data>
+  <data name="lblIndustryClassificationCode1" xml:space="preserve">
+    <value>Código de Clasificación Industrial</value>
+    <comment>Industry Classification Code</comment>
+  </data>
+  <data name="lblIndustryCodes" xml:space="preserve">
+    <value>Códigos de industria</value>
+    <comment>Industry Codes</comment>
+  </data>
+  <data name="lblIndustryCodes1" xml:space="preserve">
+    <value>códigos de la industria</value>
+    <comment>Industry Codes</comment>
+  </data>
+  <data name="lblIsStandAlone" xml:space="preserve">
+    <value>IsStandAlone</value>
+    <comment>IsStandAlone</comment>
+  </data>
+  <data name="lblIsStandAlone1" xml:space="preserve">
+    <value>IsStandAlone</value>
+    <comment>IsStandAlone</comment>
+  </data>
+  <data name="lblLastFundingAmount" xml:space="preserve">
+    <value>Último monto de financiación</value>
+    <comment>Last Funding Amount</comment>
+  </data>
+  <data name="lblLastFundingAmount1" xml:space="preserve">
+    <value>Última Financiación Monto</value>
+    <comment>Last Funding Amount</comment>
+  </data>
+  <data name="lblLikes" xml:space="preserve">
+    <value>Me gusta</value>
+    <comment>Likes</comment>
+  </data>
+  <data name="lblLikes1" xml:space="preserve">
+    <value>Gustos</value>
+    <comment>Likes</comment>
+  </data>
+  <data name="lblLinkedin" xml:space="preserve">
+    <value>Linkedin</value>
+    <comment>Linkedin</comment>
+  </data>
+  <data name="lblLinkedin1" xml:space="preserve">
+    <value>Linkedin</value>
+    <comment>Linkedin</comment>
+  </data>
+  <data name="lblmployeeRange" xml:space="preserve">
+    <value>Rango de empleado</value>
+    <comment>mployee Range</comment>
+  </data>
+  <data name="lblmployeeRange1" xml:space="preserve">
+    <value>Rango de empleados</value>
+    <comment>mployee Range</comment>
+  </data>
+  <data name="lblNAICSCode" xml:space="preserve">
+    <value>Código NAICS</value>
+    <comment>NAICS Code</comment>
+  </data>
+  <data name="lblNAICSCode1" xml:space="preserve">
+    <value>Código SCIAN</value>
+    <comment>NAICS Code</comment>
+  </data>
+  <data name="lblNAICSCodes" xml:space="preserve">
+    <value>códigos NAICS</value>
+    <comment>NAICS Codes</comment>
+  </data>
+  <data name="lblNAICSCodes1" xml:space="preserve">
+    <value>códigos NAICS</value>
+    <comment>NAICS Codes</comment>
+  </data>
+  <data name="lblName" xml:space="preserve">
+    <value>Nombre</value>
+    <comment>Name</comment>
+  </data>
+  <data name="lblName1" xml:space="preserve">
+    <value>Nombre</value>
+    <comment>Name</comment>
+  </data>
+  <data name="lblNodataareavailable" xml:space="preserve">
+    <value>No hay datos disponibles</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNodataareavailable1" xml:space="preserve">
+    <value>No se dispone de datos</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNorecordsfound" xml:space="preserve">
+    <value>No se encontraron registros</value>
+    <comment>No records found</comment>
+  </data>
+  <data name="lblNorecordsfound1" xml:space="preserve">
+    <value>No se encontraron registros</value>
+    <comment>No records found</comment>
+  </data>
+  <data name="lblOrbnum" xml:space="preserve">
+    <value>Núm. Orb</value>
+    <comment>Orb num</comment>
+  </data>
+  <data name="lblOrbnum1" xml:space="preserve">
+    <value>num orbe</value>
+    <comment>Orb num</comment>
+  </data>
+  <data name="lblOrbNumber" xml:space="preserve">
+    <value>Número orbe</value>
+    <comment>Orb Number</comment>
+  </data>
+  <data name="lblOrbNumber1" xml:space="preserve">
+    <value>Número orbe</value>
+    <comment>Orb Number</comment>
+  </data>
+  <data name="lblORBWebRank" xml:space="preserve">
+    <value>ORBWebRank</value>
+    <comment>ORBWebRank</comment>
+  </data>
+  <data name="lblORBWebRank1" xml:space="preserve">
+    <value>ORBWebRank</value>
+    <comment>ORBWebRank</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>Tamaño de página</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblPageSize1" xml:space="preserve">
+    <value>Tamaño de página</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblParentOrbnum" xml:space="preserve">
+    <value>Núm. Orb padre</value>
+    <comment>Parent Orb num</comment>
+  </data>
+  <data name="lblParentOrbnum1" xml:space="preserve">
+    <value>Padres Orbe num</value>
+    <comment>Parent Orb num</comment>
+  </data>
+  <data name="lblPrimaryIndustry" xml:space="preserve">
+    <value>Industria primaria</value>
+    <comment>Primary Industry</comment>
+  </data>
+  <data name="lblPrimaryIndustry1" xml:space="preserve">
+    <value>Industria primaria</value>
+    <comment>Primary Industry</comment>
+  </data>
+  <data name="lblPrimaryNAICS" xml:space="preserve">
+    <value>NAICS primario</value>
+    <comment>Primary NAICS</comment>
+  </data>
+  <data name="lblPrimaryNAICS1" xml:space="preserve">
+    <value>SCIAN primarias</value>
+    <comment>Primary NAICS</comment>
+  </data>
+  <data name="lblPrimarySIC" xml:space="preserve">
+    <value>SIC primario</value>
+    <comment>Primary SIC</comment>
+  </data>
+  <data name="lblPrimarySIC1" xml:space="preserve">
+    <value>primario de la SIC</value>
+    <comment>Primary SIC</comment>
+  </data>
+  <data name="lblRankings" xml:space="preserve">
+    <value>Clasificaciones</value>
+    <comment>Rankings</comment>
+  </data>
+  <data name="lblRankings1" xml:space="preserve">
+    <value>graduaciones</value>
+    <comment>Rankings</comment>
+  </data>
+  <data name="lblRecordDetails" xml:space="preserve">
+    <value>Detalles del registro</value>
+    <comment>Record Details</comment>
+  </data>
+  <data name="lblRecordDetails1" xml:space="preserve">
+    <value>Detalles de registro</value>
+    <comment>Record Details</comment>
+  </data>
+  <data name="lblRequestedDate" xml:space="preserve">
+    <value>Fecha en que fue solicitado</value>
+    <comment>Requested Date</comment>
+  </data>
+  <data name="lblRequestedDate1" xml:space="preserve">
+    <value>Fecha solicitada</value>
+    <comment>Requested Date</comment>
+  </data>
+  <data name="lblRevenue" xml:space="preserve">
+    <value>Ingresos</value>
+    <comment>Revenue</comment>
+  </data>
+  <data name="lblRevenue1" xml:space="preserve">
+    <value>Ingresos</value>
+    <comment>Revenue</comment>
+  </data>
+  <data name="lblRevenueRange" xml:space="preserve">
+    <value>Rango de ingresos</value>
+    <comment>Revenue Range</comment>
+  </data>
+  <data name="lblRevenueRange1" xml:space="preserve">
+    <value>Rango de ingresos</value>
+    <comment>Revenue Range</comment>
+  </data>
+  <data name="lblSearch" xml:space="preserve">
+    <value>Buscar</value>
+    <comment>Search</comment>
+  </data>
+  <data name="lblSelect" xml:space="preserve">
+    <value>Seleccionar</value>
+    <comment>Select</comment>
+  </data>
+  <data name="lblSelect1" xml:space="preserve">
+    <value>Seleccione</value>
+    <comment>Select</comment>
+  </data>
+  <data name="lblSelectCategories" xml:space="preserve">
+    <value>Select Categories</value>
+    <comment>Select Categories</comment>
+  </data>
+  <data name="lblShowFullProfile" xml:space="preserve">
+    <value>Mostrar_perfil_completo</value>
+    <comment>Show_Full_Profile</comment>
+  </data>
+  <data name="lblShowFullProfile1" xml:space="preserve">
+    <value>Show_Full_Profile</value>
+    <comment>Show_Full_Profile</comment>
+  </data>
+  <data name="lblSICCode" xml:space="preserve">
+    <value>Código SIC</value>
+    <comment>SIC Code</comment>
+  </data>
+  <data name="lblSICCode1" xml:space="preserve">
+    <value>Código SIC</value>
+    <comment>SIC Code</comment>
+  </data>
+  <data name="lblSICCodes" xml:space="preserve">
+    <value>Códigos SIC</value>
+    <comment>SIC Codes</comment>
+  </data>
+  <data name="lblSICCodes1" xml:space="preserve">
+    <value>Códigos SIC</value>
+    <comment>SIC Codes</comment>
+  </data>
+  <data name="lblSICNAICSCodes" xml:space="preserve">
+    <value>Códigos SIC/NAICS</value>
+    <comment>SIC/NAICS Codes</comment>
+  </data>
+  <data name="lblSICNAICSCodes1" xml:space="preserve">
+    <value>Códigos SIC / NAICS</value>
+    <comment>SIC/NAICS Codes</comment>
+  </data>
+  <data name="lblStartDate" xml:space="preserve">
+    <value>Fecha de inicio</value>
+    <comment>Start Date</comment>
+  </data>
+  <data name="lblStartDate1" xml:space="preserve">
+    <value>Fecha de inicio</value>
+    <comment>Start Date</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>Estado</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblState1" xml:space="preserve">
+    <value>Estado</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblStockExchange" xml:space="preserve">
+    <value>Bolsa de valores</value>
+    <comment>Stock Exchange</comment>
+  </data>
+  <data name="lblStockExchange1" xml:space="preserve">
+    <value>Bolsa</value>
+    <comment>Stock Exchange</comment>
+  </data>
+  <data name="lblSubsidiariesCount" xml:space="preserve">
+    <value>Conteo de subsidiarios</value>
+    <comment>Subsidiaries Count</comment>
+  </data>
+  <data name="lblSubsidiariesCount1" xml:space="preserve">
+    <value>filiales Count</value>
+    <comment>Subsidiaries Count</comment>
+  </data>
+  <data name="lblTechnologies" xml:space="preserve">
+    <value>tecnologías</value>
+    <comment>Technologies</comment>
+  </data>
+  <data name="lblTechnologies1" xml:space="preserve">
+    <value>tecnologías</value>
+    <comment>Technologies</comment>
+  </data>
+  <data name="lblTechnologyCategories" xml:space="preserve">
+    <value>Categorías de tecnologías</value>
+    <comment>Technology Categories</comment>
+  </data>
+  <data name="lblTechnologyCategories1" xml:space="preserve">
+    <value>tecnología Categorías</value>
+    <comment>Technology Categories</comment>
+  </data>
+  <data name="lblTechnologyDetails" xml:space="preserve">
+    <value>Detalles de la tecnología</value>
+    <comment>Technology Details</comment>
+  </data>
+  <data name="lblTechnologyDetails1" xml:space="preserve">
+    <value>Detalles de la tecnología</value>
+    <comment>Technology Details</comment>
+  </data>
+  <data name="lblTicker" xml:space="preserve">
+    <value>Código bursátil</value>
+    <comment>Ticker</comment>
+  </data>
+  <data name="lblTicker1" xml:space="preserve">
+    <value>Corazón</value>
+    <comment>Ticker</comment>
+  </data>
+  <data name="lblTotalFunding" xml:space="preserve">
+    <value>financiación total</value>
+    <comment>Total Funding</comment>
+  </data>
+  <data name="lblTotalFunding1" xml:space="preserve">
+    <value>financiación total</value>
+    <comment>Total Funding</comment>
+  </data>
+  <data name="lblTrue" xml:space="preserve">
+    <value>Cierto:</value>
+    <comment>True:</comment>
+  </data>
+  <data name="lblTwitter" xml:space="preserve">
+    <value>Twitter</value>
+    <comment>Twitter</comment>
+  </data>
+  <data name="lblTwitter1" xml:space="preserve">
+    <value>Gorjeo</value>
+    <comment>Twitter</comment>
+  </data>
+  <data name="lblUltimateParentOrbnum" xml:space="preserve">
+    <value>Último núm. Orb del padre</value>
+    <comment>Ultimate Parent Orb num</comment>
+  </data>
+  <data name="lblUltimateParentOrbnum1" xml:space="preserve">
+    <value>Padres última Orbe num</value>
+    <comment>Ultimate Parent Orb num</comment>
+  </data>
+  <data name="lblURL" xml:space="preserve">
+    <value>URL</value>
+    <comment>URL</comment>
+  </data>
+  <data name="lblURL1" xml:space="preserve">
+    <value>URL</value>
+    <comment>URL</comment>
+  </data>
+  <data name="lblViewHistory" xml:space="preserve">
+    <value>Ver historial</value>
+    <comment>View History</comment>
+  </data>
+  <data name="lblViewHistory1" xml:space="preserve">
+    <value>Ver historial</value>
+    <comment>View History</comment>
+  </data>
+  <data name="lblWebdomain" xml:space="preserve">
+    <value>Dominio web</value>
+    <comment>Webdomain</comment>
+  </data>
+  <data name="lblWebdomain1" xml:space="preserve">
+    <value>webdomain</value>
+    <comment>Webdomain</comment>
+  </data>
+  <data name="lblWebDomain2" xml:space="preserve">
+    <value>Dominio web</value>
+    <comment>WebDomain</comment>
+  </data>
+  <data name="lblWebDomain21" xml:space="preserve">
+    <value>webdomain</value>
+    <comment>WebDomain</comment>
+  </data>
+  <data name="lblWebdomains" xml:space="preserve">
+    <value>Dominios web</value>
+    <comment>Webdomains</comment>
+  </data>
+  <data name="lblWebdomains1" xml:space="preserve">
+    <value>Webdomains</value>
+    <comment>Webdomains</comment>
+  </data>
+  <data name="lblYoutube" xml:space="preserve">
+    <value>Youtube</value>
+    <comment>Youtube</comment>
+  </data>
+  <data name="lblYoutube1" xml:space="preserve">
+    <value>Youtube</value>
+    <comment>Youtube</comment>
+  </data>
+  <data name="lblZipCode" xml:space="preserve">
+    <value>Código postal</value>
+    <comment>Zip Code</comment>
+  </data>
+  <data name="lblZipCode1" xml:space="preserve">
+    <value>Código postal</value>
+    <comment>Zip Code</comment>
+  </data>
+  <data name="msgNoRecordsFound" xml:space="preserve">
+    <value>No se encontraron registros.</value>
+    <comment>No records found.</comment>
+  </data>
+  <data name="msgNothingFound" xml:space="preserve">
+    <value>¡Vaya, no se ha encontrado nada!</value>
+    <comment>Oops, nothing found!</comment>
+  </data>
+  <data name="msgSelectEmployees" xml:space="preserve">
+    <value>Seleccionar empleados</value>
+    <comment>Select Employees</comment>
+  </data>
+  <data name="msgSelectRevenue" xml:space="preserve">
+    <value>Seleccionar ingresos</value>
+    <comment>Select Revenue</comment>
+  </data>
+  <data name="titleOIBuildList" xml:space="preserve">
+    <value>Matchbook | Lista de compilación de OI</value>
+    <comment>Matchbook | OI Build List</comment>
+  </data>
+</root>

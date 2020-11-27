@@ -1,0 +1,449 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrAboutSmartAdmin" xml:space="preserve">
+    <value>关于SmartAdmin-您是否最新？</value>
+    <comment>About SmartAdmin - Are you up to date?</comment>
+  </data>
+  <data name="hdrAccountSuspended" xml:space="preserve">
+    <value>账户已暂停</value>
+    <comment>Account Suspended</comment>
+  </data>
+  <data name="hdrAdminExperience" xml:space="preserve">
+    <value>即刻开启智能。随时随地，体验 Admin Panel 带来的便捷。</value>
+    <comment>It's Okay to be Smart. Experience the simplicity of Admin Panel, everywhere you go!</comment>
+  </data>
+  <data name="hdrAdminPanel" xml:space="preserve">
+    <value>管理面板</value>
+    <comment>Admin Panel</comment>
+  </data>
+  <data name="hdrAverageTemplate" xml:space="preserve">
+    <value>精美的后台管理系统模板！</value>
+    <comment>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi voluptatem accusantium!</comment>
+  </data>
+  <data name="hdrAvgTemplate" xml:space="preserve">
+    <value>不只是您的平均模板！</value>
+    <comment>Not just your average template!</comment>
+  </data>
+  <data name="hdrChangePasswordForm" xml:space="preserve">
+    <value>更改密码表格</value>
+    <comment>Change Password Form</comment>
+  </data>
+  <data name="hdrCreateLocalLogin" xml:space="preserve">
+    <value>创建本地登录账户</value>
+    <comment>Create Local Login</comment>
+  </data>
+  <data name="hdrEmailVerification" xml:space="preserve">
+    <value>电子邮件验证。</value>
+    <comment>Email Verification.</comment>
+  </data>
+  <data name="hdrForgotPassword" xml:space="preserve">
+    <value>忘记密码</value>
+    <comment>Forgot Password</comment>
+  </data>
+  <data name="hdrLicenseExpired" xml:space="preserve">
+    <value>许可证已过期。</value>
+    <comment>License Expired.</comment>
+  </data>
+  <data name="hdrOrsigninusing" xml:space="preserve">
+    <value>或使用……登录</value>
+    <comment>Or sign in using</comment>
+  </data>
+  <data name="hdrResetYourPassword" xml:space="preserve">
+    <value>重置密码</value>
+    <comment>Reset your password</comment>
+  </data>
+  <data name="hdrSignIn" xml:space="preserve">
+    <value>登录</value>
+    <comment>Sign In</comment>
+  </data>
+  <data name="lblAboutSmartAdmin" xml:space="preserve">
+    <value>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa.</value>
+    <comment>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa.</comment>
+  </data>
+  <data name="lblActivateAccount" xml:space="preserve">
+    <value>你的账户已暂停。请查看邮箱以激活账户。如果你想要重新发送邮件或者没有收到邮件，请</value>
+    <comment>Your account is temporarily suspended. Please check your mail to active account. If you want to regenerate mail or not get the mail please</comment>
+  </data>
+  <data name="lblAverageTemplate" xml:space="preserve">
+    <value>Et harum quidem rerum facilis est et expedita distinctio.Nam libero tempore, cum soluta nobis est eligendi voluptatem accusantium!</value>
+    <comment>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi voluptatem accusantium!</comment>
+  </data>
+  <data name="lblCheckEmailToResetPassword" xml:space="preserve">
+    <value>请查看电子邮件以重置密码。</value>
+    <comment>Please check your email to reset your password.</comment>
+  </data>
+  <data name="lblclickhere" xml:space="preserve">
+    <value>点击此处</value>
+    <comment>click here</comment>
+  </data>
+  <data name="lblClickheretoresend" xml:space="preserve">
+    <value>点击此处以重新发送。</value>
+    <comment>Click here to resend.</comment>
+  </data>
+  <data name="lblClickToLogIn" xml:space="preserve">
+    <value>点击此处登录</value>
+    <comment>click here to log in</comment>
+  </data>
+  <data name="lblConfirmingAccount" xml:space="preserve">
+    <value>感谢确认账户。请</value>
+    <comment>Thank you for confirming your account. Please</comment>
+  </data>
+  <data name="lblConfirmPassword" xml:space="preserve">
+    <value>确认密码</value>
+    <comment>Confirm your password</comment>
+  </data>
+  <data name="lblDidnotgettheverificationemail" xml:space="preserve">
+    <value>没有收到验证电子邮件？</value>
+    <comment>Did not get the verification email?</comment>
+  </data>
+  <data name="lblEnterPassword" xml:space="preserve">
+    <value>输入密码</value>
+    <comment>Enter your password</comment>
+  </data>
+  <data name="lblEnterYourConfirmPassword" xml:space="preserve">
+    <value>输入确认密码</value>
+    <comment>Enter your ConfirmPassword</comment>
+  </data>
+  <data name="lblEnterYourPassword" xml:space="preserve">
+    <value>输入密码</value>
+    <comment>Enter your password</comment>
+  </data>
+  <data name="lblFindoutmore" xml:space="preserve">
+    <value>查看更多</value>
+    <comment>Find out more</comment>
+  </data>
+  <data name="lblForgotpasswords" xml:space="preserve">
+    <value>忘记密码？</value>
+    <comment>Forgot password?</comment>
+  </data>
+  <data name="lblFrontendTemplate" xml:space="preserve">
+    <value>前端模板</value>
+    <comment>Frontend Template</comment>
+  </data>
+  <data name="lbllicensingagreement" xml:space="preserve">
+    <value>许可协议</value>
+    <comment>licensing agreement</comment>
+  </data>
+  <data name="lblLinkExpired" xml:space="preserve">
+    <value>你的链接已过期。请</value>
+    <comment>Your link is expired. Please</comment>
+  </data>
+  <data name="lblLogin" xml:space="preserve">
+    <value>登录</value>
+    <comment>Login</comment>
+  </data>
+  <data name="lblLoginWithoutExternalLogin" xml:space="preserve">
+    <value>你没有此站点的本地用户名/密码。添加本地账户，无需外部登录即可登录。</value>
+    <comment>You do not have a local username/password for this site. Add a local
+    account so you can log in without an external login.</comment>
+  </data>
+  <data name="lblLogout" xml:space="preserve">
+    <value>您确定要注销吗？</value>
+    <comment>Are you sure you want to logout?</comment>
+  </data>
+  <data name="lblLowercase" xml:space="preserve">
+    <value>小写字母</value>
+    <comment>Lowercase</comment>
+  </data>
+  <data name="lblMinPasswordLength" xml:space="preserve">
+    <value>密码应至少包含 8 个字符</value>
+    <comment>The password should be a minimum of 8 characters long</comment>
+  </data>
+  <data name="lblNumber" xml:space="preserve">
+    <value>数字</value>
+    <comment>Number</comment>
+  </data>
+  <data name="lblPasswordReset" xml:space="preserve">
+    <value>你的密码已重置。请</value>
+    <comment>Your password has been reset. Please</comment>
+  </data>
+  <data name="lblPleaseenteremailaddress" xml:space="preserve">
+    <value>请输入电子邮件地址</value>
+    <comment>Please enter email address</comment>
+  </data>
+  <data name="lblPortalDunAndBradstreet" xml:space="preserve">
+    <value>使用此门户受 Dun &amp; Bradstreet 使用条款的约束</value>
+    <comment>Use of this portal is governed by the terms of the Dun &amp; Bradstreet</comment>
+  </data>
+  <data name="lblPortalUse" xml:space="preserve">
+    <value>使用此门户受……使用条款的约束</value>
+    <comment>Use of this portal is governed by the terms of the</comment>
+  </data>
+  <data name="lblRegister" xml:space="preserve">
+    <value>请在下方输入本站点的用户名，然后点击“注册”按钮，完成登录。</value>
+    <comment>Please enter a user name for this site below and click the Register button to finish logging in.</comment>
+  </data>
+  <data name="lblRememberMeMachine" xml:space="preserve">
+    <value>在这台机器上记住我</value>
+    <comment>Remember me on this machine</comment>
+  </data>
+  <data name="lblRequiredAddressUsername" xml:space="preserve">
+    <value>请输入电子邮件地址/用户名</value>
+    <comment>Please enter email address/username</comment>
+  </data>
+  <data name="lblRequiredEmailAddress" xml:space="preserve">
+    <value>请输入电子邮件地址</value>
+    <comment>Please enter email address</comment>
+  </data>
+  <data name="lblRequiredFirstName" xml:space="preserve">
+    <value>请输入名字</value>
+    <comment>Please enter First Name</comment>
+  </data>
+  <data name="lblRequiredLastName" xml:space="preserve">
+    <value>请输入姓氏</value>
+    <comment>Please enter Last Name</comment>
+  </data>
+  <data name="lblRequireVerificationCode" xml:space="preserve">
+    <value>请输入验证码</value>
+    <comment>Please enter Verification Code</comment>
+  </data>
+  <data name="lblResendLink" xml:space="preserve">
+    <value>重新发送链接</value>
+    <comment>Resend Link</comment>
+  </data>
+  <data name="lblReset" xml:space="preserve">
+    <value>重置</value>
+    <comment>Reset</comment>
+  </data>
+  <data name="lblResetPassword" xml:space="preserve">
+    <value>重置密码</value>
+    <comment>Reset Password</comment>
+  </data>
+  <data name="lblRules" xml:space="preserve">
+    <value>确保满足 3 条密码设置规则。</value>
+    <comment>Make sure to include at least 3 rules.</comment>
+  </data>
+  <data name="lblSendSecurityLockMail" xml:space="preserve">
+    <value>SendSecurityLockMail</value>
+    <comment>SendSecurityLockMail</comment>
+  </data>
+  <data name="lblSignin" xml:space="preserve">
+    <value>登入</value>
+    <comment>Sign in</comment>
+  </data>
+  <data name="lblSignInAsDifferentUser" xml:space="preserve">
+    <value>不是你？以其他用户身份登录。</value>
+    <comment>Not you? Sign in as a different user.</comment>
+  </data>
+  <data name="lblSpecialCharacter" xml:space="preserve">
+    <value>特殊字符</value>
+    <comment>Special Character</comment>
+  </data>
+  <data name="lblSuccessfullyAuthenticated" xml:space="preserve">
+    <value>你已成功验证</value>
+    <comment>You've successfully authenticated with</comment>
+  </data>
+  <data name="lblUpdated" xml:space="preserve">
+    <value>2017 年 3 月 15 日更新</value>
+    <comment>Updated on March 15, 2017</comment>
+  </data>
+  <data name="lblUppercase" xml:space="preserve">
+    <value>大写字母</value>
+    <comment>Uppercase</comment>
+  </data>
+  <data name="lblVerifyCode" xml:space="preserve">
+    <value>验证码</value>
+    <comment>Verify Code</comment>
+  </data>
+  <data name="lblYouraccounthasbeenunlockedPlease" xml:space="preserve">
+    <value>你的账户已解锁。请</value>
+    <comment>Your account has been unlocked. Please</comment>
+  </data>
+  <data name="lblYoureloggedinas" xml:space="preserve">
+    <value>你以……的身份登录</value>
+    <comment>You're logged in as</comment>
+  </data>
+  <data name="lblYourlinkisexpiredPlease" xml:space="preserve">
+    <value>你的链接已过期。请</value>
+    <comment>Your link is expired. Please</comment>
+  </data>
+  <data name="placeholderEnterEmail" xml:space="preserve">
+    <value>输入电子邮件</value>
+    <comment>Enter Email</comment>
+  </data>
+  <data name="placeholderEnterPassword" xml:space="preserve">
+    <value>输入密码</value>
+    <comment>Enter Password</comment>
+  </data>
+  <data name="titleaccount" xml:space="preserve">
+    <value>账户</value>
+    <comment>account</comment>
+  </data>
+  <data name="titleAccountSuspended" xml:space="preserve">
+    <value>帐户已暂停</value>
+    <comment>AccountSuspended</comment>
+  </data>
+  <data name="titleActivateAccount" xml:space="preserve">
+    <value>激活账户</value>
+    <comment>Activate Account</comment>
+  </data>
+  <data name="titleConfirmAccount" xml:space="preserve">
+    <value>确认账户</value>
+    <comment>ConfirmAccount</comment>
+  </data>
+  <data name="titleEmailVerification" xml:space="preserve">
+    <value>电子邮件验证</value>
+    <comment>Email Verification</comment>
+  </data>
+  <data name="titleForgotConfirmation" xml:space="preserve">
+    <value>忘记密码确认</value>
+    <comment>Forgot Password Confirmation</comment>
+  </data>
+  <data name="titleForgotPassword" xml:space="preserve">
+    <value>忘记密码了吗？</value>
+    <comment>Forgot your password?</comment>
+  </data>
+  <data name="titleLicenceExpire" xml:space="preserve">
+    <value>许可到期</value>
+    <comment>Licence Expire</comment>
+  </data>
+  <data name="titleLogin" xml:space="preserve">
+    <value>登录</value>
+    <comment>Log in</comment>
+  </data>
+  <data name="titleLoginusingyour" xml:space="preserve">
+    <value>使用你的……登录</value>
+    <comment>Log in using your</comment>
+  </data>
+  <data name="titleManageAccount" xml:space="preserve">
+    <value>管理帐户</value>
+    <comment>Manage Account</comment>
+  </data>
+  <data name="titleMsg" xml:space="preserve">
+    <value>但这需要简单容易的区分。闲暇之余，我们以选择的力量来表达愉悦！</value>
+    <comment>Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi voluptatem accusantium!</comment>
+  </data>
+  <data name="titleProcessing" xml:space="preserve">
+    <value>正在处理中，请稍候...</value>
+    <comment>Please wait while processing...</comment>
+  </data>
+  <data name="titleRegister" xml:space="preserve">
+    <value>寄存器</value>
+    <comment>Register</comment>
+  </data>
+  <data name="titleResetConfirmation" xml:space="preserve">
+    <value>重置密码确认</value>
+    <comment>Reset password confirmation</comment>
+  </data>
+  <data name="titleResetPassword" xml:space="preserve">
+    <value>重设密码</value>
+    <comment>Reset password</comment>
+  </data>
+</root>

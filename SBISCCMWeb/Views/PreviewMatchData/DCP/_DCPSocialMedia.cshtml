@@ -1,0 +1,41 @@
+﻿@model  IEnumerable<SBISCCMWeb.Models.PreviewMatchData.DCP.DCP_SocialMedia>
+<div class="table-responsive wrap tabScroll InnerTabHeight">
+    <table class="table table-bordered" role="grid" style="margin:5px;width:99%">
+        <thead>
+            <tr>
+                @{
+                    <th>
+                        SocialMediaPlatformName
+                    </th>
+                    <th>
+                        SocialMediaPlatformCode
+                    </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @item.SocialMediaPlatformName
+                            </td>
+                            <td>
+                                @item.SocialMediaPlatformCode
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2"> No record found</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>

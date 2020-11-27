@@ -1,0 +1,23 @@
+@using SBISCCMWeb.Utility
+@model object
+@{
+    var htmlAttributes = new RouteValueDictionary();
+    if (ViewBag.@class != null)
+    {
+        htmlAttributes.Add("class", "form-control " + ViewBag.@class);
+    }
+    else
+    {
+        htmlAttributes.Add("class", "form-control");
+    }
+    if (ViewBag.onchange != null)
+    {
+        htmlAttributes.Add("onchange", ViewBag.onchange);
+    }
+}
+
+<div class="form-group@(Html.ValidationErrorFor(m => m, " has-error"))">
+    @Html.LabelFor(m => m, new { @class = "control-label" })
+    @Html.EnumDropDownListFor(m => m, htmlAttributes)
+    @Html.ValidationMessageFor(m => m, null, new { @class = "help-block" })
+</div>

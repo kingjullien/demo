@@ -1,0 +1,81 @@
+﻿@using SBISCCMWeb.Utility;
+@using System.Data;
+@using SBISCCMWeb.LanguageResources;
+@model DataTable
+@{
+    ViewBag.Title = OIHomeLang.titleAPIStatistics;
+    Layout = null;
+    var totalRows = from row in Model.AsEnumerable() where row.Field<string>("ImportProcess") == " TOTAL" select row;
+}
+<div class="modal" id="OIAPIUsageStatisticsGridModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <span class="alignUTCTime">
+                        <a href="javascript:void(0)" class="DownloadOIDataQueueStatistics" title="@OIHomeLang.titleDownloadDataQueueStatistics"><i class="fa fa-download fa-lg"></i></a>
+                        @using (Html.BeginForm("OIAPIUsageStatisticsGrid", "OIHome", FormMethod.Get, new { id = "frmOIDataQueueStatistics", @autocomplete = "off" }))
+                        {
+                            @Html.Hidden("IsDownload", false)
+                        }
+                    </span>
+                </div>
+                <h4 class="modal-title">@OIHomeLang.hdrDataQueueStatistics</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <table class="table table-bordered tbAPIUsagGrid">
+                        <thead>
+                            <tr class="custom-text-align-center">
+                                <th class="custom-text-align-center" style="width: 250px;">@OIHomeLang.lblImportProcess</th>
+                                <th class="custom-text-align-center">@OIHomeLang.lblImportDate</th>
+                                <th class="custom-text-align-center">@OIHomeLang.lblTotalRecords</th>
+                                <th class="custom-text-align-center">@OIHomeLang.lblUnMatchedRecordCount</th>
+                                <th class="custom-text-align-center">@OIHomeLang.lblMatchedOutputQueueCount</th>
+                                <th class="custom-text-align-center">@OIHomeLang.lblArchivalQueueCount</th>
+                                <th class="custom-text-align-center">@OIHomeLang.lblFirmographicsExportQueueCount</th>
+                            </tr>
+                        </thead>
+                        @if (Model.Rows.Count > 0)
+                        {
+                            <tbody>
+                                @foreach (DataRow row in Model.Rows)
+                                {
+                                    if (@row["ImportProcess"].ToString() != " TOTAL")
+                                    {
+                                        <tr>
+                                            <td style="width: 250px;">@row["ImportProcess"]</td>
+                                            <td>@(row["ImportDate"] != DBNull.Value ? Convert.ToDateTime(@row["ImportDate"]).ToDatetimeShort() : "")</td>
+                                            <td>@row["TotalRecordCount"]</td>
+                                            <td>@row["UnMatchedRecordCount"]</td>
+                                            <td>@row["MatchedOutputQueueCount"]</td>
+                                            <td>@row["ArchivalQueueCount"]</td>
+                                            <td>@row["FirmographicsExportQueueCount"]</td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                            <tfoot>
+                                @foreach (DataRow row in totalRows)
+                                {
+                                    <tr>
+                                        <td style="width: 250px;">@row["ImportProcess"]</td>
+                                        <td>@(row["ImportDate"] != DBNull.Value ? Convert.ToDateTime(@row["ImportDate"]).ToDatetimeShort() : "")</td>
+                                        <td>@row["TotalRecordCount"]</td>
+                                        <td>@row["UnMatchedRecordCount"]</td>
+                                        <td>@row["MatchedOutputQueueCount"]</td>
+                                        <td>@row["ArchivalQueueCount"]</td>
+                                        <td>@row["FirmographicsExportQueueCount"]</td>
+                                    </tr>
+                                }
+                            </tfoot>
+                        }
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

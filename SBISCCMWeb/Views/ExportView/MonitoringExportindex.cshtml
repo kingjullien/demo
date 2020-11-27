@@ -1,0 +1,129 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model List<MonitoringNotificationJobSettingsEntity>
+@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchFacade.Objects;
+@{
+    AjaxOptions MonitoringExportAjaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "UpdateMonitoringExportCompany"
+    };
+}
+    <div class="row">
+        <article class="col-md-6  sortable-grid ui-sortable">
+            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                <header role="heading">
+                    <h2>
+                        <strong>@ExportLang.lblMonitoringNotifications</strong>
+                    </h2>
+                </header>
+                <div role="content">
+                    <div class="jarviswidget-editbox"></div>
+                    <div class="widget-body">
+                        <div class="tab-content">
+                            <div class="tab-pane fade active in">
+                                <div class="">
+                                    <div class="">
+                                        <fieldset class="ExportFieldSet">
+                                            <legend>@ExportLang.lblStep1SelectFilters</legend>
+                                            <div class="row form-group">
+                                                <div class="col-md-4">
+                                                    <span><strong>@ExportLang.lblApiLayer </strong></span>
+                                                    @Html.DropDownList("MonitoringApiName", new SelectList(CommonDropdown.GetExportApi(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, "Monitoring"), "Value", "Text"), new { @class = "form-control selectbox", autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="">
+                                        <fieldset class="ExportFieldSet">
+                                            <legend>@ExportLang.lblStep2SelectOutput </legend>
+                                            <div class="row form-group">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3" title="Tab Separated">
+                                                    <input type="radio" name="FileMonitoringFormat" id="rdMonitoringCSV" value="CSV" checked />
+                                                    <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString(" /Images/Export/csv-Dark.png"))" class="clsImportImage">
+                                                    <p class="">@ExportLang.lblCSV</p>
+                                                </div>
+                                                <div class="col-md-3" title="Tab Separated">
+                                                    <input type="radio" name="FileMonitoringFormat" id="rdMonitoringTSV" value="TSV" />
+                                                    <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString(" /Images/Export/tsv.png"))" class="clsImportImage">
+                                                    <p class="marginLeft_22px">@ExportLang.lblTabSeparated</p>
+                                                </div>
+                                                <div class="col-md-3" title="Custom Delimiter">
+                                                    <input type="radio" name="FileMonitoringFormat" id="rdMonitoringText" value="Delimiter" class="OpenDelimiter" />
+                                                    <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString(" /Images/Export/text-with-delimiter.png"))" class="clsImportImage">
+                                                    <p class="marginLeft_22px">@ExportLang.lblCustomDelimiter</p>
+                                                </div>
+                                                <div class="col-md-3" title="Excel">
+                                                    <input type="radio" name="FileMonitoringFormat" id="rdMonitoringExcel" value="Excel" />
+                                                    <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString(" /Images/Export/excel-Dark.png"))" class="clsImportImage">
+                                                    <p>@ExportLang.lblExcel</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6 activexcchck divIsHeaderExport">
+                                                    @Html.CheckBox("MonitoringIsHeader", true)
+                                                    <span> <strong>@ExportLang.lblIncludeHeader</strong> </span>
+                                                </div>
+                                                <div class="col-md-6 activexcchck divIsHeaderExport">
+                                                    @Html.CheckBox("MonitoringHasTextQualifierToAll", false)
+                                                    <span> <strong>@ExportLang.lblQualifierAllColumns</strong> </span>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                    <div class="">
+                                        <fieldset class="ExportFieldSet">
+                                            <legend>@ExportLang.lblStep3FinalizeExport</legend>
+                                            <div class="row form-group">
+                                                <div class="col-md-4">
+                                                    <label class="checkbox " style="padding-left:20px">
+                                                        @Html.CheckBox("MarkAsMonitoringExported")
+                                                        <div class="ml-1"> <span> <strong>@ExportLang.lblMarkAsExported</strong> </span></div>
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-2 m_btn_new">
+                                            <input type="button" class="btn btn-primary" value="@ExportLang.titleExportData" id="btnMonitoringNotificationsExportData">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <article class="col-md-6  sortable-grid ui-sortable">
+            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                <header role="heading">
+                    <h2>
+                        <strong>@ExportLang.lblMonitoringNotificationDataStatus</strong>
+                    </h2>
+                </header>
+                <div role="content">
+                    <div class="jarviswidget-editbox"></div>
+                    <div class="widget-body no-padding">
+                        <div class="">
+                            <div class="form-group">
+                                <div class="padding-10">
+                                    <div class="row">
+                                        <div id="divMonitoringExportJobListing">
+                                            @{ Html.RenderPartial("_MonitoringExport"); }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>    

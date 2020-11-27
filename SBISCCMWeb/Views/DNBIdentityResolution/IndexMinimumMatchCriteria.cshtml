@@ -1,0 +1,138 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model ThirdPartyAPICredentialsEntity
+@{
+    Layout = null;
+}
+<article class="col-md-12 sortable-grid ui-sortable widget-data ">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrGlobalMinimumMatchCriteria</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div id="Auto-Accept" class="tab-pane fade active in">
+
+                        @using (Ajax.BeginForm("IndexMinimumMatchCriteria", "DandB", null, null, new { @autocomplete = "off", id = "formMinMatchCriteria" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("MinConfidenceCodes", Model.MinConfidenceCode)
+                            @Html.Hidden("MaxCandidateQtys", Model.MaxCandidateQty)
+                            @Html.Hidden("Id", Model.Id)
+                            <table data-swhgcallback="" data-swhgcontainer="dgBanInputData" data-swhgajax="true" class="table table-bordered panel-group customTable">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <h4>
+                                                @DandBSettingLang.lblMinimumMatchCriteria
+                                            </h4>
+                                            <div class="form-group">
+                                                <table data-swhgcallback="" data-swhgcontainer="dgBanInputData" data-swhgajax="true" class="table table-bordered panel-group customTable">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group">
+                                                                    <div class="row">
+                                                                        <label class="control-label col-md-5">@DandBSettingLang.lblMinimumConfidenceLevel</label>
+                                                                        <input type="hidden" id="minConfidencelevel" name="minConfidencelevel">
+                                                                        <div class="col-sm-2 col-xs-4">
+                                                                            <div id="divMinimumConfidenceLevel">
+                                                                            </div>
+                                                                        </div>
+                                                                        <div id="divminConfidencelevel">
+                                                                        </div>
+                                                                        @Html.TextBoxFor(m => m.MinConfidenceCode, new { @class = "form-control sideTextboxes", style = "display: none;", @autocomplete = "off" })
+
+                                                                    </div>
+                                                                    <div class="row">
+                                                                        <div class="col-md-5">
+                                                                        </div>
+                                                                        <div class="col-md-7"><span id="spnMinConfidenceLevel" class="error" style="display:none;">@DandBSettingLang.lblMinMaxConfidanceLevel</span></div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="row">
+                                                                        <label class="control-label col-md-5">@DandBSettingLang.lblMaximumCandidateResults (@DandBSettingLang.lblCandidateRange)</label>
+                                                                        <div class="col-md-2 col-sm-2 col-xs-4">
+                                                                            @Html.TextBoxFor(m => m.MaxCandidateQty, new { @class = "form-control", @maxlength = "3", autocomplete = "off" })
+                                                                            <div><span id="spnMaxCandidateQty" class="error" style="display:none;">@DandBSettingLang.lblMinMaxConfidanceLevel</span></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="row">
+                                                                        <label class="control-label col-md-5">@DandBSettingLang.lblCredentialName</label>
+                                                                        <div class="col-md-4 col-sm-4 col-xs-4">
+                                                                            @Html.DropDownListFor(m => m.CredentialId, new SelectList(CommonDropdown.GetThirdPartyAPICredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, "DNB"), "Value", "Text").InsertEmptyFirst(DandBSettingLang.lblSelect), new { @class = "form-control", @autocomplete = "off" })
+                                                                            <div><span id="spnCredName" class="error" style="display:none;">@DandBSettingLang.lblCredentialNameRequired</span></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                            {
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-center">
+                                                            <input type="button" value="@DandBSettingLang.lblUpdate" name="btnSubmitMinimumMatch" id="btnSubmitMinimumMatch" class="btn btn-primary" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "Minimum Match Criteria")
+{
+    <script>
+        $(document).ready(function () {
+            if ($.UserRole.toLowerCase() == "lob") {
+                $("#form_MinimumMatchCriteria #Settings_4__SettingValue").attr("disabled", true);
+                $('#form_MinimumMatchCriteria #divMinimumConfidenceLevel').addClass("CustomeSliderDisable");
+            }
+            // Set Slide bar value and Update method call .
+            var sliderminConfLevel = document.getElementById('divMinimumConfidenceLevel');
+            noUiSlider.create(sliderminConfLevel, {
+                start: [0],
+                range: {
+                    'min': [0],
+                    'max': [10]
+                },
+                step: 1
+            });
+            var MIN_CONFIDENCE_CODE = $("#MinConfidenceCode").val();
+            if (MIN_CONFIDENCE_CODE != "") {
+                document.getElementById('divminConfidencelevel').innerHTML = MIN_CONFIDENCE_CODE;
+                $("#minConfidencelevel").val(MIN_CONFIDENCE_CODE);
+                sliderminConfLevel.noUiSlider.set(MIN_CONFIDENCE_CODE);
+            }
+            $("#divMinimumConfidenceLevel").addClass("form-control");
+            sliderminConfLevel.noUiSlider.on('change', function (values, handle) {
+                var divminConfidencelevel = document.getElementById('divminConfidencelevel');
+                var key = $("#MinConfidenceCodes").val();
+                divminConfidencelevel.innerHTML = parseInt(values[handle]);
+                $("#minConfidencelevel").val(parseInt(values[handle]));
+            });
+            selectFirstTRMinOverride();
+            //end slider
+        });
+    </script>
+}

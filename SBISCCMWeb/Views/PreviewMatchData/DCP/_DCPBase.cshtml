@@ -1,0 +1,257 @@
+﻿@model  Tuple<IEnumerable<SBISCCMWeb.Models.PreviewMatchData.DCP.DCP_Base>, IEnumerable<SBISCCMWeb.Models.PreviewMatchData.DCP.DCP_Competitors>>
+@{
+    var BaseItem = Model.Item1.FirstOrDefault();
+}
+
+<div>
+    <div role="content">
+        <div class="row">
+            <article class="col-xs-12 sortable-grid ui-sortable keyword">
+                <div class="panel panel-default jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                    <div class="panel-heading padding-left-0" style="padding-bottom:5px;padding-left:0px !important;">
+                        <div class="col-md-12 padding-left-0" style="padding-left:0px !important">
+                            <div class="col-md-8">
+                                <h3 class="panel-title" style="margin-bottom:9px;">
+                                    @BaseItem.OrganizationName (TradeStyle Name : @BaseItem.TradeStyleName0)
+                                </h3>
+                            </div>
+                            <div class="col-md-4">
+                                <span class="pull-right glyphicon glyphicon-globe" style="font-size:12px;padding-left:10px"><a href="#">@BaseItem.WebPageAddress0.Replace(" ", "")</a></span>
+                                <span class="pull-right glyphicon glyphicon-phone" style="font-size:12px"><a href="#">@BaseItem.InternationalDialingCode.Replace(" ", "")@BaseItem.TelecommunicationNumber.Replace(" ", "")</a></span>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-md-12 padding-left-0" style="padding-left:0px !important">
+                            <div class="col-md-12">
+                                Transferred From DUNSNumber @BaseItem.TransferDUNSNumberRegistration_TransferredFromDUNSNumber To DUNSNumber @BaseItem.TransferDUNSNumberRegistration_TransferredToDUNSNumber on Transferred date @BaseItem.TransferDUNSNumberRegistration_TransferDate reason @BaseItem.TransferDUNSNumberRegistration_TransferReason
+                            </div>
+                            <div class="col-md-9">
+                                @BaseItem.OrganizationDetail_ControlOwnershipType (@BaseItem.OrganizationDetail_FranchiseOperationType)
+                            </div>
+                            <div class="col-md-3">
+                                <span class="pull-right clearfix">Operating Status: <span class="alert-success">@BaseItem.OrganizationDetail_OperatingStatus</span></span>
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                        <div class="col-md-12 padding-left-0" style="padding-left:0px !important">
+                            <div class="col-md-12">
+                                DUNSNumber : @BaseItem.DUNSNumber
+                                @*<strong> @BaseItem.ShareCapital_CapitalAmountCurrencyISOAlpha3Code</strong> @BaseItem.ShareCapital_CapitalAmount @BaseItem.ShareCapital_CapitalAmountUnitOfSize (Issued - @BaseItem.ShareCapital_StartDate)*@
+                            </div>
+                            <div class="col-md-12">
+                                Credit Score: @BaseItem.CommercialCreditScore_MarketingRiskClass
+                            </div>
+                            <div class="col-md-12">
+                                Individual Employee: @BaseItem.IndividualEntityEmployee_TotalEmployeeQuantity (@BaseItem.IndividualEntityEmployee_Reliability)
+                            </div>
+                            <div class="col-md-12">
+                                Consolidated Employee: @BaseItem.ConsolidatedEmployee_TotalEmployeeQuantity (@BaseItem.ConsolidatedEmployee_Reliability)
+                            </div>
+                        </div>
+                        <div class="clearfix" style="padding-bottom:11px"></div>
+
+                        <article class="col-xs-4 sortable-grid ui-sortable keyword">
+                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                <header role="heading">
+                                    <h2>
+                                        <strong> Primary Address</strong>
+                                    </h2>
+                                </header>
+                                <div style="padding:5px">
+
+
+                                    @if (!string.IsNullOrEmpty(BaseItem.PrimaryAddress_StreetAddressLine1))
+                                    {
+                                        @BaseItem.PrimaryAddress_StreetAddressLine1 <text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(BaseItem.PrimaryAddress_StreetAddressLine2))
+                                    {
+                                        @BaseItem.PrimaryAddress_StreetAddressLine2<text>,</text>
+                                    }
+                                    @BaseItem.PrimaryAddress_PrimaryTownName,
+                                    @BaseItem.PrimaryAddress_TerritoryAbbreviatedName,
+                                    @BaseItem.PrimaryAddress_PostalCode,
+                                    @BaseItem.PrimaryAddress_CountryISOAlpha2Code
+                                    <br />
+                                    <strong>County:</strong> @BaseItem.PrimaryAddress_CountyOfficialName,
+                                    <br />
+                                    <strong>Residential:</strong> @BaseItem.PrimaryAddress_ResidentialAddressIndicator,
+                                    <br />
+                                    <strong>Area Usage:</strong> @BaseItem.PrimaryAddress_AddressUsageTenureType,
+                                    <br />
+                                    <strong>Premises Area Measurement:</strong> @BaseItem.PrimaryAddress_PremisesAreaMeasurement @BaseItem.PrimaryAddress_PremisesAreaMeasurementUnit (@BaseItem.PrimaryAddress_PremisesAreaMeasurementReliability),
+                                    <br />
+                                    <strong>Metropolitan Statistical Area:</strong> @BaseItem.PrimaryAddress_MetropolitanStatisticalAreaUSCensusCode
+                                    <br />
+                                    <strong>Lat:</strong>  @BaseItem.PrimaryAddress_LatitudeMeasurement ,
+                                    <strong>Long:</strong> @BaseItem.PrimaryAddress_LongitudeMeasurement
+
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="col-xs-4 sortable-grid ui-sortable keyword">
+                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                <header role="heading">
+                                    <h2>
+                                        <strong> MostSeniorPrincipal Information</strong>
+                                    </h2>
+                                </header>
+                                <div style="padding:5px">
+                                    @BaseItem.MostSeniorPrincipal_NamePrefix  @BaseItem.MostSeniorPrincipal_FullName
+                                    <br />
+                                    @BaseItem.MostSeniorPrincipal_JobTitle
+                                    <br />
+                                    <strong>PrincipalIdentification  Number:</strong>@BaseItem.MostSeniorPrincipal_PrincipalIdentificationNumber
+                                    <br />
+                                    <strong>Age:</strong> @BaseItem.MostSeniorPrincipal_PrincipalAge
+                                    <br />
+                                    <strong>Responsibilitys :</strong>
+                                    @if (!string.IsNullOrEmpty(BaseItem.MostSeniorPrincipal_CurrentManagementResponsibility0))
+                                    {
+                                        @BaseItem.MostSeniorPrincipal_CurrentManagementResponsibility0 <text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(BaseItem.MostSeniorPrincipal_CurrentManagementResponsibility1))
+                                    {
+                                        @BaseItem.MostSeniorPrincipal_CurrentManagementResponsibility1 <text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(BaseItem.MostSeniorPrincipal_CurrentManagementResponsibility2))
+                                    {
+                                        @BaseItem.MostSeniorPrincipal_CurrentManagementResponsibility2 <text>,</text>
+                                    }
+                                    <br />
+                                    <strong>Compensation Date : </strong>@BaseItem.MostSeniorPrincipal_CurrentCompensationDate
+                                    <br />
+                                    @{
+                                        if (!string.IsNullOrEmpty(BaseItem.MostSeniorPrincipal_CompensationAmount0))
+                                        {
+                                            <div>
+                                                <strong> @BaseItem.MostSeniorPrincipal_CompensationType0  </strong>:  @BaseItem.MostSeniorPrincipal_CompensationAmount0 @BaseItem.MostSeniorPrincipal_CompensationAmountCurrencyISOAlpha3Code0
+                                            </div>
+                                        }
+                                        if (!string.IsNullOrEmpty(BaseItem.MostSeniorPrincipal_CompensationAmount1))
+                                        {
+                                            <div>
+                                                <strong>@BaseItem.MostSeniorPrincipal_CompensationType1 </strong>: @BaseItem.MostSeniorPrincipal_CompensationAmount1 @BaseItem.MostSeniorPrincipal_CompensationAmountCurrencyISOAlpha3Code1
+                                            </div>
+                                        }
+
+                                        if (!string.IsNullOrEmpty(BaseItem.MostSeniorPrincipal_CompensationAmount2))
+                                        {
+                                            <div>
+                                                <strong>@BaseItem.MostSeniorPrincipal_CompensationType2 </strong>: @BaseItem.MostSeniorPrincipal_CompensationAmount2 @BaseItem.MostSeniorPrincipal_CompensationAmountCurrencyISOAlpha3Code2
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="col-xs-4 sortable-grid ui-sortable keyword">
+                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                <header role="heading">
+                                    <h2>
+                                        <strong> Mailing Address</strong>
+                                    </h2>
+                                </header>
+                                <div style="padding:5px">
+
+                                    @if (!string.IsNullOrEmpty(BaseItem.MailingAddress_CountyOfficialName))
+                                    {
+                                        @BaseItem.MailingAddress_CountyOfficialName <text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(BaseItem.MailingAddress_StreetAddressLine1))
+                                    {
+                                        @BaseItem.MailingAddress_StreetAddressLine1 <text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(BaseItem.MailingAddress_StreetAddressLine2))
+                                    {
+                                        @BaseItem.MailingAddress_StreetAddressLine2 <text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(BaseItem.MailingAddress_PrimaryTownName))
+                                    {
+                                        @BaseItem.MailingAddress_PrimaryTownName<text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(BaseItem.MailingAddress_TerritoryAbbreviatedName))
+                                    {
+                                        @BaseItem.MailingAddress_TerritoryAbbreviatedName <text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(BaseItem.MailingAddress_PostalCode))
+                                    {
+                                        @BaseItem.MailingAddress_PostalCode<text>,</text>
+                                    }
+                                    @if (!string.IsNullOrEmpty(BaseItem.MailingAddress_CountryISOAlpha2Code))
+                                    {
+                                        @BaseItem.MailingAddress_CountryISOAlpha2Code <text>,</text>
+                                    }
+                                </div>
+                            </div>
+                        </article>
+
+                        <div class="clearfix"></div>
+                        <div class="col-md-12">
+                            <strong>Competitors</strong>
+                            @{
+                                <table class="table table-bordered" role="grid" style="margin:5px;width:99%">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                OrganizationName
+                                            </th>
+                                            <th>
+                                                SalesRevenueAmount
+                                            </th>
+                                            <th>
+                                                IssuedShareCapitalAmount
+                                            </th>
+                                            <th>
+                                                IndividualEmployeeQuantity
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            if (Model.Item2.Any())
+                                            {
+                                                foreach (var item in Model.Item2)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @item.OrganizationName
+                                                        </td>
+                                                        <td>
+                                                            @item.SalesRevenueAmount_CurrencyISOAlpha3Code
+                                                            @item.SalesRevenueAmount
+                                                            @item.SalesRevenueAmount_UnitOfSize
+                                                        </td>
+                                                        <td>
+                                                            @item.IssuedShareCapitalAmount_CurrencyISOAlpha3Code
+                                                            @item.IssuedShareCapitalAmount
+                                                            @item.IssuedShareCapitalAmount_UnitOfSize
+                                                        </td>
+                                                        <td>
+                                                            @item.IndividualEmployeeQuantity
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="4">No record found.</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+<script>
+
+</script>

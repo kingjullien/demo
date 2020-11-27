@@ -1,0 +1,134 @@
+﻿@using SBISCCMWeb.Utility;
+@using System.Data;
+@using SBISCCMWeb.LanguageResources;
+@model DataTable
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + HomeLang.titleAPIUsageStatistics;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + HomeLang.titleAPIUsageStatistics;
+    }
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+    int z = 0;
+    string ActiveStatisticsFilterTags = Convert.ToString(ViewBag.ActiveStatisticsFilterTags);
+    string UserRoles = Helper.oUser.UserRole;
+    string UserLOBTag = Helper.oUser.LOBTag;
+    int intButtonNo = 0;
+    string LOBTag = Convert.ToString(ViewBag.LOBTag);
+}
+@Html.Hidden("UserRole", UserRoles)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+@Html.Hidden("HiddenLOBTag", LOBTag)
+@Html.Hidden("LicenseEnableTags", Helper.LicenseEnableTags)
+@Html.AntiForgeryToken()
+<link href="~/Content/chosen.css" rel="stylesheet" />
+<link href="~/Content/CustomPopUp.css" rel="stylesheet" />
+<div id="content" style="opacity: 1;padding:0;overflow-x:hidden;">
+    <section id="widget-grid" class="">
+        <div class="">
+            <article class=" sortable-grid ui-sortable ">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark importData-margin" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget" style="margin: 0;">
+                    <header role="heading">
+                        <h2>
+                            <strong>@HomeLang.hdrDataQueueStatistics</strong>
+                        </h2>
+                        <div class="col-md-1 pull-right" style="margin-top: 10px;margin-right: -60px;">
+
+                            <a href="javascript:void(0)" class="DownloadDataQueueStatistics" title="@HomeLang.titleDownloadDataQueueStatistics"><em class="fa fa-download fa-lg"></em></a>
+                        </div>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content padding-10 padding-bottom-import">
+                                <div class="tab-pane fade active in">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            @using (Html.BeginForm("APIUsageStatisticsGrid", "Home", FormMethod.Get, new { id = "frmDataQueueStatistics", @autocomplete = "off" }))
+                                            {
+                                                @Html.Hidden("IsDownload", false)
+                                                if (Helper.LicenseEnableTags)
+                                                {
+                                                    @Html.Hidden("ActiveStatisticsFilterTagList", ActiveStatisticsFilterTags)
+                                                    @Html.Hidden("ActiveStatisticsFilterTags", z)
+                                                    <label class="col-md-1 lblGridStatistics">@HomeLang.lblLOBTag :</label>
+                                                    <div class="col-md-4 Custome-padding-left-0">
+                                                        @Html.DropDownList("LOBTag", new SelectList(CommonDropdown.GetTagByTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", LOBTag).InsertEmptyFirst(CommonMessagesLang.lblSelectTagsOptional, ""), new { @class = "form-control", @autocomplete = "off" })
+                                                    </div>
+                                                    <label class="col-md-1 lblGridStatistics MultiDeleteWith">@HomeLang.lblTags :</label>
+                                                    <div class="col-md-3 Custome-padding-left-0 width20">
+                                                        @*@Html.DropDownList("ActiveStatisticsFilterTagsValue", new SelectList(SBISCCMWeb.Controllers.ExportViewController.GetExportDataTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "TagName"), new Dictionary<string, Object> { { "class", "chzn-select form-control selectbox" }, { "data-placeholder", "Select Tags (Optional)" }, { "multiple", "true" } })*@
+                                                        @Html.DropDownList("ActiveStatisticsFilterTagsValue", new SelectList(CommonDropdown.GetExportDataTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "TagName"), new Dictionary<string, Object> { { "class", "chzn-select form-control selectbox" }, { "data-placeholder", CommonMessagesLang.lblSelectTagsOptional }, { "multiple", "true" }, { "autocomplete", "off" } })
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <button class="btn btn-primary" onclick="return btnFilter()" type="submit" name="Apply" value="Apply">@HomeLang.lblApply</button>
+                                                        <button class="btn btn-Secondary" onclick="return btnFilter()" type="submit" name="Apply" value="Clear">@HomeLang.lblClear</button>
+                                                    </div>
+                                                }
+
+                                            }
+                                        </div>
+                                        <div class="paddingto5" style="max-height: 406px;">
+                                            <table class="table table-bordered tbAPIUsagGrid">
+                                                <thead>
+                                                    <tr class="custom-text-align-center">
+                                                        <th class="custom-text-align-center" style="width: 250px;">@HomeLang.lblImportProcess</th>
+                                                        <th class="custom-text-align-center">@HomeLang.lblImportDate</th>
+                                                        <th class="custom-text-align-center">@HomeLang.lblTotalRecords</th>
+                                                        <th class="custom-text-align-center">@HomeLang.lblProcessedRecordCount</th>
+                                                        <th class="custom-text-align-center">@HomeLang.lblPendingProcessRecordCount</th>
+                                                        <th class="custom-text-align-center">@HomeLang.lblInputQueueCount</th>
+                                                        <th class="custom-text-align-center">@HomeLang.lblLowConfidenceQueueCount</th>
+                                                        <th class="custom-text-align-center">@HomeLang.lblNoMatchQueueCount</th>
+                                                        <th class="custom-text-align-center">@HomeLang.lblProcessingQueueCount</th>
+                                                        <th class="custom-text-align-center">@HomeLang.lblEnrichmentQueueCount</th>
+                                                        <th class="custom-text-align-center">@HomeLang.lblOutputQueueCount</th>
+                                                        <th class="custom-text-align-center">@HomeLang.lblArchivalQueueCount</th>
+                                                        <th class="custom-text-align-center">@HomeLang.lblProcessStatus</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (Model.Rows.Count > 0)
+                                                    {
+                                                        foreach (DataRow row in Model.Rows)
+                                                        {
+                                                            intButtonNo++;
+                                                            <tr class="@(intButtonNo % 2 == 0 ? "AlternateRow" : null) context-menu-one-delete" data-ImportProcessId="@row["ImportProcessId"]">
+                                                                <td style="width: 250px;">@row["ImportProcess"]</td>
+                                                                <td>@Convert.ToDateTime(@row["ImportDate"]).ToDatetimeShort()</td>
+                                                                <td>@row["NbrRecords"]</td>
+                                                                <td>@row["ProcessedRecordCount"]</td>
+                                                                <td>@row["PendingProcessRecordCount"]</td>
+                                                                <td>@row["InputQueueCount"]</td>
+                                                                <td>@row["LowConfidenceQueueCount"]</td>
+                                                                <td>@row["NoMatchQueueCount"]</td>
+                                                                <td>@row["ProcessingQueueCount"]</td>
+                                                                <td>@row["EnrichmentQueueCount"]</td>
+                                                                <td>@row["OutputQueueCount"]</td>
+                                                                <td>@row["ArchivalQueueCount"]</td>
+                                                                <td>@row["ProcessStatus"]</td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr><td colspan="13">@HomeLang.lblNoDataAreAvailable</td></tr>
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+
+@Scripts.Render("~/bundles/apiusagestatistics")

@@ -1,0 +1,61 @@
+﻿@using SBISCCMWeb.Models
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model UnprocessedInputViewModel
+@{
+    AjaxOptions ajaxOption = new AjaxOptions
+    {
+        UpdateTargetId = "partialDivUnprocessedInput",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccessUnprocessedInput"
+    };
+}
+<table class="table table-striped table-hover table-bordered">
+    <thead>
+        <tr>
+            <th>@UnprocessedInputLang.lblSrcRecordId</th>
+            <th>@UnprocessedInputLang.lblCompanyName</th>
+            <th>@UnprocessedInputLang.lblAddress</th>
+            <th>@UnprocessedInputLang.lblPhoneNbr</th>
+            <th>@UnprocessedInputLang.lblDUNSNumber</th>
+            <th>@UnprocessedInputLang.lblCEOName</th>
+            <th>@UnprocessedInputLang.lblWebsite</th>
+            <th>@UnprocessedInputLang.lblTags</th>
+            <th>@UnprocessedInputLang.lblLatestErrorCode</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.pglstUnprocesseds != null && Model.pglstUnprocesseds.Count > 0)
+        {
+            foreach (var item in Model.pglstUnprocesseds)
+            {
+                <tr>
+                    <td>@item.SrcRecordId</td>
+                    <td>@item.CompanyName</td>
+                    <td>@CommonMethod.DisplayFormattedAddress(item.Address, item.City, item.State, item.PostalCode, item.CountryISOAlpha2Code)</td>
+                    <td>@item.PhoneNbr</td>
+                    <td>@item.DUNSNumber</td>
+                    <td>@item.CEOName</td>
+                    <td>@item.Website</td>
+                    <td>@item.Tags</td>
+                    <td>@item.LatestErrorCode</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="9">@UnprocessedInputLang.lblNoRecordsfound</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="dt-toolbar-footer pull-right">
+    <div class="hidden-xs New-Paging">
+        <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+            <a id="pagingFormAction" href="@Url.Action("index", "UnprocessedInput", new { importProcess=Model.importProcess, pageNumber = 1, pageSize = Model.pageSize   })" style="display:block"></a>
+            @Html.PagedListPager(Model.pglstUnprocesseds, page => Url.Action("index", "UnprocessedInput", new { importProcess = Model.importProcess, pageNumber = page, pageSize = Model.pageSize }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, ajaxOption))
+        </div>
+    </div>
+</div>

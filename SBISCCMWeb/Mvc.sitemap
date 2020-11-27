@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+
+  <mvcSiteMapNode  title="Home" controller="Home" action="Index" clickable="false">
+    <mvcSiteMapNode title="Dashboard" controller="Home" action="Index" icon="fa fa-lg fa-fw fa-home" sectionmasterid="1">
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Dashboard" controller="OIHome" action="Index" icon="fa fa-lg fa-fw fa-home" sectionmasterid="1">
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Import Data" controller="ImportData" action="Index"  sectionmasterid="2" pageid="7">
+    </mvcSiteMapNode>
+    <!--<mvcSiteMapNode title="Import Data" controller="ImportData" action="Index"  sectionmasterid="52" pageid="19">
+    </mvcSiteMapNode>-->
+
+
+  
+    <mvcSiteMapNode title="Data Stewardship" url="#" icon="fa fa-lg fa-fw fa-outdent">
+      <mvcSiteMapNode title="Review Match Candidates" controller="Review" action="Index" sectionmasterid="8" >
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Match Data" controller="StewardshipPortal" action="Index"  sectionmasterid="9">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode  pageid="1" title="Approve Match Data" controller="ApproveMatchData" action="Index" sectionmasterid="99">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Clean Data" controller="BadInputData" action="Index"  sectionmasterid="17">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Preview Matched Data (BETA)" controller="PreviewMatchData" action="Index"  sectionmasterid="50">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Manage Family Tree (BETA)" controller="FamilyTree" action="Index"  sectionmasterid="51">
+      </mvcSiteMapNode>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Prospecting" url="#3" icon="fa fa-lg fa-fw fa-search">
+      <mvcSiteMapNode title="Search Data" controller="SearchData" action="Index"  sectionmasterid="18">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Build A List" controller="BuildList" action="Search"  sectionmasterid="19">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Build A List" controller="OIBuildList" action="Search">
+      </mvcSiteMapNode>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Search Data" controller="OISearchData" action="Index"  sectionmasterid="15">
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Match Data" controller="OIMatchData" action="Index"  sectionmasterid="53">
+    </mvcSiteMapNode>
+    
+    <mvcSiteMapNode title="Export Data" controller="ExportView" action="Index" icon="glyphicon glyphicon-export" pageid="3" sectionmasterid="19">
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Export Data" controller="ExportView" action="MonitoringExportindex" icon="glyphicon glyphicon-export" pageid="3" sectionmasterid="19">
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Export Data" controller="OIExportView" action="Index" icon="glyphicon glyphicon-export" pageid="60" sectionmasterid="60">
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Compliance" url="#%" icon="fa fa-clipboard">
+    <mvcSiteMapNode title="Beneficial Ownership" controller="BeneficialOwnership" action="Index" sectionmasterid="41">
+    </mvcSiteMapNode>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="Settings" url="#1" icon="glyphicon glyphicon-wrench" >
+      <mvcSiteMapNode title="Portal" controller="Portal" action="Index"  sectionmasterid="20" pageid="5">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Portal" controller="Portal" action="indexUsers"  sectionmasterid="21" pageid="5">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Portal" controller="Portal" action="indexCountryGrp"  sectionmasterid="23" pageid="5">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Portal" controller="Portal" action="indexManageTags"  sectionmasterid="24" pageid="5">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Portal" controller="Portal" action="_indexUserComments"  sectionmasterid="25" pageid="5">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Portal" controller="Portal" action="_indexCompanyAttribute"  sectionmasterid="26" pageid="5">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Portal" controller="Portal" action="IndexExportPageSettings"  sectionmasterid="27" pageid="5">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Portal" controller="Portal" action="indexDPMFTPConfiguration"  sectionmasterid="28" pageid="5">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Portal" controller="Portal" action="AddGoogleAPI"  sectionmasterid="32" pageid="5">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Portal" controller="CommandMapping" action="IndexCommand"  sectionmasterid="33" pageid="5">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Portal" controller="CommandMapping" action="indexCommandDownload"  sectionmasterid="34" pageid="5">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Portal" controller="CommandMapping" action="indexCommandDownloadSetup"  sectionmasterid="35" pageid="5">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Portal" controller="Portal" action="indexAboutUs"  sectionmasterid="36" pageid="5">
+      </mvcSiteMapNode>
+      
+      <mvcSiteMapNode title="D &amp; B" controller="DNBFeature" action="Index"  sectionmasterid="48" pageid="18">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="D &amp; B" controller="DNBLicence" action="DnBLicenseCredential"  sectionmasterid="54" pageid="18">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="D &amp; B" controller="DNBIdentityResolution" action="IndexMinimumMatchCriteria"  sectionmasterid="55" pageid="18">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="D &amp; B" controller="DNBIdentityResolution" action="IndexExclusionsCleanseMatch"  sectionmasterid="56" pageid="18">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="D &amp; B" controller="DNBIdentityResolution" action="IndexAutoAcceptance"  sectionmasterid="57" pageid="18">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="D &amp; B" controller="DNBIdentityResolution" action="IndexAutoAcceptDirectives"  sectionmasterid="58" pageid="18">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="D &amp; B" controller="DNBDataEnrichment" action="indexDataEnrichmentSettings"  sectionmasterid="59" pageid="18">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="D &amp; B" controller="DNBDataEnrichment" action="IndexDataBlockGroups"  sectionmasterid="61" pageid="18">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="D &amp; B" controller="DNBDataEnrichment" action="ThirdPartyEnrichmentsIndex"  sectionmasterid="62" pageid="18">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="D &amp; B" controller="DNBMonitoring" action="IndexMonitorProfile"  sectionmasterid="63" pageid="18">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="D &amp; B" controller="DNBMonitoringDirectPlus" action="indexMonitoringDirectPlus"  sectionmasterid="64" pageid="18">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Orb Intelligence" controller="OISetting" action="Index"  sectionmasterid="52" pageid="22">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Orb Intelligence" controller="OISetting" action="IndexOIAutoAcceptance"  sectionmasterid="65" pageid="22">
+      </mvcSiteMapNode>
+
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Reports" url="#2" icon="fa fa-lg fa-fw fa-list " >
+
+      <mvcSiteMapNode title="iResearch Investigation" controller="ResearchInvestigation" action="Index" sectionmasterid="31" >
+      </mvcSiteMapNode>  
+      <mvcSiteMapNode title="Base Reports" controller="ReportsList" action="Index" sectionmasterid="30" >
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Help Desk" controller="Ticket" action="Index"  sectionmasterid="29">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Help Desk" controller="Ticket" action="Create">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Help Desk" controller="Ticket" action="Edit">
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Investigation Report" controller="InvestigateView" action="InvestigationReport"  sectionmasterid="40" >
+      </mvcSiteMapNode>
+      <mvcSiteMapNode title="Investigation Report" controller="OIInvestigateView" action="InvestigationReport" >
+      </mvcSiteMapNode>
+
+
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Input Records" controller="UnprocessedInput" action="Index" >
+    </mvcSiteMapNode>
+
+  </mvcSiteMapNode>
+
+</mvcSiteMap>

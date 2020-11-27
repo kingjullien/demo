@@ -1,0 +1,133 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCompanyCleanseMatchFacade.Objects;
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.Controllers;
+@using SBISCCMWeb.LanguageResources;
+@model dynamic
+@{
+    ViewBag.Title = OISettingLang.titleOrbIntelligence;
+    SettingFacade fac = new SettingFacade(this.LayoutModel.CurrentClient.ApplicationDBConnectionString);
+    string UserRoles = Helper.oUser.UserRole;
+    string UserLOBTag = Helper.oUser.LOBTag;
+    bool IsEnableDataReset = (Helper.IsEnableDataReset != null && Helper.IsEnableDataReset.ToLower() == "true");
+}
+@Html.Hidden("UserRole", UserRoles)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+@if (Helper.UserType.ToLower() != "steward")
+{
+    <div class="row">
+        <div class="col-md-12">
+            @if (UserRoles == UserRole.GLOBAL.ToString())
+            {
+                <div class="text-md-right padding-10 ResetData" style="@(IsEnableDataReset == true ? "display:block" : "display:none")">
+                    <input type="button" id="btnResetOISystemData" name="btnResetOISystemData" class="btn btn-Secondary" value="@OISettingLang.lblResetOIData" />
+                    @*<input type="button" id="btnResetSystemDataConfigurations" name="btnResetSystemDataConfigurations" class="btn btn-Secondary" value="Reset data and configurations" />*@
+                </div>
+            }
+        </div>
+    </div>
+}
+    <div id="content" style="opacity: 1; padding:40px 10px 10px 10px">
+        <div class="Orbimg"><img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/orb-intelligenceh36.png"))"></div>
+
+    <div class="tab-pane">
+        <section id="widget-grid" class="">
+            <div class="row">
+                <div class="widget-body dandbackground">
+                    <ul class="nav nav-tabs bordered" id="myTab1">
+                        @if (Helper.UserType.ToLower() != "steward")
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link  @(ViewBag.SelectedTab == "OI License" ? "active" : "")" data-toggle="tab" href="#OrbLicenceTab" id="IdOrbLicenceTab" aria-expanded="@(ViewBag.SelectedTab == "OI License" ? "true" : "false")">@OISettingLang.lblLicense</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link @(ViewBag.SelectedTab == "OI Auto Acceptance" ? "active" : "")" data-toggle="tab" href="#OrbIdentityResolutionTab" id="IdOrbIdentityResolutionTab" aria-expanded="@(ViewBag.SelectedTab == "OI Auto Acceptance" ? "true" : "false")">@OISettingLang.lblIdentityResolution</a>
+                            </li>
+                        }
+                    </ul>
+
+                    <div class="tab-content padding-10 righttabportal position-relative " id="">
+                        @if (Helper.UserType.ToLower() != "steward")
+                        {
+                            <div id="OrbLicenceTab" class="tab-pane fade commontabstyle active in padding-10 @(ViewBag.SelectedTab == "OI License" ? "active in" : "")">
+                                <div class="row" style="display:inherit">
+                                    @if (false)
+                                    {
+                                        <div id="divPartialThirdPartyAPICredentials">
+                                            @if (ViewBag.SelectedTab == "OI License")
+                                            {
+                                                {Html.RenderAction("IndexThirdPartyAPICredentials", "OISetting"); }
+                                            }
+                                        </div>
+                                    }
+                                    <div class="divPartialOrbCredentials">
+                                        @if (ViewBag.SelectedTab == "OI License" || ViewBag.SelectedTab == "OI Auto Acceptance")
+                                        {
+                                            {Html.RenderPartial("~/Views/OI/OISetting/IndexOICredentials.cshtml"); }
+                                        }
+                                    </div>
+                                    <div id="divPartialDataImportHandling">
+                                        @if (ViewBag.SelectedTab == "OI License" || ViewBag.SelectedTab == "OI Auto Acceptance")
+                                        {
+                                            {Html.RenderAction("IndexDataImportHandling", "OISetting"); }
+                                        }
+                                    </div>
+
+                                </div>
+                                <div class="row" style="display:inherit">
+                                    <div id="divPartialOrbBackgroundProcessSettings">
+                                        @if (ViewBag.SelectedTab == "OI License" || ViewBag.SelectedTab == "OI Auto Acceptance")
+                                        {
+                                            {Html.RenderAction("OIBackgroundProcessSettings", "OISetting"); }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div id="OrbIdentityResolutionTab" class="tab-pane fade @(ViewBag.SelectedTab == "OI Auto Acceptance" ? "active in" : "")">
+                            <div id="divPartialOIAutoAcceptance">
+
+                                @if (ViewBag.SelectedTab == "OI Auto Acceptance")
+                                {
+                                    Html.RenderPartial("~/Views/OI/OISetting/IndexOIAutoAcceptance.cshtml", Model as IPagedList<OIAutoAcceptanceEntity>);
+                                }
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div id="AddOIAutoAcceptanceModalMain"></div>
+<div id="OIResetSystemDataModalMain"></div>
+@section scripts {
+    <script src="~/Scripts/jquery.pjax.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OrbSetting.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIAutoAcceptance.js"></script>
+    <script src="~/Scripts/CustomJS/AddCountryGroupPopup.js"></script>
+    <script>
+        var deleteAutoAcceptancemsg = '@OISettingLang.msgDeleteAutoAcceptanceRecord';
+        var confidenceCodeMinMaxValue = '@OISettingLang.msgConfidenceCodeMinMaxValue';
+        var deleteThirdPartyAPICredentials = '@OISettingLang.msgDeleteThirdPartyAPICredentials';
+        var dataDeleted = '@OISettingLang.msgDataDeleted';
+        var confirmBox = '@CommonMessagesLang.lblConfirm';
+        var message = '@LayoutLang.lblMessage';
+
+        var selectCompanyGrade = '@OISettingLang.msgSelectCompanyGrade';
+        var selectCompanyCode = '@OISettingLang.msgSelectCompanyCode';
+        var selectStreetGrade = '@OISettingLang.msgSelectStreetGrade';
+        var selectStreetNameGrade = '@OISettingLang.msgSelectStreetNameGrade';
+        var selectCityGrade = '@OISettingLang.msgSelectCityGrade';
+        var selectStateGrade = '@OISettingLang.msgSelectStateGrade';
+        var selectPostalCodeGrade = '@OISettingLang.msgSelectPostalCodeGrade';
+        var selectPhoneGrade = '@OISettingLang.msgSelectPhoneGrade';
+        var selectWebDomainGrade = '@OISettingLang.msgSelectWebDomainGrade';
+        var selectWebDomainCode = '@OISettingLang.msgSelectWebDomainCode';
+        var selectCountryGrade = '@OISettingLang.msgSelectCountryGrade';
+        var selectEINGrade = '@OISettingLang.msgSelectEINGrade';
+    </script>
+}
+

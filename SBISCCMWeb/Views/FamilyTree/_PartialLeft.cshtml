@@ -1,0 +1,32 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@model List<SBISCCMWeb.Models.FamilyTreeDetailModel>
+
+    <ul role="group">
+        @{
+        foreach (var item in Model)
+        {
+
+        if (item.cntChildren <= 0)
+        {
+        <li style="display:block" class="context-menu-one-left" data-val="@item.FamilyTreeDetailId">
+            <span class="node-cpeLeft" style="background-color:#e2e1e1;">
+                <em class="fa fa-lg"></em> @item.DetailId - @item.NodeName (<strong>@item.NodeType</strong>)
+                <div style="padding-left:8px;padding-top:2px"> <strong>@FamilyTreeLang.lblAddress :</strong>  @item.NodeDisplayDetail </div>
+            </span>
+        </li>
+        }
+        else
+        {
+        <li style="display:block" class="context-menu-one-left" data-val="@item.FamilyTreeDetailId" role="treeitem">
+
+            <span class="node-cpeLeft" data-val="@item.FamilyTreeDetailId" onclick="GetDataSideBySide(@item.FamilyTreeDetailId,this,'left')" IsLoad="False"  title="@FamilyTreeLang.titleExpandthisbranch">
+                <em class="fa fa-lg fa-plus-circle"></em> @item.DetailId - @item.NodeName (<strong>@item.NodeType</strong>)
+                <div style="padding-left:20px;padding-top:2px"> <strong>@FamilyTreeLang.lblAddress :</strong>  @item.NodeDisplayDetail </div>
+            </span>
+            <ul></ul>
+        </li>
+        }
+
+        }
+        }
+    </ul>

@@ -1,0 +1,203 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@model IPagedList<AutoAdditionalAcceptanceCriteriaEntity>
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialAutoAcceptance",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnSuccess = "OnSuccessAutoAcceptance"
+    };
+}
+@{ string ConfidenceCode = Convert.ToString(ViewBag.ConfidenceCode);
+    string MatchGrade = Convert.ToString(ViewBag.MatchGrade);
+    string SortOrder = Convert.ToString(ViewBag.SortOrder);
+    string SortBy = Convert.ToString(ViewBag.SortBy);
+    string matchGrade = string.Empty;
+    bool Active = Convert.ToBoolean(ViewBag.Active);
+    int pageValue = Convert.ToInt32(ViewBag.pagevalue);
+    var i = 0;
+}
+<style>
+    .toggleSwitch {
+        margin-top: -2px;
+        margin-right: 8px;
+    }
+</style>
+@Html.AntiForgeryToken()
+<article class="col-md-12 sortable-grid ui-sortable widget-data" id="articleAutoAcceptFilter">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark AutoacceptFilter" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrAdditionalAutoAcceptFilter</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div class="tab-pane fade active in">
+                        <div class="form-group ">
+                            <div class="row ">
+                                <form id="frmExportToExcel" action="/DNBIdentityResolution/ExportToExcel">
+                                    <div class="col-md-3">
+                                        <span><strong>@DandBSettingLang.lblConfidenceCode</strong></span>
+                                        @Html.DropDownList("ConfidenceCode", new SelectList(new CommonDropdown().ComboboxItems("AutoSettingConfidenceCode"), "Value", "Text"), "Select", new { @class = "form-control", @autocomplete = "off" })
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span><strong>@DandBSettingLang.lblCountryGroup</strong></span>
+                                        @Html.DropDownList("CountyGroupId", new SelectList(new CommonDropdown().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName", ViewBag.CountyGroupId).InsertEmptyFirst(CommonMessagesLang.lblSelectCountryGroup), new { @class = "form-control selectbox", @autocomplete = "off" })
+                                    </div>
+                                    @if (Helper.LicenseEnableTags)
+                                    {
+                                        <div class="col-md-3">
+                                            <span><strong>@DandBSettingLang.lblTags</strong></span>
+                                            <div class="tagstylebox">
+                                                @Html.DropDownList("Tags", new SelectList(SBISCCMWeb.Controllers.DNBIdentityResolutionController.GetAutoAcceptanceFilterTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", ViewBag.TagList).InsertEmptyFirst("Select Tag"), new { @class = "form-control selectbox", @autocomplete = "off" })
+                                            </div>
+                                        </div>
+                                    }
+                                    @Html.Hidden("Active", Active.ToString().ToLower())
+                                    <div class="col-md-3 margin-top-20">
+                                        <div class="row">
+                                            <span><strong>@DandBSettingLang.lblInactiveRulesOnly</strong></span> &nbsp;&nbsp;&nbsp;
+                                            <label class="toggleSwitch switch">
+                                                <input type="checkbox" name="AutoAcceptance_Active" id="AutoAcceptance_Active" @(Active ? "checked" : "")>
+                                                <span class="Toggleslider round" wfd-id="108"></span>
+                                            </label>
+                                            <span><strong>@DandBSettingLang.lblActiveRulesOnly</strong></span> &nbsp;&nbsp;&nbsp;
+                                            @*</div>*@
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="row paddingto5">
+                                <div class="col-md-3 col-sm-3">
+                                    <input type="button" value="@DandBSettingLang.lblFilterRecords" id="btnfrmFilter" class="btn btn-primary" />
+                                    <input type="button" value="@DandBSettingLang.lblClearFilter" id="btnclearFilter" class="btn" />
+                                    <form id="frmfilter" action="~/DNBIdentityResolution/IndexAutoAcceptance"></form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+<article class="col-md-12 sortable-grid ui-sortable widget-data" id="articleAutoAccept">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrAdditionalAutoAcceptRules</strong>
+            </h2>
+            @if (!Helper.oUser.EnableCreateAutoAcceptRules)
+            {
+                <a href="javascript:void(0);" id="ExportToExcel" class="pull-right btn btn-primary marginright-5 Updatesearch" disabled="disabled">@DandBSettingLang.lblExportToExcel</a>
+                <a href="javascript:void(0);" id="btnImportData" class="pull-right btn btn-primary marginright-5 Updatesearch" disabled="disabled">@DandBSettingLang.lblImportData</a>
+            }
+            else
+            {
+                <a href="javascript:void(0);" id="btnExportToExcel" class="pull-right btn btn-Secondary Updatesearch">@DandBSettingLang.lblExportToExcel</a>
+                <a href="javascript:void(0);" id="btnImportData" class="pull-right btn btn-Secondary Updatesearch">@DandBSettingLang.lblImportData</a>
+            }
+            <a href="#" id="btnMultipleDeleteAutoAccept" class="pull-right btn btn-Secondary Updatesearch">@DandBSettingLang.lblDelete</a>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                <div class="tab-content ">
+                    <div id="Additional">
+                        @Html.Hidden("ConfidenceCode", ConfidenceCode)
+                        @Html.Hidden("MatchGrade", MatchGrade)
+                        @Html.Hidden("MultiDeleteAutoAccept", "")
+                        @Html.Hidden("pagevalue", pageValue)
+                        @Html.Hidden("SortOrder", SortOrder)
+                        @Html.Hidden("SortBy", SortBy)
+                        @Html.Hidden("matchGradeValue", matchGrade)
+                        <div class="table-responsive ">
+                            <table class="table table-bordered AutoAcceptanceTbcenter" role="grid">
+                                <thead>
+                                    <tr>
+                                        <th width="1%" class="nosort"></th>
+                                        <th width="5%">@CleanDataLang.lblCC</th>
+                                        <th width="17%">@DandBSettingLang.lblMatchGrade</th>
+                                        <th width="22%">@DandBSettingLang.lblMDPCode</th>
+                                        <th width="4%"><a>@DandBSettingLang.lblMatchGradeComponent</a></th>
+                                        <th width="4%"><a>@DandBSettingLang.lblCompanyScore</a></th>
+                                        <th width="8%" class="nosort">@DandBSettingLang.lblExcludeFromAutoAccept</th>
+                                        <th width="9%">@DandBSettingLang.lblCountryGroup</th>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <th width="10%">@DandBSettingLang.lblTags</th>
+                                        }
+                                        <th width="1%" class="nosort">@DandBSettingLang.lblEdit</th>
+                                        <th width="1%" class="nosort">@DandBSettingLang.lblDelete</th>
+                                        <th width="5%" class="nosort" style="text-align:center">
+                                            @DandBSettingLang.lblDeleteAll<input type="checkbox" id="MultipleSelect" class="MultipleSelect MultiDeleteWith" />
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null && Model.Count > 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            i++;
+                                            <tr class="panel panel-default tdlength partialrow @(i == 1 ? "current" : null) @(i % 2 == 0 ? "currentRow AlternateRow" : "currentRow") context-menu-one" data-GroupId="@item.CriteriaGroupId">
+                                                <td class="panel-heading tdlength">
+                                                    <a class="collapsed" data-CriteriaGroupId="@item.CriteriaGroupId"></a>
+                                                </td>
+                                                <td>@item.ConfidenceCode</td>
+                                                <td>@item.MG_Combined</td>
+                                                <td>@item.MDP_Combined</td>
+                                                <td>@item.MatchGradeComponentCount</td>
+                                                <td>@item.CompanyScore</td>
+                                                <td style="text-align:center"><input type="checkbox" id="FirstCandidate" name="FirstCandidate" checked="@Convert.ToBoolean(item.ExcludeFromAutoAccept)" disabled="disabled"></td>
+                                                <td>@item.GroupName</td>
+                                                @if (Helper.LicenseEnableTags)
+                                                {
+                                                    <td>@item.Tags</td>
+                                                }
+                                                <td><a href="javascript:void(0);" id="@item.CriteriaGroupId" class="editAutoAcceptance" data-id="@Utility.GetEncryptedString(Convert.ToString(item.CriteriaGroupId.ToString())).Replace("+", Utility.urlseparator)">@DandBSettingLang.lblEdit</a></td>
+                                                <td><a href="javascript:void(0);" data-CriteriaGroupId=@item.CriteriaGroupId id="@item.CriteriaGroupId" data-MatchGrade="@item.MatchGrade" class="deleteAutoAcceptance">@DandBSettingLang.lblDelete</a></td>
+                                                <td style="text-align:center"><input type="checkbox" data-val="@item.CriteriaGroupId" class="SelectedDelete" /></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="28">@DandBSettingLang.lblNoDataAreAvailable</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center padding-10">
+                                <a class="btn btn-primary btnSearchDUNS @(Helper.oUser.EnableCreateAutoAcceptRules == true ? "" : "disabled")" id="btnAddAAC" name="btnAddAAC">@DandBSettingLang.lblAdd</a>
+                                <input value="@DandBSettingLang.lblRunRules" type="submit" id="btnRunRule" name="btnRunRule" class="btn  btn-sm pull-right" @(Model != null && Model.Count > 0 ? "" : "disabled='disabled'") />
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+<div id="InsertAutoAcceptanceModalMain"></div>
+<div id="UpdateAutoAcceptanceModalMain"></div>
+@if (ViewBag.SelectedIndividualTab == "Auto Acceptance")
+{
+    <script>
+        $(document).ready(function () {
+            InitDNBAutoAcceptanceDataTable();
+            AutoAcceptanceEnableDisableRule();
+        });
+    </script>
+}

@@ -1,0 +1,146 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.LanguageResources;
+@model ReMatchRecordsEntity
+@{
+    Layout = null;
+    ViewBag.Title = CleanDataLang.titleReMatchRecords;
+    bool IsMatchData = Convert.ToBoolean(ViewBag.IsMatchData);
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "UpdateReMatchRecords"
+    };
+}
+
+<style type="text/css">
+    body {
+        overflow: hidden;
+    }
+</style>
+@Html.Hidden("UserRole", UserRoles)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+@Html.AntiForgeryToken()
+@Html.Hidden("GetCountsOnly", "true")
+<div class="modal" id="ReMatchRecordsModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@CleanDataLang.hdrReMatchRecords</h4>
+            </div>
+            <div class="modal-body">
+                <div id="hr1" class="tab-pane fade active in CustomHidden">
+                    <div id="popupConfigData">
+                        @using (Ajax.BeginForm("ReMatchRecords", "BadInputData", null, ajaxOptions, new { @class = "formContent", id = "frmRematch", autocomplete = "off" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(model => model.GetCountsOnly)
+                            <div class="table-bordered match-table">
+                                <table class="textBlue borderNone table panel-group customTable2">
+                                    <tbody>
+                                        <tr>
+                                            <td class="tableBorder-none">
+                                                <div class="form-group popupAACRow">
+                                                    <div class="row">
+                                                        <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@CleanDataLang.lblSrcRecordId :</label>
+                                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                                            @Html.TextBoxFor(model => model.SrcRecordId, new { @class = "form-control", autocomplete = "off" })
+                                                        </div>
+                                                        <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@CleanDataLang.lblImportProcess :</label>
+                                                        <div class="col-md-3 col-sm-3 col-xs-3 custom-dropdown-search chosenPopup">
+                                                            @Html.DropDownListFor(model => model.ImportProcess, new SelectList(new CommonMethod().GetStewImportProcess(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ImportProcess.CleanReMatchData.ToString(), IsMatchData), "Value", "Text"), CommonMessagesLang.lblSelectImportProcess, new { @class = "form-control selectbox chzn-select", autocomplete = "off" })
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group popupAACRow">
+                                                    <div class="row">
+                                                        <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@CleanDataLang.lblCity :</label>
+                                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                                            @Html.TextBoxFor(model => model.City, new { @class = "form-control CityName", autocomplete = "off" })
+                                                            <label class="Checkbox">
+                                                                @Html.CheckBoxFor(model => Model.CityExactMatch, new { disabled = "true" })
+                                                                @CleanDataLang.lblCityExactMatch
+                                                            </label>
+                                                        </div>
+                                                        <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@CleanDataLang.lblState :</label>
+                                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                                            @Html.TextBoxFor(model => model.State, new { @class = "form-control StateName", autocomplete = "off" })
+                                                            <label class="Checkbox">
+                                                                @Html.CheckBoxFor(model => Model.StateExactMatch, new { disabled = "true" })
+                                                                @CleanDataLang.lblStateExactMatch
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group popupAACRow">
+                                                    <div class="row">
+                                                        <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@CleanDataLang.lblCountry :</label>
+                                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                                            @Html.DropDownList("CountryISOAlpha2Code", new SelectList(CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text"), CommonMessagesLang.lblSelectCountry, new { @class = "form-control selectbox", autocomplete = "off" })
+                                                        </div>
+                                                        <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@CleanDataLang.lblCountryGroup :</label>
+                                                        <div class="col-md-3 col-sm-3 col-xs-3">
+                                                            <div class="DisplayFlex AddContrygroupCls">
+                                                                @Html.DropDownList("CountryGroupId", new SelectList(new CommonDropdown().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName"), CommonMessagesLang.lblSelectCountryGroup, new { @class = "form-control selectbox AddableCountryGroup", autocomplete = "off" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-1 col-sm-1 col-xs-1 margin-left--27">
+                                                            <div class="DisplayFlex AddContrygroupCls">
+                                                                @if (Helper.UserType.ToLower() != "steward")
+                                                                {<em class="fa fa-plus CreateCountyGroup" onclick="addNewCountryGroup()"></em>}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                @if (Helper.LicenseEnableTags)
+                                                {
+                                                    <div class="form-group popupAACRow">
+                                                        <div class="row">
+                                                            <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">
+                                                                @CleanDataLang.lblTag :
+                                                            </label>
+                                                            <div class="col-md-3 col-sm-3 col-xs-3 pull-md-left tagstylebox">
+                                                                @Html.DropDownList("Tag", new SelectList(new CommonMethod().GetStewTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, IsMatchData), "Value", "Text"), CommonMessagesLang.lblSelectTag, new { @class = "form-control selectbox", autocomplete = "off" })
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <div class="form-group popupAACRow">
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                                            <input type="submit" value="@CleanDataLang.lblReMatchRecords" id="" name="btnRematchRecords" class="btn btn-primary" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+    $("select.chzn-select").chosen({
+        no_results_text: "Oops, nothing found!",
+        width: "100%",
+        search_contains: true
+    });
+});
+</script>

@@ -1,0 +1,232 @@
+﻿@model SBISCCMWeb.Models.UsersModel
+@using SBISCompanyCleanseMatchFacade.Objects;
+@using SBISCCMWeb.Utility
+@{
+    AjaxOptions ajaxOptionsForAAC = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET"
+    };
+    SettingFacade fac = new SettingFacade(this.LayoutModel.CurrentClient.ApplicationDBConnectionString);
+    string DeleteUserCode = Convert.ToString(fac.GetUserStatus().Where(x => x.Value == "Account Deleted").Select(x => x.Code).FirstOrDefault());
+
+}
+
+@if (Helper.IsEnableDataReset != null && Helper.IsEnableDataReset.ToLower() == "true")
+{
+    <div class="row">
+        <div class="col-md-12">
+            <div class="text-md-right padding-10 ResetData">
+                <input type="button" id="btnResetSystemData" name="btnResetSystemData" class="btn btn-primary" value="Reset Data" />
+                <input type="button" id="btnResetSystemDataConfigurations" name="btnResetSystemDataConfigurations" class="btn btn-primary" value="Reset data and configurations" />
+            </div>
+        </div>
+    </div>
+}
+<article class="col-md-5 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa  fa-certificate "></i>
+                <strong>Country Group</strong>
+            </h2>
+            <ul class="nav pull-right nav-pills Custom-pill">
+                <li class="">
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                </li>
+            </ul>
+            <a href="#" id="btnExportToExcel" class="pull-right btn btn-primary marginright-5 Updatesearch">Export To Excel</a>
+            <a href="#" id="btnImportData" class="pull-right btn btn-primary marginright-5 Updatesearch">Import Data</a>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                   
+                    <div id="divCountry" class="tab-pane fade active in divPartialCountryGroup ">
+                        @{Html.RenderAction("indexCountryGrp", "ConfigurationData");}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</article>
+
+<article class="col-sm-7 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa fa-user"></i>
+                <strong>Users</strong>
+            </h2>
+            <ul class="nav pull-right nav-pills Custom-pill">
+                <li class="">
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div id="divUser" class="tab-pane fade active in ">
+                        @{Html.RenderPartial("_userListPaging", Model.usersPagingList);}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (Helper.LicenseEnableTags)
+{
+    <article class="col-sm-12 sortable-grid ui-sortable" id="ManageTags">
+        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <i class="fa fa-tags"></i>
+                    <strong>Manage Tags</strong>
+                </h2>
+                <ul class="nav pull-right nav-pills Custom-pill">
+                    <li class="">
+                        <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                    </li>
+                </ul>
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body no-padding">
+                    <br />
+                    
+                    <div class="tab-content padding-10" id="divPartialManageTags">
+                        @{Html.RenderAction("indexManageTags", "ConfigurationData");}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </article>
+                            }
+
+<article class="col-sm-6 sortable-grid ui-sortable" id="atricalCDSEnvironment">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa fa-crosshairs"></i>
+                <strong>Environment</strong>
+            </h2>
+            <ul class="nav pull-right nav-pills Custom-pill">
+                <li class="">
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10 " id="divPartialCDSEnvironment">
+                    @{Html.RenderAction("indexEnvironment", "ConfigurationData");}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</article>
+<article class="col-sm-6 sortable-grid ui-sortable" id="atricalCDSEntity">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa fa-group"></i>
+                <strong>Entity</strong>
+            </h2>
+            <ul class="nav pull-right nav-pills Custom-pill">
+                <li class="">
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10 " id="divPartialCDSEntity">
+                    @{Html.RenderAction("indexEntity", "ConfigurationData");}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</article>
+<article class="col-sm-12 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa fa-user"></i>
+                <strong>Data Enrichment Settings</strong>
+            </h2>
+            <ul class="nav pull-right nav-pills Custom-pill">
+                <li class="">
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10" id="divPartialDataEnrichmentSettings">
+                    @{Html.RenderAction("indexDataEnrichmentSettings", "ConfigurationData");}
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+<article class="col-sm-12 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa fa-cogs"></i>
+                <strong>Company Attribute</strong>
+            </h2>
+            <ul class="nav pull-right nav-pills Custom-pill">
+                <li class="">
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10 " id="divPartialCompanyAttribute">
+                    @{Html.RenderAction("indexCompanyAttribute", "ConfigurationData");}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</article>
+
+
+<article class="col-sm-12 sortable-grid ui-sortable" id="atricalUserComments">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa fa-comment"></i>
+                <strong>User Comments</strong>
+            </h2>
+            <ul class="nav pull-right nav-pills Custom-pill">
+                <li class="">
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10 " id="divPartialUserComments">
+                    @{Html.RenderAction("IndexUserComments", "ConfigurationData");}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</article>

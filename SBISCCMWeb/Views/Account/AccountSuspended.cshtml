@@ -1,0 +1,18 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@{
+    ViewBag.Title = AccountLang.titleAccountSuspended;
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    string Email = Convert.ToString(ViewBag.EmailAddress);
+}
+
+<div class="title">
+    <h1>@AccountLang.hdrAccountSuspended</h1>
+</div>
+<div>
+    <p>
+        @AccountLang.lblActivateAccount <a href="/Account/Resendmail?EmailAddress=@Email" >@AccountLang.lblclickhere</a>
+    </p>
+</div>
+
+
+

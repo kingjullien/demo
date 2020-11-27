@@ -1,0 +1,103 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model OISettingEntity
+@{ AjaxOptions ImportDataHandlingjaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "SuccessOrbImportDataHandling"
+    };
+    string z = "";
+}
+<article class=" col-md-6 sortable-grid ui-sortable" id="articleDandBDirectCredentialsTop">
+    <div class="sortable-grid ui-sortable widget-data" id="articleDnBDirectCredentials">
+        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <i class="fa fa-slack"></i>
+                    <strong>@OISettingLang.hdrImportDataHandling</strong>
+                </h2>
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body no-padding">
+                    <div class="tab-content padding-10">
+                        <div class="divPartialOrbLicense">
+                            @using (Ajax.BeginForm("IndexDataImportHandling", "OISetting", null, ImportDataHandlingjaxOptions, new { @class = "frmOrbLicense m-style", id = "frmOrbLicense", @autocomplete = "off" }))
+                            {
+                                @Html.Hidden("DATA_IMPORT_DUPLICATE_RESOLUTIONTagList", Model.ORB_DATA_IMPORT_DUPLICATE_RESOLUTION_TAGS)
+                                @Html.Hidden("ORB_DATA_IMPORT_DUPLICATE_RESOLUTION_TAGS", z)
+                                @Html.AntiForgeryToken();
+
+                                <div class="form-group">
+                                    <div class="">
+                                        <label class="radio ">
+                                            <input type="radio" name="ORB_DATA_IMPORT_DUPLICATE_RESOLUTION" value="NONE" checked="@(string.IsNullOrEmpty(Model.ORB_DATA_IMPORT_DUPLICATE_RESOLUTION)?true:Model.ORB_DATA_IMPORT_DUPLICATE_RESOLUTION.ToLower()=="none"?true:false)" />
+                                            <div class="paddingTop-2"> <span> <strong>@OISettingLang.lblNoduplicatecheckforimport</strong> </span></div>
+                                        </label>
+
+                                        <label class="radio ">
+                                            <input type="radio" name="ORB_DATA_IMPORT_DUPLICATE_RESOLUTION" value="PURGE_IN_ACTIVE_QUEUE" checked="@(Model.ORB_DATA_IMPORT_DUPLICATE_RESOLUTION.ToLower()=="purge_in_active_queue"?true:false)" />
+                                            <div class="paddingTop-2"> <span> <strong>@OISettingLang.lblRemoveduplicaterecordsfromtheActiveQueues</strong> </span></div>
+                                        </label>
+
+                                        <label class="radio ">
+                                            <input type="radio" name="ORB_DATA_IMPORT_DUPLICATE_RESOLUTION" value="PURGE_IN_ACTIVE_AND_EXPORT_QUEUE" checked="@(Model.ORB_DATA_IMPORT_DUPLICATE_RESOLUTION.ToLower()=="purge_in_active_and_export_queue"?true:false)" />
+                                            <div class="paddingTop-2"> <span> <strong>@OISettingLang.lblRemoveduplicaterecordsfromActiveandOutputQueues</strong> </span></div>
+                                        </label>
+
+                                        <label class="radio ">
+                                            <input type="radio" name="ORB_DATA_IMPORT_DUPLICATE_RESOLUTION" value="DONT_IMPORT_DUPLICATES" checked="@(Model.ORB_DATA_IMPORT_DUPLICATE_RESOLUTION.ToLower()=="dont_import_duplicates"?true:false)" />
+                                            <div class="paddingTop-2"> <span> <strong>@OISettingLang.lblDontimportdataalreadyinMatchbookQueues</strong> </span></div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                @*<div class="form-group">
+                                        <div class="row">
+                                            <label class="control-label col-md-5"><strong>ORB DATA IMPORT DUPLICATE RESOLUTION</strong></label>
+                                            <div class="col-sm-6 col-xs-6">
+                                                @Html.DropDownListFor(model => model.ORB_DATA_IMPORT_DUPLICATE_RESOLUTION, new SelectList(CommonDropdown.GetORBDataImportDuplicateResolution(), "Value", "Text"), new { @class = "form-control" })
+                                                <span class="error" id="spnDataImportDuplicateResolution" style="display:none">Enter Data Import Duplicate Resolution</span>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                if (Helper.LicenseEnableTags)
+                                {
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-4 col-xs-4"><strong>@OISettingLang.lblORBDATAIMPORTDUPLICATERESOLUTIONTAGS</strong></div>
+                                            <div class="col-md-8">
+
+                                                <div class="divImportDuplicateResolutionTags">
+                                                    @Html.DropDownList("DataImportDuplicateResolutionTagValue", new SelectList(CommonDropdown.GetAllOrbTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text"), new { @class = "form-control chzn-select", multiple = "true", @autocomplete = "off" })
+                                                    <i class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></i>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                {
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <input type="submit" value="@OISettingLang.lblUpdate" name="btnSubmitOrbBackgroundProcess" id="btnSubmitOrbBackgroundProcess" class="btn btn-primary" onclick="return CheckBackgroundValidation()" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+

@@ -1,0 +1,104 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model  UserCommentsEntity
+@using SBISCCMWeb.Controllers;
+@{
+    Layout = null;
+    ViewBag.Title = "User Comments";
+}
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        UpdateTargetId = "replaceid",
+        OnSuccess = "UpdateAttributeSuccess"
+    };
+}
+@Scripts.Render("~/bundles/popupjs")
+@Styles.Render("~/Content/popupcss")
+<div style="overflow:hidden">
+    @using (Ajax.BeginForm("popupUserComments", "ConfigurationData", null, ajaxOptions, new { @class = "formCustomeAttribute m-style" }))
+    {
+        @Html.AntiForgeryToken()
+        <div id="content" style="opacity: 1;">
+            <section id="widget-grid" class="">
+                <article class="sortable-grid ui-sortable">
+                    <div class="form-group">
+                    </div>
+                    <div id="wid-id-1" class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <h2>
+                                @if (Model.CommentId > 0)
+                                {
+                                    <strong>Edit User Comments</strong>
+                                }
+                                else
+                                {
+                                    <strong>Add User Comments</strong>
+                                }
+
+                            </h2>
+                        </header>
+                        <div>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="fontstyle tableBorder-none no-padding" align="right">Comment Type: </td>
+                                        <td class="tableBorder-none">
+                                            @Html.DropDownListFor(model => model.CommentType, new SelectList(SBISCCMWeb.Utility.CommonMethod.GetUserCommentType(), "Value", "Text"), new { @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fontstyle tableBorder-none" align="right">Comment :</td>
+                                        <td class="tableBorder-none">
+                                            @Html.TextAreaFor(@model => @model.Comment, new { @class = "form-control commentTextArea", maxlength = "500", rows = "5", cols = "20" })
+                                            <span id="spnComment" class="error" style="display:none;">Please fill Comment</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right tableBorder-none"></td>
+                                        <td class="text-left tableBorder-none">
+                                            @Html.HiddenFor(@model => @model.CommentId)
+                                            @if (Model.CommentId > 0)
+                                            {
+                                                <input type="submit" value="Update" id="btnUsersComments" name="btnUsersComments" class="btn btn-primary" />
+                                            }
+                                            else
+                                            {
+                                                <input type="submit" value="Add" id="btnUsersComments" name="btnUsersComments" class="btn btn-primary" />
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </div>
+        <div class="loaderMain" id="divProgress">
+            <div class="loaderDiv">
+                <p class="loaderTxt">Please wait while processing...</p>
+            </div>
+        </div>
+    }
+</div>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/CustomJS-minified/UsersComments.js"></script>
+<script src="~/Scripts/CustomJS-minified/Common.js"></script>
+<script src="~/Scripts/bootbox.min.js"></script>
+
+@if (!string.IsNullOrEmpty(Convert.ToString(TempData["UserCommentsMessage"])))
+{
+    <script type="text/javascript">
+        bootbox.alert({
+            title: "<i class='fa fa-info-circle' aria-hidden='true'></i> Message",
+            message: '@TempData["UserCommentsMessage"]',
+            callback: function () {
+                window.parent.$.magnificPopup.close();
+            }
+        });
+    </script>
+    TempData.Remove("UserCommentsMessage");
+}

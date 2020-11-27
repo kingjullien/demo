@@ -1,0 +1,87 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model SBISCCMWeb.Models.FamilyTreeParentModel
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + FamilyTreeLang.titleFamilyTree;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + FamilyTreeLang.titleFamilyTree;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .hover {
+        background-color: #DF8505;
+        border: 1px solid #C67605;
+        color: #fff;
+    }
+</style>
+<div id="content"  style="padding-left:15px; padding-right:15px">
+    <section id="widget-grid" class="">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="FamilyTreeTitle">@FamilyTreeLang.hdrCorporateHierarchyManagementSolution</h2>
+            </div>
+        </div>
+        @Html.AntiForgeryToken()
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable keyword">
+            <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                <div class="jarviswidget-editbox"></div>
+                <div class="tab-content">
+
+                    <div class="row align-items-md-center">
+                        <div class="col-md-1"  >
+                            <label class="checkbox no-margin no-padding width100">
+                                <input type="radio" id="rdoSingle" name="Views" value="" onclick="ChangeView()">
+                                <span>@FamilyTreeLang.lblSinglePanel</span>
+                            </label>
+                        </div>
+
+                        <div class="col-md-1" >
+                            <label class="checkbox no-margin no-padding width100">
+                                <input type="radio" id="rdoSideBySide" group="Views" onclick="ChangeView()" name="Views" value="">
+                                <span>@FamilyTreeLang.lblSideBySide</span>
+                            </label>
+                        </div>
+                        <div class="col-md-7">
+                        </div>
+                        <div class="col-md-3 text-right">
+                            <a class="lnkCorporateLinkage" href="#" style="font-size: 12px;">@FamilyTreeLang.lblPopulateanewFamilyTreefromCorporateLinkage</a>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </article>
+
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable keyword">
+            <div id="loadTree">
+                @Html.Partial("_DetailFamilyTreeView", Model)
+            </div>
+        </article>
+        <div class="clearfix"></div>
+    </section>
+</div>
+<div id="FamilyTreeModalMain"></div>
+<div id="AddFamilyTreeModalMain"></div>
+<div id="DuplicateFamilyTreeModalMain"></div>
+<div id="AddFamilyNodeModalMain"></div>
+@section scripts{
+    <script>
+        var addTree = '@FamilyTreeLang.msgAddTree';
+        var moveNode = '@FamilyTreeLang.msgMoveNode';
+        var deleteFamilyTree = '@FamilyTreeLang.msgDeleteFamilyTree';
+        var deleteNode = '@FamilyTreeLang.msgDeleteNode';
+        var selectTree = '@FamilyTreeLang.msgSelectTree';
+        var copyNode = '@FamilyTreeLang.msgCopyNode';
+        var moveNode = '@FamilyTreeLang.msgMoveNode';
+        var confirmBox = '@CommonMessagesLang.lblConfirm';
+        var deleteNodeSingle = '@FamilyTreeLang.msgDeleteNodeSingle';
+        var addNode = '@FamilyTreeLang.msgAddNode';
+    </script>
+
+    @Scripts.Render("~/bundles/familytree")
+}

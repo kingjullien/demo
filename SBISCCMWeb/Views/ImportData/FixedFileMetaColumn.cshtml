@@ -1,0 +1,92 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@{
+    string fileType = (string)ViewBag.fileType;
+    string ImportMode = (string)ViewBag.ImportMode;
+    bool IsTemplate = Convert.ToBoolean(ViewBag.IsTemplate);
+    bool IsTag = Convert.ToBoolean(ViewBag.IsContainsTags);
+    bool IsInLanguage = SessionHelper.ImportData_IsInLanguage;
+    bool IsFromPrev = Convert.ToBoolean(ViewBag.IsFromPrev);
+    bool IsHeader = SessionHelper.ImportData_IsHeader;
+    string TagVal = (string)ViewBag.TagValue;
+
+    string LanguageVal = (string)ViewBag.LanguageValue;
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+    List<int> lstFieldLength = ViewBag.lstFieldLength != null ? ViewBag.lstFieldLength : new List<int>();
+    List<int> lstStartPosition = ViewBag.lstStartIndex != null ? ViewBag.lstStartIndex : new List<int>();
+    List<string> lstColumns = ViewBag.lstColumnNames != null ? ViewBag.lstColumnNames : new List<string>();
+    List<string> lstFieldValue = ViewBag.lstFieldValue != null ? ViewBag.lstFieldValue : new List<string>();
+    TempData.Keep();
+}
+
+@Html.AntiForgeryToken()
+@Html.Hidden("IsTemplate", IsTemplate)
+@Html.Hidden("IsLanguage", IsInLanguage)
+@Html.Hidden("Tags", ((!IsTag && IsTemplate) || IsFromPrev) ? TagVal : "0")
+@Html.Hidden("IsTag", IsTag)
+@Html.Hidden("LicenseEnableTags", Helper.LicenseEnableTags)
+@Html.Hidden("fileType", fileType)
+@Html.Hidden("ImportMode", ImportMode)
+@Html.Hidden("UserRole", UserRoles)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+@Html.Hidden("Language", LanguageVal)
+@Html.Hidden("IsHeader", IsHeader)
+<style>
+    .FixedColumnMeta .row
+    {
+        margin:0 !important
+    }
+</style>
+<div class="tab-pane padding-10 padding-Bottom-0 padding-top-0">
+    <div class="padding-10 padding-Bottom-0 mapping padding-top-0 select_file">
+        <h4>@ImportDataLang.lblSetcolumnwidth</h4>
+        <hr />
+        <div class="text-align-right margin-bottom-5">
+            <a href="javascript:void(0)" id="btnAddColumn">@ImportDataLang.lblAddRow</a>
+            @*<input type="button" class="btn btn-primary" value="Add Column" id="btnAddColumn" />*@
+        </div>
+        <table class="table table-bordered paddingtop7 FixedColumnMeta">
+            <thead>
+                <tr class="row">
+                    <th class="col-md-3">@ImportDataLang.lblStartPosition </th>
+                    <th class="col-md-3">@ImportDataLang.lblLength</th>
+                    <th class="col-md-3">@ImportDataLang.lblColumnName</th>
+                    <th class="col-md-3">@ImportDataLang.lblExample</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (IsTemplate || IsFromPrev)
+                {
+                    for (int i = 0; i < lstColumns.Count; i++)
+                    {
+                        <tr class="row" id="@i">
+                            <td class="col-md-3"><input type="text" class="startIndex OnlyDigit" id="@("txtStart" + i)" value="@lstStartPosition[i]" /></td>
+                            <td class="col-md-3"><input type="text" class="fieldLength OnlyDigit" id="@("txtLength" + i)" value="@lstFieldLength[i]" /></td>
+                            <td class="col-md-3"><input type="text" class="columnName" id="@("txtcolumnName" + i)" value="@lstColumns[i]" />&nbsp;&nbsp;<a href="javascript:void(0);" class="removeColumn" data-id="@i"><i class="fa fa-times-circle"></i></a></td>
+                            <td class="col-md-3">@lstFieldValue[i]</td>
+                        </tr>
+                    }
+
+                }
+                else
+                {
+                    <tr class="row" id="0" >
+                        <td class="col-md-3"><input type="text" class="startIndex OnlyDigit" id="txtStart0" value="1" /></td>
+                        <td class="col-md-3"><input type="text" class="fieldLength OnlyDigit" id="txtLength0" /></td>
+                        <td class="col-md-3"><input type="text" class="columnName" id="txtcolumnName0" readonly="@(!IsHeader)" value="@(!IsHeader ? "Column 0" : "")" /></td>
+                        <td class="col-md-3"></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+        <div class="row margin-top-5" >
+            <div class="col-md-12 text-align-right">
+                <input type="button" class="btn btn-primary" value="@ImportDataLang.lblPrev" id="ColumnMetaPrev" />
+                <input type="button" class="btn btn-primary" value="@ImportDataLang.lblNext" id="ColumnMetaNext" />
+            </div>
+        </div>
+    </div>
+</div>

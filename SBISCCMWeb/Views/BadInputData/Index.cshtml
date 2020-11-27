@@ -1,0 +1,198 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model PagedList.IPagedList<CompanyEntity>
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + CleanDataLang.titleCleanseMatch;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + CleanDataLang.titleCleanseMatch;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    int userId = Helper.oUser.UserId;
+    var ActivateFeature = "";
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ActivateFeature = BrandingLang.msgMBFeature;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ActivateFeature = BrandingLang.msgDNBFeature;
+    }
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divBadinputData",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+    bool LicenseEnableInvestigations = Helper.LicenseEnableInvestigations;
+    bool LicenseEnableComplaince = Helper.LicenseEnableCompliance;
+    if (LicenseEnableInvestigations)
+    {
+        LicenseEnableInvestigations = Helper.oUser.EnableInvestigations;
+    }
+    if (LicenseEnableComplaince)
+    {
+        LicenseEnableComplaince = Helper.oUser.EnableCompliance;
+    }
+    if (LicenseEnableComplaince)
+    {
+        LicenseEnableComplaince = Helper.lstEnrichCreds.Where(x => x.EnrichmentType == "OWNERSHIP").Select(x => x.CredentialId).FirstOrDefault() > 0 ? true : false;
+    }
+    string APITypeForInvestigation = Helper.lstThirdPartyAPIs.Where(x => x.Code == "DNB_INVESTIGATIONS").Select(x => x.APIType).FirstOrDefault();
+    bool LicenseEnablePurgeData = Helper.oUser.EnablePurgeData;
+}
+@Html.AntiForgeryToken()
+@Html.Hidden("LicenseEnablePurgeData", LicenseEnablePurgeData)
+@Html.Hidden("ActivateFeature", ActivateFeature)
+@Html.Hidden("LicenseEnableInvestigations", LicenseEnableInvestigations)
+@Html.Hidden("APITypeForInvestigation", APITypeForInvestigation)
+@Html.Hidden("LicenseEnableCompliance", LicenseEnableComplaince)
+@using (Ajax.BeginForm("GetFilteredCompanyList", "BadInputData", null, ajaxOptions, new { id = "form_BadinputData", autocomplete = "off" }))
+{
+    <div id="content" style="opacity: 1; padding-left:15px; padding-right:15px">
+        <section id="widget-grid" class="">
+            <div class="row">
+
+                <div id="divBadinputDataMain">
+                    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable widget-data">
+                        <div data-widget-editbutton="false" class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" role="widget" style="position: relative; opacity: 1; left: 0px; top: 0px;">
+                            <header role="heading">
+                                <div class="jarviswidget-ctrls" role="menu">
+                                    <div class="clsAdditionActionFilter btn">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn dropdown-toggle btn-Secondary" data-toggle="dropdown" tabindex="-1">
+                                                @CleanDataLang.lblAdditionalActions <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                @if (LicenseEnablePurgeData)
+                                                {
+                                                    <li class="ShowWhenUnchecked"><a href="javascript:void(0);" id="btnAcceptRejectAll">@CleanDataLang.lblPurge</a></li>
+                                                    @*<li class="ShowWhenUnchecked"><a href="javascript:void(0);" id="btnAcceptRejectAllFromFile">@CleanDataLang.lblPurgeFromFile</a></li>*@
+                                                }
+                                                else
+                                                {
+                                                    <li class="clsDisable ShowWhenUnchecked"><a href="javascript:void(0);" style="pointer-events: none;cursor:auto;" disabled="disabled">@CleanDataLang.lblPurge</a></li>
+                                                    @*<li class="clsDisable ShowWhenUnchecked"><a href="javascript:void(0);" style="pointer-events: none;cursor:auto;" disabled="disabled">@CleanDataLang.lblPurgeFromFile</a></li>*@
+                                                }
+                                                <li class="ShowWhenchecked" style="display:none"><a href="javascript:void(0);" id="btnPurgeDataFromPage">@CleanDataLang.lblPurge</a></li>
+                                                <li class="ShowWhenUnchecked"><a href="javascript:void(0);" id="btnReMatchRecords">@CleanDataLang.lblRematch</a></li>
+                                                <li class="ShowWhenchecked" style="display:none"><a href="javascript:void(0);" id="btnReMatchRecordsFromPage">@CleanDataLang.lblRematch</a></li>
+                                                <li class="ShowWhenchecked" style="display:none"><a href="javascript:void(0);" id="btnInvestigateFromPage">@CleanDataLang.lblInvestigate</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h2><strong> @CleanDataLang.hdrCleanData</strong></h2>
+                                @*<span class="widget-icon DataFilter">
+                                        @{
+                                            string SessionFilterTitle = "<strong>Session Filters</strong>";
+                                        }
+                                        @if (UserFilterExists)
+                                        {
+                                            <a href="#" class="userFilter" rel="popover-hover" data-placement="bottom" data-original-title="@SessionFilterTitle" data-content="@UserSesionText" data-html="true"><img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("~/Images/filterApplied.png"))" class="FilterApplied" /></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="#" class="userFilter" rel="popover-hover" data-placement="bottom" data-original-title="@SessionFilterTitle" data-content="@UserSesionText" data-html="true"><i class="fa fa-filter"></i></a>
+                                        }
+
+
+                                    </span>*@
+                                <span class="jarviswidget-loader"><em class="fa fa-refresh fa-spin"></em></span>
+                            </header>
+                            <div role="content">
+                                <div id="CleanDataFilterContainer">
+                                    @Html.Partial("~/Views/Shared/FilterPartial.cshtml")
+                                </div>
+                                <div id="divBadinputData">
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+}
+<div id="divMultiMiniModalMain"></div>
+<div id="divPurgeDataMain"></div>
+<div id="SearchPopupModalMain"></div>
+<div id="BingSearchModalMain"></div>
+<div id="ReMatchRecordsModalMain"></div>
+<div id="SearchDataAddCompanyModalMain"></div>
+<div id="iResearchInvestigationRecordsTargetedModalMain"></div>
+<div id="InvestigateModalMain"></div>
+<div id="GoogleMapPopUpModalMain"></div>
+<div id="MatchDetailModalMain"></div>
+<div id="GoogleMapModalMain"></div>
+<div id="BenificiaryDataModalMain">
+    <div class="modal" id="BenificiaryDataModal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <h4 class="modal-title">Benificiary Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="divBeneficialOwnershipData"></div>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="BenificiaryGraphModalMain"></div>
+<div id="BenificiaryScreeningDetailsModalMain"></div>
+
+@section scripts{
+    <script type="text/javascript">
+        var globalAjaxLink = '@Ajax.ActionLink("{title}", "{actionName}", new { mode = 1, page = "{page}", sortby = "{sortby}", sortorder = "{sortorder}" , pageValue = "{pageValue}" }, ajaxOptions)';
+        var purgeRecord = '@CleanDataLang.msgPurgeRecord';
+        var rematchRecord = '@CleanDataLang.msgRematchRecord';
+    </script>
+    <script>
+        var purgeRecordCleanData = '@CleanDataLang.msgPurgeRecord';
+        var rematchRecordCleanData = '@CleanDataLang.msgRematchRecord';
+        var cleansearchpurgeRecord = '@CleanDataLang.msgCleanSearchPurgeRecord';
+        var assignDUNS = '@CleanDataLang.msgAssignDUNS';
+        var total = '@CleanDataLang.msgTotal';
+        var rematchRecords = '@CleanDataLang.msgRematchRecords';
+        var addNewCompany = '@CleanDataLang.msgAddNewCompany';
+        var updateSettings = '@CleanDataLang.msgUpdateSettings';
+        var selectRecordToPurge = '@CleanDataLang.msgSelectRecordToPurge';
+        var selectRecordToReMatch = '@CleanDataLang.msgSelectRecordToRematch';
+        var selectRecotdToInvestigate = '@CleanDataLang.msgSelectRecotdToInvestigate';
+        var onlyNumbersAllowed = '@CleanDataLang.msgOnlyNumbersAllowed';
+        var noRecords = '@CleanDataLang.msgNoRecords';
+        var formatsAllowed = '@CleanDataLang.msgFormatsAllowed';
+        var purgeRecord = '@CommonMessagesLang.msgPurgeRecord';
+        var rematchRecord = '@CommonMessagesLang.msgReMatchRecord';
+        var investigateRecord = '@CommonMessagesLang.msgInvestigateRecord';
+        var addMatchAsCompany = '@CommonMessagesLang.msgaddMatchAsCompany';
+        var purgeRecords = '@CleanDataLang.msgPurgeRecords';
+        var searchByEmail = '@SearchDataLang.msgSearchByEmail';
+        var deleteSessionFilter = '@CommonMessagesLang.msgDeleteSessionFilter';
+        var confirmBox = '@CommonMessagesLang.lblConfirm';
+        var noRecordsAvailable = '@iResearchInvestigationLang.msgNoRecordsAvailable';
+        var filterByErrorCode = '@CleanDataLang.msgFilterByErrorCode';
+        var dataRejected = '@CleanDataLang.msgDataRejected';
+        var noRecordsAffected = '@CleanDataLang.msgNoRecordsAffected';
+        var reMatchRequestCompleted = '@CleanDataLang.msgReMatchRequestCompleted';
+        var rowsSentForReMatch = '@CleanDataLang.msgRowsSentForReMatch';
+        var benificiaryDetails = '@CommonMessagesLang.lblBenificiaryDetails';
+        var showInputDetails = '@MatchDataLang.lblShowInputDetails';
+        var hideInputDetails = '@MatchDataLang.lblHideInputDetails';
+    </script>
+    @Scripts.Render("~/bundles/badinputdata")
+}

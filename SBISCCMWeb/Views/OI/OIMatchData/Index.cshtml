@@ -1,0 +1,148 @@
+﻿@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.LanguageResources;
+@model IPagedList<OICompanyEntity>
+@{
+    ViewBag.Title = "Matchbook | "+ OIMatchDataLang.titleOIMatchData;
+    bool UserFilterExists = ViewBag.UserFilterExists != null ? Convert.ToBoolean(ViewBag.UserFilterExists) : false;
+    string UserSesionText = ViewBag.UserSesionText != null ? Convert.ToString(ViewBag.UserSesionText) : "Session Filters: No Filters Set";
+    bool LicenseEnablePurgeData = Helper.oUser.EnablePurgeData;
+    var ActivateFeature = "";
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ActivateFeature = BrandingLang.msgMBFeature;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ActivateFeature = BrandingLang.msgDNBFeature;
+    }
+
+}
+@Html.Hidden("ActivateFeature", ActivateFeature)
+<div id="content" style="opacity: 1;">
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            <strong>@OIMatchDataLang.hdrMatchData</strong>
+                        </h2>
+                        <span class="widget-icon DataFilter">
+                            @{
+                                string SessionFilterTitle = "<strong>" + OIMatchDataLang.lblSessionFilters + "</strong>";
+                            }
+                            @if (UserFilterExists)
+                            {
+                                <a href="javascript:void(0)" class="OIuserFilter" rel="popover-hover" data-placement="bottom" data-original-title="@SessionFilterTitle" data-content="@UserSesionText" data-html="true"><img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("~/Images/filterApplied.png"))" class="FilterApplied" /></a>
+                            }
+                            else
+                            {
+                                <a href="javascript:void(0)" class="OIuserFilter" rel="popover-hover" data-placement="bottom" data-original-title="@SessionFilterTitle" data-content="@UserSesionText" data-html="true"><i class="fa fa-filter"></i></a>
+                            }
+
+                        </span>
+                        <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                            <li>
+                                <div class="clsAdditionActionFilter btn">
+                                    <div class="input-group-btn">
+                                        <button type="button" class="btn dropdown-toggle btn-Secondary" data-toggle="dropdown" tabindex="-1">
+                                            @OIMatchDataLang.lblAdditionalActions <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="javascript:void(0);" id="btnAcceptFromFile">@OIMatchDataLang.hdrAcceptFromFile</a></li>
+                                            @if (LicenseEnablePurgeData)
+                                            {
+                                                <li><a href="javascript:void(0);" id="btnDeleteData">@OIMatchDataLang.lblDeleteData</a></li>
+                                                <li><a href="javascript:void(0);" id="btnDeleteDataFromFiles">@OIMatchDataLang.lblDeleteDataFromFile</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="clsDisable"><a href="javascript:void(0);" style="pointer-events: none;cursor:auto;" disabled="disabled">@OIMatchDataLang.lblDeleteData</a></li>
+                                                <li class="clsDisable"><a href="javascript:void(0);" style="pointer-events: none;cursor:auto;" disabled="disabled">@OIMatchDataLang.lblDeleteDataFromFile</a></li>
+
+                                            }
+                                            <li><a href="javascript:void(0);" id="btnExportToExcel">@OIMatchDataLang.lblExportToExcel</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);"><i class="fa fa-minus "></i></a>
+                            </li>
+                        </ul>
+
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content padding-10">
+                                <div class="tab-pane fade active in">
+                                    <div id="partialDivOICompanyMatchdata">
+                                        @{Html.RenderPartial("~/Views/OI/OIMatchData/_Index.cshtml", Model);}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+<div id="OIMatchDataDetailModalMain"></div>
+<div id="OIViewResolutionMapModalMain"></div>
+<div id="OIBingSearchModalMain"></div>
+<div id="OISendToOrbCompanyInformationModalMain"></div>
+<div id="OIMatchDataAcceptFromFileModalMain"></div>
+<div id="OIMatchExportRecordToExcelModalMain"></div>
+<div id="OIMatchDeleteCompanyDataModalMain"></div>
+<div id="OIMatchDeleteFromFileModalMain"></div>
+<div id="OIMatchSessionFilterModalMain"></div>
+<div id="OIAddCompanyMatchModalMain"></div>
+<div id="OIMatchMetadataModalMain"></div>
+<div id="OIFineTuneMatchFilterModalMain"></div>
+
+@section scripts {
+    <script>
+        var matchAcceptAllowedFormats = '@OIMatchDataLang.msgMatchAcceptAllowedFormats';
+        var addNewCompany = '@OIMatchDataLang.msgAddNewCompany';
+        var noRecords = '@OIMatchDataLang.msgNoRecords';
+        var uploadCertainFile = '@OIMatchDataLang.msgUploadCertainFile';
+        var deleteCompanyData = '@OIMatchDataLang.msgDeleteCompanyData';
+        var lblDeleteCompanyData = '@OIMatchDataLang.lblDeleteCompanyData';
+        var assignORB = '@OIMatchDataLang.msgAssignORB';
+        var selectSearch = '@OIMatchDataLang.msgSelectSearch';
+        var deleteSearch = '@OIMatchDataLang.msgDeleteSearch';
+        var restoreDelete = '@OIMatchDataLang.msgRestoreDelete';
+        var deleteRecord = '@OIMatchDataLang.msgDeleteRecord';
+        var rejectCandidate = '@OIMatchDataLang.msgRejectCandidate';
+        var maxValue = '@OIMatchDataLang.msgMaxValue';
+        var success = '@CommonMessagesLang.msgSuccess';
+        var exporttoExcel = '@OIMatchDataLang.msgExporttoExcel';
+        var deleteSessionFilter = '@CommonMessagesLang.msgDeleteSessionFilter';
+        var total = '@CommonMessagesLang.msgTotal';
+        var wantToContiune = '@CommonMessagesLang.msgWantToContiune';
+        var sureWantToContinue = '@CommonMessagesLang.msgSureWantToContinue';
+        var addMatchAsCompany = '@OIMatchDataLang.msgAddMatchAsCompany';
+        var nothingFound = '@CommonMessagesLang.msgNothingFound';
+        var dataUpdated = '@OIMatchDataLang.msgDataUpdated';
+        var maximumSearchAllowed = '@OIMatchDataLang.msgMaximumSearchAllowed';
+        var dataDeleted = '@OIMatchDataLang.msgDataDeleted';
+        var confirmBox = '@CommonMessagesLang.lblConfirm';
+        var nothingToMove = '@CommonMessagesLang.msgNothingToMove';
+        var enableRecordConfirmBox = '@OIMatchDataLang.msgEnableRecordConfirmBox';
+        var disableRecordConfirmBox = '@OIMatchDataLang.msgDisableRecordConfirmBox';
+    </script>
+    <script src="~/Scripts/CustomJS/OI/OIMatchData.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIMatchSearch.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIBingSearch.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIAcceptFromFile.js"></script>
+    <script src="~/Scripts/CustomJS/AddCountryGroupPopup.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIDeleteCompanyData.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIDeleteFromFile.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIUserSessionFilter.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIAddCompany.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIMatchMetaDataDetails.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIUserMatchFilter.js"></script>
+}

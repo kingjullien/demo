@@ -1,0 +1,17 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@{
+    ViewBag.Title = HomeLang.titleAbout;
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + HomeLang.lblAbout;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + HomeLang.lblAbout;
+    }
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<p>@HomeLang.lblAdditionalInformation</p>

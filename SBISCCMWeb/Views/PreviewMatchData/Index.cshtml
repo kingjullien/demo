@@ -1,0 +1,67 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model Tuple<IPagedList<SBISCCMWeb.Models.PreviewMatchData.MatchOutPutModel>, SBISCCMWeb.Models.PreviewMatchData.PreviewMatchDataModel>
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + PreviewMatchedDataLang.titlePreviewData;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + PreviewMatchedDataLang.titlePreviewData;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+    string UserType = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserType) ? "" : Helper.oUser.UserType : "";
+    string StwerdTags = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.Tags) ? "" : Helper.oUser.Tags : "";
+
+}
+
+@Html.Hidden("UserLOBTag", UserLOBTag)
+@Html.Hidden("UserRole", UserRoles)
+<div id="content" style="padding-left:15px; padding-right:15px">
+    @Html.Hidden("ConfidenceCode")
+    <section id="widget-grid" class="">
+        <div class="row ReviewFilter" id="divPreviewMatchMain">
+
+            <div class="clearfix"></div>
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable searchResult widget-data reviewZindex">
+                <div data-widget-editbutton="false" class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+
+                            <strong>@PreviewMatchedDataLang.hdrPreviewMatchedData</strong>
+                        </h2>
+                    </header>
+                    <div role="content">
+                        <div id="PreviewMatchDataFilterContainer">
+                            @Html.Partial("~/Views/Shared/FilterPartial.cshtml")
+                        </div>
+                        <div id="divGrid">
+                            @{
+                                Html.RenderPartial("SearchGrid", Model);
+                            }
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+<div id="PreviewMatchFilterModalMain"></div>
+<div id="PreviewMatchViewDetailsModalMain"></div>
+
+
+@section scripts{
+    @if (!string.IsNullOrEmpty(SessionHelper.Preview_NodataMessage))
+    {
+        <script>
+        ShowMessageNotification("success", '@SessionHelper.Preview_NodataMessage', false);
+        </script>
+    }
+
+    @Scripts.Render("~/bundles/previewmatchdata")
+}
+

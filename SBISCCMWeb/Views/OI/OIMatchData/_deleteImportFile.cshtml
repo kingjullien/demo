@@ -1,0 +1,48 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@{
+    Layout = null;
+    string allowedFormats = "xls, xlsx";
+}
+
+<div class="modal" id="OIMatchDeleteFromFileModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@OIMatchDataLang.lblDeleteFromFile</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Hidden("allowedFormats", allowedFormats)
+                <input type="file" id="DeletePurgeFile" accept=".xls,.xlsx" />
+                <label>(@OIMatchDataLang.lblAcceptsonlyExcelfiles)</label><br />
+                <div id="myTabContent" class="tab-content">
+                    <h2 class="text-center">@OIMatchDataLang.hdrFileMapping</h2>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body ">
+
+                            <div class="tab-content">
+                                <div id="DivPartialBindDeleteMapping">
+                                    @{
+                                        IPagedList<dynamic> pagedProducts = new StaticPagedList<dynamic>(new List<dynamic>(), 1, 10000, 0);
+                                        Html.RenderPartial("~/Views/OI/OIMatchData/_bindDataMapping.cshtml", pagedProducts);
+                                    }
+                                </div>
+
+                            </div>
+
+                            <div class="importbuttondiv paddingtop8">
+                                <input id="btnInsertDeleteData" class="btn btn-primary" type="submit" name="btnInsertData" title="@OIMatchDataLang.titleSubmit" value="@OIMatchDataLang.titleSubmit" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div> 

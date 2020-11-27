@@ -1,0 +1,51 @@
+﻿@model PagedList.IPagedList<dynamic>
+@using SBISCCMWeb.LanguageResources;
+@{
+    List<string> listColumn = ViewBag.ColumnList != null ? ViewBag.ColumnList : new List<string>();
+    List<SelectListItem> lstAllFilter = ViewBag.ExternalColumn != null ? ViewBag.ExternalColumn : new List<SelectListItem>();
+    int z = 0;
+
+}
+
+<div class="dataimportbox">
+    <table class="table table-bordered paddingtop7">
+        <thead>
+            <tr class="row">
+                <th class="col-md-6">@MatchDataLang.lblTableColumn</th>
+                <th class="col-md-6">@MatchDataLang.lblInputHeader</th>
+
+            </tr>
+        </thead>
+        <tbody class="tbdataMatch">
+            @if (Model != null)
+            {
+
+                foreach (var columnName in listColumn.Take(2))
+                {
+                    string ErrorMessage = "ErrorMessage-" + z;
+                    <tr class="row">
+                        <td class="col-md-6">
+                            <span class="spnExcelColumn" data-val="@(columnName)">@(columnName)</span>
+                            @if (z == 0 || z == 1)
+                            {
+                                <span class="error">*</span>
+                            }
+                        </td>
+                        <td class="col-md-6">@Html.DropDownList("DataColumn-" + z, new SelectList(lstAllFilter, "Value", "Text"), new { @class = "form-control SelectBox", @autocomplete = "off" })</td>
+
+                    </tr>
+                    z++;
+                }
+
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3"></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+

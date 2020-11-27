@@ -1,0 +1,264 @@
+﻿@model SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.CommandUploadMappingEntity
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@{
+    Layout = null;
+
+    string message = !string.IsNullOrEmpty(Convert.ToString(ViewBag.Message)) ? Convert.ToString(ViewBag.Message) : "";
+    string allowedFormats = "xls,xlsx";
+    string OpenFileFormats = CommandLineLang.lblAllowedFormats;
+
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        UpdateTargetId = "divPartialCommandMapping",
+        OnSuccess = "InsertCommandSuccess"
+    };
+}
+<style>
+    .NavNextPrev .previous.disabled > a {
+        pointer-events: none;
+    }
+
+    .NavNextPrev .next.disabled > a {
+        pointer-events: none;
+    }
+</style>
+@Html.Hidden("allowedFormats", allowedFormats)
+@Html.Hidden("TempOriginalColumns", Model.OriginalColumns)
+@Html.Hidden("TagList", Model.Tags)
+<div class="modal" id="UploadConfigurationModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xs">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@CommandLineLang.hdrUploadConfigurationMapping</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="column-mapping w-100">
+                        @using (Ajax.BeginForm("InsertUpdate", "CommandMapping", null, ajaxOptions, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(@model => model.Id)
+                            @Html.HiddenFor(@model => model.ColumnMapping)
+                            @Html.Hidden("OriginalColumns")
+
+                            <div class="tab-content AAAA">
+                                <div class="tab-pane active" id="tab1">
+                                    <div role="content">
+                                        <fieldset class="ExportFieldSet configurationFieldSet">
+                                            <legend>@CommandLineLang.lblSelectConfigurationName</legend>
+                                            <div class="row form-group">
+                                                <div class="col-md-6">
+                                                    @*<span><strong>Configuration Name</strong></span>*@
+                                                    @Html.TextBoxFor(@model => @model.ConfigurationName, new { @class = "form-control", @placeholder = CommandLineLang.placeholderConfName, @autocomplete = "off" })
+                                                    <span id="spnUConfigName" class="error" style="display:none;">@CommandLineLang.lblRequiredConfigurationName</span>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset class="ExportFieldSet configurationFieldSet">
+                                            <legend>@CommandLineLang.lblSelectImportType</legend>
+                                            <div class="row form-group">
+                                                <div class="col-md-6">
+                                                    @Html.DropDownListFor(@model => @model.ImportType, new SelectList(CommonDropdown.GetImportType(), "Value", "Text"), new { @class = "form-control", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset class="ExportFieldSet configurationFieldSet file_formate">
+                                            <legend>@CommandLineLang.lblSelectFileFormat</legend>
+                                            <div class="row form-group" style="margin-left:-15px; margin-right:-15px">
+                                                <div class="col-xs-2" title="Excel">
+                                                    <input type="radio" name="FileFormatCommandLine" value="Excel" class="rbtnFile" @(string.IsNullOrEmpty(Model.FileFormatCommandLine) ? "checked='checked'" : Model.FileFormatCommandLine == "Excel" ? "checked='checked'" : "") />
+                                                    <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/Export/excel-Dark.png"))" class="clsImportImage">
+                                                    <p class="centerspace">@CommandLineLang.lblExcel</p>
+                                                </div>
+                                                <div class="col-xs-2" title="CSV">
+                                                    <input type="radio" name="FileFormatCommandLine" value="CSV" class="rbtnFile" @(string.IsNullOrEmpty(Model.FileFormatCommandLine) ? "" : Model.FileFormatCommandLine == "CSV" ? "checked='checked'" : "") />
+                                                    <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/Export/csv-Dark.png"))" class="clsImportImage">
+                                                    <p class="centerspace">@CommandLineLang.lblCSV</p>
+                                                </div>
+                                                <div class="col-xs-2" title="Tab Separated">
+                                                    <input type="radio" name="FileFormatCommandLine" value="TSV" class="rbtnFile" @(string.IsNullOrEmpty(Model.FileFormatCommandLine) ? "" : Model.FileFormatCommandLine == "TSV" ? "checked='checked'" : "") />
+                                                    <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/Export/tsv.png"))" class="clsImportImage">
+                                                    <p class="">@CommandLineLang.lblTabSeparated</p>
+                                                </div>
+                                                <div class="col-xs-2" title="Custom Delimiter">
+                                                    <input type="radio" name="FileFormatCommandLine" value="Delimiter" class="rbtnFile" @(string.IsNullOrEmpty(Model.FileFormatCommandLine) ? "" : Model.FileFormatCommandLine == "Delimiter" ? "checked='checked'" : "") />
+                                                    <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/Export/text-with-delimiter.png"))" class="clsImportImage">
+                                                    <p class="">@CommandLineLang.lblCustomDelimiter</p>
+                                                </div>
+                                                <div class="col-xs-2 divFrmtValue" style="@(string.IsNullOrEmpty(Model.FileFormatCommandLine) ? "display:none" : Model.FileFormatCommandLine == "Delimiter" ? "display:block" : "display:none")">
+                                                    <span><strong>@CommandLineLang.lblFormatValue</strong></span>
+                                                    @Html.DropDownListFor(@model => @model.Formatvalue, new SelectList(CommonDropdown.GetImportDelimiter(), "Value", "Text"), new { @class = "form-control", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset class="ExportFieldSet configurationFieldSet">
+                                            <legend>@CommandLineLang.lblSelectFile</legend>
+                                            <div class="row form-group">
+                                                <div class="fileuploadfld w-100">
+                                                    <div class="row">
+                                                        <div class="col-md-3 width90px">
+                                                            <span><strong>@CommandLineLang.lblUploadFile</strong></span>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <div class="input-group col-md-12 d-table">
+                                                                <input type="file" id="IdFile" accept="@OpenFileFormats" class="inputfile inputfile-6" autocomplete="off" />
+                                                                <label for="IdFile" style="max-width:100%">
+                                                                    <span></span>
+                                                                    <strong>
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
+                                                                            <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path>
+                                                                        </svg>
+                                                                        @CommonMessagesLang.lblBrowse
+                                                                    </strong>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span id="spnfile" class="error" style="display:none;">@CommandLineLang.lblRequiredFile</span>
+                                                            <span id="spnInvalidColumns" class="error" style="display:none;"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <div class=" default_check">
+                                            <label class="checkbox mapping_check col-md-12">
+                                                @Html.CheckBoxFor(m => m.IsDefault, new { @autocomplete = "off" })
+                                                <div class="paddingTop-3">
+                                                    <span>
+                                                        <strong>@CommandLineLang.lblIsDefault</strong>
+                                                    </span>
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <div class="next_button">
+                                            <a href="javascript:void(0);" class="btn btn-primary" id="Next"> @CommandLineLang.lblNext </a>
+
+                                        </div>
+                                        <br />
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="tab2">
+                                    <article class="sortable-grid ui-sortable widget-data">
+                                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                            <header role="heading">
+                                                <h2>
+                                                    <strong>@CommandLineLang.hdrColumnMapping</strong>
+                                                </h2>
+                                            </header>
+                                            <div role="content">
+                                                <div class="jarviswidget-editbox"></div>
+                                                <div class="widget-body">
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane fade active in">
+                                                            <div id="DivPartialBindColumnMapping">
+                                                                @{
+                                                                    IPagedList<dynamic> pagedProducts = new StaticPagedList<dynamic>(new List<dynamic>(), 1, 10000, 0);
+                                                                    if (Model.ImportType == "Orb Data Import" || Model.ImportType == "Orb Match Refresh")
+                                                                    {
+                                                                        Html.RenderPartial("_bindOrbColumnMapping", pagedProducts);
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        Html.RenderPartial("_bindColumnMapping", pagedProducts);
+                                                                    }
+
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row  margin-bottom-10">
+                                                    <div class="col-md-12">
+                                                        <button id="Previous" type="button" class="btn btn-Secondary">@CommandLineLang.lblPrevious</button>
+                                                        <button type="submit" class="btn btn-primary" onclick="return sumbitCommandMapping()">@CommandLineLang.lblSubmit</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script>
+    'use strict';
+
+    ; (function (document, window, index) {
+        var inputs = document.querySelectorAll('.inputfile');
+        Array.prototype.forEach.call(inputs, function (input) {
+            var label = input.nextElementSibling,
+                labelVal = label.innerHTML;
+
+            input.addEventListener('change', function (e) {
+                var fileName = '';
+                if (this.files && this.files.length > 1)
+                    fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
+                else
+                    fileName = e.target.value.split('\\').pop();
+
+                if (fileName)
+                    label.querySelector('span').innerHTML = fileName;
+                else
+                    label.innerHTML = labelVal;
+            });
+
+            // Firefox bug fix
+            input.addEventListener('focus', function () { input.classList.add('has-focus'); });
+            input.addEventListener('blur', function () { input.classList.remove('has-focus'); });
+        });
+    }(document, window, 0));
+
+    $(document).ready(function () {
+        rbtnChangeEvent();
+    });
+</script>
+@if (!string.IsNullOrEmpty(message))
+{
+
+    if (message.Contains("Data created successfully"))
+    {
+        <script type="text/javascript">
+            //show notification message instade of Bootbox Message...if you pass "success" than show Notification message and if you pass "error" than show bootbox message.
+            parent.ShowMessageNotification("success",'@message', true);
+        </script>
+    }
+    else if (message == "Please fill proper information.")
+    {
+        <script type="text/javascript">
+            //show notification message instade of Bootbox Message...if you pass "success" than show Notification message and if you pass "error" than show bootbox message.
+            parent.ShowMessageNotification("success", '@message', false);
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+            //show notification message instade of Bootbox Message...if you pass "success" than show Notification message and if you pass "error" than show bootbox message.
+            parent.ShowMessageNotification("success",'@message', true);
+        </script>
+    }
+
+}
+<script>
+    var fileFormatsAllowed = '@CommandLineLang.msgFileFormatsAllowed';
+</script>

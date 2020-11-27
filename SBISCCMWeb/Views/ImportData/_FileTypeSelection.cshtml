@@ -1,0 +1,78 @@
+﻿@using SBISCCMWeb.LanguageResources
+<div class="tab-pane padding-10 padding-Bottom-0 padding-top-0">
+    <div class="form-group select_file">
+        <div class="padding-10 padding-Bottom-0">
+            <h4>@ImportDataLang.lblSelectFileType</h4>
+            <hr />
+            <div class="file_options">
+                <div class="file_type_option bgLightBlue">
+                    <p>
+                        <input type="radio" name="FileFormat" id="rdCSV" value="EXCEL" checked />
+                        <label>@ImportDataLang.lblExcel</label>
+                    </p>
+                    <div class="image">
+                        <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/import/excelnew.png"))" />
+                    </div>
+                </div>
+                <div class="file_type_option">
+                    <p>
+                        <input type="radio" name="FileFormat" id="rdCSV" value="CSV" />
+                        <label>@ImportDataLang.lblCSV</label>
+                    </p>
+                    <div class="image">
+                        <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/import/csvnew.png"))" />
+                    </div>
+                </div>
+                <div class="file_type_option">
+                    <p>
+                        <input type="radio" name="FileFormat" id="rdCSV" value="TSV" />
+                        <label>@ImportDataLang.lblTSV</label>
+                    </p>
+                    <div class="image">
+                        <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/import/tsvnew.png"))" />
+                    </div>
+                </div>
+                <div class="file_type_option">
+                    <p>
+                        <input type="radio" name="FileFormat" id="rdCSV" value="TXT" />
+                        <label>@ImportDataLang.lblCustomDelimiter</label>
+                    </p>
+                    <div class="image">
+                        <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/import/txtnew.png"))" />
+                    </div>
+                </div>
+                <div class="file_type_option">
+                    <p>
+                        <input type="radio" name="FileFormat" id="rdCSV" value="FIXED" />
+                        <label>@ImportDataLang.lblFixedWidth</label>
+                    </p>
+                    <div class="image">
+                        <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/import/txtnew.png"))" />
+                    </div>
+                </div>
+            </div>
+
+            <h4 class="margin-top-20">@ImportDataLang.lblImportType</h4>
+            <hr />
+            <div class="importRadio importTypes margin-top-10">
+                <div class="file_type_option bgLightBlue" style="width:230px">
+                    <p>
+                        <input type="radio" name="ImportMode" id="ImportMode" class="rButtonImportData" value="Data Import" checked="checked" />
+                        <label style="margin-bottom:0px">@ImportDataLang.lblCleanseMatchEnrichment</label>
+                    </p>
+                </div>
+                <div class="file_type_option margin-left-10">
+                    <p>
+                        <input type="radio" name="ImportMode" id="ImportMode" class="rButtonImportData" value="Match Refresh" />
+                        <label style="margin-bottom:0px">@ImportDataLang.lblEnrichmentOnly</label>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-12 text-align-right">
+                <input type="button" class="btn btn-primary" value="@ImportDataLang.lblNext" id="ImportFileIndexNext" />
+            </div>
+
+        </div>
+    </div>
+</div>

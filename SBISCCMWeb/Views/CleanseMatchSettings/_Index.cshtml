@@ -1,0 +1,288 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Controllers;
+@using SBISCCMWeb.Utility
+@model SBISCCMWeb.Models.CleanseMatchSettingsModel
+@{
+    AjaxOptions ajaxOptionsForAAC = new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "GET" };
+    int z = 0;
+    string TagHide = !Helper.LicenseEnableTags ? "TagHide" : "";
+}
+<link href="~/Content/chosen.css" rel="stylesheet" />
+
+
+@Html.Hidden("SettingName", (string)ViewBag.ApiLayer)
+@Html.Hidden("HideenMessage", Convert.ToString((string)ViewBag.Message))
+
+<article class="col-lg-6 sortable-grid ui-sortable">
+    <div class="sortable-grid ui-sortable widget-data" id="articleDnBDirectCredentials">
+        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <i class="fa fa-slack"></i>
+                    <strong>D&B Direct Credentials</strong>
+                </h2>
+                <ul class="nav pull-right nav-pills Custom-pill">
+                    <li class="">
+                        <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                    </li>
+                </ul>
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body no-padding">
+                    <div class="tab-content padding-10">
+                        <div id="Licence" class="tab-pane fade active in">
+                            <div class="form-group">
+                                <input type="radio" name="APICredentials" class="rButtonAPICredentials" value="MixMode" />&nbsp;<span class="checkboxalign"><strong>Mixed Mode</strong></span> &nbsp;&nbsp;&nbsp;
+                                <input type="radio" name="APICredentials" class="rButtonAPICredentials" value="DnBDirectLicense" checked="checked" />&nbsp;<span class="checkboxalign"><strong>Direct 2.0</strong></span> &nbsp;&nbsp;&nbsp;
+                                <input type="radio" name="APICredentials" class="rButtonAPICredentials" value="DirectPlusAPICredentials" />&nbsp;<span class="checkboxalign"><strong>Direct +</strong></span>
+                            </div>
+                        </div>
+                        <div class="divPartialMixModeAPICredentials" style="@((string)ViewBag.ApiLayer == ApiLayerType.MixMode.ToString() ? "display:block;" : "display:none;")">
+                            @{Html.RenderAction("MixModeAPICredentials", "CleanseMatchSettings");}
+                        </div>
+                        <div class="divPartialDnBDirectLicense" style="@((string)ViewBag.ApiLayer == ApiLayerType.Direct20.ToString()? "display:block;" : "display:none;")">
+                            @{Html.RenderAction("DnBDirectLicense", "CleanseMatchSettings");}
+                        </div>
+                        <div class="divPartialDirectPlusAPICredentials" style="@((string)ViewBag.ApiLayer == ApiLayerType.Directplus.ToString()? "display:block;" : "display:none;")">
+                            @{Html.RenderAction("DirectPlusAPICredentials", "CleanseMatchSettings");}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<article class="col-sm-6 sortable-grid ui-sortable widget-data">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa  fa-sun-o "></i>
+                <strong>Global Match Auto-Acceptance Settings</strong>
+            </h2>
+            <ul id="widget-tab-Auto-Accept" class="nav pull-right nav-pills Custom-pill">
+                <li class="">
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div id="Auto-Accept" class="tab-pane fade active in">
+                        <div class="divPartialGlobalMatchAutoAcceptanceSettings">
+                            @{Html.RenderAction("GlobalMatchAutoAcceptanceSettings", "CleanseMatchSettings");}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</article>
+
+<article class="col-lg-12 sortable-grid ui-sortable widget-data">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa fa-slack "></i>
+                <strong>Background Process Settings</strong>
+            </h2>
+            <ul id="widget-tab-Process" class="nav pull-right nav-pills Custom-pill">
+                <li class="">
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div id="Process" class="tab-pane fade active in">
+                        <div class="divPartialBackgroundProcessSettings">
+                            @{Html.RenderAction("BackgroundProcessSettings", "CleanseMatchSettings");}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</article>
+
+<article class="col-lg-6 sortable-grid ui-sortable paddingto5 widget-data">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa fa-asterisk"></i>
+                <strong>Exclusions for Cleanse Match API Calls</strong>
+            </h2>
+            <ul id="widget-tab-Exclusions" class="nav pull-right nav-pills Custom-pill">
+                <li class="">
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10 " id="CleanseMatchExclusion">
+                    <form id="frmCleanseExclusion">
+                        @Html.Hidden("TagList1", Model.oCleanseMatchExclusionsEntity.Tags1)
+                        @Html.Hidden("TagList2", Model.oCleanseMatchExclusionsEntity.Tags2)
+                        @Html.Hidden("TagList3", Model.oCleanseMatchExclusionsEntity.Tags3)
+                        @Html.Hidden("TagList4", Model.oCleanseMatchExclusionsEntity.Tags4)
+                        @Html.Hidden("TagList5", Model.oCleanseMatchExclusionsEntity.Tags5)
+
+
+                        @Html.Hidden("Tags1", z)
+                        @Html.Hidden("Tags2", z)
+                        @Html.Hidden("Tags3", z)
+                        @Html.Hidden("Tags4", z)
+                        @Html.Hidden("Tags5", z)
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <label><strong>Enable</strong></label>
+                            </div>
+                            <div class="col-sm-7"></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-5 ExclusionGroup">
+                                @Html.CheckBoxFor(m => m.oCleanseMatchExclusionsEntity.Active1)
+                                <label for="oCleanseMatchExclusionsEntity_Active1" class="labelspace">@Model.oCleanseMatchExclusionsEntity.Exclusion1</label>
+                            </div>
+                            <div class="col-sm-7 @TagHide clsExcluede">
+                                @Html.DropDownList("TagsValue1", new SelectList(SBISCCMWeb.Controllers.DataController.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", Model.oCleanseMatchExclusionsEntity.Tags1), new { @class = "form-control chzn-select clstag1 Exclusion", multiple = "true" })
+                                <i class="fa fa-plus OpenTags"></i>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-5 ExclusionGroup">
+                                @Html.CheckBoxFor(m => m.oCleanseMatchExclusionsEntity.Active2)
+                                <label for="oCleanseMatchExclusionsEntity_Active2" class="labelspace">@Model.oCleanseMatchExclusionsEntity.Exclusion2</label>
+                            </div>
+                            <div class="col-sm-7 @TagHide clsExcluede">
+                                @Html.DropDownList("TagsValue2", new SelectList(SBISCCMWeb.Controllers.DataController.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", Model.oCleanseMatchExclusionsEntity.Tags2), new { @class = "form-control chzn-select clstag2 Exclusion", multiple = "true" })
+                                <i class="fa fa-plus OpenTags"></i>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-5 ExclusionGroup">
+                                @Html.CheckBoxFor(m => m.oCleanseMatchExclusionsEntity.Active3)
+                                <label for="oCleanseMatchExclusionsEntity_Active3" class="labelspace">@Model.oCleanseMatchExclusionsEntity.Exclusion3</label>
+                            </div>
+                            <div class="col-sm-7 @TagHide clsExcluede">
+                                @Html.DropDownList("TagsValue3", new SelectList(SBISCCMWeb.Controllers.DataController.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", Model.oCleanseMatchExclusionsEntity.Tags3), new { @class = "form-control chzn-select clstag3 Exclusion", multiple = "true" })
+                                <i class="fa fa-plus OpenTags"></i>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-5 ExclusionGroup">
+                                @Html.CheckBoxFor(m => m.oCleanseMatchExclusionsEntity.Active4)
+                                <label for="oCleanseMatchExclusionsEntity_Active4" class="labelspace">@Model.oCleanseMatchExclusionsEntity.Exclusion4</label>
+                            </div>
+                            <div class="col-sm-7 @TagHide clsExcluede">
+                                @Html.DropDownList("TagsValue4", new SelectList(SBISCCMWeb.Controllers.DataController.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", Model.oCleanseMatchExclusionsEntity.Tags4), new { @class = "form-control chzn-select clstag4 Exclusion", multiple = "true" })
+                                <i class="fa fa-plus OpenTags"></i>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-5 ExclusionGroup">
+                                @Html.CheckBoxFor(m => m.oCleanseMatchExclusionsEntity.Active5)
+                                <label for="oCleanseMatchExclusionsEntity_Active5" class="labelspace">@Model.oCleanseMatchExclusionsEntity.Exclusion5</label>
+                            </div>
+                            <div class="col-sm-7 @TagHide clsExcluede">
+                                @Html.DropDownList("TagsValue5", new SelectList(SBISCCMWeb.Controllers.DataController.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", Model.oCleanseMatchExclusionsEntity.Tags5), new { @class = "form-control chzn-select clstag5 Exclusion", multiple = "true" })
+                                <i class="fa fa-plus OpenTags"></i>
+                            </div>
+                        </div>
+                        <input type="button" value="Update" name="btnSubmitExclusion" id="btnSubmitExclusion" class="btn btn-primary" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<article class="col-lg-6 sortable-grid ui-sortable paddingto5 widget-data">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa fa-asterisk"></i>
+                <strong>Auto-Accept Directives</strong>
+            </h2>
+            <ul id="widget-tab-Directives" class="nav pull-right nav-pills Custom-pill">
+                <li class="">
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10 " id="CleanseMatchExclusion">
+                    <form id="frmAutoAcceptanceDirective">
+                        @Html.Hidden("TagList6", Model.oAutoAcceptanceDirectivesEntity.Tags1)
+                        @Html.Hidden("TagList7", Model.oAutoAcceptanceDirectivesEntity.Tags2)
+                        @Html.Hidden("TagList8", Model.oAutoAcceptanceDirectivesEntity.Tags3)
+
+                        @Html.Hidden("Tags6", z)
+                        @Html.Hidden("Tags7", z)
+                        @Html.Hidden("Tags8", z)
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label><strong>Enable</strong></label>
+                            </div>
+                            <div class="col-md-9"></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-5 CleanAcceptance">
+                                @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active1)
+                                <label for="oAutoAcceptanceDirectivesEntity_Active1" class="labelspace">@Model.oAutoAcceptanceDirectivesEntity.Directive1</label>
+                            </div>
+                            <div class="col-sm-6 @TagHide clsExcluede">
+                                @Html.DropDownList("TagsValue6", new SelectList(SBISCCMWeb.Controllers.DataController.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags1), new { @class = "form-control chzn-select clstag6 Directive", multiple = "true" })
+                                <i class="fa fa-plus OpenTags"></i>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-5 CleanAcceptance">
+                                @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active2)
+                                <label for="oAutoAcceptanceDirectivesEntity_Active2" class="labelspace">@Model.oAutoAcceptanceDirectivesEntity.Directive2</label>
+                            </div>
+                            <div class="col-sm-6 @TagHide clsExcluede">
+                                @Html.DropDownList("TagsValue7", new SelectList(SBISCCMWeb.Controllers.DataController.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags2), new { @class = "form-control chzn-select clstag7 Directive", multiple = "true" })
+                                <i class="fa fa-plus OpenTags"></i>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-5 CleanAcceptance">
+                                @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active3)
+                                <label for="oAutoAcceptanceDirectivesEntity_Active3" class="labelspace">@Model.oAutoAcceptanceDirectivesEntity.Directive3</label>
+                            </div>
+                            <div class="col-sm-6 @TagHide clsExcluede">
+                                @Html.DropDownList("TagsValue8", new SelectList(SBISCCMWeb.Controllers.DataController.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags3), new { @class = "form-control chzn-select clstag8 Directive", multiple = "true" })
+                                <i class="fa fa-plus OpenTags"></i>
+                            </div>
+                        </div>
+                        <input type="button" value="Update" name="btnSubmitDirectives" id="btnSubmitDirectives" class="btn btn-primary" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+<script src="~/Scripts/CustomJS-minified/Common.js"></script>
+<script src="~/Scripts/CustomJS-minified/CleanseMatchIndex.js"></script>
+<script src="~/Scripts/CustomJS-minified/CleanseMatchExclusions.js"></script>
+<script src="~/Scripts/CustomJS-minified/AutoAcceptanceDirective.js"></script>
+<script src="~/Scripts/CustomJS-minified/CleanseMatchImportData.js"></script>
+<script src="~/Scripts/chosen.jquery.js"></script>

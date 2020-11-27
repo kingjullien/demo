@@ -1,0 +1,16 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Utility;
+<div role="content">
+    <div class="jarviswidget-editbox">
+    </div>
+    <div class="widget-body">
+        <div class="row">
+            <div class="col-md-3">
+                <label class="control-label">@DandBSettingLang.lblCredentialName :</label>
+                @Html.DropDownList("Mornitoring20Credential", new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.DNB.ToString(), ApiLayerType.Direct20.ToString()), "CredentialId", "CredentialName"), new { @class = "form-control", @autocomplete = "off" })
+                <span id="spnErrroMornitoring20Credential" class="error" style="display:none;">@DandBSettingLang.lblRequiredCredential</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="divPartialMonitoringTabs"></div>

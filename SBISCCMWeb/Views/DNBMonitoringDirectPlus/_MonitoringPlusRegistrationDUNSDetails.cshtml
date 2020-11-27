@@ -1,0 +1,59 @@
+﻿@using SBISCCMWeb.LanguageResources
+@model IPagedList<dynamic>
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "MonitoringPlusDUNSDetails",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress"
+    };
+    string RegistrationName = ViewBag.RegistrationName;
+    string AuthToken = ViewBag.AuthToken;
+    string DUNSDetailsSortorder = Convert.ToString(ViewBag.DUNSDetailsSortorder);
+    string DUNSDetailsSortby = Convert.ToString(ViewBag.DUNSDetailsSortby);
+    string DUNSDetailsPagevalue = SBISCCMWeb.Utility.SessionHelper.DUNSDetailsPagevalue;
+}
+@Html.Hidden("RegistrationNamehidden", RegistrationName)
+@Html.Hidden("AuthToken", AuthToken)
+@Html.Hidden("DUNSDetailsPagevalue", DUNSDetailsPagevalue)
+@Html.Hidden("DUNSDetailsSortorder", DUNSDetailsSortorder)
+@Html.Hidden("DUNSDetailsSortby", DUNSDetailsSortby)
+<div class="divDunsdetailtb">
+    <table class="table table-bordered table-fixed-user" id="MonitoringDUNSTb">
+        <thead>
+            <tr>
+                <th> @Ajax.ActionLink(@DandBSettingLang.lblDUNSNumber, "MonitoringPlusRegistrationDUNSDetails","DNBMonitoringDirectPlus", new { AuthToken = AuthToken, RegistrationName = RegistrationName, DUNSDetailsPage = ViewBag.DUNSDetailsPageno, DUNSDetailsPagevalue = ViewBag.DUNSDetailsPagevalue, DUNSDetailsSortby = 1, DUNSDetailsSortorder = (ViewBag.DUNSDetailsSortby == 1 ? (ViewBag.DUNSDetailsSortorder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                <th> @Ajax.ActionLink(@DandBSettingLang.lblRegistartionStatus, "MonitoringPlusRegistrationDUNSDetails","DNBMonitoringDirectPlus", new { AuthToken = AuthToken, RegistrationName = RegistrationName, DUNSDetailsPage = ViewBag.DUNSDetailsPageno, DUNSDetailsPagevalue = ViewBag.DUNSDetailsPagevalue, DUNSDetailsSortby = 2, DUNSDetailsSortorder = (ViewBag.DUNSDetailsSortby == 2 ? (ViewBag.DUNSDetailsSortorder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                <th> @Ajax.ActionLink(@DandBSettingLang.lblActivationDateTime, "MonitoringPlusRegistrationDUNSDetails","DNBMonitoringDirectPlus", new { AuthToken = AuthToken, RegistrationName = RegistrationName, DUNSDetailsPage = ViewBag.DUNSDetailsPageno, DUNSDetailsPagevalue = ViewBag.DUNSDetailsPagevalue, DUNSDetailsSortby = 3, DUNSDetailsSortorder = (ViewBag.DUNSDetailsSortby == 3 ? (ViewBag.DUNSDetailsSortorder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item[4]</td>
+                        <td>@item[5]</td>
+                        <td>@item[6]</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3">@DandBSettingLang.lblNoDUNSfound</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="dt-toolbar-footer pull-right">
+        <div class="hidden-xs New-Paging">
+            <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                <a id="pagingFormAction" href="@Url.Action("MonitoringPlusRegistrationDUNSDetails", "DNBMonitoringDirectPlus", new {AuthToken=AuthToken,  RegistrationName = RegistrationName,DUNSDetailsPage = 1, DUNSDetailsPagevalue = ViewBag.DUNSDetailsPagevalue, DUNSDetailsSortby = ViewBag.DUNSDetailsSortby, DUNSDetailsSortorder = ViewBag.DUNSDetailsSortorder })" style="display:block"></a>
+                @Html.PagedListPager(Model, page => Url.Action("MonitoringPlusRegistrationDUNSDetails", "DNBMonitoringDirectPlus", new { AuthToken = AuthToken, RegistrationName = RegistrationName, DUNSDetailsPage = page, DUNSDetailsPagevalue = ViewBag.DUNSDetailsPagevalue, DUNSDetailsSortby = ViewBag.DUNSDetailsSortby, DUNSDetailsSortorder = ViewBag.DUNSDetailsSortorder }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "MonitoringPlusDUNSDetails", LoadingElementId = "divProgress" }))
+            </div>
+        </div>
+    </div>
+</div>

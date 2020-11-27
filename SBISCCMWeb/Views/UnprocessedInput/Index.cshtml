@@ -1,0 +1,148 @@
+﻿@using SBISCCMWeb.Models
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model UnprocessedInputViewModel
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "partialDivUnprocessedInput",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccessUnprocessedInput"
+    };
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + UnprocessedInputLang.msgUnProcessedInputData;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + UnprocessedInputLang.msgUnProcessedInputData;
+    }
+}
+<div id="content" style="opacity: 1;">
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            <strong>@UnprocessedInputLang.hdrUnprocessedInputData</strong>
+                        </h2>
+                        <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                            <li>
+                                <div>
+                                    @Html.AntiForgeryToken()
+                                    <div class="input-group-btn autoWidth">
+                                        <button type="button" class="btn dropdown-toggle btn-Secondary" data-toggle="dropdown" tabindex="-1">
+                                            @UnprocessedInputLang.lblAdditionalActions <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                            <li><a href="javascript:void(0);" id="btnDeleteUnprocessedRecords">@UnprocessedInputLang.lblDeleteUnprocessedRecords</a></li>
+                                            <li><a href="javascript:void(0);" id="btnMoveUnprocessedRecords">@UnprocessedInputLang.lblMoveUnprocessedToBID</a></li>
+                                            <li><a href="javascript:void(0);" id="btnExporttoExcel">@UnprocessedInputLang.lblExportToExcel</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content padding-10">
+                                <div class="tab-pane fade active in">
+                                    @using (Ajax.BeginForm("Index", "UnprocessedInput", null, ajaxOptions, new { @class = "formContent", @autocomplete = "off" }))
+                                    {
+                                        <div class="row">
+                                            <div class="col-md-1 margintop10 previewTabelWidth135">
+                                                <strong>@UnprocessedInputLang.lblImportType</strong>
+                                            </div>
+                                            <div class="col-md-3">
+                                                @Html.DropDownList("importProcess", new SelectList(CommonDropdown.StewGetDataImportProcess(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ImportProcess.UnprocessedInputRecord.ToString(), false), "Value", "Text"), UnprocessedInputLang.lblSelectImportProcess, new { @class = "form-control selectbox chzn-select", @autocomplete = "off" })
+                                            </div>
+                                            <div class="col-md-2">
+                                                <button type="submit" class="btn btn-primary">@UnprocessedInputLang.lblSearch</button>
+                                            </div>
+                                        </div>
+                                    }
+                                    <br />
+                                    <div id="partialDivUnprocessedInput">
+                                        @{Html.RenderPartial("_index", Model);}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+
+        </div>
+    </section>
+</div>
+<form id="frmExportUnprocessedRecords" action="/UnprocessedInput/ExportUnprocessedRecords" method="post"></form>
+@section scripts{
+    <script>
+        function OnSuccessUnprocessedInput() {
+        }
+        $(document).on('click', '#btnDeleteUnprocessedRecords', function () {
+            var importProcess = $("#importProcess").val();
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            $.ajax({
+                type: "POST",
+                url: "/UnprocessedInput/DeleteUnprocessedInputRecords",
+                headers: { "__RequestVerificationToken": token },
+                data: JSON.stringify({ parameters: ConvertEncrypte(importProcess.replace("::", "&#58&#58")).split("+").join("***") }),
+                dataType: "JSON",
+                contentType: "application/json",
+                cache: false,
+                success: function (data) {
+                    if (data.result) {
+                        LoadUnprocessedInput();
+                    }
+                    ShowMessageNotification("success", data.message, false);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                }
+            });
+        });
+        $(document).on('click', '#btnMoveUnprocessedRecords', function () {
+            var importProcess = $("#importProcess").val();
+            var token = $('input[name="__RequestVerificationToken"]').val();
+            $.ajax({
+                type: "POST",
+                url: "/UnprocessedInput/MoveUnprocessedInputRecordsToBID",
+                data: JSON.stringify({ parameters: ConvertEncrypte(importProcess.replace("::", "&#58&#58")).split("+").join("***") }),
+                headers: { "__RequestVerificationToken": token },
+                dataType: "JSON",
+                contentType: "application/json",
+                cache: false,
+                success: function (data) {
+                    if (data.result) {
+                        LoadUnprocessedInput();
+                    }
+                    ShowMessageNotification("success", data.message, false);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                }
+            });
+        });
+        function LoadUnprocessedInput() {
+            $.ajax({
+                type: 'GET',
+                url: "/UnprocessedInput/Index",
+                dataType: 'HTML',
+                cache: false,
+                contentType: 'application/html',
+                success: function (data) {
+                    $("#partialDivUnprocessedInput").html(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                }
+            });
+        }
+        $(document).on('click', '#btnExporttoExcel', function () {
+            $("#frmExportUnprocessedRecords").submit();
+        });
+    </script>
+}

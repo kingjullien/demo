@@ -1,0 +1,52 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@model PagedList.IPagedList<dynamic>
+@{
+    List<string> listColumn = ViewBag.ColumnList != null ? ViewBag.ColumnList : new List<string>();
+    List<SelectListItem> lstAllFilter = ViewBag.ExternalColumn != null ? ViewBag.ExternalColumn : new List<SelectListItem>();
+    int z = 0;
+
+}
+<div class="dataimportbox">
+    <table class="table table-bordered paddingtop7">
+        <thead>
+            <tr class="">
+                <th class="" width="200px">@OIMatchDataLang.lblTableColumn</th>
+                <th class="">@OIMatchDataLang.lblInputHeader</th>
+
+            </tr>
+        </thead>
+        <tbody class="tbdataMatch">
+            @if (Model != null)
+            {
+
+                foreach (var columnName in listColumn)
+                {
+                    string ErrorMessage = "ErrorMessage-" + z;
+                    <tr class="">
+                        <td class="">
+                            <span class="spnExcelColumn" data-val="@(columnName)">@(columnName)</span>
+                            @if (z == 0 || z == 1 || z == 2)
+                            {
+                                <span class="error">*</span>
+                            }
+                        </td>
+                        <td class="">@Html.DropDownList("DataColumn-" + z, new SelectList(lstAllFilter, "Value", "Text"), new { @class = "form-control SelectBox", @autocomplete = "off" })</td>
+
+                    </tr>
+                    z++;
+                }
+
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3"></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="importbuttondiv">
+        <input id="btnInsertAcceptData" class="btn btn-primary" type="submit" name="btnInsertData" title="@OIMatchDataLang.titleSubmit" />
+    </div>
+</div>
+ 

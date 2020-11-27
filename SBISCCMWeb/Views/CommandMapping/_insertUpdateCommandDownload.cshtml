@@ -1,0 +1,355 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model CommandDownloadMappingEntity
+@{
+    Layout = null;
+    string message = !string.IsNullOrEmpty(Convert.ToString(ViewBag.Message)) ? Convert.ToString(ViewBag.Message) : "";
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "CommandDownloadUpdateSuccess",
+    };
+}
+<style>
+    .checkbox, .radio
+    {
+            padding-left: 20px;
+    }
+</style>
+<div class="modal" id="DownloadConfigurationModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xs">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@CommandLineLang.hdrDownloadConfiguration</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="tab-content">
+                    @using (Ajax.BeginForm("InsertUpdateCommandDownload", "CommandMapping", null, ajaxOptions, new { enctype = "multipart/form-data", @autocomplete = "off" }))
+                    {@Html.AntiForgeryToken()
+                    @Html.HiddenFor(@model => @model.Id)
+                    <fieldset class="ExportFieldSet DownloadconfigurationFieldSet">
+                        <legend>@CommandLineLang.lblSelectConfigurationName</legend>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                @Html.TextBoxFor(@model => @model.ConfigurationName, new { @class = "form-control DownloadConfigName", @placeholder = CommandLineLang.placeholderConfName, @autocomplete = "off" })
+                                <span id="spnUConfigNameDownload" class="error" style="display:none;">@CommandLineLang.lblRequiredConfigurationName</span>
+                            </div>
+                            @if (Helper.LicenseEnabledDNB && Helper.LicenseEnabledOrb)
+                            {
+                                <div class="col-md-6">
+                                    @Html.DropDownListFor(@model => model.ProviderType, new SelectList(CommonDropdown.GetTypesOfProviders(), "Value", "Text", "DandB"), CommandLineLang.lblSelectProvider, new { @class = "form-control", autocomplete = "off" })
+                                    <span id="spnProviderType" class="error" style="display:none;">@CommandLineLang.lblRequiredProviderType</span>
+                                </div>
+                            }
+                            @if (Helper.LicenseEnabledDNB == true && Helper.LicenseEnabledOrb == false)
+                            {
+                                Model.ProviderType = "DandB";
+                                @Html.HiddenFor(@model => @model.ProviderType)
+                            }
+                            @if (Helper.LicenseEnabledDNB == false && Helper.LicenseEnabledOrb == true)
+                            {
+                                Model.ProviderType = "Orb";
+                                @Html.HiddenFor(@model => @model.ProviderType)
+                            }
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="ExportFieldSet DownloadconfigurationFieldSet">
+                        <legend>@CommandLineLang.lblOutputformat</legend>
+                        <div class="row form-group">
+                            <div class="col-md-6 ExportMultiSelect ExportSelectOutput">
+                                @Html.Hidden("DownloadMatchOutput")
+                                @Html.Hidden("DownloadEnrichmentOutput")
+                                @Html.Hidden("DownloadTransferDUNS")
+                                @Html.Hidden("DownloadActiveDataQueue")
+                                @Html.Hidden("DownloadMonitoringUpdates")
+                                @Html.Hidden("DownloadCompanyTree")
+                                @Html.Hidden("DownloadNoMatchQueue")
+                                @Html.Hidden("DownloadLCMQueue")
+
+
+                                @if (Model.ProviderType == "DandB" && Helper.LicenseEnabledDNB)
+                                {
+
+                                    @Html.DropDownList("MultiSelectOptions", new List<SelectListItem>{new SelectListItem{ Text=ExportLang.lblMatchOutput, Value = "DownloadMatchOutput",Selected=Model.DownloadMatchOutput ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblEnrichmentOutput, Value = "DownloadEnrichmentOutput",Selected=Model.DownloadEnrichmentOutput ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblTransferredDuns, Value = "DownloadTransferDUNS", Selected=Model.DownloadTransferDUNS ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblActiveDataQueue, Value = "DownloadActiveDataQueue",Selected=Model.DownloadActiveDataQueue ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblMonitoringNotification, Value = "DownloadMonitoringUpdates",Selected=Model.DownloadMonitoringUpdates ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblLowConfidenceQueue, Value = "DownloadLCMQueue",Selected=Model.DownloadLCMQueue ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblNoMatchQueue, Value = "DownloadNoMatchQueue",Selected=Model.DownloadNoMatchQueue ? true : false}
+
+                                   ,}, new { @class = "form-control selectbox", multiple = "true", autocomplete = "off" })
+                                }
+                                else if (Model.ProviderType == "Orb" && Helper.LicenseEnabledOrb)
+                                {
+                                    @Html.DropDownList("MultiSelectOptions", new List<SelectListItem>
+                                                    {new SelectListItem{ Text=OIExportDataLang.lblMatchOutput, Value = "DownloadMatchOutput",Selected=Model.DownloadMatchOutput ? true : false}
+                                                    ,new SelectListItem{ Text=OIExportDataLang.lblFirmographics, Value = "DownloadEnrichmentOutput",Selected=Model.DownloadEnrichmentOutput ? true : false}
+                                                    ,new SelectListItem{ Text=OIExportDataLang.lblCompanyTree, Value = "DownloadCompanyTree",Selected=Model.DownloadCompanyTree ? true : false}
+                                                    ,new SelectListItem{ Text=OIExportDataLang.lblActiveDataQueue, Value = "DownloadActiveDataQueue",Selected=Model.DownloadActiveDataQueue ? true : false}
+                                                    ,}, new { @class = "form-control selectbox", multiple = "true", autocomplete = "off" })
+                                }
+
+                                //if both D&B and ORB license are enabled then display D&B options in dropdown by default
+                                else if (Helper.LicenseEnabledDNB && Helper.LicenseEnabledOrb)
+                                {
+                                    @Html.DropDownList("MultiSelectOptions", new List<SelectListItem>{new SelectListItem{ Text=ExportLang.lblMatchOutput, Value = "DownloadMatchOutput",Selected=Model.DownloadMatchOutput ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblEnrichmentOutput, Value = "DownloadEnrichmentOutput",Selected=Model.DownloadEnrichmentOutput ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblTransferredDuns, Value = "DownloadTransferDUNS", Selected=Model.DownloadTransferDUNS ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblActiveDataQueue, Value = "DownloadActiveDataQueue",Selected=Model.DownloadActiveDataQueue ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblMonitoringNotification, Value = "DownloadMonitoringUpdates",Selected=Model.DownloadMonitoringUpdates ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblLowConfidenceQueue, Value = "DownloadLCMQueue",Selected=Model.DownloadLCMQueue ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblNoMatchQueue, Value = "DownloadNoMatchQueue",Selected=Model.DownloadNoMatchQueue ? true : false}
+                                   ,}, new { @class = "form-control selectbox", multiple = "true", autocomplete = "off" })
+
+                                }
+
+                                //if only D&B license is enabled then display D&B options in dropdown by default
+                                else if (Helper.LicenseEnabledDNB)
+                                {
+                                    @Html.DropDownList("MultiSelectOptions", new List<SelectListItem>{new SelectListItem{ Text=ExportLang.lblMatchOutput, Value = "DownloadMatchOutput",Selected=Model.DownloadMatchOutput ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblEnrichmentOutput, Value = "DownloadEnrichmentOutput",Selected=Model.DownloadEnrichmentOutput ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblTransferredDuns, Value = "DownloadTransferDUNS", Selected=Model.DownloadTransferDUNS ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblActiveDataQueue, Value = "DownloadActiveDataQueue",Selected=Model.DownloadActiveDataQueue ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblMonitoringNotification, Value = "DownloadMonitoringUpdates",Selected=Model.DownloadMonitoringUpdates ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblLowConfidenceQueue, Value = "DownloadLCMQueue",Selected=Model.DownloadLCMQueue ? true : false}
+                                    ,new SelectListItem{ Text=ExportLang.lblNoMatchQueue, Value = "DownloadNoMatchQueue",Selected=Model.DownloadNoMatchQueue ? true : false}
+                                   ,}, new { @class = "form-control selectbox", multiple = "true", autocomplete = "off" })
+                                }
+
+                                //if only ORB license is enabled then display ORB options in dropdown by default
+                                else if (Helper.LicenseEnabledOrb)
+                                {
+                                    @Html.DropDownList("MultiSelectOptions", new List<SelectListItem>
+                                                    {new SelectListItem{ Text=OIExportDataLang.lblMatchOutput, Value = "DownloadMatchOutput",Selected=Model.DownloadMatchOutput ? true : false}
+                                                    ,new SelectListItem{ Text=OIExportDataLang.lblFirmographics, Value = "DownloadEnrichmentOutput",Selected=Model.DownloadEnrichmentOutput ? true : false}
+                                                    ,new SelectListItem{ Text=OIExportDataLang.lblCompanyTree, Value = "DownloadCompanyTree",Selected=Model.DownloadCompanyTree ? true : false}
+                                                    ,new SelectListItem{ Text=OIExportDataLang.lblActiveDataQueue, Value = "DownloadActiveDataQueue",Selected=Model.DownloadActiveDataQueue ? true : false}
+                                                    ,}, new { @class = "form-control selectbox", multiple = "true", autocomplete = "off" })
+                                }
+                                <span id="spnOutputType" class="error" style="display:none;">@CommandLineLang.lblRequiredOutputType</span>
+                            </div>
+                        </div>
+                    </fieldset>
+                    if (Helper.LicenseEnableTags)
+                    {
+                        <fieldset class="ExportFieldSet DownloadconfigurationFieldSet">
+                            <legend>@CommandLineLang.lblSelectFilters</legend>
+                            <div class="row form-group">
+
+                                <div class="col-md-6">
+                                    @Html.DropDownList("LOBTag", new SelectList(CommonDropdown.GetTagByTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", null), CommonMessagesLang.lblSelectLOBTag, new { @class = "form-control", autocomplete = "off" })
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DropDownList("Tag", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, false), "Tag", "TagName", null), CommonMessagesLang.lblSelectTag, new { @class = "form-control selectbox", autocomplete = "off" })
+                                </div>
+
+                            </div>
+                            <div class="row divmonitoringAPILayre paddingTop-4" style="@(Model.DownloadMonitoringUpdates ? "display:block;" : "display:none;")">
+                                <div class="col-md-6">
+                                    @Html.DropDownListFor(@model => model.APILayer, new SelectList(CommonDropdown.GetExportApi(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, "Monitoring"), "Value", "Text").InsertEmptyFirst(CommonMessagesLang.lblSelectApiLayer), new { @class = "form-control selectbox", autocomplete = "off" })
+                                    <span id="spnAPILayre" class="error" style="display:none;">@CommandLineLang.lblRequiredAPILayer</span>
+                                </div>
+                            </div>
+                        </fieldset>
+                    }
+                    else
+                    {
+                        <div class="divmonitoringAPILayre" style="@(Model.DownloadMonitoringUpdates ? "display:block;" : "display:none;")">
+                            <fieldset class="ExportFieldSet DownloadconfigurationFieldSet  ">
+                                <legend>@CommandLineLang.lblSelectFilters</legend>
+                                <div class="row form-group paddingTop-4">
+                                    <div class="col-md-6">
+                                        @Html.DropDownListFor(@model => model.APILayer, new SelectList(CommonDropdown.GetExportApi(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, "Monitoring"), "Value", "Text").InsertEmptyFirst(CommonMessagesLang.lblSelectApiLayer), new { @class = "form-control selectbox", autocomplete = "off" })
+                                        <span id="spnAPILayre" class="error" style="display:none;">@CommandLineLang.lblRequiredAPILayer</span>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                    }
+
+
+
+                    <fieldset class="ExportFieldSet DownloadconfigurationFieldSet">
+                        <legend>@CommandLineLang.lblSelectFileFormat</legend>
+                        <div class="row form-group DownloadFileFormat">
+
+                            <div class="col-xs-2 no-padding" title="@CommandLineLang.titleCSV">
+                                <input type="radio" name="DownloadFormat" value="CSV" class="rbtnDownloadFile" @(string.IsNullOrEmpty(Model.DownloadFormat) ? "checked='checked'" : Model.DownloadFormat == "CSV" ? "checked='checked'" : "") />
+                                <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/Export/csv-Dark.png"))" class="clsImportImage">
+                                <p class="centerspace">@CommandLineLang.lblCSV</p>
+                            </div>
+                            <div class="col-xs-2 no-padding" title="@CommandLineLang.titleTabSeparated">
+
+                                <input type="radio" name="DownloadFormat" value="TSV" class="rbtnDownloadFile" @(string.IsNullOrEmpty(Model.DownloadFormat) ? "" : Model.DownloadFormat == "TSV" ? "checked='checked'" : "") />
+                                <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/Export/tsv.png"))" class="clsImportImage">
+
+                                <p class="" style="margin: 5px 0 0 0;">@CommandLineLang.lblTabSeparated</p>
+                            </div>
+                            <div class="col-xs-2 no-padding" title="@CommandLineLang.titleCustomDelimiter">
+
+                                <input type="radio" name="DownloadFormat" value="Delimiter" class="rbtnDownloadFile" @(string.IsNullOrEmpty(Model.DownloadFormat) ? "" : Model.DownloadFormat == "Delimiter" ? "checked='checked'" : "") />
+                                <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/Export/text-with-delimiter.png"))" class="clsImportImage">
+                                <p class="" style="margin: 5px 0 0 0;">@CommandLineLang.lblCustomDelimiter</p>
+                            </div>
+
+                            <div class="col-xs-3 divFrmtDownloadValue paddingtop8" style="@(string.IsNullOrEmpty(Model.DownloadFormat) ? "display:none" : Model.DownloadFormat == "Delimiter" ? "display:block" : "display:none")">
+                                <span><strong>Format Value</strong></span>
+                                @*@Html.TextBoxFor(@model => @model.Formatvalue, new { @class = "form-control FormatdownloadValue", @placeholder = "Format Values", @autocomplete = "off", disabled = "disabled" })*@
+                                @Html.DropDownListFor(@model => @model.Formatvalue, new SelectList(CommonDropdown.GetImportDelimiter(), "Value", "Text"), new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                            <div class="col-xs-2 no-padding" title="@CommandLineLang.titleExcel">
+                                <input type="radio" name="DownloadFormat" value="Excel" class="rbtnDownloadFile" @(string.IsNullOrEmpty(Model.DownloadFormat) ? "" : Model.DownloadFormat == "Excel" ? "checked='checked'" : "") />
+                                <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/Export/excel-Dark.png"))" class="clsImportImage">
+                                @*<p class="centerspace">Excel</p>*@
+                                <p class="" style="margin: 5px 0 0 13px;">@CommandLineLang.lblExcel</p>
+                            </div>
+                        </div>
+                    </fieldset>
+
+
+                    <fieldset class="margin-bottom-0 ExportFieldSet  DownloadconfigurationFieldSet" style="margin-bottom:0!important;">
+                        <legend>@CommandLineLang.lblSelectFileFormat</legend>
+                        <div class="row form-group ">
+                            <div class="col-xs-2 margintop--4 padding-left-0 width195px ">
+                                <label class="checkbox">
+                                    @Html.CheckBoxFor(m => m.IsAppendDateTime, new { @autocomplete = "off" })
+                                    <div class="paddingTop-2">@CommandLineLang.lblAppendDateTimetofilename</div>
+                                    @*@{
+                                    string extension = ".xlsx";
+                                    if (Model.DownloadFormat == "CSV")
+                                    {
+                                        extension = ".csv";
+                                    }
+                                    else if (Model.DownloadFormat == "TSV" || Model.DownloadFormat == "Delimiter")
+                                    {
+                                        extension = ".txt";
+                                    }
+                                }
+                                <div id="TextExample">e.g. MatchOutPut@((Model.IsAppendDateTime ? "_" + (DateTime.Now.ToString("yyyy MM dd")) : ""))@extension</div>*@
+                                </label>
+                            </div>
+                            <div class="col-xs-3 ">
+                                @Html.DropDownListFor(m => m.DateTimeFileFormat, new List<SelectListItem>
+                                       {
+                                        new SelectListItem{ Value="yyyyMMdd", Text = "YYYYMMDD" },
+                                        new SelectListItem{ Value="yyyy-MM-dd", Text = "YYYY-MM-DD" },
+                                        new SelectListItem{ Value="yyyyMMddHHmm", Text = "YYYYMMDDHHMM" },
+                                        new SelectListItem{ Value="yyyyMMddTHHmm", Text = "YYYYMMDDTHHMM" },
+                                        new SelectListItem{ Value="yyyy-MM-dd HH-mm", Text = "YYYY-MM-DD HH-MM" },
+                                        }, new { @class = "form-control", @autocomplete = "off" })
+
+                            </div>
+                            <div class="col-xs-4 margintop--4 no-padding">
+                                <label class="checkbox">
+                                    @Html.CheckBoxFor(m => m.IsFilePrefix, new { @autocomplete = "off" })
+                                    <div class="paddingTop-2">@CommandLineLang.lblAddoptionalFilePrefix</div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-xs-2 margin-5 padding-left-0 width195px">
+                                <span>@CommandLineLang.lblAddoptionalFilePrefix</span>
+                            </div>
+                            <div class="col-md-3">
+                                @Html.TextBoxFor(m => m.FilePrefix, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <span>
+                            <strong>
+                                @{
+                                    string extension = ".xlsx";
+                                    if (Model.DownloadFormat == "CSV")
+                                    {
+                                        extension = ".csv";
+                                    }
+                                    else if (Model.DownloadFormat == "TSV" || Model.DownloadFormat == "Delimiter")
+                                    {
+                                        extension = ".txt";
+                                    }
+                                }
+                                <div id="TextExample">@CommandLineLang.lblExample  @(string.IsNullOrEmpty(Model.FilePrefix) ? "" : Model.FilePrefix + "_")@CommandLineLang.lblMatchOutPut@((Model.IsAppendDateTime ? "_" + (DateTime.Now.ToString(Model.DateTimeFileFormat)) : ""))@extension</div>
+                            </strong>
+                        </span>
+                    </fieldset>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="checkbox">
+                                @Html.CheckBoxFor(@model => model.MarkAsExported, new { @autocomplete = "off" })
+                                <div class="paddingTop-2">@CommandLineLang.lblMarkAsExported</div>
+                            </label>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="checkbox">
+                                @Html.CheckBoxFor(m => m.IsDefault, new { @autocomplete = "off" })
+                                <div class="paddingTop-2">@CommandLineLang.lblIsDefault</div>
+                            </label>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="checkbox">
+                                @Html.CheckBoxFor(m => m.ApplyTextQualifierToAll, new { @autocomplete = "off" })
+                                <div class="paddingTop-2">@CommandLineLang.lblApplyTextQualifierToAll</div>
+                            </label>
+                        </div>
+
+                    </div>
+                    <div>
+                        @if (Model.Id > 0)
+                        {
+                            <button type="submit" id="btnSubmitCommandDownload" class="btn btn-primary" onclick="return sumbitCommandDownloadMapping()">@CommandLineLang.lblUpdate</button>
+                        }
+                        else
+                        {
+                            <button type="submit" id="btnSubmitCommandDownload" class="btn btn-primary" onclick="return sumbitCommandDownloadMapping()">@CommandLineLang.lblAdd</button>
+                        }
+                    </div>
+
+                }
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#MultiSelectOptions').multiselect({
+            includeSelectAllOption: true,
+            nonSelectedText: 'Select Output Type'
+        });
+    });
+</script>
+@if (!string.IsNullOrEmpty(message))
+{
+    if (message.Contains("Data created successfully"))
+    {
+        <script type="text/javascript">
+            //show notification message instade of Bootbox Message...if you pass "success" than show Notification message and if you pass "error" than show bootbox message.
+            parent.ShowMessageNotification("success",'@message');
+        </script>
+    }
+    else if (message == "Please fill proper information.")
+    {
+        <script type="text/javascript">
+            //show notification message instade of Bootbox Message...if you pass "success" than show Notification message and if you pass "error" than show bootbox message.
+            parent.ShowMessageNotification("success", '@message');
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+             //show notification message instade of Bootbox Message...if you pass "success" than show Notification message and if you pass "error" than show bootbox message.
+             parent.ShowMessageNotification("success", '@message');
+        </script>
+    }
+
+}

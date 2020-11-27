@@ -1,0 +1,41 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.LanguageResources;
+@model System.Data.DataRow
+
+<article class="col-md-12 sortable-grid ui-sortable keyword">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+        <header role="heading">
+            <h2>
+                <strong>@PreviewMatchedDataLang.hdrDnBInformation</strong>
+            </h2>
+        </header>
+        <div style="padding:5px">
+            <table id="tblStandardized" class="table table-bordered panel-group">
+                <tbody>
+
+                    @{
+                        int count = 0;
+                        foreach (System.Data.DataColumn c in Model.Table.Columns)
+                        {
+
+                        <td>
+                            <div class="col-md-7"> <strong> @c.ColumnName : </strong></div>
+                            @{
+                                string strColsValue = Convert.ToString(Model[c.ColumnName]);
+                            }
+                            <div class="col-md-5">@strColsValue</div>
+                        </td>
+
+                        if (++count % 2 == 0)
+                        {
+                            @:</tr><tr>
+                            }
+
+                        }
+                    }
+
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</article>

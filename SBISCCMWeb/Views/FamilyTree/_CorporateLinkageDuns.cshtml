@@ -1,0 +1,62 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@model  List<string>
+
+@{
+    Layout = null;
+    int i = 0;
+}
+<style>
+    .corporateLinkageDunsPopup {
+        width: 665px;
+}
+</style>
+<div class="modal" id="FamilyTreeModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xs">
+        <!-- Modal content-->
+        <div class="modal-content corporateLinkageDunsPopup">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@FamilyTreeLang.hdrPopulateanewFamilyTreefromCorporateLinkage</h4>
+            </div>
+            <div class="modal-body">
+                <div id="divHistory">
+                    <div class="tasble-responsive">
+                        <table class="table table-bordered ">
+                            <thead>
+                                <tr>
+                                    <th>@FamilyTreeLang.lblDunsNumber</th>
+                                    <th>&nbsp;</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        i++;
+                                        <tr class="@(i % 2 == 0 ? "AlternateRow" : "")">
+                                            <td>
+                                                @item
+                                            </td>
+                                            <td class="col-md-2">
+                                                <input type="button" value="@FamilyTreeLang.lblSelected" class="btn btn-Secondary" width="100" id="btnSelect" onclick="window.parent.SelectCorporateLinkageDuns('@item')" />
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr><td colspan="2">@FamilyTreeLang.lblNodataareavailable</td></tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+

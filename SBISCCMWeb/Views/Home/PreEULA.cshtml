@@ -1,0 +1,109 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@using Resources = ViewResources.BrandingTypes;
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + HomeLang.titleDashboard;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + HomeLang.titleDashboard;
+    }
+    var profileImg = "/Images/ClientLogos/" + Helper.ClientLogo;
+    var absolutePath = HttpContext.Current.Server.MapPath(profileImg);
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+@*@Scripts.Render("~/bundles/popupjs")
+    @Styles.Render("~/Content/popupcss")*@
+@if (Helper.Branding == Branding.Matchbook.ToString())
+{
+    <header id="header" class="clsHeader" style="background-color:#103d6c!important;">
+        @if (Helper.Branding == Branding.Matchbook.ToString())
+        {
+            <div id="logo-group">
+                <span id="logo">
+                    <a href="#">
+                        @{
+                            var imagepath = Resources.Resource_Matchbook.LogoImage;
+                        }
+                        <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(imagepath))" alt="logo" style="width:auto!important;">
+                    </a>
+                </span>
+            </div>
+        }
+        else if (Helper.Branding == Branding.DandB.ToString())
+        {
+            <div id="logo-group">
+                <span id="logo">
+                    <a href="#">
+                        @{
+                            var imagepath = Resources.Resource_DandB.LoginImage;
+                        }
+                        <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(imagepath))" alt="logo">
+                    </a>
+                </span>
+            </div>
+        }
+        <div class="pull-right">
+            @if (System.IO.File.Exists(absolutePath))
+            {
+                <img alt="@SessionHelper.ClientName" class="MainClientLogo" src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(profileImg))" />
+            }
+            else if (!string.IsNullOrEmpty(Helper.ClientLogo))
+            {
+                <img src="/Image/GetBlobImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(ImageHelper.GetImageThumbURL(ImageHelper.PictureType.clientlogo, @Helper.ClientLogo)))" class="MainClientLogo" />
+            }
+        </div>
+    </header>
+}
+
+else if (Helper.Branding == Branding.DandB.ToString())
+{
+    <header id="header" class="clsHeader" style="background-color:#4EB3D1!important;">
+        @if (Helper.Branding == Branding.Matchbook.ToString())
+        {
+            <div id="logo-group">
+                <span id="logo">
+                    <a href="#">
+                        @{
+                            var imagepath = Resources.Resource_Matchbook.LogoImage;
+                        }
+                        <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(imagepath))" alt="logo" style="width:auto!important;">
+                    </a>
+                </span>
+            </div>
+        }
+        else if (Helper.Branding == Branding.DandB.ToString())
+        {
+            <div id="logo-group">
+                <span id="logo">
+                    <a href="#">
+                        @{
+                            var imagepath = Resources.Resource_DandB.LoginImage;
+                        }
+                        <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(imagepath))" alt="logo">
+                    </a>
+                </span>
+            </div>
+        }
+        <div class="pull-right">
+            @if (!string.IsNullOrEmpty(Helper.ClientLogo))
+            {
+                <img src="/Image/GetBlobImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(ImageHelper.GetImageThumbURL(ImageHelper.PictureType.clientlogo, @Helper.ClientLogo)))" class="MainClientLogo" />
+            }
+        </div>
+    </header>
+}
+<div id="ValidateEULAModalMain"></div>
+@section scripts{
+    <script src="~/Scripts/CustomJS/EulaVerification.js"></script>
+    <script src="~/Scripts/CustomJS/ValidateEULA.js"></script>
+    <script>
+        $(document).on('click', '.close', function () {
+            $("#ValidateEULAModal").modal("hide");
+            window.location = "/Account/LogOff";
+        });
+    </script>
+}
+

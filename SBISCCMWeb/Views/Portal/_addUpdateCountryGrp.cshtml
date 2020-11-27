@@ -1,0 +1,115 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@model  SBISCCMWeb.Models.UsersModel
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "UpdateCountryGroup"
+    };
+}
+<article class="col-md-12 sortable-grid ui-sortable" id="ArticleAddUpdateCountryGrp">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@PortalSettingLang.hdrCountryGroup</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                {
+                    if (Helper.UserType.ToLower() != "steward")
+                    {
+                        <li>
+                            <div class="btn btn-sm btn-Secondary" id="AddCountryGroup" title="@PortalSettingLang.tilteAddCountryGroup">
+                                <span class="fa fa-plus"></span>
+                            </div>
+                        </li>
+                    }
+                    <li>
+                        <div class="btn btn-sm btn-Secondary" id="editCountryGroup" title="@PortalSettingLang.titleEditCountryGroup">
+                            <span class="fa fa-pencil"></span>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content">
+                    <div id="hr1" class="tab-pane fade active in CustomHidden">
+                        @using (Ajax.BeginForm("AddUpdateCountryGrp", "Portal", null, ajaxOptions, new { @class = "formContent", @autocomplete = "off" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div id="popupConfigData">
+                                <table class="textBlue borderNone table table-bordered panel-group customTable2  match-table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="tableBorder-none">
+                                                <div class="form-group popupAACRow textGroupName">
+                                                    <div class="row">
+
+                                                        <label class="control-label col-md-4 text-right">@PortalSettingLang.lblGroupName :</label>
+                                                        <div class="col-md-4 ">
+                                                            @Html.TextBoxFor(@model => @model.objCountryGroup.GroupName, new { @class = "form-control", disabled = "disabled", @autocomplete = "off" })
+                                                            <span id="spnGroupName" class="error" style="display:none;">@PortalSettingLang.lblRequiredGroupName</span>
+                                                            <br /><span id="spnOptionValue" class="error" style="display:none;">@PortalSettingLang.lblRequiredCountry</span>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-group popupAACRow">
+                                                    <div class="row">
+                                                        <div class="col-md-5 col-md-offset-1">
+                                                            @Html.DropDownListFor(@model => @model.objCountryGroup.AddSelectedCountry, new SelectList(Model.countries, "ISOAlpha2Code", "CountryWithISOCode"), new { @class = "form-control selectbox", @size = 12, multiple = "multiple", disabled = "disabled", @autocomplete = "off" })
+                                                        </div>
+                                                        <div class="col-md-2 col-sm-2 custom-text-align-center margintop15">
+                                                            <div>
+                                                                <input value=">" id="btnConfigCountryGroupRight" name="btnConfigCountryGroup" type="button" class="btn btn-Secondary btnSaveSetting" disabled="disabled" />
+                                                            </div>
+                                                            <div>
+                                                                <input value=">>" id="btnConfigCountryAllRight" name="btnConfigCountryGroup" type="button" class="btn btn-Secondary btnSaveSetting" disabled="disabled" />
+                                                            </div>
+                                                            <div>
+                                                                <input value="<" id="btnConfigCountryGroupLeft" name="btnConfigCountryGroup" type="button" class="btn btn-Secondary btnSaveSetting" disabled="disabled" />
+                                                            </div>
+                                                            <div>
+                                                                <input value="<<" id="btnConfigCountryGroupAllLeft" name="btnConfigCountryGroup" type="button" class="btn btn-Secondary btnSaveSetting" disabled="disabled" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            @Html.HiddenFor(@model => @model.objCountryGroup.ISOAlpha2Codes)
+                                                            @Html.DropDownListFor(@model => @model.objCountryGroup.RemoveSelectedCountry, Model.objCountryGroup.lstCountries != null ? new SelectList(Model.objCountryGroup.lstCountries, "ISOAlpha2Code", "CountryWithISOCode") : new MultiSelectList(""), new { @class = "form-control selectbox", @size = 12, multiple = "multiple", disabled = "disabled", @autocomplete = "off" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group popupAACRow">
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-center">
+                                                            <br />
+                                                            @Html.HiddenFor(@model => @model.objCountryGroup.GroupId)
+                                                            @Html.HiddenFor(@model => @model.objCountryGroup.tmpName)
+                                                            @if (Model.objCountryGroup.GroupId > 0)
+                                                            {
+                                                                <input type="submit" value="@PortalSettingLang.lblUpdate" id="btnConfigCountryGroup" name="btnConfigCountryGroup" class="btn btn-primary  btnConfigCountryGroup" style="display:none" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="submit" value="@PortalSettingLang.lblAdd" id="btnConfigCountryGroup" name="btnConfigCountryGroup" class="btn btn-primary btnConfigCountryGroup" style="display:none" />
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

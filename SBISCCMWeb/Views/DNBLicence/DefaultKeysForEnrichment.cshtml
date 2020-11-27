@@ -1,0 +1,65 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Utility;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@model ThirdPartyAPIForEnrichmentEntity
+@{
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.InsertAfter,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccessDefaultInteractiveKeyEnrichment"
+    };
+}
+<article class="col-md-6 sortable-grid ui-sortable widget-data " id="articleAddUpdateNotificationProfile">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.lblEnrichmentSettingsforUIFirmographics</strong>
+            </h2>
+
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                <div class="tab-content">
+                    @using (Ajax.BeginForm("SetDefaultKeysForEnrichment", "DNBLicence", null, ajaxOptions, new { @class = "formContents", id = "frm_DnBLicense", @autocomplete = "off" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.EnrichmentType)
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <span><string>@DandBSettingLang.lblCredentialName :</string></span>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.HiddenFor(x => x.CredentialId)
+                                    @Html.DropDownList("CredID", new SelectList(CommonDropdown.GetThirdPartyAPICredentialsForEnrichment(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, "DNB"), "Value", "Text").InsertEmptyFirst(DandBSettingLang.lblSelect), new { @class = "form-control", @autocomplete = "off" })
+                                    <span id="spnCredName" class="error" style="display:none;">@DandBSettingLang.lblCredentialNameRequire</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <span><string> @DandBSettingLang.lblFirmographicAPI :</string></span>
+                                </div>
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(m => m.DnBAPIId, new SelectList(CommonDropdown.GetAPITypeForThirdPartyAPICredentialsForEnrichment(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, Model.APIType), "Value", "Text"), new { @class = "form-control", @autocomplete = "off" })
+                                    <span id="spnAPIType" class="error" style="display:none;">@DandBSettingLang.lblAPITypeRequire</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-primary" onclick="return ValidationForDefaultKeyForEnrichment();">@DandBSettingLang.lblUpdate</button>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

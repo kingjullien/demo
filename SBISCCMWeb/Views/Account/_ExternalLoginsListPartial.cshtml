@@ -1,0 +1,22 @@
+﻿@using Microsoft.Owin.Security;
+@using SBISCCMWeb.LanguageResources;
+
+<h5 class="text-center"> - @AccountLang.hdrOrsigninusing -</h5>
+@{
+    var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+    if (loginProviders.Count() != 0)
+    {
+        string action = Model.Action;
+        string returnUrl = Model.ReturnUrl;
+        using (Html.BeginForm(action, "Account", new { ReturnUrl = returnUrl, autocomplete = "off" }))
+        {
+            @Html.AntiForgeryToken()
+            <ul class="list-inline text-center">                
+                @foreach (AuthenticationDescription p in loginProviders)
+                {
+                    <li><a href="@Url.Action(action, "Account", new { provider=p.AuthenticationType, ReturnUrl=returnUrl })" class="btn btn-primary btn-circle" title="@AccountLang.titleLoginusingyour @p.Caption @AccountLang.titleaccount"><em class="fa fa-@p.AuthenticationType.ToLowerInvariant()"></em></a></li>
+                }                
+            </ul>
+        }
+    }
+}

@@ -1,0 +1,524 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="lblActiveDataQueue" xml:space="preserve">
+    <value>活动数据队列</value>
+    <comment>Active Data Queue</comment>
+  </data>
+  <data name="lblApiLayer" xml:space="preserve">
+    <value>Api 层</value>
+    <comment>Api Layer</comment>
+  </data>
+  <data name="lblBoth" xml:space="preserve">
+    <value>两者</value>
+    <comment>Both</comment>
+  </data>
+  <data name="lblCancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="lblCancelled" xml:space="preserve">
+    <value>取消</value>
+    <comment>Cancelled</comment>
+  </data>
+  <data name="lblCompanyData" xml:space="preserve">
+    <value>公司资料</value>
+    <comment>Company Data</comment>
+  </data>
+  <data name="lblCountryGroup" xml:space="preserve">
+    <value>国家/地区组</value>
+    <comment>Country Group</comment>
+  </data>
+  <data name="lblCSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>CSV</comment>
+  </data>
+  <data name="lblCustomDelimiter" xml:space="preserve">
+    <value>自定义分隔符</value>
+    <comment>Custom Delimiter</comment>
+  </data>
+  <data name="lblDelete" xml:space="preserve">
+    <value>删除</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="lblDelimiter" xml:space="preserve">
+    <value>分隔符</value>
+    <comment>Delimiter</comment>
+  </data>
+  <data name="lblDownload" xml:space="preserve">
+    <value>下载</value>
+    <comment>Download</comment>
+  </data>
+  <data name="lblEnrichment" xml:space="preserve">
+    <value>扩充</value>
+    <comment>Enrichment</comment>
+  </data>
+  <data name="lblEnrichmentOutput" xml:space="preserve">
+    <value>浓缩输出</value>
+    <comment>Enrichment Output</comment>
+  </data>
+  <data name="lblExcel" xml:space="preserve">
+    <value>Excel</value>
+    <comment>Excel</comment>
+  </data>
+  <data name="lblExportOptions" xml:space="preserve">
+    <value>导出选项</value>
+    <comment>Export Options</comment>
+  </data>
+  <data name="lblExportStatus" xml:space="preserve">
+    <value>导出状态</value>
+    <comment>Export Status</comment>
+  </data>
+  <data name="lblFailed" xml:space="preserve">
+    <value>未成功</value>
+    <comment>Failed</comment>
+  </data>
+  <data name="lblFileName" xml:space="preserve">
+    <value>文件名称</value>
+    <comment>File Name</comment>
+  </data>
+  <data name="lblFileNameRequire" xml:space="preserve">
+    <value>请输入文件名称。</value>
+    <comment>Please enter file name.</comment>
+  </data>
+  <data name="lblFormat" xml:space="preserve">
+    <value>格式</value>
+    <comment>Format</comment>
+  </data>
+  <data name="lblFormatRequire" xml:space="preserve">
+    <value>请选择格式。</value>
+    <comment>Please select format.</comment>
+  </data>
+  <data name="lblImportProcess" xml:space="preserve">
+    <value>导入流程</value>
+    <comment>Import Process</comment>
+  </data>
+  <data name="lblIncludeExportDateAndTime" xml:space="preserve">
+    <value>包括导出日期和时间</value>
+    <comment>Include Export Date and Time</comment>
+  </data>
+  <data name="lblIncludeHeader" xml:space="preserve">
+    <value>包括标头</value>
+    <comment>Include Header</comment>
+  </data>
+  <data name="lblIncludeSrcRecordID" xml:space="preserve">
+    <value>包括 SrcRecordID</value>
+    <comment>Include SrcRecordID</comment>
+  </data>
+  <data name="lblIncludeSubdomain" xml:space="preserve">
+    <value>包括子域名</value>
+    <comment>Include Subdomain</comment>
+  </data>
+  <data name="lblInProcess" xml:space="preserve">
+    <value>正在进行中</value>
+    <comment>In Process</comment>
+  </data>
+  <data name="lblInsertDelimiter" xml:space="preserve">
+    <value>插入分隔符</value>
+    <comment>InsertDelimiter</comment>
+  </data>
+  <data name="lblIsExactMatch" xml:space="preserve">
+    <value>为精确匹配</value>
+    <comment>Is Exact Match</comment>
+  </data>
+  <data name="lblLOBTags" xml:space="preserve">
+    <value>LOB标签</value>
+    <comment>LOB Tags</comment>
+  </data>
+  <data name="lblLowConfidenceQueue" xml:space="preserve">
+    <value>低置信度队列</value>
+    <comment>Low Confidence Queue</comment>
+  </data>
+  <data name="lblMarkAsExported" xml:space="preserve">
+    <value>标记为已导出</value>
+    <comment>Mark As Exported</comment>
+  </data>
+  <data name="lblMatchOutput" xml:space="preserve">
+    <value>匹配输出</value>
+    <comment>Match Output</comment>
+  </data>
+  <data name="lblMonitoringNotification" xml:space="preserve">
+    <value>监测通知</value>
+    <comment>Monitoring Notification</comment>
+  </data>
+  <data name="lblMonitoringNotificationDataStatus" xml:space="preserve">
+    <value>监视通知数据状态</value>
+    <comment>Monitoring Notification Data Status</comment>
+  </data>
+  <data name="lblMonitoringNotifications" xml:space="preserve">
+    <value>监视通知</value>
+    <comment>Monitoring Notifications</comment>
+  </data>
+  <data name="lblNoMatchQueue" xml:space="preserve">
+    <value>无比赛队列</value>
+    <comment>No Match Queue</comment>
+  </data>
+  <data name="lblNoRecordfound" xml:space="preserve">
+    <value>未找到记录</value>
+    <comment>No Record(s) found</comment>
+  </data>
+  <data name="lblNoTag" xml:space="preserve">
+    <value>没有标签</value>
+    <comment>No Tag</comment>
+  </data>
+  <data name="lblNoteMarkAsExported" xml:space="preserve">
+    <value>注：标记为已导出不适用于低置信队列和无匹配队列输出</value>
+    <comment>Note: Mark as Exported does not apply to Low Confidence Queue and No Match Queue outputs</comment>
+  </data>
+  <data name="lblOutputfileName" xml:space="preserve">
+    <value>输出文件名称</value>
+    <comment>Output file Name</comment>
+  </data>
+  <data name="lblOutputQueue" xml:space="preserve">
+    <value>输出队列</value>
+    <comment>Output Queue</comment>
+  </data>
+  <data name="lblOutputTypeRequire" xml:space="preserve">
+    <value>请选择至少一种输出类型</value>
+    <comment>Please select atleast one output type</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>页面大小</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblProcessing" xml:space="preserve">
+    <value>正在处理中，请稍候...</value>
+    <comment>Please wait while processing...</comment>
+  </data>
+  <data name="lblQualifierAllColumns" xml:space="preserve">
+    <value>限定所有列</value>
+    <comment>Qualifier All Columns</comment>
+  </data>
+  <data name="lblReady" xml:space="preserve">
+    <value>准备就绪</value>
+    <comment>Ready</comment>
+  </data>
+  <data name="lblReExportData" xml:space="preserve">
+    <value>重新导出数据</value>
+    <comment>Re-Export Data</comment>
+  </data>
+  <data name="lblRequestedDate" xml:space="preserve">
+    <value>请求日期</value>
+    <comment>Requested Date</comment>
+  </data>
+  <data name="lblRequiredDelimiter" xml:space="preserve">
+    <value>请填写定界符</value>
+    <comment>Please fill Delimiter</comment>
+  </data>
+  <data name="lblSave" xml:space="preserve">
+    <value>保存</value>
+    <comment>Save</comment>
+  </data>
+  <data name="lblSrcRecID" xml:space="preserve">
+    <value>SrcRecID</value>
+    <comment>SrcRecID</comment>
+  </data>
+  <data name="lblSrcRecordId" xml:space="preserve">
+    <value>SrcRecordId</value>
+    <comment>SrcRecordId</comment>
+  </data>
+  <data name="lblSrcRecordIdList" xml:space="preserve">
+    <value>SrcRecordIdList</value>
+    <comment>SrcRecordIdList</comment>
+  </data>
+  <data name="lblStatus" xml:space="preserve">
+    <value>状态</value>
+    <comment>Status</comment>
+  </data>
+  <data name="lblStep1SelectFilters" xml:space="preserve">
+    <value>第一步——选择筛选条件（可选）</value>
+    <comment>Step 1 - Select Filters (Optional)</comment>
+  </data>
+  <data name="lblStep2SelectOutput" xml:space="preserve">
+    <value>第二步——选择输出</value>
+    <comment>Step 2 - Select Output</comment>
+  </data>
+  <data name="lblStep3FinalizeExport" xml:space="preserve">
+    <value>第三步——完成导出</value>
+    <comment>Step 3 - Finalize Export</comment>
+  </data>
+  <data name="lblStep3SelectOutput" xml:space="preserve">
+    <value>第四步——选择输出格式</value>
+    <comment>Step 3 - Select Output Format</comment>
+  </data>
+  <data name="lblStep4FinalizeExport" xml:space="preserve">
+    <value>第五步——完成导出（可选）</value>
+    <comment>Step 4 - Finalize Export (Optional)</comment>
+  </data>
+  <data name="lblSubmit" xml:space="preserve">
+    <value>提交</value>
+    <comment>Submit</comment>
+  </data>
+  <data name="lblTabSeparated" xml:space="preserve">
+    <value>以栏分隔</value>
+    <comment>Tab Separated</comment>
+  </data>
+  <data name="lblTags" xml:space="preserve">
+    <value>标签</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="lblTransferredDuns" xml:space="preserve">
+    <value>转移沙丘</value>
+    <comment>Transferred Duns</comment>
+  </data>
+  <data name="lblUnflagExportedData" xml:space="preserve">
+    <value>取消标记导出数据</value>
+    <comment>Un-flag Exported Data</comment>
+  </data>
+  <data name="lblValidFileName" xml:space="preserve">
+    <value>请输入有效的文件名称。</value>
+    <comment>Please enter valid file name.</comment>
+  </data>
+  <data name="lblZip" xml:space="preserve">
+    <value>。压缩</value>
+    <comment>.Zip</comment>
+  </data>
+  <data name="msgApiLayer" xml:space="preserve">
+    <value>Api层</value>
+    <comment>Api Layer</comment>
+  </data>
+  <data name="msgCancelExportDataRequest" xml:space="preserve">
+    <value>您确定要取消此导出数据请求吗？</value>
+    <comment>Are you sure, you want to cancel this export data request ?</comment>
+  </data>
+  <data name="msgDataRejected" xml:space="preserve">
+    <value>数据成功拒绝</value>
+    <comment>Data rejected successfully</comment>
+  </data>
+  <data name="msgDataUnflagged" xml:space="preserve">
+    <value>数据没有标签，您可以使用“导出”选项导出。</value>
+    <comment>Data are Un-Flagged and you can export using Export options.</comment>
+  </data>
+  <data name="msgDeleteRecord" xml:space="preserve">
+    <value>您确定要删除记录吗？</value>
+    <comment>Are you sure you want to delete record ?</comment>
+  </data>
+  <data name="msgDelimiterValue" xml:space="preserve">
+    <value>分隔符值</value>
+    <comment>Delimiter Value</comment>
+  </data>
+  <data name="msgExportDataSave" xml:space="preserve">
+    <value>你的数据请求已成功提交，一旦文件可供下载，我们会给你发送通知。</value>
+    <comment>Your data request has been submitted successfully, we will notify you once your file is ready to download.</comment>
+  </data>
+  <data name="msgFileExists" xml:space="preserve">
+    <value>FileName已经存在，请输入其他文件名。</value>
+    <comment>FileName is already exists, please enter different filename.</comment>
+  </data>
+  <data name="msgFileNameExists" xml:space="preserve">
+    <value>FileName已经存在，请输入其他文件名。</value>
+    <comment>FileName is already exists, please enter different filename.</comment>
+  </data>
+  <data name="msgImportProcess" xml:space="preserve">
+    <value>导入流程</value>
+    <comment>Import Process</comment>
+  </data>
+  <data name="msgIsExactMatch" xml:space="preserve">
+    <value>完全匹配</value>
+    <comment>Is Exact Match</comment>
+  </data>
+  <data name="msgJobCancel" xml:space="preserve">
+    <value>导出数据请求已成功取消</value>
+    <comment>Export data request cancelled successfully</comment>
+  </data>
+  <data name="msgJobInProcess" xml:space="preserve">
+    <value>你的导出数据请求正在处理中，无法取消</value>
+    <comment>Your export data request is already in process, we can't cancel it</comment>
+  </data>
+  <data name="msgLOBTag" xml:space="preserve">
+    <value>LOB日</value>
+    <comment>LOB Tag</comment>
+  </data>
+  <data name="msgMarkAsExported" xml:space="preserve">
+    <value>标记为已导出</value>
+    <comment>Mark As Exported</comment>
+  </data>
+  <data name="msgMarkDataAsExported" xml:space="preserve">
+    <value>您是否要将数据标记为已导出？</value>
+    <comment>Do you want to mark data as exported?</comment>
+  </data>
+  <data name="msgNoDataFound" xml:space="preserve">
+    <value>数据未找到。</value>
+    <comment>Data not found.</comment>
+  </data>
+  <data name="msgNoFilterSelected" xml:space="preserve">
+    <value>注意：没有选择过滤器，您将下载火柴盒中包含的所有数据</value>
+    <comment>Note : There is no filter selected , you will be downloading all your data contained within matchbook</comment>
+  </data>
+  <data name="msgNoRecordFound" xml:space="preserve">
+    <value>数据未找到。</value>
+    <comment>Data not found.</comment>
+  </data>
+  <data name="msgNoRecordsAffected" xml:space="preserve">
+    <value>共有0条记录受到影响，您确定要继续吗？</value>
+    <comment>Total 0 records are affected, are you sure you want to continue ?</comment>
+  </data>
+  <data name="msgNoRecordsFound" xml:space="preserve">
+    <value>没有找到记录</value>
+    <comment>No record(s) found</comment>
+  </data>
+  <data name="msgOutputFormat" xml:space="preserve">
+    <value>输出格式</value>
+    <comment>Output Format</comment>
+  </data>
+  <data name="msgSelectedOutput" xml:space="preserve">
+    <value>选定的输出</value>
+    <comment>Selected Output</comment>
+  </data>
+  <data name="msgSrcRecordId" xml:space="preserve">
+    <value>Src记录ID</value>
+    <comment>Src Record Id</comment>
+  </data>
+  <data name="msgTag" xml:space="preserve">
+    <value>标签</value>
+    <comment>Tag</comment>
+  </data>
+  <data name="msgUnFlagData" xml:space="preserve">
+    <value>数据未标记，你可以使用“导出”选项导出。</value>
+    <comment>Data are Un-Flagged and you can export using Export options.</comment>
+  </data>
+  <data name="titleCSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>CSV</comment>
+  </data>
+  <data name="titleCustomDelimiter" xml:space="preserve">
+    <value>自定义定界符</value>
+    <comment>Custom Delimiter</comment>
+  </data>
+  <data name="titleDataMatch" xml:space="preserve">
+    <value>资料比对</value>
+    <comment>Data Match</comment>
+  </data>
+  <data name="titleDownload" xml:space="preserve">
+    <value>下载</value>
+    <comment>Download</comment>
+  </data>
+  <data name="titleExcel" xml:space="preserve">
+    <value>电子表格</value>
+    <comment>Excel</comment>
+  </data>
+  <data name="titleExportData" xml:space="preserve">
+    <value>汇出资料</value>
+    <comment>Export Data</comment>
+  </data>
+  <data name="titleTabSeparated" xml:space="preserve">
+    <value>制表符分隔</value>
+    <comment>Tab Separated</comment>
+  </data>
+</root>

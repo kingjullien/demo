@@ -1,0 +1,48 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.LanguageResources;
+@model List<ImportFileTemplates>
+
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered" id="tblImportFileTemplate">
+            <thead>
+                <tr class="custom-text-align-center">
+                    <th>@ImportDataLang.lblTemplateName</th>
+                    <th>@ImportDataLang.lblFormat</th>
+                    <th>@ImportDataLang.lblImportType</th>
+                    <th>@ImportDataLang.lblHasHeader</th>
+                    <th>@ImportDataLang.lblSheetName</th>
+                    <th class="nosort"></th>
+                    <th class="nosort"></th>
+                    <th class="nosort"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        var Id = item.ImportFileConfigurationId == "" ? Convert.ToString(0) : item.ImportFileConfigurationId;
+                        <tr>
+                            <td>@item.TemplateName</td>
+                            <td>@item.FileFormat</td>
+                            <td>@item.ImportType</td>
+                            <td>@item.HasHeader</td>
+                            <td>@item.ExcelWorksheetName</td>
+                            <td>
+                                <a href="javascript:void(0);" title="@ImportDataLang.titleTemplateDetail" class="clsTemplateDetails" data-TemplateId="@item.TemplateId">
+                                    <span>@ImportDataLang.lblPreview</span>
+                                </a>
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);"><span class="deleteTemplate cursor-pointer" aria-hidden="true" data-TemplateId="@item.TemplateId" data-TemplateName="@item.TemplateName">@ImportDataLang.lblDelete</span></a>
+                            </td>
+                            <td><a href="javascript:void(0)" class="" onclick="InsertUpdateConfigureImportsFromImport(@Id,@item.TemplateId,'@item.TemplateName')">@ImportDataLang.lblConfigureImportSource</a></td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+

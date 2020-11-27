@@ -1,0 +1,136 @@
+﻿@using SBISCCMWeb.Models.BeneficialOwnership
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.LanguageResources
+@model BeneficialOwnership_Main
+@{
+    int i = 0;
+    string address = string.Empty;
+}
+
+<div class="table-responsive" style="max-height:500px;overflow-y:auto">
+    <table class="table table-bordered" id="OwnerTable" style="overflow:hidden">
+        <thead>
+            <tr>
+                <th width="2%" class="nosort">@BeneficialOwnershipLang.spnType</th>
+                <th width="5%">@BeneficialOwnershipLang.spnDUNS</th>
+                <th>@BeneficialOwnershipLang.spnName</th>
+                <th width="3%">@BeneficialOwnershipLang.spnLevel</th>
+                <th width="5%">@BeneficialOwnershipLang.lblBenificiary (%)</th>
+                <th width="5%">@BeneficialOwnershipLang.spnDirect (%)</th>
+                <th width="5%">@BeneficialOwnershipLang.spnIndirect (%)</th>
+                <th>@BeneficialOwnershipLang.lblisBenificiary</th>
+                <th>@BeneficialOwnershipLang.spnEntity</th>
+                <th>@BeneficialOwnershipLang.spnAddress</th>
+                <th>@BeneficialOwnershipLang.lblCountry</th>
+                <th class="nosort">@BeneficialOwnershipLang.lblScreeningResult</th>
+                @*<th width="7%">@BeneficialOwnershipLang.lblScreenedDate</th>
+                    <th>@BeneficialOwnershipLang.lblScreenedResult</th>
+                    <th>@BeneficialOwnershipLang.lblScreenedAlert_Code</th>*@
+                <th width="5%" class="nosort">@BeneficialOwnershipLang.hdrScreeningDetails</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.lstCombinedData)
+            {
+                <tr class="context-menu-one-compliance" data-memberId="@item.memberID">
+                    <td>
+                        @if (item.beneficiaryType.ToLower() == "business")
+                        {
+                            <i class="fa fa-building" aria-hidden="true" title="@item.controlOwnershipType" style="color:@item.nodeColor"></i>
+                        }
+                        else
+                        {
+                            <i class="fa fa-user" aria-hidden="true" title="@item.controlOwnershipType" style="color:@item.nodeColor"></i>
+                        }
+                    </td>
+                    <td>@item.duns</td>
+                    <td class="owner_name">
+                        <span>@item.name</span>
+                        @if (Helper.oUser.LicenseAllowEnrichment && !string.IsNullOrEmpty(item.duns) && !string.IsNullOrEmpty(item.addressCountryIsoAlpha2Code))
+                        {
+                            <a class="testEnrichment">
+                                <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/PreviewEnrichmentData.png"))" title="@SearchDataLang.titleEnrichmentdetail" class="Enrichment" data-dunsnumber="@item.duns" data-country="@item.addressCountryIsoAlpha2Code" />
+                            </a>
+                        }
+                        @if (item.beneficiaryType.ToLower() == "business" && !string.IsNullOrEmpty(item.duns))
+                        {
+                            <a href="javascript:void(0)" class="viewBenificiaryDetails" data-duns="@item.duns" data-country="@item.addressCountryIsoAlpha2Code" title="@BeneficialOwnershipLang.titleViewBenificiaryDetails"><em class="fa fa-clipboard"></em></a>
+                        }
+                    </td>
+                    <td style="font-size:13px !important">@item.degreeOfSeparation</td>
+                    <td style="font-size:13px !important">@String.Format("{0:0.00}", item.beneficialOwnershipPercentage)</td>
+                    <td style="font-size:13px !important">@String.Format("{0:0.00}", item.directOwnershipPercentage)</td>
+                    <td style="font-size:13px !important">@String.Format("{0:0.00}", item.indirectOwnershipPercentage)</td>
+                    <td>
+                        @if (item.isBeneficiary == 1)
+                        {
+                            <span>True</span> }
+                        else
+                        {
+                            <span>False</span>
+                        }
+                    </td>
+                    <td>@item.businessEntityType</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(@item.address))
+                        {
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                        }
+                        @item.address
+                    </td>
+                    <td>@item.addressCountryIsoAlpha2Code</td>
+                    <td class="text-align-center">
+                        <div class="screening-result-info">
+                            <div class="side-left">
+                                <div class="top-info">
+                                    @if (string.IsNullOrEmpty(item.lastScreenedResult))
+                                    {
+                                        <span></span> @item.lastScreenedAlertTypeCode
+                                    }
+                                    else if (item.lastScreenedResult.ToLower() == "clear")
+                                    {
+                                        <span class="text-success" title="@item.lastScreenedAlertType (Date : @item.lastScreenedDate.ToDatetimeShort())"><i class="fa fa-check-circle"></i></span>
+                                    }
+                                    else if (string.IsNullOrEmpty(item.lastScreenedAlertTypeCode))
+                                    {
+                                        <span class="text-success" title="@item.lastScreenedAlertType (Date : @item.lastScreenedDate.ToDatetimeShort())"><i class="fa fa-check-circle"></i></span>
+                                    }
+                                    else if (item.lastScreenedAlertTypeCode == "_Y" || item.lastScreenedAlertTypeCode == "RC")
+                                    {
+                                        <span class="text-warning" title="@item.lastScreenedAlertType (Date : @item.lastScreenedDate.ToDatetimeShort())"><i class="fa fa-exclamation-triangle"></i></span>
+                                    }
+                                    else if (item.lastScreenedAlertTypeCode == "_R")
+                                    {
+                                        <span class="text-danger" title="@item.lastScreenedAlertType (Date : @item.lastScreenedDate.ToDatetimeShort())"><i class="fa fa-times-circle"></i></span>
+                                    }
+                                    else if (item.lastScreenedAlertTypeCode == "DR")
+                                    {
+                                        <span class="text-danger"><i class="fa fa-radiation-alt" title="@item.lastScreenedAlertType (Date : @item.lastScreenedDate.ToDatetimeShort())"></i></span>
+                                    }
+                                    else if (item.lastScreenedAlertTypeCode == "TR")
+                                    {
+                                        <span class="text-danger"><i class="fa fa-radiation-alt" title="@item.lastScreenedAlertType (Date : @item.lastScreenedDate.ToDatetimeShort())"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span></span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                    @*<td></td>
+                        <td></td>
+                        <td> </td>*@
+                    <td class="text-align-center">
+                        @if (!string.IsNullOrEmpty(item.lastScreenedResult) && item.lastScreenedResult.ToLower() != "clear")
+                        {
+                            <a class="btnScreeningDetails" data-memberId="@item.memberID" data-type="@item.beneficiaryType" data-name="@item.name"><i class="fa fa-info-circle" aria-hidden="true"></i></a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

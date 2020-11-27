@@ -1,0 +1,78 @@
+﻿.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    border-radius: 2px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #3276b1;
+    border-color: #2c699d;
+}
+
+    .btn-primary.active, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .open .dropdown-toggle.btn-primary {
+        color: #fff;
+        background-color: #296191;
+        border-color: #1f496d;
+    }
+
+    .btn-primary.active, .btn-primary:active, .open .dropdown-toggle.btn-primary {
+        background-image: none;
+    }
+
+    .btn-primary.disabled, .btn-primary.disabled.active, .btn-primary.disabled:active, .btn-primary.disabled:focus, .btn-primary.disabled:hover, .btn-primary[disabled], .btn-primary[disabled].active, .btn-primary[disabled]:active, .btn-primary[disabled]:focus, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary.active, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:hover {
+        background-color: #3276b1;
+        border-color: #2c699d;
+    }
+
+    .btn-primary .badge {
+        color: #3276b1;
+        background-color: #fff;
+    }
+
+
+/*For D&B Export Data button*/
+#btnExportData.btn-primary, #btnMonitoringNotificationsExportData.btn-primary {
+    background-color: #3276b1;
+    border-color: #2c699d;
+    color: #fff;
+}
+
+/*For pagination*/
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: #3276b1;
+    border-color: #3276b1;
+    cursor: default;
+}
+
+/*For toggle slider*/
+input:checked + .Toggleslider {
+    background-color: #2196F3 !important;
+}
+
+/*For Build A List D&b*/
+.MatchedItem a {
+    color: #3276b1 !important;
+    text-decoration: none;
+}

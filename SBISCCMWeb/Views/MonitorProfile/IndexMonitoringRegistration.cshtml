@@ -1,0 +1,81 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@model PagedList.IPagedList<DUNSregistrationEntity>
+@{
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialDUNSregistrationData",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+    string RegistrationSortOrder = Convert.ToString(ViewBag.SortOrder);
+    string RegistrationSortBy = Convert.ToString(ViewBag.SortBy);
+
+}
+@Html.Hidden("RegistrationPageValue", Convert.ToInt32(TempData["pagevalue"]))
+@Html.Hidden("RegistrationSortOrder", RegistrationSortOrder)
+@Html.Hidden("RegistrationSortBy", RegistrationSortBy)
+<div class="table-responsive">
+    @using (Ajax.BeginForm("IndexMonitoringRegistration", "MonitorProfile", FormMethod.Post, ajaxOptions, new { id = "form_MonitoringRegistration" }))
+    {
+        @Html.AntiForgeryToken()
+        <label class="select pull-right" style="padding-right:10px;">
+            Page Size :  @Html.DropDownList("pagevalue", new SelectList(SBISCCMWeb.Utility.CommonMethod.GetPageSize(), Convert.ToInt32(TempData["pageno"])), new { id = "pagevalue", @class = "pagevalueChangeMonitoringRegfrnc", @autocomplete = "off" })<i></i>
+        </label>
+        <table class="table table-bordered table-fixed-user">
+            <thead>
+                <tr>
+                    @*<th> @Ajax.ActionLink("Registration Id", "IndexMonitoringRegistration", "MonitorProfile", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>*@
+                    <th> @Ajax.ActionLink("Monitoring Profile", "IndexMonitoringRegistration", "MonitorProfile", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 2, sortorder = (ViewBag.SortBy == 2 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th> @Ajax.ActionLink("Notification Profile", "IndexMonitoringRegistration", "MonitorProfile", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 3, sortorder = (ViewBag.SortBy == 3 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    @if (Helper.LicenseEnableTags)
+                    {
+                    <th>Tags</th>
+                    }
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            @*<td>@item.MonitoringRegistrationId</td>*@
+                            <td>@item.MonitoringProfileName</td>
+                            <td>@item.NotificationProfileName</td>
+                            @if (Helper.LicenseEnableTags)
+                            {
+                                <td>@item.Tags</td>
+                            }
+                            <td><a href="#" class="EditMonitoringRegistration" id="@item.MonitoringRegistrationId">Edit</a></td>
+                            @*<td><a onclick='return confirm("Are you sure you want to delete this record ?");' href="@Url.Action("DeleteMonitoringRegistration", "MonitorProfile", new { id = @item.MonitoringRegistrationId }, null)" class="delete">Delete</a></td>*@
+                            <td>@Html.ActionLink("Delete", "", "", new { @id = item.MonitoringRegistrationId, @href="javascript:void(0)", @class = "DeleteMonitoringRegistration" })</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="5">No record(s) Found.</td></tr>
+                }
+            </tbody>
+        </table>
+        <div class="dt-toolbar-footer">
+            <div class="col-sm-12 col-xs-12 hidden-xs">
+                <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                    <a id="pagingFormAction" href="@Url.Action("IndexMonitoringRegistration", "MonitorProfile", new {  page = 1, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder })" style="display:block"></a>
+                    @Html.PagedListPager(Model, page => Url.Action("IndexMonitoringRegistration", "MonitorProfile", new { page = page, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divPartialDUNSregistrationData", LoadingElementId = "divProgress", OnSuccess = "OnSuccess()" }))
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="loaderMain" id="divProgress">
+    <div class="loaderDiv">
+        <p class="loaderTxt">Please wait while processing...</p>
+    </div>
+</div>

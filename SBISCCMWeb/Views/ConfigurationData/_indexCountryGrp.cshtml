@@ -1,0 +1,73 @@
+﻿@model IPagedList<SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.CountryGroupEntity>
+@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchFacade.Objects;
+@{ 
+    AjaxOptions ajaxOptionsForUserPaging = new AjaxOptions
+    {
+        UpdateTargetId = "divCountry",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+    string CountrySortOrder = Convert.ToString(ViewBag.CountrySortOrder);
+    string CountrySortBy = Convert.ToString(ViewBag.CountrySortBy);
+}
+@Html.Hidden("CntryGrpPageValue", Convert.ToInt32(TempData["Countrypagevalue"]))
+@Html.Hidden("CountrySortOrder", CountrySortOrder)
+@Html.Hidden("CountrySortBy", CountrySortBy)
+<div class="table-responsive">
+    <label class="select pull-right" style="padding-right:10px;">
+        Page Size :  @Html.DropDownList("pagevalue", new SelectList(SBISCCMWeb.Utility.CommonMethod.GetPageSize(), Convert.ToInt32(TempData["Countrypagevalue"])), new { id = "Countrypagevalue", @class = "CountrypagevalueChange", @autocomplete = "off" })<i></i>
+    </label>
+
+    <table class="table table-bordered ">
+        <thead>
+            <tr>
+                <th> @Ajax.ActionLink("Group Name", "indexCountryGrp", new { Countrypage = ViewBag.Countrypageno, Countrypagevalue = ViewBag.Countrypagevalue, Countrysortby = 2, Countrysortorder = (ViewBag.CountrySortBy == 2 ? (ViewBag.CountrySortOrder == 1 ? 2 : 1) : 1) }, ajaxOptionsForUserPaging)</th>
+                @if (Helper.UserType.ToLower() != "steward")
+                {
+                    <th>Edit </th>
+                    <th>Delete </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.GroupName</td>
+                    @if (Helper.UserType.ToLower() != "steward")
+                    {
+                        var GroupId = Utility.GetEncryptedString(Convert.ToString(item.GroupId)).Replace("+", Utility.urlseparator);
+                        <td>
+
+                            <a href="#" id="@GroupId" class="editCountryGroup">Edit</a>
+                        </td>
+                        <td>
+                            <a href="javascript:void(0)" id="@GroupId" class="deleteCountryGroup">Delete</a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="dt-toolbar-footer pull-right">
+        <div class="hidden-xs New-Paging">
+            <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                <a id="pagingFormAction" href="@Url.Action("indexCountryGrp", "Portal", new {  Countrypage = 1, Countrypagevalue = ViewBag.Countrypagevalue, Countrysortby = ViewBag.CountrySortBy, Countrysortorder = ViewBag.CountrySortOrder })" style="display:block"></a>
+                @Html.PagedListPager(Model, page => Url.Action("indexCountryGrp", "Portal", new { Countrypage = page, Countrypagevalue = ViewBag.Countrypagevalue, Countrysortby = ViewBag.CountrySortBy, Countrysortorder = ViewBag.CountrySortOrder }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divCountry", LoadingElementId = "divProgress", OnSuccess = "OnSuccess()" }))
+            </div>
+        </div>
+    </div>
+</div>
+@if (Helper.UserType.ToLower() != "steward")
+{
+    @*<div class="row">
+        <div class="col-md-12 text-center padding-10">
+            <input type="submit" value="Add" id="btnAddCountryGroup" name="btnAddCountryGroup" class="btn btn-primary" />
+        </div>
+    </div>*@
+    <div class="AddUpdateCountryGroup">
+        @*@{Html.RenderPartial("_addUpdateCountryGroup", objaddupdateCountryGroup);}*@
+    </div>
+}

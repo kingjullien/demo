@@ -1,0 +1,177 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.Models;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using System.Collections.Generic;
+@using PagedList;
+@using PagedList.Mvc;
+
+@{
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+}
+@Scripts.Render("~/bundles/popupjs")
+@Styles.Render("~/Content/popupcss")
+
+<article class="col-md-6 sortable-grid ui-sortable custom-height">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa  fa-certificate "></i>
+                <strong>Monitor Profile</strong>
+            </h2>
+            <ul class="nav pull-right nav-pills custom-pill topbuttonstyle">
+                <li class="">
+                    <a class="SyncSetting syncProfileList">
+                        <i class="glyphicon glyphicon-refresh"></i>
+                        <input type="button" class="btn btn-primary btnBlack" value="Sync Monitoring Data" />
+                       
+                    </a>
+
+
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="collapse"><i class="fa fa-minus "></i></a>
+
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+
+                    <div class="tab-pane fade active in ">
+
+                        <div id="divPartialMonitoringData">
+                            @{Html.RenderAction("IndexMonitoringProfile", "MonitorProfile");}
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center padding-10">
+                                <input type="button" value="Add Monitor Profile" id="btnAddMonitorProfile" name="btnAddMonitorProfile" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<article class="col-md-6 sortable-grid ui-sortable custom-height">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa  fa-certificate "></i>
+                <strong>User Preference</strong>
+            </h2>
+            <ul class="nav pull-right nav-pills Custom-pill topbuttonstyle">
+                <li class="">
+                    <a class="SyncSetting syncUserPrefrence">
+                        <i class="glyphicon glyphicon-refresh"></i>
+                        <input type="button" class="btn btn-primary btnBlack" value="Sync User Prefrence Data" />
+                    </a>    
+
+                    @*<input type="button" class="btn btn-primary btnBlack syncUserPrefrence" value="Sync User Prefrence Data" />*@
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div class="tab-pane fade active in ">
+                        <div id="divPartialUserPrefrenceData">
+                            @{Html.RenderAction("IndexUserPreference", "MonitorProfile");}
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center padding-10">
+                                <input type="button" value="Add User Prefrence" id="btnAddUserPrefrence" name="btnAddUserPrefrence" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+<div style="clear:both"></div>
+<article class="col-md-6 sortable-grid ui-sortable custom-height">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa  fa-certificate "></i>
+                <strong>Notification Profile</strong>
+            </h2>
+            <ul class="nav pull-right nav-pills Custom-pill topbuttonstyle">
+                <li class="">
+                    <a class="SyncSetting syncNotification">
+                        <i class="glyphicon glyphicon-refresh"></i>
+                        <input type="button" class="btn btn-primary btnBlack" value="Sync Notification Data" />
+                    </a> 
+
+                    @*<input type="button" class="btn btn-primary btnBlack syncNotification" value="Sync Notification Data" />*@
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div class="tab-pane fade active in ">
+                        <div id="divPartialNotificationProfileData">
+                            @{Html.RenderAction("IndexNotificationProfile", "MonitorProfile");}
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center padding-10">
+                                <input type="button" value="Add Notification Profile" id="btnAddNotificationProfile" name="btnAddNotificationProfile" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<article class="col-md-6 sortable-grid ui-sortable custom-height" >
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa  fa-certificate "></i>
+                <strong>DUNS Registration Setup</strong>
+            </h2>
+            <ul class="nav pull-right nav-pills Custom-pill topbuttonstyle">
+                <li class="">
+                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div class="tab-pane fade active in ">
+                        <div id="divPartialDUNSregistrationData">
+                            @{Html.RenderAction("IndexMonitoringRegistration", "MonitorProfile");}
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center padding-10">
+                                <input type="button" value="Add DUNS Registration" id="btnAddDUNSregistration" name="btnAddDUNSregistration" class="btn btn-primary" />
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+

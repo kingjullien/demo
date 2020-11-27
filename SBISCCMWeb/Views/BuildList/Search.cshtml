@@ -1,0 +1,607 @@
+﻿@using SBISCCMWeb.LanguageResources
+@model SBISCCMWeb.Models.BuildListSearchModel
+@using SBISCCMWeb.Utility;
+
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + BuildAListLang.titleBuildList;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + BuildAListLang.titleBuildList;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string GoogleAPIKey = Helper.GoogleAPIKey;
+}
+
+<script src="https://maps.google.com/maps/api/js?key=@GoogleAPIKey" type="text/javascript"></script>
+<style>
+    .Delete {
+        cursor: pointer;
+    }
+
+    .ContentBorder {
+        border: 1px solid #CCC !important;
+        padding: 5px 15px 5px 15px;
+    }
+
+    .pull-left {
+        float: left;
+    }
+
+    .with_40 {
+        width: 10px;
+    }
+
+    .form header, legend {
+        font-size: 14px !important;
+    }
+
+    .jarviswidget .widget-body {
+        min-height: 50px !important;
+    }
+</style>
+
+@Html.AntiForgeryToken()
+<div id="content">
+    <section id="widget-grid" class="">
+        <div class="row ReviewFilter">
+            <div class="col-md-12 padding-10" style="text-align:right;  padding-bottom:10px">
+                <strong><span class="requireField">*</span>@BuildAListLang.lblBulidAListsearchReqire</strong>
+            </div>
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable keyword">
+                <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <ul class="nav nav-pills pull-left Custom-pill with_40">
+                            <li>
+                                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);"><em class="fa fa-plus"></em></a>
+                            </li>
+                        </ul>
+                        <h2>
+                            <strong>@BuildAListLang.hdrKeywordDUNSTelephoneDomainSearch</strong>
+                        </h2>
+
+                    </header>
+                    <div role="content" style="display:none;">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content padding-10 dropzIndex">
+                                <div id="hr1" class="tab-pane fade active in">
+                                    <div class="form-group">
+                                        <div class="row ">
+                                            <div class="col-md-4">
+                                                <span><strong>@BuildAListLang.lblSearchText<span class="requireField">*</span> </strong></span>
+                                                @Html.TextBoxFor(m => m.Request.searchTerm, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblSearchTerms, @maxlength = "30" })
+                                                <span id="spSearchTermMinLength" class="error" style="display:none;">@BuildAListLang.lblSearchRequire </span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span><strong>@BuildAListLang.lblDUNSNumber<span class="requireField">*</span></strong></span>
+                                                @Html.TextBoxFor(m => m.Request.duns, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblDunsNo, maxlength = "9" })
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span><strong>@BuildAListLang.lblTelephoneNumber<span class="requireField">*</span></strong></span>
+                                                @Html.TextBox("TelephoneNumber", null, new { @class = "form-control OnlyDigit", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblTelNo, @maxlength = "20" })
+                                                <span id="spTelephoneNumber" class="error" style="display:none;">@BuildAListLang.lblTelephoneRequire</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <span><strong>@BuildAListLang.lblDomain<span class="requireField">*</span></strong></span>
+                                                @Html.TextBox("Domain", null, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblDomainNames, @maxlength = "216" })
+                                                <span id="spDomain" class="error" style="display:none;">@BuildAListLang.lblDomainRequire</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <strong>@BuildAListLang.lblNoOfRecords</strong>
+                                                @Html.DropDownListFor(m => m.NoOfRecored, new List<SelectListItem>
+                                                {
+                                                new SelectListItem{ Text="100", Value = "100" },
+                                                new SelectListItem{ Text="200", Value = "200" },
+                                                new SelectListItem{ Text="300", Value = "300" },
+                                                new SelectListItem{ Text="400", Value = "400" },
+                                                new SelectListItem{ Text="500", Value = "500" },
+                                                }, new { @class = "form-control", autocomplete = "off" })
+                                                <span id="spNoOfRecord" class="error" style="display:none;">@BuildAListLang.lblNoOfRecordRequire</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+            <br />
+            <div class="clearfix"></div>
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable widget-data companyDetail">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <ul class="nav nav-pills Custom-pill pull-left with_40">
+                            <li>
+                                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);"><em class="fa fa-plus"></em></a>
+                            </li>
+                        </ul>
+                        <h2>
+                            <strong>@BuildAListLang.hdrCompanyDetailSearch</strong>
+                        </h2>
+
+
+                    </header>
+                    <div role="content" style="display:none;">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content padding-10 dropzIndex">
+                                <div id="hr1" class="tab-pane fade active in">
+                                    <div class="form-group">
+                                        <section id="widget-grid" class="">
+                                            <div class="row ">
+                                                <div class="col-sm-4">
+                                                    <div class="ContentBorder">
+                                                        <div class="jarviswidget-editbox">
+                                                            <input class="form-control" type="text">
+                                                        </div>
+                                                        <div class="widget-body">
+                                                            <fieldset>
+                                                                <legend>
+                                                                    <strong>@BuildAListLang.lblCompanyInfo</strong>
+                                                                </legend>
+                                                                <div class="form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <strong>@BuildAListLang.lblCompanyName<span class="requireField">*</span></strong>
+                                                                            @Html.TextBoxFor(m => m.Request.primaryName, new { @class = "form-control", data_toggle = "tooltip", @title = BuildAListLang.lblCompName, autocomplete = "off", @maxlength = "30" })
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <strong>@BuildAListLang.lblEmployeeInformationScope</strong>
+                                                                            @Html.DropDownListFor(m => m.Request.numberOfEmployees.informationScope, new List<SelectListItem>
+                                                                            {
+                                                                            new SelectListItem{ Text="--Select--", Value = "" },
+                                                                            new SelectListItem{ Text=BuildAListLang.lblConsolidated, Value = "9067" },
+                                                                            new SelectListItem{ Text=BuildAListLang.lblIndividual, Value = "9066" },
+                                                                            }, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblCode })
+                                                                            <span id="spSelectMaxMinEmp" class="error" style="display:none;">@BuildAListLang.lblEmployeeRequire</span>
+                                                                        </div>
+                                                                        <div class="clearfix"></div>
+                                                                        <div class="col-md-6 selectContainer paddingto5">
+                                                                            <strong>@BuildAListLang.lblMinEmployee</strong>
+                                                                            @Html.TextBoxFor(m => m.Request.numberOfEmployees.minimumValue, new { @class = "form-control OnlyDigit", autocomplete = "off", data_toggle = "tooltip", @title = BuildAListLang.lblMinEmployees, @maxlength = "6" })
+                                                                            <span id="spMinEmployeeLength" class="error" style="display:none;">@BuildAListLang.lblMinMaxEmployee</span>
+
+                                                                        </div>
+                                                                        <div class="col-md-6 selectContainer paddingto5">
+                                                                            <strong>@BuildAListLang.lblMaxEmployee</strong>
+                                                                            @Html.TextBoxFor(m => m.Request.numberOfEmployees.maximumValue, new { @class = "form-control OnlyDigit", autocomplete = "off", data_toggle = "tooltip", @title = BuildAListLang.lblMaxEmployees, @maxlength = "6" })
+                                                                            <span id="spMaxEmployeeLength" class="error" style="display:none;">@BuildAListLang.lblMinMaxEmployee</span>
+                                                                        </div>
+                                                                        <div class="clearfix"></div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <!-- end widget content -->
+                                                    </div>
+                                                    <!-- end widget div -->
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="ContentBorder">
+                                                        <div class="jarviswidget-editbox">
+                                                            <input class="form-control" type="text">
+                                                        </div>
+                                                        <div class="widget-body">
+                                                            <fieldset>
+                                                                <legend>
+                                                                    <div class="row">
+                                                                        <span class="col-md-8">
+                                                                            <strong>@BuildAListLang.lblAddressInfo</strong>
+                                                                        </span>
+                                                                        <div class="col-md-4 selectContainer  text-align-right">
+                                                                            <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/googleIcon.png"))" onclick="codeAddress()" title="Find Latitude and Longitude for your entered address">
+                                                                        </div>
+                                                                    </div>
+                                                                </legend>
+                                                                <div class="form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 selectContainer">
+                                                                            <strong>@BuildAListLang.lblAddress<span class="requireField">*</span></strong>
+                                                                            @Html.TextBoxFor(m => m.Request.streetAddressLine1, new { @class = "form-control", data_toggle = "tooltip", @title = BuildAListLang.lblStreetAddress, @maxlength = "30" })
+                                                                            <span id="spAddressMinLength" class="error" style="display:none;">@BuildAListLang.lblAddressRequired</span>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <strong>
+                                                                                @BuildAListLang.lblCountry
+                                                                            </strong>
+                                                                            @Html.DropDownList("Country", (CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectCountry), new { @value = "US", @class = "form-control", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblCountryCode })
+                                                                        </div>
+
+                                                                        <div class="clearfix"></div>
+                                                                        <div class="col-md-6 selectContainer paddingto5">
+                                                                            <strong>@BuildAListLang.lblCity</strong>
+                                                                            @Html.TextBoxFor(m => m.Request.addressLocality, new { @class = "form-control", data_toggle = "tooltip", @title = BuildAListLang.lblCityOrTownship, autocomplete = "off", @maxlength = "50" })
+                                                                        </div>
+                                                                        <div class="col-md-3 selectContainer paddingto5">
+                                                                            <strong>@BuildAListLang.lblState</strong>
+                                                                            @Html.TextBoxFor(m => m.Request.addressRegion, new { @class = "form-control", data_toggle = "tooltip", @title = BuildAListLang.lblLocalArea, autocomplete = "off", @maxlength = "50" })
+                                                                        </div>
+                                                                        <div class="col-md-3 selectContainer paddingto5">
+                                                                            <strong>@BuildAListLang.lblPostalCode</strong>
+                                                                            @Html.TextBoxFor(m => m.Request.postalCode, new { @class = "form-control", data_toggle = "tooltip", @title = BuildAListLang.lblPostalCode1, autocomplete = "off", @maxlength = "20" })
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <!-- end widget content -->
+                                                    </div>
+
+
+
+                                                    <!-- end widget div -->
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <div class="ContentBorder">
+                                                        <div class="jarviswidget-editbox">
+                                                            <input class="form-control" type="text">
+                                                        </div>
+                                                        <div class="widget-body">
+                                                            <fieldset>
+                                                                <legend>
+                                                                    <strong> @BuildAListLang.lblLocationRadius</strong>
+                                                                </legend>
+                                                                <div class="form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <strong>@BuildAListLang.lblLatitude<span class="requireField">*</span></strong>
+                                                                            @Html.TextBoxFor(m => m.Request.locationRadius.lat, new { @class = "form-control OnlyDigit", data_toggle = "tooltip", @title = BuildAListLang.lblLatitude, autocomplete = "off", @onfocusout = "ValidateLocation()" })
+                                                                            <span id="splat" class="error" style="display:none;">@BuildAListLang.lblLatitudeRequire</span>
+                                                                        </div>
+                                                                        <div class="col-md-6 selectContainer">
+                                                                            <strong>@BuildAListLang.lblLongitude<span class="requireField">*</span></strong>
+                                                                            @Html.TextBoxFor(m => m.Request.locationRadius.lon, new { @class = "form-control OnlyDigit", data_toggle = "tooltip", @title = BuildAListLang.lblLongitude, autocomplete = "off", @onfocusout = "ValidateLocation()" })
+                                                                            <span id="splong" class="error" style="display:none;">@BuildAListLang.lblLongitudeRequire</span>
+                                                                        </div>
+                                                                        <div class="clearfix"></div>
+                                                                        <div class="col-md-6 selectContainer paddingto5">
+                                                                            <strong>@BuildAListLang.lblRadius<span class="requireField">*</span></strong>
+                                                                            @Html.TextBoxFor(m => m.Request.locationRadius.radius, new { @class = "form-control OnlyDigit", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblCircleRadius, @onfocusout = "ValidateLocation()" })
+                                                                            <span id="spradius" class="error" style="display:none;">@BuildAListLang.lblRadiusRequire</span>
+                                                                        </div>
+                                                                        <div class="col-md-6 selectContainer paddingto5">
+                                                                            <strong>@BuildAListLang.lblUnit<span class="requireField">*</span></strong>
+                                                                            @Html.DropDownListFor(m => m.Request.locationRadius.unit, new List<SelectListItem>
+                                                                            {
+                                                                            new SelectListItem{ Text=BuildAListLang.lblSelectDropdown, Value = "" },
+                                                                            new SelectListItem{ Text=BuildAListLang.lblMeters, Value = "m" },
+                                                                            new SelectListItem{ Text=BuildAListLang.lblKilometers, Value = "km" },
+                                                                            new SelectListItem{ Text=BuildAListLang.lblMiles, Value = "mi" },
+                                                                            new SelectListItem{ Text=BuildAListLang.lblYards, Value = "yd" },
+                                                                            new SelectListItem{ Text=BuildAListLang.lblFeet, Value = "ft" },
+                                                                            }, new { @class = "form-control", data_toggle = "tooltip", @title = BuildAListLang.lblUnitOfMeasure, autocomplete = "off", @onfocusout = "ValidateLocation()" })
+                                                                            <span id="spunit" class="error" style="display:none;">@BuildAListLang.lblUnitRequire</span>
+                                                                        </div>
+                                                                        <div class="clearfix"></div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <!-- end widget content -->
+                                                    </div>
+                                                    <!-- end widget div -->
+                                                </div>
+                                                <div class="clearfix"></div>
+
+                                                <div class="col-sm-12 col-md-12 col-lg-12 paddingto5">
+                                                    <div class="ContentBorder">
+                                                        <div class="jarviswidget-editbox">
+                                                            <input class="form-control" type="text">
+                                                        </div>
+                                                        <div class="widget-body">
+                                                            <fieldset>
+                                                                <div class="form-group">
+                                                                    <div class="row">
+                                                                        <div class="col-md-2 selectContainer paddingto5">
+                                                                            <strong>@BuildAListLang.lblusSicV4<span class="requireField">*</span></strong>
+                                                                            @Html.TextBox("txtusSicV4", null, new { @readonly = "readonly", @class = "form-control", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblNumericCoding })
+                                                                        </div>
+                                                                        <div class="col-md-1 selectContainer paddingto5" style="padding-left: 0px;">
+                                                                            <span class="fa fa-plus-circle" style="font-size:25px;margin-top:17px;cursor:pointer" id="btnAddusSicv4"></span>
+                                                                        </div>
+                                                                        <div class="col-md-2 selectContainer paddingto5">
+                                                                            <strong>@BuildAListLang.lblRegistrationNo<span class="requireField">*</span></strong>
+                                                                            @Html.TextBox("txtRegNo", null, new { @readonly = "readonly", @class = "form-control", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblUniqueNo })
+                                                                        </div>
+                                                                        <div class="col-md-1 selectContainer paddingto5" style="padding-left: 0px;">
+                                                                            <span class="fa fa-plus-circle" style="font-size:25px;margin-top:17px;cursor:pointer" id="btnAddRegNo"></span>
+                                                                        </div>
+                                                                        <div class="col-md-3 selectContainer paddingto5">
+                                                                            <span><strong>@BuildAListLang.lblTradestyleName<span class="requireField">*</span></strong></span>
+                                                                            @Html.TextBox("TradeStyleName", null, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblTradestyle, @maxlength = "30" })
+                                                                            <span id="spTradeStyleLength" class="error" style="display:none;">@BuildAListLang.lblTradestyleNameRequire</span>
+                                                                        </div>
+                                                                        <div class="col-md-3 selectContainer paddingto5">
+                                                                            <span><strong>@BuildAListLang.lblTickerSymbol<span class="requireField">*</span></strong></span>
+                                                                            @Html.TextBox("TickerSymbol", null, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblStockExchange, @maxlength = "6" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <!-- end widget content -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+
+
+            <div class="clearfix"></div>
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable FinancialInfo">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <ul class="nav nav-pills pull-left Custom-pill with_40">
+                            <li>
+                                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);"><i class="fa fa-plus"></i></a>
+                            </li>
+                        </ul>
+                        <h2>
+                            <strong>@BuildAListLang.lblFinancialLinkageInfo</strong>
+                        </h2>
+
+                    </header>
+                    <div role="content" style="display:none;">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content padding-10 dropzIndex">
+                                <div id="hr1" class="tab-pane fade active in">
+                                    <div class="form-group">
+                                        <div class="row ">
+
+                                            <div class="col-sm-6">
+                                                <div class="ContentBorder">
+                                                    <div class="jarviswidget-editbox">
+                                                        <input class="form-control" type="text">
+                                                    </div>
+                                                    <div class="widget-body">
+                                                        <fieldset>
+                                                            <legend>
+                                                                <strong>@BuildAListLang.lblFinancialInfo</strong>
+                                                            </legend>
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <span><strong>@BuildAListLang.lblYearlyMinimumRevenue</strong></span>
+                                                                        @Html.TextBox("MinimumValueFinanceInfo", null, new { @class = "form-control OnlyDigit", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblMinYearlyRevenue, @maxlength = "15" })
+                                                                        <span id="spMinimumValueFinanceInfoLength" class="error" style="display:none;">@BuildAListLang.lblMinMaxRevenue</span>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <span><strong>@BuildAListLang.lblYearlyMaximumRevenue</strong></span>
+                                                                        @Html.TextBox("MaximumValueFinanceInfo", null, new { @class = "form-control OnlyDigit", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblMaxYearlyRevenue, @maxlength = "15" })
+                                                                        <span id="spMaximumValueFinanceInfoLength" class="error" style="display:none;">@BuildAListLang.lblMinMaxRevenue</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <!-- end widget content -->
+                                                </div>
+                                                <!-- end widget div -->
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="ContentBorder">
+                                                    <div class="jarviswidget-editbox">
+                                                        <input class="form-control" type="text">
+                                                    </div>
+                                                    <div class="widget-body">
+                                                        <fieldset>
+                                                            <legend>
+                                                                <strong>@BuildAListLang.lblLinkageInfo</strong>
+                                                            </legend>
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <span><strong>@BuildAListLang.lblMinimumFamilyTreeMember</strong></span>
+                                                                        @Html.TextBox("MinimumValueLinkage", null, new { @class = "form-control OnlyDigit", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblMinFamilyTree, @maxlength = "6" })
+                                                                        <span id="spMinValueLinkage" class="error" style="display:none;">@BuildAListLang.lblMinimumFamilyTreeMember</span>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <span><strong>@BuildAListLang.lblMaximumFamilyTreeMember</strong></span>
+                                                                        @Html.TextBox("MaximumValueLinkage", null, new { @class = "form-control OnlyDigit", data_toggle = "tooltip", autocomplete = "off", @title = BuildAListLang.lblMaxFamilyTree, @maxlength = "6" })
+                                                                        <span id="spMaxValueLinkage" class="error" style="display:none;">@BuildAListLang.lblMinimumFamilyTreeMember</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                    <!-- end widget content -->
+                                                </div>
+                                                <!-- end widget div -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <div class="clearfix"></div>
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable EnhanceFilter">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <ul class="nav nav-pills pull-left Custom-pill with_40">
+                            <li>
+                                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);"><em class="fa fa-plus"></em></a>
+                            </li>
+                        </ul>
+                        <h2>
+                            <strong>@BuildAListLang.lblExclusionFilters</strong>
+                        </h2>
+
+                    </header>
+                    <div role="content" style="display:none;">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content padding-10 dropzIndex">
+                                <div id="hr1" class="tab-pane fade active in">
+                                    <div class="form-group">
+                                        <div class="row ">
+                                            <div class="col-md-3">
+                                                <span><strong>@BuildAListLang.lblExcludeOutOfBusiness</strong></span>
+                                                @Html.DropDownList("IsOutOfBusiness", new List<SelectListItem>
+                                                {
+                                                new SelectListItem { Text = CommonMessagesLang.lblNone,Value="null"},
+                                                new SelectListItem { Text = CommonMessagesLang.lblTrue,Value="true"},
+                                                new SelectListItem { Text = CommonMessagesLang.lblFalse,Value="false"},
+                                                }, new { @class = "form-control", autocomplete = "off" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                <span><strong>@BuildAListLang.lblExcludeNonMarketable</strong></span>
+                                                @Html.DropDownList("IsMarketable", new List<SelectListItem>
+                                                {
+                                                new SelectListItem { Text = CommonMessagesLang.lblNone,Value="null"},
+                                                new SelectListItem { Text = CommonMessagesLang.lblTrue,Value="true"},
+                                                new SelectListItem { Text = CommonMessagesLang.lblFalse,Value="false"},
+                                                }, new { @class = "form-control", autocomplete = "off" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                <span><strong>@BuildAListLang.lblExcludeMailUndeliverable</strong></span>
+                                                @Html.DropDownList("IsMailUndeliverable", new List<SelectListItem>
+                                                {
+                                                new SelectListItem { Text = CommonMessagesLang.lblNone,Value="null"},
+                                                new SelectListItem { Text = CommonMessagesLang.lblTrue,Value="true"},
+                                                new SelectListItem { Text = CommonMessagesLang.lblFalse,Value="false"},
+                                                }, new { @class = "form-control", autocomplete = "off" })
+                                            </div>
+                                            <div class="col-md-3">
+                                                <span><strong>@BuildAListLang.lblExcludeDisconnectedTelephone<span class="requireField">*</span></strong></span>
+                                                @Html.DropDownList("IsTelephoneDisconnected", new List<SelectListItem>
+                                                {
+                                                new SelectListItem { Text = CommonMessagesLang.lblNone,Value="null"},
+                                                new SelectListItem { Text = CommonMessagesLang.lblTrue,Value="true"},
+                                                new SelectListItem { Text = CommonMessagesLang.lblFalse,Value="false"},
+                                                }, new { @class = "form-control", autocomplete = "off" })
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <div class="clearfix"></div>
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable search_button">
+                <a class="btn btn-primary" onclick="SearchData()">@BuildAListLang.lblSearch</a>
+                <a class="btn btn-Secondary" onclick="ClearDataBuildList()">@BuildAListLang.lblClear</a>
+                <a class="btn btn-Secondary btnSearchHistory">@BuildAListLang.lblViewHistory</a>
+                <a class="btn btn-Secondary pull-right" onclick="Export()">@BuildAListLang.lblExportToExcel</a>
+            </article>
+            <div class="clearfix"></div>
+            <br />
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable searchResult">
+                <div data-widget-editbutton="false" class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            <i class="fa fa-table"></i>
+                            <strong>@BuildAListLang.lblSearchResults</strong>
+                        </h2>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+
+                        <div class="widget-body searchBuild">
+                            <div id="example_wrapper" class="dataTables_wrapper form-inline no-footer">
+                                <div id="divStewardshipPortal" class="table-responsive">
+                                    <div id="divGrid">
+                                        @BuildAListLang.lblNodataareavailable
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+<div id="AddRegistrationNumberModalMain"></div>
+<div id="AddusSicv4ModalMain"></div>
+<div id="GetSearchHistoryModalMain"></div>
+@section scripts{
+    <script>
+        function ClearDataBuildList() {
+            $("#splat").hide();
+            $("#splong").hide();
+            $("#spradius").hide();
+            $("#spunit").hide();
+            $("#spCountry").hide();
+            $("#spSelectMaxMinEmp").hide();
+            $("#spRequiredStandAloneParam").hide();
+            $("#spSearchTermMinLength").hide();
+            $("#spAddressMinLength").hide();
+            $("#spTradeStyleLength").hide();
+            $("#spMaximumValueFinanceInfoLength").hide();
+            $("#spMinimumValueFinanceInfoLength").hide();
+            $("#spMinEmployeeLength").hide();
+            $("#spMaxEmployeeLength").hide();
+            $("#spMinValueLinkage").hide();
+            $("#spMaxValueLinkage").hide();
+
+            $("#NoOfRecored").val('100');
+            $("#Request_searchTerm").val('');
+            $("#Request_duns").val('');
+            $("#Request_primaryName").val('');
+            $("#txtusSicV4").val('');
+            $("#txtRegNo").val('');
+            $("#Request_numberOfEmployees_informationScope").val('');
+            $("#Request_numberOfEmployees_maximumValue").val('');
+            $("#Request_numberOfEmployees_minimumValue").val('');
+            $("#Request_streetAddressLine1").val('');
+            $("#Country").val('US');
+            $("#Request_addressLocality").val('');
+            $("#Request_addressRegion").val('');
+            $("#Request_postalCode").val('');
+            $("#Request_locationRadius_lat").val('');
+            $("#Request_locationRadius_lon").val('');
+            $("#Request_locationRadius_radius").val('');
+            $("#Request_locationRadius_unit").val('');
+            $("#MinimumValueLinkage").val('');
+            $("#MaximumValueLinkage").val('');
+            $("#TelephoneNumber").val('');
+            $("#Domain").val('');
+            $("#MinimumValueFinanceInfo").val('');
+            $("#MaximumValueFinanceInfo").val('');
+            $("#IsOutOfBusiness").val('null');
+            $("#IsMarketable").val('null');
+            $("#IsMailUndeliverable").val('null');
+            $("#IsTelephoneDisconnected").val('null');
+            $("#TradeStyleName").val('');
+            $("#TickerSymbol").val('');
+
+            $("#divGrid").html('');
+            $("#divGrid").html('<table class=""><td colspan="10" class="noContain">' + noDataAreAvailable + '</td></table>');
+        }
+    </script>
+    <script>
+        var noDataFound = '@BuildAListLang.msgNoDataFound';
+        var allowOnlyNumbers = '@BuildAListLang.msgAllowOnlyNumbers';
+        var edit = '@BuildAListLang.msgEdit';
+        var btnDelete = '@BuildAListLang.msgDelete';
+        var standaloneParameter1 = '@BuildAListLang.msgStandaloneParameter1';
+        var standaloneParameter2 = '@BuildAListLang.msgStandaloneParameter2';
+        var standaloneParameter3 = '@BuildAListLang.msgStandaloneParameter3';
+        var noDataAreAvailable = '@BuildAListLang.msgNoDataAreAvailable';
+    </script>
+    @Scripts.Render("~/bundles/buildlist_search")
+}

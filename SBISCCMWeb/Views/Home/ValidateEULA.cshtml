@@ -1,0 +1,70 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@{
+    /**/
+
+    ViewBag.Title = HomeLang.titleUserLicenseAgreement;
+    Layout = null;
+}
+<style>
+    .activexcchck {
+        display: flex;
+        align-items: center;
+    }
+    #btnEULA {
+        margin-right: 70px;
+    }
+</style>
+<div class="modal" id="ValidateEULAModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-body">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div id="" role="main">
+
+                    <!-- MAIN CONTENT -->
+                    <div id="" class="">
+                        @using (Html.BeginForm("ValidateEULA", "Home", FormMethod.Post, new { id = "frmValidateEULA", @autocomplete = "off" }))
+                        {
+                            <br />
+                            @Html.AntiForgeryToken()
+                            if (Helper.Branding == Branding.Matchbook.ToString())
+                            {
+                                <div class="row">
+                                    <span>@BrandingLang.msgValidEULAText</span> <a rel="noopener noreferrer" href="https://matchbookservices.com/license" target="_blank"> @BrandingLang.msgMatchbookURL </a>
+                                </div>
+                                <br />
+                                <div class="col-md-6 activexcchck">
+                                    <input type="checkbox" id="chkAccept" name="IsAccept" value="true">
+                                    <span style="margin-left: 5px;margin-bottom:-5px;"><strong>@HomeLang.lblIAccept</strong></span>
+                                </div>
+                                <div>
+                                    <input id="btnEULA" name="EULA" value="@HomeLang.lblContinue" class="btn btn-primary pull-right EULA" type="button" disabled="disabled">
+                                </div>
+                            }
+                            else if (Helper.Branding == Branding.DandB.ToString())
+                            {
+                                <div class="row">
+                                    <span>@BrandingLang.msgDandBURL</span>
+                                </div>
+                                <br />
+                                <div class="col-md-6 activexcchck">
+                                    <input type="checkbox" id="chkAccept" name="IsAccept" value="true">
+                                    <span style="margin-left:5px;margin-bottom:-5px;"><strong>@HomeLang.lblIAccept</strong></span>
+                                </div>
+                                <div>
+                                    <input id="btnEULA" name="EULA" value="@HomeLang.lblContinue" class="btn btn-primary pull-right EULA" type="button" disabled="disabled">
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+ 

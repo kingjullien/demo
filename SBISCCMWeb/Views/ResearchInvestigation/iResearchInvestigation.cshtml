@@ -1,0 +1,151 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model iResearchEntity
+@{
+    Layout = null;
+    bool IsCompany = Convert.ToBoolean(ViewBag.IsCompany);
+    int Message = Convert.ToInt32(ViewBag.Message);
+    string DunsNumber = ViewBag.DunsNumber;
+    IResearchInvestigationEntity IsInvestigated = ViewBag.IsInvestigated;
+}
+@using (Ajax.BeginForm("iResearchInvestigation", "ResearchInvestigation", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccessResearchInvestigation" }))
+{
+    <div class="modal" id="InvestigateModal" role="dialog">
+        @Html.AntiForgeryToken()
+        @Html.Hidden("IsCompany", IsCompany)
+        @Html.Hidden("Message", Message)
+        @Html.HiddenFor(Model => Model.Tags)
+        @Html.HiddenFor(Model => Model.InputId)
+        @Html.HiddenFor(Model => Model.ResearchRequestType)
+        @Html.HiddenFor(Model => Model.Phone)
+        @Html.HiddenFor(Model => Model.Website)
+        @Html.ValidationSummary(true)
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content investigatePopup">
+                <div class="modal-header">
+                    <div>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="left_sec">
+                        <h4 class="modal-title">@iResearchInvestigationLang.hdrDAndBiResearchMini</h4>
+                        <i class="">@iResearchInvestigationLang.lbliResearchNote</i>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div role="content">
+                        <div class="widget-body">
+                            <div id="myTabContent" class="tab-content border-0">
+                                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+                                    <div id="wid-id-Match" class="jarviswidget jarviswidget-sortable jarviswidget-collapsed jarviswidget-color-blueDark " data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                        <header role="heading" class="heading-title">
+                                            <h2>
+                                                <strong>@iResearchInvestigationLang.hdrBasicInformation</strong>
+                                            </h2>
+                                        </header>
+                                        <div role="content">
+                                            <div class="jarviswidget-editbox"></div>
+                                            <div class="widget-body no-padding">
+                                                <div class="tab-content padding-10">
+                                                    <div id="hr2" class="tab-pane fade fade active in">
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <span><strong>@iResearchInvestigationLang.lblBusinessName<span class="requireField">*</span></strong></span>
+                                                                @Html.TextBoxFor(m => m.BusinessName, new { @class = "form-control", autocomplete = "off" })
+                                                                <span class="text-danger" id="spnBusinessName" style="display:none;">@iResearchInvestigationLang.lblBusinessName</span>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <span><strong>@iResearchInvestigationLang.lblStreetAddress<span class="requireField">*</span></strong></span>
+                                                                @Html.TextBoxFor(m => m.StreetAddress, new { @class = "form-control", autocomplete = "off" })
+                                                                <span class="text-danger" id="spnStreet" style="display:none;">@iResearchInvestigationLang.lblRequiredStreetAdderss</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row padding-top-15px">
+                                                            <div class="col-md-6">
+                                                                <span><strong>@iResearchInvestigationLang.lblCity<span class="requireField">*</span></strong></span>
+                                                                @Html.TextBoxFor(m => m.AddressLocality, new { @class = "form-control", autocomplete = "off" })
+                                                                <span class="text-danger" id="spnCity" style="display:none;">@iResearchInvestigationLang.lblRequiredCity</span>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <span><strong>@iResearchInvestigationLang.lblState</strong></span>
+                                                                @Html.TextBoxFor(m => m.AddressRegion, new { @class = "form-control", autocomplete = "off" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="row padding-top-15px">
+                                                            <div class="col-md-6">
+                                                                <span><strong>@iResearchInvestigationLang.lblPostalCode<span class="requireField">*</span></strong></span>
+                                                                @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control", autocomplete = "off" })
+                                                                <span class="text-danger" id="spnPostal" style="display:none;">@iResearchInvestigationLang.lblRequiredPostalCode</span>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <span><strong>@iResearchInvestigationLang.lblCountryISOCode<span class="requireField">*</span></strong></span>
+                                                                @Html.DropDownListFor(m => m.CountryISOAlpha2Code, (CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)), CommonMessagesLang.lblSelectCountry, new { @class = "form-control chzn-select countryCode", autocomplete = "off" })
+                                                                <span class="text-danger" id="spnCountry" style="display:none;">@iResearchInvestigationLang.lblRequiredCountryISOCode</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row padding-top-15px">
+                                                            <div class="col-md-6">
+                                                                <span><strong>@iResearchInvestigationLang.lblCustomerTransactionID</strong></span>
+                                                                @Html.TextBoxFor(m => m.SrcRecordId, new { @class = "form-control", autocomplete = "off" })
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <span><strong>@iResearchInvestigationLang.lblCustomerReference</strong></span>
+                                                                @Html.TextBoxFor(m => m.CustomerTransactionReference, new { @class = "form-control", autocomplete = "off", maxlength = "32" })
+                                                            </div>
+                                                        </div>
+                                                        <div class="row padding-top-15px">
+                                                            <div class="col-md-6">
+                                                                <span><strong>@iResearchInvestigationLang.lblRequestorEmailAddress<span class="requireField">*</span></strong></span>
+                                                                @Html.TextBoxFor(m => m.CustomerRequestorEmail, new { @class = "form-control", autocomplete = "off" })
+                                                                <span class="text-danger" id="spnReEmail" style="display:none;">@iResearchInvestigationLang.lblRequiredEmail</span>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <span><strong>@iResearchInvestigationLang.lblResearchComments<span class="requireField">*</span></strong></span>
+                                                                @Html.TextAreaFor(m => m.ResearchComments, new { @class = "form-control", autocomplete = "off", rows = 6 })
+                                                                <span class="text-danger" id="spnReComments" style="display:none;">@iResearchInvestigationLang.lblRequiredResearchComments</span>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                    @if (IsInvestigated == null)
+                    {
+                        <div class="col-md-12">
+                            <span class="error minierrMsg"></span>
+                        </div>
+                        <div>
+                            <div class="col-md-12 text-align-center">
+                                <input id="btnMiniinvestigationSave" type="submit" value="@iResearchInvestigationLang.lblSubmit" class="btn btn-primary" />
+                                <input id="btnCancel" type="button" value="@iResearchInvestigationLang.lblCancel" class="btn btn-Secondary" />
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="ResearchInvestigationStatus">
+                                    <span>@iResearchInvestigationLang.lblInvestigationStatus : @IsInvestigated.CaseStatus (@IsInvestigated.CaseResolution)</span>
+                                </div>
+                            </div>
+                            <div class="col-md-7">
+                                <input id="btnCancel" type="button" value="@iResearchInvestigationLang.lblCancel" class="btn btn-Secondary" />
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,110 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.LanguageResources;
+@model NotificationProfileEntity
+@{
+    AjaxOptions NotificationProfileajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "OnSuccessUpsertNotificationProfile"
+    };
+    string ConnectionString = ViewBag.ConnectionString;
+}
+<article class="col-md-12 sortable-grid ui-sortable widget-data " id="articleAddUpdateNotificationProfile">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrNotificationProfile</strong>
+            </h2>
+            <ul id="widget-tab-Process" class="nav pull-right nav-pills Custom-pill">
+                <li>
+                    <div class="btn btn-sm " id="AddNotificationProfile" title="@DandBSettingLang.titleAddNotificationProfile">
+                        <span class="fa fa-plus"></span>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn btn-sm" id="EditNotificationProfile" title="@DandBSettingLang.titleEditNotificationProfile">
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10 ">
+                    @using (Ajax.BeginForm("AddUpdateNotificationProfile", "DNBMonitoring", null, NotificationProfileajaxOptions, new { id = "frmNotificationProfile" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.NotificationProfileID)
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <span><strong>@DandBSettingLang.lblNotificationProfileName</strong></span>
+                                @Html.TextBoxFor(m => m.NotificationProfileName, new { @class = "form-control", @placeholder = DandBSettingLang.lblNotificationProfileName, autocomplete = "off", maxlength = "64", disabled = "disabled" })
+                                <span id="spnNotificationName" class="error" style="display:none;">@DandBSettingLang.lblNotificationProfileNameRequired</span>
+                            </div>
+
+                            <div class="col-xs-4">
+                                <span><strong>@DandBSettingLang.lblNotificationProfileDescription</strong></span>
+                                @Html.TextBoxFor(m => m.NotificationProfileDescription, new { @class = "form-control", @placeholder = DandBSettingLang.lblNotificationProfileDescription, autocomplete = "off", maxlength = "256", disabled = "disabled" })
+                                <span id="spnspnNotificationDesc" class="error" style="display:none;">@DandBSettingLang.lblNotificationProfileDescriptionRequired</span>
+                            </div>
+                            <div class="col-xs-4">
+                                <span><strong>@DandBSettingLang.lblUserPreferenceName</strong></span>
+                                @Html.DropDownList("DeliveryChannelUserPreferenceName", new SelectList(SBISCCMWeb.Controllers.DNBMonitoringController.GetUserPreferenceName(ConnectionString), "Value", "Text", Model.DeliveryChannelUserPreferenceName), new { @class = "form-control", autocomplete = "off", disabled = "disabled" })
+                                <span id="spnDeliveryChannelUserPreferenceName" class="error" style="display:none;">@DandBSettingLang.lblUserPreferencesRequired</span>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                    <div class="no-padding">
+                                        <span><strong>@DandBSettingLang.lblDeliveryFrequency</strong></span>
+                                        @Html.DropDownList("DeliveryFrequency", new SelectList(SBISCCMWeb.Controllers.DNBMonitoringController.GetFrequency(), "Value", "Text", Model.DeliveryFrequency), new { @class = "form-control", autocomplete = "off", disabled = "disabled" })
+                                        <span id="spnDeliveryFrequency" class="error" style="display:none;">@DandBSettingLang.lblDeliveryFrequencyRequired</span>
+                                    </div>
+                                <div class=" orm-group paddingto5">
+                                    <div class=" no-padding">
+                                        <label class="checkbox" style="padding-left:20px;width: 100%;display: flex;align-items: center;">
+                                            @Html.CheckBoxFor(m => m.StopDeliveryIndicator, new { disabled = "disabled" })
+                                            <span><strong>@DandBSettingLang.lblStopDeliveryIndicator</strong></span>
+                                        </label>
+                                        <label class="checkbox" style="padding-left:20px;width: 100%;display: flex;align-items: center;">
+                                            @Html.CheckBoxFor(m => m.CompressedProductIndicator, new { disabled = "disabled" })
+                                            <span><strong>@DandBSettingLang.lblCompressedProductIndicator</strong></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="no-padding">
+                                        <span><strong>@DandBSettingLang.lblInquiryReferenceText</strong></span>
+                                        @Html.TextAreaFor(m => m.InquiryReferenceText, new { @class = "form-control clsReferenceText", autocomplete = "off", maxlength = "240", disabled = "disabled" })
+                                        <span id="spnReferenceText" class="error" style="display:none;">@DandBSettingLang.lblInquiryReferenceTextRequired</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row form-group text-right">
+                            <div class="col-md-12">
+                                @if (Model != null && Model.NotificationProfileID > 0)
+                                {
+                                    @Html.HiddenFor(m => m.NotificationProfileID)
+                                    <input type="submit" value="@DandBSettingLang.lblUpdateNotification" name="btnNotificationProfile" id="btnNotificationProfile" class="btn btn-primary" style="display:none" />
+                                }
+                                else
+                                {
+                                    <input type="submit" value="@DandBSettingLang.lblAddNotification" name="btnNotificationProfile" id="btnNotificationProfile" class="btn btn-primary" style="display:none" />
+                                }
+
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

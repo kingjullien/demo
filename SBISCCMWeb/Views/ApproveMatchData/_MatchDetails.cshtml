@@ -1,0 +1,324 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@model Tuple<MatchEntity, CompanyEntity>
+@{
+    var mathChEntity = Model.Item1;
+    var companyEntity = Model.Item2;
+    var innerItem = mathChEntity;
+    Layout = null;
+    string dataNext = Convert.ToString(ViewBag.dataNext);
+    string dataPrev = Convert.ToString(ViewBag.dataPrev);
+    var NextToNextDUNS = Convert.ToString(ViewBag.NextToNextDUNS);
+    var PrevToPrevDUNS = Convert.ToString(ViewBag.PrevToPrevDUNS);
+    string IsSearchData = Convert.ToString(ViewBag.SelectData);
+    var i = 0;
+    string conditions = "";
+    if (Convert.ToBoolean(Helper.IsExpand) == true)
+    {
+        conditions = "<script type='text/javascript'>$('#lnkCollapse i').removeClass('fa-plus').addClass('fa-minus');$('.detailview').addClass('show in');</script>";
+    }
+}
+
+    <header role="heading">
+        <h2 class="text-center ">
+            <strong class="fontsize-25">Match Record Detail View</strong>
+        </h2>
+    </header>
+    <header role="heading">
+        <h4 class="background-blue">
+            <strong>Match Data</strong>
+        </h4>
+    </header>
+    @Html.Hidden("Approve", Helper.Approve)
+@Html.Hidden("IsSearchData", IsSearchData)
+    <div class="table-responsive container tablewidth matchtdstyle">
+        <table class="textBlue borderNone table popuptopcolor MatchedItem">
+            <tbody>
+                @if (IsSearchData.ToLower()== "approvematch")
+                {
+                    <tr>
+                        <td colspan="4">Src Id : <a href="javascript:void(0)" class="CustomAttribute" data-val="@innerItem.InputId" id="@innerItem.InputId">@innerItem.SrcRecordId </a></td>
+                    </tr>
+                }
+                <tr>
+                    <td class="dnbDunsNumber" data-val="@(innerItem != null ? innerItem.DnBDUNSNumber : "")">DUNS NO : @(innerItem != null ? innerItem.DnBDUNSNumber : "") </td>
+                    <td>Company Name : @(innerItem != null ? innerItem.DnBOrganizationName : "") </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Confidence Code : @(innerItem != null ? Convert.ToString(innerItem.DnBConfidenceCode) : "")   </td>
+                    <td>Match Grade : @(innerItem != null ? innerItem.DnBMatchGradeText : "")  </td>
+                    <td>MDP :  @(innerItem != null ? innerItem.MDP_Name + "-" + innerItem.MDP_PhysicalAddress + "-" + innerItem.MDP_MailAddress + "-" + innerItem.MDP_Phone : "") </td>
+                    <td class="clsselectmatch">
+                        @if (IsSearchData.ToLower() == "approvematch")
+                        {
+                            if (innerItem != null)
+                            {
+                                if (innerItem.IsSelected == true)
+                                {
+                                    <span class="displaylbl ">Selected :</span>
+                                    <div class="@innerItem.SrcRecordId.Replace(" ", "")   actionButton  btnSelected margin-left-5 popupStewardShipNotes MatchDNBDunsclass" id="@(innerItem.InputId+ "-" + innerItem.DnBDisplaySequence + "-" + innerItem.DnBDUNSNumber)">
+                                        <span></span>
+                                    </div>
+                            }
+                            else
+                            {
+                                <span class="displaylbl ">Select :</span>
+                                    <div class="@innerItem.SrcRecordId.Replace(" ", "") actionButton  btnUnselected margin-left-5 popupStewardShipNotes MatchDNBDunsclass" id="@(innerItem.InputId+ "-" + innerItem.DnBDisplaySequence + "-" + innerItem.DnBDUNSNumber)">
+                                        <span></span>
+                                    </div>
+                                }
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>Operating : @(innerItem != null ? innerItem.DnBOperatingStatus : "")   </td>
+                    <td>Role : @(innerItem != null ? innerItem.DnBFamilyTreeMemberRole : "")  </td>
+                    <td colspan="2" class="Seq" data-val="@(innerItem != null ? innerItem.DnBDisplaySequence : "")">Seq# : @(innerItem != null ? innerItem.DnBDisplaySequence : "") </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    @if (Convert.ToString(ViewBag.AdditionalFields) == "AdditionalFields")
+    {
+        <div id="content" style="opacity: 1;">
+            <section id="widget-grid" class="additional-main">
+                <div class="">
+                    <article class="col-xs-12  sortable-grid ui-sortable">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark clswidget" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading" class="">
+                                <ul id="widget-tab-Company" class="nav nav-pills Custom-pill">
+                                    <li class="">
+                                        <a id="lnkCollapse" data-toggle="collapse" data-parent="#accordion" href="#accordion" aria-expanded="true" aria-controls="accordion">
+                                            <i class="more-less fa fa-plus ColorBlack "></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </header>
+                            <div role="content" class="table-cal-space collapse transition-fast detailview" id="accordion">
+                                <div class="jarviswidget-editbox"></div>
+                                <div class="widget-body no-padding">
+                                    <div class="tab-content padding-10">
+                                        <div class="">
+                                            <div id="hr2" class="tab-pane fade active in additional-border-style new-additional-table">
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <span>Inp DUNS NO:</span>
+                                                        <span>@companyEntity.DUNSNumber</span>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <span>CEO Name :</span>
+                                                        <span>@companyEntity.CEOName</span>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <span>Website :</span>
+                                                        <span><a href="@(!string.IsNullOrEmpty(companyEntity.Website)?companyEntity.Website.Contains("http")?companyEntity.Website:"http://"+companyEntity.Website :companyEntity.Website)" target="_blank">@companyEntity.Website</a></span>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <span>Alt. Company Name :</span>
+                                                        <span>@companyEntity.AltCompanyName</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <span>Alt. Address :</span>
+                                                        <span>@companyEntity.AltAddress</span>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <span>Alt City :</span>
+                                                        <span>@companyEntity.AltCity</span>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <span>Alt. State :</span>
+                                                        <span>@companyEntity.AltState</span>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <span>Alt. PostalCode :</span>
+                                                        <span>@companyEntity.AltPostalCode</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <span>Alt Country :</span>
+                                                        <span>@companyEntity.AltCountry</span>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <span>Email :</span>
+                                                        <span>@companyEntity.Email</span>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <span>Registration Number :</span>
+                                                        <span>@companyEntity.RegistrationNbr</span>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <span>Registration Type :</span>
+                                                        <span>@companyEntity.RegistrationType</span>
+                                                    </div>
+                                                </div>
+                                                @if (Helper.LicenseEnableTags)
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <span>Tags :</span>
+                                                            <span>@companyEntity.Tags</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+    }
+    <div class="row  pull-right button-position">
+        <div class="widget-toolbar marginright-5 " role="menu">
+            <ul class="pagination pagination-xs preNext">
+                <li class="@(dataPrev ==""?"disabled":null)">
+                    <a href="javascript:void(0);" onclick="prevClick(this);" class="matchdetail-Prev" data-val="@dataPrev" data-prev="@PrevToPrevDUNS" data-Id="@companyEntity.InputId">Prev</a>
+                </li>
+                <li class="@(dataNext ==""?"disabled":null)">
+                    <a href="javascript:void(0);" onclick="nextClick(this);" class="matchdetail-Next" data-val="@dataNext" data-Next="@NextToNextDUNS" data-Id="@companyEntity.InputId">Next</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="container tabletopspace">
+        <div class="row">
+            <table class="table borderNone MatchedItem">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Input  </th>
+                        <th>D&amp;B Data</th>
+                        <th>Match Grade</th>
+                        <th>MDP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (innerItem != null)
+                    {
+                        <tr>
+                            <td>Company Name</td>
+                            <td>@(Helper.CompanyName)</td>
+                            <td class="@((innerItem.DnBMatchGradeText==null?0:innerItem.DnBMatchGradeText.Length) > 0 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(0, 1)) : "/ColorZ/")">@(innerItem.DnBOrganizationName) </td>
+                            <td>@(Helper.GetMatchGradeValue(innerItem.MGCompanyName, this.LayoutModel.CurrentClient.ApplicationDBConnectionString))  </td>
+                            <td>@(Helper.GetMDPValue(innerItem.MDPVCompanyName, "Company", this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+
+                    </tr>
+                    if (!string.IsNullOrEmpty(innerItem.DnBTradeStyleName))
+                    {
+                        <tr>
+                            <td>TradeStyleName</td>
+                            <td></td>
+                            <td>@innerItem.DnBTradeStyleName</td>
+                            <td> </td>
+                            <td></td>
+
+                        </tr>
+                    }
+                    if (!string.IsNullOrEmpty(innerItem.DnBSeniorPrincipalName))
+                    {
+                        <tr>
+                            <td>Sr. Principal Name</td>
+                            <td></td>
+                            <td>@innerItem.DnBSeniorPrincipalName </td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    }
+                    <tr>
+                        <td>Street #</td>
+                        <td> </td>
+                        <td class="@((innerItem.DnBMatchGradeText==null?0:innerItem.DnBMatchGradeText.Length) > 1 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(1, 1)) : "/ColorZ/")">@innerItem.StreetNo  </td>
+                        <td>@(Helper.GetMatchGradeValue(innerItem.MGStreetNo, this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+                        <td>@(Helper.GetMDPValue(innerItem.MDPVStreetNo, "StreetNo", this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+                    </tr>
+                        <tr>
+                            <td>Street Name</td>
+                            <td>@(Helper.Address)</td>
+                            <td class="@((innerItem.DnBMatchGradeText==null?0:innerItem.DnBMatchGradeText.Length) > 2 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(2, 1)) : "/ColorZ/")">@innerItem.StreetName</td>
+                            <td>@(Helper.GetMatchGradeValue(innerItem.MGStreetName, this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+                            <td>@(Helper.GetMDPValue(innerItem.MDPVStreetName, "StreetName", this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+
+                        </tr>
+                        <tr>
+                            <td>City/Town</td>
+                            <td>@(Helper.City) </td>
+                            <td class="@((innerItem.DnBMatchGradeText==null?0:innerItem.DnBMatchGradeText.Length) > 3 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(3, 1)) : "/ColorZ/")">@(innerItem.DnBPrimaryTownName) </td>
+                            <td>@(Helper.GetMatchGradeValue(innerItem.MGCity, this.LayoutModel.CurrentClient.ApplicationDBConnectionString))</td>
+                            <td>@(Helper.GetMDPValue(innerItem.MDPVCity, "City", this.LayoutModel.CurrentClient.ApplicationDBConnectionString))</td>
+                        </tr>
+                        <tr>
+                            <td>State</td>
+                            <td>@(Helper.State)</td>
+                            <td class="@((innerItem.DnBMatchGradeText==null?0:innerItem.DnBMatchGradeText.Length) > 4 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(4, 1)) : "/ColorZ/")">@(innerItem.DnBTerritoryAbbreviatedName)</td>
+                            <td>@(Helper.GetMatchGradeValue(innerItem.MGState, this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+                            <td>@(Helper.GetMDPValue(innerItem.MDPVState, "State", this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+                        </tr>
+                        <tr>
+                            <td>Mailing Address</td>
+                            <td></td>
+                            <td class="@((innerItem.DnBMatchGradeText==null?0:innerItem.DnBMatchGradeText.Length) > 5 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(5, 1)) : "/ColorZ/")"> </td>
+                            <td>@(Helper.GetMatchGradeValue(innerItem.MGMailingAddress, this.LayoutModel.CurrentClient.ApplicationDBConnectionString))</td>
+                            <td>@(Helper.GetMDPValue(innerItem.MDPVMailingAddress, "MailingAddress", this.LayoutModel.CurrentClient.ApplicationDBConnectionString))  </td>
+                        </tr>
+                        <tr>
+                            <td>Phone Number</td>
+                            <td>@(Helper.PhoneNbr) </td>
+                            <td class="@((innerItem.DnBMatchGradeText==null?0:innerItem.DnBMatchGradeText.Length) > 6 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(6, 1)) : "/ColorZ/")">@(innerItem.DnBTelephoneNumber) </td>
+                            <td>@(Helper.GetMatchGradeValue(innerItem.MGTelephone, this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+                            <td>@(Helper.GetMDPValue(innerItem.MDPVTelephone, "Phone", this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+                        </tr>
+                        <tr>
+                            <td>Postal Code</td>
+                            <td>@(Helper.Zip)</td>
+                            <td class="@((innerItem.DnBMatchGradeText==null?0:innerItem.DnBMatchGradeText.Length) > 7 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(7, 1)) : "/ColorZ/")">@(innerItem.DnBPostalCode)</td>
+                            <td>@(Helper.GetMatchGradeValue(innerItem.MGZipCode, this.LayoutModel.CurrentClient.ApplicationDBConnectionString))</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Density</td>
+                            <td></td>
+                            <td class="@((innerItem.DnBMatchGradeText==null?0:innerItem.DnBMatchGradeText.Length) > 8 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(8, 1)) : "/ColorZ/")"></td>
+                            <td>@(Helper.GetMatchGradeValue(innerItem.MGDensity, this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Uniqueness</td>
+                            <td></td>
+                            <td class="@((innerItem.DnBMatchGradeText==null?0:innerItem.DnBMatchGradeText.Length) > 9 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(9, 1)) : "/ColorZ/")"></td>
+                            <td>@(Helper.GetMatchGradeValue(innerItem.MGUniqueness, this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>SIC</td>
+                            <td></td>
+                            <td class="@((innerItem.DnBMatchGradeText==null?0:innerItem.DnBMatchGradeText.Length) > 10 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(10, 1)) : "/ColorZ/")"></td>
+                            <td>@(Helper.GetMatchGradeValue(innerItem.MGSIC, this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+                            <td></td>
+                        </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">No Record(s) Found</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="row paddingto5">
+        <div class="text-center">
+            <input type="button" id="btnAddCompany" value="Add match as a new company" class="btn btn-primary btnAddCompany" data-val="@SerializeHelper.SerializeObject(@innerItem)" />
+        </div>
+    </div>
+</div>
+@Html.Raw(conditions)

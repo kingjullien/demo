@@ -1,0 +1,112 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.LanguageResources;
+@using SBISCompanyCleanseMatchBusiness.Objects
+@model DashboardImportProcessDataQueueStatisticsEntity
+@{
+    bool isShowProcessing = Model.MatchProcessingRecordCount > 0 || Model.EnrichmentProcessingDUNSCount > 0 ? true : false;
+}
+<style> 
+svg:not(:root) {
+    overflow: visible;
+}
+.highcharts-container
+{
+    overflow: visible !important;
+    width: auto !important;
+}
+#ImportFileStatsChart
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+</style>
+<div class="modal" id="ImportFileStatsModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="width:700px;">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="importfiles">
+                    <h4 class="modal-title">@ImportDataLang.lblImportFileStats</h4> @Model.ImportProcess
+                </div>
+            </div>
+            <div class="modal-body">
+                @Html.Hidden("FileStatsImportProcessId", Model.ImportProcessId)
+                <div class="row">
+                    <div class="@(Model.MatchExportRecordCount > 0 ? "col-md-7" : "col-md-12")">
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>@ImportDataLang.lblQueue</th>
+                                        <th>@ImportDataLang.lblRecords</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@ImportDataLang.lblInputData</td>
+                                        <td>@Model.InputRecordCount</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@ImportDataLang.lblTotalImported</td>
+                                        <td>@Model.ImportedRowCount</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@ImportDataLang.lblDataStewMatchData</td>
+                                        <td>@Html.ActionLink(Model.DS_LowConfidenceMatchRecordCount.ToString(), "SaveImportFiler", "UserSessionFilter", new { ImportProcess = StringCipher.Encrypt(Model.ImportProcess, General.passPhrase), From = "MatchData" }, null)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@ImportDataLang.lblDataStewNoMatch</td>
+                                        <td>@Html.ActionLink(Model.DS_NoMatchRecordCount.ToString(), "SaveImportFiler", "UserSessionFilter", new { ImportProcess = StringCipher.Encrypt(Model.ImportProcess, General.passPhrase), From = "CleanData" }, null)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@ImportDataLang.lblExportQueueMatchOutput</td>
+                                        <td>@Html.ActionLink(Model.MatchExportRecordCount.ToString(), "Index", "ExportView", new { ImportProcess = StringCipher.Encrypt(Model.ImportProcess, General.passPhrase) }, null)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@ImportDataLang.lblExportQueueEnrichmentOutput</td>
+                                        <td>@Html.ActionLink(Model.EnrichmentExportDUNSCount.ToString(), "Index", "ExportView", new { ImportProcess = StringCipher.Encrypt(Model.ImportProcess, General.passPhrase) }, null)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>@ImportDataLang.lblAwaitingDataArchivalQueue</td>
+                                        <td>@Html.ActionLink(Model.ArchivalQueueCount.ToString(), "Index", "ExportView", new { ImportProcess = StringCipher.Encrypt(Model.ImportProcess, General.passPhrase) }, null)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @if (Model.MatchExportRecordCount > 0)
+                    {
+                        <div class="col-md-5">
+                            <div id="ImportFileStatsChart">
+
+                            </div>
+                            <div class="row divDataStewardStatisticsImportFile">
+                                <div class="col-md-8">
+                                    <p class="txtlblDataSteward">
+                                        <span>@ImportDataLang.lblNameAddressLookup</span>
+                                    </p>
+                                    <span id="spnNameAddressLkupCnt"></span>
+                                </div>
+                                <div class="col-md-4">
+                                    <p class="txtlblDataSteward">
+                                        <span>@ImportDataLang.lblAltLookup</span>
+                                    </p>
+                                    <span id="spnAlterLkupCnt"></span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Scripts/CustomJS/ImportDataFileStats.js"></script>

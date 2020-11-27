@@ -1,0 +1,50 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+<div class="modal" id="AddMultiPassConfigModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@DandBSettingLang.hdrMultiPassConfiguration</h4>
+            </div>
+            <div class="modal-body">
+                <article class="sortable-grid ui-sortable" id="articleAddupdateDnbGroupAPI">
+                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <h2>
+                                <strong>@DandBSettingLang.hdrMultiPassTagSelection</strong>
+                            </h2>
+                        </header>
+                        <div role="content">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body">
+                                <div id="divMultiPassTagSelection">
+                                    <div class="col-sm-6 col-xs-6">
+                                        <label class="font-weight-bold mr-2 mb-1">@DandBSettingLang.lblTag</label>
+                                        <div class="DisplayFlex">
+                                            @Html.DropDownList("Tags", CommonDropdown.GetTagsForMPM(106001, this.LayoutModel.CurrentClient.ApplicationDBConnectionString).InsertEmptyFirst(CommonMessagesLang.lblSelectTag), new { @class = "form-control", @autocomplete = "off" })
+                                            @if (Helper.UserType.ToLower() != "steward")
+                                            {<i class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></i>}
+                                        </div>
+                                        <span id="spnTags" class="error" style="display:none;">@DandBSettingLang.lblTagRequired</span>
+                                    </div>
+                                    <div class="col-sm-6 col-xs-6">
+                                    </div>
+                                    <div class="col-md-12 text-align-right">
+                                        <input type="button" class="btn btn-primary" value="@ImportDataLang.lblNext" id="AddMultiPassTagNext" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <div id="divMultiPassGroupCreation" style="display:none"></div>
+                <div id="divMultiPassPrecedence" style="display:none"></div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,50 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model List<SBISCCMWeb.Models.webSearch>
+@{
+    Layout = null;
+    string searchValue = string.IsNullOrEmpty(ViewBag.searchValue) ? "" : ViewBag.searchValue;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialBingSearch",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+}
+<div class="modal" id="OIBingSearchModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@OIMatchDataLang.lblBingSearch</h4>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    @using (Ajax.BeginForm("OIBingSearch", "OIMatchData", null, ajaxOptions, new { @class = "padding-import-bottom", role = "form", @autocomplete = "off" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                @Html.TextBox("searchValue", "", new { @class = "form-control", @placeholder = OIMatchDataLang.placeholderSearchWeb, autocomplete = "off", Value = searchValue })
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" value="Search" id="btnBingsearchSubmit" class="btn btn-primary btnBlack" />
+                            </div>
+                        </div>
+                    }
+
+                    <div id="divPartialBingSearch">
+                        @{Html.RenderPartial("~/Views/OI/OIMatchData/_bingSearch.cshtml", Model);}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+

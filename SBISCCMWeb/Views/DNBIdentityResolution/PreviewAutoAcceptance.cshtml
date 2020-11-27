@@ -1,0 +1,189 @@
+﻿@model List<SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.PreviewAutoAcceptanceRuleEntity>
+@using SBISCCMWeb.LanguageResources
+@{
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divSearchData",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "ReloadSuccess()"
+    };
+    bool ExcludeFromAutoAccept = Convert.ToBoolean(ViewBag.ExcludeFromAutoAccept);
+    int intButtonNo = 0;
+}
+<style>
+    .previewAutoAcceptancePopup {
+        height: 707px;
+        width: 880px;
+    }
+
+    .previewScroll {
+        width: 5345px !important;
+    }
+</style>
+<script>
+
+    function scrollMain(objThis) {
+        var scrollPx = $(objThis).scrollTop();
+        $('.inner_table').scrollTop(scrollPx);
+    }
+    var curPosition = 0;
+    function scrollInside(objThis) {
+        var scrollPx = $(objThis).scrollTop();
+        var newPosition = scrollPx + (scrollPx > 5 ? 25 : 0)
+        console.log(scrollPx, curPosition);
+        if (scrollPx < curPosition) {
+            newPosition = scrollPx - (scrollPx > 5 ? 25 : 0)
+        }
+        curPosition = newPosition;
+        $(objThis).attr('onscroll', '');
+        $(objThis).scrollTop(newPosition);
+        $('.clsMatchoverlay').scrollTop(newPosition);
+        setTimeout(function () {
+            $(objThis).attr('onscroll', 'scrollInside(this)');
+        }, 50);
+    }
+    $(document).ready(function () {
+        $('.clsMatchoverlayInside').height($('#AutoAcceptance').height() + 15);
+        $('.inner_table').width($('.tableFixedHeader').width());
+
+    });
+</script>
+<div class="modal" id="PreviewAutoAcceptanceModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content previewAutoAcceptancePopup">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@DandBSettingLang.hdrMatchCandidates</h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="tab-pane fade active in">
+                    <div class="AutoAcceptnaceScroll">
+                        <div class="clsMatchoverlay" onscroll="scrollMain(this);">
+                            <div class="clsMatchoverlayInside" style="width:100%">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divAutoAcceptanceTable" class="pane pane--table1">
+                        <table class="table @(Model.Count > 0?"table-fixed":"") table-bordered customTable table-autosort table-autofilter tableSection head tableFixedHeader" role="grid" style="margin-bottom:0;">
+                            <thead>
+                                <tr>
+
+                                    <th class="previewTabelWidth120">@DandBSettingLang.lblSrcRecordId</th>
+                                    <th>@DandBSettingLang.lblCompanyName</th>
+                                    <th>@DandBSettingLang.lblAddress</th>
+                                    <th class="previewTabelWidth120">@DandBSettingLang.lblCity</th>
+                                    <th class="previewTabelWidth120">@DandBSettingLang.lblState</th>
+                                    <th class="previewTabelWidth120">@DandBSettingLang.lblPostalCode</th>
+                                    <th class="previewTabelWidth120">@DandBSettingLang.lblCountryCode</th>
+                                    <th class="previewTabelWidth120">@DandBSettingLang.lblPhoneNbr</th>
+                                    <th>@DandBSettingLang.lblTransactionTimestamp</th>
+                                    <th class="previewTabelWidth120">@DandBSettingLang.lblDnBDUNSNumber</th>
+                                    <th>@DandBSettingLang.lblDnBOrganizationName</th>
+                                    <th>@DandBSettingLang.lblDnBTradeStyleName</th>
+                                    <th>@DandBSettingLang.lblDnBSeniorPrincipalName</th>
+                                    <th>@DandBSettingLang.lblDnBStreetAddressLine</th>
+                                    <th>@DandBSettingLang.lblDnBPrimaryTownName</th>
+                                    <th class="previewTabelWidth120">@DandBSettingLang.lblDnBCountryCode</th>
+                                    <th class="previewTabelWidth120">@DandBSettingLang.lblDnBPostalCode</th>
+                                    <th>@DandBSettingLang.lblDnBPostalCodeExtensionCode</th>
+                                    <th>@DandBSettingLang.lblDnBTerritoryAbbreviatedName</th>
+                                    <th>@DandBSettingLang.lblDnBAddressUndeliverable</th>
+                                    <th class="">@DandBSettingLang.lblDnBTelephoneNumber</th>
+                                    <th class="previewTabelWidth135">@DandBSettingLang.lblDnBOperatingStatus</th>
+                                    <th>@DandBSettingLang.lblDnBFamilyTreeMemberRole</th>
+                                    <th>@DandBSettingLang.lblDnBStandaloneOrganization</th>
+                                    <th class="previewTabelWidth135">@DandBSettingLang.lblDnBConfidenceCode</th>
+                                    <th class="previewTabelWidth135">@DandBSettingLang.lblDnBMatchGradeText</th>
+                                    <th>DnBMatchDataProfileText</th>
+                                    <th class="previewTabelWidth135">@DandBSettingLang.lblDnBMDPCount</th>
+                                    <th class="previewTabelWidth135">@DandBSettingLang.lblDnBDisplaySequence</th>
+                                    <th class="previewTabelWidth135">@DandBSettingLang.lblExcludedCandidate</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                        <div class="inner_table previewScroll" style="" onscroll="scrollInside(this);">
+                            <table id="AutoAcceptance" class="table table-bordered panel-group customTable table-autosort table-autofilter tableSection head" role="grid">
+                                <tbody>
+                                    @if (Model.Count > 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            intButtonNo++;
+                                            <tr class="@(intButtonNo%2==0?"AlternateRow":null)">
+                                                <td class="previewTabelWidth120">@item.SrcRecordId</td>
+                                                <td>@item.CompanyName</td>
+                                                <td>@item.Address</td>
+                                                <td class="previewTabelWidth120">@item.City</td>
+                                                <td class="previewTabelWidth120">@item.State</td>
+                                                <td class="previewTabelWidth120">@item.PostalCode</td>
+                                                <td class="previewTabelWidth120">@item.CountryISOAlpha2Code</td>
+                                                <td class="previewTabelWidth120">@item.PhoneNbr</td>
+                                                <td>@item.TransactionTimestamp</td>
+                                                <td class="previewTabelWidth120">@item.DnBDUNSNumber</td>
+                                                <td>@item.DnBOrganizationName</td>
+                                                <td>@item.DnBTradeStyleName</td>
+                                                <td>@item.DnBSeniorPrincipalName</td>
+                                                <td>@item.DnBStreetAddressLine</td>
+                                                <td>@item.DnBPrimaryTownName</td>
+                                                <td class="previewTabelWidth120">@item.DnBCountryISOAlpha2Code</td>
+                                                <td class="previewTabelWidth120">@item.DnBPostalCode</td>
+                                                <td>@item.DnBPostalCodeExtensionCode</td>
+                                                <td>@item.DnBTerritoryAbbreviatedName</td>
+                                                <td>@item.DnBAddressUndeliverable</td>
+                                                <td class="">@item.DnBTelephoneNumber</td>
+                                                <td class="previewTabelWidth135">@item.DnBOperatingStatus</td>
+                                                <td>@item.DnBFamilyTreeMemberRole</td>
+                                                <td>@item.DnBStandaloneOrganization</td>
+                                                <td class="previewTabelWidth135">@item.DnBConfidenceCode</td>
+                                                <td class="previewTabelWidth135">@item.DnBMatchGradeText</td>
+                                                <td>@item.DnBMatchDataProfileText</td>
+                                                <td class="previewTabelWidth135">@item.DnBMatchDataProfileComponentCount</td>
+                                                <td class="previewTabelWidth135">@item.DnBDisplaySequence</td>
+                                                <td class="previewTabelWidth135">@item.ExcludedCandidate</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="30">@DandBSettingLang.lblNoDataAreAvailable</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row text-center">
+                        <div class="col-md-12 col-sm-12">
+                            <span style="font-size:12px">@DandBSettingLang.lblNotePreviewAutoAcceptance</span>
+                        </div>
+                        @if (Model.Count > 0)
+                        {
+                            <div class="col-md-12 col-sm-12">
+                                <a class="btn btn-primary btnPreviewApplyAutoAcceptance" @(ExcludeFromAutoAccept ? "disabled=''disabled" : "")>@DandBSettingLang.lblApply</a>
+                                <a href="/DNBIdentityResolution/PreviewExportAutoAcceptance" class="btn btn-Secondary">@DandBSettingLang.lblExport</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-12 col-sm-12">
+                                <button class="btn btn-primary" disabled="disabled">@DandBSettingLang.lblApply</button>
+                                <a class="btn btn-Secondary" disabled="disabled">@DandBSettingLang.lblExport</a>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

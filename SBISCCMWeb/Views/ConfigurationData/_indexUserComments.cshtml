@@ -1,0 +1,59 @@
+﻿@using SBISCCMWeb.Utility;
+@model IPagedList<SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.UserCommentsEntity>
+
+@{
+    AjaxOptions ajaxOptionsForUserPaging = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialUserComments",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+    string sortorder = Convert.ToString(ViewBag.sortorder);
+    string SortBy = Convert.ToString(ViewBag.SortBy);
+}
+@Html.Hidden("UserCommentsPageValue", Convert.ToInt32(TempData["UserCommentsPageValue"]))
+@Html.Hidden("UserCommentsSortOrder", sortorder)
+@Html.Hidden("UserCommentsSortBy", SortBy)
+
+<div class="table-responsive">
+    <label class="select pull-right" style="padding-right:10px;">
+        Page Size :  @Html.DropDownList("UserCommentspagevalue", new SelectList(SBISCCMWeb.Utility.CommonMethod.GetPageSize(), Convert.ToInt32(TempData["UserCommentsPageValue"])), new { id = "UserCommentsPageValue", @class = "UserCommentspagevalueChange", @autocomplete = "off" })<i></i>
+    </label>
+    <table class="table table-bordered ">
+        <thead>
+            <tr>
+                @*<th> @Ajax.ActionLink("Comment Id", "IndexUserComments", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptionsForUserPaging)</th>*@
+                <th> @Ajax.ActionLink("Comment Type", "IndexUserComments", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 2, sortorder = (ViewBag.SortBy == 2 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptionsForUserPaging)</th>
+                <th> @Ajax.ActionLink("Comment", "IndexUserComments", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 3, sortorder = (ViewBag.SortBy == 3 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptionsForUserPaging)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*<td>@item.CommentId</td>*@
+                    <td>@item.CommentType</td>
+                    <td>@item.Comment</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="dt-toolbar-footer pull-right">
+        <div class="hidden-xs New-Paging">
+            <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                <a id="pagingFormAction" href="@Url.Action("IndexUserComments", "ConfigurationData", new {  page = 1, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder })" style="display:block"></a>
+                @Html.PagedListPager(Model, page => Url.Action("IndexUserComments", "ConfigurationData", new { page = page, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divPartialUserComments", LoadingElementId = "divProgress", OnSuccess = "OnSuccess()" }))
+            </div>
+        </div>
+    </div>
+</div>
+@if (Helper.UserType.ToLower() != "steward")
+{
+    <div class="row">
+        <div class="col-md-12 text-center padding-10">
+            <input type="button" value="Add" id="btnAddUserComments" name="btnAddUserComments" class="btn btn-primary" />
+        </div>
+    </div>
+}
+

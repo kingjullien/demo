@@ -1,0 +1,79 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@model List<TagsEntity>
+<article class="col-md-12 sortable-grid ui-sortable" id="ArticleManageTags">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@PortalSettingLang.hdrTagsList</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered TagsTB">
+                        <thead>
+                            <tr>
+                                <th>@PortalSettingLang.lblDescription</th>
+                                <th>@PortalSettingLang.lblLOBTag</th>
+                                <th>@PortalSettingLang.lblTag</th>
+                                @if (Helper.UserType.ToLower() != "steward")
+                                {
+                                    <th class="nosort">@PortalSettingLang.lblDelete </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr data-TagId="@item.TagId">
+                                        <td>@item.TagDescription</td>
+                                        <td>@item.LOBTag</td>
+                                        <td>@item.Tag</td>
+                                        @if (Helper.UserType.ToLower() != "steward")
+                                        {
+                                            var TagId = Utility.GetEncryptedString(Convert.ToString(item.TagId)).Replace("+", Utility.urlseparator);
+                                            <td>
+                                                <a href="javascript:void(0)" id="@TagId" class="deleteTag">@PortalSettingLang.lblDelete</a>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "Tags")
+{
+    <script>
+        $(document).ready(function () {
+             $("table.TagsTB tbody tr:first").addClass("current");
+                var Id = $("table.TagsTB tbody tr:first").attr("data-TagId");
+                $.ajax({
+                    type: 'GET',
+                    url: "/Portal/AddUpdateCompanyTags",
+                    dataType: 'HTML',
+                    cache: false,
+                    contentType: 'application/html',
+                    data: { Parameters: ConvertEncrypte(encodeURI(Id)).split("+").join("***") },
+                    success: function (data) {
+                        $("#divPartialAddUpdateTags").html(data);
+                        InitPortalTagsDataTable();
+                        var Tagvalue = $("#Tagvalue").val();
+                        $('#TagTypeCode').val(Tagvalue)
+                        if ($("table.TagsTB tbody tr").length == 0) {
+                            $("#editTag").attr("disabled", true);
+                        }
+                    }
+                });
+    });
+    </script>
+}

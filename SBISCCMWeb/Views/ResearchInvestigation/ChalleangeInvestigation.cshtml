@@ -1,0 +1,66 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Models
+@model iResearchChallengeEntity
+
+<div class="modal" id="InvestigationChallengeModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@iResearchInvestigationLang.lblChallengeInvestigation</h4>
+            </div>
+            <div class="modal-body">
+                @using (Ajax.BeginForm("SubmitChallengeInvestigation", "ResearchInvestigation", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OnSuccessChallengeInvestigation" }, new { id = "form_ChallengeInvestigation" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.caseID)
+                    @Html.HiddenFor(m => m.researchRequestID)
+                    @Html.HiddenFor(m => m.typeDnBCode)
+                    <div class="row">
+                        <div class="col-md-6">
+                            <span><strong>@iResearchInvestigationLang.lblCustomerTransactionID</strong></span>
+                            @Html.TextBoxFor(m => m.customerTransactionID, new { @class = "form-control", autocomplete = "off", maxlength = "32" })
+                        </div>
+                        <div class="col-md-6">
+                            <span><strong>@iResearchInvestigationLang.lblCustomerReference</strong></span>
+                            @Html.TextBoxFor(m => m.customerReference, new { @class = "form-control", autocomplete = "off", maxlength = "640" })
+                        </div>
+                    </div>
+                    <div class="row padding-top-15px">
+                        <div class="col-md-6">
+                            <span><strong>@iResearchInvestigationLang.lblChallengeReason</strong></span>
+                            @Html.DropDownListFor(m => m.challengeReason, new List<SelectListItem>
+                       {
+                           new SelectListItem{ Value = "33629",Text = "33629 - A change was not made that I expected"},
+                           new SelectListItem{ Value = "33630",Text = "33630 - A change was made, but it does not correspond to what I requested"},
+                           new SelectListItem{ Value = "33632",Text = "33632 - A change was made, but I am not seeing it in product"},
+                           new SelectListItem{ Value = "34443",Text = "34443 - D-U-N-S Number was not created even though sufficient information was provided"},
+                           new SelectListItem{ Value = "34444",Text = "34444 - Contact strategy not followed"},
+                           new SelectListItem{ Value = "34445",Text = "34445 - Incorrect update performed"},
+                           new SelectListItem{ Value = "34446",Text = "34446 - An expected change was not made, so additional information is being provided"},
+                           new SelectListItem{ Value = "34634",Text = "34634 - Additional information received after closure"}
+                       }, new { @class = "form-control", @autocomplete = "off" })
+                        </div>
+                        <div class="col-md-6">
+                            <span><strong>@iResearchInvestigationLang.lblResearchComments<span class="requireField">*</span></strong></span>
+                            @Html.TextAreaFor(m => m.comment, new { @class = "form-control", autocomplete = "off", rows = 5 })
+                            <span class="text-danger" id="spnReComments" style="display:none;">@iResearchInvestigationLang.lblRequiredResearchComments</span>
+                        </div>
+                    </div>
+                    <div class="">
+                        <span class="challengeError error"></span>
+                    </div>
+                    <div class="col-md-12 text-align-center padding-top-15px">
+                        <input id="btnChallengeInvestigationSubmit" type="submit" value="@iResearchInvestigationLang.lblSubmit" class="btn btn-primary" />
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+

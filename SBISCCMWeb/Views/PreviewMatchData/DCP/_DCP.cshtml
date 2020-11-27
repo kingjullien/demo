@@ -1,0 +1,41 @@
+﻿@model  IEnumerable<SBISCCMWeb.Models.PreviewMatchData.DCP.DCP_FamilyTreeMembers>
+
+<table class="table table-bordered" role="grid" style="margin:5px;">
+    <thead>
+        <tr>
+            @{
+                <th>
+                    FamilyTreeMemberRole
+                </th>
+                <th>
+                    FamilyTreeMemberRoleCode
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.FamilyTreeMemberRole
+                        </td>
+                        <td>
+                            @item.FamilyTreeMemberRoleCode
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="2">No record found.</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+

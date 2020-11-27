@@ -1,0 +1,143 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using System.Data;
+@using SBISCCMWeb.Utility;
+@using Newtonsoft.Json
+@using SBISCCMWeb.Models
+@using Resources = ViewResources.BrandingTypes;
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + ReportsListLang.titleReports;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + ReportsListLang.titleReports;
+    }
+    if (ViewBag.Id != null)
+    {
+        if (ViewBag.Id == "1")
+        {
+            ViewBag.Title = ReportsListLang.titleInputOutput;
+        }
+        else if (ViewBag.Id == "2")
+        {
+            ViewBag.Title = ReportsListLang.titleCompanyAudit;
+        }
+        else if (ViewBag.Id == "3")
+        {
+            ViewBag.Title = ReportsListLang.titleDataStewardship;
+        }
+    }
+    DataTable dtDataQueue = Session["lstDataQueue"] as DataTable;
+    DataSet dtDataStewardStatistics = Newtonsoft.Json.JsonConvert.DeserializeObject<DataSet>(SessionHelper.dtDataStewardStatistics);
+    DataSet dsDataAPIUsage = Newtonsoft.Json.JsonConvert.DeserializeObject<DataSet>(SessionHelper.dsDataAPIUsage);
+    DataTable dtDataAPIUsageTable = dsDataAPIUsage.Tables[0];
+}
+<div role="content" class="mainreportdiv">
+    <div class="row reportMainTitle">
+        @if (Helper.Branding == Branding.Matchbook.ToString())
+        {
+            <div class="col-md-2">
+                <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString(Resources.Resource_Matchbook.LoginImage))" class="reportLogo">
+            </div>
+            <script>
+                $("#content").addClass("imgmaindivMatchbook")
+            </script>
+        }
+        else if (Helper.Branding == Branding.DandB.ToString())
+        {
+            <div class="col-md-2">
+            </div>
+            <script>
+                $("#content").addClass("imgmaindivDandB")
+            </script>
+        }
+        <div class="col-md-8">
+            <h2 class="reportTitle" id="reportTitle">@ReportsListLang.lblDataQueueDashboard</h2>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="tabbable tabs-below reportCls data-dashboard">
+        <div class="tab-content padding-10 reportResponsiveTab">
+            <div id="TabDataQueue" class="tab-pane active">
+                <div id="partialDataQueuetitle">
+                </div>
+                <div class="margin-left-right-0">
+                    <div class="">
+                        <div id="partialDivRptDataQueueDashboard"></div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="TabDataStewrdStatistics" class="tab-pane">
+                <div class="row margin-left-right-0">
+                    <div class="col-md-3">
+                        <span>@ReportsListLang.lblGroups</span>
+                        @Html.DropDownList("UserGroup", new SelectList(SBISCCMWeb.Controllers.ReportsListController.GetUserGroups(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, dtDataStewardStatistics), "Text", "Value"), ReportsListLang.lblAll, new { @class = "form-control", @autocomplete = "off" })
+                    </div>
+                    <div class="col-md-9 mobileborder"><div id="partialDivRptDataStewdStatisticsByUser"></div></div>
+                </div>
+                <div class="row margin-left-right-0">
+                    <div class="col-md-12 mobileborder"><div id="partialDivRptDataStewdStatisticsByCC"></div></div>
+                </div>
+
+            </div>
+            <div id="TabAPIUsage" class="tab-pane ">
+                <div class="row margin-left-right-0">
+                    <div class="api-usage">
+                        <div id="partialAPIUsageGrid">
+                        </div>
+                    </div>
+                </div>
+                <div class="row margin-left-right-0">
+
+                    <div class="col-md-3 reportPaddingCC">
+                        <div id="partialCurntMonthCnt"></div>
+                    </div>
+                    <div class="col-md-9 reportPaddingCC">
+                        <div id="partialCurntYearCnt"></div>
+                    </div>
+                </div>
+                <div class="">
+                    <div id="partialDivLinechart"></div>
+                </div>
+            </div>
+
+        </div>
+        @*<ul class="nav nav-tabs" id="ReportMenu">*@
+        <ul class="nav nav-tabs report_tab" id="myTab1">
+            <div class="arrowicons">
+                <a> <i class="fa fa-caret-left" aria-hidden="true"></i></a>
+                <a><i class="fa fa-caret-right" aria-hidden="true"></i></a>
+            </div>
+            <li class="nav-item">
+                <a class="nav-link active" href="#TabDataQueue" data-toggle="tab" aria-expanded="true" id="divDataQueue" data-title="@ReportsListLang.lblDataQueueDashboard">@ReportsListLang.lblDataQueueDashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#TabDataStewrdStatistics" data-toggle="tab" aria-expanded="true" id="divDataStewrdStatistics" data-title="@ReportsListLang.lblDataStewardshipStatistics">@ReportsListLang.lblDataStewardshipStatistics</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#TabAPIUsage" data-toggle="tab" aria-expanded="true" id="divAPIUsage" data-title="@ReportsListLang.lblAPIUsage">@ReportsListLang.lblAPIUsage</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var topRowsByUser = '@ReportsListLang.msgTopRowsByUser';
+        var topRowsByCC = '@ReportsListLang.msgTopRowsByCC';
+        var noOfRecords = '@ReportsListLang.msgNoOfRecords';
+		var totalCountByMonth = '@ReportsListLang.msgtotalCountByMonth';
+        var currentMonthCount = '@ReportsListLang.msgCurrentMonthCount';
+        var currentMonthCountByAPI = '@ReportsListLang.msgCurrentMonthCountByAPI';
+        var currentYearCount = '@ReportsListLang.msgCurrentYearCount';
+        var currentYearCountByDnBAPIName = '@ReportsListLang.msgCurrentYearCountByDnBAPIName';
+    </script>
+
+    @Scripts.Render("~/bundles/reportslist")
+}
+
+
+

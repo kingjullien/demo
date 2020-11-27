@@ -1,0 +1,884 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrBasicInformationDetails" xml:space="preserve">
+    <value>基本信息详细信息</value>
+    <comment>Basic Information Details</comment>
+  </data>
+  <data name="hdrBasicInformationDetails1" xml:space="preserve">
+    <value>基本信息详细</value>
+    <comment>Basic Information Details</comment>
+  </data>
+  <data name="hdrClassification" xml:space="preserve">
+    <value>分类</value>
+    <comment>Classification</comment>
+  </data>
+  <data name="hdrClassification1" xml:space="preserve">
+    <value>分类</value>
+    <comment>Classification</comment>
+  </data>
+  <data name="hdrKeyInformation" xml:space="preserve">
+    <value>关键信息</value>
+    <comment>Key Information</comment>
+  </data>
+  <data name="hdrKeyInformation1" xml:space="preserve">
+    <value>关键信息</value>
+    <comment>Key Information</comment>
+  </data>
+  <data name="hdrORBNumberAddressInformationTechnology" xml:space="preserve">
+    <value>ORB 编号/地址信息/技术</value>
+    <comment>ORB Number/Address Information/Technology</comment>
+  </data>
+  <data name="hdrProfileDetails" xml:space="preserve">
+    <value>配置文件详细情况</value>
+    <comment>Profile Details</comment>
+  </data>
+  <data name="hdrProfileDetails1" xml:space="preserve">
+    <value>详细资料</value>
+    <comment>Profile Details</comment>
+  </data>
+  <data name="hdrSearchResults" xml:space="preserve">
+    <value>搜索结果</value>
+    <comment>Search Results</comment>
+  </data>
+  <data name="hdrSearchResults1" xml:space="preserve">
+    <value>搜索结果</value>
+    <comment>Search Results</comment>
+  </data>
+  <data name="hdrSocialPlatformDetails" xml:space="preserve">
+    <value>社交平台详细信息</value>
+    <comment>Social Platform Details</comment>
+  </data>
+  <data name="hdrSocialPlatformDetails1" xml:space="preserve">
+    <value>社交平台详细</value>
+    <comment>Social Platform Details</comment>
+  </data>
+  <data name="hdrViewHistory" xml:space="preserve">
+    <value>查看历史</value>
+    <comment>View History</comment>
+  </data>
+  <data name="lblAction" xml:space="preserve">
+    <value>操作</value>
+    <comment>Action</comment>
+  </data>
+  <data name="lblAction1" xml:space="preserve">
+    <value>行动</value>
+    <comment>Action</comment>
+  </data>
+  <data name="lblAddress" xml:space="preserve">
+    <value>地址</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAddress1" xml:space="preserve">
+    <value>地址</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAddressInformation" xml:space="preserve">
+    <value>查看历史</value>
+    <comment>Address Information</comment>
+  </data>
+  <data name="lblAddressInformation1" xml:space="preserve">
+    <value>地址信息</value>
+    <comment>Address Information</comment>
+  </data>
+  <data name="lblAltOrganization" xml:space="preserve">
+    <value>替换组织</value>
+    <comment>Alt Organization</comment>
+  </data>
+  <data name="lblAltOrganization1" xml:space="preserve">
+    <value>ALT组织</value>
+    <comment>Alt Organization</comment>
+  </data>
+  <data name="lblBranch" xml:space="preserve">
+    <value>科</value>
+    <comment>Branch</comment>
+  </data>
+  <data name="lblBranchCount" xml:space="preserve">
+    <value>分行数</value>
+    <comment>BranchCount</comment>
+  </data>
+  <data name="lblBranchCount1" xml:space="preserve">
+    <value>分行数</value>
+    <comment>BranchCount</comment>
+  </data>
+  <data name="lblBranchesCount" xml:space="preserve">
+    <value>分支计数</value>
+    <comment>Branches Count</comment>
+  </data>
+  <data name="lblBranchesCount1" xml:space="preserve">
+    <value>分行计数</value>
+    <comment>Branches Count</comment>
+  </data>
+  <data name="lblCategories" xml:space="preserve">
+    <value>类别</value>
+    <comment>Categories</comment>
+  </data>
+  <data name="lblCategories1" xml:space="preserve">
+    <value>分类目录</value>
+    <comment>Categories</comment>
+  </data>
+  <data name="lblCategoryName" xml:space="preserve">
+    <value>类别名称</value>
+    <comment>Category Name</comment>
+  </data>
+  <data name="lblCategoryName1" xml:space="preserve">
+    <value>分类名称</value>
+    <comment>Category Name</comment>
+  </data>
+  <data name="lblCategoryWeight" xml:space="preserve">
+    <value>类别权重</value>
+    <comment>Category Weight</comment>
+  </data>
+  <data name="lblCategoryWeight1" xml:space="preserve">
+    <value>类别重量</value>
+    <comment>Category Weight</comment>
+  </data>
+  <data name="lblCIKCode" xml:space="preserve">
+    <value>CIK 代码</value>
+    <comment>CIK Code</comment>
+  </data>
+  <data name="lblCIKCode1" xml:space="preserve">
+    <value>CIK代码</value>
+    <comment>CIK Code</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>市/县</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCity1" xml:space="preserve">
+    <value>市</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblClear" xml:space="preserve">
+    <value>清除</value>
+    <comment>Clear</comment>
+  </data>
+  <data name="lblClear1" xml:space="preserve">
+    <value>明确</value>
+    <comment>Clear</comment>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>公司</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCompanyName" xml:space="preserve">
+    <value>公司名称</value>
+    <comment>Company Name</comment>
+  </data>
+  <data name="lblCompanyName1" xml:space="preserve">
+    <value>公司名</value>
+    <comment>Company Name</comment>
+  </data>
+  <data name="lblCompanyStatus" xml:space="preserve">
+    <value>公司状态</value>
+    <comment>Company Status</comment>
+  </data>
+  <data name="lblCompanyStatus1" xml:space="preserve">
+    <value>公司现状</value>
+    <comment>Company Status</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>国家/地区</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCountry1" xml:space="preserve">
+    <value>国家</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCUSIP" xml:space="preserve">
+    <value>库西普</value>
+    <comment>CUSIP</comment>
+  </data>
+  <data name="lblCUSIP1" xml:space="preserve">
+    <value>库西普</value>
+    <comment>CUSIP</comment>
+  </data>
+  <data name="lblDescription" xml:space="preserve">
+    <value>描述</value>
+    <comment>Description</comment>
+  </data>
+  <data name="lblDescription1" xml:space="preserve">
+    <value>描述</value>
+    <comment>Description</comment>
+  </data>
+  <data name="lblEIN" xml:space="preserve">
+    <value>一个</value>
+    <comment>EIN</comment>
+  </data>
+  <data name="lblEIN1" xml:space="preserve">
+    <value>一个</value>
+    <comment>EIN</comment>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>电子邮件</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblEmail1" xml:space="preserve">
+    <value>电子邮件</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblEmailHosting" xml:space="preserve">
+    <value>电子邮件托管</value>
+    <comment>EmailHosting</comment>
+  </data>
+  <data name="lblEmailHosting1" xml:space="preserve">
+    <value>电子邮件托管</value>
+    <comment>EmailHosting</comment>
+  </data>
+  <data name="lblEmployees" xml:space="preserve">
+    <value>员工</value>
+    <comment>Employees</comment>
+  </data>
+  <data name="lblEmployees1" xml:space="preserve">
+    <value>雇员</value>
+    <comment>Employees</comment>
+  </data>
+  <data name="lblEntityType" xml:space="preserve">
+    <value>实体类型</value>
+    <comment>Entity Type</comment>
+  </data>
+  <data name="lblEntityType1" xml:space="preserve">
+    <value>实体类型</value>
+    <comment>Entity Type</comment>
+  </data>
+  <data name="lblExchange" xml:space="preserve">
+    <value>交换</value>
+    <comment>Exchange</comment>
+  </data>
+  <data name="lblExchange1" xml:space="preserve">
+    <value>交换</value>
+    <comment>Exchange</comment>
+  </data>
+  <data name="lblExporttoExcel" xml:space="preserve">
+    <value>导出为 Excel</value>
+    <comment>Export to Excel</comment>
+  </data>
+  <data name="lblExporttoExcel1" xml:space="preserve">
+    <value>导出到Excel</value>
+    <comment>Export to Excel</comment>
+  </data>
+  <data name="lblFacebook" xml:space="preserve">
+    <value>Facebook</value>
+    <comment>Facebook</comment>
+  </data>
+  <data name="lblFacebook1" xml:space="preserve">
+    <value>脸书</value>
+    <comment>Facebook</comment>
+  </data>
+  <data name="lblFalse" xml:space="preserve">
+    <value>假：</value>
+    <comment>False:</comment>
+  </data>
+  <data name="lblFax" xml:space="preserve">
+    <value>传真</value>
+    <comment>Fax</comment>
+  </data>
+  <data name="lblFax1" xml:space="preserve">
+    <value>传真</value>
+    <comment>Fax</comment>
+  </data>
+  <data name="lblFollowers" xml:space="preserve">
+    <value>关注者</value>
+    <comment>Followers</comment>
+  </data>
+  <data name="lblFollowers1" xml:space="preserve">
+    <value>关注</value>
+    <comment>Followers</comment>
+  </data>
+  <data name="lblFullProfile" xml:space="preserve">
+    <value>全部配置文件</value>
+    <comment>Full Profile</comment>
+  </data>
+  <data name="lblFullProfile1" xml:space="preserve">
+    <value>全部档案</value>
+    <comment>Full Profile</comment>
+  </data>
+  <data name="lblHasEmail" xml:space="preserve">
+    <value>HasEmail</value>
+    <comment>HasEmail</comment>
+  </data>
+  <data name="lblHasEmail1" xml:space="preserve">
+    <value>HasEmail</value>
+    <comment>HasEmail</comment>
+  </data>
+  <data name="lblHasWebsite" xml:space="preserve">
+    <value>Has网站</value>
+    <comment>HasWebsite</comment>
+  </data>
+  <data name="lblHasWebsite1" xml:space="preserve">
+    <value>Has网站</value>
+    <comment>HasWebsite</comment>
+  </data>
+  <data name="lblImportanceScore" xml:space="preserve">
+    <value>重要性评分</value>
+    <comment>Importance Score</comment>
+  </data>
+  <data name="lblImportanceScore1" xml:space="preserve">
+    <value>重要性分数</value>
+    <comment>Importance Score</comment>
+  </data>
+  <data name="lblInclude" xml:space="preserve">
+    <value>包括</value>
+    <comment>Include</comment>
+  </data>
+  <data name="lblInclude1" xml:space="preserve">
+    <value>包括</value>
+    <comment>Include</comment>
+  </data>
+  <data name="lblIndividualEmployeeCount" xml:space="preserve">
+    <value>个别员工计数</value>
+    <comment>Individual Employee Count</comment>
+  </data>
+  <data name="lblIndividualEmployeeCount1" xml:space="preserve">
+    <value>员工个人计数</value>
+    <comment>Individual Employee Count</comment>
+  </data>
+  <data name="lblIndustry" xml:space="preserve">
+    <value>行业</value>
+    <comment>Industry</comment>
+  </data>
+  <data name="lblIndustry1" xml:space="preserve">
+    <value>行业</value>
+    <comment>Industry</comment>
+  </data>
+  <data name="lblIndustryclassification" xml:space="preserve">
+    <value>行业分类</value>
+    <comment>Industry classification</comment>
+  </data>
+  <data name="lblIndustryclassification1" xml:space="preserve">
+    <value>行业分类</value>
+    <comment>Industry classification</comment>
+  </data>
+  <data name="lblIndustryClassificationCode" xml:space="preserve">
+    <value>行业分类代码</value>
+    <comment>Industry Classification Code</comment>
+  </data>
+  <data name="lblIndustryClassificationCode1" xml:space="preserve">
+    <value>行业分类代码</value>
+    <comment>Industry Classification Code</comment>
+  </data>
+  <data name="lblIndustryCodes" xml:space="preserve">
+    <value>行业代码</value>
+    <comment>Industry Codes</comment>
+  </data>
+  <data name="lblIndustryCodes1" xml:space="preserve">
+    <value>行业规范</value>
+    <comment>Industry Codes</comment>
+  </data>
+  <data name="lblIsStandAlone" xml:space="preserve">
+    <value>IsStandAlone</value>
+    <comment>IsStandAlone</comment>
+  </data>
+  <data name="lblIsStandAlone1" xml:space="preserve">
+    <value>IsStandAlone</value>
+    <comment>IsStandAlone</comment>
+  </data>
+  <data name="lblLastFundingAmount" xml:space="preserve">
+    <value>上次融资金额</value>
+    <comment>Last Funding Amount</comment>
+  </data>
+  <data name="lblLastFundingAmount1" xml:space="preserve">
+    <value>最后资助金额</value>
+    <comment>Last Funding Amount</comment>
+  </data>
+  <data name="lblLikes" xml:space="preserve">
+    <value>点赞</value>
+    <comment>Likes</comment>
+  </data>
+  <data name="lblLikes1" xml:space="preserve">
+    <value>喜欢</value>
+    <comment>Likes</comment>
+  </data>
+  <data name="lblLinkedin" xml:space="preserve">
+    <value>领英</value>
+    <comment>Linkedin</comment>
+  </data>
+  <data name="lblLinkedin1" xml:space="preserve">
+    <value>领英</value>
+    <comment>Linkedin</comment>
+  </data>
+  <data name="lblmployeeRange" xml:space="preserve">
+    <value>员工范围</value>
+    <comment>mployee Range</comment>
+  </data>
+  <data name="lblmployeeRange1" xml:space="preserve">
+    <value>员工范围</value>
+    <comment>mployee Range</comment>
+  </data>
+  <data name="lblNAICSCode" xml:space="preserve">
+    <value>NAICS 代码</value>
+    <comment>NAICS Code</comment>
+  </data>
+  <data name="lblNAICSCode1" xml:space="preserve">
+    <value>NAICS代码</value>
+    <comment>NAICS Code</comment>
+  </data>
+  <data name="lblNAICSCodes" xml:space="preserve">
+    <value>NAICS 代码</value>
+    <comment>NAICS Codes</comment>
+  </data>
+  <data name="lblNAICSCodes1" xml:space="preserve">
+    <value>NAICS代码</value>
+    <comment>NAICS Codes</comment>
+  </data>
+  <data name="lblName" xml:space="preserve">
+    <value>名称</value>
+    <comment>Name</comment>
+  </data>
+  <data name="lblName1" xml:space="preserve">
+    <value>名称</value>
+    <comment>Name</comment>
+  </data>
+  <data name="lblNodataareavailable" xml:space="preserve">
+    <value>无可用数据</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNodataareavailable1" xml:space="preserve">
+    <value>没有资料</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNorecordsfound" xml:space="preserve">
+    <value>未找到记录</value>
+    <comment>No records found</comment>
+  </data>
+  <data name="lblNorecordsfound1" xml:space="preserve">
+    <value>没有找到记录</value>
+    <comment>No records found</comment>
+  </data>
+  <data name="lblOrbnum" xml:space="preserve">
+    <value>Orb 编号</value>
+    <comment>Orb num</comment>
+  </data>
+  <data name="lblOrbnum1" xml:space="preserve">
+    <value>宝珠NUM</value>
+    <comment>Orb num</comment>
+  </data>
+  <data name="lblOrbNumber" xml:space="preserve">
+    <value>Orb 编号</value>
+    <comment>Orb Number</comment>
+  </data>
+  <data name="lblOrbNumber1" xml:space="preserve">
+    <value>宝珠号</value>
+    <comment>Orb Number</comment>
+  </data>
+  <data name="lblORBWebRank" xml:space="preserve">
+    <value>ORBWeb排名</value>
+    <comment>ORBWebRank</comment>
+  </data>
+  <data name="lblORBWebRank1" xml:space="preserve">
+    <value>ORBWeb排名</value>
+    <comment>ORBWebRank</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>页面大小</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblPageSize1" xml:space="preserve">
+    <value>页面大小</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblParentOrbnum" xml:space="preserve">
+    <value>父级 Orb 编号</value>
+    <comment>Parent Orb num</comment>
+  </data>
+  <data name="lblParentOrbnum1" xml:space="preserve">
+    <value>父球NUM</value>
+    <comment>Parent Orb num</comment>
+  </data>
+  <data name="lblPrimaryIndustry" xml:space="preserve">
+    <value>主行业</value>
+    <comment>Primary Industry</comment>
+  </data>
+  <data name="lblPrimaryIndustry1" xml:space="preserve">
+    <value>第一产业</value>
+    <comment>Primary Industry</comment>
+  </data>
+  <data name="lblPrimaryNAICS" xml:space="preserve">
+    <value>主 NAICS</value>
+    <comment>Primary NAICS</comment>
+  </data>
+  <data name="lblPrimaryNAICS1" xml:space="preserve">
+    <value>主要NAICS</value>
+    <comment>Primary NAICS</comment>
+  </data>
+  <data name="lblPrimarySIC" xml:space="preserve">
+    <value>主 SIC</value>
+    <comment>Primary SIC</comment>
+  </data>
+  <data name="lblPrimarySIC1" xml:space="preserve">
+    <value>主要SIC</value>
+    <comment>Primary SIC</comment>
+  </data>
+  <data name="lblRankings" xml:space="preserve">
+    <value>排名</value>
+    <comment>Rankings</comment>
+  </data>
+  <data name="lblRankings1" xml:space="preserve">
+    <value>排名</value>
+    <comment>Rankings</comment>
+  </data>
+  <data name="lblRecordDetails" xml:space="preserve">
+    <value>记录详细信息</value>
+    <comment>Record Details</comment>
+  </data>
+  <data name="lblRecordDetails1" xml:space="preserve">
+    <value>记录详情</value>
+    <comment>Record Details</comment>
+  </data>
+  <data name="lblRequestedDate" xml:space="preserve">
+    <value>请求日期</value>
+    <comment>Requested Date</comment>
+  </data>
+  <data name="lblRequestedDate1" xml:space="preserve">
+    <value>申请日期</value>
+    <comment>Requested Date</comment>
+  </data>
+  <data name="lblRevenue" xml:space="preserve">
+    <value>收入</value>
+    <comment>Revenue</comment>
+  </data>
+  <data name="lblRevenue1" xml:space="preserve">
+    <value>收入</value>
+    <comment>Revenue</comment>
+  </data>
+  <data name="lblRevenueRange" xml:space="preserve">
+    <value>收入范围</value>
+    <comment>Revenue Range</comment>
+  </data>
+  <data name="lblRevenueRange1" xml:space="preserve">
+    <value>收入范围</value>
+    <comment>Revenue Range</comment>
+  </data>
+  <data name="lblSearch" xml:space="preserve">
+    <value>搜索</value>
+    <comment>Search</comment>
+  </data>
+  <data name="lblSelect" xml:space="preserve">
+    <value>选择</value>
+    <comment>Select</comment>
+  </data>
+  <data name="lblSelect1" xml:space="preserve">
+    <value>选择</value>
+    <comment>Select</comment>
+  </data>
+  <data name="lblSelectCategories" xml:space="preserve">
+    <value>选择分类</value>
+    <comment>Select Categories</comment>
+  </data>
+  <data name="lblShowFullProfile" xml:space="preserve">
+    <value>Show_Full_Profile</value>
+    <comment>Show_Full_Profile</comment>
+  </data>
+  <data name="lblShowFullProfile1" xml:space="preserve">
+    <value>Show_Full_Profile</value>
+    <comment>Show_Full_Profile</comment>
+  </data>
+  <data name="lblSICCode" xml:space="preserve">
+    <value>SIC 代码</value>
+    <comment>SIC Code</comment>
+  </data>
+  <data name="lblSICCode1" xml:space="preserve">
+    <value>SIC代码</value>
+    <comment>SIC Code</comment>
+  </data>
+  <data name="lblSICCodes" xml:space="preserve">
+    <value>SIC 代码</value>
+    <comment>SIC Codes</comment>
+  </data>
+  <data name="lblSICCodes1" xml:space="preserve">
+    <value>SIC代码</value>
+    <comment>SIC Codes</comment>
+  </data>
+  <data name="lblSICNAICSCodes" xml:space="preserve">
+    <value>SIC/NAICS 代码</value>
+    <comment>SIC/NAICS Codes</comment>
+  </data>
+  <data name="lblSICNAICSCodes1" xml:space="preserve">
+    <value>SIC / NAICS代码</value>
+    <comment>SIC/NAICS Codes</comment>
+  </data>
+  <data name="lblStartDate" xml:space="preserve">
+    <value>开始日期</value>
+    <comment>Start Date</comment>
+  </data>
+  <data name="lblStartDate1" xml:space="preserve">
+    <value>开始日期</value>
+    <comment>Start Date</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>州</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblState1" xml:space="preserve">
+    <value>州</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblStockExchange" xml:space="preserve">
+    <value>股票交易</value>
+    <comment>Stock Exchange</comment>
+  </data>
+  <data name="lblStockExchange1" xml:space="preserve">
+    <value>股票交易</value>
+    <comment>Stock Exchange</comment>
+  </data>
+  <data name="lblSubsidiariesCount" xml:space="preserve">
+    <value>子公司计数</value>
+    <comment>Subsidiaries Count</comment>
+  </data>
+  <data name="lblSubsidiariesCount1" xml:space="preserve">
+    <value>子公司计数</value>
+    <comment>Subsidiaries Count</comment>
+  </data>
+  <data name="lblTechnologies" xml:space="preserve">
+    <value>技术</value>
+    <comment>Technologies</comment>
+  </data>
+  <data name="lblTechnologies1" xml:space="preserve">
+    <value>技术</value>
+    <comment>Technologies</comment>
+  </data>
+  <data name="lblTechnologyCategories" xml:space="preserve">
+    <value>技术类别</value>
+    <comment>Technology Categories</comment>
+  </data>
+  <data name="lblTechnologyCategories1" xml:space="preserve">
+    <value>技术分类</value>
+    <comment>Technology Categories</comment>
+  </data>
+  <data name="lblTechnologyDetails" xml:space="preserve">
+    <value>技术详细信息</value>
+    <comment>Technology Details</comment>
+  </data>
+  <data name="lblTechnologyDetails1" xml:space="preserve">
+    <value>技术详情</value>
+    <comment>Technology Details</comment>
+  </data>
+  <data name="lblTicker" xml:space="preserve">
+    <value>指示器</value>
+    <comment>Ticker</comment>
+  </data>
+  <data name="lblTicker1" xml:space="preserve">
+    <value>断续器</value>
+    <comment>Ticker</comment>
+  </data>
+  <data name="lblTotalFunding" xml:space="preserve">
+    <value>融资总额</value>
+    <comment>Total Funding</comment>
+  </data>
+  <data name="lblTotalFunding1" xml:space="preserve">
+    <value>总资金</value>
+    <comment>Total Funding</comment>
+  </data>
+  <data name="lblTrue" xml:space="preserve">
+    <value>真正：</value>
+    <comment>True:</comment>
+  </data>
+  <data name="lblTwitter" xml:space="preserve">
+    <value>Twitter</value>
+    <comment>Twitter</comment>
+  </data>
+  <data name="lblTwitter1" xml:space="preserve">
+    <value>推特</value>
+    <comment>Twitter</comment>
+  </data>
+  <data name="lblUltimateParentOrbnum" xml:space="preserve">
+    <value>旗舰版父级 Orb 编号</value>
+    <comment>Ultimate Parent Orb num</comment>
+  </data>
+  <data name="lblUltimateParentOrbnum1" xml:space="preserve">
+    <value>最终母公司球NUM</value>
+    <comment>Ultimate Parent Orb num</comment>
+  </data>
+  <data name="lblURL" xml:space="preserve">
+    <value>URL</value>
+    <comment>URL</comment>
+  </data>
+  <data name="lblURL1" xml:space="preserve">
+    <value>网址</value>
+    <comment>URL</comment>
+  </data>
+  <data name="lblViewHistory" xml:space="preserve">
+    <value>查看历史</value>
+    <comment>View History</comment>
+  </data>
+  <data name="lblViewHistory1" xml:space="preserve">
+    <value>查看历史</value>
+    <comment>View History</comment>
+  </data>
+  <data name="lblWebdomain" xml:space="preserve">
+    <value>网络域名</value>
+    <comment>Webdomain</comment>
+  </data>
+  <data name="lblWebdomain1" xml:space="preserve">
+    <value>网络域名</value>
+    <comment>Webdomain</comment>
+  </data>
+  <data name="lblWebDomain2" xml:space="preserve">
+    <value>网络域</value>
+    <comment>WebDomain</comment>
+  </data>
+  <data name="lblWebDomain21" xml:space="preserve">
+    <value>网络域</value>
+    <comment>WebDomain</comment>
+  </data>
+  <data name="lblWebdomains" xml:space="preserve">
+    <value>网络域</value>
+    <comment>Webdomains</comment>
+  </data>
+  <data name="lblWebdomains1" xml:space="preserve">
+    <value>网络域</value>
+    <comment>Webdomains</comment>
+  </data>
+  <data name="lblYoutube" xml:space="preserve">
+    <value>Youtube</value>
+    <comment>Youtube</comment>
+  </data>
+  <data name="lblYoutube1" xml:space="preserve">
+    <value>优酷</value>
+    <comment>Youtube</comment>
+  </data>
+  <data name="lblZipCode" xml:space="preserve">
+    <value>邮编</value>
+    <comment>Zip Code</comment>
+  </data>
+  <data name="lblZipCode1" xml:space="preserve">
+    <value>邮政编码</value>
+    <comment>Zip Code</comment>
+  </data>
+  <data name="msgNoRecordsFound" xml:space="preserve">
+    <value>没有找到记录。</value>
+    <comment>No records found.</comment>
+  </data>
+  <data name="msgNothingFound" xml:space="preserve">
+    <value>糟糕，找不到任何内容！</value>
+    <comment>Oops, nothing found!</comment>
+  </data>
+  <data name="msgSelectEmployees" xml:space="preserve">
+    <value>选择员工</value>
+    <comment>Select Employees</comment>
+  </data>
+  <data name="msgSelectRevenue" xml:space="preserve">
+    <value>选择收入</value>
+    <comment>Select Revenue</comment>
+  </data>
+  <data name="titleOIBuildList" xml:space="preserve">
+    <value>火柴盒OI构建列表</value>
+    <comment>Matchbook | OI Build List</comment>
+  </data>
+</root>

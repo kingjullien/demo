@@ -1,0 +1,82 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Utility;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@model List<SBISCCMWeb.Models.BuildListSearchModel>
+@{
+    Layout = null;
+}
+@if (Helper.Branding == Branding.Matchbook.ToString())
+{
+    <link href="~/Content/Matchbook.css" rel="stylesheet" />
+}
+else if (Helper.Branding == Branding.DandB.ToString())
+{
+    <link href="~/Content/DandB.css" rel="stylesheet" />
+}
+<div class="modal" id="GetSearchHistoryModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@BuildAListLang.lblViewHistory</h4>
+            </div>
+            <div class="modal-body">
+                <div id="divHistory">
+                    <div class="tasble-responsive container tablewidth matchtdstyle">
+                        <table class="textBlue table-bordered table popuptopcolor MatchedItems">
+                            <thead>
+                                <tr>
+
+                                    <th>@BuildAListLang.lblSearchTerm</th>
+                                    <th>@BuildAListLang.lblCountry</th>
+                                    <th>@BuildAListLang.lblCompanyName</th>
+                                    <th>@BuildAListLang.lblDUNS</th>
+                                    <th>@BuildAListLang.lblRequestedDate</th>
+                                    <th class="nosort">@BuildAListLang.lblAction</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        if (item.Request != null)
+                                        {
+                                            <tr>
+
+                                                <td>
+                                                    @item.Request.searchTerm
+                                                </td>
+                                                <td>
+                                                    @item.Request.countryISOAlpha2Code
+                                                </td>
+                                                <td>
+                                                    @item.Request.primaryName
+                                                </td>
+                                                <td>
+                                                    @item.Request.duns
+                                                </td>
+                                                <td>
+                                                    @item.RequestedDateTime
+                                                </td>
+                                                <td>
+                                                    <a class="btnViewHistory" style="cursor:pointer" onclick="window.parent.ClosePopp(@item.SearchResultsId)">@BuildAListLang.lblSelect</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <input type="hidden" name="name" value="" id="hdnSearchResultsId" />
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+

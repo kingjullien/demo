@@ -1,0 +1,72 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.LanguageResources;
+@model Tuple<System.Data.DataTable,string>
+<table class="table table-bordered customTable table-autosort table-autofilter tableSection head tableFixedHeader" role="grid" style="margin:5px;">
+    <thead>
+        <tr>
+            @{
+                <th style="min-width:300px">
+                    @PreviewMatchedDataLang.lblOrganizationName
+                </th>
+                <th>
+                    @PreviewMatchedDataLang.lblSalesRevenueAmountUnitOfSize
+                </th>
+                <th>
+                    @PreviewMatchedDataLang.lblSalesRevenueAmountCurrencyISOAlpha3Code
+                </th>
+                <th>
+                    @PreviewMatchedDataLang.lblSalesRevenueAmount
+                </th>
+                <th>
+                    @PreviewMatchedDataLang.lblIssuedShareCapitalAmountCurrencyISOAlpha3Code
+                </th>
+                <th>
+                    @PreviewMatchedDataLang.lblIssuedShareCapitalAmountUnitOfSize
+                </th>
+                <th>
+                    @PreviewMatchedDataLang.lblIssuedShareCapitalAmount
+                </th>
+                <th>
+                    @PreviewMatchedDataLang.lblIndividualEmployeeQuantity
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            foreach (System.Data.DataRow tblInnerRows in Model.Item1.Rows)
+            {
+                if (Convert.ToString(tblInnerRows[0]) == Model.Item2)
+                {
+                    <tr>
+                        <td>
+                            @tblInnerRows[3]
+                        </td>
+                        <td>
+                            @tblInnerRows[4]
+                        </td>
+                        <td>
+                            @tblInnerRows[5]
+                        </td>
+                        <td>
+                            @tblInnerRows[6]
+                        </td>
+                        <td>
+                            @tblInnerRows[7]
+                        </td>
+                        <td>
+                            @tblInnerRows[8]
+                        </td>
+                        <td>
+                            @tblInnerRows[9]
+                        </td>
+                        <td>
+                            @tblInnerRows[10]
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+

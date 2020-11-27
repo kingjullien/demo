@@ -1,0 +1,277 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Utility;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@model DataSourceConfigurationEntity
+@{
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "UpdateExternalDataSourceConfigration"
+    };
+}
+<div class="modal" id="AddDataSourceConfigurationModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xs">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">
+                    @if (Model.Id > 0)
+                    {
+                        @PortalSettingLang.hdrEditExternalDataSource
+                    }
+                    else
+                    {
+                        @PortalSettingLang.hdrAddExternalDataSource
+                    }
+                </h4>
+            </div>
+            @using (Ajax.BeginForm("InsertUpdateExternalDataSourceConfiguration", "Portal", null, ajaxOptions, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-body" style="padding: 10px 15px 10px 15px;">
+                    @Html.HiddenFor(model => model.Id)
+                    @Html.HiddenFor(model => model.DataSourceCode)
+                    @Html.HiddenFor(model => model.sftp.SSHFilePath)
+                        <div class="row">
+                           <div class="col-md-3">
+                               <input type="radio" name="DataSource" value="@ExternalDataSources.AWS" class="rbtnAmazon ml-1" disabled="disabled" />
+                               <i class="fa fa-amazon fa-4x ml-1"></i>
+                               <strong>@PortalSettingLang.lblAmazon</strong>
+                           </div>
+                           <div class="col-md-3">
+                               <input type="radio" name="DataSource" value="@ExternalDataSources.AZURE" class="rbtnAzure ml-2" disabled="disabled" />
+                               <i class="fa fa-database fa-4x ml-1"></i>
+                               <strong>@PortalSettingLang.lblAzureStorage</strong>
+                           </div>
+                           <div class="col-md-3">
+                               <input type="radio" name="DataSource" value="@ExternalDataSources.FTP" class="rbtnFTP ml-1" disabled="disabled" />
+                               <i class="fa fa-random fa-4x ml-1"></i>
+                               <strong class="ml-4">@PortalSettingLang.lblFTP</strong>
+                           </div>
+                           <div class="col-md-3">
+                               <input type="radio" name="DataSource" value="@ExternalDataSources.SFTP" class="rbtnSFTP ml-1" disabled="disabled" />
+                               <i class="fa fa-server fa-4x ml-1"></i>
+                               <strong class="ml-4">@PortalSettingLang.lblSFTP</strong>
+                           </div>
+                       </div>
+                       <hr />
+                        <div class="loadAmazonSection clsLineHeight">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblExternalDataSourceName</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.amazon.AWSExternalDataStoreName, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnExternalDataSourceAmazon" style="display:none;">@PortalSettingLang.lblRequiredExternalDataSourceName</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblAccessKey</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.amazon.AccessKey, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnAccessKey" style="display:none;">@PortalSettingLang.lblRequiredAccessKey</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblSecurityKey</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.amazon.SecurityKey, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnSecurityKey" style="display:none;">@PortalSettingLang.lblRequiredSecurityKey</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblServiceURL</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.amazon.ServiceURL, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnServiceURL" style="display:none;">@PortalSettingLang.lblRequiredServiceURL</span>
+                                </div>
+
+                            </div>
+                       </div>
+                        <div class="loadAzureSection hidetd clsLineHeight">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblExternalDataSourceName</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.azure.AzureExternalDataStoreName, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnExternalDataSourceAzure" style="display:none;">@PortalSettingLang.lblRequiredExternalDataSourceName</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblEndpointSuffix</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.azure.EndpointSuffix, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnEndpointSuffix" style="display:none;">@PortalSettingLang.lblRequiredEndpointSuffix</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblAccountKey</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.azure.AccountKey, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnAccountKey" style="display:none;">@PortalSettingLang.lblRequiredAccountKey</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblAccountName</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.azure.AccountName, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnAccountName" style="display:none;">@PortalSettingLang.lblRequiredAccountName</span>
+                                </div>
+                            </div>
+                       </div>
+                        <div class="loadFTPSection hidetd clsLineHeight">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblExternalDataSourceName</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.ftp.FTPExternalDataStoreName, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnExternalDataSourceFTP" style="display:none;">@PortalSettingLang.lblRequiredExternalDataSourceName</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblUserName</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.ftp.UserName, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnUserName" style="display:none;">@PortalSettingLang.lblRequiredUserName</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblHost</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.ftp.Host, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnHost" style="display:none;">@PortalSettingLang.lblRequiredHost</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblPort</strong></span>
+                                    @Html.TextBoxFor(model => model.ftp.Port, new { @class = "form-control", @autocomplete = "off" })
+                                </div>
+                            </div>
+                           <div class="row">
+                               <div class="col-md-6">
+                                   <span><strong>@PortalSettingLang.lblPassword</strong></span>
+                                   <span class="requireField">*</span>
+                                   @Html.PasswordFor(model => model.ftp.Password, new { @class = "form-control", @autocomplete = "off", value = Model.ftp != null ? Model.ftp.Password : null })
+                                   <span class="text-danger" id="spnPassword" style="display:none;">@PortalSettingLang.lblRequiredPassword</span>
+                               </div>
+                           </div>
+                       </div>
+                        <div class="loadSFTPSection hidetd clsLineHeight">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblExternalDataSourceName</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.sftp.SFTPExternalDataStoreName, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnExternalDataSourceSFTP" style="display:none;">@PortalSettingLang.lblRequiredExternalDataSourceName</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblUser</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.sftp.SFTPUserName, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnSFTPUserName" style="display:none;">@PortalSettingLang.lblRequiredSFTPUserName</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblHost</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.sftp.SFTPHost, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnSFTPHost" style="display:none;">@PortalSettingLang.lblRequiredSFTPHost</span>
+                                </div>
+                                <div class="col-md-6">
+                                    <span><strong>@PortalSettingLang.lblPort</strong></span>
+                                    <span class="requireField">*</span>
+                                    @Html.TextBoxFor(model => model.sftp.SFTPPort, new { @class = "form-control", @autocomplete = "off" })
+                                    <span class="text-danger" id="spnSFTPPort" style="display:none;">@PortalSettingLang.lblRequiredSFTPPort</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @if (Model.Id > 0)
+                                    {
+                                        <span><strong>@PortalSettingLang.lblSSHKey</strong></span>
+                                        @Html.TextBoxFor(model => model.sftp.SSHFileForUpdate, new { type = "file", @class = "browserFileForSFTP", @accept = ".pem" })
+                                        <span class="text-danger" id="spnSFTPSSHKeyFileUpload" style="display:none;">@PortalSettingLang.lblRequiredFile</span>
+                                    }
+                                    else
+                                    {
+                                        <span><strong>@PortalSettingLang.lblSSHKey</strong></span>
+                                        <span class="requireField">*</span>
+                                        @Html.TextBoxFor(model => model.sftp.SSHFile, new { type = "file", @class = "browserFileForSFTP", @accept = ".pem" })
+                                        <span>@PortalSettingLang.lblAcceptPEMFiles</span>
+                                        <br />
+                                        <span class="text-danger" id="spnSFTPSSHKeyFileUpload" style="display:none;">@PortalSettingLang.lblRequiredFile</span>
+                                    }
+                                </div>
+                            </div>
+                       </div>
+                    <br />
+                    <div class="modal-footer" style="padding:0.0rem !important">
+                        @if (Model.Id > 0)
+                        {
+                            <input type="submit" value="@PortalSettingLang.lblUpdate" class="btn btn-primary" id="btnSaveConfigurationSettings">
+                        }
+                        else
+                        {
+                            <input type="submit" value="@PortalSettingLang.lblAdd" class="btn btn-primary" id="btnSaveConfigurationSettings">
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var ConfigurationId = '@Model.Id';
+        var ExternalSourceId = '@Model.ExternalDataStoreTypeId';
+        if (ConfigurationId > 0) {
+            if (ExternalSourceId == "1") {
+                $(".rbtnAzure").attr('checked', true);
+                $(".loadAmazonSection").addClass('hidetd');
+                $(".loadAzureSection").removeClass('hidetd');
+                $(".loadFTPSection").addClass('hidetd');
+                $(".loadSFTPSection").addClass('hidetd');
+            }
+            else if (ExternalSourceId == "2") {
+                $(".rbtnFTP").attr('checked', true);
+                $(".loadAmazonSection").addClass('hidetd');
+                $(".loadAzureSection").addClass('hidetd');
+                $(".loadFTPSection").removeClass('hidetd');
+                $(".loadSFTPSection").addClass('hidetd');
+            }
+            else if (ExternalSourceId == "3") {
+                $(".rbtnSFTP").attr('checked', true);
+                $(".loadAmazonSection").addClass('hidetd');
+                $(".loadAzureSection").addClass('hidetd');
+                $(".loadFTPSection").addClass('hidetd');
+                $(".loadSFTPSection").removeClass('hidetd');
+            }
+            else {
+                $(".rbtnAmazon").attr('checked', true);
+                $(".loadAmazonSection").removeClass('hidetd');
+                $(".loadAzureSection").addClass('hidetd');
+                $(".loadFTPSection").addClass('hidetd');
+                $(".loadSFTPSection").addClass('hidetd');
+            }
+        }
+        else {
+            $(".loadAmazonSection").removeClass('hidetd');
+            $(".rbtnAzure").attr('disabled', false);
+            $(".rbtnFTP").attr('disabled', false);
+            $(".rbtnSFTP").attr('disabled', false);
+            $(".rbtnAmazon").attr('disabled', false);
+            $(".rbtnAmazon").attr('checked', true);
+        }
+    });
+    $("#ftp_Port").keypress(function (e) {
+        var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+        var result = ((keyCode >= 48 && keyCode <= 57) || keyCode == 8);
+        return result;
+    });
+    $("#sftp_SFTPPort").keypress(function (e) {
+        var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+        var result = ((keyCode >= 48 && keyCode <= 57) || keyCode == 8);
+        return result;
+    });
+</script>

@@ -1,0 +1,152 @@
+﻿@using SBISCCMWeb.Models;
+@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Utility
+@model CleanseMatchSettingsModel
+@{
+    Layout = null;
+}
+<style type="text/css">
+    .borderBottom{
+        border-bottom: none;
+    }
+</style>
+<div class="modal" id="CachedDataModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xs">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header borderBottom">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                        <li>
+                            <div class="clsAdditionActionFilter clsAdditionalAction btn">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn dropdown-toggle btn-Secondary" data-toggle="dropdown" tabindex="-1">
+                                        @DandBSettingLang.lblAdditionalActions <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu pull-right" role="menu">
+                                        <li><a href="javascript:void(0);" id="btnDownloadData" data-ClientCode="@Model.Settings[Model.DATA_STUB_CLIENT_CODE].SettingValue">@DandBSettingLang.lblDownloadCacheData</a></li>
+                                        <li><a href="javascript:void(0);" id="btnDeleteCleansematchdata" data-ClientCode="@Model.Settings[Model.DATA_STUB_CLIENT_CODE].SettingValue">@DandBSettingLang.lblDelete Cleanse Match Data</a></li>
+                                        <li><a href="javascript:void(0);" id="btnDeleteEnrichmentdata" data-ClientCode="@Model.Settings[Model.DATA_STUB_CLIENT_CODE].SettingValue">@DandBSettingLang.lblDeleteEnrichmentData</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <h4 class="modal-title">@DandBSettingLang.hdrCachedDataSettings</h4>
+
+            </div>
+            <div class="modal-body pt-0">
+              
+                    @Html.AntiForgeryToken()
+                    <div id="Process" class="tab-pane fade active in">
+                        <form id="form_CachedDataSettings">
+                            @Html.Hidden("AUTO_CORRECTION_THRESHOLDNew", Html.Raw(Json.Encode(Model.Settings[Model.AUTO_CORRECTION_THRESHOLD].SettingValue)))
+                            @Html.Hidden("AUTO_CORRECTION_THRESHOLDNew", Model.Settings[Model.AUTO_CORRECTION_THRESHOLD].SettingValue)
+                            @Html.Hidden("AUTO_CORRECTION_THRESHOLDActual", Model.AUTO_CORRECTION_THRESHOLD)
+                            @Html.HiddenFor(@model => Model.Settings[Model.AUTO_CORRECTION_THRESHOLD].ProcessSettingsID)
+                            @Html.HiddenFor(@model => Model.Settings[Model.MAX_PARALLEL_THREAD].ProcessSettingsID)
+                            @Html.HiddenFor(@model => Model.Settings[Model.MATCH_GRADE_NAME_THRESHOLD].ProcessSettingsID)
+                            @Html.HiddenFor(@model => Model.Settings[Model.MATCH_GRADE_STREET_NO_THRESHOLD].ProcessSettingsID)
+                            @Html.HiddenFor(@model => Model.Settings[Model.MATCH_GRADE_STREET_NAME_THRESHOLD].ProcessSettingsID)
+                            @Html.HiddenFor(@model => Model.Settings[Model.MATCH_GRADE_CITY_THRESHOLD].ProcessSettingsID)
+                            @Html.HiddenFor(@model => Model.Settings[Model.MATCH_GRADE_STATE_THRESHOLD].ProcessSettingsID)
+                            @Html.HiddenFor(@model => Model.Settings[Model.MATCH_GRADE_TELEPHONE_THRESHOLD].ProcessSettingsID)
+                            @Html.HiddenFor(@model => Model.Settings[Model.MATCH_GRADE_POBOX_THRESHOLD].ProcessSettingsID)
+                            @Html.HiddenFor(@model => Model.Settings[Model.APPLY_MATCH_GRADE_TO_LCM].ProcessSettingsID)
+                            @Html.HiddenFor(@model => Model.Settings[Model.BATCH_SIZE].ProcessSettingsID)
+                            @Html.HiddenFor(@model => Model.Settings[Model.WAIT_TIME_BETWEEN_BATCHES_SECS].ProcessSettingsID)
+
+                            <table data-swhgcallback="" data-swhgcontainer="dgBanInputData" data-swhgajax="true" class="table borderNone panel-group customTable2">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <label>@DandBSettingLang.lblEnableDataCacheCleanseMatch</label>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 col-xs-2">
+                                                        <label class="switch">
+                                                            <input type="checkbox" name="USE_DATA_STUB_VALUE" id="@Model.USE_DATA_STUB_VALUE" value="true" checked="@(Convert.ToBoolean(Model.USE_DATA_STUB_VALUE))" )>
+                                                            <span class="Toggleslider round"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <label>@DandBSettingLang.lblEnableDataCacheEnrichment</label>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 col-xs-2">
+                                                        <label class="switch">
+                                                            <input type="checkbox" value="true" name="USE_DATA_STUB_FOR_ENRICHMENT_VALUE" id="@Model.USE_DATA_STUB_FOR_ENRICHMENT_VALUE" checked="@(Convert.ToBoolean(Model.USE_DATA_STUB_FOR_ENRICHMENT_VALUE))" )>
+                                                            <span class="Toggleslider round"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <label>@DandBSettingLang.lblEnableMissingDataFromProvider</label>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 col-xs-2">
+                                                        <label class="switch">
+                                                            <input type="checkbox" value="true" id="btnMissing" name="MISSING_DATA_FROM_PROVIDER" data-MissingDataid="@Model.MISSING_DATA_FROM_PROVIDER" checked="@(Convert.ToBoolean(Model.MISSING_DATA_FROM_PROVIDER))" )>
+                                                            <span class="Toggleslider round"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div>
+                                                <div class="row">
+                                                    <div class="col-md-6 col-sm-6 col-xs-6">
+                                                        <label>@DandBSettingLang.lblClientCode</label>
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-2 col-xs-2 paddingTop-4">
+                                                        @Model.Settings[Model.DATA_STUB_CLIENT_CODE].SettingValue
+                                                    </div>
+                                                </div>
+                                                <br />
+
+                                                @if (Helper.Branding == Branding.Matchbook.ToString())
+                                                {
+                                                    <span><em>@DandBSettingLang.lblCacheDataMatchbookNote</em></span>
+                                                }
+                                                else if (Helper.Branding == Branding.DandB.ToString())
+                                                {
+                                                    <span><em>@DandBSettingLang.lblCacheDataDanBNote</em></span>
+                                                }
+                                            </div>
+                                            <br />
+                                            @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                            {
+                                                <div class="form-group mt-2">
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-center">
+                                                            <input type="button" value="@DandBSettingLang.lblUpdate" name="btnSubmitCacheData" id="btnSubmitCacheData" data-ClientCode="@Model.Settings[Model.DATA_STUB_CLIENT_CODE].SettingValue" class="btn btn-primary" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                
+            </div>
+        </div>
+            </div>
+</div>
+<div id="divDownloadData"></div>
+<div id="divCacheCleanseMatchData"></div>
+<div id="divCacheEnrichmentData"></div>

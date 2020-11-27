@@ -1,0 +1,71 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@model List<SalesForceIntegrationEntity>
+@{
+    Layout = null;
+}
+
+<article class="col-md-12 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <i class="fa fa-comment"></i>
+                <strong>@PortalSettingLang.hdrSalesForceConfigurationList</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade active in">
+                        <div class="table-responsive" id="">
+
+                            <table class="table table-bordered SaleforceEnvironmentTB">
+                                <thead>
+                                    <tr>
+                                        <th>@PortalSettingLang.lblOrganizationName</th>
+                                        <th>@PortalSettingLang.lblSFOrganizationId</th>
+                                        @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                        {
+                                            if (Helper.UserType.ToLower() != "steward")
+                                            {
+                                                <th>
+                                                    @PortalSettingLang.lblDelete
+                                                </th>
+                                            }
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr data-SFId="@item.SFId">
+                                            <td>
+
+                                                @item.OrganizationName
+                                            </td>
+                                            <td>
+                                                @item.SFOrganizationId
+                                            </td>
+                                            @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                            {
+                                                if (Helper.UserType.ToLower() != "steward")
+                                                {
+                                                    <td>
+                                                        <a href="javascript:void(0)" id="@item.SFId" class="deleteSalseForceIntegration">@PortalSettingLang.lblDelete</a>
+                                                    </td>
+                                                }
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

@@ -1,0 +1,514 @@
+﻿@using SBISCCMWeb.Utility
+@using SBISCCMWeb.LanguageResources;
+@{
+    Layout = null;
+    bool Compliance = Helper.LicenseADACompliance;
+    string APITypeForInvestigation = Helper.lstThirdPartyAPIs.Where(x => x.Code == "DNB_INVESTIGATIONS").Select(x => x.APIType).FirstOrDefault();
+    int ComplianceCreds = Helper.lstEnrichCreds.Where(x => x.EnrichmentType == "OWNERSHIP").Select(x => x.CredentialId).FirstOrDefault();
+    bool EnableExportData = Helper.oUser.EnableExportData;
+}
+@if (Helper.Branding == Branding.DandB.ToString())
+{
+    <link href="~/Content/DandB.css" rel="stylesheet" />
+}
+@Html.AntiForgeryToken()
+
+
+<nav class="mainNav sidebarmenu">
+    <!-- NOTE: Notice the gaps after each icon usage <i></i>..
+    Please note that these links work a bit different than
+    traditional href="" links. See documentation for details.
+    -->
+
+    <ul class="innermenulist" style="">
+        <li class="@Html.RouteIfParent("Home", "active")">
+            <a href="/" title="@DnBMenuLang.titleDashboard">
+                <i class="fa fa-lg fa-fw fa-home "></i> <span class="menu-item-parent"> @DnBMenuLang.lblDashboard </span>
+            </a>
+        </li>
+        <li class="@Html.RouteIfParent("ImportData", "active")">
+            <a href="/ImportData" title="@DnBMenuLang.titleImportData">
+                @*<i class="glyphicon glyphicon-import "></i>*@
+                @*<img src="~/Images/import.svg" />*@
+                <svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="12px" height="14px"
+                     viewBox="0 0 12 14" enable-background="new 0 0 12 14" xml:space="preserve">
+                <metadata>
+                <sfw xmlns="&ns_sfw;">
+                <slices></slices>
+                <sliceSourceBounds height="11.742" width="10.715" y="-12.871" x="0.643" bottomLeftOrigin="true"></sliceSourceBounds>
+	            </sfw>
+                </metadata>
+                <g>
+                <polygon fill="#ACDCFF" points="8.65,1.129 9.813,8.403 2.936,10.117 	" />
+
+                <g>
+                <rect x="2.829" y="3.267" transform="matrix(-0.537 0.8436 -0.8436 -0.537 10.9454 3.7652)" fill="#ACDCFF" width="3.221" height="3.238" />
+
+                <rect x="0.383" y="2.686" transform="matrix(-0.5374 0.8433 -0.8433 -0.5374 5.813 3.3317)" fill="#ACDCFF" width="3.22" height="1.149" />
+
+	            </g>
+                <rect x="0.643" y="10.508" fill="#ACDCFF" width="10.715" height="2.363" />
+
+                <rect x="10.399" y="10.869" fill="#FFFFFF" width="0.517" height="0.223" />
+
+                </g>
+                </svg>
+                <span class="menu-item-parent"> @DnBMenuLang.lblImportData</span>
+            </a>
+        </li>
+        @if (Helper.LicenseEnableDataStewardship)
+        {
+            <li class="@Html.RouteIfParent("", "active")">
+                <a href="#" title="@DnBMenuLang.titleDataStewardship">
+                    <i class="fa fa-lg fa-fw fa-outdent "></i> <span class="menu-item-parent"> @DnBMenuLang.lblDataStewardship</span>
+                    <b class="collapse-sign"><em class="fa fa-expand-o"></em></b>
+                </a>
+                <ul style="display: none;">
+                    <li class="@Html.RouteIfParent("Review", "active")">
+                        <a href="/Review" title="@DnBMenuLang.titleReviewMatchCandidates">
+                            <span class="menu-item-parent"> @DnBMenuLang.lblReviewMatchCandidates</span>
+                        </a>
+                    </li>
+                    <li class="@Html.RouteIfParent("StewardshipPortal", "active")">
+                        <a href="/StewardshipPortal" title="@DnBMenuLang.titleMatchData">
+                            <span class="menu-item-parent"> @DnBMenuLang.lblMatchData</span>
+                        </a>
+                    </li>
+                    <li class="@Html.RouteIfParent("BadInputData", "active")">
+                        <a href="/BadInputData" title="@DnBMenuLang.titleCleanData">
+                            <span class="menu-item-parent"> @DnBMenuLang.lblCleanData</span>
+                        </a>
+                    </li>
+                    <li class="@Html.RouteIfParent("PreviewMatchData", "active")">
+                        <a href="/PreviewMatchData" title="@DnBMenuLang.titlePreviewMatchedData">
+                            <span class="menu-item-parent"> @DnBMenuLang.lblPreviewMatchedData</span>
+                        </a>
+                    </li>
+                    @if (Helper.LicenseEnableFamilyTree)
+                    {
+                        <li class="@Html.RouteIfParent("FamilyTree", "active")">
+                            <a href="/FamilyTree" title="@DnBMenuLang.titleManageFamilyTree">
+                                <span class="menu-item-parent"> @DnBMenuLang.lblManageFamilyTree</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            if (Helper.Branding == Branding.Matchbook.ToString())
+            {
+                <li>
+                    <a href="javascript:void(0)" title="@BrandingLang.msgMBFeature" class="clsDisable">
+                        <i class="fa fa-lg fa-fw fa-outdent "></i> <span class="menu-item-parent"> @DnBMenuLang.lblDataStewardship</span>
+                    </a>
+                </li>
+            }
+            else if (Helper.Branding == Branding.DandB.ToString())
+            {
+                <li>
+                    <a href="javascript:void(0)" title="@BrandingLang.msgDNBFeature" class="clsDisable">
+                        <i class="fa fa-lg fa-fw fa-outdent "></i> <span class="menu-item-parent"> @DnBMenuLang.lblDataStewardship</span>
+                    </a>
+                </li>
+            }
+        }
+        @if (Helper.LicenseEnableDataStewardship)
+        {
+            <li class="@Html.RouteIfParent("", " active")">
+                <a href="#" title="@DnBMenuLang.titleProspecting">
+                    <i class="fa fa-lg fa-fw fa-search "></i> <span class="menu-item-parent"> @DnBMenuLang.lblProspecting</span>
+                    <b class="collapse-sign"><em class="fa fa-expand-o"></em></b>
+                </a>
+
+                <ul style="display: none;">
+                    <li class="@Html.RouteIfParent("SearchData", "active")">
+                        <a href="/SearchData" title="@DnBMenuLang.titleSearchData">
+                            <span class="menu-item-parent">@DnBMenuLang.lblSearchData</span>
+                        </a>
+                    </li>
+                    @{
+                        string APIType = CommonMethod.GetThirdPartyProperty(ThirdPartyCode.DNB_BUILD_A_LIST.ToString(), ThirdPartyProperties.APIType.ToString());
+                    }
+                    @if (Helper.LicenseBuildAList && (APIType.ToLower() == ApiLayerType.Directplus.ToString().ToLower() || APIType.ToLower() == ""))
+                    {
+                        <li class="@Html.RouteIfParent("BuildList", "active")">
+                            <a href="/BuildList/Search" title="@DnBMenuLang.titleBuildAList">
+                                <span class="menu-item-parent">@DnBMenuLang.lblBuildAList</span>
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        string buildListfeatureTitle = string.Empty;
+                        if (Helper.Branding == Branding.Matchbook.ToString())
+                        {
+                            buildListfeatureTitle = BrandingLang.msgMBFeature;
+                        }
+                        else if (Helper.Branding == Branding.DandB.ToString())
+                        {
+                            buildListfeatureTitle = BrandingLang.msgDNBFeature;
+                        }
+                        <li>
+                            <a href="javascript:void(0)" title="@buildListfeatureTitle" class="clsDisable">
+                                <span class="menu-item-parent">@DnBMenuLang.lblBuildAList</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        }
+        else
+        {
+            if (Helper.Branding == Branding.Matchbook.ToString())
+            {
+                <li>
+                    <a href="javascript:void(0)" title="@BrandingLang.msgMBFeature" class="clsDisable">
+                        <i class="fa fa-lg fa-fw fa-search "></i> <span class="menu-item-parent"> @DnBMenuLang.lblProspecting</span>
+                    </a>
+                </li>
+            }
+            else if (Helper.Branding == Branding.DandB.ToString())
+            {
+                <li>
+                    <a href="javascript:void(0)" title="@BrandingLang.msgDNBFeature" class="clsDisable">
+                        <i class="fa fa-lg fa-fw fa-search "></i> <span class="menu-item-parent"> @DnBMenuLang.lblProspecting</span>
+                    </a>
+                </li>
+            }
+        }
+        @if (Helper.oUser.UserType.ToLower() != "steward")
+        {
+            <li class="@Html.RouteIfParent("ExportView", "active")">
+
+                <a href="/Export/CompanyData" title="@DnBMenuLang.titleExportData">
+                    <svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+                         xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="12px" height="14px"
+                         viewBox="0 0 12 14" enable-background="new 0 0 12 14" xml:space="preserve">
+                    <metadata>
+                    <sfw xmlns="&ns_sfw;">
+                    <slices></slices>
+                    <sliceSourceBounds height="13.069" width="16383" y="-13.622" x="-8185" bottomLeftOrigin="true"></sliceSourceBounds>
+	            </sfw>
+                </metadata>
+                    <g>
+                    <g>
+                    <polygon fill="#ACDCFF" points="2.137,1.715 9.411,0.553 11.125,7.43" />
+
+                    <g>
+                    <rect x="4.284" y="4.307" transform="matrix(0.8436 0.537 -0.537 0.8436 4.1042 -2.2382)" fill="#ACDCFF" width="3.221" height="3.238" />
+
+                    <rect x="2.658" y="7.798" transform="matrix(0.8433 0.5375 -0.5375 0.8433 5.1689 -0.9818)" fill="#ACDCFF" width="3.221" height="1.149" />
+
+		        </g>
+	            </g>
+                    <rect x="0.642" y="11.259" fill="#ACDCFF" width="10.715" height="2.363" />
+
+                    <rect x="10.398" y="11.62" fill="#FFFFFF" width="0.518" height="0.223" />
+
+                </g>
+                </svg>
+                    <span class="menu-item-parent"> @DnBMenuLang.lblExportData</span>
+                </a>
+
+            </li>
+        }
+        else
+        {
+            if (EnableExportData)
+            {
+                <li class="@Html.RouteIfParent("ExportView", "active")">
+
+                    <a href="/Export/CompanyData" title="@DnBMenuLang.titleExportData">
+                        <svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="12px" height="14px"
+                             viewBox="0 0 12 14" enable-background="new 0 0 12 14" xml:space="preserve">
+                        <metadata>
+                        <sfw xmlns="&ns_sfw;">
+                        <slices></slices>
+                        <sliceSourceBounds height="13.069" width="16383" y="-13.622" x="-8185" bottomLeftOrigin="true"></sliceSourceBounds>
+	                    </sfw>
+                        </metadata>
+                        <g>
+                        <g>
+                        <polygon fill="#ACDCFF" points="2.137,1.715 9.411,0.553 11.125,7.43" />
+
+
+                        
+                        <g>
+                        <rect x="4.284" y="4.307" transform="matrix(0.8436 0.537 -0.537 0.8436 4.1042 -2.2382)" fill="#ACDCFF" width="3.221" height="3.238" />
+
+
+                        
+                        <rect x="2.658" y="7.798" transform="matrix(0.8433 0.5375 -0.5375 0.8433 5.1689 -0.9818)" fill="#ACDCFF" width="3.221" height="1.149" />
+
+
+                        
+		                </g>
+	                    </g>
+                        <rect x="0.642" y="11.259" fill="#ACDCFF" width="10.715" height="2.363" />
+
+
+                        
+                        <rect x="10.398" y="11.62" fill="#FFFFFF" width="0.518" height="0.223" />
+
+
+                        
+                        </g>
+                        </svg>
+                        <span class="menu-item-parent"> @DnBMenuLang.lblExportData</span>
+                    </a>
+
+                </li>
+            }
+            else
+            {
+                if (Helper.Branding == Branding.Matchbook.ToString())
+                {
+                    <li>
+                        <a href="javascript:void(0)" title="@BrandingLang.msgMBFeature" class="clsDisable">
+                            <svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="12px" height="14px"
+                                 viewBox="0 0 12 14" enable-background="new 0 0 12 14" xml:space="preserve">
+                            <metadata>
+                            <sfw xmlns="&ns_sfw;">
+                            <slices></slices>
+                            <sliceSourceBounds height="13.069" width="16383" y="-13.622" x="-8185" bottomLeftOrigin="true"></sliceSourceBounds>
+	                        </sfw>
+                            </metadata>
+                            <g>
+                            <g>
+                            <polygon fill="#ACDCFF" points="2.137,1.715 9.411,0.553 11.125,7.43" />
+
+
+                            
+                            <g>
+                            <rect x="4.284" y="4.307" transform="matrix(0.8436 0.537 -0.537 0.8436 4.1042 -2.2382)" fill="#ACDCFF" width="3.221" height="3.238" />
+
+
+                            
+                            <rect x="2.658" y="7.798" transform="matrix(0.8433 0.5375 -0.5375 0.8433 5.1689 -0.9818)" fill="#ACDCFF" width="3.221" height="1.149" />
+
+
+                            
+		                    </g>
+	                        </g>
+                            <rect x="0.642" y="11.259" fill="#ACDCFF" width="10.715" height="2.363" />
+
+
+                            
+                            <rect x="10.398" y="11.62" fill="#FFFFFF" width="0.518" height="0.223" />
+
+
+                            
+                            </g>
+                            </svg>
+                            <span class="menu-item-parent"> @DnBMenuLang.lblExportData</span>
+                        </a>
+                    </li>
+                }
+                else if (Helper.Branding == Branding.DandB.ToString())
+                {
+                    <li>
+                        <a href="javascript:void(0)" title="@BrandingLang.msgDNBFeature" class="clsDisable">
+                            <svg version="1.1" id="Layer_1" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;"
+                                 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="12px" height="14px"
+                                 viewBox="0 0 12 14" enable-background="new 0 0 12 14" xml:space="preserve">
+                            <metadata>
+                            <sfw xmlns="&ns_sfw;">
+                            <slices></slices>
+                            <sliceSourceBounds height="13.069" width="16383" y="-13.622" x="-8185" bottomLeftOrigin="true"></sliceSourceBounds>
+	                        </sfw>
+                            </metadata>
+                            <g>
+                            <g>
+                            <polygon fill="#ACDCFF" points="2.137,1.715 9.411,0.553 11.125,7.43" />
+
+
+                            
+                            <g>
+                            <rect x="4.284" y="4.307" transform="matrix(0.8436 0.537 -0.537 0.8436 4.1042 -2.2382)" fill="#ACDCFF" width="3.221" height="3.238" />
+
+
+                            
+                            <rect x="2.658" y="7.798" transform="matrix(0.8433 0.5375 -0.5375 0.8433 5.1689 -0.9818)" fill="#ACDCFF" width="3.221" height="1.149" />
+
+
+                            
+		                    </g>
+	                        </g>
+                            <rect x="0.642" y="11.259" fill="#ACDCFF" width="10.715" height="2.363" />
+
+
+                            
+                            <rect x="10.398" y="11.62" fill="#FFFFFF" width="0.518" height="0.223" />
+
+
+                            
+                            </g>
+                            </svg>
+                            <span class="menu-item-parent"> @DnBMenuLang.lblExportData</span>
+                        </a>
+                    </li>
+                }
+            }
+        }
+
+        @if (Helper.LicenseEnableCompliance && Helper.oUser.EnableCompliance && ComplianceCreds > 0)
+        {
+            <li class="@Html.RouteIfParent("BeneficialOwnership", "active")">
+                <a href="javascript:void(0)" title="@DnBMenuLang.lblCompliance">
+                    <i class="fa fa-clipboard"></i> <span class="menu-item-parent"> @DnBMenuLang.lblCompliance</span>
+                    <b class="collapse-sign"><em class="fa fa-expand-o"></em></b>
+                </a>
+                <ul style="display: none;">
+                    <li class="@Html.RouteIfParent("BeneficialOwnership", "active")">
+                        <a href="/BeneficialOwnership" title="@DnBMenuLang.lblBeneficialOwnership">
+                            <span class="menu-item-parent"> @DnBMenuLang.lblBeneficialOwnership</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="javascript:void(0)" title="@DnBMenuLang.titleSettings" class="clsDisable">
+                    <i class="fa fa-clipboard"></i> <span class="menu-item-parent"> @DnBMenuLang.lblCompliance</span>
+                </a>
+            </li>
+        }
+
+        <li class="@Html.RouteIfParent("", "active")">
+
+            <a href="#" title="@DnBMenuLang.titleReports">
+                <i class="fa fa-lg fa-fw fa-list  "></i> <span class="menu-item-parent">@DnBMenuLang.lblReports</span>
+                <b class="collapse-sign"><em class="fa fa-expand-o"></em></b>
+            </a>
+
+            <ul style="display: none;">
+                <li class="@Html.RouteIfParent("ReportsList", "active")">
+                    <a href="/ReportsList" title="@DnBMenuLang.titleBaseReports">
+                        <span class="menu-item-parent"> @DnBMenuLang.lblBaseReports</span>
+                    </a>
+                </li>
+                @*@if (Helper.Branding == Branding.Matchbook.ToString())
+                {
+                    <li class="@Html.RouteIfParent("Ticket", "active")">
+                        <a href="/Ticket" title="@DnBMenuLang.titleHelpDesk">
+                            <span class="menu-item-parent">@DnBMenuLang.lblHelpDesk</span>
+                        </a>
+                    </li>
+                }*@
+                @if (Helper.LicenseEnableInvestigations && Helper.oUser.EnableInvestigations && APITypeForInvestigation == "DirectPlus")
+                {
+                    <li class="@Html.RouteIfParent("ResearchInvestigation", "active")">
+                        <a href="/ResearchInvestigation/Index" title="@DnBMenuLang.titleInvestigationReport">
+                            <span class="menu-item-parent"> @DnBMenuLang.lblInvestigationReport</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    if (Helper.Branding == Branding.Matchbook.ToString())
+                    {
+                        <li>
+                            <a href="javascript:void(0)" title="@BrandingLang.msgMBFeature" class="clsDisable">
+                                <span class="menu-item-parent"> @DnBMenuLang.lblInvestigationReport</span>
+                            </a>
+                        </li>
+                    }
+                    else if (Helper.Branding == Branding.DandB.ToString())
+                    {
+                        <li>
+                            <a href="javascript:void(0)" title="@BrandingLang.msgDNBFeature" class="clsDisable">
+                                <span class="menu-item-parent"> @DnBMenuLang.lblInvestigationReport</span>
+                            </a>
+                        </li>
+                    }
+                }
+            </ul>
+        </li>
+        <li class="@Html.RouteIfParent("", "active")">
+
+            <a href="#" title="@DnBMenuLang.titleSettings">
+                <i class="fa fa-wrench" aria-hidden="true"></i> <span class="menu-item-parent"> @DnBMenuLang.lblSettings</span>
+                <b class="collapse-sign"><em class="fa fa-expand-o"></em></b>
+            </a>
+
+            <ul style="display: none;">
+                @if (Helper.UserType.ToLower() != "steward")
+                {
+                    <li class="@Html.RouteIfParent("Features", "active")">
+                        <a href="/Portal/Features" title="@DnBMenuLang.titlePortal">
+                            <span class="menu-item-parent"> @DnBMenuLang.lblPortal</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="@Html.RouteIfParent("AboutUs", "active")">
+                        <a href="/Portal/AboutUs" title="@DnBMenuLang.titlePortal">
+                            <span class="menu-item-parent"> @DnBMenuLang.lblPortal</span>
+                        </a>
+                    </li>
+                }
+                @if (Helper.oUser.UserType.ToLower() == "steward")
+                {
+                    @*if (Helper.LicenseEnableDPM || Helper.LicenseEnableMonitoring)
+                    {
+                        <li class="@Html.RouteIfParent("DandB", "active")">
+                            <a href="/DandB" title="@DnBMenuLang.titleDAndB">
+                                <span class="menu-item-parent">@DnBMenuLang.lblDAndB</span>
+                            </a>
+                        </li>
+                    }*@
+                }
+                else
+                {
+                    <li class="@Html.RouteIfParent("Feature", "active")">
+                        <a href="/DNB/Feature" title="@DnBMenuLang.titleDAndB">
+                            <span class="menu-item-parent"> @DnBMenuLang.lblDAndB</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </li>
+
+        <li class="liCircleUserText">
+            <span class="minifyme" id="minifymeMenu" data-action="minifyMenu">
+                <i class="fa fa-arrow-circle-left hit"></i>
+            </span>
+            <div class="circleUserText bgimage">
+                <span class="ActiveUser">@DnBMenuLang.lblActiveUsers <br /> 0</span>
+            </div>
+
+            <div class="userdatacount-new" style="display:none!important">
+                <span class="backgroundProcessUserCountData"></span>
+            </div>
+            <div class="backgroundProcess-new">
+                <span class="process-popup">
+                    @DnBMenuLang.lblBackGroundProcessStatus
+                </span>
+                <div class="bgProcess">
+                    <span class="backgroundProcess"></span>
+                </div>
+            </div>
+        </li>
+        <li class="alignSlider">
+            <a title="@DnBMenuLang.titleADACompliance" style="border-bottom: none !important">
+                <div class="row">
+                    <div class="col-md-8 txtCompliance"><strong class="">@DnBMenuLang.lblADACompliance</strong></div>
+                    <div class="col-md-4">
+                        <label class="Toggleswitch switch">
+                            <input type="checkbox" name="ComplianceReset" id="ComplianceReset" @(Compliance == true ? "checked" : "")>
+                            <span class="Toggleslider round "></span>
+                        </label>
+                    </div>
+                </div>
+            </a>
+        </li>
+    </ul>
+</nav>

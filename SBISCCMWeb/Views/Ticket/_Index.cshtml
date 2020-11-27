@@ -1,0 +1,103 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model IPagedList<TicketEntity>
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divTicketPortal",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+}
+@{
+    string TicketSortBy = Convert.ToString(ViewBag.SortBy);
+    string TicketSortOrder = Convert.ToString(ViewBag.SortOrder);
+}
+
+@using (Ajax.BeginForm("Index", "Ticket", FormMethod.Post, ajaxOptions, new { id = "form_Ticket", @autocomplete = "off" }))
+{ 
+    @Html.Hidden("TicketSortBy", TicketSortBy)
+    @Html.Hidden("TicketSortOrder", TicketSortOrder)
+
+    <label class="select pull-right" style="padding-right:10px;">
+        @TicketLang.lblPageSize :  @Html.DropDownList("pagevalue", new SelectList(CommonDropdown.GetPageSize(), Convert.ToInt32(ViewBag.pageno)), new { id = "pagevalue", @class = "pagevalueChange", @autocomplete = "off" })<i></i>
+    </label>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+
+                <th>
+                    @Ajax.ActionLink(TicketLang.lblId, "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(TicketLang.lblTitle, "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 2, sortorder = (ViewBag.SortBy == 2 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(TicketLang.lblEnteredBy, "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 3, sortorder = (ViewBag.SortBy == 3 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th style="display:none;">
+                    @Ajax.ActionLink(TicketLang.lblAssigned, "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 4, sortorder = (ViewBag.SortBy == 4 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(TicketLang.lblPriority, "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 5, sortorder = (ViewBag.SortBy == 5 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(TicketLang.lblStatus, "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 6, sortorder = (ViewBag.SortBy == 6 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(TicketLang.lblCreateDate, "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 7, sortorder = (ViewBag.SortBy == 7 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(TicketLang.lblTicketSource, "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 8, sortorder = (ViewBag.SortBy == 8 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>
+                    @Ajax.ActionLink(TicketLang.lblTicketType, "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 9, sortorder = (ViewBag.SortBy == 9 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                </th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                       <td><a class="editTicket" data-val="@item.Id" href="#">@(item.Title.Length > 20 ? item.Title.Substring(0, 20) : item.Title)</a></td>
+                        <td>@item.EnteredBy</td>
+                        <td style="display:none;">@item.AssignedTo</td>
+                        <td>@item.PriorityValue</td>
+                        <td>@item.CurrentStatusValue</td>
+                        <td>@(item.AddDateTime == null ? "" : item.AddDateTime.ToShortDateString())</td>
+                        <td>@item.TicketSourceValue</td>
+                        <td>@item.TicketTypeValue</td>
+                        <td>
+                            @if (item.CurrentStatus != 102005)
+                            {
+                                <a href="javascript:void(0);" class="TicketClose" id="@item.Id">@TicketLang.lblClose</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9"> @TicketLang.lblNorecordsfound</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="dt-toolbar-footer">
+        <div class="col-sm-12 col-xs-12 hidden-xs">
+            <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                <a id="pagingFormAction" href="@Url.Action("Index", "Ticket", new {  page = 1, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder })" style="display:block"></a>
+                @Html.PagedListPager(Model, page => Url.Action("Index", "Ticket", new { page = page, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divTicketPortal", LoadingElementId = "divProgress", OnSuccess = "OnSuccess()" }))
+            </div>
+        </div>
+    </div>
+}
+

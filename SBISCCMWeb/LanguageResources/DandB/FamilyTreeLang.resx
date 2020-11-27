@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrAddNode" xml:space="preserve">
+    <value>Add Node</value>
+    <comment>Add Node</comment>
+  </data>
+  <data name="hdrCorporateHierarchyManagementSolution" xml:space="preserve">
+    <value>Corporate Hierarchy Management Solution</value>
+    <comment>Corporate Hierarchy Management Solution</comment>
+  </data>
+  <data name="hdrCreateFamilyTree" xml:space="preserve">
+    <value>Create Family Tree</value>
+    <comment>Create Family Tree</comment>
+  </data>
+  <data name="hdrDuplicateFamilyTree" xml:space="preserve">
+    <value>Duplicate Family Tree</value>
+    <comment>Duplicate Family Tree</comment>
+  </data>
+  <data name="hdrFamilyTree" xml:space="preserve">
+    <value>Family Tree</value>
+    <comment>Family Tree</comment>
+  </data>
+  <data name="hdrFamilyTreeDetail" xml:space="preserve">
+    <value>Family Tree Detail</value>
+    <comment>Family Tree Detail</comment>
+  </data>
+  <data name="hdrPopulateanewFamilyTreefromCorporateLinkage" xml:space="preserve">
+    <value>Populate a new Family Tree from Corporate Linkage</value>
+    <comment>Populate a new Family Tree from Corporate Linkage</comment>
+  </data>
+  <data name="lblAdd" xml:space="preserve">
+    <value>Add</value>
+    <comment>Add</comment>
+  </data>
+  <data name="lblAdditionalAction" xml:space="preserve">
+    <value>Additional Action</value>
+    <comment>Additional Action</comment>
+  </data>
+  <data name="lblAdditionalActions" xml:space="preserve">
+    <value>Additional Actions</value>
+    <comment>Additional Actions</comment>
+  </data>
+  <data name="lblAddNode" xml:space="preserve">
+    <value>Add Node</value>
+    <comment>Add Node</comment>
+  </data>
+  <data name="lblAddress" xml:space="preserve">
+    <value>Address</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAlternateId" xml:space="preserve">
+    <value>Alternate Id</value>
+    <comment>Alternate Id</comment>
+  </data>
+  <data name="lblCreateNewFamilyTree" xml:space="preserve">
+    <value>Create New Family Tree</value>
+    <comment>Create New Family Tree</comment>
+  </data>
+  <data name="lblDeleteFamilyTree" xml:space="preserve">
+    <value>Delete Family Tree</value>
+    <comment>Delete Family Tree</comment>
+  </data>
+  <data name="lblDetailId" xml:space="preserve">
+    <value>Detail Id</value>
+    <comment>Detail Id</comment>
+  </data>
+  <data name="lblDunsNumber" xml:space="preserve">
+    <value>Duns Number</value>
+    <comment>Duns Number</comment>
+  </data>
+  <data name="lblDuplicateFamilyTree" xml:space="preserve">
+    <value>Duplicate Family Tree</value>
+    <comment>Duplicate Family Tree</comment>
+  </data>
+  <data name="lblEditable" xml:space="preserve">
+    <value>Editable</value>
+    <comment>Editable</comment>
+  </data>
+  <data name="lblEnterAlternateId" xml:space="preserve">
+    <value>Enter Alternate Id</value>
+    <comment>Enter Alternate Id</comment>
+  </data>
+  <data name="lblEnterFamilyTreeName" xml:space="preserve">
+    <value>Enter Family Tree Name</value>
+    <comment>Enter Family Tree Name</comment>
+  </data>
+  <data name="lblEnterFamilyTreeType" xml:space="preserve">
+    <value>Enter Family Tree Type</value>
+    <comment>Enter Family Tree Type</comment>
+  </data>
+  <data name="lblFamilyTree" xml:space="preserve">
+    <value>FamilyTree</value>
+    <comment>FamilyTree</comment>
+  </data>
+  <data name="lblFamilyTreeName" xml:space="preserve">
+    <value>Family Tree Name</value>
+    <comment>Family Tree Name</comment>
+  </data>
+  <data name="lblFamilyTreeType" xml:space="preserve">
+    <value>Family Tree Type</value>
+    <comment>Family Tree Type</comment>
+  </data>
+  <data name="lblLastModiifiedBy" xml:space="preserve">
+    <value>Last Modiified By</value>
+    <comment>Last Modiified By</comment>
+  </data>
+  <data name="lblLastRefreshedDate" xml:space="preserve">
+    <value>Last Refreshed Date</value>
+    <comment>Last Refreshed Date</comment>
+  </data>
+  <data name="lblLockedforEdit" xml:space="preserve">
+    <value>Locked for Edit</value>
+    <comment>Locked for Edit</comment>
+  </data>
+  <data name="lblName" xml:space="preserve">
+    <value>Name</value>
+    <comment>Name</comment>
+  </data>
+  <data name="lblNodataareavailable" xml:space="preserve">
+    <value>No data are available</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNodeDisplayDetails" xml:space="preserve">
+    <value>Node Display Details</value>
+    <comment>Node Display Details</comment>
+  </data>
+  <data name="lblNodeType" xml:space="preserve">
+    <value>Node Type</value>
+    <comment>Node Type</comment>
+  </data>
+  <data name="lblPopulateanewFamilyTreefromCorporateLinkage" xml:space="preserve">
+    <value>Populate a new Family Tree from Corporate Linkage</value>
+    <comment>Populate a new Family Tree from Corporate Linkage</comment>
+  </data>
+  <data name="lblSelect" xml:space="preserve">
+    <value>--Select--</value>
+    <comment>--Select--</comment>
+  </data>
+  <data name="lblSelected" xml:space="preserve">
+    <value>Select</value>
+    <comment>Select</comment>
+  </data>
+  <data name="lblSideBySide" xml:space="preserve">
+    <value>Side By  Side</value>
+    <comment>Side By  Side</comment>
+  </data>
+  <data name="lblSinglePanel" xml:space="preserve">
+    <value>Single Panel</value>
+    <comment>Single Panel</comment>
+  </data>
+  <data name="lblType" xml:space="preserve">
+    <value>Type</value>
+    <comment>Type</comment>
+  </data>
+  <data name="msgAddNode" xml:space="preserve">
+    <value>Add Node</value>
+    <comment>Add Node</comment>
+  </data>
+  <data name="msgAddTree" xml:space="preserve">
+    <value>Are you sure you want to add this tree ?</value>
+    <comment>Are you sure you want to add this tree ?</comment>
+  </data>
+  <data name="msgCopyNode" xml:space="preserve">
+    <value>Are you sure you want to Copy this node ?</value>
+    <comment>Are you sure you want to Copy this node ?</comment>
+  </data>
+  <data name="msgDeleteFamilyTree" xml:space="preserve">
+    <value>Are you sure you want to delete this tree ?</value>
+    <comment>Are you sure you want to delete this tree ?</comment>
+  </data>
+  <data name="msgDeleteNode" xml:space="preserve">
+    <value>Are you sure you want to delete this node ?</value>
+    <comment>Are you sure you want to delete this node ?</comment>
+  </data>
+  <data name="msgDeleteNodeSingle" xml:space="preserve">
+    <value>Delete Node</value>
+    <comment>Delete Node</comment>
+  </data>
+  <data name="msgDuplicateFamilyTreeCreated" xml:space="preserve">
+    <value>Duplicate Family Tree Created Successfully</value>
+    <comment>Duplicate Family Tree Created Successfully</comment>
+  </data>
+  <data name="msgFamilyTreeCreated" xml:space="preserve">
+    <value>Family Tree Created Successfully</value>
+    <comment>Family Tree Created Successfully</comment>
+  </data>
+  <data name="msgFamilyTreeNodeCreated" xml:space="preserve">
+    <value>Family Tree Node Created Successfully</value>
+    <comment>Family Tree Node Created Successfully</comment>
+  </data>
+  <data name="msgFamilyTreeNodeDeleted" xml:space="preserve">
+    <value>Family Tree Node Deleted Successfully</value>
+    <comment>Family Tree Node Deleted Successfully</comment>
+  </data>
+  <data name="msgMoveNode" xml:space="preserve">
+    <value>Are you sure you want to move this node ?</value>
+    <comment>Are you sure you want to move this node ?</comment>
+  </data>
+  <data name="msgSelectTree" xml:space="preserve">
+    <value>Select Family Tree</value>
+    <comment>Select Family Tree</comment>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Family Tree Type</value>
+    <comment>Family Tree Type</comment>
+  </data>
+  <data name="titleExpandthisbranch" xml:space="preserve">
+    <value>Expand this branch</value>
+    <comment>Expand this branch</comment>
+  </data>
+  <data name="titleFamilyTree" xml:space="preserve">
+    <value>FamilyTree</value>
+    <comment>FamilyTree</comment>
+  </data>
+</root>

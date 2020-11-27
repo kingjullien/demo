@@ -1,0 +1,12 @@
+﻿@using SBISCCMWeb.LanguageResources;
+<ul id="CommandRightTab" class="nav nav-tabs setTabs">
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.SelectedIndividualTab == "Upload Configuration" ? "active" : "")" data-toggle="tab" href="#RTabCommandUpload" id="IdRTabCommandUpload" aria-expanded="false">@PortalSettingLang.lblUploadConfiguration</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.SelectedIndividualTab == "Download Configuration" ? "active" : "")" data-toggle="tab" href="#RTabCommandDownload" id="IdRTabCommandDownload" aria-expanded="false">@PortalSettingLang.lblDownloadConfiguration</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link @(ViewBag.SelectedIndividualTab == "EXE Setup" ? "active" : "")" data-toggle="tab" href="#RTabCommandDownloadSetup" id="IdRTabCommandDownloadSetup" aria-expanded="false">@PortalSettingLang.lblEXESetup</a>
+    </li>
+</ul>

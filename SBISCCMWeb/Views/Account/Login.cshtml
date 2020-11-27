@@ -1,0 +1,203 @@
+﻿@using SBISCCMWeb.Models
+@using SBISCCMWeb.Utility
+@using Resources = ViewResources.BrandingTypes;
+@using SBISCCMWeb.LanguageResources;
+
+@model LoginViewModel
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewBag.Title = AccountLang.titleLogin;
+    bool PredefineUser = SessionHelper.PredefineUser;
+    var profileImg = "/Images/ClientLogos/" + Helper.ClientLogo;
+    var absolutePath = HttpContext.Current.Server.MapPath(profileImg);
+}
+
+
+@section scripts
+{
+    <script>
+        runAllForms();
+    </script>
+    @Scripts.Render("~/bundles/login")
+}
+<div class="row justify-content-center">
+    @if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        <div class="col-md-4 col-md-offset-2">
+            <div class="logo_sec">
+                <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(Resources.Resource_Matchbook.LoginImage))" alt="matchbook" class="img-fluid" />
+            </div>
+        </div>
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        <div class="col-md-4 col-md-offset-2">
+            <div class="logo_sec">
+                <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(Resources.Resource_DandB.ImageLogin))" alt="dandb" class="img-fluid" />
+            </div>
+        </div>
+    }
+    <div class="col-md-4">
+        <div class="sub_logo_sec">
+            @if (System.IO.File.Exists(absolutePath))
+            {
+                <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(profileImg))" alt="@SessionHelper.ClientName" class="img-fluid" />
+            }
+            else if (!string.IsNullOrEmpty(Helper.ClientLogo))
+            {
+                if (ImageHelper.IsFileExists(@Helper.ClientLogo, ImageHelper.PictureType.clientlogo))
+                {
+                    <img src="/Image/GetAnonymousBlobImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(ImageHelper.GetImageFullURL(ImageHelper.PictureType.clientlogo, @Helper.ClientLogo)))" alt="@SessionHelper.ClientName" class="img-fluid" id="ClientLogo" />
+                }
+            }
+            else
+            {
+                <img class="img-fluid" src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("/Images/Matchbook-logo.png"))" alt="Matchbook" />
+            }
+            <h4>@SessionHelper.ClientName</h4>
+        </div>
+    </div>
+</div>
+<div class="row w-50 m-auto">
+    <div class="well sigin_cus LoginPage">
+        @if (!Helper.SAMLSSO)
+        {
+            using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "smart-form client-form", role = "form", autocomplete = "off" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("Predefineuser", PredefineUser)
+
+                <header>
+                    @AccountLang.hdrSignIn
+                </header>
+                <fieldset>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <section>
+                        @if (PredefineUser)
+                        {
+                            <label class="input">
+                                <em class="icon-append fa fa-user"></em>
+                                <input class="form-control" id="txtEmail" autocomplete="off" value="@Model.EmailAddress" disabled="disabled" style="background:#eee !important" placeholder="@AccountLang.placeholderEnterEmail" maxlength="200" />
+                                @Html.HiddenFor(m => m.EmailAddress)
+                                <strong class="tooltip tooltip-top-right"><em class="fa fa-user txt-color-teal"></em> @AccountLang.lblRequiredEmailAddress</strong>
+                            </label>
+                            <div class="note DifferentLink">
+                                @Html.ActionLink(AccountLang.lblSignInAsDifferentUser, "DiffrentUserLogin", "Account")
+                            </div>
+                            <br />
+                        }
+                        else
+                        {
+                            <label class="input">
+                                <em class="icon-append fa fa-user"></em>
+                                @Html.TextBoxFor(m => m.EmailAddress, new { onfocus = "this.removeAttribute('readonly');", @readonly = "readonly", autocomplete = "off", placeholder = AccountLang.placeholderEnterEmail, maxlength = "200" })
+                                <strong class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> @AccountLang.lblRequiredEmailAddress</strong>
+                            </label>
+                        }
+                        @Html.ValidationMessageFor(m => m.EmailAddress, "", new { @class = "text-danger" })
+                    </section>
+                    <section>
+                        <label class="input">
+                            <em class="icon-append fa fa-lock"></em>
+                            @Html.PasswordFor(m => m.Password, new { onfocus = "this.removeAttribute('readonly');", @readonly = "readonly", autocomplete = "off", placeholder = AccountLang.placeholderEnterPassword })
+                            <strong class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> @AccountLang.lblEnterPassword</strong>
+                        </label>
+                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        <br />
+                    </section>
+                    <section class="clear">
+                        <label class="checkbox" style="    padding-left: 20px;">
+                            @Html.CheckBoxFor(m => m.RememberMe)
+                            <em></em>@AccountLang.lblRememberMeMachine
+                        </label>
+                    </section>
+                </fieldset>
+                <footer>
+                    <div class="note">
+                        @Html.ActionLink(AccountLang.lblForgotpasswords, "ForgotPassword", "Account")
+                    </div>
+                    @if (Helper.Branding == Branding.Matchbook.ToString())
+                    {
+                        <div class="note">
+                            <span>@AccountLang.lblPortalUse <a onclick="window.open('https://www.matchbookservices.com/license')" href="javascript:void(false)">@AccountLang.lbllicensingagreement</a> @AccountLang.lblUpdated</span>
+                        </div>
+                    }
+                    else if (Helper.Branding == Branding.DandB.ToString())
+                    {
+                        <div class="note">
+                            <span>@AccountLang.lblPortalDunAndBradstreet</span>
+                        </div>
+                    }
+                    <button type="submit" class="btn btn-primary">
+                        @AccountLang.lblSignin
+                    </button>
+
+                    <div id="box"></div>
+                </footer>
+            }
+        }
+        else
+        {
+            using (Html.BeginForm("SingleSignOn", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "smart-form client-form", role = "form", autocomplete = "off" }))
+            {
+                @Html.Hidden("Predefineuser", PredefineUser)
+                @Html.AntiForgeryToken()
+                <header>
+                    @AccountLang.hdrSignIn
+                </header>
+
+                <div class="paddingLeft-15 margintop10">
+                    @if (!string.IsNullOrEmpty(SessionHelper.ModelStateError))
+                    {
+                        <ul>
+                            <li class="text-danger">
+                                @Html.Raw(SessionHelper.ModelStateError)
+                            </li>
+                        </ul>
+                    }
+                </div>
+                <section class="clear">
+                    <label class="checkbox" style="    padding-left: 20px;">
+                        @Html.CheckBoxFor(m => m.RememberMe)
+                        <em></em>@Html.LabelFor(m => m.RememberMe)
+                    </label>
+                </section>
+                if (!string.IsNullOrEmpty(SessionHelper.SamlLogoutLink))
+                { <div class="paddingLeft-15">
+                        <ul>
+                            <li>
+                                @Html.Raw(SessionHelper.SamlLogoutLink)
+                            </li>
+                        </ul>
+                    </div>
+                }
+                if (Helper.Branding == Branding.Matchbook.ToString())
+                {
+                    <div class="note">
+                        <span>@AccountLang.lblPortalUse <a onclick="window.open('https://www.matchbookservices.com/license')" href="javascript:void(false)">@AccountLang.lbllicensingagreement</a> @AccountLang.lblUpdated</span>
+                    </div>
+                }
+                else if (Helper.Branding == Branding.DandB.ToString())
+                {
+                    <div class="note">
+                        <span>@AccountLang.lblPortalDunAndBradstreet</span>
+                    </div>
+                }
+                <div id="box"></div>
+                <footer>
+                    <button type="submit" class="btn btn-primary">@AccountLang.hdrSignIn</button>
+                </footer>
+            }
+
+        }
+    </div>
+</div>
+
+@if (!String.IsNullOrEmpty(SessionHelper.RedirectUrl))
+{
+    <iframe height="0" width="0" style="border:none;" name="iframe"></iframe>
+    <form id="form1" runat="server" target="iframe" method="post" action="@SessionHelper.RedirectUrl"></form>
+    <script>
+        $('#form1').submit();
+    </script>
+}

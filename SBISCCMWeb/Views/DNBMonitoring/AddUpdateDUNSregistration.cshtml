@@ -1,0 +1,117 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model DUNSregistrationEntity
+@using SBISCCMWeb.Utility
+@{
+    Layout = null;
+}
+@{
+    string ConnectionString = ViewBag.ConnectionString;
+    AjaxOptions DUNSRegistrationajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "UpdateDUNSRegistration"
+    };
+}
+<article class="col-md-12 sortable-grid ui-sortable widget-data ">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2 class="setwidth">
+                <strong>@DandBSettingLang.hdrDUNSRegistrationSetup</strong>
+            </h2>
+            <ul id="widget-tab-Process" class="nav pull-right nav-pills Custom-pill">
+                <li>
+                    <div class="btn btn-sm " id="AddDUNSRegistration" title="@DandBSettingLang.titleAddDUNSRegistration">
+                        <span class="fa fa-plus"></span>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn btn-sm " id="editDUNSRegistration" title="@DandBSettingLang.titleEditDUNSRegistration">
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10 ">
+                    @using (Ajax.BeginForm("AddUpdateDUNSregistration", "DNBMonitoring", null, DUNSRegistrationajaxOptions, new { id = "frmMonitoringRegistration", @autocomplete = "off" }))
+                    {
+                        @Html.HiddenFor(m => m.MonitoringRegistrationId)
+                        @Html.Hidden("TagList", Model.Tags)
+
+                        @Html.Hidden("Tags")
+                        <div class="row form-group">
+                            <div class="col-xs-4 ">
+                                <span><strong>@DandBSettingLang.lblMonitoringProfile</strong></span>
+                                @Html.DropDownListFor(x => x.MonitoringProfileId, new SelectList(SBISCCMWeb.Controllers.DNBMonitoringController.GetMonitioringProfileNames(ConnectionString), "Value", "Text"), new { @class = "form-control", @autocomplete = "off", disabled = "disabled" })
+                                <span id="spnMonitoringProfileId" class="error" style="display:none;">@DandBSettingLang.lblMonitoringProfileRequired</span>
+                            </div>
+
+                            <div class="col-xs-4">
+                                <span><strong>@DandBSettingLang.lblNotificationProfile</strong></span>
+                                @Html.DropDownListFor(x => x.NotificationProfileId, new SelectList(SBISCCMWeb.Controllers.DNBMonitoringController.GetNotificationProfileNames(ConnectionString), "Value", "Text"), new { @class = "form-control", @autocomplete = "off", disabled = "disabled" })
+                                <span id="spnNotificationProfileId" class="error" style="display:none;">@DandBSettingLang.lblNotificationProfileRequired</span>
+                            </div>
+                            <div class="col-xs-4">
+                                <label class="checkbox" style="    padding-left: 20px;">
+                                    @Html.CheckBoxFor(m => m.TradeUpIndicator, new { disabled = "disabled" })
+                                    <span><strong>@DandBSettingLang.lblTradeUp</strong></span>
+
+                                </label>
+                                <label class="checkbox" style="    padding-left: 20px;">
+                                    @Html.CheckBoxFor(m => m.AutoRenewalIndicator, new { disabled = "disabled" })
+                                    <span><strong>@DandBSettingLang.lblAutoRenew</strong></span>
+
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <span><strong>@DandBSettingLang.lblSubjectCategory</strong></span>
+                                @Html.DropDownListFor(x => x.SubjectCategory, new List<SelectListItem>() {
+                                            new SelectListItem() {Text= "Optional Subject Category", Value="" },
+                                            new SelectListItem() {Text= "High", Value="High" },
+                                            new SelectListItem() {Text= "Medium", Value="Medium" },
+                                            new SelectListItem() {Text= "Low", Value="Low" }
+                                        }, new { @class = "form-control", autocomplete = "off", disabled = "disabled" })
+                            </div>
+                            <div class="col-xs-4">
+                                <span><strong>@DandBSettingLang.lblCustomerReferenceText</strong></span>
+                                @Html.TextBoxFor(m => m.CustomerReferenceText, new { @class = "form-control CustomerReferenceTextNotification", @placeholder = DandBSettingLang.placeholderCustRef, autocomplete = "off", maxlength = "100", disabled = "disabled" })
+                            </div>
+                            <div class="col-xs-4">
+                                <span><strong>@DandBSettingLang.lblBillingEndorsementText</strong></span>
+                                @Html.TextBoxFor(m => m.BillingEndorsementText, new { @class = "form-control", @placeholder = DandBSettingLang.placeholderCustRef, autocomplete = "off", maxlength = "100", disabled = "disabled" })
+                            </div>
+                        </div>
+                        if (Helper.LicenseEnableTags)
+                        {
+                            <div class="row form-group  mt-2">
+                                <div class="col-xs-4">
+                                    <div><span><strong>@DandBSettingLang.lblTags</strong></span></div>
+                                    <div>
+                                        <div class="col-xs-10 no-padding">@Html.DropDownList("TagsValueDUNSRegistration", new SelectList(CommonDropdown.GetAllTagsForUser(ConnectionString, true), "Tag", "Tag", Model.Tags), new { @class = "form-control chzn-select clstag MonitoringRegistration TagsValueMonitoringRegistration", multiple = "true", @autocomplete = "off", disabled = "disabled" })</div>
+                                        <div class="col-xs-2 paddingTag">
+                                            @if (Helper.UserType.ToLower() != "steward")
+                                            {<em class="fa fa-plus OpenTags tagstyleDunsRegistr" style="display:none;"></em>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="row form-group text-right">
+                            <div class="col-md-12">
+                                <input type="submit" value="@(Model.MonitoringRegistrationId > 0?DandBSettingLang.lblUpdateDUNSRegistration:DandBSettingLang.lblCreateDUNSRegistration)" name="btnMonitorRegistration" id="btnMonitorRegistration" class="btn btn-primary" style="display:none" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

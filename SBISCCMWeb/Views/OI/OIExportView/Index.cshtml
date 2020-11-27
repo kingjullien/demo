@@ -1,0 +1,250 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@model List<OIExportJobSettingsEntity>
+@using System.Data;
+@using System.Configuration;
+@using SBISCCMWeb.LanguageResources;
+@{
+    ViewBag.Title = OIExportDataLang.titleOIExportData;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var ExportTimeInterval = Convert.ToInt32(ConfigurationManager.AppSettings["ExportAutoRefreshTimeInterval"]);
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+    string UserType = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserType) ? "" : Helper.oUser.UserType : "";
+    string StwerdTags = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.Tags) ? "" : Helper.oUser.Tags : "";
+
+    AjaxOptions OIExportAjaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "UpdateOIExportCompany"
+    };
+}
+
+<style>
+    .modal-body {
+        padding-bottom: 0;
+    }
+</style>
+<link href="~/Content/filterTable/bootstrap-filterable.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+<link href="~/Content/chosen.css" rel="stylesheet" />
+@Html.Hidden("UserRole", UserRoles)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+@Html.Hidden("UserType", UserType)
+@Html.Hidden("StwerdTags", StwerdTags)
+
+
+<div class="clearfix"></div>
+<div id="content" style="opacity: 1; padding:40px 10px 10px 10px"">
+    <section id="widget-grid" class="">
+        <div class="widget-body">
+            <ul class="nav nav-tabs bordered" id="myTab1">
+                <li class="nav-item">
+                    <a  class="nav-link active" data-toggle="tab" href="#ExportDataTab" id="IdExportDataTab" aria-expanded="false">Company Data</a>
+                </li>
+            </ul>
+            <div class="tab-content padding-10 position-relative righttabportal " id="">
+                <div id="ExportDataTab" class="tab-pane padding-10 fade active in">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            @using (Ajax.BeginForm("Index", "OI/ExportView", null, OIExportAjaxOptions, new { id = "OIExportDatafrm", @autocomplete = "off" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("Delimiter", "")
+                                @Html.Hidden("FilePath", "")
+                                @Html.Hidden("ExportTimeInterval", ExportTimeInterval)
+
+                                <article class="sortable-grid ui-sortable">
+                                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                        <header role="heading">
+                                            <h2>
+                                                <strong>@OIExportDataLang.hdrExportOptions</strong>
+                                            </h2>
+                                            <ul id="widget-tab-ExportJobInsert" class="nav pull-right nav-pills Custom-pill">
+                                                <li>
+                                                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);"><i class="fa fa-minus "></i></a>
+                                                </li>
+
+                                            </ul>
+                                        </header>
+                                        <div role="content">
+                                            <div class="jarviswidget-editbox"></div>
+                                            <div class="widget-body">
+                                                <div class="tab-pane">
+                                                    <div class="">
+                                                        <div class="">
+                                                            <fieldset class="ExportFieldSet">
+                                                                <legend>@OIExportDataLang.lblStep1</legend>
+
+                                                                <div class="row form-group">
+                                                                    <div class="col-md-4" style="padding-left:0">
+                                                                        <span><strong>@OIExportDataLang.lblSrcRecordId </strong></span>
+                                                                        <input id="txtSrcRecID" type="text" name="SrcRecID" class="form-control" maxlength="50" />
+                                                                    </div>
+                                                                    <div class="col-md-6 sectiontopmrg activexcchck">
+                                                                        @Html.CheckBox("SrcRecIdExactMatch")
+                                                                        <span> <strong>@OIExportDataLang.lblIsExactMatch</strong> </span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    @if (Helper.LicenseEnableTags)
+                                                                    {
+                                                                        <div class="col-md-4 paddingto5 " style="padding-left:0">
+                                                                            @Html.DropDownList("LOBTag", new SelectList(CommonDropdown.GetTagByTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag"), OIExportDataLang.lblSelectLOBTag, new { @class = "form-control", autocomplete = "off" })
+                                                                        </div>
+                                                                        <div class="col-md-4 paddingto5 ">
+                                                                            @Html.DropDownList("Tags", new SelectList(CommonDropdown.GetAllOrbTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text"), OIExportDataLang.lblSelectTag, new { @class = "form-control selectbox", autocomplete = "off" })
+                                                                        </div>
+                                                                    }
+                                                                    @Html.Hidden("MatchOutput")
+                                                                    @Html.Hidden("Enrichment")
+                                                                    @Html.Hidden("CompanyTree")
+                                                                    @Html.Hidden("ActiveDataQueue")
+                                                                    <div class="col-md-4 paddingto5 custom-dropdown-search ">
+                                                                        @Html.DropDownList("Input", new SelectList(CommonDropdown.GetDataImportProcess(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text"), OIExportDataLang.lblSelectImportProcess, new { @class = "form-control selectbox chzn-select", autocomplete = "off" })
+
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                            <fieldset class="ExportFieldSet">
+                                                                <legend>@OIExportDataLang.lblStep2</legend>
+                                                                <div class="row form-group">
+                                                                    <div class="col-md-12 ExportMultiSelect ExportSelectOutput">
+                                                                        @Html.DropDownList("MultiSelectOptions", new SelectList(CommonDropdown.GetCompanyTree(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "true", autocomplete = "off" })
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="">
+                                                            <fieldset class="ExportFieldSet">
+                                                                <legend>@OIExportDataLang.lblStep3 </legend>
+                                                                <div class="row form-group">
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-3" title="@OIExportDataLang.lblCSV" style="padding-left:0">
+                                                                        <input type="radio" name="Format" id="rdCSV" value="CSV" checked="checked" />
+                                                                        <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/Export/csv-Dark.png"))" class="clsImportImage">
+                                                                        <p class="margin-left-10">&nbsp; @OIExportDataLang.lblCSV</p>
+                                                                    </div>
+                                                                    <div class="col-md-3" title="@OIExportDataLang.lblTabSeparated">
+                                                                        <input type="radio" name="Format" id="rdTSV" value="TSV" />
+                                                                        <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/Export/tsv.png"))" class="clsImportImage">
+                                                                        <p class="marginLeft_22px">&nbsp;@OIExportDataLang.lblTabSeparated</p>
+                                                                    </div>
+                                                                    <div class="col-md-3" title="@OIExportDataLang.lblCustomDelimiter">
+                                                                        <input type="radio" name="Format" id="rdText" value="Delimiter" class="OpenDelimiter" />
+                                                                        <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/Export/text-with-delimiter.png"))" class="clsImportImage">
+                                                                        <p class="marginLeft_22px">&nbsp;@OIExportDataLang.lblCustomDelimiter</p>
+                                                                    </div>
+                                                                    <div class="col-md-3" title="@OIExportDataLang.lblExcel" style="padding-right:0">
+                                                                        <input type="radio" name="Format" id="rdExcel" value="Excel" />
+                                                                        <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/Export/excel-Dark.png"))" class="clsImportImage">
+                                                                        <p class="margin-left-10">&nbsp; @OIExportDataLang.lblExcel</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6 activexcchck divIsHeaderExport">
+                                                                        @Html.CheckBox("HasHeader", true)
+                                                                        <span> <strong>@OIExportDataLang.lblIncludeHeader</strong> </span>
+                                                                    </div>
+                                                                    <div class="col-md-6 activexcchck divIsHeaderExport">
+                                                                        @Html.CheckBox("HasTextQualifierToAll")
+                                                                        <span> <strong>@OIExportDataLang.lblQualifierAllColumns</strong> </span>
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                            <fieldset class="ExportFieldSet FinalizeFieldSet">
+                                                                <legend>@OIExportDataLang.lblStep4</legend>
+                                                                <div class="row form-group">
+                                                                    <div class="col-md-12 no-padding">
+                                                                        @Html.CheckBox("MarkAsExported")
+                                                                        <span> <strong>@OIExportDataLang.lblMarkAsExported</strong> </span>
+                                                                    </div>
+                                                                    <div class="col-md-12 no-padding">
+                                                                        <span>@OIExportDataLang.lblNote</span>
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="row m_btn_new">
+                                                            <div class="col-md-6">
+                                                                <span id="spnProcess" style="display:none" class="error">@OIExportDataLang.lblOutputValidation</span>
+                                                                <span id="spnFormat" style="display:none" class="error"> @OIExportDataLang.lblFormatValidation</span>
+                                                                <input type="button" id="btnOIExportData" value="@OIExportDataLang.lblExportData" class="btn btn-primary">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            }
+                        </div>
+                        <div class="col-xs-6">
+                            <article class="sortable-grid ui-sortable">
+                                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                    <header role="heading">
+                                        <h2>
+                                            <strong>@OIExportDataLang.hdrExportStatus</strong>
+                                        </h2>
+                                        <ul id="widget-tab-ExportJobListing" class="nav pull-right nav-pills Custom-pill">
+                                            <li>
+                                                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);"><i class="fa fa-minus "></i></a>
+                                            </li>
+                                        </ul>
+                                    </header>
+                                    <div role="content">
+                                        <div class="jarviswidget-editbox"></div>
+                                        <div class="widget-body no-padding">
+                                            <div class="tab-pane padding-10">
+                                                <div class="form-group">
+                                                    <div class="padding-10">
+                                                        <div class="row">
+                                                            <div id="divExportJobListing">
+                                                                @{Html.RenderPartial("~/Views/OI/OIExportView/_index.cshtml", Model as List<OIExportJobSettingsEntity>);}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="CustomExportDelimiterModalMain"></div>
+<div id="ExportFileNameModalMain"></div>
+
+@section scripts{
+    @*<script src="~/Scripts/bootstrap3.0.3Multiselected.min.js"></script>*@
+    <script src="~/Scripts/CustomJS/OI/OIExportData.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIDelimiter.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIExportFileName.js"></script>
+    <script>
+        var ConfirmExportRequest='@OIExportDataLang.ConfirmExportCancelRequest';
+        var DeleteExportRecord = '@OIExportDataLang.msgDeleteExportRecord';
+        var selectedOutput = '@OIExportDataLang.msgSelectedOutput';
+        var outputFormat = '@OIExportDataLang.msgOutputFormat';
+        var markAsExported = '@OIExportDataLang.msgMarkAsExported';
+        var noFilterSelected = '@OIExportDataLang.msgNoFilterSelected';
+        var delimiterValue = '@OIExportDataLang.msgDelimiterValue';
+        var srcRecordId = '@OIExportDataLang.msgSrcRecordId';
+        var lobTag = '@OIExportDataLang.msgLOBTag';
+        var tag = '@OIExportDataLang.msgTag';
+        var importPorcess = '@OIExportDataLang.msgImportProcess';
+        var selectOutputQueue = '@OIExportDataLang.msgSelectOutputQueue';
+        var nothingFound = '@CommonMessagesLang.msgNothingFound';
+        var confirmBox = '@CommonMessagesLang.lblConfirm';
+        var isExactMatch = '@OIExportDataLang.msgIsExactMatch';
+    </script>
+}

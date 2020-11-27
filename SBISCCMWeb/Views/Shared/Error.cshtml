@@ -1,0 +1,22 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    if (Request != null && Request.Url.ToString().Contains("Account"))
+    {
+        Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    ViewBag.Title = "Error";
+    var st = Request.RequestContext;
+}
+@Styles.Render("~/Content/popupcss")
+
+
+<div class="text-center pagenotfound">
+    <img src="~/Images/500-error.png" />
+</div>
+
+@Scripts.Render("~/bundles/error")

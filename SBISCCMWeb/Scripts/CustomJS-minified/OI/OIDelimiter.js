@@ -1,0 +1,1 @@
+﻿$("body").on("click", "#btnAddDelimiter", function () { var e = $("#txtDelimiter").val(); $('input[name="__RequestVerificationToken"]').val(); if (null == e || "" == e) return $("#spnDelimiter").show(), !1; $("#spnDelimiter").hide(), callbackCloseDelimiter(e) });

@@ -1,0 +1,340 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@using System.Configuration;
+@using SBISCCMWeb.LanguageResources;
+@model CompanyEntity
+@{
+    ViewBag.Title = MatchDataLang.titleHomePage;
+    Layout = null;
+    string GoogleAPIKey = Helper.GoogleAPIKey;
+
+
+
+
+    string inputAddress = Model.StreetNo + " " + Model.StreetName;
+    if (!string.IsNullOrEmpty(Model.City))
+    {
+        inputAddress += "," + Model.City;
+    }
+    if (!string.IsNullOrEmpty(Model.State))
+    {
+        inputAddress += "," + Model.State;
+    }
+    if (!string.IsNullOrEmpty(Model.PostalCode))
+    {
+        inputAddress += "," + Model.PostalCode;
+    }
+    if (!string.IsNullOrEmpty(Model.CountryISOAlpha2Code))
+    {
+        inputAddress += "," + Model.CountryISOAlpha2Code;
+    }
+    string inputhtmlData = string.Empty;
+    inputhtmlData += "<div class='mapInfoDetails'>";
+    inputhtmlData += "<div class='top-header'>";
+    inputhtmlData += "<p class='header_text'>" + MatchDataLang.msgInputAddress + "</p>";
+    inputhtmlData += "</div>";
+    inputhtmlData += "<div class='mapBodyInfo'>";
+    inputhtmlData += "<div class='DisplayFlex'>";
+    if (Model.SrcRecordId != null)
+    {
+        inputhtmlData += "<span>" + MatchDataLang.lblSrcRecordId + ": <b>" + Model.SrcRecordId + "</b></span>";
+    }
+    inputhtmlData += "</div>";
+    inputhtmlData += "<p> " + MatchDataLang.lblCompany + " : <b>" + Model.CompanyName + "</b></p>";
+    inputhtmlData += "<p> " + MatchDataLang.lblAddress + " : <b>" + inputAddress.Trim().TrimStart(',') + "</b></p>";
+    inputhtmlData += "</div>";
+    inputhtmlData += "</div>";
+}
+<div>
+    @if (Model != null && Model.Matches != null && Model.Matches.Count > 0)
+    {
+        foreach (var innerItem in Model.Matches)
+        {
+            <div style="display:none;" class="inputlocation" data-address="@("Input : "+ Model.CompanyName + ", "+ Model.Address + " " + Model.City +" "+ Model.State+" " +Model.PostalCode)"></div>
+            <div style="display:none;" class="location" data-address="@("Input : "+ Model.CompanyName +"$$$"+ innerItem.DnBOrganizationName +", "+ innerItem.StreetNo +", " + innerItem.StreetName +", "+ innerItem.DnBPrimaryTownName +", "+ innerItem.DnBTerritoryAbbreviatedName+", "+innerItem.DnBPostalCode)"></div>
+        }
+    }
+</div>
+<style>
+    img {
+        max-width: none;
+    }
+
+    .top-header {
+        font-size: 17px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #5d88fd;
+        padding: 7px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+        .top-header p {
+            margin: 3px;
+        }
+
+
+    .gm-style .gm-style-iw-c {
+        padding: 0 !important
+    }
+
+
+
+    .mapInfoDetails .no-margin {
+        line-height: 22px;
+        padding: 0 13px 13px 13px;
+    }
+
+    .mapBodyInfo {
+        padding: 0 15px;
+    }
+
+        .mapBodyInfo .DisplayFlex {
+            justify-content: space-between;
+            margin-bottom: 3px
+        }
+
+        .mapBodyInfo hr {
+            margin: 5px !important
+        }
+
+    .candidateMapPopup {
+        height: 737px;
+        width: 77%;
+        float: left;
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        z-index: 9999;
+        right: 0
+    }
+
+    .gm-style-iw-d {
+        overflow: auto !important;
+    }
+
+    .gm-ui-hover-effect {
+        top: 0 !important;
+        right: 0 !important;
+        width: 35px !important;
+        height: 40px !important;
+    }
+</style>
+
+
+<style>
+    .infoDiv {
+        height: 200px;
+        width: 300px;
+        -webkit-user-select: none;
+        background-color: white;
+    }
+
+    body {
+        background-color: white;
+    }
+</style>
+<div class="modal" id="GoogleMapPopUpModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content mapPopup">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@MatchDataLang.hdrGoogleMap</h4>
+            </div>
+            <div class="modal-body">
+                <div class="widget-body no-padding">
+                    <div style="height: 765px; width:23%;overflow-y: scroll;">
+                        @Html.Hidden("inputAddress", inputAddress.Trim().TrimStart(','))
+                        @Html.Hidden("inputhtmlData", inputhtmlData)
+                        @if (Model != null && Model.Matches != null && Model.Matches.Count > 0)
+                        {
+                            foreach (var item in Model.Matches)
+                            {
+                                string address = item.DnBOrganizationName;
+                                if (!string.IsNullOrEmpty(item.StreetNo))
+                                {
+                                    address += "," + item.StreetNo;
+                                }
+                                if (!string.IsNullOrEmpty(item.StreetName))
+                                {
+                                    address += "," + item.StreetName;
+                                }
+                                if (!string.IsNullOrEmpty(item.DnBPrimaryTownName))
+                                {
+                                    address += "," + item.DnBPrimaryTownName;
+                                }
+                                if (!string.IsNullOrEmpty(item.DnBTerritoryAbbreviatedName))
+                                {
+                                    address += "," + item.DnBTerritoryAbbreviatedName;
+                                }
+                                if (!string.IsNullOrEmpty(item.DnBPostalCode))
+                                {
+                                    address += "," + item.DnBPostalCode;
+                                }
+
+                                string htmlData = string.Empty;
+                                htmlData = "<div class='mapInfoDetails'>";
+                                htmlData += "<div class='top-header'>";
+                                htmlData += "<p class='header_text'>" + MatchDataLang.lblMatchCandidates + "</p>";
+                                htmlData += "</div>";
+                                htmlData += "<div class='mapBodyInfo'>";
+                                htmlData += "<div class='DisplayFlex'>";
+                                htmlData += "<span>" + MatchDataLang.lblDUNSNumber + ": <b>" + item.DnBDUNSNumber + "</b></span>";
+                                htmlData += "<span>" + MatchDataLang.lblSeqMap + ": <b>" + item.DnBDisplaySequence + "</b></span>";
+                                htmlData += "</div>";
+                                htmlData += "<p> " + MatchDataLang.lblCompanyMap + ": <b>" + item.DnBOrganizationName + "</b></p>";
+                                htmlData += "<hr/>";
+                                htmlData += "<p><b>" + MatchDataLang.lbAddress + "</b></p>";
+                                htmlData += "<p>" + item.DnBOrganizationName + ", " + item.StreetNo + ", " + item.StreetName + ", " + item.DnBPrimaryTownName + ", " + item.DnBTerritoryAbbreviatedName + ", " + item.DnBPostalCode + "</p>";
+                                htmlData += "</div>";
+                                htmlData += "</div>";
+
+                                <div class="MapDetalis">
+                                    <div><input type="checkbox" class="SetMapMarker" data-location="@address" data-LocationTitle="@htmlData" /></div>
+                                    <div class="row DetalisSection">
+                                        <div class="">
+                                            <div class="col-md-8 col-sm-8 col-xs-8">@MatchDataLang.lblDUNS : <span class="orbSpanValue">@item.DnBDUNSNumber</span></div>
+                                            <div class="col-md-4 col-sm-4 col-xs-4 text-align-right"><span class="rnkSpan">Seq : </span> <span class="rnkvalue">@item.DnBDisplaySequence</span></div>
+                                        </div>
+                                        <div class="">
+                                            <div class="col-md-12 col-sm-12">
+                                                <span class="spanCmpnyName">@item.DnBOrganizationName</span>
+                                            </div>
+                                        </div>
+                                        <div class="">
+                                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                                <span class="spanAddress">
+                                                    @item.DnBStreetAddressLine
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <span>@MatchDataLang.lblNodataareavailable</span>
+                        }
+                    </div>
+
+                    <div id="map_canvas" class="candidateMapPopup"></div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=@GoogleAPIKey&callback=initMap">google.maps.event.addDomListener(window, "load", initMap);</script>
+<script type="text/javascript">
+    var geocoder;
+    var map;
+    var gmarkers = []
+    var bounds;
+
+    function initMap() {
+        bounds = new google.maps.LatLngBounds();
+        geocoder = new google.maps.Geocoder();
+        initialize();
+    }
+    function initialize() {
+        map = new google.maps.Map(
+            document.getElementById("map_canvas"), {
+            center: new google.maps.LatLng(37.4419, -122.1419),
+            zoom: 13,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+        var inputAddress = $("#inputAddress").val();
+        var inputhtmlData = $("#inputhtmlData").val();
+        geocoder.geocode({
+            'address': inputAddress
+        }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                var marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                    animation: google.maps.Animation.DROP,
+                    address: inputAddress,
+                    url: inputAddress,
+                })
+                var html = "<div>" + inputhtmlData + "</div>";
+                iw = new google.maps.InfoWindow({
+                    content: html,
+                    maxWidth: 300
+                });
+                google.maps.event.addListener(marker, 'click', (function (marker, content, infowindow) {
+                    return function () {
+                        //infowindow.setContent(content);
+                        infowindow.open(map, marker);
+                    };
+                })(marker, html, iw));
+
+                bounds.extend(marker.getPosition());
+                map.fitBounds(bounds);
+            }
+        });
+
+    }
+    function geocodeAddress(locations, inputAddress) {
+        var address = locations;
+        var url = locations;
+        geocoder.geocode({
+            'address': locations
+        },
+            function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var marker = new google.maps.Marker({
+                        icon: 'http://maps.google.com/mapfiles/ms/icons/blue.png',
+                        map: map,
+                        position: results[0].geometry.location,
+                        animation: google.maps.Animation.DROP,
+                        address: address,
+                        url: url,
+                    })
+
+                    var html = "<div>" + inputAddress + "</div>";
+                    iw = new google.maps.InfoWindow({
+                        content: html,
+                        maxWidth: 300
+                    });
+                    google.maps.event.addListener(marker, 'click', (function (marker, content, infowindow) {
+                        return function () {
+                            infowindow.open(map, marker);
+                        };
+                    })(marker, html, iw));
+                    gmarkers.push(marker);
+                    bounds.extend(marker.getPosition());
+                    map.fitBounds(bounds);
+                }
+            });
+    } 
+    $(document).on('change', ".SetMapMarker", function () {
+        var Location = $(this).attr("data-location");
+        var LocationTitle = $(this).attr("data-LocationTitle");
+        if ($(this).is(':checked')) {
+            geocodeAddress(Location, LocationTitle, 0);
+        }
+        else {
+            for (i = 0; i < gmarkers.length; i++) {
+                if (gmarkers[i].address == Location) {
+                    gmarkers[i].setMap(null);
+                    gmarkers.splice(i, 0);
+                }
+            }
+        }
+    });
+
+    function isInfoWindowOpen(infoWindow) {
+        var map = infoWindow.getMap();
+        return (map !== null && typeof map !== "undefined");
+    }
+    $("body").on("click", ".btnClose", function () {
+        $(".gm-style-iw-d").hide();
+    });
+</script>

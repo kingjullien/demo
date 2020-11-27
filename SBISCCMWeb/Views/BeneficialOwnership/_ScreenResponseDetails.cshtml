@@ -1,0 +1,201 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@model SBISCCMWeb.Models.BeneficialOwnership.ScreenResponseEntityViewModel
+@{
+    string name = Convert.ToString(ViewBag.Name);
+}
+
+<div class="modal" id="BenificiaryScreeningDetailsModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <a class="btn btn-Secondary" style="margin-right:10px" href="@Url.Action("DownloadScreeningResult", "BeneficialOwnership",new { name = Model.parentData.name.Replace("*", "").TrimStart() } )">@BeneficialOwnershipLang.spnExporttoExcel</a>
+                </div>
+                <h4 class="modal-title">@BeneficialOwnershipLang.hdrScreeningDetails - @name.Replace("*", "").TrimStart()</h4>
+            </div>
+            <div class="modal-body">
+                <article class="sortable-grid ui-sortable keyword">
+                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <h2>
+                                <strong>@BeneficialOwnershipLang.hdrScreeningDetails</strong>
+                            </h2>
+                        </header>
+                        <div class="row">
+                            <div class="col-md-6 width50">
+                                @if (!string.IsNullOrEmpty(Model.parentData.duns))
+                                {
+                                    <div class="">
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5 padding-top-0">
+                                            <strong> @BeneficialOwnershipLang.spnDUNS : </strong>
+                                        </div>
+                                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5 padding-top-0">
+                                            @Model.parentData.duns
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="">
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5 padding-top-0">
+                                            <strong> @BeneficialOwnershipLang.spnName : </strong>
+                                        </div>
+                                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5 padding-top-0">
+                                            @Model.parentData.name.Replace("*", "").TrimStart()
+                                        </div>
+                                    </div>
+                                }
+                                <div class="">
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5 padding-top-0">
+                                        <strong> @BeneficialOwnershipLang.spnAddress : </strong>
+                                    </div>
+                                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5 padding-top-0">
+                                        @Model.parentData.address
+                                    </div>
+                                </div>
+                                @if (!string.IsNullOrEmpty(Model.parentData.duns))
+                                {
+                                    <div class="">
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5 padding-top-0">
+                                            <strong> Screening Result : </strong>
+                                        </div>
+                                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5 padding-top-0">
+                                            <div class="screening-result-info">
+                                                <div class="side-left">
+                                                    <div class="top-info">
+                                                        @if (string.IsNullOrEmpty(Model.parentData.lastScreenedResult))
+                                                        {
+                                                            <span></span> @Model.parentData.lastScreenedAlertTypeCode
+                                                        }
+                                                        else if (Model.parentData.lastScreenedResult.ToLower() == "clear")
+                                                        {
+                                                            <span class="text-success" title="@Model.parentData.lastScreenedAlertType (Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())"><i class="fa fa-check-circle"></i>&nbsp;</span><span>(@Model.parentData.lastScreenedAlertType - Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())</span>
+                                                        }
+                                                        else if (string.IsNullOrEmpty(Model.parentData.lastScreenedAlertTypeCode))
+                                                        {
+                                                            <span class="text-success" title="@Model.parentData.lastScreenedAlertType (Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())"><i class="fa fa-check-circle"></i>&nbsp;</span><span>(@Model.parentData.lastScreenedAlertType - Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())</span>
+                                                        }
+                                                        else if (Model.parentData.lastScreenedAlertTypeCode == "_Y" || Model.parentData.lastScreenedAlertTypeCode == "RC")
+                                                        {
+                                                            <span class="text-warning" title="@Model.parentData.lastScreenedAlertType (Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())"><i class="fa fa-exclamation-triangle"></i>&nbsp;</span><span>(@Model.parentData.lastScreenedAlertType - Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())</span>
+                                                        }
+                                                        else if (Model.parentData.lastScreenedAlertTypeCode == "_R")
+                                                        {
+                                                            <span class="text-danger" title="@Model.parentData.lastScreenedAlertType (Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())"><i class="fa fa-times-circle"></i>&nbsp;</span><span>(@Model.parentData.lastScreenedAlertType - Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())</span>
+                                                        }
+                                                        else if (Model.parentData.lastScreenedAlertTypeCode == "DR")
+                                                        {
+                                                            <span class="text-danger"><i class="fa fa-radiation-alt" title="@Model.parentData.lastScreenedAlertType (Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())"></i>&nbsp;</span><span>(@Model.parentData.lastScreenedAlertType - Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())</span>
+                                                        }
+                                                        else if (Model.parentData.lastScreenedAlertTypeCode == "TR")
+                                                        {
+                                                            <span class="text-danger"><i class="fa fa-radiation-alt" title="@Model.parentData.lastScreenedAlertType (Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())"></i>&nbsp;</span><span>(@Model.parentData.lastScreenedAlertType - Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span></span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-md-6 width50">
+                                @if (!string.IsNullOrEmpty(Model.parentData.duns))
+                                {
+                                    <div class="">
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5 padding-top-0">
+                                            <strong> @BeneficialOwnershipLang.spnName : </strong>
+                                        </div>
+                                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5 padding-top-0">
+                                            @Model.parentData.name.Replace("*", "").TrimStart()
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="">
+                                        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5 padding-top-0">
+                                            <strong> @BeneficialOwnershipLang.lblScreeningResult : </strong>
+                                        </div>
+                                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5 padding-top-0">
+                                            <div class="screening-result-info">
+                                                <div class="side-left">
+                                                    <div class="top-info">
+                                                        @if (string.IsNullOrEmpty(Model.parentData.lastScreenedResult))
+                                                        {
+                                                            <span></span> @Model.parentData.lastScreenedAlertTypeCode
+                                                        }
+                                                        else if (Model.parentData.lastScreenedResult.ToLower() == "clear")
+                                                        {
+                                                            <span class="text-success" title="@Model.parentData.lastScreenedAlertType (Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())"><i class="fa fa-check-circle"></i>&nbsp;(@Model.parentData.lastScreenedAlertType)</span>
+                                                        }
+                                                        else if (string.IsNullOrEmpty(Model.parentData.lastScreenedAlertTypeCode))
+                                                        {
+                                                            <span class="text-success" title="@Model.parentData.lastScreenedAlertType (Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())"><i class="fa fa-check-circle"></i>&nbsp;(@Model.parentData.lastScreenedAlertType)</span>
+                                                        }
+                                                        else if (Model.parentData.lastScreenedAlertTypeCode == "_Y" || Model.parentData.lastScreenedAlertTypeCode == "RC")
+                                                        {
+                                                            <span class="text-warning" title="@Model.parentData.lastScreenedAlertType (Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())"><i class="fa fa-exclamation-triangle"></i>&nbsp;(@Model.parentData.lastScreenedAlertType)</span>
+                                                        }
+                                                        else if (Model.parentData.lastScreenedAlertTypeCode == "_R")
+                                                        {
+                                                            <span class="text-danger" title="@Model.parentData.lastScreenedAlertType (Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())"><i class="fa fa-times-circle"></i>&nbsp;(@Model.parentData.lastScreenedAlertType)</span>
+                                                        }
+                                                        else if (Model.parentData.lastScreenedAlertTypeCode == "DR")
+                                                        {
+                                                            <span class="text-danger"><i class="fa fa-radiation-alt" title="@Model.parentData.lastScreenedAlertType (Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())"></i>&nbsp;(@Model.parentData.lastScreenedAlertType)</span>
+                                                        }
+                                                        else if (Model.parentData.lastScreenedAlertTypeCode == "TR")
+                                                        {
+                                                            <span class="text-danger"><i class="fa fa-radiation-alt" title="@Model.parentData.lastScreenedAlertType (Date : @Model.parentData.lastScreenedDate.ToDatetimeShort())"></i>&nbsp;(@Model.parentData.lastScreenedAlertType)</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span></span>
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="">
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5 padding-top-0">
+                                        <strong> @BeneficialOwnershipLang.spnEntity : </strong>
+                                    </div>
+                                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5 padding-top-0">
+                                        @Model.parentData.businessEntityType
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="screeningResultFiltersMain">
+                            @Html.Partial("~/Views/Shared/FilterPartial.cshtml")
+                        </div>
+                        <div id="divtblScreeningResultData" class="table-responsive" style="max-height:550px;overflow-y:auto">
+                        </div>
+                    </div>
+                </article>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        //["TableCoulmnName","ServerColumnName","DropDownURL","ISDefault:IsMultiselect(use lowercase)","Show text/value(use lowercase)","Datatype(If Date)","Default selected values"]
+        var colArray = [["Category", "Category", "/BeneficialOwnership/GetScreenCategoryDD", "true:true", ""],
+        ["AlertType", "AlertType", "/BeneficialOwnership/GetAlertTypeDD"]];
+
+        //Column array,URL for FilterData, FilterParentDiv,TargetedDiv, DatatableId
+        InitFilters(colArray, "/BeneficialOwnership/FilterScreeningRecords", "#screeningResultFiltersMain", "#divtblScreeningResultData", "InitDataTable('#tblScreeningData', [5, 10, 20], false, [])", "equalto");
+    })
+</script>

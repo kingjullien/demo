@@ -1,0 +1,45 @@
+﻿@using SBISCCMWeb.Utility;
+<!DOCTYPE html>
+<html id="extr-page" lang="en-us">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @Styles.Render("~/Content/popupcss")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/popupjs")
+    <link href="~/Content/chosen.css" rel="stylesheet" />
+    <link href="~/Content/nouislider.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+    <link href="~/Content/Custom.css" rel="stylesheet" />
+    @if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        <link href="~/Content/Matchbook.css" rel="stylesheet" />
+    }
+    @if (Helper.Branding == Branding.DandB.ToString())
+    {
+        <link href="~/Content/DandB.css" rel="stylesheet" />
+    }
+
+</head>
+<body style="background-image: none;">
+    <!-- MAIN PANEL -->
+
+    <div id="contentPopup">
+        @RenderBody()
+    </div>
+
+
+    <!-- END MAIN PANEL -->
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/plugin/magnific/jquery.magnific-popup.min.js"></script>
+    <script src="~/Scripts/bootbox.min.js"></script>
+
+    <script src="~/Scripts/chosen.jquery.js"></script>
+    <script src="~/Scripts/jquery.contextMenu.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+    @Scripts.Render("~/bundles/common")
+    <script src="~/Scripts/bootstrap3.0.3Multiselected.min.js"></script>
+    <script src="~/Scripts/bootstrap-multiselect.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model Tuple<MatchEntity, CompanyEntity>
+
+@{
+    var mathChEntity = Model.Item1;
+    var companyEntity = Model.Item2;
+    var innerItem = mathChEntity;
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + MatchDataLang.titleMatchRecordsDetails;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + MatchDataLang.titleMatchRecordsDetails;
+    }
+    Layout = null;
+}
+@Html.AntiForgeryToken()
+<div class="modal" id="MatchDetailModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@MatchDataLang.hdrMatchRecordDetailView</h4>
+            </div>
+            <div class="modal-body">
+                <div id="MatchedcontentPopup">
+                    @{ Html.RenderPartial("~/Views/StewardshipPortal/_MatchDetails.cshtml", Model);}
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<div id="CleanSearchEnrichmentDetailModalMain"></div>
+<div id="CleanSearchDataAddCompanyModalMain"></div>

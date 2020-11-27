@@ -1,0 +1,277 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Models
+@model Tuple<MainMatchEntity, SearchModel>
+@using SBISCCMWeb.Utility;
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + SearchDataLang.titleSearchData;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + SearchDataLang.titleSearchData;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    MainMatchEntity matchesEntity = Model.Item1;
+    var searchmodel = Model.Item2;
+    var ActivateFeature = "";
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ActivateFeature = BrandingLang.msgMBFeature;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ActivateFeature = BrandingLang.msgDNBFeature;
+    }
+}
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divSearchData",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "ReloadSuccess"
+    };
+    string Country = !string.IsNullOrEmpty(Convert.ToString(ViewBag.Country)) ? Convert.ToString(ViewBag.Country) : "US";
+    string Language = "en-US";
+    string APItype = CommonMethod.GetThirdPartyProperty(ThirdPartyCode.DNB_TYPEAHEAD_SEARCH.ToString(), ThirdPartyProperties.APIType.ToString());
+}
+@using (Ajax.BeginForm("Index", "SearchData", null, ajaxOptions, new { id = "form_SearchData", @autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("hdnCountry", Country);
+    @Html.Hidden("ActivateFeature", ActivateFeature)
+    @Html.Hidden("APItype", APItype)
+    <div id="content" style="opacity: 1;">
+        <section id="widget-grid" class="">
+            <div class="row">
+                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+                    <div class="jarviswidget jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" data-widget-sortable="false" role="widget">
+                        <header role="heading">
+                            <h2>
+                                <i class="fa fa-filter"></i>
+                                <strong>@SearchDataLang.lblSearchData</strong>
+                            </h2>
+                            @if (!string.IsNullOrEmpty(APItype) && APItype.ToLower() == ApiLayerType.Directplus.ToString().ToLower())
+                            {
+                                <div class="input-group-btn d-flex align-items-center pull-right">
+                                    <strong class="lblTypeAhead">@CommonMessagesLang.lblTypeAhead</strong> &nbsp;&nbsp;&nbsp;
+                                    <label class="Toggleswitch switch lblToggleTypeAhead margin-top-5">
+                                        <input type="checkbox" name="TypeAheadToggle" class="TypeAheadToggle">
+                                        <span class="Toggleslider round"></span>
+                                    </label>&nbsp;&nbsp;&nbsp;
+                                </div>
+                            }
+                            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                                @*<li>
+                                        <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                                    </li>*@
+                            </ul>
+
+                        </header>
+                        <div role="content">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body no-padding">
+                                <div class="tab-content padding-10">
+                                    <div class="tab-pane fade active in divSearchOption">
+                                        <div class="form-group">
+                                            <div class="row ">
+                                                <div class="col-md-3">
+                                                    <span><strong>@SearchDataLang.lblCompany</strong></span>
+                                                    <input id="txtCompany" type="" name="CompanyName" class="form-control" autocomplete="off" value="@searchmodel.CompanyName" maxlength="240" />
+                                                    <div id="imgCompanyLoad" class="loader" style="display:none;">
+                                                        <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("/Images/Loading1.gif"))" style="width:8%;height: 20px;width: 20px;">
+                                                    </div>
+                                                    <span id="spnCompany" class="error" style="display:none;">@SearchDataLang.lblCompanyRequire </span>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span><strong>@SearchDataLang.lblAddress1</strong></span>
+                                                    <input id="txtAddress" type="text" name="Address" class="form-control" autocomplete="off" value="@searchmodel.Address" maxlength="240" />
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span><strong>@SearchDataLang.lblAddress2</strong></span>
+                                                    <input id="txtAddress2" type="text" name="Address2" class="form-control" autocomplete="off" value="@searchmodel.Address2" maxlength="240" />
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class=" search-data-details">
+                                                        <div class="col-md-6 left">
+                                                            <span><strong>@SearchDataLang.lblCity</strong></span>
+                                                            <input id="txtCity" type="text" name="City" class="form-control" autocomplete="off" value="@searchmodel.City" maxlength="64" />
+                                                        </div>
+                                                        <div class="col-md-6 right">
+                                                            <span><strong>@SearchDataLang.lblState</strong></span>
+                                                            <input id="txtState" type="text" name="State" class="form-control" autocomplete="off" value="@searchmodel.State" maxlength="64" />
+                                                            <span id="spnstate" class="error" style="display:none;">@SearchDataLang.lblStateRequire</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <div class="col-md-3">
+                                                    <span><strong>@SearchDataLang.lblPhone</strong></span>
+                                                    <input id="txtPhone" type="text" name="PhoneNbr" class="form-control" autocomplete="off" value="@searchmodel.PhoneNbr" maxlength="50" />
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span><strong>@SearchDataLang.lblPostalCode</strong></span>
+                                                    <input id="txtZip" type="text" name="Zip" class="form-control" autocomplete="off" value="@searchmodel.Zip" maxlength="32" />
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span><strong>@SearchDataLang.lblCountry</strong></span>
+                                                    @Html.DropDownList("Country", (CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectCountry), new { @value = Country, @class = "form-control", @autocomplete = "off" })
+                                                    <span id="spnCountry" class="error" style="display:none;">@SearchDataLang.lblCountryRequire</span>
+                                                </div>
+                                                @if (CommonMethod.IsLanguageAllow())
+                                                {
+                                                    <div class="col-md-3">
+                                                        <span><strong>@SearchDataLang.lblLanguage</strong></span>
+                                                        @Html.DropDownList("Language", (CommonDropdown.GetLanguageCodes(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectLanguage), new { @value = Language, @class = "form-control", @autocomplete = "off" })
+                                                        <span id="spnLanguage" class="error" style="display:none;">@SearchDataLang.lblLanguageReqire</span>
+                                                    </div>
+                                                }
+                                            </div>
+                                            <div class="row paddingto5 searchCheckbox">
+                                                <div class="col-md-2 width20pt">
+                                                    <div class="checkbox" style="padding-left: 20px;">
+                                                        <label>
+                                                            <input type="checkbox" value="true" name="ExcludeNonHeadQuarters" id="ExcludeNonHeadQuarters">
+                                                            <strong>@SearchDataLang.lblExcludeNonHeadQuarters</strong>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 width20pt">
+                                                    <div class="checkbox" style="padding-left: 20px;">
+                                                        <label>
+                                                            <input type="checkbox" value="true" name="ExcludeNonMarketable" id="ExcludeNonMarketable">
+                                                            <strong>@SearchDataLang.lblExcludeNonMarketable</strong>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 width20pt">
+                                                    <div class="checkbox" style="padding-left: 20px;">
+                                                        <label>
+                                                            <input type="checkbox" value="true" name="ExcludeOutofBusiness" id="ExcludeOutofBusiness">
+                                                            <strong>@SearchDataLang.lblExcludeOutofBusiness</strong>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 width20pt">
+                                                    <div class="checkbox" style="padding-left: 20px;">
+                                                        <label>
+                                                            <input type="checkbox" value="true" name="ExcludeUndeliverable" id="ExcludeUndeliverable">
+                                                            <strong>@SearchDataLang.lblExcludeUndeliverable</strong>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 width20pt">
+                                                    <div class="checkbox" style="padding-left: 20px;">
+                                                        <label>
+                                                            <input type="checkbox" value="true" name="ExcludeUnreachable" id="ExcludeUnreachable">
+                                                            <strong>@SearchDataLang.lblExcludeUnreachable</strong>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="DisplayFlex paddingto5 additional_access">
+                                                <div class="">
+                                                    <button id="btnSearchData" type="submit" class="btn btn-primary" title="search">@SearchDataLang.lblSearch</button>
+                                                </div>
+                                                <div class="margin-left-10">
+                                                    <div>
+                                                        <div class="input-group-btn searchByAltFields">
+                                                            <button type="button" class="btn dropdown-toggle btn-Secondary" data-toggle="dropdown" tabindex="-1">
+                                                                @SearchDataLang.lblAdditionalActions <span class="caret"></span>
+                                                            </button>
+                                                            <ul class="dropdown-menu" role="menu">
+                                                                <li><a href="javascript:void(0);" class="btnDomainOrEmailSearch">@SearchDataLang.lblSearchByAltFields</a></li>
+                                                                <li><a href="javascript:void(0);" id="btnSearchByAddress">@SearchDataLang.lblSearchByAddress</a></li>
+                                                                <li><a href="javascript:void(0);" id="btnSearchByCompany">@SearchDataLang.lblSearchByCompany</a></li>
+                                                                @if (Helper.LicenseEnableBingSearch)
+                                                                {
+                                                                    <li><a id="btnBingSearch" title="Bing search">@SearchDataLang.lblBingSearch</a></li>
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (Helper.Branding == Branding.Matchbook.ToString())
+                                                                    {
+                                                                        <li><a id="" href="javascript:void(0)" class="clsDisable" title="@BrandingLang.msgMBFeature">@SearchDataLang.lblBingSearch</a></li>
+                                                                    }
+                                                                    else if (Helper.Branding == Branding.DandB.ToString())
+                                                                    {
+                                                                        <li><a id="" href="javascript:void(0)" class="clsDisable" title="@BrandingLang.msgDNBFeature">@SearchDataLang.lblBingSearch</a></li>
+                                                                    }
+                                                                }
+                                                                @if (Helper.LicenseEnableGoogleMap)
+                                                                {
+                                                                    <li><a href="javascript:void(0);" id="btnValidateInputAddress">@SearchDataLang.lblValidateInputAddress</a></li>
+                                                                    <li><a href="javascript:void(0);" id="btnGoogleSearch">@SearchDataLang.lblGoogleSearch</a></li>
+                                                                }
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <div id="divSearchData" class="">
+                    @{Html.RenderPartial("_Index", matchesEntity);}
+                </div>
+
+            </div>
+        </section>
+    </div>
+}
+<div id="SearchByAltFieldsModalMain"></div>
+<div id="BingSearchModalMain"></div>
+<div id="GoogleMapModalMain"></div>
+<div id="SearchDataAddCompanyModalMain"></div>
+<div id="GoogleMapPopUpModalMain"></div>
+<div id="iResearchInvestigationRecordsTargetedModalMain"></div>
+<div id="MatchDetailModalMain"></div>
+<div id="BenificiaryDataModalMain">
+    <div class="modal" id="BenificiaryDataModal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <h4 class="modal-title">Benificiary Details</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="divBeneficialOwnershipData"></div>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="BenificiaryGraphModalMain"></div>
+<div id="BenificiaryScreeningDetailsModalMain"></div>
+<div id="EnrichmentDetailModalMain"></div>
+@section scripts{
+    <script>
+        var addNewCompany = '@SearchDataLang.msgAddNewCompany';
+        var onlyNumbersAllowed = '@SearchDataLang.msgOnlyNumbersAllowed';
+        var searchByEmail = '@SearchDataLang.msgSearchByEmail';
+        var searchByDomain = '@SearchDataLang.msgSearchByDomain';
+        var investigateRecord = '@CommonMessagesLang.msgInvestigateRecord';
+        var addMatchAsCompany = '@CommonMessagesLang.msgaddMatchAsCompany';
+        var noRecordsAvailable = '@iResearchInvestigationLang.msgNoRecordsAvailable';
+        var success = '@CommonMessagesLang.msgSuccess';
+        var requestError = '@SearchDataLang.msgRequestError';
+        var requestErrorButNoResults = '@SearchDataLang.msgRequestErrorButNoResults';
+        var benificiaryDetails = '@CommonMessagesLang.lblBenificiaryDetails';
+        var showInputDetails = '@MatchDataLang.lblShowInputDetails';
+        var hideInputDetails = '@MatchDataLang.lblHideInputDetails';
+    </script>
+
+    @Scripts.Render("~/bundles/searchdata")
+}

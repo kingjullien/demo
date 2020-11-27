@@ -1,0 +1,636 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model PagedList.IPagedList<dynamic>
+@using SBISCCMWeb.Utility
+@{
+    string fileType = (string)ViewBag.fileType;
+    string ImportMode = (string)ViewBag.ImportMode;
+
+    List<string> listColumn = ViewBag.ColumnList != null ? ViewBag.ColumnList : new List<string>();
+    if (ImportMode == "Data Import")
+    {
+        listColumn[5] = "State (State is required for US)";
+    }
+    List<SelectListItem> lstAllFilter = ViewBag.ExternalColumn != null ? ViewBag.ExternalColumn : new List<SelectListItem>();
+    List<string> selectedVal = ViewBag.SelectedVal != null ? ViewBag.SelectedVal : new List<string>();
+    List<string> selectedText = ViewBag.SelectedText != null ? ViewBag.SelectedText : new List<string>();
+    var totalSelected = selectedVal.Count;
+    //var ExistsColumn = SBISCCMWeb.Controllers.DataController.GetAllFiledName(this.LayoutModel.CurrentClient.ApplicationDBConnectionString);
+    int z = 0;
+    bool IsTemplate = Convert.ToBoolean(ViewBag.IsTemplate);
+    bool IsTag = Convert.ToBoolean(ViewBag.IsContainsTags);
+    bool IsInLanguage = SessionHelper.ImportData_IsInLanguage;
+    bool IsHeader = SessionHelper.ImportData_IsHeader;
+    bool IsFromPrev = Convert.ToBoolean(ViewBag.IsFromPrev);
+    TempData.Keep();
+    string TagVal = (string)ViewBag.TagValue;
+    string LanguageVal = (string)ViewBag.LanguageValue;
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+    bool realIsTemplate = IsTemplate;
+    bool IsTemplateSelected = ViewBag.IsTemplateSelected;
+    string templateName = ViewBag.templateName;
+}
+<style>
+    .SelectBox {
+        height: 23px;
+        padding: 3px 12px;
+    }
+</style>
+@Html.AntiForgeryToken()
+@Html.Hidden("IsTemplate", IsTemplate)
+@{
+    if (IsFromPrev)
+    {
+        IsTemplate = IsFromPrev;
+    }
+}
+@Html.Hidden("Tags", !IsTag && IsTemplate ? TagVal : "0")
+@Html.Hidden("IsTag", IsTag)
+@Html.Hidden("LicenseEnableTags", Helper.LicenseEnableTags)
+@Html.Hidden("fileType", fileType)
+@Html.Hidden("ImportMode", ImportMode)
+@Html.Hidden("UserRole", UserRoles)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+@Html.Hidden("IsTemplateSelected")
+@Html.Hidden("templateName")
+<div class="tab-pane padding-Bottom-0">
+    <div class="padding-10 padding-Bottom-0">
+        <h2 class="text-center" style="margin-top: 0;color: #2b7ebd;">@ImportDataLang.lblMappingFile</h2>
+        <ul id="myTab1" class="nav nav-tabs bordered">
+            <li class="nav-item">
+                <a  class="nav-link active" href="#ImportData" data-toggle="tab" aria-expanded="false">@ImportDataLang.lblImportData</a>
+            </li>
+            @if (ImportMode == "Data Import")
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="#AdditionalFields" data-toggle="tab" aria-expanded="true">@ImportDataLang.lblAdditionalFields</a>
+                </li>
+            }
+        </ul>
+        <div id="myTabContent1" class="tab-content padding-10" style="@(ImportMode == "Data Import"?"height: 580px;":"height: 250px;")">
+            <div class="tab-pane active in OrbCustomeTab" id="ImportData">
+                <table class="table table-bordered paddingtop7">
+                    <thead>
+                        <tr class="row" style="margin:0">
+                            <th class="col-md-4">@ImportDataLang.lblTableColumn</th>
+                            <th class="col-md-4">@ImportDataLang.lblInputHeader</th>
+                            <th class="col-md-4">@ImportDataLang.lblExample</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbdataMatch">
+                        @if (Model != null)
+                        {
+                            if (Model.Count > 0)
+                            {
+                                foreach (var columnName in Helper.CurrentProvider != ProviderType.OI.ToString() ? listColumn.Take(11) : listColumn.Take(10))
+                                {
+                                    string ErrorMessage = "ErrorMessage-" + z;
+                                    if (columnName.ToLower() == "tags")
+                                    {
+                                        if (Helper.LicenseEnableTags)
+                                        {
+                                            if (IsTag)
+                                            {
+                                                <tr class="row" style="margin:0">
+                                                    <td class="col-md-4">
+                                                        <span class="spnExcelColumn" data-val="@(columnName)">
+                                                            @(columnName)
+                                                            @if (UserRoles == UserRole.LOB.ToString())
+                                                            {<span class="error">*</span>}
+                                                        </span>
+                                                    </td>
+                                                    <td class="col-md-4"><span>@Html.DropDownList("DataColumn-" + z, new SelectList(lstAllFilter, "Value", "Text", IsTemplate && totalSelected > z ? selectedVal[z] : "0"), new { @class = "form-control SelectBox", @autocomplete = "off" })</span></td>
+                                                    <td class="col-md-4">@(IsTemplate && totalSelected > z ? selectedText[z] : "")</td>
+                                                </tr>
+                                                z++;
+                                            }
+                                            else
+                                            {
+
+                                                <tr class="row" style="margin:0">
+                                                    <td class="col-md-4">
+                                                        <span class="spnExcelColumn" data-val="@(columnName)">
+                                                            @(columnName)
+                                                            @if (UserRoles == UserRole.LOB.ToString())
+                                                            {<span class="error">*</span>}
+                                                        </span>
+                                                    </td>
+                                                    <td class="col-md-4">
+                                                        <div class="DisplayFlex">
+                                                            @*GetAllTags - Remove LOB Tags (MP-376)*@
+                                                            @Html.DropDownList("DataColumn", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", IsTemplate ? TagVal : ""), new { @class = "SelectBox form-control chzn-select ", multiple = "true", @autocomplete = "off" })
+                                                            <i class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></i>
+                                                        </div>
+                                                    </td>
+                                                    <td class="col-md-4"></td>
+                                                </tr>
+                                                z++;
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (columnName.ToLower() == "inlanguage")
+                                        {
+                                            if (IsInLanguage)
+                                            {
+                                                <tr class="row" style="margin:0">
+                                                    <td class="col-md-4"><span class="spnExcelColumn" data-val="@(columnName)">@(columnName)</span></td>
+                                                    <td class="col-md-4"><span>@Html.DropDownList("DataColumn-" + z, new SelectList(lstAllFilter, "Value", "Text", IsTemplate && totalSelected > z ? selectedVal[z] : "0"), new { @class = "form-control SelectBox", @autocomplete = "off" })</span></td>
+                                                    <td class="col-md-4">@(IsTemplate && totalSelected > z ? selectedText[z] : "")</td>
+                                                </tr>
+                                                z++;
+                                            }
+                                            else
+                                            {
+                                                <tr class="row" style="margin:0">
+                                                    <td class="col-md-4"><span class="spnExcelColumn" data-val="@(columnName)">@(columnName)</span></td>
+                                                    <td class="col-md-4"><span>@Html.DropDownList("DataColumn-" + z, new SelectList(CommonDropdown.GetLanguageCodes(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text", IsTemplate ? LanguageVal : "").InsertEmptyFirst(CommonMessagesLang.lblSelectLanguage), new { @class = "form-control Language SelectBox", @autocomplete = "off" })</span></td>
+                                                    <td class="col-md-4"></td>
+                                                </tr>
+                                                z++;
+                                            }
+
+                                        }
+                                        else
+                                        {
+                                            <tr class="row" style="margin:0">
+                                                <td class="col-md-4">
+                                                    <span class="spnExcelColumn" data-val="@(columnName)">@(columnName)</span>
+                                                    @if (ImportMode == "Data Import")
+                                                    {
+                                                        if (z == 0 || z == 7)
+                                                        {
+                                                            <span class="error">*</span>
+                                                        }
+                                                    }
+                                                    @if (ImportMode == "Match Refresh")
+                                                    {
+                                                        if (z == 0 || z == 1 || z == 2)
+                                                        {
+                                                            <span class="error">*</span>
+                                                        }
+                                                    }
+                                                </td>
+                                                <td class="col-md-4"><span>@Html.DropDownList("DataColumn-" + z, new SelectList(lstAllFilter, "Value", "Text", IsTemplate && totalSelected > z ? selectedVal[z] : "0"), new { @class = "form-control SelectBox", @autocomplete = "off" })</span></td>
+                                                <td class="col-md-4">@(IsTemplate && totalSelected > z ? selectedText[z] : "")</td>
+                                            </tr>
+                                            z++;
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="3"></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @if (ImportMode == "Data Import")
+            {
+                <div class="tab-pane in OrbCustomeTab" id="AdditionalFields">
+                    <table class="table table-bordered paddingtop7">
+                        <thead>
+                            <tr class="row" style="margin:0">
+                                <th class="col-md-4">@ImportDataLang.lblAdditionalColumn</th>
+                                <th class="col-md-4">@ImportDataLang.lblInputHeader</th>
+                                <th class="col-md-4">@ImportDataLang.lblExample</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="tbdataMatch">
+                            @if (Model != null)
+                            {
+                                if (Model.Count > 0)
+                                {
+                                    foreach (var columnName in Helper.CurrentProvider != ProviderType.OI.ToString() ? listColumn.Skip(11) : listColumn.Skip(10))
+                                    {
+
+                                        string ErrorMessage = "ErrorMessage-" + z;
+                                        <tr class="row" style="margin:0">
+                                            <td class="col-md-4"><span class="spnExcelColumn" data-val="@(columnName)">@(columnName)</span></td>
+                                            <td class="col-md-4"><span>@Html.DropDownList("DataColumn-" + z, new SelectList(lstAllFilter, "Value", "Text", IsTemplate && totalSelected > z ? selectedVal[z] : "0"), new { @class = "form-control SelectBox", @autocomplete = "off" })</span></td>
+                                            <td class="col-md-4">@(IsTemplate && totalSelected > z ? selectedText[z] : "")</td>
+                                        </tr>
+
+                                        z++;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="3"></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+        <div class="row margin-top-5">
+            <div class="col-md-6">
+                @if (IsTemplateSelected)
+                {
+                    <a href="javascript:void(0)" id="SaveTemplate" class="TemplateButtons" style="text-decoration:underline">@ImportDataLang.lblSaveasTemplate &nbsp;&nbsp;</a>
+                    @*<input type="button" class="btn btn-primary TemplateButtons" value="Save as Template" id="SaveTemplate" />*@
+                    if (realIsTemplate)
+                    {
+                        <a href="javascript:void(0)" id="UpdateTemplate" class="TemplateButtons" style="text-decoration:underline">@ImportDataLang.lblUpdateTemplate</a>
+                        @*<input type="button" class="btn btn-primary TemplateButtons" value="Update Template" id="UpdateTemplate" />*@
+                    }
+                }
+            </div>
+            @if (!IsTemplateSelected)
+            {
+                <div class="col-md-6 text-align-right">
+                    <input type="button" class="btn btn-primary" value="@ImportDataLang.lblPrev" id="ColumnMappingPrev" />
+                    <input type="button" class="btn btn-primary TemplateButtons" value="@ImportDataLang.lblFinish" />
+                </div>
+            }
+            else
+            {
+                <div class="col-md-6 text-align-right">
+                    <input type="button" class="btn btn-primary" value="@ImportDataLang.lblPrev" id="ColumnMappingPrev" />
+                    <input type="button" class="btn btn-primary" value="@ImportDataLang.lblFinish" id="ColumnMappingFinish" />
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $.UserRole = $("#UserRole").val();
+    $.UserLOBTag = $("#UserLOBTag").val();
+
+    if ($.UserRole.toLowerCase() == 'lob') {
+        $(".chzn-select").attr("data-placeholder", "Add Tags (Required)");
+        $(".chzn-select").trigger("chosen:updated");
+    }
+
+    if ($(".chzn-select").length > 0) {
+        var TagList = $("#Tags").val();
+        if (TagList != undefined && TagList != "") {
+            TagList = TagList.split(',');
+        }
+        if (TagList != null || TagList != "") {
+            $(".chzn-select option").each(function () {
+                for (var i = 0; i < TagList.length; i++) {
+                    if ($(this).val() == TagList[i]) {
+                        $(this).attr("selected", "selected");
+                    }
+                }
+            });
+        }
+        $(".chzn-select").chosen().change(function (event) {
+
+            if (event.target == this) {
+                $("#Tags").val($(this).val());
+            }
+        });
+    }
+</script>
+
+@if (!IsTemplate)
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var ImportMode = $("#ImportMode").val();
+            var IsTemplate = $("#IsTemplate").val();
+            if (IsTemplate.toLowerCase() == "true") {
+                if (ImportMode == "Data Import") {
+                    var Lobvalidcnt = 0;
+                    if ($(".SelectBox").length > 0) {
+                        if (parseInt($("#DataColumn-0").val()) > 0 && parseInt($("#DataColumn-7").val()) > 0) {
+                            //$("#ColumnMappingFinish").attr('disabled', false);
+                        }
+                        else {
+                            Lobvalidcnt++;
+                            //$("#ColumnMappingFinish").attr('disabled', 'disabled');
+                        }
+                        if ($.UserRole.toLowerCase() == 'lob') {
+                            var Tags = $("#Tags").val();
+                            var IsTag = $("#IsTag").val();
+                            var LicenseEnableTags = $("#LicenseEnableTags").val();
+                            if (LicenseEnableTags.toLowerCase() == "true") {
+                                if (IsTag.toLowerCase() == "false") {
+                                    if (Tags == '' || Tags == '0') {
+                                        Lobvalidcnt++;
+                                    }
+                                }
+                                else {
+                                    if (parseInt($("#DataColumn-10").val()) > 0) { }
+                                    else {
+                                        Lobvalidcnt++;
+                                    }
+                                }
+                            }
+                        }
+                        if (Lobvalidcnt > 0) {
+                            $("#ColumnMappingFinish").attr('disabled', 'disabled');
+                            $(".TemplateButtons").attr('disabled', 'disabled');
+
+                        } else {
+                            $("#ColumnMappingFinish").attr('disabled', false);
+                            $(".TemplateButtons").attr('disabled', false);
+                        }
+
+                    }
+                }
+                if (ImportMode == "Match Refresh") {
+                    var Lobvalidcnt = 0;
+                    if ($(".SelectBox").length > 0) {
+                        if (parseInt($("#DataColumn-0").val()) > 0 && parseInt($("#DataColumn-1").val()) > 0 && parseInt($("#DataColumn-2").val()) > 0) {
+                            //$("#ColumnMappingFinish").attr('disabled', false);
+                        }
+                        else {
+                            //$("#ColumnMappingFinish").attr('disabled', 'disabled');
+                            Lobvalidcnt++;
+                        }
+                        if ($.UserRole.toLowerCase() == 'lob') {
+                            var Tags = $("#Tags").val();
+                            var IsTag = $("#IsTag").val();
+                            var LicenseEnableTags = $("#LicenseEnableTags").val();
+                            if (LicenseEnableTags.toLowerCase() == "true") {
+                                if (IsTag.toLowerCase() == "false") {
+                                    if (Tags == '' || Tags == '0') {
+                                        Lobvalidcnt++;
+                                    }
+                                }
+                                else {
+                                    if (parseInt($("#DataColumn-3").val()) > 0) { }
+                                    else {
+                                        Lobvalidcnt++;
+                                    }
+                                }
+                            }
+                        }
+                        if (Lobvalidcnt > 0) {
+                            $("#ColumnMappingFinish").attr('disabled', 'disabled');
+                            $(".TemplateButtons").attr('disabled', 'disabled');
+                        } else {
+                            $("#ColumnMappingFinish").attr('disabled', false);
+                            $(".TemplateButtons").attr('disabled', false);
+                        }
+                    }
+                }
+            }
+            else {
+                $(".SelectBox").each(function () {
+                    if (ImportMode == "Data Import") {
+                        var fieldName = $(this).closest("tr").find(".spnExcelColumn").attr('data-val');
+                        var selectedvalue = 0;
+                        $(".SelectBox option").each(function () {
+
+                            var optionName = $(this).text();
+                            if (fieldName == optionName) {
+                                selectedvalue = $(this).val();
+                            }
+                            if (optionName.toLowerCase() == "country" || optionName.toLowerCase() == "countrycode" || optionName.toLowerCase() == "countryisoalpha2code" || optionName.toLowerCase() == "address1_country") {
+                                if (fieldName.toLowerCase() == "countryisoalpha2code" || fieldName.toLowerCase() == "country") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+                            if (optionName.toLowerCase() == "zipcode" || optionName.toLowerCase() == "postalcode" || optionName.toLowerCase() == "zip" || optionName.toLowerCase() == "address1_postalcode") {
+                                if (fieldName.toLowerCase() == "postalcode") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+                            if (optionName.toLowerCase() == "phoneno" || optionName.toLowerCase() == "phonenbr" || optionName.toLowerCase() == "phone" || optionName.toLowerCase() == "address1_telephone1") {
+                                if (fieldName.toLowerCase() == "phonenbr") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+                            if (optionName.toLowerCase() == "company" || optionName.toLowerCase() == "companyname" || optionName.toLowerCase() == "organization" || optionName.toLowerCase() == "address1_name") {
+                                if (fieldName.toLowerCase() == "companyname") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+                            if (optionName.toLowerCase() == "srcrecordid" || optionName.toLowerCase() == "src recordid" || optionName.toLowerCase() == "accountid") {
+                                if (fieldName.toLowerCase() == "srcrecordid") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+
+                            if (optionName.toLowerCase() == "language" || optionName.toLowerCase() == "language values" || optionName.toLowerCase() == "languagevalues" || optionName.toLowerCase() == "language code" || optionName.toLowerCase() == "languagecode") {
+
+                                if (fieldName.toLowerCase() == "inlanguage") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+                            if (optionName.toLowerCase() == "address" || optionName.toLowerCase() == "street line address1" || optionName.toLowerCase() == "address1_line1") {
+
+                                if (fieldName.toLowerCase() == "street line address1") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+                            if (optionName.toLowerCase() == "address1" || optionName.toLowerCase() == "street line address2" || optionName.toLowerCase() == "address1_line2") {
+
+                                if (fieldName.toLowerCase() == "street line address2") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+                            if (optionName.toLowerCase() == "altaddress" || optionName.toLowerCase() == "street line alt. address1" || optionName.toLowerCase() == "address2_line1") {
+
+                                if (fieldName.toLowerCase() == "street line alt. address1") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+                            if (optionName.toLowerCase() == "altaddress1" || optionName.toLowerCase() == "street line alt. address2") {
+
+                                if (fieldName.toLowerCase() == "street line alt. address2") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+                            if (optionName.toLowerCase() == "state" || optionName.toLowerCase() == "address1_stateorprovince") {
+                                if (fieldName.toLowerCase() == "state (state is required for us)") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+                            if (optionName.toLowerCase() == "address1_city") {
+                                if (fieldName.toLowerCase() == "city") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+
+                            if (optionName.toLowerCase() == "tags" || optionName.toLowerCase() == "tag") {
+                                if (fieldName.toLowerCase() == "tags") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+                        });
+                        $(this).val(selectedvalue);
+                        var id = $(this).attr('id');
+                        var CurrentColumn = $(this).val();
+                        if (parseInt(CurrentColumn) != 0) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/ImportData/UpdateExamples",
+                                data: JSON.stringify({ CurrentColumn: CurrentColumn }),
+                                dataType: "json",
+                                async: false,
+                                beforeSend: function () { $('#divProgress').show(); },
+                                contentType: "application/json",
+                                success: function (data) {
+                                    $('#divProgress').hide();
+                                    $("#" + id).parent().parent().next().text(data);
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                }
+                            });
+                        } else {
+                            $("#" + id).parent().parent().next().text('');
+                        }
+                    }
+                    if (ImportMode == "Match Refresh") {
+                        var fieldName = $(this).closest("tr").find(".spnExcelColumn").attr('data-val');
+                        var selectedvalue = 0;
+                        $(".SelectBox option").each(function () {
+                            var optionName = $(this).text();
+                            if (fieldName == optionName) {
+                                selectedvalue = $(this).val();
+                            }
+                            if (optionName.toLowerCase() == "country" || optionName.toLowerCase() == "countrycode" || optionName.toLowerCase() == "countryisoalpha2code" || optionName.toLowerCase() == "address1_country") {
+                                if (fieldName.toLowerCase() == "countryisoalpha2code" || fieldName.toLowerCase() == "country") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+                            if (optionName.toLowerCase() == "srcrecordid" || optionName.toLowerCase() == "src recordid" || optionName.toLowerCase() == "accountid") {
+                                if (fieldName.toLowerCase() == "srcrecordid") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+                            if (optionName.toLowerCase() == "tags" || optionName.toLowerCase() == "tag") {
+                                if (fieldName.toLowerCase() == "tags") {
+                                    selectedvalue = $(this).val();
+                                }
+                            }
+                        });
+                        $(this).val(selectedvalue);
+                        var id = $(this).attr('id');
+                        var CurrentColumn = $(this).val();
+                        if (parseInt(CurrentColumn) != 0) {
+                            $.ajax({
+                                type: "POST",
+                                url: "/ImportData/UpdateExamples",
+                                data: JSON.stringify({ CurrentColumn: CurrentColumn }),
+                                dataType: "json",
+                                async: false,
+                                beforeSend: function () { $('#divProgress').show(); },
+                                contentType: "application/json",
+                                success: function (data) {
+                                    $('#divProgress').hide();
+                                    $("#" + id).parent().parent().next().text(data);
+                                },
+                                error: function (xhr, ajaxOptions, thrownError) {
+                                }
+                            });
+                        }
+                        else {
+                            $("#" + id).parent().parent().next().text('');
+                        }
+                    }
+
+                    if ($.UserRole.toLowerCase() == 'lob') {
+                        $(".chzn-select").attr("data-placeholder", "Add Tags (Required)");
+                        $(".chzn-select").trigger("chosen:updated");
+                    }
+                });
+            }
+
+
+
+
+            if (ImportMode == "Data Import") {
+                var Lobvalidcnt = 0;
+                if ($(".SelectBox").length > 0) {
+                    if (parseInt($("#DataColumn-0").val()) > 0 && parseInt($("#DataColumn-7").val()) > 0) {
+                        //$("#ColumnMappingFinish").attr('disabled', false);
+                    }
+                    else {
+                        Lobvalidcnt++;
+                        //$("#ColumnMappingFinish").attr('disabled', 'disabled');
+                    }
+                    if ($.UserRole.toLowerCase() == 'lob') {
+                        var Tags = $("#Tags").val();
+                        var IsTag = $("#IsTag").val();
+                        var LicenseEnableTags = $("#LicenseEnableTags").val();
+                        if (LicenseEnableTags.toLowerCase() == "true") {
+                            if (IsTag.toLowerCase() == "false") {
+                                if (Tags == '' || Tags == '0') {
+                                    Lobvalidcnt++;
+                                }
+                            }
+                            else {
+                                if (parseInt($("#DataColumn-10").val()) > 0) { }
+                                else {
+                                    Lobvalidcnt++;
+                                }
+                            }
+                        }
+                    }
+                    if (Lobvalidcnt > 0) {
+                        $("#ColumnMappingFinish").attr('disabled', 'disabled');
+                        $(".TemplateButtons").attr('disabled', 'disabled');
+
+                    } else {
+                        $("#ColumnMappingFinish").attr('disabled', false);
+                        $(".TemplateButtons").attr('disabled', false);
+                    }
+
+                }
+            }
+            if (ImportMode == "Match Refresh") {
+                var Lobvalidcnt = 0;
+                if ($(".SelectBox").length > 0) {
+                    if (parseInt($("#DataColumn-0").val()) > 0 && parseInt($("#DataColumn-1").val()) > 0 && parseInt($("#DataColumn-2").val()) > 0) {
+                        //$("#ColumnMappingFinish").attr('disabled', false);
+                    }
+                    else {
+                        //$("#ColumnMappingFinish").attr('disabled', 'disabled');
+                        Lobvalidcnt++;
+                    }
+                    if ($.UserRole.toLowerCase() == 'lob') {
+                        var Tags = $("#Tags").val();
+                        var IsTag = $("#IsTag").val();
+                        var LicenseEnableTags = $("#LicenseEnableTags").val();
+                        if (LicenseEnableTags.toLowerCase() == "true") {
+                            if (IsTag.toLowerCase() == "false") {
+                                if (Tags == '' || Tags == '0') {
+                                    Lobvalidcnt++;
+                                }
+                            }
+                            else {
+                                if (parseInt($("#DataColumn-3").val()) > 0) { }
+                                else {
+                                    Lobvalidcnt++;
+                                }
+                            }
+                        }
+                    }
+                    if (Lobvalidcnt > 0) {
+                        $("#ColumnMappingFinish").attr('disabled', 'disabled');
+                        $(".TemplateButtons").attr('disabled', 'disabled');
+                    } else {
+                        $("#ColumnMappingFinish").attr('disabled', false);
+                        $(".TemplateButtons").attr('disabled', false);
+                    }
+                }
+            }
+
+            if ($(".Language").val() == null) {
+                $(".Language").val("");
+            }
+        })
+
+    </script>
+}
+

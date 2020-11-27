@@ -1,0 +1,18 @@
+@using SBISCCMWeb.Utility
+@model Boolean?
+@{
+    var htmlAttributes = new RouteValueDictionary();
+    if (ViewBag.@class != null)
+    {
+        htmlAttributes.Add("class", ViewBag.@class);
+    }
+}
+<section>    
+	<label class="checkbox@(Html.ValidationErrorFor(m => m, " has-error"))">
+		@Html.CheckBox(
+            "",
+            Model.HasValue && Model.Value,
+            htmlAttributes)
+		<i></i>@Html.LabelFor(m => m)</label>
+    @Html.ValidationMessageFor(m => m, null, new { @class = "help-block" })
+</section>

@@ -1,0 +1,52 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@model PagedList.IPagedList<UserPreferenceEntity>
+@{
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+}
+<div class="table-responsive">
+    @using (Ajax.BeginForm("Index", "MonitorProfile", FormMethod.Post, ajaxOptions, new { id = "form_UserPrefrence" }))
+    {
+        @Html.AntiForgeryToken()
+        <label class="select pull-right" style="padding-right:10px;">
+            Page Size :  @Html.DropDownList("pagevalue", new SelectList(SBISCCMWeb.Utility.CommonMethod.GetPageSize(), Convert.ToInt32(TempData["pageno"])), new { id = "pagevalue", @class = "pagevalueChange" })<i></i>
+        </label>
+                                    <table class="table table-bordered ">
+                                        <thead>
+                                            <tr>
+                                                <th> @Ajax.ActionLink("Preference Name", "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                                                <th> @Ajax.ActionLink("Preference Value", "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 2, sortorder = (ViewBag.SortBy == 2 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                                                <th> @Ajax.ActionLink("Preference Type", "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 3, sortorder = (ViewBag.SortBy == 3 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.Count > 0)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@item.PreferenceName</td>
+                                                        <td>@item.PreferenceDescription</td>
+                                                        <td>@item.PreferenceType</td>
+                                                        <td><a href="#" class="EditUserPrefrence" id="@item.PreferenceID">Edit</a></td>
+                                                        <td><a href="@Url.Action("DeleteUserPrefrence", "MonitorProfile", new { id = @item.PreferenceID }, null)" id="@item.PreferenceID" class="delete">Delete</a></td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr><td colspan="5">No record(s) Found.</td></tr>
+                                            }
+                                        </tbody>
+                                    </table>
+    }
+</div>

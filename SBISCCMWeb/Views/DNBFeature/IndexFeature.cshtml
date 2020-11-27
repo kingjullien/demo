@@ -1,0 +1,209 @@
+﻿@using SBISCCMWeb.Utility
+@using SBISCCMWeb.Models
+@using SBISCCMWeb.LanguageResources
+@model DandBFeatureViewModel
+@{
+    Layout = "";
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "OnSuccessDnBFeatureUpdate"
+    };
+}
+<article class="col-md-12 sortable-grid ui-sortable" id="articleDandBDirectCredentialsTop">
+    <div class="sortable-grid ui-sortable widget-data" id="articleDnBDirectCredentials">
+        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <strong>@DandBSettingLang.hdrProcessSetting</strong>
+                </h2>
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body">
+                    @using (Ajax.BeginForm("IndexDNBFeature", "DNBFeature", null, ajaxOptions, new { @autocomplete = "off" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row align-items-center">
+                            <div class="col-md-3 col-xs-3 paddingTop-4 width200px"><strong>@DandBSettingLang.lblPauseCleanseMatch</strong></div>
+                            <div class="col-md-1">
+                                <label class="switch">
+                                    <input type="checkbox" name="PAUSE_CLEANSE_MATCH_ETL" id="PAUSE_CLEANSE_MATCH_ETL" checked="@(Convert.ToBoolean(Model.PAUSE_CLEANSE_MATCH_ETL))" value="true">
+                                    <span class="Toggleslider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-md-3 col-xs-3 paddingTop-4 width200px"><strong>@DandBSettingLang.lblPauseDataEnrichment</strong></div>
+                            <div class="col-md-1">
+                                <label class="switch">
+                                    <input type="checkbox" name="PAUSE_ENRICHMENT_ETL" id="PAUSE_ENRICHMENT_ETL" checked="@(Convert.ToBoolean(Model.PAUSE_ENRICHMENT_ETL))" value="true">
+                                    <span class="Toggleslider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        @*Ability to remove duplicates from the Active queue MP-466*@
+                        <fieldset class="CustomFieldSet">
+                            <legend>
+                                <div class="col-md-10 col-sm-10 col-xs-10 center-block">
+                                    @DandBSettingLang.lblDataImportDuplicateHandling
+                                </div>
+                                @*MP-523 Provide ability to de-duplicate data*@
+                                <div class="col-md-2 col-sm-2 col-xs-2 text-right">
+                                    <input type="button" value="@DandBSettingLang.lblDeDuplicateData" id="btnDuplicateData" name="btnDuplicateData" class="btn btn-Secondary" />
+                                </div>
+                            </legend>
+
+                            <div class="col-md-6 form-group bodyDuplicateDataImport">
+                                <div class="">
+                                    <label class="radio ">
+                                        <input type="radio" name="DATA_IMPORT_DUPLICATE_RESOLUTION" value="None" checked="@(string.IsNullOrEmpty(Model.DATA_IMPORT_DUPLICATE_RESOLUTION) ? true : (Convert.ToString(Model.DATA_IMPORT_DUPLICATE_RESOLUTION) == "None" ? true : false))" />
+                                        <div class="paddingTop-2"> <span> <strong>@DandBSettingLang.lblNoduplicatecheckforimport</strong> </span></div>
+                                    </label>
+                                </div>
+                                <div class="">
+                                    <label class="radio ">
+                                        <input type="radio" name="DATA_IMPORT_DUPLICATE_RESOLUTION" value="PURGE_IN_ACTIVE_QUEUE" checked="@(string.IsNullOrEmpty(Model.DATA_IMPORT_DUPLICATE_RESOLUTION) ? false : (Convert.ToString(Model.DATA_IMPORT_DUPLICATE_RESOLUTION) == "PURGE_IN_ACTIVE_QUEUE" ? true : false))" />
+                                        <div class="paddingTop-2"> <span> <strong>@DandBSettingLang.lblRemoveDuplicateRecordsActiveQueues</strong> </span></div>
+                                    </label>
+                                </div>
+                                <div class="">
+                                    <label class="radio ">
+                                        <input type="radio" name="DATA_IMPORT_DUPLICATE_RESOLUTION" value="PURGE_IN_ACTIVE_AND_EXPORT_QUEUE" checked="@(string.IsNullOrEmpty(Model.DATA_IMPORT_DUPLICATE_RESOLUTION) ? false : (Convert.ToString(Model.DATA_IMPORT_DUPLICATE_RESOLUTION) == "PURGE_IN_ACTIVE_AND_EXPORT_QUEUE" ? true : false))" />
+                                        <div class="paddingTop-2"> <span> <strong>@DandBSettingLang.lblRemoveDuplicateRecordsActiveOutputQueues</strong> </span></div>
+                                    </label>
+                                </div>
+                                @if (Helper.Branding == Branding.Matchbook.ToString())
+                                {
+                                    <div class="">
+                                        <label class="radio ">
+                                            <input type="radio" name="DATA_IMPORT_DUPLICATE_RESOLUTION" value="DONT_IMPORT_DUPLICATES" checked="@(string.IsNullOrEmpty(Model.DATA_IMPORT_DUPLICATE_RESOLUTION) ? false : (Convert.ToString(Model.DATA_IMPORT_DUPLICATE_RESOLUTION) == "DONT_IMPORT_DUPLICATES" ? true : false))" />
+                                            <div class="paddingTop-2"> <span> <strong>@DandBSettingLang.lblDontImportDataAlreadyMatchbookQueues</strong> </span></div>
+                                        </label>
+                                    </div>
+                                }
+                                else if (Helper.Branding == Branding.DandB.ToString())
+                                {
+                                    <div class="">
+                                        <label class="radio ">
+                                            <input type="radio" name="DATA_IMPORT_DUPLICATE_RESOLUTION" value="DONT_IMPORT_DUPLICATES" checked="@(string.IsNullOrEmpty(Model.DATA_IMPORT_DUPLICATE_RESOLUTION) ? false : (Convert.ToString(Model.DATA_IMPORT_DUPLICATE_RESOLUTION) == "DONT_IMPORT_DUPLICATES" ? true : false))" />
+                                            <div class="paddingTop-2"> <span> <strong>@DandBSettingLang.lblDontimportdataSlreadyDunBradstreetQueues</strong> </span></div>
+                                        </label>
+                                    </div>
+                                }
+                                <span><em>@DandBSettingLang.lblNoteFeatures</em></span>
+                            </div>
+                            @*Tune import process to handle bad data import (MP-681)*@
+                            <div class="col-md-6 form-group bodyDuplicateDataImport padding-top-15px">
+                                <div class="col-md-3">
+                                    <label class="paddingtop7">@DandBSettingLang.lblDataImportErrorResolution</label>
+                                </div>
+                                <div class="col-md-6">
+                                    @Html.DropDownListFor(model => model.DATA_IMPORT_ERROR_RESOLUTION, new SelectList(CommonDropdown.getDataImportErrorResolution(), "Value", "Text"), new { @class = "form-control", @maxlength = "500" })
+                                </div>
+                            </div>
+                        </fieldset>
+                        @*New Process settings for transfer duns enrichment MP-507*@
+                        <div class="col-md-6 col-xs-6 CustomFieldSet" style="padding-left:0">
+                            <fieldset class="CustomFieldSet height150">
+                                <legend>@DandBSettingLang.lblAutoTransferDUNS</legend>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-5 col-xs-5 paddingTop-4 width200px"><strong>@DandBSettingLang.lblTransferDunsAutoEnrich</strong></div>
+                                        <div class="col-md-1" style="width:70px;">
+                                            <label class="switch">
+                                                <input type="checkbox" name="TRANSFER_DUNS_AUTO_ENRICH" id="TRANSFER_DUNS_AUTO_ENRICH" checked="@(Convert.ToBoolean(Model.TRANSFER_DUNS_AUTO_ENRICH))" value="true">
+                                                <span class="Toggleslider round"></span>
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+
+                                        </div>
+                                    </div>
+                                    @if (Helper.LicenseEnableTags)
+                                    {
+                                        string TransferDunsTagList = Model.TRANSFER_DUNS_AUTO_ENRICH_TAG;
+                                        <div class="row">
+                                            <div class="col-md-5 col-xs-5 paddingTop-4 width200px"><strong>@DandBSettingLang.lblTransferDunsAutoEnrichTag</strong></div>
+                                            <div class="col-md-6">
+                                                @Html.Hidden("TransferDunsTagList", TransferDunsTagList)
+                                                @Html.Hidden("TRANSFER_DUNS_AUTO_ENRICH_TAG")
+                                                <div class="divTransferDuns">
+                                                    @Html.DropDownList("TransferDunsTagValue", new SelectList(CommonDropdown.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag"), new { @class = "form-control chzn-select", multiple = "true", @autocomplete = "off" })
+                                                    <em class="fa fa-plus" id="addTransferDunsTag" onclick="addNewTagsPopup()"></em>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </fieldset>
+                        </div>
+                        @*MP-920 UI changes*@
+                        <div class="col-md-6 col-xs-6 CustomFieldSet" style="padding-right:0">
+                            <fieldset class="CustomFieldSet">
+                                <legend>@DandBSettingLang.lblAutoRefreshEnrichmentSettings</legend>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3 col-xs-3 paddingTop-4 width200px"><strong>@DandBSettingLang.lblAlwaysRefresh</strong></div>
+                                        <div class="col-md-1" style="width:70px;">
+                                            <label class="switch">
+                                                <input type="checkbox" name="EnrichmentAlwaysRefresh" id="EnrichmentAlwaysRefresh" checked="@(Convert.ToBoolean(Model.EnrichmentAlwaysRefresh))" value="true">
+                                                <span class="Toggleslider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3 col-xs-3 paddingTop-4 width200px"><strong>@DandBSettingLang.lblNumberofDays</strong></div>
+                                        <div class="col-md-5">
+                                            @if (Model.EnrichmentAlwaysRefresh)
+                                            {
+                                                @Html.TextBoxFor(x => x.ENRICHMENT_STALE_NBR_DAYS, new { @class = "form-control OnlyDigit", onkeypress = "return isNumber(event)", autocomplete = "off", maxlength = "3", style = "width:60px;border-color: black;" })
+                                            }
+                                            else
+                                            {
+                                                @Html.TextBoxFor(x => x.ENRICHMENT_STALE_NBR_DAYS, new { @class = "form-control OnlyDigit", onkeypress = "return isNumber(event)", autocomplete = "off", maxlength = "3", style = "width:60px;border-color: black;" })
+                                            }
+                                            <div class="paddingTop-4 EnrichmentPeriodDaysError text-danger" hidden="hidden"><span>@DandBSettingLang.lblValidNumberDays</span>  </div><br />
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+
+
+                        if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                        {
+                            if (Helper.UserType.ToLower() != "steward")
+                            {
+                                <div class="tab-content">
+                                    <input type="submit" class="btn btn-primary" id="UpdateDandBFeatureSubmit" name="btnSubmit" value="@DandBSettingLang.lblUpdate">
+                                    @if (Helper.LicenseEnableStubData)
+                                    {
+                                        <strong><a class="cachedDataSettings manageCacheSettingsText">@DandBSettingLang.lblManageCacheDataSettings</a></strong>
+                                    }
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedTab == "Feature")
+{
+    <script>        
+        $(document).ready(function () {
+          LoadTransferDunsTag();
+          EnableDisableAutoEnrichTag();
+        });
+    </script>
+}
+<script>
+    function OnSuccessDnBFeatureUpdate(data) {
+        ShowMessageNotification("success", data.message)
+    }
+</script>

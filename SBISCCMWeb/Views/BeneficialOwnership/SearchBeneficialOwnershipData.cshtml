@@ -1,0 +1,645 @@
+﻿@using SBISCCMWeb.Models.BeneficialOwnership
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@model BeneficialOwnership_Main
+@{
+    int i = 0;
+    string address = string.Empty;
+    List<CVRefEntity> lstProviders = CommonDropdown.GetThirdPartyProviders(0, this.LayoutModel.CurrentClient.ApplicationDBConnectionString);
+    bool IsScreeningAllowed = lstProviders.FirstOrDefault(x => x.Value == ThirdPartyProvider.DESCARTES.ToString()) != null;
+}
+@Html.Hidden("IsScreeningAllowed", IsScreeningAllowed)
+<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable ">
+    <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading" class="d-flex justify-content-between ownership_title">
+            <h2><strong>@BeneficialOwnershipLang.hdrBeneficialOwnershipData</strong> </h2>
+            <ul class="nav pull-right nav-pills Custom-pill">
+                @if (Model.Base != null && Model.lstBeneficialOwnerRelationships.Any() && Model.lstBeneficialOwners.Any())
+                {
+                    <li style="padding-top:4px">
+                        <span><strong>@BeneficialOwnershipLang.lblLastUpdated : @Convert.ToDateTime(Model.Base.TransactionTimestamp).ToDatetimeFull()</strong></span>
+                    </li>
+                    <li>
+                        <button class="btn btn-Secondary margin-left-5" id="benificiaryRefreshAlldata" data-duns="@Model.Base.duns" data-country="@Model.Base.addressCountryIsoAlpha2Code">@BeneficialOwnershipLang.lblRefresh</button>
+                    </li>
+                }
+                <li>
+                    <div class="input-group-btn">
+                        @if (Model.Base != null && Model.lstBeneficialOwnerRelationships.Any() && Model.lstBeneficialOwners.Any())
+                        {
+                            <button type="button" class="btn dropdown-toggle btn-Secondary" data-toggle="dropdown" tabindex="-1">
+                                @MatchDataLang.lblAdditionalActions <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                    <a class="dropdown-item" href="/BeneficialOwnership/DownloadBenificiaryDataAsPDF?view=owneronly" id="benificiaryExportToPDF">@BeneficialOwnershipLang.spnExporttoPDF</a>
+                                </li>
+                                <li><a class="dropdown-item" href="@Url.Action("ExportToExcel", "BeneficialOwnership")">@BeneficialOwnershipLang.spnExporttoExcel</a></li>
+                                @if (IsScreeningAllowed)
+                                {
+                                    <li><a class="dropdown-item" id="beneficiaryScreeningData" href="javascript:void(0)">@BeneficialOwnershipLang.lblScreenownershiplist</a></li>
+                                }
+                                else
+                                {
+                                    <li><a class="clsDisable" href="javascript:void(0)">@BeneficialOwnershipLang.lblScreenownershiplist</a></li>
+                                }
+                            </ul>
+                        }
+                        @if (!Convert.ToBoolean(ViewBag.isModalView))
+                        {
+                            <button class="btn btn-primary" id="benificiaryBackToList">@BeneficialOwnershipLang.lblBack</button>
+                        }
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10 dropzIndex">
+                    @if (Model.Base != null && Model.lstBeneficialOwnerRelationships.Any() && Model.lstBeneficialOwners.Any())
+                    {
+                        <div class="divownertbl" style="">
+                            <div class="company_data">
+                                <div class="row align-items-start">
+                                    <div class="col-md-3">
+                                        <div class="Company_name">
+                                            <div class="d-flex align-items-start">
+                                                <p id="OrgWidth">@Model.Base.organizationName </p>
+                                                <span class="duns_number">@Model.Base.duns</span>
+                                                <span class="badge @(Model.Base.isOutOfBusiness == 0 ? "badge-success" : "badge-danger")">@(Model.Base.isOutOfBusiness == 0 ? "Active" : "InActive")</span>
+                                            </div>
+                                            <span class="address">
+                                                @{address = @CommonMethod.DisplayFormattedAddress(Model.Base.addressStreetLine1 + Model.Base.addressStreetLine2 + Model.Base.addressStreetLine3, Model.Base.addressCity, Model.Base.addressState, Model.Base.addressPostalCode, Model.Base.addressCountryIsoAlpha2Code);}
+                                                @if (!string.IsNullOrEmpty(address))
+                                                {
+                                                    <i class="fa fa-map-marker" aria-hidden="true"></i>@address
+                                                }
+                                            </span>
+                                            <div class="type">
+                                                <p class="margin-top-15">
+                                                    @BeneficialOwnershipLang.spnControlOwnershipType :<br />
+                                                    <span> @Model.Base.controlOwnershipType</span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-7 middledata">
+                                        <div class="records">
+                                            <p>
+                                                @BeneficialOwnershipLang.spnOwnerships :
+                                                <span>@Model.Base.beneficialOwnershipBeneficialOwnersCount</span>
+                                            </p>
+                                            <p>
+                                                @BeneficialOwnershipLang.spnRelationships :
+                                                <span>@Model.Base.beneficialOwnershipRelationshipsCount</span>
+                                            </p>
+                                            <p>
+                                                @BeneficialOwnershipLang.lblBenificiary (%) :
+                                                <span>@Model.Base.beneficialOwnershipTotalAllocatedOwnershipPercentage</span>
+                                            </p>
+                                            <p>
+                                                @BeneficialOwnershipLang.spnOwnershipOrganizations :
+                                                <span>@Model.Base.beneficialOwnershipOrganizationsCount</span>
+                                            </p>
+                                            <p>
+                                                @BeneficialOwnershipLang.spnOwnershipIndividuals :
+                                                <span>@Model.Base.beneficialOwnershipIndividualsCount</span>
+                                            </p>
+                                            <p>
+                                                @BeneficialOwnershipLang.spnCorporateBenificiaries :
+                                                <span>@Model.Base.beneficialOwnershipCorporateBeneficiariesCount</span>
+                                            </p>
+                                            <p>
+                                                @BeneficialOwnershipLang.spnStateOwnedOrgs :
+                                                <span>@Model.Base.beneficialOwnershipStateOwnedOrganizationsCount</span>
+                                            </p>
+                                            <p>
+                                                @BeneficialOwnershipLang.spnGovernmentOrgs :
+                                                <span>@Model.Base.beneficialOwnershipGovernmentOrganizationsCount</span>
+                                            </p>
+                                            <p>
+                                                @BeneficialOwnershipLang.spnPubliclyTradingOrgs :
+                                                <span>@Model.Base.beneficialOwnershipPubliclyTradingOrganizationsCount</span>
+                                            </p>
+                                            <p>
+                                                @BeneficialOwnershipLang.spnPrivateOrgs :
+                                                <span>@Model.Base.beneficialOwnershipPrivatelyHeldOrganizationsCount</span>
+                                            </p>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <div class="type text-align-start">
+                                            @if (Model.Base.globalUltimateDuns == Model.Base.domesticUltimateDuns && Model.Base.globalUltimateDuns == Model.Base.parentDuns)
+                                            {
+                                                if (!string.IsNullOrEmpty(Model.Base.globalUltimateDuns))
+                                                {
+                                                    <p>@MatchDataLang.lblGlobalUltimate /  @MatchDataLang.lblDomesticUltimate / @MatchDataLang.lblParent: <br /> <span>@Model.Base.globalUltimateDuns @Model.Base.globalUltimateOrganizationName</span></p>
+                                                }
+                                            }
+                                            else if (Model.Base.globalUltimateDuns == Model.Base.domesticUltimateDuns)
+                                            {
+                                                if (!string.IsNullOrEmpty(Model.Base.globalUltimateDuns))
+                                                {
+                                                    <p>@MatchDataLang.lblGlobalUltimate /  @MatchDataLang.lblDomesticUltimate : <br /> <span>@Model.Base.globalUltimateDuns @Model.Base.globalUltimateOrganizationName</span></p>
+                                                }
+
+                                                if (!string.IsNullOrEmpty(Model.Base.parentDuns))
+                                                {
+                                                    <p>@MatchDataLang.lblParent : <br /> <span>@Model.Base.parentDuns @Model.Base.parentOrganizationName</span></p>
+                                                }
+                                            }
+                                            else if (Model.Base.globalUltimateDuns == Model.Base.parentDuns)
+                                            {
+                                                if (!string.IsNullOrEmpty(Model.Base.globalUltimateDuns))
+                                                {
+                                                    <p>@MatchDataLang.lblGlobalUltimate / @MatchDataLang.lblParent: <br /> <span>@Model.Base.globalUltimateDuns @Model.Base.globalUltimateOrganizationName</span></p>
+                                                }
+                                                if (!string.IsNullOrEmpty(Model.Base.domesticUltimateDuns))
+                                                {
+                                                    <p>@MatchDataLang.lblDomesticUltimate : <br /> <span>@Model.Base.domesticUltimateDuns @Model.Base.domesticUltimateOrganizationName</span></p>
+                                                }
+                                            }
+                                            else if (Model.Base.domesticUltimateDuns == Model.Base.parentDuns)
+                                            {
+                                                if (!string.IsNullOrEmpty(Model.Base.domesticUltimateDuns))
+                                                {
+                                                    <p>@MatchDataLang.lblDomesticUltimate / @MatchDataLang.lblParent : <br /> <span>@Model.Base.domesticUltimateDuns @Model.Base.domesticUltimateOrganizationName</span></p>
+                                                }
+                                                if (!string.IsNullOrEmpty(Model.Base.globalUltimateDuns))
+                                                {
+                                                    <p>@MatchDataLang.lblGlobalUltimate : <br /> <span>@Model.Base.globalUltimateDuns @Model.Base.globalUltimateOrganizationName</span></p>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (!string.IsNullOrEmpty(Model.Base.globalUltimateDuns))
+                                                {
+                                                    <p>@MatchDataLang.lblGlobalUltimate : <br /> <span>@Model.Base.globalUltimateDuns @Model.Base.globalUltimateOrganizationName</span></p>
+                                                }
+                                                if (!string.IsNullOrEmpty(Model.Base.domesticUltimateDuns))
+                                                {
+                                                    <p>@MatchDataLang.lblDomesticUltimate : <br /> <span>@Model.Base.domesticUltimateDuns @Model.Base.domesticUltimateOrganizationName</span></p>
+                                                }
+                                                if (!string.IsNullOrEmpty(Model.Base.parentDuns))
+                                                {
+                                                    <p>@MatchDataLang.lblParent : <br /> <span>@Model.Base.parentDuns @Model.Base.parentOrganizationName</span></p>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="">
+                            <span>@MatchDataLang.lblNodataavailable</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+@if (Model.Base != null && Model.lstBeneficialOwnerRelationships.Any() && Model.lstCombinedData.Any())
+{
+    List<int> ownerIds = Model.lstBeneficialOwnerRelationships.Select(x => x.sourceMemberID).Distinct().ToList();
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable ">
+        <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <div class="ownership-header d-flex align-items-center justify-content-between">
+                    <h2>
+                        <strong>@BeneficialOwnershipLang.hdrOwnershipsRelationships</strong><a href="javascript:void(0)" class="refreshbenificiarytbl margin-left-5"><em class="fa fa-refresh"></em></a>
+                    </h2>
+                    <div class="input-group-btn  d-flex align-items-center">
+                        @*<div>
+                                <strong class="lblOwnerOnly thColor">Owners Only</strong> &nbsp;&nbsp;&nbsp;
+                                <label class="Toggleswitch switch lblToggleOwnerRel">
+                                    <input type="checkbox" name="rBtnOwnerRelToggle" class="rBtnOwnerRelToggle">
+                                    <span class="Toggleslider round"></span>
+                                </label>&nbsp;&nbsp;&nbsp;
+                                <strong class="lblwithRel">With Relationship</strong> &nbsp;&nbsp;&nbsp;
+                            </div>*@
+                        <div>
+                            <strong class="lblOwnerOnly thColor">@BeneficialOwnershipLang.spnTabularView</strong> &nbsp;&nbsp;&nbsp;
+                            <label class="Toggleswitch switch lblToggleOwnerRel">
+                                <input type="checkbox" name="rBtnOwnerRelToggle" class="rBtnOwnerRelToggle">
+                                <span class="Toggleslider round"></span>
+                            </label>&nbsp;&nbsp;&nbsp;
+                            <strong class="lblwithRel">@BeneficialOwnershipLang.spnGraphView</strong> &nbsp;&nbsp;&nbsp;
+                        </div>
+                        @*<div>
+                                <a data-toggle="modal" data-target="#BenificiaryGraphModal" class="btn btn-primary">Graph</a>
+                            </div>*@
+                    </div>
+                </div>
+
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body no-padding">
+                    <div class="tab-content padding-10 dropzIndex simpleonlyowners">
+                        <div id="benificialOwnerShipFiltersMain">
+                            @Html.Partial("~/Views/Shared/FilterPartial.cshtml")
+                        </div>
+                        <div id="tblBenificiaryData">
+                        </div>
+                    </div>
+
+                    <div class="tab-content padding-10 dropzIndex benificiaryGraphView" style="display:none">
+                        <div class="pull-right" style="position:relative;z-index:999">
+                            <a href="javascript:void(0)" id="showgraphinFullScreen">@BeneficialOwnershipLang.spnShowInFullScreen</a>
+                            <table class="table table-bordered">
+                                <tr>
+                                    <td style="color:#FF1493"><em class="fa fa-building"></em>&nbsp;&nbsp; @BeneficialOwnershipLang.spnPubliclyOwnedTradedCompanies</td>
+                                </tr>
+                                <tr>
+                                    <td style="color:#EE82EE"><em class="fa fa-building"></em>&nbsp;&nbsp; @BeneficialOwnershipLang.spnPrivatelyOwned</td>
+                                </tr>
+                                <tr>
+                                    <td style="color:#556B2F"><em class="fa fa-building"></em>&nbsp;&nbsp; @BeneficialOwnershipLang.spnStateOwned</td>
+                                </tr>
+                                <tr>
+                                    <td style="color:#3BB9FC"><em class="fa fa-building"></em>&nbsp;&nbsp; @BeneficialOwnershipLang.spnOthers</td>
+                                </tr>
+                                <tr>
+                                    <td style="color:#FFC83D"><em class="fa fa-user"></em>&nbsp;&nbsp; @BeneficialOwnershipLang.spnIndividual</td>
+                                </tr>
+                                <tr>
+                                    <td style="color:#8B0000"><em class="fa fa-building"></em>&nbsp;&nbsp; @BeneficialOwnershipLang.spnTargetCompany</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="graphdiv" style="width:100%;text-align:center">
+                            @Html.Hidden("graphjson", Model.graphJson.ResultJSON)
+                            <div id="graph-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </article>
+
+    <script>
+        $(document).ready(function () {
+            //["TableCoulmnName","ServerColumnName","DropDownURL","ISDefault(use lowercase)","Show text/value(use lowercase)","Datatype(If Date)"]
+            var colArray = [["Type", "Type", "/BeneficialOwnership/GetTypeDD", "true", "", "", "all"],
+            ["DegreeOfSeparation", "Max Degree Of Sepration", "/BeneficialOwnership/GetDegreeOfSeprationDD", "false", "text"],
+            ["MinimumDirectPercentage", "Min Direct", "", "", "", "onlynumber"],
+            ["MinimumInDirectPercentage", "Min InDirect", "", "", "", "onlynumber"],
+            ["MinimumBenificialPercentage", "Min Benificial", "", "", "", "onlynumber"],
+            ["IsBenificiary", "IsBenificiary", "/BeneficialOwnership/GetIsbenificiaryDD"],
+            ["AlertType", "AlertType", "/BeneficialOwnership/GetAlertTypeDD"]];
+
+            InitFilters(colArray, "/BeneficialOwnership/FilterBenificiaryData", "#benificialOwnerShipFiltersMain", "#tblBenificiaryData", "InitDataTable('#OwnerTable', [10, 20, 50], false, [])", "equalto");
+        })
+
+        /**
+* Create the chart
+*/
+        var ogma = new Ogma();
+        ogma = new Ogma({
+            container: 'graph-container',
+            options: {
+                interactions: { zoom: { onDoubleClick: true } },
+                minimumHeight: 500,
+                minimumWidth: $("#SearchBenificiaryModal").length > 0 ? $("#divBeneficialOwnershipData").width() - 50 : 1050
+            }
+        });
+        /**
+         * Styling section
+         */
+        var personIcon = '\uf007';
+        var companyIcon = '\uf1ad';
+        var isShareholderType = 'IS-SHAREHOLDER';
+
+        function getNodeColor(node) {
+            var group = node.getAttribute('color');
+            return group;
+        }
+
+        function getEdgeColor(edge) {
+            var clr = edge.getData('color');
+            return clr;
+        }
+
+        function getEdgeHaloColor(edge) {
+            if (edge.getData('type') === isShareholderType) {
+                return '#BDF2FF';
+            }
+            return '#DABB98';
+        }
+
+        ogma.styles.addNodeRule({
+            text: {
+                minVisibleSize: 0
+            },
+            color: 'white',
+            outerStroke: {
+                color: getNodeColor
+            },
+            icon: {
+                font: 'FontAwesome',
+                content: function (node) {
+                    if (node.getData('area') === 'Not a Beneficiary') {
+                        return companyIcon;
+                    }
+                    return personIcon;
+                },
+                style: 'bold',
+                color: getNodeColor
+            },
+            badges: {
+                bottomRight: {
+                    image: function (n) {
+                        var flag = '';
+                        if (n.getData('country') != null && n.getData('country') != "null" && n.getData('country') != '')
+                            flag = 'UBOflags/flags/' + n.getData('country').toLowerCase() + '.svg';
+                        return flag;
+                    },
+                    text: {
+                        font: 'FontAwesome',
+                        color: 'black',
+                        style: 'bold',
+                        content: function (n) {
+                            return n.getData('country');
+                        }
+                    },
+                    stroke: {
+                        color: 'inherit', // Use the node color
+                        width: 1
+                    }
+                },
+                topRight: {
+                    color: 'burlywood',
+                    text: {
+                        font: 'FontAwesome', // Use FontAwesome icons.
+                        color: function (n) {
+                            return getAlertColor(n.getData('alertType'));
+                        }, // Use the node color.
+                        // Retrieve the icon based on the node id.
+                        style: 'bold',
+                        content: function (n) { return getAlertIcon(n.getData('alertType')); }
+                    },
+                    stroke: {
+                        color: 'inherit', // Use the node color
+                        width: 1
+                    }
+                }
+            }
+        });
+
+        ogma.styles.setHoveredNodeAttributes({
+            outline: false, // Disabling the shadow on hover
+            outerStroke: {
+                color: getNodeColor
+            },
+            text: {
+                tip: false
+            }
+        });
+
+        ogma.styles.addEdgeRule({
+            shape: {
+                head: 'arrow'
+            },
+            color: getEdgeColor
+        });
+
+        ogma.styles.setHoveredEdgeAttributes({
+            outline: true,
+            color: getEdgeColor,
+            halo: getEdgeHaloColor,
+            text: {
+                backgroundColor: 'rgb(220, 220, 220)',
+                minVisibleSize: 0
+            }
+        });
+
+        
+
+        function formatContent(ids) {
+            if (!Array.isArray(ids)) {
+                return ''; // this is for regular nodes
+            }
+            return (
+                '<br/><br/>Contains:<ul/><li>"' + ids.join('"</li><li/>"') + '"</li></ul>'
+            );
+        }
+
+        function createTooltip(title, content, color) {
+            return (
+                '<div class="arrow"></div>' +
+                '<div class="ogma-tooltip-header">' +
+                '<span class="title">' +
+                title +
+                '<span class="line-color" style="background: ' +
+                color +
+                '">' +
+                '&nbsp;' +
+                '</span>' +
+                formatContent(content) +
+                '</span>' +
+                '</div>'
+            );
+        }
+
+        // Show some info from the hovered node
+        ogma.tools.tooltip.onNodeHover(
+            function (node) {
+                // pick the color of the node
+                var color = node.getAttribute('outerStroke');
+                // Now change the title based on the type of node (grouped or not?)
+                var title = node.isVirtual()
+                    ? 'Grouped Area&nbsp;'
+                    : 'ID: "' + node.getId() + '"&nbsp;';
+                // and pick the content of the node if grouped;
+                var content = node.isVirtual() ? node.getData('ids') : node.getId();
+                return createTooltip(title, content, color);
+            },
+            {
+                className: 'ogma-tooltip' // tooltip container class to bind to css
+            }
+        );
+
+        ogma.parse
+            .json($('#graphjson').val())
+            .then(function (graph) {
+                ogma.setGraph(graph);
+                return ogma.layouts.force();
+            })
+            .then(function () {
+                return ogma.view.locateGraph({ padding: 120 });
+            }).then(function () {
+                return ogma.view.setZoom(1.3);
+            });
+
+        // this is the duration of the animations
+        var transitionTime = 500;
+        // Menu at the top right
+        var form = document.querySelector('#ui form');
+        //form.addEventListener('change', updateUI);
+
+        //document.querySelector('#layout').addEventListener('click', function (evt) {
+        //    evt.preventDefault();
+        //    ogma.layouts.force();
+        //});
+
+        // transformation objects: create them now and use them later
+        var nodeGrouping = ogma.transformations.addNodeGrouping({
+            selector: function (node) {
+                return node.getData('type') === 'company';
+            },
+            groupIdFunction: function (node) {
+                return node.getData('group');
+            },
+            nodeGenerator: function (nodeList, groupId) {
+                return {
+                    id: 'grouped-node-' + groupId,
+                    attributes: {
+                        text: groupId + ' Group',
+                        radius: nodeList.size * 3,
+                        color: nodeList.getAttribute('icon').color
+                    },
+                    // add some content to be picked up later on in the tooltip
+                    data: {
+                        group: nodeList.getData('group')[0],
+                        type: nodeList.getData('type')[0],
+                        ids: nodeList.getId()
+                    }
+                };
+            },
+            groupEdges: false, // do not group edges as for now
+            enabled: false // create the transformation but do not activate it
+        });
+        var edgeGrouping = ogma.transformations.addEdgeGrouping({
+            generator: function (edgeList, groupId) {
+                var data = edgeList.getData()[0];
+                return {
+                    id: groupId,
+                    data: data,
+                    attributes: {
+                        width: edgeList.size
+                    }
+                };
+            },
+            enabled: false // create the transformation but do not activate it
+        });
+
+        
+        function updateUI() {
+            // Check what it should
+            var nodeGrouped = getMode('node-group') === 'group';
+            var edgeGrouped = getMode('edge-group') === 'group';
+
+            // instead of working out how to go from state A to state B
+            // execute all transformation and for each one workout what to do
+            return execute(edgeGrouping, edgeGrouped)
+                .then(function () {
+                    return execute(nodeGrouping, nodeGrouped);
+                })
+                .then(function () {
+                    return ogma.layouts.force();
+                });
+        }
+
+        function execute(transformation, enable) {
+            // avoid extra work if we're already in the state requested
+            if (transformation.isEnabled() === enable) {
+                return Promise.resolve();
+            }
+            // if now toggle the state with animation
+            if (enable) {
+                return transformation.enable(transitionTime);
+            }
+            return transformation.disable(transitionTime);
+        }
+
+        function getMode(id) {
+            var select = form[id];
+            var currentMode = Array.prototype.filter.call(select, function (input) {
+                return input.checked;
+            })[0].value; // IE inconsistency
+            return currentMode;
+        }
+
+        function getAlertIcon(alertType) {
+            if (alertType == null) {
+                return '';
+            }
+            else if (alertType.toLowerCase() == 'green') {
+                return '\uf058';
+            }
+            else if (alertType.toLowerCase() == 'yellow') {
+                return '\uf071';
+            }
+            else if (alertType.toLowerCase() == 'risk country') {
+                return '\uf071';
+            }
+            else if (alertType.toLowerCase() == 'red') {
+                return '\uf057';
+            }
+            else if (alertType.toLowerCase() == 'double red') {
+                return '\uf058';
+            }
+            else if (alertType.toLowerCase() == 'triple red') {
+                return '\uf7ba';
+            }
+            else {
+                return '';
+            }
+        }
+
+        function getAlertColor(alertType) {
+            if (alertType == null) {
+                return '';
+            }
+            else if (alertType.toLowerCase() == 'green') {
+                return 'green';
+            }
+            else if (alertType.toLowerCase() == 'yellow') {
+                return 'yellow';
+            }
+            else if (alertType.toLowerCase() == 'risk country') {
+                return 'yellow';
+            }
+            else if (alertType.toLowerCase() == 'red') {
+                return 'red';
+            }
+            else if (alertType.toLowerCase() == 'double red') {
+                return 'red';
+            }
+            else if (alertType.toLowerCase() == 'triple red') {
+                return 'red';
+            }
+            else {
+                return '';
+            }
+        }
+
+        //ogma.export.jpg({
+        //    download: false,
+        //    clip: false, // would export the viewport as is
+        //    height: 1000,
+        //    width:1000
+        //}).then(function (base64) {
+        //    var img = new Image();
+        //    img.src = base64;
+        //    img.width = 1000;
+        //    img.height = 1000;
+        //    $(".aaaddd").append(img);
+        //    //document.body.appendChild(img);
+        //});
+    </script>
+}
+
+<script>
+    var screenOwnerShip = '@BeneficialOwnershipLang.lblScreenOwnership';
+</script>
+

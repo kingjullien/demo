@@ -1,0 +1,134 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.LanguageResources;
+@model List<CommandDownloadMappingEntity>
+@using SBISCCMWeb.Utility
+<article class="col-md-12 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@CommandLineLang.hdrDownloadConfigurationList</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                {
+                    if (Helper.UserType.ToLower() != "steward")
+                    {
+                        <li>
+                            <div class="btn btn-sm " id="AddCommandDownloadMapping" title="@CommandLineLang.titleAddCommandDownloadMapping">
+                                <span class="fa fa-plus"></span>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    @Html.AntiForgeryToken()
+
+                    <div class="table-responsive" style="overflow-x:visible!important">
+                        <table class="table table-bordered wordwrap" id="tbCmndDownloadMapping">
+                            <thead>
+                                <tr>
+                                    <th>@CommandLineLang.lblConfigurationName</th>
+                                    <th>@CommandLineLang.lblDownloadFormat</th>
+                                    <th>@CommandLineLang.lblIsDefault</th>
+                                    @if (Helper.LicenseEnableTags)
+                                    {
+                                        <th>@CommandLineLang.lblTag</th>
+                                        <th>@CommandLineLang.lblLOBTag</th>
+                                    }
+                                    @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                    {
+                                        if (Helper.UserType.ToLower() != "steward")
+                                        {
+                                            <th class="nosort">@CommandLineLang.lbEdit</th>
+                                            <th class="nosort">@CommandLineLang.lblDelete</th>
+                                        }
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    string strTitle = string.Empty;
+                                    string outputFormat = string.Empty;
+
+                                    if (item.ProviderType == "DandB")
+                                    {
+                                        outputFormat = (item.DownloadMatchOutput ? " Match Output," : "") + (item.DownloadEnrichmentOutput ? " Data Enrichment," : "") + (item.DownloadActiveDataQueue ? " Active Data Queue," : "") + (item.DownloadMonitoringUpdates ? "Monitoring," : "") + (item.DownloadTransferDUNS ? "Transferred Duns," : "") + (item.DownloadLCMQueue ? "LCM Queue," : "") + (item.DownloadNoMatchQueue ? "No Match Queue," : "");
+                                    }
+                                    else if (item.ProviderType == "Orb")
+                                    {
+                                        outputFormat = (item.DownloadMatchOutput ? " Match Output," : "") + (item.DownloadEnrichmentOutput ? " Firmographics," : "") + (item.DownloadCompanyTree ? "Company Tree," : "") + (item.DownloadActiveDataQueue ? "Active Data Queue," : "");
+                                    }
+
+                                    strTitle += "<strong>OutputFormat :</strong>" + outputFormat.TrimEnd(',') + "</br> ";
+                                    strTitle += "<strong>Mark as exported : </strong>" + item.MarkAsExported + "</br> ";
+                                    strTitle += "<strong>Format :</strong>" + (!string.IsNullOrEmpty(item.DownloadFormat) ? item.DownloadFormat.Replace("TSV", "Tab Separated").Replace("Delimiter", "Custom Delimiter") : "") + "</br> ";
+                                    if (Helper.LicenseEnableTags)
+                                    {
+
+                                        strTitle += "<strong>Tag :</strong>" + (!string.IsNullOrEmpty(item.Tag) ? item.Tag + "</br> " : " </br>");
+                                        strTitle += "<strong>LOB Tag :</strong>" + (!string.IsNullOrEmpty(item.LOBTag) ? item.LOBTag + "</br> " : " </br>");
+                                    }
+                                    if (item.DownloadMonitoringUpdates)
+                                    {
+                                        strTitle += "<strong>API Layer :</strong>" + (!string.IsNullOrEmpty(item.APILayer) ? item.APILayer + "</br> " : " </br>");
+                                    }
+
+                                    <tr data-CmndDownloadId="@item.Id" rel="popover-hover"  data-toggle="popover" data-placement="top" data-original-title="<strong>Download Configuration Details<strong>" data-content="@strTitle" data-html="true">
+                                        <td>@item.ConfigurationName</td>
+                                        <td>@item.DownloadFormat</td>
+                                        <td>@item.IsDefault</td>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <td>@item.Tag</td>
+                                            <td>@item.LOBTag</td>
+                                        }
+                                        @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                        {
+                                            if (Helper.UserType.ToLower() != "steward")
+                                            {
+                                                <td><a href="javascript:void(0)" id="@item.Id" class="editCommandDownloadMapping">@CommandLineLang.lbEdit</a></td>
+                                                <td>
+                                                    @{ if (!item.IsDefault)
+                                                        {
+                                                            <a href="javascript:void(0)" id="@item.Id" class="deleteCommandDownloadMapping">@CommandLineLang.lblDelete</a>
+                                                        }
+                                                    }
+                                                </td>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "Download Configuration")
+{
+    <script>
+    $(document).ready(function () {
+        InitPortalDownloadConfigurationDataTable();
+        pageSetUp();
+        $("#IdRTabCommandDownload").addClass("tabBorder");
+        $("#RTabCommandUpload").hide();
+        $("#RTabCommandDownloadSetup").hide();
+        if ($("table#tbCmndDownloadMapping tbody tr").length == 0) {
+            $("table#tbCmndDownloadMapping").attr("disabled", true);
+
+        }
+        else {
+            $("table#tbCmndDownloadMapping tbody tr:first").addClass("current");
+
+        }
+    });
+    </script>
+}

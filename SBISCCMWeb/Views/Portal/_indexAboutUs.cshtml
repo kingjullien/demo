@@ -1,0 +1,141 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@using Resources = ViewResources.BrandingTypes;
+@{
+//if (Helper.UserType.ToLower() != "steward")
+//{
+//    Layout = null;   
+//}
+//else
+//{
+//    Layout = "~/Views/Shared/_Layout.cshtml";
+//}
+}
+<div class="divCenter">
+    @if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        <div class="companylog">
+
+            <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString(Resources.Resource_Matchbook.LoginImage))">
+        </div>
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        <div class="companylog">
+
+            <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString(Resources.Resource_DandB.ImageLogin))">
+        </div>
+    }
+    <hr />
+
+    <div class="ClientInfo">
+        <div class="row">
+            <div class="col-sm-5 text-right">@PortalSettingLang.lblClientName :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.ClientName</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> @PortalSettingLang.lblUser :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.User</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> @PortalSettingLang.lblServerName :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.ServerName</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> @PortalSettingLang.lblDataBaseName :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.DataBaseName</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> @PortalSettingLang.lblIPAddress :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.IpAddress</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> @PortalSettingLang.lblVersion :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.FinaldVersion</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> @PortalSettingLang.lblBuildNumber :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.BuildVersion</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> @PortalSettingLang.lblEdition :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.LicenseSKU</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> @PortalSettingLang.lblNumberOfUsersLicensed :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.LicenseNumberOfUsers</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right">@PortalSettingLang.lblNumberofTransactionsperYear :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.LicenseNumberOfTransactions</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> @PortalSettingLang.lblLiveAPI :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.LicenseEnableLiveAPI</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> @PortalSettingLang.lblTag based Rules :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.LicenseEnableTags</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> @PortalSettingLang.lblLicenseExpirationDate :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.LicenseEndDate</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> @PortalSettingLang.lblInvestigation :</div>
+            <div class="col-sm-7 text-left">@ViewBag.Investigation</div>
+        </div>
+        @if (ViewBag.MonitorProfileDirectPlus == true && ViewBag.MonitorProfileDirect20 == false)
+        {
+            <div class="row">
+                <div class="col-sm-5 text-right"> @PortalSettingLang.lblDirectPlusMonitoring :</div>
+                <div class="col-sm-7 text-left"> @ViewBag.MonitorProfileDirectPlus</div>
+            </div>
+        }
+        else if (ViewBag.MonitorProfileDirect20 == true && ViewBag.MonitorProfileDirectPlus == false)
+        {
+            <div class="row">
+                <div class="col-sm-5 text-right"> @PortalSettingLang.lblDirect20Monitoring :</div>
+                <div class="col-sm-7 text-left"> @ViewBag.MonitorProfileDirect20</div>
+            </div>
+        }
+        else if (ViewBag.MonitorProfileDirectPlus == true && ViewBag.MonitorProfileDirect20 == true)
+        {
+            <div class="row">
+                <div class="col-sm-5 text-right"> @PortalSettingLang.lblDirectPlusMonitoring :</div>
+                <div class="col-sm-7 text-left"> @ViewBag.MonitorProfileDirectPlus</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-5 text-right">@PortalSettingLang.lblDirect20Monitoring :</div>
+                <div class="col-sm-7 text-left"> @ViewBag.MonitorProfileDirect20</div>
+            </div>
+        }
+
+        @if (Helper.UserType.ToLower() != "steward")
+        {
+            <div class="row">
+                <div class="col-sm-12 text-right">
+                    <button class="btn btn-primary" id="getAPIkey" data-licenseCommandLine="@Helper.LicenseEnableCommandLine">@PortalSettingLang.lblYourAPIKEY</button>
+                </div>
+            </div>
+        }
+        <hr />
+        @if (Helper.Branding == Branding.Matchbook.ToString())
+        {
+            <span><a onclick="window.open('https://matchbookservices.com')" href="javascript:void(false)">@Resources.Resource_Matchbook.URL</a></span><br />
+        }
+        else if (Helper.Branding == Branding.DandB.ToString())
+        {
+            <span><a onclick="window.open('https://support.dnb.com/')" href="javascript:void(false)">support.dnb.com</a></span><br />
+        }
+
+    </div>
+</div>
+@if (ViewBag.SelectedTab == "About Us")
+{
+    <script>
+        $(document).ready(function () {
+            $("#divPartialAboutuUs").html();
+        });
+    </script>
+}

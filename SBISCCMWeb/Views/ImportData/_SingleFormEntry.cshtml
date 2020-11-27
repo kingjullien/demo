@@ -1,0 +1,216 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.LanguageResources
+@model InpCompanyEntity
+@using SBISCCMWeb.Utility
+@{
+    string Message = Convert.ToString(ViewBag.Message);
+    var z = Model.Tags;
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+}
+<style>
+    .form-control {
+        height: 25px;
+        padding:3px 6px;
+    }
+</style>
+
+<div class="tab-content">
+    <div class="tab-pane active in">
+        @using (Ajax.BeginForm("SingleFormEntry", "ImportData", new AjaxOptions { HttpMethod = "POST", OnSuccess = "CleansMatchSinngleEnrtyFormSuccess" }, new { @class = "padding-import-bottom", role = "form", @autocomplete = "off", @id = "dataImportForm" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.Hidden("Message", Message)
+            @Html.Hidden("Tags", z);
+            @Html.Hidden("UserRoles", UserRoles);
+            @Html.ValidationSummary(true)
+            <div class="widget-body">
+                <ul id="myTab1" class="nav nav-tabs bordered">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#ImportData" data-toggle="tab" aria-expanded="false">@ImportDataLang.lblImportData</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#AdditionalFields" data-toggle="tab" aria-expanded="true">@ImportDataLang.lblAdditionalFields</a>
+                    </li>
+                </ul>
+                <div id="myTabContent1" class="tab-content padding-10">
+                    <div class="tab-pane active in" id="ImportData">
+                        <div class="row">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblSrcRecordId <span class="error">*</span></strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.SrcRecordId, new { @class = "form-control", id = "txtSrcRecordid", @autocomplete = "off", maxlength = "50" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblCompanyName</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control", id = "txtCompanyName", @autocomplete = "off", maxlength = "250" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblStreetLineAddress</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @autocomplete = "off", maxlength = "240" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblStreetLineAddress1</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @autocomplete = "off", maxlength = "240" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblCity</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.City, new { @class = "form-control", @autocomplete = "off", maxlength = "64" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblState</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.State, new { @class = "form-control", @autocomplete = "off", maxlength = "64" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblPostalCode</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.PostalCode, new { @class = "form-control", @autocomplete = "off", maxlength = "32" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblCountry<span class="error">*</span></strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.DropDownListFor(m => m.Country, new SelectList(CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text", "US"), new { @class = "form-control", value = Model.Country, @autocomplete = "off" })
+                                <span id="spnCountry" class="error pull-left" style="display:none;">@ImportDataLang.lblRequiredCountryName</span>
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblPhoneNbr</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.PhoneNbr, new { @class = "form-control", @autocomplete = "off", maxlength = "50" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblinLanguage</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.DropDownListFor(m => m.inLanguage, (CommonDropdown.GetLanguageCodes(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectLanguage), new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        @if (Helper.LicenseEnableTags)
+                        {
+                            <div class="row margintop10">
+                                <div class="col-xs-4 margin-top-3 text-align-right">
+                                    <span>
+                                        <strong>
+                                            @ImportDataLang.lblTags
+                                            @if (UserRoles == UserRole.LOB.ToString())
+                                            {<span class="error">*</span>}
+                                        </strong>
+                                    </span>
+                                </div>
+                                <div class="col-xs-7 SingleEntryTag">
+                                    <div class="DisplayFlex">
+                                        @Html.DropDownList("TagsValue", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag"), new { @class = "form-control chzn-select", multiple = "true", value = Model.Tags, @autocomplete = "off" })
+
+                                    </div>
+
+                                    <span id="spnTags" class="error" style="display:none;">@ImportDataLang.lblTagrequired</span>
+                                </div>
+                                <div class="col-xs-1">
+                                    <div class="DisplayFlex margin-left--27 margin-top-4">
+                                        <em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="tab-pane" id="AdditionalFields">
+                        <div class="row">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblDUNSNumber</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.DUNSNumber, new { @class = "form-control", @autocomplete = "off", maxlength = "15" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblCEOName</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.CEOName, new { @class = "form-control", @autocomplete = "off", maxlength = "256" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblWebsite</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.Website, new { @class = "form-control", @autocomplete = "off", maxlength = "240" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblAltCompanyName</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.AltCompanyName, new { @class = "form-control", @autocomplete = "off", maxlength = "256" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblStreetLineAltAddress1</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.AltAddress, new { @class = "form-control", @autocomplete = "off", maxlength = "256" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblStreetLineAltAddress2</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.AltAddress1, new { @class = "form-control", @autocomplete = "off", maxlength = "240" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblAltCity</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.AltCity, new { @class = "form-control", @autocomplete = "off", maxlength = "64" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblAltState</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.AltState, new { @class = "form-control", @autocomplete = "off", maxlength = "64" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblAltPostalCode</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.AltPostalCode, new { @class = "form-control", @autocomplete = "off", maxlength = "32" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblAltCountry</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.DropDownListFor(m => m.AltCountry, (CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectCountry), new { @class = "form-control", value = Model.AltCountry, @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblEmail</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @autocomplete = "off", maxlength = "240" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblRegistrationNumber</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.RegistrationNbr, new { @class = "form-control", @autocomplete = "off", maxlength = "32" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblRegistrationType</strong></span></div>
+                            <div class="col-xs-7">
+                                @Html.TextBoxFor(m => m.RegistrationType, new { @class = "form-control", @autocomplete = "off", maxlength = "100" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row margintop10">
+                    <div class="col-sm-12 text-center">
+                        <input type="submit" id="btnImportData" title="@ImportDataLang.titleSaveData" value="@ImportDataLang.lblSaveData" class="btn btn-primary btnBlack text-md-center" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

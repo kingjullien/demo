@@ -1,0 +1,100 @@
+﻿
+@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@using System.Data
+@using SBISCCMWeb.Utility.Monitoring
+@model MonitoringRegistrationDetailResponse
+
+<div class="row">
+    <div id="partialMonitoringPlusRegistration">
+        @{ Html.RenderPartial("MonitoringPlusRegistrationDetail", Model);}
+    </div>
+
+    <article class="col-md-12 sortable-grid ui-sortable widget-data ">
+        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading" class="monitorig-top">
+                <h2>
+                    <strong>@DandBSettingLang.lblMonitoringDirectPlus</strong>
+
+                </h2> <ul id="widget-tab-DUNS" class="nav pull-right nav-pills Custom-pill">
+                    <li>
+                        <button id="btnSyncDUNS" class="btn btn-Secondary">@DandBSettingLang.lblSyncRegistration</button>
+                    </li>
+                </ul>
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body no-padding">
+                    <div class="tab-content padding-10">
+                        <table class="table table-bordered table-fixed-user MonitoringPlusRegistrationTb">
+                            <thead>
+                                <tr>
+                                    <th>@DandBSettingLang.lblRegistrations</th>
+                                    <th>@DandBSettingLang.lblTags</th>
+                                    <th>@DandBSettingLang.lblNotificationsSuppressed</th>
+                                    <th>@DandBSettingLang.lblCredential Name</th>
+                                    <th>@DandBSettingLang.lblDUNSDetail</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{DataTable dt = new DataTable();
+                                    dt = ViewBag.dtMonitoringRegistrations;
+                                }
+                                @if (dt != null && dt.Rows.Count > 0)
+                                {
+
+                                    for (int cnt = 0; cnt < dt.Rows.Count; cnt++)
+                                    {
+
+                                        <tr data-MonitoringProfilePlusRegistrationID="@(dt.Rows[cnt]["MonitoringRegistrationName"])">
+                                            <td>@(dt.Rows[cnt]["MonitoringRegistrationName"])</td>
+                                            <td>@(dt.Rows[cnt]["Tags"] == DBNull.Value ? "" : (Convert.ToString(dt.Rows[cnt]["Tags"]) == "0" ? "" : Convert.ToString(dt.Rows[cnt]["Tags"])))</td>
+                                            <td>
+                                                @if (dt.Rows[cnt]["NotificationsSuppressed"] == DBNull.Value ? false : Convert.ToBoolean(dt.Rows[cnt]["NotificationsSuppressed"]))
+                                                {
+                                                    <span>
+                                                        @DandBSettingLang.lblTrue (<a href="javascript:void(0)" id="@(dt.Rows[cnt]["MonitoringRegistrationName"])" class="SuppUnsuppDUNS" data-isSuprressed="@(dt.Rows[cnt]["NotificationsSuppressed"])">@DandBSettingLang.lblUnsuppressNotifications</a>)
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span>@DandBSettingLang.lblFalse (<a href="javascript:void(0)" id="@(dt.Rows[cnt]["MonitoringRegistrationName"])" class="SuppUnsuppDUNS" data-AuthToken="@(dt.Rows[cnt]["AuthToken"])" data-isSuprressed="@(dt.Rows[cnt]["NotificationsSuppressed"])">@DandBSettingLang.lblSuppressNotifications</a>)</span>
+                                                }
+                                            </td>
+                                            <td>@(dt.Rows[cnt]["CredentialName"])</td>
+                                            <td class="text-center">
+                                                <a href="javascript:void(0);" data-RegistrationsName="@(dt.Rows[cnt]["MonitoringRegistrationName"])" data-AuthToken="@(dt.Rows[cnt]["AuthToken"])" class="ViewDUNSDetails">
+                                                    <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/file-blue1x.png"))">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="5"> @DandBSettingLang.lblNoDataAreAvailable</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+@if (ViewBag.SelectedTab == "Monitoring Direct Plus")
+{
+    <script>
+        $(document).ready(function (data) {
+            if (data != null && data != "" && data != undefined) {
+                $("table.MonitoringPlusRegistrationTb tbody tr:first").addClass("current");
+            }
+            MonitoringTagLoad();
+        });
+    </script>
+}
+
+

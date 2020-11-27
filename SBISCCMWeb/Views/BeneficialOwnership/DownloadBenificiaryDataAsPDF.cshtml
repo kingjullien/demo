@@ -1,0 +1,504 @@
+﻿@using SBISCCMWeb.Models.BeneficialOwnership
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.LanguageResources
+@model BeneficialOwnership_Main
+@{
+    List<int> ownerIds = Model.lstBeneficialOwnerRelationships.Select(x => x.sourceMemberID).Distinct().ToList();
+    int i = 1;
+    int j = 1;
+    string address = string.Empty;
+    Layout = null;
+}
+
+@*<link rel="stylesheet" type="text/css" media="all" href="~/Content/Bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="all" href="~/Content/Template/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="~/Content/Template/css/smartadmin-production.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="~/Content/Template/css/smartadmin-skins.min.css">
+    <link href="~/Content/Custom.css" rel="stylesheet" />
+    <script src="~/Scripts/JQuery/jquery-3.5.1.min.js"></script>
+    <script src="~/Scripts/jquery-migrate-3.3.0.min.js"></script>
+    <script src="~/Scripts/Ogma/ogma.min.js"></script>*@
+<link rel="stylesheet" type="text/css" media="all" href="@Server.MapPath("~/Content/Bootstrap/bootstrap.min.css")">
+<link rel="stylesheet" type="text/css" media="all" href="@Server.MapPath("~/Content/Template/css/font-awesome.min.css")">
+<link rel="stylesheet" type="text/css" media="screen" href="@Server.MapPath("~/Content/Template/css/smartadmin-production.min.css")">
+<link rel="stylesheet" type="text/css" media="screen" href="@Server.MapPath("~/Content/Template/css/smartadmin-skins.min.css")">
+<link href="@Server.MapPath("~/Content/Custom.css")" rel="stylesheet" />
+<style>
+    thead, tfoot {
+        display: table-row-group
+    }
+</style>
+
+<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable ">
+    <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@BeneficialOwnershipLang.hdrBeneficialOwnershipData</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding margin-bottom--15">
+                <div class="tab-content padding-10 dropzIndex">
+                    <div class="divownertbl" style="">
+                        <div class="company_data">
+                            <div>
+                                <div class="Company_name d-flex align-items-center">
+                                    <div>
+                                        <h3>@Model.Base.organizationName<span class="duns_number">@Model.Base.duns</span> <span class="badge @(Model.Base.isOutOfBusiness == 0 ? "badge-success" : "badge-danger")">@(Model.Base.isOutOfBusiness == 0 ? "Active" : "InActive")</span> </h3>
+                                        <span>
+                                            @CommonMethod.DisplayFormattedAddress(Model.Base.addressStreetLine1 + Model.Base.addressStreetLine2 + Model.Base.addressStreetLine3, Model.Base.addressCity, Model.Base.addressState, Model.Base.addressPostalCode, Model.Base.addressCountryIsoAlpha2Code)
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="Company_name_data margin-top-10">
+                                    <table class="table border-0">
+                                        <tbody>
+                                            <tr>
+                                                <td><strong style="font-size:11px">Control Ownership Type:</strong> @Model.Base.controlOwnershipType </td>
+                                                @if (Model.Base.globalUltimateDuns == Model.Base.domesticUltimateDuns && Model.Base.globalUltimateDuns == Model.Base.parentDuns)
+                                                {
+                                                    if (!string.IsNullOrEmpty(Model.Base.globalUltimateDuns))
+                                                    {
+                                                        <td><strong style="font-size:11px">@MatchDataLang.lblGlobalUltimate  /<br /> @MatchDataLang.lblDomesticUltimate /<br /> @MatchDataLang.lblParent :</strong>  @Model.Base.globalUltimateDuns @Model.Base.globalUltimateOrganizationName</td>
+                                                    }
+                                                }
+                                                else if (Model.Base.globalUltimateDuns == Model.Base.domesticUltimateDuns)
+                                                {
+                                                    if (!string.IsNullOrEmpty(Model.Base.globalUltimateDuns))
+                                                    {
+                                                        <td><strong style="font-size:11px">@MatchDataLang.lblGlobalUltimate  /<br /> @MatchDataLang.lblDomesticUltimate :</strong>  @Model.Base.globalUltimateDuns @Model.Base.globalUltimateOrganizationName</td>
+                                                    }
+
+                                                    if (!string.IsNullOrEmpty(Model.Base.parentDuns))
+                                                    {
+                                                        <td><strong style="font-size:11px">@MatchDataLang.lblParent :</strong>  @Model.Base.parentDuns @Model.Base.parentOrganizationName</td>
+                                                    }
+                                                }
+                                                else if (Model.Base.globalUltimateDuns == Model.Base.parentDuns)
+                                                {
+                                                    if (!string.IsNullOrEmpty(Model.Base.globalUltimateDuns))
+                                                    {
+                                                        <td><strong style="font-size:11px">@MatchDataLang.lblGlobalUltimate  /<br /> @MatchDataLang.lblParent :</strong>  @Model.Base.globalUltimateDuns @Model.Base.globalUltimateOrganizationName</td>
+                                                    }
+                                                    if (!string.IsNullOrEmpty(Model.Base.domesticUltimateDuns))
+                                                    {
+                                                        <td><strong style="font-size:11px">@MatchDataLang.lblDomesticUltimate :</strong>  @Model.Base.domesticUltimateDuns @Model.Base.domesticUltimateOrganizationName</td>
+                                                    }
+                                                }
+                                                else if (Model.Base.domesticUltimateDuns == Model.Base.parentDuns)
+                                                {
+                                                    if (!string.IsNullOrEmpty(Model.Base.domesticUltimateDuns))
+                                                    {
+                                                        <td><strong style="font-size:11px">@MatchDataLang.lblDomesticUltimate  /<br /> @MatchDataLang.lblParent :</strong>  @Model.Base.domesticUltimateDuns @Model.Base.domesticUltimateOrganizationName</td>
+                                                    }
+                                                    if (!string.IsNullOrEmpty(Model.Base.globalUltimateDuns))
+                                                    {
+                                                        <td><strong style="font-size:11px">@MatchDataLang.lblGlobalUltimate :</strong>  @Model.Base.globalUltimateDuns @Model.Base.globalUltimateOrganizationName</td>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    if (!string.IsNullOrEmpty(Model.Base.globalUltimateDuns))
+                                                    {
+                                                        <td><strong style="font-size:11px">@MatchDataLang.lblGlobalUltimate :</strong>  @Model.Base.globalUltimateDuns @Model.Base.globalUltimateOrganizationName</td>
+                                                    }
+                                                    if (!string.IsNullOrEmpty(Model.Base.domesticUltimateDuns))
+                                                    {
+                                                        <td><strong style="font-size:11px">@MatchDataLang.lblDomesticUltimate :</strong>  @Model.Base.domesticUltimateDuns @Model.Base.domesticUltimateOrganizationName</td>
+                                                    }
+                                                    if (!string.IsNullOrEmpty(Model.Base.parentDuns))
+                                                    {
+                                                        <td><strong style="font-size:11px">@MatchDataLang.lblParent :</strong>  @Model.Base.parentDuns @Model.Base.parentOrganizationName</td>
+                                                    }
+                                                }
+                                            </tr>
+                                            <tr>
+                                                <td><b style="font-size:11px">Ownerships:</b> @Model.Base.beneficialOwnershipBeneficialOwnersCount </td>
+                                                <td><b style="font-size:11px">Relationships:</b> @Model.Base.beneficialOwnershipRelationshipsCount </td>
+                                                <td><b style="font-size:11px">Beneficial (%):</b> @Model.Base.beneficialOwnershipTotalAllocatedOwnershipPercentage </td>
+                                                <td><b style="font-size:11px">Ownership Organizations:</b> @Model.Base.beneficialOwnershipOrganizationsCount </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong style="font-size:11px">Ownership Individuals:</strong> @Model.Base.beneficialOwnershipIndividualsCount </td>
+                                                <td><strong style="font-size:11px">Corporate Benificiaries:</strong> @Model.Base.beneficialOwnershipCorporateBeneficiariesCount </td>
+                                                <td><strong style="font-size:11px">State Owned Orgs:</strong> @Model.Base.beneficialOwnershipStateOwnedOrganizationsCount </td>
+                                                <td><strong style="font-size:11px">Government Orgs:</strong> @Model.Base.beneficialOwnershipGovernmentOrganizationsCount </td>
+                                            </tr>
+                                            <tr>
+                                                <td><strong style="font-size:11px">PubliclyTrading Orgs:</strong> @Model.Base.beneficialOwnershipPubliclyTradingOrganizationsCount </td>
+                                                <td><strong style="font-size:11px">Private Orgs:</strong> @Model.Base.beneficialOwnershipPrivatelyHeldOrganizationsCount </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</article>
+
+@*<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable ">
+        <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <strong>@BeneficialOwnershipLang.hdrOwnershipsRelationships</strong>
+                </h2>
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body no-padding">
+                    <div class="tab-content padding-10 dropzIndex">
+                        <div class="col-md-12">
+                            <div class="">
+                                <div class="">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th width="2%">@BeneficialOwnershipLang.spnType</th>
+                                                <th width="5%">@BeneficialOwnershipLang.spnDUNS</th>
+                                                <th>@BeneficialOwnershipLang.spnName</th>
+                                                <th width="5%">@BeneficialOwnershipLang.spnLevel</th>
+                                                <th width="8%">@BeneficialOwnershipLang.lblBenificiary (%)</th>
+                                                <th width="7%">@BeneficialOwnershipLang.spnDirect (%)</th>
+                                                <th width="7%">@BeneficialOwnershipLang.spnIndirect (%)</th>
+                                                <th>@BeneficialOwnershipLang.lblisBenificiary</th>
+                                                <th>@BeneficialOwnershipLang.spnEntity</th>
+                                                <th>@BeneficialOwnershipLang.spnAddress</th>
+                                                <th>@BeneficialOwnershipLang.lblCountry</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.lstCombinedData)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        @if (item.beneficiaryType.ToLower() == "business")
+                                                        {
+                                                            <span>Business</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>Individual</span>
+                                                        }
+                                                    </td>
+                                                    <td>@item.duns</td>
+                                                    <td class="owner_name">
+                                                        <span>@item.name</span>
+                                                        @if (item.beneficiaryType.ToLower() == "business" && !string.IsNullOrEmpty(item.duns))
+                                                        {
+                                                            <a href="javascript:void(0)" class="viewBenificiaryDetails" data-duns="@item.duns" data-country="@item.addressCountryIsoAlpha2Code" title="@BeneficialOwnershipLang.titleViewBenificiaryDetails"><i class="fa fa-clipboard"></i></a>
+                                                        }
+                                                    </td>
+                                                    <td style="font-size:13px !important">@item.degreeOfSeparation</td>
+                                                    <td style="font-size:13px !important">@String.Format("{0:0.00}", item.beneficialOwnershipPercentage)</td>
+                                                    <td style="font-size:13px !important">@String.Format("{0:0.00}", item.directOwnershipPercentage)</td>
+                                                    <td style="font-size:13px !important">@String.Format("{0:0.00}", item.indirectOwnershipPercentage)</td>
+                                                    <td>
+                                                        @if (item.isBeneficiary == 1)
+                                                        {
+                                                            <span>True</span> }
+                                                        else
+                                                        {
+                                                            <span>False</span>
+                                                        }
+                                                    </td>
+                                                    <td>@item.businessEntityType</td>
+                                                    <td>
+                                                        @if (!string.IsNullOrEmpty(@item.address))
+                                                        {
+                                                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                        }
+                                                        @item.address
+                                                    </td>
+                                                    <td>@item.addressCountryIsoAlpha2Code</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>*@
+
+@if (Model.lstBeneficialOwnerRelationships != null && Model.lstBeneficialOwnerRelationships.Any())
+{
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable ">
+        <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <strong>Beneficial Owner Relationships</strong>
+                </h2>
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body no-padding">
+                    <div class="tab-content padding-10 dropzIndex">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>RelationShip Id</td>
+                                        <td>Is FilteredOut</td>
+                                        <td>Control Class</td>
+                                        <td>Control StartDate</td>
+                                        <td>Control Type</td>
+                                        <td>Relationship Type</td>
+                                        <td>Share(%)</td>
+                                        <td>Source MemberId</td>
+                                        <td>Target MemberId</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.lstBeneficialOwnerRelationships)
+                                    {
+                                        <tr>
+                                            <td>@item.relationshipID</td>
+                                            <td>@item.isFilteredOut</td>
+                                            <td>@item.natureOfControlClass</td>
+                                            <td>@item.natureOfControlStartDate</td>
+                                            <td>@item.natureOfControlType</td>
+                                            <td>@item.relationshipType</td>
+                                            <td>@item.sharePercentage</td>
+                                            <td>@item.sourceMemberID</td>
+                                            <td>@item.targetMemberID</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+}
+
+@if (Model.lstBeneficialOwners != null && Model.lstBeneficialOwners.Any())
+{
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable ">
+        <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <strong>Beneficial Owners</strong>
+                </h2>
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body no-padding">
+                    <div class="tab-content padding-10 dropzIndex">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>Member Id</td>
+                                        <td>DUNS</td>
+                                        <td>Name</td>
+                                        <td>Address</td>
+                                        <td>Ownership(%)</td>
+                                        <td>Benificiary Type</td>
+                                        <td>Degree of Sepration</td>
+                                        <td>Direct Ownership(%)</td>
+                                        <td>Indirect Ownership(%)</td>
+                                        <td>IsBeneficiary</td>
+                                        <td>Legal Authority</td>
+                                        <td>Legal Form</td>
+                                        <td>Nationality</td>
+                                        <td>Control OwnershipType</td>
+                                        <td>Business EntityType</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.lstBeneficialOwners)
+                                    {
+                                        <tr>
+                                            <td>@item.memberID</td>
+                                            <td>@item.duns</td>
+                                            <td>@item.name</td>
+                                            <td>@CommonMethod.DisplayFormattedAddress(item.addressStreetLine1 + item.addressStreetLine2 + item.addressStreetLine3, item.addressCity, item.addressState, item.addressPostalCode, item.addressCountryIsoAlpha2Code)</td>
+                                            <td>@item.beneficialOwnershipPercentage</td>
+                                            <td>@item.beneficiaryType</td>
+                                            <td>@item.degreeOfSeparation</td>
+                                            <td>@item.directOwnershipPercentage</td>
+                                            <td>@item.indirectOwnershipPercentage</td>
+                                            <td>@item.isBeneficiary</td>
+                                            <td>@item.legalAuthority</td>
+                                            <td>@item.legalForm</td>
+                                            <td>@item.nationality</td>
+                                            <td>@item.controlOwnershipType</td>
+                                            <td>@item.businessEntityType</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+}
+
+@if (Model.lstBeneficialOwnershipCountryWiseSummary != null && Model.lstBeneficialOwnershipCountryWiseSummary.Any())
+{
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable ">
+        <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <strong>Beneficial Ownership CountryWise Summary</strong>
+                </h2>
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body no-padding">
+                    <div class="tab-content padding-10 dropzIndex">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>Country</td>
+                                        <td>Beneficial Owners</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.lstBeneficialOwnershipCountryWiseSummary)
+                                    {
+                                        <tr>
+                                            <td>@item.countryISOAlpha2Code</td>
+                                            <td>@item.beneficialOwnersCount</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+}
+
+@if (Model.lstBeneficialOwnershipCountryWisePSCSummary != null && Model.lstBeneficialOwnershipCountryWisePSCSummary.Any())
+{
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable ">
+        <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <strong>Beneficial Ownership CountryWise PSC Summary</strong>
+                </h2>
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body no-padding">
+                    <div class="tab-content padding-10 dropzIndex">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>Country</td>
+                                        <td>PSC</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.lstBeneficialOwnershipCountryWisePSCSummary)
+                                    {
+                                        <tr>
+                                            <td>@item.countryISOAlpha2Code</td>
+                                            <td>@item.pscCount</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+}
+
+@if (Model.lstBeneficialOwnershipNationalityWisePSCSummary != null && Model.lstBeneficialOwnershipNationalityWisePSCSummary.Any())
+{
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable ">
+        <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <strong>Beneficial Ownership NationalityWise PSC Summary</strong>
+                </h2>
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body no-padding">
+                    <div class="tab-content padding-10 dropzIndex">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>Nationality</td>
+                                        <td>PSC</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.lstBeneficialOwnershipNationalityWisePSCSummary)
+                                    {
+                                        <tr>
+                                            <td>@item.nationality</td>
+                                            <td>@item.pscCount</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+}
+
+@if (Model.lstBeneficialOwnershipTypeWisePSCSummary != null && Model.lstBeneficialOwnershipTypeWisePSCSummary.Any())
+{
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable ">
+        <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <strong>Beneficial Ownership TypeWise PSC Summary</strong>
+                </h2>
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body no-padding">
+                    <div class="tab-content padding-10 dropzIndex">
+                        <div class="col-md-12">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td>PSC Type Code</td>
+                                        <td>PSC Type</td>
+                                        <td>PSC</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.lstBeneficialOwnershipTypeWisePSCSummary)
+                                    {
+                                        <tr>
+                                            <td>@item.pscTypeCode</td>
+                                            <td>@item.pscType</td>
+                                            <td>@item.pscCount</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+}

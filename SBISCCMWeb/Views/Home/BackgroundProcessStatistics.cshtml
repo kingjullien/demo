@@ -1,0 +1,220 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@model List<DashboardBackgroundProcessStatsEntity>
+
+@{
+    bool isPauseFileImportProcessETL = ViewBag.isPauseFileImportProcessETL;
+    string ImportProcessChartValue = string.Empty;
+    List<DashboardBackgroundProcessStatsEntity> lstStats = ViewBag.lstStats;
+    DashboardBackgroundProcessStatsEntity ImportDetail = lstStats.Where(x => x.ETLType == "IMPORT").FirstOrDefault();
+    DashboardBackgroundProcessStatsEntity CleansMatchDetail = lstStats.Where(x => x.ETLType == "CLEANSE_MATCH").FirstOrDefault();
+    DashboardBackgroundProcessStatsEntity EnrichDetail = lstStats.Where(x => x.ETLType == "ENRICHMENT").FirstOrDefault();
+    bool isImportEnable = true;
+    bool isCleanseEnable = true;
+    bool isEnrichEnable = true;
+    if (ImportDetail == null)
+    {
+        ImportDetail = new DashboardBackgroundProcessStatsEntity();
+        isImportEnable = false;
+    }
+    if (EnrichDetail == null)
+    {
+        EnrichDetail = new DashboardBackgroundProcessStatsEntity();
+        isEnrichEnable = false;
+    }
+    if (CleansMatchDetail == null)
+    {
+        CleansMatchDetail = new DashboardBackgroundProcessStatsEntity();
+        isCleanseEnable = false;
+    }
+    string FileImportTotal = Convert.ToString(ImportDetail.NbrSuccess + ImportDetail.NbrFailures + ImportDetail.NbrRunning);
+    string CleansMatchTotal = Convert.ToString(CleansMatchDetail.NbrSuccess + CleansMatchDetail.NbrFailures + CleansMatchDetail.NbrRunning);
+    string EnrichTotal = Convert.ToString(EnrichDetail.NbrSuccess + EnrichDetail.NbrFailures + EnrichDetail.NbrRunning);
+
+    double ImportMinWidth = ImportDetail.MaxRunDuration.TimeOfDay.TotalMilliseconds > 0 ? Convert.ToDouble((ImportDetail.MinRunDuration.TimeOfDay.TotalMilliseconds / ImportDetail.MaxRunDuration.TimeOfDay.TotalMilliseconds) * 100) : 0;
+    double ImportAvgWidth = ImportDetail.MaxRunDuration.TimeOfDay.TotalMilliseconds > 0 ? Convert.ToDouble((ImportDetail.AverageRunDuration.TimeOfDay.TotalMilliseconds / ImportDetail.MaxRunDuration.TimeOfDay.TotalMilliseconds) * 100) : 0;
+
+    double CleanseMinWidth = CleansMatchDetail.MaxRunDuration.TimeOfDay.TotalMilliseconds > 0 ? Convert.ToDouble((CleansMatchDetail.MinRunDuration.TimeOfDay.TotalMilliseconds / CleansMatchDetail.MaxRunDuration.TimeOfDay.TotalMilliseconds) * 100) : 0;
+    double CleanseAvgWidth = CleansMatchDetail.MaxRunDuration.TimeOfDay.TotalMilliseconds > 0 ? Convert.ToDouble((CleansMatchDetail.AverageRunDuration.TimeOfDay.TotalMilliseconds / CleansMatchDetail.MaxRunDuration.TimeOfDay.TotalMilliseconds) * 100) : 0;
+
+    double EnrichMinWidth = EnrichDetail.MaxRunDuration.TimeOfDay.TotalMilliseconds > 0 ? Convert.ToDouble((EnrichDetail.MinRunDuration.TimeOfDay.TotalMilliseconds / EnrichDetail.MaxRunDuration.TimeOfDay.TotalMilliseconds) * 100) : 0;
+    double EnrichAvgWidth = EnrichDetail.MaxRunDuration.TimeOfDay.TotalMilliseconds > 0 ? Convert.ToDouble((EnrichDetail.AverageRunDuration.TimeOfDay.TotalMilliseconds / EnrichDetail.MaxRunDuration.TimeOfDay.TotalMilliseconds) * 100) : 0;
+}
+@Html.Hidden("IsImportProcessEnabled", isImportEnable)
+@Html.Hidden("IsEnrichProcessEnabled", isEnrichEnable)
+@Html.Hidden("IsCleanseProcessEnabled", isCleanseEnable)
+
+@Html.Hidden("ImportNextExeTimeSpan", ImportDetail.NextExecutionTimeSpan)
+@Html.Hidden("CleanseNextExeTimeSpan", CleansMatchDetail.NextExecutionTimeSpan)
+@Html.Hidden("EnrichNextExeTimeSpan", EnrichDetail.NextExecutionTimeSpan)
+@Html.Hidden("RealTimeCallInterval", System.Configuration.ConfigurationManager.AppSettings["JobTimeInterval"].ToString())
+<div class="row">
+    <div class="col-md-4">
+        <div class="importbox">
+            <div class="heading">
+                <h3>@HomeLang.lblFileImport</h3>
+                @if (Helper.oUser.UserRole == UserRole.GLOBAL.ToString() && Helper.oUser.UserType.ToLower() == "administrator")
+                {
+                    <div class="toggle_button">
+                        <label class="switch">
+                            <input type="checkbox" name="EnablePauseFileImportProcessETL" id="EnablePauseFileImportProcessETL" @(isPauseFileImportProcessETL ? "checked" : "")>
+                            <span class="round ToggleForFileImport"></span>
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="box_content">
+                <div class="min-time">
+                    <span class="time-lable">@HomeLang.lblMinTime</span>
+                    <span class="time-progress"><span class="time-progress-bar" style="width:@(ImportMinWidth)%"></span></span>
+                    <span class="time-count">@ImportDetail.MinRunDuration.ToString("HH:mm:ss")</span>
+                </div>
+                <div class="avg-time">
+                    <span class="time-lable">@HomeLang.lblAvgTime</span>
+                    <span class="time-progress"><span class="time-progress-bar" style="width:@(ImportAvgWidth)%"></span></span>
+                    <span class="time-count">@ImportDetail.AverageRunDuration.ToString("HH:mm:ss")</span>
+                </div>
+                <div class="max-time">
+                    <span class="time-lable">@HomeLang.lblMaxTime</span>
+                    <span class="time-progress"><span class="time-progress-bar"></span></span>
+                    <span class="time-count">@ImportDetail.MaxRunDuration.ToString("HH:mm:ss")</span>
+                </div>
+            </div>
+            @*<div class="box_content">
+                    <h2>@FileImportTotal / <span class="failed">@ImportDetail.NbrFailures</span> </h2>
+                    <div class="status">
+                        <p> @HomeLang.lblTotal </p>
+                        <p class="failed"> @HomeLang.lblFailed </p>
+                    </div>
+                </div>*@
+            <div class="execute_content fontsize-11">
+                <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/gear-icon.png"))">
+                <span>@ImportDetail.Message1</span>
+            </div>
+            <div class="execute_content fontsize-11">
+                <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/fast.png"))">
+                @if (ImportDetail.Message2 == "Process Paused" || ImportDetail.ShowErrorSymbol == true)
+                {
+                    <span class="errorRedColor">@ImportDetail.Message2</span>
+                }
+                else
+                {
+                    <span class="spnImportNextTime">@ImportDetail.Message2</span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="importbox">
+            <div class="heading">
+                <h3>@HomeLang.lblCleanseMatch</h3>
+                @if (Helper.oUser.UserRole == UserRole.GLOBAL.ToString() && Helper.oUser.UserType.ToLower() == "administrator")
+                {
+                    <div class="toggle_button">
+                        <label class="switch">
+                            <input type="checkbox" name="EnableCLEANSE_MATCHProcess" id="EnableCLEANSE_MATCHProcess" @(CleansMatchDetail.ProcessPaused == true ? "checked" : "")>
+                            <span class="round ToggleForCleanseMatch"></span>
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="box_content">
+                <div class="min-time">
+                    <span class="time-lable">@HomeLang.lblMinTime</span>
+                    <span class="time-progress"><span class="time-progress-bar" style="width:@(CleanseMinWidth)%"></span></span>
+                    <span class="time-count">@CleansMatchDetail.MinRunDuration.ToString("HH:mm:ss")</span>
+                </div>
+                <div class="avg-time">
+                    <span class="time-lable">@HomeLang.lblAvgTime</span>
+                    <span class="time-progress"><span class="time-progress-bar" style="width:@(CleanseAvgWidth)%"></span></span>
+                    <span class="time-count">@CleansMatchDetail.AverageRunDuration.ToString("HH:mm:ss")</span>
+                </div>
+                <div class="max-time">
+                    <span class="time-lable">@HomeLang.lblMaxTime</span>
+                    <span class="time-progress"><span class="time-progress-bar"></span></span>
+                    <span class="time-count">@CleansMatchDetail.MaxRunDuration.ToString("HH:mm:ss")</span>
+                </div>
+            </div>
+            @*<div class="box_content">
+                    <h2>@CleansMatchTotal / <span class="failed">@CleansMatchDetail.NbrFailures</span> </h2>
+                    <div class="status">
+                        <p> @HomeLang.lblTotal </p>
+                        <p class="failed"> @HomeLang.lblFailed </p>
+                    </div>
+                </div>*@
+            <div class="execute_content fontsize-11">
+                <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/gear-icon.png"))">
+                <span>@CleansMatchDetail.Message1</span>
+            </div>
+            <div class="execute_content fontsize-11">
+                <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/fast.png"))">
+                @if (CleansMatchDetail.Message2 == "Process Paused" || CleansMatchDetail.ShowErrorSymbol == true)
+                {
+                    <span class="errorRedColor">@CleansMatchDetail.Message2</span>
+                }
+                else
+                {
+                    <span class="spnCleanseNextTime">@CleansMatchDetail.Message2</span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 clsEnrichcol_4">
+        <div class="importbox">
+            <div class="heading">
+                <h3>@HomeLang.lblDataEnrichment</h3>
+                @if (Helper.oUser.UserRole == UserRole.GLOBAL.ToString() && Helper.oUser.UserType.ToLower() == "administrator")
+                {
+                    <div class="toggle_button">
+                        <label class="switch">
+                            <input type="checkbox" name="EnableENRICHMENTProcess" id="EnableENRICHMENTProcess" @(EnrichDetail.ProcessPaused == true ? "checked" : "")>
+                            <span class="round ToggleForDataEnrichment"></span>
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="box_content">
+                <div class="min-time">
+                    <span class="time-lable">@HomeLang.lblMinTime</span>
+                    <span class="time-progress"><span class="time-progress-bar" style="width:@(EnrichMinWidth)%"></span></span>
+                    <span class="time-count">@EnrichDetail.MinRunDuration.ToString("HH:mm:ss")</span>
+                </div>
+                <div class="avg-time">
+                    <span class="time-lable">@HomeLang.lblAvgTime</span>
+                    <span class="time-progress"><span class="time-progress-bar" style="width:@(EnrichAvgWidth)%"></span></span>
+                    <span class="time-count">@EnrichDetail.AverageRunDuration.ToString("HH:mm:ss")</span>
+                </div>
+                <div class="max-time">
+                    <span class="time-lable">@HomeLang.lblMaxTime</span>
+                    <span class="time-progress"><span class="time-progress-bar"></span></span>
+                    <span class="time-count">@EnrichDetail.MaxRunDuration.ToString("HH:mm:ss")</span>
+                </div>
+            </div>
+            @*<div class="box_content">
+                    <h2>@EnrichTotal / <span class="failed">@EnrichDetail.NbrFailures</span> </h2>
+                    <div class="status">
+                        <p> @HomeLang.lblTotal </p>
+                        <p class="failed"> @HomeLang.lblFailed </p>
+                    </div>
+                </div>*@
+            <div class="execute_content fontsize-11">
+                <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/gear-icon.png"))">
+                <span>@EnrichDetail.Message1</span>
+            </div>
+            <div class="execute_content fontsize-11">
+                <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/fast.png"))">
+                @if (EnrichDetail.Message2 == "Process Paused" || EnrichDetail.ShowErrorSymbol == true)
+                {
+                    <span class="errorRedColor">@EnrichDetail.Message2</span>
+                }
+                else
+                {
+                    <span class="spnEnrichNextTime">@EnrichDetail.Message2</span>
+                }
+            </div>
+
+        </div>
+    </div>
+    <div class="note-text col-md-12"><strong><em>@HomeLang.lblBackgroundStatsNote</em></strong></div>
+</div>

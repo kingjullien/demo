@@ -1,0 +1,752 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrAPIUsageStatistics" xml:space="preserve">
+    <value>API 使用情况统计</value>
+    <comment>API Usage Statistics</comment>
+  </data>
+  <data name="hdrBackgroundProcessLogs" xml:space="preserve">
+    <value>背景流程日志</value>
+    <comment>Background Process Logs</comment>
+  </data>
+  <data name="hdrDataEnrichment" xml:space="preserve">
+    <value>数据扩充</value>
+    <comment>Data Enrichment</comment>
+  </data>
+  <data name="hdrDataQueueStatistics" xml:space="preserve">
+    <value>数据队列统计</value>
+    <comment>Data Queue Statistics</comment>
+  </data>
+  <data name="hdrDataStewardshipQueue" xml:space="preserve">
+    <value>数据托管队列</value>
+    <comment>Data Stewardship Queue</comment>
+  </data>
+  <data name="hdrEnrichment" xml:space="preserve">
+    <value>扩充</value>
+    <comment>Enrichment</comment>
+  </data>
+  <data name="hdrExportQueue" xml:space="preserve">
+    <value>导出队列</value>
+    <comment>Export Queue</comment>
+  </data>
+  <data name="hdrIdentityResolution" xml:space="preserve">
+    <value>身份分析</value>
+    <comment>Identity Resolution</comment>
+  </data>
+  <data name="hdrImportProcessQueue" xml:space="preserve">
+    <value>导入流程队列</value>
+    <comment>Import Process Queue</comment>
+  </data>
+  <data name="hdrImportQueue" xml:space="preserve">
+    <value>导入队列</value>
+    <comment>Import Queue</comment>
+  </data>
+  <data name="hdrInputQueue" xml:space="preserve">
+    <value>输入队列</value>
+    <comment>Input Queue</comment>
+  </data>
+  <data name="hdrInvestigationReport" xml:space="preserve">
+    <value>调查报告</value>
+    <comment>Investigation Report</comment>
+  </data>
+  <data name="hdrMonitoringNotification" xml:space="preserve">
+    <value>监视通知</value>
+    <comment>Monitoring Notification</comment>
+  </data>
+  <data name="hdrProfileDetails" xml:space="preserve">
+    <value>配置文件详细情况</value>
+    <comment>Profile Details</comment>
+  </data>
+  <data name="hdrResetPassword" xml:space="preserve">
+    <value>重设密码</value>
+    <comment>Reset Password</comment>
+  </data>
+  <data name="hdrSecurityQuestionandAnswer" xml:space="preserve">
+    <value>安全问答</value>
+    <comment>Security Question and Answer</comment>
+  </data>
+  <data name="lblAbout" xml:space="preserve">
+    <value>关于</value>
+    <comment>About</comment>
+  </data>
+  <data name="lblActiveRecords" xml:space="preserve">
+    <value>活动记录</value>
+    <comment>Active Records</comment>
+  </data>
+  <data name="lblAdditionalInformation" xml:space="preserve">
+    <value>使用此区域提供其他信息。</value>
+    <comment>Use this area to provide additional information.</comment>
+  </data>
+  <data name="lblAll" xml:space="preserve">
+    <value>全部</value>
+    <comment>All</comment>
+  </data>
+  <data name="lblAllCandidates" xml:space="preserve">
+    <value>全部候选项</value>
+    <comment>All Candidates</comment>
+  </data>
+  <data name="lblAltLookup" xml:space="preserve">
+    <value>替换查找</value>
+    <comment>Alt. Lookup</comment>
+  </data>
+  <data name="lblApply" xml:space="preserve">
+    <value>应用</value>
+    <comment>Apply</comment>
+  </data>
+  <data name="lblArchival" xml:space="preserve">
+    <value>存档</value>
+    <comment>Archival</comment>
+  </data>
+  <data name="lblArchivalQueueCount" xml:space="preserve">
+    <value>存档队列计数</value>
+    <comment>Archival Queue Count</comment>
+  </data>
+  <data name="lblAvgResolutionTime" xml:space="preserve">
+    <value>平均分析时间</value>
+    <comment>Avg Resolution Time</comment>
+  </data>
+  <data name="lblAvgTime" xml:space="preserve">
+    <value>平均时间</value>
+    <comment>Avg-time</comment>
+  </data>
+  <data name="lblBackgroundStatsNote" xml:space="preserve">
+    <value>注意：根据最近48小时的数据进行统计</value>
+    <comment>Note : Statistics based on last 48 hours of data</comment>
+  </data>
+  <data name="lblChangeImage" xml:space="preserve">
+    <value>更改图像</value>
+    <comment>Change Image</comment>
+  </data>
+  <data name="lblCleanseMatch" xml:space="preserve">
+    <value>清除匹配</value>
+    <comment>Cleanse Match</comment>
+  </data>
+  <data name="lblClear" xml:space="preserve">
+    <value>清除</value>
+    <comment>Clear</comment>
+  </data>
+  <data name="lblClosedCases" xml:space="preserve">
+    <value>已结案例</value>
+    <comment>Closed Cases</comment>
+  </data>
+  <data name="lblConfirmPassword" xml:space="preserve">
+    <value>确认密码</value>
+    <comment>Confirm Password</comment>
+  </data>
+  <data name="lblContinue" xml:space="preserve">
+    <value>继续</value>
+    <comment>Continue</comment>
+  </data>
+  <data name="lblCurrentMonth" xml:space="preserve">
+    <value>本月</value>
+    <comment>Current Month</comment>
+  </data>
+  <data name="lblCurrentUTCTime" xml:space="preserve">
+    <value>当前 UTC 时间</value>
+    <comment>Current UTC Time</comment>
+  </data>
+  <data name="lblDataEnrichment" xml:space="preserve">
+    <value>数据扩充</value>
+    <comment>Data Enrichment</comment>
+  </data>
+  <data name="lblDateTime" xml:space="preserve">
+    <value>日期时间</value>
+    <comment>Date Time</comment>
+  </data>
+  <data name="lblDUNS" xml:space="preserve">
+    <value>DUNS</value>
+    <comment>DUNS</comment>
+  </data>
+  <data name="lblDuration" xml:space="preserve">
+    <value>持续时间</value>
+    <comment>Duration</comment>
+  </data>
+  <data name="lblDurationHours" xml:space="preserve">
+    <value>持续时间（小时）</value>
+    <comment>Duration Hours</comment>
+  </data>
+  <data name="lblEmailAddress" xml:space="preserve">
+    <value>电子邮件地址</value>
+    <comment>Email Address</comment>
+  </data>
+  <data name="lblEnrichmentOutput" xml:space="preserve">
+    <value>扩充输出</value>
+    <comment>Enrichment   Output</comment>
+  </data>
+  <data name="lblEnrichmentProcessing" xml:space="preserve">
+    <value>扩充处理</value>
+    <comment>Enrichment Processing</comment>
+  </data>
+  <data name="lblEnrichmentQueueCount" xml:space="preserve">
+    <value>扩充队列计数</value>
+    <comment>Enrichment Queue Count</comment>
+  </data>
+  <data name="lblEnrichment_output" xml:space="preserve">
+    <value>扩充输出</value>
+    <comment>Enrichment output</comment>
+  </data>
+  <data name="lblETLDetails" xml:space="preserve">
+    <value>ETL 详细信息</value>
+    <comment>ETL Details</comment>
+  </data>
+  <data name="lblETLType" xml:space="preserve">
+    <value>ETL 类型</value>
+    <comment>ETL Type</comment>
+  </data>
+  <data name="lblExecutionId" xml:space="preserve">
+    <value>执行 ID</value>
+    <comment>Execution Id</comment>
+  </data>
+  <data name="lblFailed" xml:space="preserve">
+    <value>未成功</value>
+    <comment>Failed</comment>
+  </data>
+  <data name="lblFileImport" xml:space="preserve">
+    <value>文件导入</value>
+    <comment>File Import</comment>
+  </data>
+  <data name="lblFiles" xml:space="preserve">
+    <value>文件</value>
+    <comment>Files</comment>
+  </data>
+  <data name="lblFiltered" xml:space="preserve">
+    <value>已过滤</value>
+    <comment>Filtered</comment>
+  </data>
+  <data name="lblGetVerificationCode" xml:space="preserve">
+    <value>通过电子邮件获取验证码。</value>
+    <comment>Get a verification code via email.</comment>
+  </data>
+  <data name="lblHQSLRecords" xml:space="preserve">
+    <value>HQ/SL 记录</value>
+    <comment>HQ/SL Records</comment>
+  </data>
+  <data name="lblIAccept" xml:space="preserve">
+    <value>我接受</value>
+    <comment>I accept</comment>
+  </data>
+  <data name="lblImport" xml:space="preserve">
+    <value>导入</value>
+    <comment>Import</comment>
+  </data>
+  <data name="lblImportDate" xml:space="preserve">
+    <value>导入日期</value>
+    <comment>Import Date</comment>
+  </data>
+  <data name="lblImportedRow" xml:space="preserve">
+    <value>已导入行</value>
+    <comment>Imported Row</comment>
+  </data>
+  <data name="lblImportProcess" xml:space="preserve">
+    <value>导入流程</value>
+    <comment>Import Process</comment>
+  </data>
+  <data name="lblIncludeThreeRules" xml:space="preserve">
+    <value>确保满足 3 条密码设置规则。</value>
+    <comment>Make sure to include at least 3 rules.</comment>
+  </data>
+  <data name="lblInput" xml:space="preserve">
+    <value>输入</value>
+    <comment>Input</comment>
+  </data>
+  <data name="lblInputQueueCount" xml:space="preserve">
+    <value>输入队列计数</value>
+    <comment>Input Queue Count</comment>
+  </data>
+  <data name="lblInputRecord" xml:space="preserve">
+    <value>输入记录</value>
+    <comment>Input Record</comment>
+  </data>
+  <data name="lblInvestigation" xml:space="preserve">
+    <value>调查中</value>
+    <comment>Investigation</comment>
+  </data>
+  <data name="lblLOBTag" xml:space="preserve">
+    <value>LOB 标签</value>
+    <comment>LOB Tag</comment>
+  </data>
+  <data name="lblLowConfidence" xml:space="preserve">
+    <value>低置信</value>
+    <comment>Low Confidence</comment>
+  </data>
+  <data name="lblLowConfidenceQueueCount" xml:space="preserve">
+    <value>低置信队列计数</value>
+    <comment>Low Confidence Queue Count</comment>
+  </data>
+  <data name="lblLowercase" xml:space="preserve">
+    <value>小写字母</value>
+    <comment>Lowercase</comment>
+  </data>
+  <data name="lblMatchOutput" xml:space="preserve">
+    <value>匹配输出</value>
+    <comment>Match Output</comment>
+  </data>
+  <data name="lblMatchProcessing" xml:space="preserve">
+    <value>匹配处理</value>
+    <comment>Match Processing</comment>
+  </data>
+  <data name="lblMatch_output" xml:space="preserve">
+    <value>匹配输出</value>
+    <comment>Match output</comment>
+  </data>
+  <data name="lblMaxTime" xml:space="preserve">
+    <value>最长时间</value>
+    <comment>Max-time</comment>
+  </data>
+  <data name="lblMesage" xml:space="preserve">
+    <value>消息</value>
+    <comment>Message</comment>
+  </data>
+  <data name="lblMinimumPasswordLength" xml:space="preserve">
+    <value>密码应至少包含 8 个字符</value>
+    <comment>The password should be a minimum of 8 characters long</comment>
+  </data>
+  <data name="lblMinTime" xml:space="preserve">
+    <value>最小小时</value>
+    <comment>Min-time</comment>
+  </data>
+  <data name="lblNameAddressLookup" xml:space="preserve">
+    <value>名称地址查找</value>
+    <comment>Name Address Lookup</comment>
+  </data>
+  <data name="lblNextExecution" xml:space="preserve">
+    <value>下一次执行</value>
+    <comment>Next Execution</comment>
+  </data>
+  <data name="lblNoDataAreAvailable" xml:space="preserve">
+    <value>无可用数据</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNodataareavailableMessage" xml:space="preserve">
+    <value>无可用数据</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNoDataAvailable" xml:space="preserve">
+    <value>无可用数据</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNoDatasAvailable" xml:space="preserve">
+    <value>无可用数据</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNoMatch" xml:space="preserve">
+    <value>无匹配</value>
+    <comment>No Match</comment>
+  </data>
+  <data name="lblNoMatchQueueCount" xml:space="preserve">
+    <value>无匹配队列计数</value>
+    <comment>NoMatch Queue Count</comment>
+  </data>
+  <data name="lblNumber" xml:space="preserve">
+    <value>数字</value>
+    <comment>Number</comment>
+  </data>
+  <data name="lblOpenCases" xml:space="preserve">
+    <value>未结案例</value>
+    <comment>Open Cases</comment>
+  </data>
+  <data name="lblOpenedLastWeek" xml:space="preserve">
+    <value>未结上周</value>
+    <comment>Opened Last Week</comment>
+  </data>
+  <data name="lblOutputQueueCount" xml:space="preserve">
+    <value>输出队列计数</value>
+    <comment>Output Queue Count</comment>
+  </data>
+  <data name="lblPasswordLimit" xml:space="preserve">
+    <value>密码必须至少8个字符长，包含字母数字字符和至少一个特殊字符。</value>
+    <comment>The Password must be at least 8 characters long, contain alpha numeric characters and atleast one special character.</comment>
+  </data>
+  <data name="lblPendingProcessRecordCount" xml:space="preserve">
+    <value>挂起流程记录计数</value>
+    <comment>Pending Process Record Count</comment>
+  </data>
+  <data name="lblProcessComplete" xml:space="preserve">
+    <value>流程完成</value>
+    <comment>Process Complete</comment>
+  </data>
+  <data name="lblProcessedRecordCount" xml:space="preserve">
+    <value>已处理记录计数</value>
+    <comment>Processed Record Count</comment>
+  </data>
+  <data name="lblProcessing" xml:space="preserve">
+    <value>正在处理中，请稍候...</value>
+    <comment>Please wait while processing...</comment>
+  </data>
+  <data name="lblProcessingQueueCount" xml:space="preserve">
+    <value>处理中队列计数</value>
+    <comment>Processing Queue Count</comment>
+  </data>
+  <data name="lblProcessStatus" xml:space="preserve">
+    <value>流程状态</value>
+    <comment>Process Status</comment>
+  </data>
+  <data name="lblProcessType" xml:space="preserve">
+    <value>流程类型</value>
+    <comment>Lable for ETL Type</comment>
+  </data>
+  <data name="lblRememberOnMachine" xml:space="preserve">
+    <value>在这台计算机上记住我（如果您是从公共计算机登录，请不要选择此选项）</value>
+    <comment>Remember me on this machine(Do not select this option if you are logging in from a public machine)</comment>
+  </data>
+  <data name="lblRememberSecurityQuestion" xml:space="preserve">
+    <value>不记得您的安全性问题吗？</value>
+    <comment>Do not remember your security question?</comment>
+  </data>
+  <data name="lblRemoveImage" xml:space="preserve">
+    <value>移除图片</value>
+    <comment>Remove Image</comment>
+  </data>
+  <data name="lblResetPassword" xml:space="preserve">
+    <value>重设密码</value>
+    <comment>Reset Password</comment>
+  </data>
+  <data name="lblSearch" xml:space="preserve">
+    <value>搜索</value>
+    <comment>Search</comment>
+  </data>
+  <data name="lblSecurityAnswer" xml:space="preserve">
+    <value>安全回答</value>
+    <comment>Security Answer</comment>
+  </data>
+  <data name="lblSecurityQuestion" xml:space="preserve">
+    <value>安全问题</value>
+    <comment>Security Question</comment>
+  </data>
+  <data name="lblSpecialCharacter" xml:space="preserve">
+    <value>特殊字符</value>
+    <comment>Special Character</comment>
+  </data>
+  <data name="lblStatusType" xml:space="preserve">
+    <value>状态类型</value>
+    <comment>Status Type</comment>
+  </data>
+  <data name="lblSubmit" xml:space="preserve">
+    <value>提交</value>
+    <comment>Submit</comment>
+  </data>
+  <data name="lblTag" xml:space="preserve">
+    <value>标签</value>
+    <comment>Tag</comment>
+  </data>
+  <data name="lblTags" xml:space="preserve">
+    <value>标签</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="lblTopCandidates" xml:space="preserve">
+    <value>排前候选项</value>
+    <comment>Top Candidates</comment>
+  </data>
+  <data name="lblTotal" xml:space="preserve">
+    <value>总计</value>
+    <comment>Total</comment>
+  </data>
+  <data name="lblTotalMatched" xml:space="preserve">
+    <value>匹配总计</value>
+    <comment>Total Matched</comment>
+  </data>
+  <data name="lblTotalRecords" xml:space="preserve">
+    <value>记录总计</value>
+    <comment>Total Records</comment>
+  </data>
+  <data name="lblUnderInvestigation" xml:space="preserve">
+    <value>在調查中</value>
+    <comment>Under Investigation</comment>
+  </data>
+  <data name="lblUpdateSecurityAnswer" xml:space="preserve">
+    <value>更新安全性答案</value>
+    <comment>Update Security Answer</comment>
+  </data>
+  <data name="lblUploadImage" xml:space="preserve">
+    <value>上传图像</value>
+    <comment>Upload Image</comment>
+  </data>
+  <data name="lblUppercase" xml:space="preserve">
+    <value>大写字母</value>
+    <comment>Uppercase</comment>
+  </data>
+  <data name="lblUserName" xml:space="preserve">
+    <value>用户名称</value>
+    <comment>User Name</comment>
+  </data>
+  <data name="lblYTD" xml:space="preserve">
+    <value>YTD</value>
+    <comment>YTD</comment>
+  </data>
+  <data name="lbPassword" xml:space="preserve">
+    <value>密码</value>
+    <comment>Password</comment>
+  </data>
+  <data name="msgAllowedFormats" xml:space="preserve">
+    <value>仅允许的格式为：jpeg，jpg，png，gif，bmp</value>
+    <comment>Only formats allowed are :jpeg, jpg, png, gif, bmp</comment>
+  </data>
+  <data name="msgAllowedFormatsOnly" xml:space="preserve">
+    <value>仅允许的格式为：</value>
+    <comment>Only formats allowed are :</comment>
+  </data>
+  <data name="msgDurationInSeconds" xml:space="preserve">
+    <value>持续时间（以秒为单位）</value>
+    <comment>Duration(In seconds)</comment>
+  </data>
+  <data name="msgMatches" xml:space="preserve">
+    <value>火柴</value>
+    <comment>Matches</comment>
+  </data>
+  <data name="msgMatchesByConfidenceCode" xml:space="preserve">
+    <value>通过信心码进行匹配</value>
+    <comment>Matches by Confidence Code</comment>
+  </data>
+  <data name="msgMatchesByUsers" xml:space="preserve">
+    <value>用户匹配</value>
+    <comment>Matches by Users</comment>
+  </data>
+  <data name="msgPauseSetting" xml:space="preserve">
+    <value>您确定要暂停设置吗？</value>
+    <comment>Are you sure, you want to pause setting ?</comment>
+  </data>
+  <data name="msgProcessStats" xml:space="preserve">
+    <value>流程统计</value>
+    <comment>Process Stats</comment>
+  </data>
+  <data name="msgRecords" xml:space="preserve">
+    <value>记录</value>
+    <comment>Records</comment>
+  </data>
+  <data name="msgRemoveDataFromFile" xml:space="preserve">
+    <value>您确定要从文件中删除数据吗？</value>
+    <comment>Are you sure you want to remove data from file ?</comment>
+  </data>
+  <data name="msgRemoveImage" xml:space="preserve">
+    <value>您确定要删除该图像吗？</value>
+    <comment>Are you sure you want to remove this image?</comment>
+  </data>
+  <data name="msgSpecifyFile" xml:space="preserve">
+    <value>您尚未指定文件。</value>
+    <comment>You have not specified a file.</comment>
+  </data>
+  <data name="msgUnpauseSetting" xml:space="preserve">
+    <value>确定要取消暂停设置吗？</value>
+    <comment>Are you sure, you want to un-pause setting ?</comment>
+  </data>
+  <data name="msgUploadFile" xml:space="preserve">
+    <value>文件上传成功。</value>
+    <comment>File uploaded successfully.</comment>
+  </data>
+  <data name="placeholderSecurityanswer" xml:space="preserve">
+    <value>安全答案</value>
+    <comment>Security answer</comment>
+  </data>
+  <data name="spnByImportProcess" xml:space="preserve">
+    <value>通過ImportProcess進行數據隊列統計</value>
+    <comment>Data Queue Statistics By ImportProcess</comment>
+  </data>
+  <data name="spnByTags" xml:space="preserve">
+    <value>按标签</value>
+    <comment>By Tags</comment>
+  </data>
+  <data name="String12" xml:space="preserve">
+    <value>流程状态</value>
+    <comment>Process Status</comment>
+  </data>
+  <data name="String2" xml:space="preserve">
+    <value>记录总计</value>
+    <comment>Total Records</comment>
+  </data>
+  <data name="String3" xml:space="preserve">
+    <value>日期时间</value>
+    <comment>Date Time</comment>
+  </data>
+  <data name="titleAbout" xml:space="preserve">
+    <value>火柴盒关于</value>
+    <comment>Matchbook | About</comment>
+  </data>
+  <data name="titleActiveDataQueueDetailReport" xml:space="preserve">
+    <value>活动日期队列详细信息报告</value>
+    <comment>Active Data Queue Detail Report</comment>
+  </data>
+  <data name="titleActiveDataQueueStatistics" xml:space="preserve">
+    <value>活动数据队列统计</value>
+    <comment>Active Data Queue Statistics</comment>
+  </data>
+  <data name="titleAPIUsageStatistics" xml:space="preserve">
+    <value>API 使用情况统计</value>
+    <comment>API Usage Statistics</comment>
+  </data>
+  <data name="titleBackgroundProcessStatistics" xml:space="preserve">
+    <value>背景流程统计</value>
+    <comment>Background Process Statistics</comment>
+  </data>
+  <data name="titleDashboard" xml:space="preserve">
+    <value>仪表板</value>
+    <comment>Dashboard</comment>
+  </data>
+  <data name="titleDataStewardshipStatistics" xml:space="preserve">
+    <value>数据托管统计</value>
+    <comment>Data Stewardship Statistics</comment>
+  </data>
+  <data name="titleDetailStatisticsReport" xml:space="preserve">
+    <value>详细信息统计报告</value>
+    <comment>Detail Statistics Report</comment>
+  </data>
+  <data name="titleDownloadDataQueueStatistics" xml:space="preserve">
+    <value>下载数据队列统计</value>
+    <comment>Download Data Queue Statistics</comment>
+  </data>
+  <data name="titleLCMCandidateStatistics" xml:space="preserve">
+    <value>低置信匹配候选项统计</value>
+    <comment>Low Confidence Match Candidate Statistics</comment>
+  </data>
+  <data name="titleProcessDetails" xml:space="preserve">
+    <value>流程详细信息</value>
+    <comment>Process Details</comment>
+  </data>
+  <data name="titleProcessingQueue" xml:space="preserve">
+    <value>处理中队列</value>
+    <comment>Processing Queue</comment>
+  </data>
+  <data name="titleProfile" xml:space="preserve">
+    <value>个人资料</value>
+    <comment>Profile</comment>
+  </data>
+  <data name="titleRefreshActiveDataQueueStatistics" xml:space="preserve">
+    <value>刷新活动数据队列统计</value>
+    <comment>Refresh Active Data Queue Statistics</comment>
+  </data>
+  <data name="titleRefreshBackgroundProcessStatistics" xml:space="preserve">
+    <value>刷新背景流程统计</value>
+    <comment>Refresh Background Process Statistics</comment>
+  </data>
+  <data name="titleRefreshDataStewardshipStatistics" xml:space="preserve">
+    <value>刷新数据托管统计</value>
+    <comment>Refresh Data Stewardship Statistics</comment>
+  </data>
+  <data name="titleRefreshLowConfidenceMatchCandidateStatistics" xml:space="preserve">
+    <value>刷新低置信匹配候选项统计</value>
+    <comment>Refresh Low Confidence Match Candidate Statistics</comment>
+  </data>
+  <data name="titleResetPassword" xml:space="preserve">
+    <value>重设密码</value>
+    <comment>Reset Password</comment>
+  </data>
+  <data name="titleUserLicenseAgreement" xml:space="preserve">
+    <value>用户许可协议</value>
+    <comment>User License Agreement</comment>
+  </data>
+</root>

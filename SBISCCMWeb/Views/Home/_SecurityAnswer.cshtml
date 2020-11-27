@@ -1,0 +1,42 @@
+﻿@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.LanguageResources;
+@model  UsersEntity
+@Html.HiddenFor(@model => @model.UserId)
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + HomeLang.lblSecurityQuestion;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + HomeLang.lblSecurityQuestion;
+    }
+    bool SecurityQuestionId = Model.SecurityQuestionId > 0 ? true : false;
+}
+<div class="popupAACRow">
+    <label class="control-label text-left ">@HomeLang.lblSecurityQuestion :</label>
+    <div class="profiledata">
+        @if (Model.SecurityQuestionId > 0)
+        {
+            <input id="SecurityQuestion" value="@Model.SecurityQuestion"  disabled="disabled" class="form-control"/>
+            @Html.HiddenFor(m=>m.SecurityQuestionId)
+        }
+        else
+        {
+            @Html.DropDownListFor(m => m.SecurityQuestionId, new SelectList(SBISCCMWeb.Models.UsersModel.GetSecurityQuestion(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "SecurityQuestionId", "SecurityQuestion"), CommonMessagesLang.lblSelectSecurityQuestion, new { @class = "form-control selectbox SelectCountry", @value = Model.SecurityQuestionId, @autocomplete = "off" })
+        }
+        @Html.ValidationMessageFor(m => m.SecurityQuestionId, "", new { @class = "text-danger"  })
+
+    </div>
+</div>
+<div class="popupAACRow">
+    <label class="control-label text-left ">@HomeLang.lblSecurityAnswer :</label>
+    <div class="profiledata">
+        @Html.TextBoxFor(m => m.SecurityAnswer, new { @class = "form-control nonReadOnly ", placeholder = HomeLang.placeholderSecurityanswer,autoComplete="off", type = "password", onfocus = "this.removeAttribute('readonly');", @readonly = true,value="" })
+        @Html.ValidationMessageFor(m => m.SecurityAnswer, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+
+

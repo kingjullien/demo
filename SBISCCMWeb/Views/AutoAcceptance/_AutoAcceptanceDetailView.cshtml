@@ -1,0 +1,43 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@model List<AutoAcceptanceCriteriaDetail>
+@{
+    ViewBag.Title = "Matchbook | Match Data";
+    Layout = null;
+    int intButtonNo = 0;
+}
+
+<tr class="trAutoAcceptanceItemView">
+    <td class="panel-heading border-right-none"></td>
+    <td colspan="25">
+        <div class="InnerAutoAcceptanceDetail ">
+            <table class="table  table-border  panel-collapse customTable widht75">
+                <tr>
+                    <th>Confidence Code</th>
+                    <th>MatchGrade</th>
+                    <th>MDPCode</th>
+                    <th>Tag</th>
+                </tr>
+                @if (Model.Count > 0)
+            {
+                foreach (var innerItem in Model)
+                {
+                        <tr>
+                            <td>@innerItem.ConfidenceCode</td>
+                            <td>@innerItem.MatchGrade</td>
+                            <td>@innerItem.MDPCode</td>
+                            <td>@innerItem.Tag</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="4">No data are available</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </td>
+</tr>

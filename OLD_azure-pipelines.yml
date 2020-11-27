@@ -1,0 +1,65 @@
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+
+- task: PowerShell@2
+  displayName: 'Calculate and save packages.config hash'
+  inputs:
+    targetType: 'inline'
+    script: |
+      # generates a hash of all packages.config and saves each on a single line on 'hash.txt'
+      Get-FileHash -Algorithm MD5 -Path (Get-ChildItem packages.config -Recurse) >> hash.txt
+      Write-Host "Hash File saved to $(System.DefaultWorkingDirectory)\hash.txt"
+    workingDirectory: '$(System.DefaultWorkingDirectory)'
+
+- task: Cache@2
+  displayName: Cache nuget packages
+  continueOnError: true
+  inputs:
+    key: 'nuget|1|$(Agent.OS)|$(Build.SourcesDirectory)\hash.txt' # hash map generated in previous step
+    path: '$(Build.SourcesDirectory)\packages'
+    cacheHitVar: 'nuget_cache_hit' # variable that can be checked to see if it was successful
+    
+
+- task: PowerShell@2
+  displayName: Detection for publish artifacts
+  inputs:
+    targetType: 'inline'
+    script: |
+      $Allowed = $env:ALLOWEDBRANCHES -split "," -contains "$(Build.SourceBranchName)"
+      echo "##vso[task.setvariable variable=AllowArtifacts;]$Allowed"
+
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'restore'
+    restoreSolution: '$(solution)'
+    feedsToUse: 'select'
+    vstsFeed: '5527b153-6d86-443d-9173-3cd1b242afda/48875dbc-7943-4b35-ae99-9af96168d928'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation="$(build.artifactStagingDirectory)"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+    maximumCpuCount: true
+
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: PublishBuildArtifacts@1
+  condition: and(eq(variables['AllowArtifacts'], True), ne(variables['Build.Reason'], 'PullRequest'))
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: ${{ format('{0}_{1}',variables['Build.SourceBranchName'],variables['Build.SourceVersion']) }}
+    publishLocation: 'Container'

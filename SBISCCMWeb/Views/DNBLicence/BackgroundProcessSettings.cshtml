@@ -1,0 +1,84 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Models;
+@using SBISCCMWeb.Utility
+@model BackgroundProcessSettingsViewModal
+@using System.Configuration;
+@{
+    Layout = null;
+    AjaxOptions ajaxOptionsBackgroundProcessSettings = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.InsertAfter,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccessBackgroundProcessSettings"
+    };
+    string LicenseType = ConfigurationManager.AppSettings["LicenseSKU"];
+}
+<article class="col-md-4 sortable-grid ui-sortable widget-data">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrBackgroundProcessSettings</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10 @(Helper.LicenseSKU != LicenseType ? "" : "clsDisable")">
+                    <div id="Process" class="tab-pane fade active in">
+                            @using (Ajax.BeginForm("BackgroundProcessSettings", "DNBLicence", null, ajaxOptionsBackgroundProcessSettings, new { @class = "formContent", @autocomplete = "off" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="row form-group">
+                                    <div class="col-md-5"><label class="control-label">@DandBSettingLang.lblMaximumParallelThread</label></div>
+                                    <div class="col-md-6">
+                                        @if (Helper.LicenseSKU != LicenseType)
+                                        {
+                                            @Html.DropDownListFor(@model => Model.MAX_PARALLEL_THREAD, new SelectList(new CommonDropdown().ComboboxItems("MaximumParallelThread"), "Value", "Text"), new { @class = "form-control selectbox", @autocomplete = "off" })
+                                        }
+                                        else
+                                        {
+                                            @Html.DropDownListFor(@model => Model.MAX_PARALLEL_THREAD, new SelectList(new CommonDropdown().ComboboxItems("MaximumParallelThread"), "Value", "Text"), new { @class = "form-control selectbox", @autocomplete = "off", @disabled = "disabled", })
+                                        }
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-5"><label class="control-label">@DandBSettingLang.lblCleanseMatchBatchSize</label></div>
+                                    <div class="col-md-6">
+                                        @if (Helper.LicenseSKU != LicenseType)
+                                        {
+                                            @Html.TextBoxFor(@model => Model.BATCH_SIZE, new { @class = "form-control sideTextboxes OnlyDigit", @placeholder = DandBSettingLang.placeholderBatchSize, onkeypress = "return isNumber(event)", @autocomplete = "off" })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(@model => Model.BATCH_SIZE, new { @class = "form-control sideTextboxes OnlyDigit", @placeholder = DandBSettingLang.placeholderBatchSize, onkeypress = "return isNumber(event)", @autocomplete = "off", @disabled = "disabled" })
+                                        }
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-md-5"><label class="control-label">@DandBSettingLang.lblWaitTimeBetweenBatches</label></div>
+                                    <div class="col-md-6">
+                                        @if (Helper.LicenseSKU != LicenseType)
+                                        {
+                                            @Html.TextBoxFor(@model => Model.WAIT_TIME_BETWEEN_BATCHES_SECS, new { @class = "form-control sideTextboxes OnlyDigit", @placeholder = DandBSettingLang.placeholderBatchSize, onkeypress = "return isNumber(event)", @autocomplete = "off" })
+                                        }
+                                        else
+                                        {
+                                            @Html.TextBoxFor(@model => Model.WAIT_TIME_BETWEEN_BATCHES_SECS, new { @class = "form-control sideTextboxes OnlyDigit", @placeholder = DandBSettingLang.placeholderBatchSize, onkeypress = "return isNumber(event)", @autocomplete = "off", @disabled = "disabled" })
+                                        }
+                                    </div>
+                                </div>
+                                if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()) && Helper.LicenseSKU != LicenseType)
+                                {
+                                    <div class="row margin-top-15">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-primary" type="submit">Update</button>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

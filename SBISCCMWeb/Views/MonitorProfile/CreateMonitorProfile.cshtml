@@ -1,0 +1,166 @@
+﻿@using System.Collections.Generic;
+@using SBISCCMWeb.Utility;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@model MonitoringProfileEntity
+@using SBISCCMWeb.Models;
+@{
+    Layout = null;
+    int EditMonitorId = 0;
+    if (ViewBag.EditMonitorId != null)
+    {
+        EditMonitorId = Convert.ToInt32(ViewBag.EditMonitorId);
+    }
+    bool IsConditionExists = Convert.ToBoolean(ViewBag.IsConditionExists);
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST"
+    };
+}
+@Scripts.Render("~/bundles/popupjs")
+@Styles.Render("~/Content/popupcss")
+<style type="text/css">
+    body {
+        overflow: hidden;
+    }
+</style>
+@using (Ajax.BeginForm("CreateMonitorProfile", "MonitorProfile", null, ajaxOptions))
+{
+    @Html.Hidden("ProfileId", EditMonitorId)
+    @Html.Hidden("MonitoringProfileID", Model.MonitoringProfileID)
+    @Html.Hidden("Level", Model.MonitoringLevel)
+    @Html.AntiForgeryToken();
+    <div id="content" style="opacity: 1;">
+        <section id="widget-grid" class="">
+            <div class="row">
+                <article class="col-xs-12  sortable-grid ui-sortable">
+                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <h2>
+                                @if (EditMonitorId == 0)
+                                {
+                                    <strong>Create Monitor Profile</strong>
+                                }
+                                else
+                                {
+                                    <strong>Edit Monitor Profile</strong>
+                                }
+                            </h2>
+                            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                                <li>
+                                </li>
+                            </ul>
+                        </header>
+                        <div role="content">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body no-padding">
+                                <div class="tab-content padding-10">
+                                    <div id="hr2" class="tab-pane fade fade active in">
+                                        <div class="form-group">
+
+
+                                            <div class="row paddingto5">
+                                                <div class="col-sm-4 text-right">
+                                                    <span class="v-align-text"><strong>Profile Name :</strong></span>
+                                                </div>
+                                                <div class="col-sm-6 text-left">
+                                                    @Html.TextBox("profileName", Model.ProfileName, new { @class = "form-control col-md-9", @placeholder = "Profile Name", maxlength = "50" })
+                                                    <span id="spnName" class="MonitoringError" style="display:none;">Profile Name is required.</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="row paddingto5">
+                                                <div class="col-sm-4 text-right">
+                                                    <span class="v-align-text"><strong>Description :</strong></span>
+                                                </div>
+                                                <div class="col-sm-6 text-left">
+                                                    @Html.TextBox("description", Model.ProfileDescription, new { @class = "form-control col-md-9", @placeholder = "Profile Description", maxlength = "200" })
+                                                    <span id="spnDescription" class="MonitoringError" style="display:none;">Description Name is required.</span>
+                                                </div>
+                                            </div>
+
+                                            <div class="row paddingto5">
+                                                <div class="col-sm-4 text-right">
+                                                    <span class="v-align-text"><strong>Product Layer :</strong></span>
+                                                </div>
+                                                <div class="col-sm-6 text-left">
+                                                    @Html.DropDownList("Product", new SelectList(SBISCCMWeb.Controllers.MonitorProfileController.GetAllProductData(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "ProductID", "ProductCode", Model.ProductID), "Select Product Layer", new { @class = "form-control selectbox" })
+                                                    <span id="spnProduct" class="MonitoringError" style="display:none;">Product is required.</span>
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <div class="col-md-6 col-md-offset-4 col-sm-6 col-sm-offset-4">
+                                                    @if (IsConditionExists)
+                                                    {
+                                                        <input type="checkbox" id="chkMonitoringChange" name="Flag" value="true">
+                                                        <span style="margin-right:10px"><strong>Monitor entire Product Layer for changes</strong></span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="checkbox" id="chkMonitoringChange" name="Flag" value="true" checked="checked">
+                                                        <span style="margin-right:10px"><strong>Monitor entire Product Layer for changes</strong></span>
+                                                    }
+                                                    @if (IsConditionExists)
+                                                    {
+                                                        <input class="btn btn-primary btnBlack " id="btnCreateMonitoringProfile" type="button" value="Edit Elements" data-val="@EditMonitorId" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input class="btn btn-primary btnBlack " id="btnCreateMonitoringProfile" type="button" value="Add Elements" disabled="disabled" />
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <div class="col-sm-4 text-right">
+
+                                                </div>
+                                                <div class="col-sm-6 text-left">
+
+                                                    <input type="radio" name="BusinessLevel" class="rButton" value="Level1" checked="checked" />&nbsp;<span><strong>Retrieve changes only</strong></span> &nbsp;&nbsp;&nbsp;
+                                                    <input type="radio" name="BusinessLevel" class="rButton" value="Level2" />&nbsp;<span><strong>Retrieve complete record</strong></span> &nbsp;&nbsp;&nbsp;
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <div class="col-sm-4 text-right">
+                                                    <span class="v-align-text"><strong>Customer Reference Text :</strong></span>
+                                                </div>
+                                                <div class="col-sm-6 text-left">
+                                                    @Html.TextBox("CustomerReferenceText", Model.CustomerReferenceText, new { @class = "form-control col-md-9", @placeholder = "Customer Reference Text", maxlength = "100" })
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6 col-sm-offset-4 paddingto5">
+                                                @if (EditMonitorId > 0)
+                                                {
+                                                    <a href="javascript:void(0)" class="btn btn-primary btnBlack CreateMonitoring"> Update Monitoring Profile</a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="javascript:void(0)" class="btn btn-primary btnBlack CreateMonitoring"> Create Monitoring Profile</a>
+                                                }
+                                                <input class="btn btn-primary btnBlack " id="btnCancel" type="button" value="Cancel" />
+                                            </div>
+                                            <br />
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+        </section>
+    </div>
+    <div class="loaderMain" id="divProgress">
+        <div class="loaderDiv">
+            <p class="loaderTxt">Please wait while processing...</p>
+        </div>
+    </div>
+}
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/CustomJS-minified/Common.js"></script>
+<script src="~/Scripts/CustomJS-minified/MonitorProfile.js"></script>
+<script src="~/Scripts/bootbox.min.js"></script>

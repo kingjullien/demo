@@ -1,0 +1,121 @@
+﻿@model SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.OICompanyInformationEntity
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@{
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divExportJobListing",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccessSendToOrb"
+    };
+    string Message = Convert.ToString(ViewBag.Message);
+}
+<div class="modal" id="OISendToOrbCompanyInformationModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@OIMatchDataLang.hdrCompanyInformation : @OIMatchDataLang.hdrSubmitForInvestigation</h4>
+            </div>
+            <div class="modal-body">
+                @if (!string.IsNullOrEmpty(Message))
+                {
+                    if (Message.Contains("Data created successfully"))
+                    {
+                        <script>
+            ShowMessageNotification("success", '@Message', true);
+                        </script>
+                    }
+                    else
+                    {
+                        <script>
+            ShowMessageNotification("success", '@Message', false);
+                        </script>
+                    }
+                }
+                <div class="">
+                    @using (Ajax.BeginForm("SendToOrbCompanyInformation", "OIMatchData", FormMethod.Post, ajaxOptions, new { id = "form_CompanyInformation" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.SrcRecordId)
+                        @Html.HiddenFor(m => m.Tags)
+                        @Html.HiddenFor(m => m.InputId)
+                        <div class="row">
+                            <div class="col-md-3 col-sm-3">
+                                <span><strong>@OIMatchDataLang.lblCompanyName</strong></span>
+                                @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control", @autocomplete = "off" })
+                                @Html.ValidationMessageFor(model => model.CompanyName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span><strong>@OIMatchDataLang.lblAddress1</strong></span>
+                                @Html.TextBoxFor(model => model.Address1, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span><strong>@OIMatchDataLang.lblAddress2</strong></span>
+                                @Html.TextBoxFor(model => model.Address2, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span><strong>@OIMatchDataLang.lblCity</strong></span>
+                                @Html.TextBoxFor(model => model.City, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-md-3 col-sm-3">
+                                <span><strong>@OIMatchDataLang.lblState</strong></span>
+                                @Html.TextBoxFor(model => model.State, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span><strong>@OIMatchDataLang.lblPostalCode</strong></span>
+                                @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span><strong>@OIMatchDataLang.lblCountry</strong></span>
+                                @Html.DropDownListFor(m => m.CountryISOAlpha2Code, new SelectList(CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text", "US"), new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span><strong>@OIMatchDataLang.lblPhoneNbr</strong></span>
+                                @Html.TextBoxFor(model => model.PhoneNbr, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-md-3 col-sm-3">
+                                <span><strong>@OIMatchDataLang.lblOrbNumber</strong></span>
+                                @Html.TextBoxFor(model => model.OrbNum, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span><strong>@OIMatchDataLang.lblEIN</strong></span>
+                                @Html.TextBoxFor(model => model.EIN, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span><strong>@OIMatchDataLang.lblWebsite</strong></span>
+                                @Html.TextBoxFor(model => model.Website, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                            <div class="col-md-3 col-sm-3">
+                                <span><strong>@OIMatchDataLang.lblEmail</strong></span>
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="row margintop10">
+                            <div class="col-md-6 col-sm-6">
+                                <span><strong>@OIMatchDataLang.lblMessage</strong></span>
+                                @Html.TextAreaFor(m => m.Message, new { @class = "form-control", rows = "4", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="row margintop10 custom-text-align-center">
+                            <div class="col-md-12">
+                                <input type="submit" value="@OIMatchDataLang.titleSubmit" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+ 

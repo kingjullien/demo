@@ -1,0 +1,123 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@model MonitoringProfileEntity
+@using SBISCCMWeb.Models;
+@{
+    Layout = null;
+    int EditMonitorId = 0;
+    if (ViewBag.EditMonitorId != null)
+    {
+        EditMonitorId = Convert.ToInt32(ViewBag.EditMonitorId);
+    }
+    bool IsConditionExists = Convert.ToBoolean(ViewBag.IsConditionExists);
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "OnSuccessAddUpdateMonitorProfile"
+    };
+}
+
+<article class="col-md-12  sortable-grid ui-sortable " id="articleAddUpdateMonitorProfile">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrMonitorProfile</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                <li>
+                    <div class="btn btn-sm" id="AddMonitorProfile" title="@DandBSettingLang.titleAddMonitorProfile">
+                        <span class="fa fa-plus"></span>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn btn-sm" id="EditMonitorProfile" title="@DandBSettingLang.titleEditMonitorProfile">
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div id="hr2" class="tab-pane fade fade active in">
+                        @using (Ajax.BeginForm("CreateMonitorProfile", "DNBMonitoring", null, ajaxOptions, new { id = "monitoringFrm", @autocomplete = "off" }))
+                        {
+                            @Html.Hidden("ProfileId", EditMonitorId)
+                            @Html.Hidden("MonitoringProfileID", Model.MonitoringProfileID)
+                            @Html.Hidden("Level", Model.MonitoringLevel)
+                            @Html.AntiForgeryToken();
+                            <div class="">
+                                <div class="row">
+                                    <div class="col-sm-4 ">
+                                        <span class="v-align-text"><strong>@DandBSettingLang.lblProfileName</strong></span>
+                                        @Html.TextBox("profileName", Model.ProfileName, new { @class = "form-control col-md-12", @placeholder = "Profile Name", maxlength = "50", @autocomplete = "off", disabled = "disabled" })
+                                        <span id="spnName" class="MonitoringError" style="display:none;">@DandBSettingLang.lblProfileNameRequired.</span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="v-align-text"><strong>@DandBSettingLang.lblDescription</strong></span>
+                                        @Html.TextBox("description", Model.ProfileDescription, new { @class = "form-control col-md-12", @placeholder = "Profile Description", maxlength = "200", @autocomplete = "off", disabled = "disabled" })
+                                        <span id="spnDescription" class="MonitoringError" style="display:none;">@DandBSettingLang.lblDescriptionRequired</span>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <span class="v-align-text"><strong>@DandBSettingLang.lblCustomerReferenceText</strong></span>
+                                        @Html.TextBox("CustomerReferenceText", Model.CustomerReferenceText, new { @class = "form-control col-md-9", @placeholder = "Customer Reference Text", maxlength = "100", @autocomplete = "off", disabled = "disabled" })
+                                    </div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col-sm-4 paddingtop7">
+                                        <span class="v-align-text"><strong>@DandBSettingLang.lblProductLayer</strong></span>
+                                        @Html.DropDownList("Product", new SelectList(SBISCCMWeb.Controllers.DNBMonitoringController.GetAllProductData(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "ProductID", "ProductCode", Model.ProductID), CommonMessagesLang.lblSelectProductLayer, new { @class = "form-control selectbox", disabled = "disabled", @autocomplete = "off" })
+                                        <span id="spnProduct" class="MonitoringError" style="display:none;">@DandBSettingLang.lblProductRequired</span>
+                                    </div>
+                                    <div class="col-md-4  col-sm-4 paddingto5">
+                                        @if (IsConditionExists)
+                                        {
+                                            <input type="checkbox" id="chkMonitoringChange" name="Flag" value="true" disabled="disabled">
+                                            <span style="margin-right:10px"><strong>@DandBSettingLang.lblMonitorEntireProductLayer</strong></span><br />
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox" id="chkMonitoringChange" name="Flag" value="true" checked="checked" disabled="disabled">
+                                            <span style="margin-right:10px"><strong>@DandBSettingLang.lblMonitorEntireProductLayer</strong></span><br />
+                                        }
+                                        @if (IsConditionExists)
+                                        {
+                                            <input class="btn" id="btnCreateMonitoringProfile" type="button" value="@DandBSettingLang.lblEditElements" data-val="@EditMonitorId" disabled="disabled" />
+                                        }
+                                        else
+                                        {
+                                            <input class="btn " id="btnCreateMonitoringProfile" type="button" value="@DandBSettingLang.lblAddElements" disabled="disabled" />
+                                        }
+                                    </div>
+
+                                    <div class="col-sm-4 col-md-4 paddingtop25">
+                                        <input type="radio" name="BusinessLevel" class="rButton" value="Level1" @(Model.MonitoringLevel == "Level1" ? "checked='checked'" : "") disabled="disabled" />&nbsp;<span><strong>@DandBSettingLang.lblRetrievechangesonly</strong></span> <br />
+                                        <input type="radio" name="BusinessLevel" class="rButton" value="Level2" @(Model.MonitoringLevel == "Level2" ? "checked='checked'" : "") disabled="disabled" />&nbsp;<span><strong>@DandBSettingLang.lblRetrievecompleterecord</strong></span> &nbsp;&nbsp;&nbsp;
+                                    </div>
+                                </div>
+                                <div class="text-right row">
+                                    <div class="col-md-12 paddingto5">
+                                        @if (Model.MonitoringProfileID > 0)
+                                        {
+                                            <a href="javascript:void(0)" class="btn btn-primary btnBlack CreateMonitoring" style="display:none;">@DandBSettingLang.lblUpdateMonitoringProfile</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="javascript:void(0)" class="btn btn-primary btnBlack CreateMonitoring" style="display:none;"> @DandBSettingLang.lblCreateMonitoringProfile</a>
+                                        }
+                                        <input class="btn btn-Secondary" id="btnCancel" type="button" value="@DandBSettingLang.lblCancel" style="display:none;" />
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+<br />

@@ -1,0 +1,84 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Models
+@using SBISCCMWeb.Utility
+@model ReviewDataFilter
+@{
+    Layout = null;
+}
+<div class="modal" id="ReviewDataFilterModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@ReviewMatchLang.hdrReviewData</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="row paddingtop8">
+                        <div class="col-xs-6">
+                            @Html.HiddenFor(model => model.ConfidenceCode)
+                            @Html.CheckBoxFor(model => model.TopMatchCandidate)
+                            <span><strong>@ReviewMatchLang.lblTopMatchCandidate</strong></span>
+                        </div>
+                        <div class="col-xs-6">
+                            <span><strong>@ReviewMatchLang.lblCountryGroup</strong></span>
+                            <div class="AddContrygroupCls DisplayFlex">
+                                @Html.DropDownListFor(model => model.CountryGroup, new SelectList(new CommonDropdown().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName"), new { @class = "form-control selectbox AddableCountryGroup", @autocomplete = "off" })
+                                @if (Helper.UserType.ToLower() != "steward")
+                                {<i class="fa fa-plus CreateCountyGroup" onclick="addNewCountryGroup()"></i>}
+                                <span class="error" id="spnGroupId" style="display:none">@ReviewMatchLang.lblGroupIdRequired</span>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row paddingtop8">
+                        <div class="col-xs-6">
+                            <span><strong>@ReviewMatchLang.lblNumberofRecordsPerPage</strong></span>
+                            @Html.DropDownListFor(model => Model.pagevalue, new SelectList(CommonDropdown.GetPageSizeRevireData(), Convert.ToInt32(SessionHelper.Review_pageno)), new { id = "pagevalue", @class = "pagevalueChange form-control", @autocomplete = "off" })
+                        </div>
+                        <div class="col-xs-6 divMultipleConfidenceCode">
+                            <span><strong>@ReviewMatchLang.lblConfidenceCodes</strong></span>
+                            <div>
+                                @Html.DropDownList("MultipleConfidenceCode", new SelectList(new CommonDropdown().ComboboxItems("AutoSettingConfidenceCode"), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row paddingtop8">
+                        @if (Helper.LicenseEnableTags)
+                        {
+                            <div class="col-xs-6">
+                                <span><strong>@ReviewMatchLang.lblTag</strong></span>
+                                <div class="tagstylebox">
+                                    @Html.DropDownListFor(model => model.Tags, new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, false), "Tag", "TagName").InsertEmptyFirst(CommonMessagesLang.lblSelectTag), new { @class = "form-control selectbox", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        }
+                        <div class="col-xs-6">
+                            <span><strong>@ReviewMatchLang.lblOrderBy</strong></span>
+                            @Html.DropDownListFor(model => model.OrderBy, new SelectList(CommonDropdown.GetOrderBy()), new { @class = "form-control selectbox", @autocomplete = "off" })
+                        </div>
+                    </div>
+                    <div class="row paddingtop8">
+                        <div class="col-xs-4"><span>&nbsp;</span></div>
+                        <div class="col-xs-4 text-center">
+                            <input id="btnReviewDataSearch" class="btn btn-primary" type="button" name="btnReviewDataSearch" value="@ReviewMatchLang.lblApply" />
+
+                            <a class="btn btn-Secondary " onclick="ClearReviewData()">@ReviewMatchLang.lblClear</a>
+                        </div>
+                        <div class="col-xs-4"><span>&nbsp;</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+

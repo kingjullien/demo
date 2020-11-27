@@ -1,0 +1,134 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@model List<ExportJobSettingsEntity>
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divExportJobListing",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnSuccess = "OnSuccess"
+    };
+
+
+    string url = Request.Url.Scheme + "://" + Request.Url.Authority + Url.Action("Login", "Account");
+    string[] hostParts = new System.Uri(url).Host.Split('.');
+    string domain = hostParts[0];
+    string FileType = Convert.ToString(ViewBag.FileType);
+
+}
+@using (Ajax.BeginForm("Index", "ExportView", FormMethod.Post, ajaxOptions, new { id = "form_ExportData", @autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("FileType", FileType)
+    <label class="select pull-left margin-left-13">
+        @Html.DropDownList("DisplayFileType", new SelectList(CommonDropdown.GetFileType(), Convert.ToString(ViewBag.FileType)), new { id = "DisplayFileType", @class = "DisplayFileType", @autocomplete = "off" })<em></em>
+    </label>
+    <table id="ExportJobs" class="table table-bordered panel-group">
+        <thead>
+            <tr>
+                <th>@ExportLang.lblFileName</th>
+                <th>@ExportLang.lblRequestedDate</th>
+                <th>@ExportLang.lblStatus</th>
+                <th class="nosort">@ExportLang.lblDownload</th>
+                <th class="nosort">@ExportLang.lblCancel</th>
+                <th class="nosort">@ExportLang.lblDelete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    string ApiName = (item.MatchOutPut ? " " + ExportLang.lblMatchOutput +"," : "") + (item.Enrichment ? " " + ExportLang.lblEnrichmentOutput +"," : "") + (item.ActiveDataQueue ? " " + ExportLang.lblActiveDataQueue +"," : "") + (item.LCMQueue ? " " + ExportLang.lblLowConfidenceQueue +"," : "") + (item.NoMatchQueue ? " " + ExportLang.lblNoMatchQueue +"," : "") + (item.TrasferedDuns ? " " + ExportLang.lblTransferredDuns +"," : "");
+                    string strTitle = string.Empty;
+                    if (Helper.LicenseEnableTags)
+                    {
+                        strTitle += "<strong>" + ExportLang.lblTags + ":</strong>" + (!string.IsNullOrEmpty(item.Tags) ? (item.Tags == "[*]" ? "" + ExportLang.lblNoTag + " </br>" : item.Tags + " </br> ") : "</br>");
+                        strTitle += "<strong>" + ExportLang.lblLOBTags + ":</strong>" + (!string.IsNullOrEmpty(item.LOBTag) ? "'" + item.LOBTag + "</br> " : "</br>");
+                    }
+                    strTitle += "<strong>" + ExportLang.lblImportProcess + ":</strong>" + (!string.IsNullOrEmpty(item.Input) ? item.Input + "</br> " : " </br>");
+                    strTitle += "<strong>" + ExportLang.lblOutputQueue + ":</strong>" + (!string.IsNullOrEmpty(ApiName) ? ApiName.TrimEnd(',') : "") + "</br>";
+                    strTitle += "<strong>" + ExportLang.lblFormat + ":</strong>" + (!string.IsNullOrEmpty(item.Format) ? item.Format.Replace("TSV", "Tab Separated").Replace("Delimiter", "Custom Delimiter") : "") + "</br> ";
+                    strTitle += "<strong>" + ExportLang.lblMarkAsExported + ":</strong>" + item.MarkAsExported + "</br>";
+                    strTitle += "<span style='word-break: break-all;display:block;'><strong>" + ExportLang.lblSrcRecID + ":</strong>" + (!string.IsNullOrEmpty(item.SrcRecID) ? item.SrcRecID + "</br>" : " </span>");
+                    strTitle += "<strong>" + ExportLang.lblIsExactMatch + ":</strong>" + item.SrcRecIdExactMatch;
+
+                    <tr data-toggle="popover" data-trigger="hover" data-placement="top" title="<strong class='abccc'>Process<strong>" data-content="@strTitle" data-html="true">
+                        <td class="WordBreak">@item.FilePath</td>
+                        <td>@item.RequestedDate.ToDatetimeFull()</td>
+                        <td>
+                            @if (item.IsProcessComplete)
+                            {
+                                <strong class="ColorGreen">
+                                    <span>@ExportLang.lblReady</span>
+                                </strong>
+                            }
+                            else if (@item.IsCancelled)
+                            {<span class="ColorF">@ExportLang.lblCancelled</span>}
+                        else if (!item.IsProcessComplete && item.ProcessStartDate != null && item.ProcessEndDate != null)
+                        {
+                            {<span class="ColorF"><span title="@item.ErrorMessage">@ExportLang.lblFailed</span></span>}
+                    }
+                    else
+                    {
+                        <strong>
+                            <span class="colorInProgress">@ExportLang.lblInProcess</span>
+                        </strong>
+                    }
+                        </td>
+                        <td>
+                            @if (@item.IsProcessComplete)
+                            {
+                                <a href="/ExportView/GetBlobFile?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(ImageHelper.GetFileURLByDomain("exportdata\\"+ domain, @item.FilePath)))" id="lnkDownload" onclick=" return SetDownloadValue()" title="@ExportLang.titleDownload" data-Id="@item.Id"><i class="fa fa-download fa-lg" aria-hidden="true"></i></a>
+                            }
+                        </td>
+                        <td>
+
+
+                            @if (!@item.IsProcessComplete && item.ProcessStartDate == null && !item.IsCancelled && item.UserId == Helper.oUser.UserId)
+                            {
+                                <a href="javascript:void(0)" id="@item.Id" class="CancelFile">@ExportLang.lblCancel</a>
+                            }
+                        </td>
+                        <td>
+                            @if (@item.UserId == Helper.oUser.UserId && item.ApplicationId == this.LayoutModel.CurrentClient.ApplicationId && @item.IsProcessComplete)
+                            {
+                                <a href="javascript:void(0)" id="@item.Id" class="deleteFile">@ExportLang.lblDelete</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+@if (!string.IsNullOrEmpty(SessionHelper.ExportView_Message))
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+                //show notification message instade of Bootbox Message...if you pass "success" than show Notification message and if you pass "error" than show bootbox message.
+                ShowMessageNotification("success",'@SessionHelper.ExportView_Message', false);
+            });
+    </script>
+    SessionHelper.ExportView_Message = null;
+}
+@if (ViewBag.SelectedTab == "CompanyData")
+{
+    <script>
+        $(document).ready(function () {
+            $('table#ExportJobs tbody tr:first').addClass('current');
+            InitPortalExportCompayData();
+            OnSuccess();
+        });
+    </script>
+}
+
+
+
+
+
+
+
+

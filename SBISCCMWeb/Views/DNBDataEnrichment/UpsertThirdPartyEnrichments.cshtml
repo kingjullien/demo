@@ -1,0 +1,151 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.LanguageResources
+@using System.Linq
+@model ThirdPartyEnrichmentsEntity
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "SuccessAddUpdateThirdPartyEnrichment"
+    };
+    string UserRoles = Helper.oUser.UserRole;
+    if (Model != null)
+    {
+        Model.PeriodicRefreshIntervalDays = 30;
+    }
+    List<CVRefEntity> refEntities = new List<CVRefEntity>();
+    refEntities = CommonDropdown.GetThirdPartyProviders(0, this.LayoutModel.CurrentClient.ApplicationDBConnectionString);
+    string Provider = string.Empty;
+    var objRef = refEntities.Where(x => x.Value == Model.ThirdPartyProvider).FirstOrDefault();
+    Provider = objRef != null ? objRef.Value + "::" + objRef.Code : "";
+}
+<style type="text/css">
+    #ThirdPartyEnrichmentFieldsValue .multiselect-container {
+        width: 100% !important;
+    }
+</style>
+
+<article class="sortable-grid ui-sortable col-md-12" id="articleAddupdateThirdPartyEnrichment">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.lblThirdPartyEnrichment</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                @if (Helper.UserType.ToLower() != "steward")
+                {
+                    <li>
+                        <div class="btn btn-sm" id="AddThirdPartyEnrichment" title="@DandBSettingLang.titleAddThrirdPartyEnrichment">
+                            <span class="fa fa-plus"></span>
+                        </div>
+                    </li>
+                }
+                <li>
+                    <div class="btn btn-sm " id="editThirdPartyEnrichment" title="@DandBSettingLang.titleEditThrirdPartyEnrichment">
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content">
+                    <div id="hr1" class="tab-pane fade active in CustomHidden">
+                        @using (Ajax.BeginForm("UpsertThirdPartyEnrichments", "DNBDataEnrichment", null, ajaxOptions, new { @class = "formContent", id = "frm_ThirdPartyEnrichment", @autocomplete = "off" }))
+                        {
+                            @Html.HiddenFor(m => m.EnrichmentId)
+                            @Html.HiddenFor(m => m.CredentialId)
+                            @Html.HiddenFor(m => m.Tags, "")
+                            @Html.Hidden("TagList", Model.Tags)
+                            @Html.HiddenFor(m => m.EnrichmentFields, "")
+                            @Html.HiddenFor(m => m.ThirdPartyProvider, "")
+                            @Html.Hidden("ThirdPartyEnrichmentFieldsList", !string.IsNullOrEmpty(Model.EnrichmentURL) && !string.IsNullOrEmpty(Model.ThirdPartyProvider) ? Model.EnrichmentURL.Replace(System.Configuration.ConfigurationManager.AppSettings[Model.ThirdPartyProvider], "") : "")
+                            @Html.AntiForgeryToken()
+                            <div id="popupConfigData">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="control-label">@DandBSettingLang.lblThirdPartyProvider :</label>
+                                            @Html.DropDownList("ThirdPartyEnrichProvider", new SelectList(refEntities, "DDValue", "Description", Provider).InsertEmptyFirst("--Select--"), new { @class = "form-control", @autocomplete = "off", disabled = "disabled" })
+                                            <span id="spnErrroThirdPartyEnrichProvider" class="error" style="display:none;">@DandBSettingLang.lblThirdPartyProviderRequired</span>
+                                        </div>
+                                        <div class="col-md-3 enrichCredentialName">
+                                            <label class="control-label">@DandBSettingLang.lblCredentialName :</label>
+                                            @Html.DropDownList("EnrichCredential", new SelectList(CommonDropdown.GetThirdPartyAPICredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, !string.IsNullOrEmpty(Model.ThirdPartyProvider) ? Model.ThirdPartyProvider : ThirdPartyProvider.GOOG.ToString()), "Value", "Text", Model.CredentialId).InsertEmptyFirst("--Select--"), new { @class = "form-control", @autocomplete = "off", disabled = "disabled" })
+                                            <span id="spnErrroThirdPartyEnrichCred" class="error" style="display:none;">@DandBSettingLang.lblRequiredCredential</span>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-md-3">
+                                            <label class="control-label">@DandBSettingLang.lblDescription :</label>
+                                            @Html.TextBoxFor(@model => @model.EnrichmentDescription, new { @class = "form-control", disabled = "disabled", @autocomplete = "off", @maxlength = "64" })
+                                            <span id="spnErrEnrichmentDescription" class="error" style="display:none;">@DandBSettingLang.lblDescriptionRequired</span>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="control-label">@DandBSettingLang.lblFields :</label>
+                                            <div class="UsermultiSelect">
+                                                @Html.DropDownList("ThirdPartyEnrichmentFieldsValue", new SelectList(CommonDropdown.GetFieldsForThirdPartyEnrichment(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, Model.ThirdPartyProviderCode), "Value", "Text"), new { @class = "form-control chzn-select ThirdPartyEnrichmentFields", multiple = "true", disabled = "disabled", @autocomplete = "off" })
+                                                <span id="spnErrThirdPartyEnrichmentFieldsValue" class="error" style="display:none;">@DandBSettingLang.lblFieldRequired</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="control-label">@DandBSettingLang.lblCountryGroup :</label>
+                                            @Html.DropDownListFor(model => model.CountryGroupId, new SelectList(new CommonDropdown().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName").InsertEmptyFirst(CommonMessagesLang.lblSelectCountryGroup, "-1"), new { @class = "form-control selectbox", disabled = "disabled", @autocomplete = "off" })
+                                        </div>
+                                        <div class="col-md-3">
+                                            @if (Helper.LicenseEnableTags)
+                                            {<label class="control-label text-right">
+                                                    @DandBSettingLang.lblTags
+                                                    @if (UserRoles == UserRole.LOB.ToString())
+                                                    {<span class="error">*</span>}
+                                                    :
+                                                </label>
+                                                <div class="tagstylebox" style="display: flex">
+                                                    @Html.DropDownList("TagsValueEnrichment", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag"), new { @class = "form-control chzn-select ThirdPartyEnrichmentTag", multiple = "true", disabled = "disabled", @autocomplete = "off" })
+                                                    <em class="fa fa-plus OpenTags" style="display:none;" onclick="addNewTagsPopup()"></em>
+                                                </div>
+                                                <div class="enrichmentTags"><span id="spnTags" class="error" style="display:none;">@DandBSettingLang.lblTagRequired</span></div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-10">
+                                        <div class="col-md-3 margin-top-20">
+                                            <label>@DandBSettingLang.lblEnablePeriodicRefresh</label>
+                                            @Html.CheckBoxFor(@model => @model.EnablePeriodicRefresh, new { @class = "", disabled = "disabled", @autocomplete = "off" })
+                                        </div>
+                                        <div class="col-md-3">
+                                            <label class="control-label">@DandBSettingLang.lblPeriodicRefreshIntervalDays :</label>
+                                            @Html.TextBoxFor(@model => @model.PeriodicRefreshIntervalDays, new { @class = "form-control OnlyDigit", disabled = "disabled", @autocomplete = "off" })
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <br />
+                                            @if (Model.EnrichmentId > 0)
+                                            {
+                                                <input type="submit" value="@DandBSettingLang.lblUpdate" id="btnThirdPartyEnrichment" name="btnThirdPartyEnrichment" class="btn btn-primary btnThirdPartyEnrichment" style="display:none" />
+                                            }
+                                            else
+                                            {
+                                                <input type="submit" value="@DandBSettingLang.lblAdd" id="btnThirdPartyEnrichment" name="btnThirdPartyEnrichment" class="btn btn-primary btnThirdPartyEnrichment" style="display:none;" />
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<script>
+    $(document).ready(function () {
+        LoadTagsThirdPartyEnrichmentTags();
+        LoadThirdPartyEnrichmentFieldsValue();
+    });
+</script>

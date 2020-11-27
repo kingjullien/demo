@@ -1,0 +1,20 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model OIlstMatchDetails
+@{
+    Layout = null;
+    string Message = ViewBag.Message != null ? Convert.ToString(ViewBag.Message) : string.Empty;
+}
+<div class="">
+    @{Html.RenderPartial("~/Views/OI/OIMatchData/_SearchDetails.cshtml", Model); }
+    @{Html.RenderPartial("~/Views/OI/OIMatchData/_MatchesDetails.cshtml", Model); }
+</div>
+
+@if (!string.IsNullOrEmpty(Message))
+{
+    string[] splitStr = Message.Split('.');
+    string splitMessage = splitStr[0] + '.';
+    <script>
+            //show notification message instade of Bootbox Message...if you pass "success" than show Notification message and if you pass "error" than show bootbox message.
+            parent.ShowMessageNotification("success",'@splitMessage', false);
+    </script>
+}

@@ -1,0 +1,104 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@model SBISCCMWeb.Models.RegisterViewModel
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewBag.Title = AccountLang.titleRegister;
+}
+
+@section scripts
+{
+    <script type="text/javascript">
+        runAllForms();
+    </script>
+}
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
+		<h1 class="txt-color-red login-header-big">@AccountLang.hdrAdminPanel</h1>
+		<div class="hero">
+
+			<div class="pull-left login-desc-box-l">
+				<h4 class="paragraph-header">@AccountLang.hdrAdminExperience!</h4>
+				<div class="login-app-icons">
+					<a href="javascript:void(0);" class="btn btn-danger btn-sm">@AccountLang.lblFrontendTemplate</a>
+					<a href="javascript:void(0);" class="btn btn-danger btn-sm">@AccountLang.lblFindoutmore</a>
+				</div>
+			</div>
+							
+			<img src="/Images/iphoneview.png" class="pull-right display-image" alt="" style="width:210px">
+
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<h5 class="about-heading">@AccountLang.hdrAboutSmartAdmin?</h5>
+				<p>
+					@AccountLang.lblAboutSmartAdmin
+				</p>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<h5 class="about-heading">@AccountLang.hdrAverageTemplate</h5>
+				<p>
+					@AccountLang.lblAverageTemplate
+				</p>
+			</div>
+		</div>
+
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+		<div class="well no-padding">
+                @using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "smart-form client-form", role = "form", autocomplete = "off" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <header>
+					    @AccountLang.lblRegister
+				    </header>
+                    <fieldset>
+                        <section>
+                            @Html.LabelFor(m => m.FirstName, new { @class = "label" })
+						    <label class="input"> <i class="icon-append fa fa-user"></i>							
+                                @Html.TextBoxFor(m => m.FirstName, new { autocomplete = "off" })
+							    <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> @AccountLang.lblRequiredFirstName</b></label>
+                            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+					    </section>
+                        <section>
+                            @Html.LabelFor(m => m.LastName, new { @class = "label" })
+						    <label class="input"> <i class="icon-append fa fa-user"></i>							
+                                @Html.TextBoxFor(m => m.LastName, new { autocomplete = "off" })
+							<b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> @AccountLang.lblRequiredLastName</b></label>
+                            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+					    </section>
+                        <section>
+                            @Html.LabelFor(m => m.Email, new { @class = "label" })
+						    <label class="input"> <i class="icon-append fa fa-user"></i>							
+                                @Html.TextBoxFor(m => m.Email, new { autocomplete = "off" })
+							    <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> @AccountLang.lblRequiredEmailAddress</b></label>
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+					    </section>
+					    <section>
+						    @Html.LabelFor(m => m.Password, new { @class = "label" })
+						    <label class="input"> <i class="icon-append fa fa-lock"></i>
+							    @Html.PasswordFor(m => m.Password, new { autocomplete = "off" })
+							    <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> @AccountLang.lblEnterPassword</b> </label>
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+					    </section>
+                        <section>
+						    @Html.LabelFor(m => m.ConfirmPassword, new { @class = "label" })
+						    <label class="input"> <i class="icon-append fa fa-lock"></i>
+							    @Html.PasswordFor(m => m.ConfirmPassword, new { autocomplete = "off" })
+							    <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> @AccountLang.lblConfirmPassword</b> </label>
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+					    </section>
+                    </fieldset>
+                    <footer>
+                        <input type="submit" class="btn btn-primary pull-left" value="Register" />
+                        @Html.ActionLink(AccountLang.lblLogin, AccountLang.lblLogin, "Account",null, new { @class="btn btn-link" })
+                    </footer>
+                }
+
+		</div>
+						
+		@Html.Partial("_ExternalLoginsListPartial", new { Action = "ExternalLogin", ReturnUrl = ViewBag.ReturnUrl })				
+						
+	</div>
+</div>
+

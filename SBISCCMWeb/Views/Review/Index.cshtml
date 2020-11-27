@@ -1,0 +1,118 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@model IPagedList<dynamic>
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + ReviewMatchLang.titleReviewData;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + ReviewMatchLang.titleReviewData;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    string SelectedCountry = Convert.ToString(ViewBag.CountryGroup);
+    string UserRoles = Helper.oUser.UserRole;
+    string UserLOBTag = Helper.oUser.LOBTag;
+}
+@Html.Hidden("UserRole", UserRoles)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+<div id="content" style="opacity: 1; padding:40px 10px 10px 10px">
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable widget-data reviewZindex">
+                <div data-widget-editbutton="false" class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <div class="jarviswidget-ctrls" role="menu">
+                            <div class="clsAdditionActionFilter btn">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn dropdown-toggle btn-Secondary" data-toggle="dropdown" tabindex="-1">
+                                        @ReviewMatchLang.lblAdditionalActions<span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="javascript:void(0);" id="btnExportData">@ReviewMatchLang.lblExporttoExcel</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <h2><strong>@ReviewMatchLang.hdrReviewMatches</strong></h2>
+                    </header>
+                    <div role="content">
+                        <div id="ReviewMatchCandidatesFilterContainer">
+                            @Html.Partial("~/Views/Shared/FilterPartial.cshtml")
+                        </div>
+                        <div id="divReview">
+                            @{Html.RenderPartial("_Index", Model);}
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+<form action="~/Review/Index" method="post" id="form_ReviewData">
+    @Html.AntiForgeryToken()
+    @Html.Hidden("Export", "true")
+</form>
+<div id="ReviewDataFilterModalMain"></div>
+<div id="ReviewCC_ItemModalMain"></div>
+<div id="ReviewMatchDetailModalMain"></div>
+<div id="CleanSearchDataAddCompanyModalMain"></div>
+<div id="PreviewAutoAcceptanceModalMain"></div>
+
+@section scripts{
+    <script>
+         function setDOMValue(specialValue) {
+            var parser = new DOMParser;
+            var domValue = parser.parseFromString('<!doctype html><body>' + specialValue, 'text/html')
+            return domValue.body.textContent;
+        }
+
+        var acceptSelectedMatches = setDOMValue('@ReviewMatchLang.msgAcceptSelectedMatches') ;
+        var addCC = setDOMValue('@ReviewMatchLang.msgAddCC');
+        var addCCandMG = setDOMValue('@ReviewMatchLang.msgAddCCandMG');
+        var addCCandMGandMDP = setDOMValue('@ReviewMatchLang.msgAddCCandMGandMDP');
+        var excludeCCandMG = setDOMValue('@ReviewMatchLang.msgExcludeCCandMG');
+        var excludeCCandMGandMDP = setDOMValue('@ReviewMatchLang.msgExcludeCCandMGandMDP');
+        var showMatchDetail = setDOMValue('@ReviewMatchLang.msgShowMatchDetail');
+        var selectConfidenceCode = '@DandBSettingLang.lblSelectConfidenceCode';
+        var selectCompanyGrade = '@DandBSettingLang.lblSelectCompanyGrade';
+        var selectCompanyCode = '@DandBSettingLang.lblSelectCompanyCode';
+        var selectStreetGrade = '@DandBSettingLang.lblSelectStreetGrade';
+        var selectStreetCode = '@DandBSettingLang.lblSelectStreetCode';
+        var selectStreetNameCode = '@DandBSettingLang.lblSelectStreetNameCode';
+        var selectStreetNameGrade = '@DandBSettingLang.lblSelectStreetNameGrade';
+        var selectCityGrade = '@DandBSettingLang.lblSelectCityGrade';
+        var selectCityCode = '@DandBSettingLang.lblSelectCityCode';
+        var selectStateGrade = '@DandBSettingLang.lblSelectStateGrade';
+        var selectAddressGrade = '@DandBSettingLang.lblSelectAddressGrade';
+        var selectStateCode = '@DandBSettingLang.lblSelectStateCode';
+        var selectAddressCode = '@DandBSettingLang.lblSelectAddressCode';
+        var selectPhoneGrade = '@DandBSettingLang.lblSelectPhoneGrade';
+        var selectPhoneCode = '@DandBSettingLang.lblSelectPhoneCode';
+        var selectZipGrade = '@DandBSettingLang.lblSelectZipGrade';
+        var selectDensity = '@DandBSettingLang.lblSelectDensity';
+        var selectUniqueness = '@DandBSettingLang.lblSelectUniqueness';
+        var selectSIC = '@DandBSettingLang.lblSelectSIC';
+        var disableRule = '@DandBSettingLang.msgDisableRule';
+        var addNewCompany = '@MatchDataLang.msgAddNewCompany';
+        var selectZipCode = '@DandBSettingLang.msgSelectZipCode';
+        var selectDensityCode = '@DandBSettingLang.msgSelectDensityCode';
+        var selectUniquenessCode = '@DandBSettingLang.msgSelectUniquenessCode';
+        var selectSICCode = '@DandBSettingLang.msgSelectSICCode';
+
+    </script>
+    @Scripts.Render("~/bundles/review")
+}
+
+@if (!string.IsNullOrEmpty(SessionHelper.EmptyDataMessage))
+{
+    <script>
+        setTimeout(function () {
+            ShowMessageNotification("success", '@SessionHelper.EmptyDataMessage', true);
+        }, 3000);
+    </script>
+    SessionHelper.EmptyDataMessage = string.Empty;
+}

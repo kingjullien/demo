@@ -1,0 +1,137 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility
+@using Resources = ViewResources.BrandingTypes;
+@using SBISCCMWeb.LanguageResources;
+@model UsersEntity
+
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST"
+    };
+
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + HomeLang.lblSecurityQuestion;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + HomeLang.lblSecurityQuestion;
+    }
+    bool NotRemember = Convert.ToBoolean(ViewBag.NotRemember);
+    bool RememberMe = Convert.ToBoolean(ViewBag.RememberMe);
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+@{
+    var profileImg = "/Images/ClientLogos/" + Helper.ClientLogo;
+    var absolutePath = HttpContext.Current.Server.MapPath(profileImg);
+}
+
+<link href="~/Content/Custom.css" rel="stylesheet" />
+@if (Helper.Branding == Branding.Matchbook.ToString())
+{
+    <header id="header" class="clsHeader" style="background-color:#103d6c!important;">
+        @if (Helper.Branding == Branding.Matchbook.ToString())
+        {
+            <div id="logo-group">
+                <span id="logo">
+                    <a href="#">
+                        @{
+                            var imagepath = Resources.Resource_Matchbook.LogoImage;
+                        }
+                        <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(imagepath))" alt="logo" style="width:auto!important;">
+                    </a>
+                </span>
+            </div>
+        }
+        else if (Helper.Branding == Branding.DandB.ToString())
+        {
+            <div id="logo-group">
+                <span id="logo">
+                    <a href="#">
+                        @{
+                            var imagepath = Resources.Resource_DandB.LoginImage;
+                        }
+                        <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(imagepath))" alt="logo">
+                    </a>
+                </span>
+            </div>
+        }
+        <div class="pull-right">
+            @if (System.IO.File.Exists(absolutePath))
+            {
+                <img alt="@SessionHelper.ClientName" class="MainClientLogo" src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(profileImg))" />
+            }
+            else if (!string.IsNullOrEmpty(Helper.ClientLogo))
+            {
+                <img src="/Image/GetBlobImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(ImageHelper.GetImageThumbURL(ImageHelper.PictureType.clientlogo, @Helper.ClientLogo)))" class="MainClientLogo" />
+            }
+        </div>
+    </header>
+}
+
+else if (Helper.Branding == Branding.DandB.ToString())
+{
+    <header id="header" class="clsHeader" style="background-color:#4EB3D1!important;">
+        @if (Helper.Branding == Branding.Matchbook.ToString())
+        {
+            <div id="logo-group">
+                <span id="logo">
+                    <a href="#">
+                        @{
+                            var imagepath = Resources.Resource_Matchbook.LogoImage;
+                        }
+                        <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(imagepath))" alt="logo" style="width:auto!important;">
+                    </a>
+                </span>
+            </div>
+        }
+        else if (Helper.Branding == Branding.DandB.ToString())
+        {
+            <div id="logo-group">
+                <span id="logo">
+                    <a href="#">
+                        @{
+                            var imagepath = Resources.Resource_DandB.LoginImage;
+                        }
+                        <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(imagepath))" alt="logo">
+                    </a>
+                </span>
+            </div>
+        }
+        <div class="pull-right">
+            @if (!string.IsNullOrEmpty(Helper.ClientLogo))
+            {
+                <img src="/Image/GetBlobImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(ImageHelper.GetImageThumbURL(ImageHelper.PictureType.clientlogo, @Helper.ClientLogo)))" class="MainClientLogo" />
+            }
+        </div>
+    </header>
+}
+
+@Html.Hidden("RememberMe", RememberMe)
+<div class="CenterUserSecurity">
+    <h2>@HomeLang.hdrSecurityQuestionandAnswer</h2>
+    @using (Html.BeginForm("UserSecurity", "Home", FormMethod.Post, new { @class = "new-profiledata answerformdesign", @autocomplete = "off" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationMessage("IncorrectAnswerError", new { @class = "text-danger ", @autocomplete = "off" })
+
+        { Html.RenderPartial("_SecurityAnswer", Model); }
+
+
+        @Html.Hidden("SecurityQuestionId", Model.SecurityQuestionId)
+        if (!NotRemember)
+        {
+            <br />
+            @Html.Raw("<span>" + HomeLang.lblRememberSecurityQuestion + "</span><a href='/Account/SendEmailVerificationCode' class='sendEmail'> " + HomeLang.lblGetVerificationCode + "</a>")
+            <br />
+            @Html.Raw("<input type='checkbox' name='RememberMachineDetails' id='RememberMachineDetails'   />&nbsp;&nbsp;<span>" + HomeLang.lblRememberOnMachine + "</span>")
+        }
+        <input type="submit" value="@HomeLang.lblSubmit" class="btn btn-primary btn-block" />
+    }
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/usersecurity")
+}
+

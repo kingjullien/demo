@@ -1,0 +1,47 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+
+<div class="tabs-left">
+    <ul class="nav nav-tabs tabs-left @(Helper.UserType.ToLower() == "steward" ? "stewardMonitoringRightTab" : "")" id="MonitoringRightTab">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#RTabMonitoring" id="IdRTabMonitoring" aria-expanded="false">@DandBSettingLang.lblMonitoring</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#RTabUserPreference" id="IdRTabUserPreference" aria-expanded="false">@DandBSettingLang.lblUserPreference</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#RTabNotificationProfile" id="IdRTabNotificationProfile" aria-expanded="false">@DandBSettingLang.lblNotificationProfile</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#RTabDUNSRegistration" id="IdRTabDUNSRegistration" aria-expanded="false">@DandBSettingLang.lblDUNSRegistrationSetup</a>
+        </li>
+    </ul>
+    <div class="tab-content CommonTabContent padding-top-30px" id="MonitoringRightTabcontent">
+        <div id="RTabMonitoring" class="tab-pane active">
+            <div id="divPartialAddUpdateMonitoringData">
+                @{Html.RenderAction("CreateMonitorProfile", "DNBMonitoring"); }
+            </div>
+            <div id="divPartialMonitoringData">
+                @{Html.RenderAction("IndexMonitoringProfile", "DNBMonitoring");}
+            </div>
+        </div>
+        <div id="RTabUserPreference" class="tab-pane">
+            <div id="divPartialAddUpdateUserPreference">
+            </div>
+            <div id="divPartialUserPrefrenceData">
+            </div>
+        </div>
+        <div id="RTabNotificationProfile" class="tab-pane">
+            <div id="divPartialAddUpdateNotificationProfileData">
+            </div>
+            <div id="divPartialNotificationProfileData">
+            </div>
+        </div>
+        <div id="RTabDUNSRegistration" class="tab-pane">
+            <div id="divPartialAddUpdateDUNSRegistration">
+            </div>
+            <div id="divPartialDUNSregistrationData">
+            </div>
+        </div>
+    </div>
+</div>

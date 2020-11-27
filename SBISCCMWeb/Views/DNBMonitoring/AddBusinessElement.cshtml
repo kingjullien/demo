@@ -1,0 +1,247 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.Models;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@model List<TempMonitoring>
+@{
+    ViewBag.Title = DandBSettingLang.titleMonitorProfile;
+    Layout = null;
+    string ProductElementID = !string.IsNullOrEmpty(Convert.ToString(ViewBag.ProductElementID)) ? Convert.ToString(ViewBag.ProductElementID) : "0";
+    string SingleCondition = ViewBag.SingleCondition != null ? ViewBag.SingleCondition : "";
+    string BusinessCondionUpdateId = !string.IsNullOrEmpty(SessionHelper.BusinessCondionUpdateId) ? SessionHelper.BusinessCondionUpdateId : "";
+    string ConditionListUpdatesId = SessionHelper.ConditionListUpdatesId;
+
+    int SetId = 0;
+}
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST"
+    };
+    SBISCCMWeb.Controllers.DNBMonitoringController objDandBController = new SBISCCMWeb.Controllers.DNBMonitoringController();
+    List<MonitoringElementConditionsEntity> lstMonitoringElemetsEntity = Newtonsoft.Json.JsonConvert.DeserializeObject<List<MonitoringElementConditionsEntity>>(SessionHelper.lstMonitoringElemetsEntity);
+}
+@*<style>
+    .addBusinessElementPopup {
+        padding-top: 450px;
+        padding-left: 10px;
+        height: 470px;
+    }
+</style>*@
+@Html.AntiForgeryToken()
+@Html.Hidden("ChangeCondition", SingleCondition)
+@Html.Hidden("BusinessCondionUpdateId", BusinessCondionUpdateId)
+@Html.Hidden("lstCount", Model.Count)
+@Html.Hidden("ParentElements", "")
+@Html.Hidden("ParentCondition", "")
+@Html.Hidden("ElementType", Helper.ElementType)
+@Html.Hidden("SetId", SetId)
+<div class="modal" id="AddBusinessElementModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" style="width:1175px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">
+                    @if (Convert.ToInt32(ProductElementID) > 0)
+                    {
+                        @DandBSettingLang.hdrEditBusinessElements
+                    }
+                    else
+                    {
+                        @DandBSettingLang.hdrAddBusinessElements
+                    }
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div id="hr2" class="tab-pane fade fade active in">
+                    <div class="form-group">
+                        <div class="row paddingto5">
+                            <div class="col-sm-3">
+                                <span><strong>@DandBSettingLang.lblElement</strong></span>
+                                @Html.DropDownList("BusinessProductElement", new SelectList(objDandBController.GetAllProductElement(lstMonitoringElemetsEntity, ProductElementID, this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "ProductElementID", "ElementName", ProductElementID), "-Select-", new { @class = "form-control selectbox", value = ProductElementID, @autocomplete = "off" })
+                                <span id="spnBusinessProductElement" class="MonitoringError" style="display:none;">@DandBSettingLang.lblElementRequired</span>
+                            </div>
+                            <div class="col-sm-3">
+                                <span><strong>Conditions</strong></span>
+                                @Html.DropDownList("SelectBusinessConditions", new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text", SingleCondition), new { @class = "form-control selectbox", @autocomplete = "off" })
+                                <span id="spnBusinessConditions" class="MonitoringError" style="display:none;">@DandBSettingLang.lblConditionsRequired</span>
+                            </div>
+                            <div class="col-sm-2">
+                                @*<span><strong>&nbsp;</strong></span>*@
+                                @if (SingleCondition == "MultiCondition")
+                                {
+                                    <input id="btnCreateConditions" class="btn btn-primary btnBlack form-control margintop15" type="submit" value="@DandBSettingLang.lblCreateConditions" style="display:none" />
+                                }
+                                else
+                                {
+                                    <input id="btnCreateConditions" class="btn btn-primary btnBlack form-control margintop15" type="submit" value="@DandBSettingLang.lblCreateConditions" hidden="hidden" style="display:none" />
+                                }
+                            </div>
+                        </div>
+                        <div class="row paddingto5">
+                            <div class="col-xs-1">
+                                <input id="btncloseBusinessElements" class="btn btn-primary btnBlack form-control" type="button" value="@DandBSettingLang.lblSave" />
+                            </div>
+                        </div>
+                        <div class="row paddingto5">
+                            <div class="col-md-12">
+                                <span class="lblCondition"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="BusinessElements addBusinessElementPopup">
+
+                </div>
+                <div class="MultiConditionSection" style="display:none;">
+                    <div id="content" style="opacity: 1;" class="overflow-hidden">
+                        <section id="widget-grid" class="">
+                            <div class="row">
+                                @using (Ajax.BeginForm("AddElementCondition", "DNBMonitoring", null, ajaxOptions, new { @class = "formContent", @autocomplete = "off" }))
+                                {
+
+                                    <article class="col-xs-12  sortable-grid ui-sortable">
+                                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                            <header role="heading">
+                                                <h2>
+                                                    <strong>@DandBSettingLang.lblConditions</strong>
+                                                </h2>
+                                                <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                                                    <li>
+
+                                                    </li>
+                                                </ul>
+                                            </header>
+
+                                            <div role="content">
+                                                <div class="jarviswidget-editbox"></div>
+                                                <div class="widget-body no-padding custome-section CustomElments">
+                                                    <div class="tab-content padding-10">
+                                                        <div id="hr2" class="tab-pane fade fade active in">
+                                                            <div class="form-group">
+                                                                <div class="row paddingto5">
+                                                                    <div class="col-sm-6">
+                                                                        <span class="context-menu-one Conditon">@DandBSettingLang.lblAnd</span>
+                                                                        <a id="btnSubmit" href="#"><span class="glyphicon glyphicon-plus" id="AddCondition"></span></a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="col-xs-12  sortable-grid ui-sortable">
+                                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark boxheight" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                            <header role="heading">
+                                                <h2>
+                                                    <strong></strong>
+                                                </h2>
+                                                <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                                                    <li>
+                                                    </li>
+                                                </ul>
+                                            </header>
+
+                                            <div role="content">
+                                                <div class="jarviswidget-editbox"></div>
+                                                <div class="widget-body no-padding">
+
+                                                    <div id="ElementsList" class="tab-content padding-10">
+
+                                                        @{Html.RenderPartial("_conditonListView", Model);}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <br />
+                                        </div>
+                                    </article>
+                                    <div class="row addCondition">
+                                        <div class="col-sm-1">
+                                            <button class="btn btn-primary form-control AddinList">@DandBSettingLang.lblSave</button>
+                                            @{TempData.Keep();}
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var ElementType = "";
+    $(document).ready(function () {
+        $("#artGroup").hide();
+        $("#divProgress").hide();
+        var element = $("#ProductElement option:selected").text();
+        if ($("#SelectBusinessConditions").length > 0) {
+
+            var ConditionsType = $("#SelectBusinessConditions").val();
+            if (ConditionsType != undefined && ConditionsType.toLowerCase() == "multicondition") {
+                $("#btnCreateConditions").show();
+                $("#btncloseBusinessElements").hide();
+            }
+            else {
+                $("#btnCreateConditions").hide();
+                $("#btncloseBusinessElements").show();
+            }
+        }
+        if ($(".AddinList").html() == "Update") {
+            $("#artGroup").show();
+        }
+
+        if ($("#BusinessCondionUpdateId").length > 0) {
+            $("#btnCreateConditions").hide();
+            $(".MultiConditionSection").hide();
+            SetBusinessCondition();
+            $("#SelectBusinessConditions").val($("#ChangeCondition").val());
+            if ($("#lstCount").val() != undefined && $("#lstCount").val() > 0) {
+                $(".MultiConditionSection").show();
+                $("#btncloseBusinessElements").hide();
+                $("#btnCreateConditions").show();
+                $("#artGroup").each(function () {
+                    $(this).show();
+                });
+                $("#ParentElements").val($("#BusinessProductElement option:selected").text());
+                $("#ParentCondition").val($("#SelectBusinessConditions option:selected").text());
+            }
+
+        }
+
+        if ($("#ElementType").length > 0) {
+            ElementType = $("#ElementType").val()
+
+        }
+        var strCondition = $("#strCondition").each(function () {
+            $(".lblCondition").text("Your Condition should be : " + $(this).val());
+        });
+        var LevelValue = $("#Level").val();
+        if (LevelValue != undefined && LevelValue == "Level1") {
+            $(".rButton[value='Level1']").attr("checked", true);
+
+        } else if (LevelValue != undefined && LevelValue == "Level2") {
+
+            $(".rButton[value='Level2']").attr("checked", true);
+        } else if (LevelValue == undefined || LevelValue == "") {
+            $(".rButton[value='Level1']").attr("checked", true);
+
+        }
+    });
+</script>
+@if (SingleCondition == "MultiCondition")
+{
+    <script type="text/javascript">
+        $("#btnCreateConditions").show();
+    </script>
+}

@@ -1,0 +1,81 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.LanguageResources;
+@model List<ImportFileConfigurationEntity>
+@using SBISCCMWeb.Utility
+<article class="col-md-12 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@PortalSettingLang.hdrConfigureImportsList</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                {
+                    if (Helper.UserType.ToLower() != "steward")
+                    {
+                        <li>
+                            <div class="btn btn-sm " title="@PortalSettingLang.titleAddConfigureImports" onclick="InsertUpdateConfigureImports(0,0)">
+                                <span class="fa fa-plus"></span>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    @Html.AntiForgeryToken()
+
+                    <div class="table-responsive" style="overflow-x:visible!important">
+                        <table class="table table-bordered wordwrap" id="tbConfigureImport">
+                            <thead>
+                                <tr>
+                                    <th>@PortalSettingLang.lblConfigurationName</th>
+                                    <th>@PortalSettingLang.lblSourceFolderPath</th>
+                                    <th>@PortalSettingLang.lblFileNamePattern</th>
+                                    <th>@PortalSettingLang.lblPostLoadAction</th>
+                                    <th class="nosort">@PortalSettingLang.lblEdit</th>
+                                    <th class="nosort">@PortalSettingLang.lblDelete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr data-ConfigureImportId="@item.Id" data-placement="top" data-html="true">
+                                            <td>@item.ConfigurationName</td>
+                                            <td>@item.SourceFolderPath</td>
+                                            <td>@item.FileNamePattern</td>
+                                            <td>@item.PostLoadAction</td>
+                                            <td><a href="javascript:void(0)" onclick="InsertUpdateConfigureImports(@item.Id,@item.TemplateId)">@PortalSettingLang.lblEdit</a></td>
+                                            <td><a href="javascript:void(0)" id="@item.Id" class="deleteConfigureImports">@PortalSettingLang.lblDelete</a></td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "Configure Imports")
+{
+    <script>
+        $(document).ready(function () {
+            InitPortalConfigureImportDataTable();
+            if ($("table#tbConfigureImport tbody tr").length == 0) {
+                $("table#tbConfigureImport").attr("disabled", true);
+
+            }
+            else {
+                $("table#tbConfigureImport tbody tr:first").addClass("current");
+
+            }
+        });
+    </script>
+}

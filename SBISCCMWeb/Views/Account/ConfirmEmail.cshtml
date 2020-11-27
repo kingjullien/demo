@@ -1,0 +1,11 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@{
+    ViewBag.Title = AccountLang.titleConfirmAccount;
+}
+
+<h2>@ViewBag.Title.</h2>
+<div>
+    <p>
+        @AccountLang.lblConfirmingAccount @Html.ActionLink(AccountLang.lblClickToLogIn, AccountLang.lblLogin, "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    </p>
+</div>

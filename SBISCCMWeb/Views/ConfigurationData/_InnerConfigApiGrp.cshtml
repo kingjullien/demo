@@ -1,0 +1,170 @@
+﻿@model  SBISCCMWeb.Models.UsersModel
+@using SBISCCMWeb.Utility
+@{
+    int z = 0;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        UpdateTargetId = "divPartialConfigApiGrp",
+        LoadingElementId = "divProgress",
+        OnSuccess = "ConfigSuccess"
+    };
+}
+
+@Html.Hidden("TagList", Model.objDnbGroupAPI.Tags)
+@Html.Hidden("ConfigMessage", (string)ViewBag.Message)
+@using (Ajax.BeginForm("popupDnbAPIGrp", "ConfigurationData", null, ajaxOptions, new { @class = "formContent" }))
+{
+    @Html.Hidden("Tags", z)
+    @Html.AntiForgeryToken()
+    <div id="content" style="opacity: 1;">
+        <section id="widget-grid" class="">
+            <article class="sortable-grid ui-sortable col-md-12">
+                <div class="form-group">
+                    <div class="text-center margin-10">
+                        @if (ViewBag.Message != null)
+                        {
+                            <div class="alert alert-block alert-success" style="display:none;">
+                                <a class="close" href="#" data-dismiss="alert" onclick="closemsg()">×</a>
+                                <h4 class="alert-heading">
+                                    <i class="fa fa-check-square-o"></i>
+                                    @ViewBag.Message
+                                </h4>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div id="wid-id-1" class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            @if (Model.objDnbGroupAPI.APIGroupId > 0)
+                            {
+                                <strong>Edit Data Enrichment Settings</strong>
+                            }
+                            else
+                            {
+                                <strong>Add Data Enrichment Settings</strong>
+                            }
+
+                        </h2>
+                        @*<ul id="widget-tab-Company" class="nav pull-right nav-pills ">
+
+                                <li>
+                                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                                </li>
+                            </ul>*@
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content">
+                                <div id="hr1" class="tab-pane fade active in CustomHidden">
+                                    <div id="popupConfigData">
+                                        <table class="textBlue borderNone table table-bordered panel-group customTable2  match-table">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="tableBorder-none">
+                                                        <div class="form-group popupAACRow textGroupName">
+                                                            <div class="col-md-12">
+
+                                                                <div class="col-md-2"></div>
+                                                                <div class="col-md-3">
+                                                                    <label class="control-label text-right">Enrichment Group Name :</label>
+                                                                    @Html.TextBoxFor(@model => @model.objDnbGroupAPI.APIGroupName, new { @class = "form-control" })
+                                                                    <span id="spnGroupName" class="error" style="display:none;">Please fill Group Name.</span>
+                                                                    <br /><span id="spnOptionValue" class="error" style="display:none;">Please select atleast one API.</span>
+                                                                </div>
+                                                                <div class="col-md-1"></div>
+                                                                @if (Helper.LicenseEnableTags)
+                                                                {
+                                                                    <div class="col-md-4">
+                                                                        <label class="control-label text-right">Tag :</label>
+                                                                        <div class="tagstylebox">
+                                                                            @Html.DropDownList("TagsValue", new SelectList(SBISCCMWeb.Controllers.DataController.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag"), new { @class = "form-control chzn-select", multiple = "true" })
+                                                                            <i class="fa fa-plus OpenTags"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                }
+                                                            </div>
+                                                        </div>
+
+                                                        @*<div class="form-group popupAACRow textGroupName">
+                                                                <div class="row">
+                                                                    <label class="control-label col-md-4 text-right">Tag :</label>
+                                                                    <div class="col-md-4 tagstylebox">
+                                                                        @Html.DropDownList("TagsValue", new SelectList(SBISCCMWeb.Controllers.DataController.GetAllTags(), "Tag", "Tag"), new { @class = "form-control chzn-select", multiple = "true" })
+                                                                        <i class="fa fa-plus OpenTags"></i>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>*@
+
+
+                                                        <div class="form-group popupAACRow">
+                                                            <div class="col-md-12">
+                                                                <div class="col-md-2 col-sm-2">
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3">
+                                                                    @Html.ListBoxFor(@model => @model.objDnbGroupAPI.APIIds, new SelectList(Model.dnbAPIs, "DnBAPIId", "DnBAPICode"), new { @class = "form-control selectbox", @size = 19 })
+
+                                                                </div>
+                                                                <div class="col-md-1 col-sm-1">
+                                                                    <div>
+                                                                        <input value=">" id="btnDnBApiGrp" name="btnDnBApiGrp" type="submit" class="btn btn-primary btnSaveSetting" />
+                                                                    </div>
+                                                                    <div>
+                                                                        <input value=">>" id="btnDnBApiGrp" name="btnDnBApiGrp" type="submit" class="btn btn-primary btnSaveSetting" />
+                                                                    </div>
+                                                                    <div>
+                                                                        <input value="<" id="btnDnBApiGrp" name="btnDnBApiGrp" type="submit" class="btn btn-primary btnSaveSetting" />
+                                                                    </div>
+                                                                    <div>
+                                                                        <input value="<<" id="btnDnBApiGrp" name="btnDnBApiGrp" type="submit" class="btn btn-primary btnSaveSetting" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-3 col-sm-3">
+                                                                    @Html.HiddenFor(@model => @model.objDnbGroupAPI.DnbAPIIds)
+
+                                                                    @Html.ListBoxFor(@model => @model.objDnbGroupAPI.RemoveAPIIds, Model.objDnbGroupAPI.lstDnBApiGrp != null ? new SelectList(Model.objDnbGroupAPI.lstDnBApiGrp, "DnBAPIId", "DnBAPICode") : new MultiSelectList(""), new { @class = "form-control selectbox", @size = 19 })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group popupAACRow addbuttondivider">
+                                                            <div class="row">
+                                                                <div class="col-md-11 text-center">
+                                                                    @Html.HiddenFor(@model => @model.objDnbGroupAPI.APIGroupId)
+                                                                    @Html.HiddenFor(@model => @model.objDnbGroupAPI.tmpName)
+                                                                    @if (Model.objDnbGroupAPI.APIGroupId > 0)
+                                                                    {
+                                                                        <input type="submit" value="Update" id="btnDnBApiGrp" name="btnDnBApiGrp" class="btn btn-primary btnDnBApiGrp" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input type="submit" value="Add" id="btnDnBApiGrp" name="btnDnBApiGrp" class="btn btn-primary btnDnBApiGrp" />
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </article>
+        </section>
+    </div>
+    <div class="loaderMain" id="divProgress">
+        <div class="loaderDiv">
+            <p class="loaderTxt">Please wait while processing...</p>
+        </div>
+    </div>
+}

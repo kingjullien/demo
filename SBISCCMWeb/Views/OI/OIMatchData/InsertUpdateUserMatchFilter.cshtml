@@ -1,0 +1,224 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model OIUserMatchFilterEntity
+@{
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        UpdateTargetId = "divPartialWindowAAC",
+        LoadingElementId = "divProgress",
+        OnSuccess = "SuccessInsertUpdateFineTuneMatchFilter"
+    };
+}
+
+<div class="modal" id="OIFineTuneMatchFilterModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">
+                    @if (Model.FilterId > 0)
+                    {
+                        <span>@OIMatchDataLang.hdrEditUserMatchFilter</span>
+                    }
+                    else
+                    {
+                        <span>@OIMatchDataLang.hdrAddUserMatchFilter</span>
+                    }
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    @using (Ajax.BeginForm("InsertUpdateUserMatchFilter", "OIMatchData", null, ajaxOptions, new { @class = "formContent", id = "form_windowAAC", @autocomplete = "off" }))
+                    {
+                        @Html.HiddenFor(m => m.FilterId)
+                        @Html.Hidden("MG_CompanyList", Model.MG_Company)
+                        @Html.Hidden("MG_StreetNameList", Model.MG_StreetName)
+                        @Html.Hidden("MG_StreetNoList", Model.MG_StreetNo)
+                        @Html.Hidden("MG_CityList", Model.MG_City)
+                        @Html.Hidden("MG_StateList", Model.MG_State)
+                        @Html.Hidden("MG_PostalCodeList", Model.MG_PostalCode)
+                        @Html.Hidden("MG_PhoneList", Model.MG_Phone)
+                        @Html.Hidden("MG_WebdomainList", Model.MG_Webdomain)
+                        @Html.Hidden("MG_CountryList", Model.MG_Country)
+                        @Html.Hidden("MG_EINList", Model.MG_EIN)
+
+                        @Html.Hidden("MDP_CompanyList", Model.MDP_Company)
+                        @Html.Hidden("MDP_WebdomainList", Model.MDP_Webdomain)
+
+
+                        @Html.HiddenFor(m => m.MG_Company, new { @class = "customValidation" });
+                        @Html.HiddenFor(m => m.MG_StreetNo, new { @class = "customValidation" });
+                        @Html.HiddenFor(m => m.MG_StreetName, new { @class = "customValidation" });
+                        @Html.HiddenFor(m => m.MG_City, new { @class = "customValidation" });
+                        @Html.HiddenFor(m => m.MG_State, new { @class = "customValidation" });
+                        @Html.HiddenFor(m => m.MG_PostalCode, new { @class = "customValidation" });
+                        @Html.HiddenFor(m => m.MG_Phone, new { @class = "customValidation" });
+                        @Html.HiddenFor(m => m.MG_Webdomain, new { @class = "customValidation" });
+                        @Html.HiddenFor(m => m.MG_Country, new { @class = "customValidation" });
+                        @Html.HiddenFor(m => m.MG_EIN, new { @class = "customValidation" });
+
+                        @Html.HiddenFor(m => m.MDP_Company, new { @class = "customValidation" });
+                        @Html.HiddenFor(m => m.MDP_Webdomain, new { @class = "customValidation" });
+                        @Html.HiddenFor(m => m.Enabled);
+                        @Html.AntiForgeryToken()
+                        <div class="row form-group">
+                            <div class="col-xs-2 col-md-2 col-sm-2 paddingtop7 custom-text-align-right addmatchfilter" style="width:91px">
+                                <span style="float:right">@OIMatchDataLang.lblCCFrom: </span>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-2 addmatchfilter" style="padding: 0 0;width: 70px">
+                                @Html.DropDownListFor(m => m.ConfidenceCodeMin, new SelectList(new CommonDropdown().ComboboxItems("MinConfidenceScore"), "Value", "Text"), new { @class = "form-control selectbox", @autocomplete = "off" })
+                            </div>
+
+                            <div class="col-md-1 col-sm-1 col-xs-1 paddingtop7 custom-text-align-right addmatchfilter" style="width:51px">
+                                <span style="float:right">@OIMatchDataLang.lblTo : </span>
+                            </div>
+                            <div class="col-md-1 col-sm-1 col-xs-1 addmatchfilter" style="padding: 0 0;width: 70px">
+                                @Html.DropDownListFor(m => m.ConfidenceCodeMax, new SelectList(new CommonDropdown().ComboboxItems("MinConfidenceScore"), "Value", "Text"), new { @class = "form-control selectbox", @autocomplete = "off" })
+                            </div>
+                            <div class="col-md-1 col-sm-1 col-xs-1"></div>
+                            <div class="">
+                                <div class="activexcchck">
+                                    <span>@OIMatchDataLang.lblActiveOnly</span>&nbsp;
+                                    @Html.CheckBoxFor(m => m.ActiveOnly)
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span id="ExcludedLable" class="@(Model.Exclude?"Excluded":"")">@OIMatchDataLang.lblExclude</span>&nbsp;
+                                    @Html.CheckBoxFor(m => m.Exclude)
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row sectiontopmrg form-group">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="col-md-2 col-sm-2 col-xs-2"></div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 text-center"><span><strong> @OIMatchDataLang.lblMatchGrade </strong></span></div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 text-center"><span><strong> @OIMatchDataLang.lblMDPValue </strong></span></div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                <span><strong style="">@OIMatchDataLang.lblMinMatchScore</strong></span>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="col-md-2 col-sm-2 col-xs-2 text-right paddingtop7"><span>@OIMatchDataLang.lblCompany:</span></div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 OIAutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("MG_CompanyValue", new SelectList(CommonDropdown.GetOIMatchGrade(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 OIAutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("MDP_CompanyValue", new SelectList(CommonDropdown.GetOIMatchCode(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                @Html.DropDownListFor(m => m.Score_Company, new SelectList(new CommonDropdown().ComboboxItems("CompanyScore"), "Value", "Text"), new { @class = "form-control selectbox", autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="col-md-2 col-sm-2 col-xs-2 text-right paddingtop7"><span>@OIMatchDataLang.lblStreet:</span></div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 OIAutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("MG_StreetNoValue", new SelectList(CommonDropdown.GetOIMatchGrade(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="col-md-2 col-sm-2 col-xs-2 text-right paddingtop7"><span>@OIMatchDataLang.lblStreetName:</span>  </div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 OIAutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("MG_StreetNameValue", new SelectList(CommonDropdown.GetOIMatchGrade(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-sm-2 col-xs-2">
+                                @Html.DropDownListFor(m => m.Score_StreetName, new SelectList(new CommonDropdown().ComboboxItems("CompanyScore"), "Value", "Text"), new { @class = "form-control selectbox", autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="col-md-2 col-sm-2 col-xs-2 text-right paddingtop7"><span>@OIMatchDataLang.lblCity: </span></div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 OIAutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("MG_CityValue", new SelectList(CommonDropdown.GetOIMatchGrade(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="col-md-2 col-sm-2 col-xs-2 text-right paddingtop7"><span>@OIMatchDataLang.lblState: </span></div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 OIAutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("MG_StateValue", new SelectList(CommonDropdown.GetOIMatchGrade(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="col-md-2 col-sm-2 col-xs-2 text-right paddingtop7"><span>@OIMatchDataLang.lblPostalCode:</span>  </div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 OIAutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("MG_PostalCodeValue", new SelectList(CommonDropdown.GetOIMatchGrade(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="col-md-2 col-sm-2 col-xs-2 text-right paddingtop7"><span>@OIMatchDataLang.lblPhone: </span></div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 OIAutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("MG_PhoneValue", new SelectList(CommonDropdown.GetOIMatchGrade(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="col-md-2 col-sm-2 col-xs-2 text-right paddingtop7"><span>@OIMatchDataLang.lblWebdomains:</span></div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 OIAutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("MG_WebdomainValue", new SelectList(CommonDropdown.GetOIMatchGrade(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 OIAutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("MDP_WebdomainValue", new SelectList(CommonDropdown.GetOIWebDomainMatchCode(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="col-md-2 col-sm-2 col-xs-2 text-right paddingtop7"><span>@OIMatchDataLang.lblCountry:</span></div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 OIAutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("MG_CountryValue", new SelectList(CommonDropdown.GetOIMatchGrade(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-10 col-sm-10 col-xs-10">
+                                <div class="col-md-2 col-sm-2 col-xs-2 text-right paddingtop7"><span>@OIMatchDataLang.lblEIN:</span></div>
+                                <div class="col-md-5 col-sm-5 col-xs-5 OIAutoAcceptanceMatchGrade">
+                                    @Html.DropDownList("MG_EINValue", new SelectList(CommonDropdown.GetOIMatchGrade(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                @if (Model.FilterId > 0)
+                                {
+                                    <input type="submit" value="@OIMatchDataLang.lblUpdate" class="btn btn-primary" onclick="return VAlidateInputes()" />
+                                }
+                                else
+                                {
+                                    <input type="submit" value="@OIMatchDataLang.lblAdd" class="btn btn-primary" onclick="return VAlidateInputes()" />
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+

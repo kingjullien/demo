@@ -1,0 +1,86 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@{
+    ViewBag.Title = OIExportDataLang.titleDataMatch;
+    Layout = null;
+    string fileName = string.IsNullOrEmpty(Convert.ToString(ViewBag.filename)) ? "" : ViewBag.filename;
+    string domain = string.IsNullOrEmpty(Convert.ToString(ViewBag.domain)) ? "" : ViewBag.domain + "_";
+    string SrcRecID = string.IsNullOrEmpty(Convert.ToString(ViewBag.SrcRecID)) ? "" : ViewBag.SrcRecID + "_";
+    string SpanTime = string.IsNullOrEmpty(Convert.ToString(ViewBag.SpanTime)) ? "" : ViewBag.SpanTime + "_";
+
+}
+<style>
+    .checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio] {
+         float: left;
+         margin: 4px 4px 4px;
+    }
+    .width100ForOIExportData {
+    width: 100%;
+}
+</style>
+
+<div class="modal" id="ExportFileNameModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@OIExportDataLang.hdrOutputfileName</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Hidden("tempfileName", fileName)
+                @Html.Hidden("tempdomain", domain)
+                @Html.Hidden("tempSrcRecID", SrcRecID)
+                @Html.Hidden("tempSpanTime", SpanTime)
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="checkbox width100ForOIExportData">
+                                <input type="checkbox" value="true" name="IsIncludeSubdomain" id="IsIncludeSubdomain" class="filenameCheck" checked="checked"><input type="hidden" value="false" name="IsIncludeSubdomain">
+                                <div class="paddingTop-4"> <span> <strong>@OIExportDataLang.lblIncludeSubdomain</strong> </span></div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="checkbox width100ForOIExportData">
+                                <input type="checkbox" value="true" name="IsIncludeDateTime" id="IsIncludeDateTime" class="filenameCheck" checked="checked"><input type="hidden" value="false" name="IsIncludeDateTime">
+                                <div class="paddingTop-4"> <span> <strong>@OIExportDataLang.lblIncludeExportDateandTime</strong> </span></div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="checkbox width100ForOIExportData">
+                                <input type="checkbox" value="true" name="isIncludeSecRecordId" id="isIncludeSecRecordId" class="filenameCheck" @(string.IsNullOrEmpty(SrcRecID) ? " disabled='disabled'" : "checked='checked'")> <input type="hidden" value="false" name="isIncludeSecRecordId">
+                                <div class="paddingTop-4"> <span class="@(string.IsNullOrEmpty(SrcRecID)?" txt-color-gray":"")"> <strong>@OIExportDataLang.lblIncludeSrcRecordID</strong> </span></div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="row">
+                                <div class="col-xs-9 padding-left-0"><input type="text" value="@fileName" name="zipFileName" id="zipFileName" class="form-control" maxlength="80"></div>
+                                <div class="col-xs-3"><span class="txt-color-gray"> <strong style="line-height:4;">@OIExportDataLang.lblZip</strong></span></div>
+                            </div>
+                            <span class="error" style="display: none;" id="spnzipfilename">@OIExportDataLang.lblRequiredFileName</span>
+                            <span class="error" style="display: none;" id="spnzipvalidfilename">@OIExportDataLang.lblIsValidfilename</span>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 custom-text-align-center">
+                            <input type="button" id="btnSubmitExportName" value="@OIExportDataLang.lblSubmit" class="btn btn-primary btnAddTags" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+ 

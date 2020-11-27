@@ -1,0 +1,79 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model OIInpCompanyEntity
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@{
+    ViewBag.Title = ImportDataLang.titleOrbData;
+    Layout = null;
+    string Message = Convert.ToString(ViewBag.Message);
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+}
+
+@*@Scripts.Render("~/bundles/popupjs")
+    @Styles.Render("~/Content/popupcss")
+    <script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootbox.min.js"></script>
+    <link href="~/Content/chosen.css" rel="stylesheet" />
+    <link href="~/Content/CustomPopUp.css" rel="stylesheet" />*@
+@Html.Hidden("UserRole", UserRoles)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+
+<style>
+    .form-control {
+        height: 25px;
+        padding: 3px 6px
+    }
+
+    .top10 {
+        top: 10px;
+    }
+
+    .bottom13 {
+        bottom: 13px !important;
+    }
+
+    .chosen-container {
+        width: 100% !important;
+    }
+</style>
+
+<div class="modal" id="SingleEntryFormModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@ImportDataLang.lblSingleEntryImport</h4>
+            </div>
+            <div class="modal-body">
+                <div class="OISingleEntryPopup bottom13">
+                    <div class="importRadio">
+                        <strong class="dataImport">@ImportDataLang.lblCleanseMatchEnrichment</strong></span> &nbsp;&nbsp;&nbsp;
+                        <label class="Toggleswitch switch top10">
+                            <input type="checkbox" name="rBtnImportDataOption" class="rButtonImportData">
+                            <span class="Toggleslider round "></span>
+                        </label>&nbsp;&nbsp;&nbsp;
+                        <strong class="matchRefresh">@ImportDataLang.lblEnrichmentOnly</strong></span> &nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div class="OISingleEntryMain">
+                        @Html.Partial("~/Views/OI/OIData/_OISingleEntryForm.cshtml", Model)
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/chosen.jquery.js"></script>
+<script src="~/Scripts/CustomJS/OI/OrbSingleEntryForm.js"></script>
+@*<script src="~/Scripts/CustomJS-minified/Common.js"></script>*@
+
+@*<script src="~/Scripts/plugin/jquery-validate/jquery.validate.min.js"></script>*@
+@*<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@
+@*<script src="~/Scripts/jquery.validate1.19.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.3.2.11.min.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.3.2.6.min.js"></script>
+    <script src="~/Scripts/chosen.jquery.js"></script>*@

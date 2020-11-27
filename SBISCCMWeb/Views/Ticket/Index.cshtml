@@ -1,0 +1,77 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model PagedList.IPagedList<TicketEntity>
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + TicketLang.titleTicketDesk;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + TicketLang.titleTicketDesk;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divTicketPortal",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess",
+        OnFailure = "OnFailure"
+    };
+}
+@*<link href="~/Content/Custom.css" rel="stylesheet" />*@
+@using (Ajax.BeginForm("Index", "Ticket", null, ajaxOptions, new { id = "form_Ticket", @autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+    <div id="content" style="opacity: 1; padding-left:14px; padding-right:14px">
+        <section id="widget-grid" class="">
+            <div class="row">
+                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+                    <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark " data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <h2>
+                                <i class="fa fa-ticket "></i>
+                                <strong>@TicketLang.hdrMyTickets</strong>
+                            </h2>
+                            <a href="@Url.Action("Create","Ticket")" class="btn btn-primary btn-sm pull-right"> @TicketLang.lblAddTicket</a>
+                        </header>
+                        <div role="content">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body no-padding">
+                                <div class="tab-content padding-10">
+                                    <div id="hr1" class="tab-pane fade active in">
+                                        <div id="divTicketPortal">
+                                            @{Html.RenderPartial("_Index", Model);}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+}
+@section scripts {
+
+    @if (!string.IsNullOrEmpty(SessionHelper.TicketMessage))
+    {
+        <script>
+            //show notification message instade of Bootbox Message...if you pass "success" than show Notification message and if you pass "error" than show bootbox message.
+        ShowMessageNotification("success",'@SessionHelper.TicketMessage', false);
+        </script>
+        SessionHelper.TicketMessage = string.Empty;
+    }
+    <script>
+        var closeTicket = '@TicketLang.msgCloseTicket';
+        var confirmBox = '@CommonMessagesLang.lblConfirm';
+    </script>
+
+    @Scripts.Render("~/bundles/ticket")
+}

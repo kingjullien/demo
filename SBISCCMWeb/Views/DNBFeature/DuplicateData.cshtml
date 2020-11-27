@@ -1,0 +1,123 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@{
+    ViewBag.Title = DandBSettingLang.titleDuplicateData;
+    Layout = null;
+    bool IsMatchData = Convert.ToBoolean(ViewBag.IsMatchData);
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+}
+@Html.Hidden("UserRole", UserRoles)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+@Html.AntiForgeryToken()
+<div class="modal" id="DeDuplicateDataModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xs" style="width:650px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@DandBSettingLang.hdrDeDuplicateData</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div id="hr1" class="tab-pane fade active in CustomHidden">
+                        <div id="popupConfigData">
+                            <div class="table-bordered match-table">
+                                <table class="textBlue borderNone table panel-group customTable2" id="divDeDuplicate">
+                                    <tbody>
+                                        <tr>
+                                            <td class="tableBorder-none">
+                                                <div class="">
+                                                    <div class="row">
+                                                        <div class="col-md-3 col-sm-3 col-xs-3 custom-text-right">
+                                                            <label class="control-label margin-5">@DandBSettingLang.lblCountry:</label>
+                                                        </div>
+                                                        <div class="col-md-8 col-sm-8 col-xs-8">
+                                                            @Html.DropDownList("CountryCode", new SelectList(CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text"), DandBSettingLang.lblSelectCountry, new { @class = "form-control selectbox", @autocomplete = "off" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="paddingtop8"></div>
+                                                <div class="">
+                                                    <div class="row">
+                                                        <div class="col-md-3 col-sm-3 col-xs-3  custom-text-right">
+                                                            <label class="control-label margin-5">@DandBSettingLang.lblCountryGroup:</label>
+                                                        </div>
+                                                        <div class="col-md-8 col-sm-8 col-xs-8">
+                                                            <div class="DisplayFlex">
+                                                                @Html.DropDownList("CountryGroupId", new SelectList(new CommonDropdown().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName"), DandBSettingLang.lblSelectCountryGroup, new { @class = "form-control selectbox", @autocomplete = "off" })
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="paddingtop8"></div>
+                                                <div class="">
+                                                    <div class="row">
+                                                        @if (Helper.LicenseEnableTags)
+                                                        {
+                                                            <div class="col-md-3 col-sm-3 col-xs-3  custom-text-right">
+                                                                <label class="control-label margin-5">
+                                                                    @DandBSettingLang.lblTag
+                                                                    @if (UserRoles == UserRole.LOB.ToString() || (Helper.oUser.UserType.ToLower() == "steward" && !string.IsNullOrEmpty(Helper.oUser.Tags)))
+                                                                    {<span class="error">*</span>}
+                                                                    :
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-md-8 col-sm-8 col-xs-8 DisplayFlex">
+                                                                @Html.DropDownList("Tag", new SelectList(CommonDropdown.GetExportDataTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "TagName"), CommonMessagesLang.lblSelectTag, new { @class = "form-control selectbox", @autocomplete = "off" })
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="paddingtop8"></div>
+                                                <div class="">
+                                                    <div class="row">
+                                                        @if (Helper.LicenseEnableTags)
+                                                        {<div class="col-md-3 col-sm-3 col-xs-3  custom-text-right">
+                                                                <label class="control-label margin-5">
+                                                                    LOBTag
+                                                                    @if (UserRoles == UserRole.LOB.ToString() || (Helper.oUser.UserType.ToLower() == "steward" && !string.IsNullOrEmpty(Helper.oUser.Tags)))
+                                                                    {<span class="error">*</span>}
+                                                                    :
+                                                                </label>
+                                                            </div>
+                                                            <div class="col-md-8 col-sm-8 col-xs-8">
+                                                                <div class="DisplayFlex">
+                                                                    @Html.DropDownList("LOBTag", new SelectList(CommonDropdown.GetTagByTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", null), CommonMessagesLang.lblSelectLOBTag, new { @class = "form-control", autocomplete = "off" })
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                @*UI Changes (MP-626)*@
+                                                <br />
+                                                <div class="">
+                                                    <label class="">
+                                                        &nbsp;
+                                                        @DandBSettingLang.lblNote :<em>@DandBSettingLang.lblNoteDeDuplicate</em>
+                                                    </label>
+                                                </div>
+                                                <div class="">
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12 text-center padding-top-15px">
+                                                            <input type="button" value="@DandBSettingLang.lblSubmit" id="btnDeDuplicateData" name="btnDeDuplicateData" class="btn btn-primary" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+

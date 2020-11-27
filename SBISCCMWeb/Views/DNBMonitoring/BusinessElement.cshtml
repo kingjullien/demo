@@ -1,0 +1,99 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+
+@model IPagedList<MonitoringElementConditionsEntity>
+@{
+    ViewBag.Title = DandBSettingLang.titleMonitorProfile;
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "DivElementConditions",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+}
+@Html.AntiForgeryToken()
+<div class="modal" id="BusinessElementModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" style="width:1200px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@DandBSettingLang.hdrDefineBusinessElements</h4>
+            </div>
+            <div class="modal-body">
+                <div class="DivElementConditions" id="DivElementConditions">
+                    @{Html.RenderPartial("_businessElement", Model);}
+                </div>
+                <div class="businessElementPopup">
+                    <input id="btnAddBusinessElements" class="btn btn-primary btnBlack " type="submit" name="btnadd" value="@DandBSettingLang.lblAdd" />
+                    <input id="btnBackToProfile" class="btn btn-primary btnBlack " type="button" name="btnback" value="@DandBSettingLang.lblBackToMonitoringProfile" />
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script>
+    var ElementType = "";
+    $(document).ready(function () {
+        $("#artGroup").hide();
+        $("#divProgress").hide();
+        var element = $("#ProductElement option:selected").text();
+        if ($("#SelectBusinessConditions").length > 0) {
+
+            var ConditionsType = $("#SelectBusinessConditions").val();
+            if (ConditionsType != undefined && ConditionsType.toLowerCase() == "multicondition") {
+                $("#btnCreateConditions").show();
+                $("#btncloseBusinessElements").hide();
+            }
+            else {
+                $("#btnCreateConditions").hide();
+                $("#btncloseBusinessElements").show();
+            }
+        }
+        if ($(".AddinList").html() == "Update") {
+            $("#artGroup").show();
+        }
+
+        if ($("#BusinessCondionUpdateId").length > 0) {
+            $("#btnCreateConditions").hide();
+            $(".MultiConditionSection").hide();
+            SetBusinessCondition();
+            $("#SelectBusinessConditions").val($("#ChangeCondition").val());
+            if ($("#lstCount").val() != undefined && $("#lstCount").val() > 0) {
+                $(".MultiConditionSection").show();
+                $("#btncloseBusinessElements").hide();
+                $("#btnCreateConditions").show();
+                $("#artGroup").each(function () {
+                    $(this).show();
+                });
+                $("#ParentElements").val($("#BusinessProductElement option:selected").text());
+                $("#ParentCondition").val($("#SelectBusinessConditions option:selected").text());
+            }
+
+        }
+
+        if ($("#ElementType").length > 0) {
+            ElementType = $("#ElementType").val()
+
+        }
+        var strCondition = $("#strCondition").each(function () {
+            $(".lblCondition").text("Your Condition should be : " + $(this).val());
+        });
+        var LevelValue = $("#Level").val();
+        if (LevelValue != undefined && LevelValue == "Level1") {
+            $(".rButton[value='Level1']").attr("checked", true);
+
+        } else if (LevelValue != undefined && LevelValue == "Level2") {
+
+            $(".rButton[value='Level2']").attr("checked", true);
+        } else if (LevelValue == undefined || LevelValue == "") {
+            $(".rButton[value='Level1']").attr("checked", true);
+
+        }
+    });
+</script>

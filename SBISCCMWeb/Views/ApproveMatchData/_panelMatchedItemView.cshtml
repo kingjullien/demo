@@ -1,0 +1,104 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@model CompanyEntity
+@{
+    ViewBag.Title = "SBISCCMWeb Cleanse Match Data Stewardship";
+    Layout = null;
+    int intButtonNo = 0;
+    var DunsNoContent = Convert.ToString(TempData["DunsNo"]) ?? string.Empty;
+    var MatchGradesContent = Convert.ToString(TempData["MatchGrades"]) ?? string.Empty;
+    var ConfdienceCodeContent = Convert.ToString(TempData["ConfdienceCode"]) ?? string.Empty;
+    var MDPCodeContent = Convert.ToString(TempData["MDPCode"]) ?? string.Empty;
+    var SequenceContent = Convert.ToString(TempData["Sequence"]) ?? string.Empty;
+}
+
+@Html.AntiForgeryToken()
+<table id="tr@(Model.InputId)" class="table  table-border customTable2 panel-collapse collapse  customTable inlinetable" style="display:none!important;" >
+    <thead class="displayborder">
+        <tr>
+            <th class="panelMHelpData">
+
+                DUNS NO
+            </th>
+            <th>Company</th>
+            <th>Street#</th>
+            <th>Street Name</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Postal</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Role</th>
+            <th class="panelMHelpData">
+
+                Sequence
+            </th>
+            <th>Match</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Matches.Count > 0)
+        {
+            foreach (var innerItem in Model.Matches)
+            {
+                string MatchDataProfileText = innerItem.DnBMatchDataProfileText;
+
+                if (MatchDataProfileText.Length > 18)
+                {
+                    MatchDataProfileText = MatchDataProfileText.Substring(0, 18) + " " + MatchDataProfileText.Substring(18, MatchDataProfileText.Length - 18);
+                }
+                
+               
+                intButtonNo++;
+                <tr class="OpenDetails @(intButtonNo==1?"current":"") @(intButtonNo%2==0?"AlternateRow":null) context-menu-one" data-val="@SerializeHelper.SerializeObject(innerItem.DnBDUNSNumber)" data-value="@SerializeHelper.SerializeObject(@innerItem)">
+                    <td class="trMatchedItem_td1 ">@innerItem.DnBDUNSNumber</td>
+                    <td class="trMatchedItem_td2 @(innerItem.DnBMatchGradeText.Length > 0? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(0,1)):"/ColorZ/")">@innerItem.DnBOrganizationName</td>
+                    <td class="trMatchedItem_td3 @(innerItem.DnBMatchGradeText.Length > 1?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(1,1)):"/ColorZ/")">@innerItem.StreetNo</td>
+                    <td class="trMatchedItem_td3 @(innerItem.DnBMatchGradeText.Length > 2?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(2,1)):"/ColorZ/") panelcolwidth">@innerItem.StreetName</td>
+                    <td class="trMatchedItem_td4 @(innerItem.DnBMatchGradeText.Length > 3?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(3,1)):"/ColorZ/")">@innerItem.DnBPrimaryTownName</td>
+                    <td class="trMatchedItem_td5 @(innerItem.DnBMatchGradeText.Length > 4?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(4,1)):"/ColorZ/")">@innerItem.DnBTerritoryAbbreviatedName</td>
+                    <td class="trMatchedItem_td6 @(innerItem.DnBMatchGradeText.Length > 7?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(7,1)):"/ColorZ/")">@innerItem.DnBPostalCode</td>
+                    <td class="trMatchedItem_td6 @(innerItem.DnBMatchGradeText.Length > 6?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(6,1)):"/ColorZ/")">@innerItem.DnBTelephoneNumber </td>
+                    <td class="trMatchedItem_td7">@innerItem.DnBOperatingStatus</td>
+                    <td class="trMatchedItem_td8">@innerItem.DnBFamilyTreeMemberRole </td>
+                    <td class="trMatchedItem_td9 ">@innerItem.DnBDisplaySequence</td>
+
+                    <td class="trMatchedItem_td10" id="@(innerItem.InputId+ "-" + innerItem.DnBDisplaySequence + "-" + innerItem.DnBDUNSNumber)">
+                        @if (innerItem.IsSelected == true)
+                        {
+                            <div id="@(innerItem.InputId + "InnerMatch")" class=" @innerItem.InputId actionButton btnSelected childDetail" data-val="@innerItem.DnBDisplaySequence" >
+                                <span></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="@(innerItem.InputId + "InnerMatch" )" class="@innerItem.InputId actionButton btnUnselected childDetail" data-val="@innerItem.DnBDisplaySequence" >
+                                <span></span>
+                            </div>
+                        }
+                    </td>
+                </tr>
+                <tr class="tablerowBorder OpenDetails  border-top-none @(intButtonNo==1?"current":"") @(intButtonNo%2==0?"AlternateRow":null) context-menu-one" data-val="@SerializeHelper.SerializeObject(innerItem.DnBDUNSNumber)" data-value="@SerializeHelper.SerializeObject(@innerItem)">
+                    <td class="textBlue" colspan="2">
+                        <span class="popuptopcolor">Confidence Code : </span>
+                        <span class="@(innerItem.DnBMatchGradeText.Length > 8?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(8,1)):"/ColorZ/")">@innerItem.DnBConfidenceCode</span>
+                    </td>
+                    <td class="textBlue" colspan="3">
+                        <span class="popuptopcolor">Match Grade : </span>
+                        @innerItem.DnBMatchGradeText
+                    </td>
+                    <td class="textBlue" colspan="7">
+                        <span class="popuptopcolor">MDP : </span>@innerItem.MDPCompanyName @innerItem.MDPPhysicalAddress @innerItem.MDPPhone
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="11">No data are available</td>
+            </tr>
+        }
+    </tbody>
+</table>

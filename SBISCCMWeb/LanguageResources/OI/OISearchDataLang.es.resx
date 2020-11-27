@@ -1,0 +1,312 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrAddnewcompany" xml:space="preserve">
+    <value>Agregar una nueva compañía</value>
+    <comment>Add new company</comment>
+  </data>
+  <data name="hdrSearchData" xml:space="preserve">
+    <value>Buscar datos</value>
+    <comment>Search Data</comment>
+  </data>
+  <data name="hdrSearchDatas" xml:space="preserve">
+    <value>Buscar datos</value>
+    <comment>SearchData</comment>
+  </data>
+  <data name="lblAddCompany" xml:space="preserve">
+    <value>Añadir empresa</value>
+    <comment>Add Company</comment>
+  </data>
+  <data name="lblAddress" xml:space="preserve">
+    <value>Dirección</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAddress1" xml:space="preserve">
+    <value>Dirección1</value>
+    <comment>Address1</comment>
+  </data>
+  <data name="lblAddress2" xml:space="preserve">
+    <value>Dirección2</value>
+    <comment>Address2</comment>
+  </data>
+  <data name="lblBranchesCount" xml:space="preserve">
+    <value>Conteo de sucursales</value>
+    <comment>BranchesCount</comment>
+  </data>
+  <data name="lblCC" xml:space="preserve">
+    <value>CC</value>
+    <comment>CC</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>Ciudad</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>Compañía</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCompanyName" xml:space="preserve">
+    <value>Nombre de la compañía</value>
+    <comment>Company Name</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>País</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblDomain" xml:space="preserve">
+    <value>Dominio</value>
+    <comment>Domain</comment>
+  </data>
+  <data name="lblEIN" xml:space="preserve">
+    <value>EIN</value>
+    <comment>EIN</comment>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>Correo electrónico</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblEntityType" xml:space="preserve">
+    <value>Tipo de entidad</value>
+    <comment>Entity Type</comment>
+  </data>
+  <data name="lblIsStandalone" xml:space="preserve">
+    <value>IsStandalone</value>
+    <comment>IsStandalone</comment>
+  </data>
+  <data name="lblNodataareavailable" xml:space="preserve">
+    <value>No hay datos disponibles</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblOrbNo" xml:space="preserve">
+    <value>Nro. Orb</value>
+    <comment>Orb No</comment>
+  </data>
+  <data name="lblOrbNumber" xml:space="preserve">
+    <value>Número Orb</value>
+    <comment>Orb Number</comment>
+  </data>
+  <data name="lblPhone" xml:space="preserve">
+    <value>Teléfono</value>
+    <comment>Phone</comment>
+  </data>
+  <data name="lblPleasefillEmail" xml:space="preserve">
+    <value>Por favor, complete el correo electrónico</value>
+    <comment>Please fill Email</comment>
+  </data>
+  <data name="lblPostalCode" xml:space="preserve">
+    <value>Código postal</value>
+    <comment>Postal Code</comment>
+  </data>
+  <data name="lblRequiedOrbNumber" xml:space="preserve">
+    <value>Por favor, complete el número Orb</value>
+    <comment>Please fill Orb Number</comment>
+  </data>
+  <data name="lblRequiredCompany" xml:space="preserve">
+    <value>Por favor llene la empresa</value>
+    <comment>Please fill Company</comment>
+  </data>
+  <data name="lblRequiredCountry" xml:space="preserve">
+    <value>Por favor, seleccione el país</value>
+    <comment>Please Select Country</comment>
+  </data>
+  <data name="lblRequiredDomain" xml:space="preserve">
+    <value>Por favor, complete el dominio</value>
+    <comment>Please fill Domain</comment>
+  </data>
+  <data name="lblRequiredEINNumber" xml:space="preserve">
+    <value>Por favor, complete el número EIN</value>
+    <comment>Por favor complete el número EIN</comment>
+  </data>
+  <data name="lblRequiredSrcRecordId" xml:space="preserve">
+    <value>Por favor, complete SrcRecordId</value>
+    <comment>Please fill SrcRecordId</comment>
+  </data>
+  <data name="lblRequiredState" xml:space="preserve">
+    <value>Por favor llene Estado / Territorio</value>
+    <comment>Please fill State/Territory</comment>
+  </data>
+  <data name="lblSearch" xml:space="preserve">
+    <value>Buscar</value>
+    <comment>Search</comment>
+  </data>
+  <data name="lblSearchByAltFields" xml:space="preserve">
+    <value>Buscar por campos alt. Campos</value>
+    <comment>Search By Alt. Fields</comment>
+  </data>
+  <data name="lblSeq" xml:space="preserve">
+    <value>Sec nro.</value>
+    <comment>Seq#</comment>
+  </data>
+  <data name="lblSrcRecordId" xml:space="preserve">
+    <value>SrcRecordId</value>
+    <comment>SrcRecordId</comment>
+  </data>
+  <data name="lblStateTerritory" xml:space="preserve">
+    <value>Estado/territorio</value>
+    <comment>State/Territory</comment>
+  </data>
+  <data name="lblStatus" xml:space="preserve">
+    <value>Estado</value>
+    <comment>Status</comment>
+  </data>
+  <data name="lblSubmit" xml:space="preserve">
+    <value>Enviar</value>
+    <comment>Submit</comment>
+  </data>
+  <data name="lblTag" xml:space="preserve">
+    <value>Etiqueta</value>
+    <comment>Tag</comment>
+  </data>
+  <data name="lblTagisrequired" xml:space="preserve">
+    <value>Se requiere una etiqueta.</value>
+    <comment>Tag is required.</comment>
+  </data>
+  <data name="msgAddMatchAsCompany" xml:space="preserve">
+    <value>Agregar coincidencia como una nueva empresa</value>
+    <comment>Add match as a new company</comment>
+  </data>
+  <data name="msgAddNewCompany" xml:space="preserve">
+    <value>Nueva empresa agregada con éxito</value>
+    <comment>New company added successfully</comment>
+  </data>
+  <data name="placeholderDomain" xml:space="preserve">
+    <value>Dominio</value>
+    <comment>Domain</comment>
+  </data>
+  <data name="placeholderEIN" xml:space="preserve">
+    <value>EIN</value>
+    <comment>EIN</comment>
+  </data>
+  <data name="placeholderEmail" xml:space="preserve">
+    <value>Email</value>
+    <comment>Email</comment>
+  </data>
+  <data name="placeholderOrbNumber" xml:space="preserve">
+    <value>Número de orbe</value>
+    <comment>Orb Number</comment>
+  </data>
+  <data name="titleOISearchData" xml:space="preserve">
+    <value>Matchbook | Datos de búsqueda de OI</value>
+    <comment>Matchbook | OI Search Data</comment>
+  </data>
+  <data name="titleOrbIntelligenceSearchData" xml:space="preserve">
+    <value>Datos de búsqueda de Orb Intelligence</value>
+    <comment>Orb Intelligence Search Data</comment>
+  </data>
+</root>

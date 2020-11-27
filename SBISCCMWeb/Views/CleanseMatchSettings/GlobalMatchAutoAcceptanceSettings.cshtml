@@ -1,0 +1,108 @@
+﻿@using SBISCCMWeb.Models;
+@model CleanseMatchSettingsModel
+@{
+    Layout = null;
+}
+@*@using (Html.BeginForm("GlobalMatchAutoAcceptanceSettings", "CleanseMatchSettings", FormMethod.Post, new { id = "form_GlobalMatchAutoAcceptanceSettings" }))
+    {*@
+<form id="form_GlobalMatchAutoAcceptanceSettings">
+    @Html.Hidden("AUTO_CORRECTION_THRESHOLDNew", Model.AUTO_CORRECTION_THRESHOLD)
+    <table data-swhgcallback="" data-swhgcontainer="dgBanInputData" data-swhgajax="true" class="table table-bordered panel-group customTable">
+        <tbody>
+            <tr>
+                <td>
+
+                    <div class="form-group">
+                        <h4>
+                            Auto-Acceptance Criteria (Good Match)
+                        </h4>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-4">
+                                    <label for="">Confidence Code</label>
+                                    <input type="hidden" id="minConfidentCode" name="minConfidentCode">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div id="divAutoCorrectionThreshold" class="col-md-6">
+                                    </div>
+                                </div>
+                                <div class="col-md-1" id="divMinConfidentCode">
+                                </div>
+                                <div class="col-md-3"></div>
+                                @Html.TextBoxFor(@model => Model.AUTO_CORRECTION_THRESHOLD, new { @class = "form-control sideTextboxes", style = "display: none;" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h4>Match Grade <sup>TM</sup> Exact Match Required</h4>
+
+                        <table data-swhgcallback="" data-swhgcontainer="dgBanInputData" data-swhgajax="true" class="table table-bordered panel-group customTable" id="dgBanInputData">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        @*<div class="checkbox">*@
+                                        <div>
+                                            @Html.HiddenFor(@model => Model.MATCH_GRADE_NAME_THRESHOLD)
+                                            @Html.CheckBoxFor(@model => Model.boolBusinessName, new { @class = "clsMatchGrade" })
+                                            <label for="boolBusinessName">Business Name</label>
+                                        </div>
+                                        @*<div class="checkbox">*@
+                                        <div>
+                                            @Html.HiddenFor(@model => Model.MATCH_GRADE_STREET_NO_THRESHOLD)
+                                            @Html.CheckBoxFor(@model => Model.boolStreet, new { @class = "clsMatchGrade" })
+                                            <label for="boolStreet">Street #</label>
+                                        </div>
+                                        @*<div class="checkbox">*@
+                                        <div>
+                                            @Html.HiddenFor(@model => Model.MATCH_GRADE_STREET_NAME_THRESHOLD)
+                                            @Html.CheckBoxFor(@model => Model.boolStreetName, new { @class = "clsMatchGrade" })
+                                            <label for="boolStreetName">Street Name</label>
+                                        </div>
+
+                                        @*<div class="checkbox">*@
+                                        <div>
+                                            @Html.HiddenFor(@model => Model.MATCH_GRADE_CITY_THRESHOLD)
+                                            @Html.CheckBoxFor(@model => Model.boolCity, new { @class = "clsMatchGrade" })
+                                            <label for="boolCity">City</label>
+                                        </div>
+                                        @*<div class="checkbox">*@
+                                        <div>
+                                            @Html.HiddenFor(@model => Model.MATCH_GRADE_STATE_THRESHOLD)
+                                            @Html.CheckBoxFor(@model => Model.boolState, new { @class = "clsMatchGrade" })
+                                            <label for="boolState">State</label>
+                                        </div>
+                                        @*<div class="checkbox">*@
+                                        <div>
+                                            @Html.HiddenFor(@model => Model.MATCH_GRADE_TELEPHONE_THRESHOLD)
+                                            @Html.CheckBoxFor(@model => Model.boolTelephone, new { @class = "clsMatchGrade" })
+                                            <label for="boolTelephone">Telephone</label>
+                                        </div>
+                                        @*<div class="checkbox">*@
+                                        <div>
+                                            @Html.HiddenFor(@model => Model.MATCH_GRADE_ZIPCODE_THRESHOLD)
+                                            @Html.CheckBoxFor(@model => Model.boolZipCode, new { @class = "clsMatchGrade" })
+                                            <label for="boolZipCode">Zip Code</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="button" name="btnSubmit" id="btnSubmit" value="Update" class="btn btn-primary margin-5" />
+                                <button class="btn btn-primary margin-5" type="submit" disabled="disabled">Match Grade <sup>TM</sup></button>
+                                <span id="spnMatchGrade">@Html.DisplayFor(@model => Model.MatchGrade)</span>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    @* } *@
+</form>
+
+@*<script src="~/Scripts/CustomJS-minified/Common.js"></script>*@
+<script src="~/Scripts/CustomJS-minified/Common.js"></script>

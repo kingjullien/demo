@@ -1,0 +1,239 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model List<ExportJobSettingsEntity>
+@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchFacade.Objects;
+@using System.Configuration;
+@{
+    AjaxOptions ExportAjaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "UpdateExportCompany"
+    };
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.Matchbook) + " | " + ExportLang.titleExportData;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>
+    (Branding.DandB) + " | " + ExportLang.titleExportData;
+    }
+    var message = SessionHelper.ExportView_Message;
+    var ExportTimeInterval = Convert.ToInt32(ConfigurationManager.AppSettings["ExportAutoRefreshTimeInterval"]);
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+    string UserType = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserType) ? "" : Helper.oUser.UserType : "";
+    string StwerdTags = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.Tags) ? "" : Helper.oUser.Tags : "";
+    string ImportProcessFile = Convert.ToString(ViewBag.ImportProcess);
+}
+@Html.Hidden("UserRole", UserRoles)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+@Html.Hidden("UserType", UserType)
+@Html.Hidden("StwerdTags", StwerdTags)
+<div class="clearfix"></div>
+<div id="" style="opacity: 1;">
+    <section id="widget-grid" class="">
+        <div class="widget-body">
+            <div class="tab-content position-relative righttabportal " id="">
+                <div id="ExportDataTab" class="tab-pane fade @(ViewBag.SelectedTab == "CompanyData" ? "active in" : "")">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            @using (Ajax.BeginForm("ExportToCompanyData", "ExportView", null, ExportAjaxOptions, new { id = "ExportDatafrm", @autocomplete = "off" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("Delimiter", "")
+                                @Html.Hidden("FilePath", "")
+                                @Html.Hidden("ExportTimeInterval", ExportTimeInterval)
+
+                                <article class="sortable-grid ui-sortable">
+                                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                        <header role="heading">
+                                            <h2>
+                                                <strong>@ExportLang.lblExportOptions</strong>
+                                            </h2>
+                                            <ul id="widget-tab-ExportJobInsert" class="nav pull-right nav-pills Custom-pill">
+                                                <li><input type="button" id="btnReExportData" value="@ExportLang.lblUnflagExportedData" class="btn btn-Secondary" @(Helper.ArchivalQueueCount > 0 ? "" : "Disabled=disabled") /></li>
+                                            </ul>
+                                        </header>
+                                        <div role="content">
+                                            <div class="jarviswidget-editbox"></div>
+                                            <div class="widget-body">
+                                                <div class="tab-pane">
+                                                    <div class="">
+                                                        <div class="">
+                                                            <fieldset class="ExportFieldSet">
+                                                                <legend>@ExportLang.lblStep1SelectFilters</legend>
+                                                                <div class="row form-group">
+                                                                    <div class="col-md-4">
+                                                                        <span><strong>@ExportLang.lblSrcRecordId </strong></span>
+                                                                        <input id="txtSrcRecID" type="text" name="SrcRecID" class="form-control" maxlength="50" />
+                                                                    </div>
+                                                                    <div class="col-md-6 sectiontopmrg activexcchck">
+                                                                        @Html.CheckBox("SrcRecIdExactMatch")
+                                                                        <span> <strong>@ExportLang.lblIsExactMatch</strong> </span>
+                                                                    </div>
+                                                                </div>
+
+                                                            <div class="row">
+                                                                @if (Helper.LicenseEnableTags)
+                                                                {
+                                                                    <div class="col-md-4 paddingto5 ">
+                                                                        @Html.DropDownList("LOBTag", new SelectList(CommonDropdown.GetTagByTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag"), CommonMessagesLang.lblSelectLOBTag, new { @class = "form-control", autocomplete = "off" })
+                                                                    </div>
+                                                                    // D&B- When Inclusive tag is on in active queue other tag data also get downloaded (MP-719)
+                                                                    if (Helper.oUser.UserType.ToLower() == "steward" && Helper.oUser.TagsInclusive == true)
+                                                                    {
+                                                                        <div class="col-md-4 paddingto5 ">
+                                                                            @Html.Hidden("Tag", StwerdTags)
+                                                                            @Html.TextBox("Tag", new SelectList(CommonDropdown.GetExportDataTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "TagName"), StwerdTags, new { @class = "form-control selectbox", autocomplete = "off", disabled = "true" })
+                                                                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="col-md-4 paddingto5 ">
+                                                                            @Html.DropDownList("Tags", new SelectList(CommonDropdown.GetExportDataTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "TagName"), CommonMessagesLang.lblSelectTag, new { @class = "form-control selectbox", autocomplete = "off" })
+                                                                        </div>
+                                                                    }
+                                                                }
+                                                                @Html.Hidden("MatchOutput")
+                                                                @Html.Hidden("Enrichment")
+                                                                @Html.Hidden("ActiveDataQueue")
+                                                                @Html.Hidden("LCMQueue")
+                                                                @Html.Hidden("NoMatchQueue")
+                                                                @Html.Hidden("TrasferedDuns")@*Add DUNS Transfer to Export(MP-367)*@
+                                                                <div class="col-md-4 paddingto5 custom-dropdown-search ">
+                                                                    @Html.DropDownList("Input", new SelectList(SBISCCMWeb.Controllers.ExportViewController.GetExportDataImportProcess(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ImportProcess.ExportData.ToString(), false), "Value", "Text", ImportProcessFile), CommonMessagesLang.lblSelectImportProcess, new { @class = "form-control selectbox chzn-select", autocomplete = "off" })
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                        <fieldset class="ExportFieldSet">
+                                                            <legend>@ExportLang.lblStep2SelectOutput</legend>
+                                                            <div class="row form-group">
+                                                                <div class="col-md-12 ExportMultiSelect ExportSelectOutput">
+                                                                    @Html.DropDownList("MultiSelectOptions", new List<SelectListItem>
+                                                                         {
+                                                                         new SelectListItem{ Text=ExportLang.lblMatchOutput, Value = "MatchOutput",Selected=true },
+                                                                         new SelectListItem{ Text=ExportLang.lblEnrichmentOutput, Value = "Enrichment" ,Selected=true},
+                                                                         new SelectListItem{ Text=ExportLang.lblTransferredDuns, Value = "TrasferedDuns",Selected=true},@*Add DUNS Transfer to Export(MP-367)*@
+new SelectListItem{ Text=ExportLang.lblActiveDataQueue, Value = "ActiveDataQueue"},
+new SelectListItem{ Text=ExportLang.lblLowConfidenceQueue, Value = "LCMQueue"},
+new SelectListItem{ Text=ExportLang.lblNoMatchQueue, Value = "NoMatchQueue" },
+}, new { @class = "form-control selectbox", multiple = "true", autocomplete = "off" })
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="">
+                                                            <fieldset class="ExportFieldSet">
+                                                                <legend>@ExportLang.lblStep3SelectOutput</legend>
+                                                                <div class="row form-group">
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-3" title="@ExportLang.titleCSV">
+                                                                        <input type="radio" name="Format" id="rdCSV" value="CSV" checked />
+                                                                        <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString(" /Images/Export/csv-Dark.png"))" class="clsImportImage">
+                                                                        <p class="margin-left-10">@ExportLang.lblCSV</p>
+                                                                    </div>
+                                                                    <div class="col-md-3" title="@ExportLang.titleTabSeparated">
+                                                                        <input type="radio" name="Format" id="rdTSV" value="TSV" />
+                                                                        <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString(" /Images/Export/tsv.png"))" class="clsImportImage">
+                                                                        <p class="marginLeft_22px">@ExportLang.lblTabSeparated</p>
+                                                                    </div>
+                                                                    <div class="col-md-3" title="@ExportLang.titleCustomDelimiter">
+                                                                        <input type="radio" name="Format" id="rdText" value="Delimiter" class="OpenDelimiter" />
+                                                                        <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString(" /Images/Export/text-with-delimiter.png"))" class="clsImportImage">
+                                                                        <p class="marginLeft_22px">@ExportLang.lblCustomDelimiter</p>
+                                                                    </div>
+                                                                    <div class="col-md-3" title="@ExportLang.titleExcel">
+                                                                        <input type="radio" name="Format" id="rdExcel" value="Excel" />
+                                                                        <img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString(" /Images/Export/excel-Dark.png"))" class="clsImportImage">
+                                                                        <p class="margin-left-10">@ExportLang.lblExcel</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6 activexcchck divIsHeaderExport">
+                                                                        @Html.CheckBox("HasHeader", true)
+                                                                        <span> <strong>@ExportLang.lblIncludeHeader</strong> </span>
+                                                                    </div>
+                                                                    <div class="col-md-6 activexcchck divIsHeaderExport">
+                                                                        @Html.CheckBox("HasTextQualifierToAll")
+                                                                        <span> <strong>@ExportLang.lblQualifierAllColumns</strong> </span>
+                                                                    </div>
+                                                                </div>
+                                                            </fieldset>
+                                                            <fieldset class="ExportFieldSet FinalizeFieldSet">
+                                                                <legend>@ExportLang.lblStep4FinalizeExport</legend>
+                                                                <div class="row form-group">
+                                                                    <div class="col-md-12 checkbox align-items-start" style="padding-left:20px">
+                                                                        @Html.CheckBox("MarkAsExported")
+                                                                        <div>
+                                                                            <span> <strong>@ExportLang.lblMarkAsExported</strong> </span><br />
+                                                                            <span>@ExportLang.lblNoteMarkAsExported</span>
+                                                                        </div>
+                                                                       
+                                                                    </div>
+
+                                                                </div>
+
+                                                            </fieldset>
+                                                        </div>
+                                                        <div class="row form-group">
+
+                                                        </div>
+                                                        <div class="row m_btn_new">
+                                                            <div class="col-md-6">
+                                                                <span id="spnProcess" style="display:none" class="error">@ExportLang.lblOutputTypeRequire</span>
+                                                                <span id="spnFormat" style="display:none" class="error">@ExportLang.lblFormatRequire</span>
+                                                                <input type="button" id="btnExportData" value="@ExportLang.titleExportData" class="btn btn-primary">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                            }
+                        </div>
+                     
+                        <div class="col-xs-6">
+                            <article class="sortable-grid ui-sortable">
+                                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                    <header role="heading">
+                                        <h2>
+                                            <strong>@ExportLang.lblExportStatus</strong>
+                                        </h2>
+                                    </header>
+                                    <div role="content">
+                                        <div class="jarviswidget-editbox"></div>
+                                        <div class="widget-body no-padding">
+                                            <div class="">
+                                                <div class="form-group">
+                                                    <div class="padding-10">
+                                                        <div class="row">
+                                                            <div id="divExportJobListing">
+                                                                @if (ViewBag.SelectedTab == "CompanyData")
+                                                                {
+                                                                    Html.RenderPartial("_index", Model as List<ExportJobSettingsEntity>);
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

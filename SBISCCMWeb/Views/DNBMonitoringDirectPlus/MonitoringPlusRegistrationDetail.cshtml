@@ -1,0 +1,138 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.Utility.Monitoring
+
+@model MonitoringRegistrationDetailResponse
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        //InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        //UpdateTargetId = "replaceid",
+        OnSuccess = "UpdateMonitoringRegistrationSuccess"
+    };
+    int z = 0;
+
+}
+<article class="col-md-12 sortable-grid ui-sortable widget-data">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrRegistrationDetails</strong>
+            </h2>
+            <ul id="widget-tab-DUNS" class="nav pull-right nav-pills Custom-pill">
+                <li>
+                    <div class="btn btn-sm btn-Secondary" id="editMonitoringPlusRegistration" title="@DandBSettingLang.titleEditMonitoringRegistration">
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding10px">
+                    <div class="MonitoringPlusCustomFieldSet">
+                        <div class="">
+                            @using (Ajax.BeginForm("UpdateMonitoringRegistration", "DNBMonitoringDirectPlus", null, ajaxOptions, new { @class = "formMonitoringDnBPlus m-style", @autocomplete = "off" }))
+                            {
+                                @Html.HiddenFor(x => x.messages.registration.CredentialId)
+                                @Html.Hidden("MonitoringRegistrationTagList", Model != null && Model.messages != null && Model.messages.registration != null ? Model.messages.registration.Tags : "")
+                                @Html.Hidden("messages.registration.Tags", z)
+                                @Html.AntiForgeryToken()
+                                if (Model != null && Model.messages != null)
+                                {
+                                    <div class="row mar">
+                                        <div class="col-md-4">
+                                            <span><strong>@DandBSettingLang.lblRegistrationName </strong> </span>
+                                            @Html.TextBoxFor(@model => @model.messages.registration.reference, new { @class = "form-control", disabled = "disabled", autocomplete = "off" })
+                                        </div>
+                                        @if (!string.IsNullOrEmpty(Model.messages.registration.productId))
+                                        {
+                                            <div class="col-md-4">
+                                                <span><strong>@DandBSettingLang.lblRegistrationType </strong> </span>
+                                                @Html.TextBoxFor(@model => @model.messages.registration.productId, new { @class = "form-control", disabled = "disabled", autocomplete = "off" })
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-md-4">
+                                                <span><strong>@DandBSettingLang.lblRegistrationType </strong> </span>
+                                                @Html.TextBoxFor(@model => @model.messages.registration.blockIds, new { @class = "form-control", disabled = "disabled", autocomplete = "off" })
+                                            </div>
+                                        }
+                                        <div class="col-md-4">
+                                            <span><strong>@DandBSettingLang.lblVersion </strong> </span>
+                                            @Html.TextBoxFor(@model => @model.messages.registration.versionId, new { @class = "form-control", disabled = "disabled", autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                    <div class="row margintop10">
+                                        <div class="col-md-4">
+                                            <span><strong>@DandBSettingLang.lblEmail  </strong> </span>
+                                            @Html.TextBoxFor(@model => @model.messages.registration.email, new { @class = "form-control", disabled = "disabled", autocomplete = "off" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span><strong>@DandBSettingLang.lblFileTransferProfile  </strong> </span>
+                                            @Html.TextBoxFor(@model => @model.messages.registration.fileTransferProfile, new { @class = "form-control", disabled = "disabled", autocomplete = "off" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span><strong>@DandBSettingLang.lblDescription  </strong> </span>
+                                            @Html.TextBoxFor(@model => @model.messages.registration.description, new { @class = "form-control", disabled = "disabled", autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                    <div class="row margintop10">
+                                        <div class="col-md-4">
+                                            <span><strong>@DandBSettingLang.lblDeliveryTrigger  </strong> </span>
+                                            @Html.TextBoxFor(@model => @model.messages.registration.deliveryTrigger, new { @class = "form-control", disabled = "disabled", autocomplete = "off" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span><strong>@DandBSettingLang.lblDeliveryFrequency  </strong> </span>
+                                            @Html.TextBoxFor(@model => @model.messages.registration.deliveryFrequency, new { @class = "form-control", disabled = "disabled", autocomplete = "off" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            <span><strong>@DandBSettingLang.lblDunsCount  </strong> </span>
+                                            @Html.TextBoxFor(@model => @model.messages.dunsCount, new { @class = "form-control", disabled = "disabled", autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                    <div class="row margintop10">
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="col-xs-4">
+                                                <div><span><strong>@DandBSettingLang.lblTags</strong></span></div>
+                                                <div class="DisplayFlex">
+                                                    @Html.DropDownList("TagsValueMonitoringDnBplus", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.messages.registration.Tags), new { @class = "form-control chzn-select monitoringDirectPlusTag", multiple = "true", disabled = "disabled" })
+
+                                                    @if (Helper.UserType.ToLower() != "steward")
+                                                    {<em class="fa fa-plus OpenTags tagstyleMonitoring" onclick="addNewTagsPopup()" style="display:none;"></em>
+                                                    }
+
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div><span class="error" id="MonitoringDnBplusTag" style="display:none;">@DandBSettingLang.lblTagRequired</span></div>
+
+                                            </div>
+                                        }
+                                        <div class="col-md-2 paddingto5">
+                                            <label class="checkbox" style="    padding-left: 20px;">
+                                                <span><strong>@DandBSettingLang.lblseedData</strong> </span>
+                                                @Html.CheckBoxFor(@model => @model.messages.registration.seedData, new { disabled = "disabled", autocomplete = "off" })
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row margintop10">
+                                        <div class="col-md-12 ">
+                                            <input type="submit" value="@DandBSettingLang.lblUpdateMonitoringRegistration" class="btn btn-primary pull-right" style="display:none" id="UpdateMonitoringRegistrationDetail" />
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+

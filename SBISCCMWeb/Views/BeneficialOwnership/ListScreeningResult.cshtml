@@ -1,0 +1,68 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model List<ScreenResponseEntity>
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.LanguageResources
+
+<table class="table table-bordered" id="tblScreeningData" style="overflow:hidden">
+    <thead>
+        <tr>
+            <th width="15%">@BeneficialOwnershipLang.spnName</th>
+            <th width="15%">@BeneficialOwnershipLang.spnAddress</th>
+            <th width="5%">@BeneficialOwnershipLang.lblCategory</th>
+            <th width="5%">@BeneficialOwnershipLang.lblList</th>
+            <th width="5%">@BeneficialOwnershipLang.spnType</th>
+            <th width="5%">@BeneficialOwnershipLang.lblDate</th>
+            <th width="5%">@BeneficialOwnershipLang.lblAlertType</th>
+            <th width="15%">@BeneficialOwnershipLang.lblNotes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td width="15%">@item.Name</td>
+                    <td width="15%">@CommonMethod.DisplayFormattedAddress(item.AddressStreetLine1 + item.AddressStreetLine2, item.AddressCity, item.AddressState, "", item.AddressCountryCode)</td>
+                    <td width="5%">@item.Category</td>
+                    <td width="5%">@item.List</td>
+                    <td width="5%">@item.Type</td>
+                    <td width="5%">@item.StartDate.ToDatetimeShort() - @item.EndDate.ToDatetimeShort()</td>
+                    <td width="5%" class="text-align-center">
+                        <div class="screening-result-info">
+                            <div class="side-left">
+                                <div class="top-info">
+                                    @if (string.IsNullOrEmpty(item.AlertType))
+                                    {
+                                        <span class="text-success" title="@item.LastScreenedAlertType"><i class="fa fa-check-circle"></i></span>
+                                    }
+                                    else if (item.AlertType == "_Y" || item.AlertType == "RC")
+                                    {
+                                        <span class="text-warning" title="@item.LastScreenedAlertType"><i class="fa fa-exclamation-triangle"></i></span>
+                                    }
+                                    else if (item.AlertType == "_R")
+                                    {
+                                        <span class="text-danger" title="@item.LastScreenedAlertType"><i class="fa fa-times-circle"></i></span>
+                                    }
+                                    else if (item.AlertType == "DR")
+                                    {
+                                        <span class="text-danger" title="@item.LastScreenedAlertType"><i class="fa fa-radiation-alt"></i></span>
+                                    }
+                                    else if (item.AlertType == "TR")
+                                    {
+                                        <span class="text-danger" title="@item.LastScreenedAlertType"><i class="fa fa-radiation-alt"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span></span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td width="15%" style="word-wrap:break-word">@Html.Raw(item.Notes)</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

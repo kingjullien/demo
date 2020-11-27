@@ -1,0 +1,102 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@model MatchEntity
+@{
+    var innerItem = Model;
+    ViewBag.Title = "Match Records Details View";
+}
+<table class="table borderNone MatchedItem  Detail-@(innerItem.SrcRecordId.Replace(" ",""))" id="Detail-@(innerItem.DnBDUNSNumber)" style="display:none;" data-InputId="@innerItem.InputId">
+    <thead class="width100">
+        <tr>
+            <th class="width20">Type</th>
+            <th class="width20">Input  </th>
+            <th class="width20">D&amp;B Data</th>
+            <th class="width20">Match Grade</th>
+            <th class="width20">MDP</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Company Name</td>
+            <td>@(innerItem.TTCompanyName.IndexOf("vs.")>-1? innerItem.TTCompanyName.Split(new string[] { "vs." }, StringSplitOptions.None)[0] :"" )</td>
+            <td class="@(innerItem.DnBMatchGradeText.Length > 0?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(0,1)):"/ColorZ/")">@(innerItem.TTCompanyName.IndexOf("vs.") > -1 ? innerItem.TTCompanyName.Split(new string[] { "vs." }, StringSplitOptions.None)[1]:"" )</td>
+            <td>@innerItem.MGVCompanyName </td>
+            <td>@innerItem.MDPVCompanyName </td>
+
+        </tr>
+        <tr>
+            <td>Street #</td>
+            <td> </td>
+            <td class="@(innerItem.DnBMatchGradeText.Length > 1?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(1,1)):"/ColorZ/")">@innerItem.StreetNo  </td>
+            <td>@innerItem.MGVStreetNo </td>
+            <td>@innerItem.MDPVStreetNo </td>
+        </tr>
+        <tr>
+            <td>Street Name</td>
+            <td></td>
+            <td class="@(innerItem.DnBMatchGradeText.Length > 2?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(2,1)):"/ColorZ/")">@innerItem.StreetName</td>
+            <td>@innerItem.MGVStreetName </td>
+            <td>@innerItem.MDPVStreetName </td>
+
+        </tr>
+        <tr>
+            <td>City/Town</td>
+            <td>@(innerItem.TTCity.IndexOf("vs.") > -1 ? innerItem.TTCity.Split(new string[] { "vs." }, StringSplitOptions.None)[0]:"" )</td>
+            <td class="@(innerItem.DnBMatchGradeText.Length > 3?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(3,1)):"/ColorZ/")">@(innerItem.TTCity.IndexOf("vs.") > -1 ? innerItem.TTCity.Split(new string[] { "vs." }, StringSplitOptions.None)[1] :"")</td>
+            <td>@innerItem.MGVCity </td>
+            <td>@innerItem.MDPVCity </td>
+        </tr>
+        <tr>
+            <td>State</td>
+            <td>@(innerItem.TTState.IndexOf("vs.") > -1 ? innerItem.TTState.Split(new string[] { "vs." }, StringSplitOptions.None)[0]:"")</td>
+            <td class="@(innerItem.DnBMatchGradeText.Length > 4?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(4,1)):"/ColorZ/")">@(innerItem.TTState.IndexOf("vs.") > -1 ? innerItem.TTState.Split(new string[] { "vs." }, StringSplitOptions.None)[1]:"")</td>
+            <td>@innerItem.MGVState </td>
+            <td>@innerItem.MDPVState </td>
+        </tr>
+        <tr>
+            <td>Mailing Address</td>
+            <td></td>
+            <td class="@(innerItem.DnBMatchGradeText.Length > 5?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(5,1)):"/ColorZ/")"> </td>
+            <td>@innerItem.MGVMailingAddress </td>
+            <td>@innerItem.MDPVMailingAddress  </td>
+        </tr>
+        <tr>
+            <td>Phone Number</td>
+            <td>@(innerItem.TTPhoneNbr.IndexOf("vs.") > -1 ? innerItem.TTPhoneNbr.Split(new string[] { "vs." }, StringSplitOptions.None)[0]:"") </td>
+            <td class="@(innerItem.DnBMatchGradeText.Length > 6?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(6,1)):"/ColorZ/")">@(innerItem.TTPhoneNbr.IndexOf("vs.") > -1 ? innerItem.TTPhoneNbr.Split(new string[] { "vs." }, StringSplitOptions.None)[1]:"") </td>
+            <td>@innerItem.MGVTelephone </td>
+            <td>@innerItem.MDPVTelephone </td>
+        </tr>
+        <tr>
+            <td>Postal Code</td>
+            <td></td>
+            <td class="@(innerItem.DnBMatchGradeText.Length > 7?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(7,1)):"/ColorZ/")"></td>
+            <td>@innerItem.MGVZipCode</td>
+            <td> </td>
+        </tr>
+        <tr>
+            <td>Density</td>
+            <td></td>
+            <td class="@(innerItem.DnBMatchGradeText.Length > 8?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(8,1)):"/ColorZ/")"></td>
+            <td>@innerItem.MGVDensity </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Uniqueness</td>
+            <td></td>
+            <td class="@(innerItem.DnBMatchGradeText.Length > 9?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(9,1)):"/ColorZ/")"></td>
+            <td>@innerItem.MGVUniqueness </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>SIC</td>
+            <td></td>
+            <td class="@(innerItem.DnBMatchGradeText.Length > 10?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(10,1)):"/ColorZ/")"></td>
+            <td>@innerItem.MGVSIC </td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+
+

@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Matchbook | About Us";
+}
+
+
+<div class="divCenter">
+    <div class="companylog">
+
+        <img src="/Home/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/Matchbook-logo.png"))">
+    </div>
+    <hr />
+
+    @*<h1 class="aboutUs-Header">Company Cleanse Match</h1>*@
+
+    <div class="ClientInfo">
+        <div class="row">
+            <div class="col-sm-5 text-right"> Client Name :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.ClientName</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> User :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.User</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> Server Name :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.ServerName</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> DataBase Name :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.DataBaseName</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> IP Address :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.IpAddress</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> Version :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.FinaldVersion</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> Build Number :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.BuildVersion</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> Edition :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.LicenseSKU</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> Number of Users Licensed :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.LicenseNumberOfUsers</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> Number of Transactions per Year :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.LicenseNumberOfTransactions</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> Live API :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.LicenseEnableLiveAPI</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> Tag based Rules :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.LicenseEnableTags</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> License expiration date :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.LicenseEndDate</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> Investigation :</div>
+            <div class="col-sm-7 text-left">@ViewBag.Investigation</div>
+        </div>
+        <div class="row">
+            <div class="col-sm-5 text-right"> Monitor Profile :</div>
+            <div class="col-sm-7 text-left"> @ViewBag.MonitorProfile</div>
+        </div>
+
+        <hr />
+        <img src="/Home/GetImage?imagepath=@HttpUtility.UrlEncode(SBISCCMWeb.Utility.Utility.GetEncryptedString("/Images/SBIS-icon-200.png"))">
+        <br />
+        <span><a href="http://www.sequelbisolutions.com" target="_blank">www.sequelbisolutions.com</a></span><br />
+        <span>Sequel BI Solutions, Inc.</span>
+    </div>
+</div>

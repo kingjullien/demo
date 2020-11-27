@@ -1,0 +1,185 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Models
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.LanguageResources;
+@model BackGroundProcessListViewModel
+@{
+    int i = 1;
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="table-responsive bgProcessTable">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>@HomeLang.lblExecutionId</th>
+                        <th>@HomeLang.lblProcessType</th>
+                        <th>@HomeLang.lblDateTime</th>
+                        <th>@HomeLang.lblDuration</th>
+                        <th>@HomeLang.lblProcessStatus</th>
+                        @*<th width="7%">@HomeLang.lblNextExecution</th>
+                            <th>Message</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.ProcessList.Any())
+                    {
+                        foreach (var item in Model.ProcessList)
+                        {
+                            <tr>
+                                <td class="panel-heading tdlength">
+                                    <a class="collapsed ExecutionCollapsed" data-ExecutionId="@item.ExecutionId"></a>
+                                </td>
+                                <td>@item.ExecutionId</td>
+                                <td>@item.ETLType</td>
+                                <td>@Convert.ToDateTime(item.AuditDateTime).ToDatetimeFull()</td>
+                                <td>@(!string.IsNullOrEmpty(item.Duration) ? item.Duration.Remove(item.Duration.Length - 4, 4) : "")</td>
+                                <td>
+                                    @if (item.ProcessStatus.ToLower() == "success")
+                                    {
+                                        <span class="ColorA">@item.ProcessStatus</span>
+                                    }
+                                    else if (item.ProcessStatus.ToLower() == "failed")
+                                    {
+                                        <span class="ColorF">@item.ProcessStatus</span>
+                                    }
+                                    else if (item.ProcessStatus.ToLower() == "running")
+                                    {
+                                        <span class="ColorB">@item.ProcessStatus</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@item.ProcessStatus</span>
+                                    }
+                                </td>
+                                @*<td><strong>@(item.NextRunTime_Seconds > 0 ? CommonMethod.SecondToMinute(item.NextRunTime_Seconds) : "")</strong></td>
+                                    <td>@item.Message</td>*@
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6">@HomeLang.lblNoDataAvailable</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.Hidden("UniqueETLType", SerializeHelper.SerializeObject(Model.ProcessList.Select(x => x.ETLType).Distinct().OrderBy(x => x).ToList()))
+            @Html.Hidden("chartData", SerializeHelper.SerializeObject(Model.ProcessList))
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div id="divPartialBackgroundProcessStatsTable">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>@HomeLang.lblProcessType</th>
+                        <th>@HomeLang.lblNextExecution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.StatsList.OrderBy(x => x.ETLType))
+                    {
+                        <tr>
+                            <td class="@CommonMethod.GetETLTypeColorClass(i)">@item.ETLType</td>
+                            @if (item.ProcessPaused)
+                            {
+                                <td>@item.Message2</td>
+                            }
+                            else
+                            {
+                                <td>@(CommonMethod.SecondToMinuteAccurate(item.NextExecutionTimeSeconds))</td>
+                            }
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div id="divPartialBackgroundProcessChart">
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var Etltype = JSON.parse($("#UniqueETLType").val());
+        var Data = JSON.parse($("#chartData").val());
+        var chartDataArray = [];
+        for (var i = 0; i < Etltype.length; i++) {
+            var tempData = Data.filter(function (item) { return (item.ETLType == Etltype[i]) });
+            var arrData = [];
+            for (var j = 0; j < tempData.length; j++) {
+                arrData.push(tempData[j].Duration_seconds);
+            }
+            chartDataArray.push({
+                "name": Etltype[i],
+                "data": arrData,
+                "color": getLineColor(i)
+            });
+        }
+        $("#divPartialBackgroundProcessChart").highcharts({
+            title: {
+                text: processStats
+            },
+
+            yAxis: {
+                title: {
+                    text: durtationInSeconds
+                }
+            },
+
+            legend: {
+                enabled: false
+            },
+
+            plotOptions: {
+                series: {
+                    label: {
+                        connectorAllowed: false
+                    },
+                    pointStart: 0
+                }
+            },
+
+            series: chartDataArray,
+
+            responsive: {
+                rules: [{
+                    condition: {
+                        maxWidth: 500
+                    },
+                    chartOptions: {
+                        legend: {
+                            layout: 'horizontal',
+                            align: 'center',
+                            verticalAlign: 'bottom'
+                        }
+                    }
+                }]
+            }
+
+        });
+    })
+
+    function getLineColor(z) {
+        var color = "";
+        if (z == 0)
+            color = "#008000";
+        else if (z == 1)
+            color = "#CCCC00";
+        else if (z == 2)
+            color = "#337ab7";
+        else if (z == 3)
+            color = "#90ED7D";
+        else if (z == 4)
+            color = "#8B0000";
+        else if (z == 5)
+            color = "#000000";
+        return color;
+    }
+</script>

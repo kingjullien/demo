@@ -1,0 +1,46 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@model MatchEntity
+@{
+    var innerItem = Model;
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + ReviewMatchLang.titleMatchRecordsDetailsView;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + ReviewMatchLang.titleMatchRecordsDetailsView;
+    }
+    Layout = null;
+}
+<div class="modal" id="ReviewMatchDetailModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg matchDetailPopup">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@ReviewMatchLang.hdrMatchRecordDetailView</h4>
+            </div>
+            <div class="modal-body">
+                <div id="MatchedcontentPopup">
+                    @Html.AntiForgeryToken()
+                    <div id="MatchedcontentPopup">
+                        @{ Html.RenderPartial("~/Views/Review/_MatchDetails.cshtml", Model);}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/review_matchitemdetailview")
+
+
+
+
+
+

@@ -1,0 +1,96 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Models;
+@model dynamic
+@using System.Data;
+@using System.Configuration;
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.Matchbook) + " | " + ExportLang.titleExportData;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>
+    (Branding.DandB) + " | " + ExportLang.titleExportData;
+    }
+}
+
+<div class="clearfix"></div>
+<div id="content" style="opacity :1; padding :40px 14px 14px 14px;">
+    <section id="widget-grid" class="">
+        <div class="widget-body">
+            <ul class="nav nav-tabs bordered" id="myTab1">
+                <li class="nav-item ">
+                    <a class="nav-link @(ViewBag.SelectedTab == "CompanyData" ? "active" : "")" data-toggle="tab" href="#ExportDataTab" id="IdExportDataTab" aria-expanded="false">@ExportLang.lblCompanyData</a>
+                </li>
+                @if ((Helper.LicenseEnableMonitoring == true || Helper.LicenseEnableDPM == true) && Helper.oUser.UserType.ToLower() != "steward")
+                {
+                    <li class="nav-item ">
+                        <a class="nav-link @(ViewBag.SelectedTab == "MonitoringData" ? "active" : "")" data-toggle="tab" href="#MonitoringExportDataTab" id="IdMonitoringExportDataTab" aria-expanded="@(ViewBag.SelectedTab == "MonitoringData" ? "true" : "false")">@ExportLang.lblMonitoringNotification</a>
+                    </li>
+                }
+            </ul>
+            <div class="tab-content padding-10 position-relative righttabportal " id="">
+                <div id="ExportDataTab" class="tab-pane padding-10 fade @(ViewBag.SelectedTab == "CompanyData" ? "active in" : "")">
+                    @if (ViewBag.SelectedTab == "CompanyData")
+                    {
+                        Html.RenderPartial("CompanyData", Model as List<ExportJobSettingsEntity>);
+                    }
+                </div>
+                @if ((Helper.LicenseEnableMonitoring == true || Helper.LicenseEnableDPM == true) && Helper.oUser.UserType.ToLower() != "steward")
+                {
+                    <div id="MonitoringExportDataTab" class="tab-pane padding-10 fade @(ViewBag.SelectedTab == "MonitoringData" ? "active in" : "")">
+                        @if (ViewBag.SelectedTab == "MonitoringData")
+                        {
+                            Html.RenderPartial("MonitoringExportindex", Model as List<MonitoringNotificationJobSettingsEntity>);
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+
+    </section>
+</div>
+
+<div id="CustomExportDelimiterModalMain"></div>
+<div id="ExportFileNameModalMain"></div>
+<div id="ReExportFileModalMain"></div>
+@section scripts{
+    <script>
+        var cancelExportDataRequest = '@ExportLang.msgCancelExportDataRequest';
+        var deleteRecord = '@ExportLang.msgDeleteRecord';
+        var markDataAsExported = '@ExportLang.msgMarkDataAsExported';
+        var noDataFound = '@ExportLang.msgNoDataFound';
+        var noRecordsFound = '@ExportLang.msgNoRecordsFound';
+        var dataRejected = '@CommonMessagesLang.msgDataRejected';
+        var noRecords = '@CommonMessagesLang.msgNoRecords';
+        var noRecords = '@CommonMessagesLang.msgNoRecords';
+        var success = '@CommonMessagesLang.msgSuccess';
+        var notExist = '@CommonMessagesLang.msgNotExist';
+        var exist = '@CommonMessagesLang.msgExist';
+        var fileNameExists = '@ExportLang.msgFileNameExists';
+        var selectedOutput = '@ExportLang.msgSelectedOutput';
+        var outputFormat = '@ExportLang.msgOutputFormat';
+        var markAsExported = '@ExportLang.msgMarkAsExported';
+        var noFilterSelected = '@ExportLang.msgNoFilterSelected';
+        var delimiterValue = '@ExportLang.msgDelimiterValue';
+        var apiLayer = '@ExportLang.msgApiLayer';
+        var srcRecordId = '@ExportLang.msgSrcRecordId';
+        var lobTag = '@ExportLang.msgLOBTag';
+        var tag = '@ExportLang.msgTag';
+        var importPorcess = '@ExportLang.msgImportProcess';
+        var confirmBox = '@CommonMessagesLang.lblConfirm';
+        var noRecordsAffected = '@ExportLang.msgNoRecordsAffected';
+        var dataUnflagged = '@ExportLang.msgDataUnflagged';
+        var dataRejected = '@ExportLang.msgDataRejected';
+        var isExactMatch = '@ExportLang.msgIsExactMatch';
+        var allFiles = '@CommonMessagesLang.lblAllFiles';
+        var selectOutputQueue = '@OIExportDataLang.msgSelectOutputQueue';
+    </script>
+    <script src="~/Scripts/jquery.pjax.js"></script>
+    @Scripts.Render("~/bundles/exportview")
+
+}

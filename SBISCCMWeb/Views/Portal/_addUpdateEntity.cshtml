@@ -1,0 +1,63 @@
+﻿@using SBISCCMWeb.LanguageResources
+@{
+    Layout = null;
+    ViewBag.Title = PortalSettingLang.titleAddEntity;
+
+    string currentEntity = ViewBag.Entity;
+    string OpenFrom = ViewBag.OpenFrom;
+    AjaxOptions EntityajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        UpdateTargetId = "listUserCommentId",
+        OnSuccess = "UpdateUserComments"
+    };
+}
+
+
+<article class="col-xs-10  sortable-grid ui-sortable width86pt">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@PortalSettingLang.hdrEntity</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content">
+                    <div class="tab-pane fade active in">
+                        @using (Ajax.BeginForm("AddEntity", "Portal", null, EntityajaxOptions, new { @class = "formCustomeAttribute m-style", @autocomplete = "off" }))
+                        {
+                            @Html.Hidden("hdnEntity", currentEntity)
+                            @Html.Hidden("OpenFrom", OpenFrom)
+                            @Html.AntiForgeryToken()
+                            <div class="form-group text-center">
+
+                                <div class="row paddingto5">
+                                    <div class="col-xs-3 paddingtop7 centerspace">
+                                        <span class="pull-right"><strong>@PortalSettingLang.lblEntityValue :</strong></span>
+                                    </div>
+                                    <div class="col-xs-6 ">
+                                        <input type="text" id="txtEntity" name="Entity" class="form-control" maxlength="50" />
+                                        <span id="spnEntity" class="error pull-left" style="display:none;">@PortalSettingLang.lblEntityValueRequire</span>
+                                    </div>
+                                </div>
+                                <div class="row paddingto5">
+                                    <div class="col-xs-3 ">
+                                        &nbsp;
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <input type="submit" id="btnEntitySubmit" value="@PortalSettingLang.lblSave" class="btn btn-primary btnAddEntity" onclick="return sumbitntity()" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+

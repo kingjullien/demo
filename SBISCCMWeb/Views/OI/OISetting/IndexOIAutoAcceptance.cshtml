@@ -1,0 +1,132 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model IPagedList<OIAutoAcceptanceEntity>
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialAutoAcceptance",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnSuccess = "OnSuccessAutoAcceptance"
+    };
+}
+<article class="col-md-12 col-xs-12 col-sm-12 sortable-grid ui-sortable" id="">
+    <div class="sortable-grid ui-sortable widget-data" id="articleDnBDirectCredentials">
+        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <strong>@OISettingLang.hdrAutoAcceptance</strong>
+                </h2>
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body no-padding">
+                    <div class="tab-content padding-10">
+                        <div class="table-responsive">
+                            <table class="table table-bordered OIAutoAcceptance">
+                                <thead>
+                                    <tr>
+                                        <th rowspan="2">@OISettingLang.lblCCMin</th>
+                                        <th rowspan="2">@OISettingLang.lblCCMax</th>
+                                        <th colspan="10" class="custom-text-align-center">@OISettingLang.lblMatchGrade</th>
+                                        <th colspan="2" class="custom-text-align-center">@OISettingLang.lblMDPCode</th>
+                                        <th rowspan="2">@OISettingLang.lblCompanyScore</th>
+                                        <th rowspan="2">@OISettingLang.lblExcludeFromAutoAccept</th>
+                                        <th rowspan="2">@OISettingLang.lblCountryGroup</th>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <th rowspan="2">@OISettingLang.lblTags</th>
+                                        }
+                                        <th rowspan="2">@OISettingLang.lblEdit</th>
+                                        <th rowspan="2">@OISettingLang.lblDelete</th>
+                                    </tr>
+                                    <tr>
+                                        <th>@OISettingLang.lblCompany</th>
+                                        <th>@OISettingLang.lblStreetNo</th>
+                                        <th>@OISettingLang.lblStreetName</th>
+                                        <th>@OISettingLang.lblCity</th>
+                                        <th>@OISettingLang.lblState</th>
+                                        <th>@OISettingLang.lblPhone</th>
+                                        <th>@OISettingLang.lblPostalCode</th>
+                                        <th>@OISettingLang.lblWebDomain</th>
+                                        <th>@OISettingLang.lblCountry</th>
+                                        <th>@OISettingLang.lblEIN</th>
+
+                                        <th>@OISettingLang.lblCountry</th>
+                                        <th>@OISettingLang.lblWebDomain</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model != null && Model.Count > 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>@item.ConfidenceCodeMin</td>
+                                                <td>@item.ConfidenceCodeMax</td>
+                                                <td>@item.MG_Company</td>
+                                                <td>@item.MG_StreetNo</td>
+                                                <td>@item.MG_StreetName</td>
+                                                <td>@item.MG_City</td>
+                                                <td>@item.MG_State</td>
+                                                <td>@item.MG_Phone</td>
+                                                <td>@item.MG_PostalCode</td>
+                                                <td>@item.MG_Webdomain</td>
+                                                <td>@item.MG_Country</td>
+                                                <td>@item.MG_EIN</td>
+                                                <td>@item.MDP_Company</td>
+                                                <td>@item.MDP_Webdomain</td>
+                                                <td>@item.Score_Company</td>
+                                                <td>@item.ExcludeFromAutoAccept</td>
+                                                <td>@item.GroupName</td>
+                                                @if (Helper.LicenseEnableTags)
+                                                {
+                                                    <td>@(item.Tags == "0" ? "" : item.Tags)</td>
+                                                }
+                                                <td><a href="javascript:void(0);" id="@item.RuleId" class="editOIAutoAcceptance" data-id="@item.RuleId.ToString()">@OISettingLang.lblEdit</a></td>
+                                                <td><a href="javascript:void(0);" id="@item.RuleId" class="DeleteOIAutoAcceptance">@OISettingLang.lblDelete</a></td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="20">@OISettingLang.lblNodataareavailable</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center margintop15">
+                                <button class="btn btn-primary" id="btnAddOIAutoAcceptance">@OISettingLang.lblAdd</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedTab == "OI Auto Acceptance")
+{
+    <script>
+        var divOrbLicense = document.getElementById("OrbLicenceTab");
+        divOrbLicense.style.display = "none";
+
+        $(document).ready(function () {
+            $('table.OIAutoAcceptance tbody tr:first').addClass('current');
+        });
+    </script>
+}
+else
+{
+    <script>
+        var divOrbLicense = document.getElementById("OrbLicenceTab");
+        divOrbLicense.style.display = "none";
+        var divOrbAutoAcceptance = document.getElementById("OrbIdentityResolutionTab");
+        divOrbAutoAcceptance.style.display = "block";
+    </script>
+}

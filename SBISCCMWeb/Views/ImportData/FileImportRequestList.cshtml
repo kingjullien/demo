@@ -1,0 +1,94 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility
+@model IPagedList<ImportJobDataEntity>
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "ImportFileListing",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnSuccess = "OnSuccessImportJob"
+    };
+
+    int SortOrder = Convert.ToInt32(ViewBag.SortBy);
+    int SortBy = Convert.ToInt32(ViewBag.SortBy);
+    string FileType = Convert.ToString(ViewBag.FileType);
+    int pageno = Convert.ToInt32(ViewBag.pageno);
+    int i = 1;
+}
+@using (Ajax.BeginForm("GetFileImportRequest", "ImportData", FormMethod.Post, ajaxOptions, new { id = "form_ImportData", @autocomplete = "off" }))
+{
+    @Html.Hidden("SortOrder", SortOrder)
+    @Html.Hidden("SortBy", SortBy)
+    @Html.Hidden("FileType", FileType)
+    @Html.Hidden("pageno", pageno)
+    <table id="ImportJobs" class="table table-bordered panel-group margin-bottom-0">
+        <thead>
+            <tr class="">
+                <th width="20%" >
+                    @ImportDataLang.lblFileName
+                </th>
+                <th width="15%">
+                    @ImportDataLang.lblImportType
+                </th>
+                <th width="10%">
+                    @ImportDataLang.lblRequestedDate
+                </th>
+                <th width="10%">
+                    @ImportDataLang.lblStatus
+                </th>
+                <th width="10%">
+                    @ImportDataLang.lblMessage
+                </th>
+                <th width="35%">
+                    @ImportDataLang.lblErrorMessage
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="WordBreak">
+                            @if (item.ImportProcessId > 0 && item.ImportType.Contains("D&B") && !item.ProcessStatus.Contains("Failed"))
+                            {
+                                <a href="javascript:void(0)" class="importFileStats" data-ImportId="@item.ImportProcessId">@item.SourceFileName</a>
+                            }
+                            else
+                            {
+                                @item.SourceFileName
+                            }
+                        </td>
+                        <td>
+                            @item.ImportType
+                        </td>
+                        <td>@Convert.ToDateTime(@item.RequestedDateTime).ToDatetimeFull()</td>
+                        <td class="font-weight-bold">
+                            @item.ProcessStatus
+                        </td>
+                        <td>@item.Message</td>
+                        <td class="error">@item.ErrorMessage</td>
+                    </tr>
+                    i++;
+                }
+            }
+            @*else
+            {
+                <tr>
+                    <td colspan="6">@ImportDataLang.lblNoRecordfound</td>
+                </tr>
+            }*@
+        </tbody>
+    </table>
+    @*<div class="dt-toolbar-footer importPadding">
+        <div class="col-sm-12 col-xs-12 hidden-xs">
+            <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                <a id="pagingFormAction" href="@Url.Action("GetFileImportRequest", "ImportData", new {  IsInnerPage= true,page = 1, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder ,FileType=ViewBag.FileType})" style="display:block"></a>
+                @Html.PagedListPager(Model, page => Url.Action("GetFileImportRequest", "ImportData", new { IsInnerPage = true, page = page, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder, FileType = ViewBag.FileType }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, ajaxOptions))
+            </div>
+        </div>
+    </div>*@
+}

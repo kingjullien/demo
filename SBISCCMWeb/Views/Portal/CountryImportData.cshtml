@@ -1,0 +1,122 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@{
+    ViewBag.Title = PortalSettingLang.titleImportData;
+    Layout = null;
+}
+@Html.AntiForgeryToken()
+<div class="modal" id="PortalCountryGroupImportModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xs">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@PortalSettingLang.hdrImportData</h4>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane fade active in">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="file" name="file" id="file" accept=".xls,.xlsx" class="form-control browserFile inputfile inputfile-6" autocomplete="off" />
+                            <label for="file">
+                                <span></span>
+                                <strong>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17">
+                                        <path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path>
+                                    </svg>
+                                    @CommonMessagesLang.lblBrowse
+                                </strong>
+                            </label>
+                        </div>
+                        @*<input type="file" name="file" id="file" class="browserFile" accept=".xls,.xlsx" /><br />*@
+                        <label>@PortalSettingLang.lblAcceptsExcelFiles</label><br />
+                        <label>
+                            <input type="checkbox" id="WithHeader" value="true" name="WithHeader">
+                            <strong>@PortalSettingLang.lblFirstRowFileHeader</strong>
+                        </label>
+                        <br />
+                        <button id="btnSubmitImportData" type="button" class="btn btn-primary">@PortalSettingLang.lblSubmit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script>
+    'use strict';
+
+    ; (function (document, window, index) {
+        var inputs = document.querySelectorAll('.inputfile');
+        Array.prototype.forEach.call(inputs, function (input) {
+            var label = input.nextElementSibling,
+                labelVal = label.innerHTML;
+
+            input.addEventListener('change', function (e) {
+                var fileName = '';
+                if (this.files && this.files.length > 1)
+                    fileName = (this.getAttribute('data-multiple-caption') || '').replace('{count}', this.files.length);
+                else
+                    fileName = e.target.value.split('\\').pop();
+
+                if (fileName)
+                    label.querySelector('span').innerHTML = fileName;
+                else
+                    label.innerHTML = labelVal;
+            });
+
+            // Firefox bug fix
+            input.addEventListener('focus', function () { input.classList.add('has-focus'); });
+            input.addEventListener('blur', function () { input.classList.remove('has-focus'); });
+        });
+    }(document, window, 0));
+
+    $(document).ready(function () {
+    $(".SelectBox").each(function () {
+        var fieldName = $(this).parent().parent().find(".spnExcelColumn").attr('data-val');
+        var selectedvalue = 0;
+        $(".SelectBox option").each(function () {
+            var optionName = $(this).text();
+            if (fieldName == optionName) {
+                selectedvalue = $(this).val();
+            }
+            if (optionName.toLowerCase() == "groupname") {
+                if (fieldName.toLowerCase() == "groupname") {
+                    selectedvalue = $(this).val();
+                }
+            }
+            if (optionName.toLowerCase() == "countries" || optionName.toLowerCase() == "isoalpha2codes" || optionName.toLowerCase() == "isoalpha2code") {
+                if (fieldName.toLowerCase() == "isoalpha2code") {
+                    selectedvalue = $(this).val();
+                }
+            }
+        });
+        $(this).val(selectedvalue);
+        var id = $(this).attr('id');
+        var CurrentColumn = $(this).val();
+        if (parseInt(CurrentColumn) != 0) {
+            $.ajax({
+                type: "POST",
+                url: "/Portal/UpdateExamples",
+                data: JSON.stringify({ CurrentColumn: CurrentColumn }),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    $("#" + id).parent().next().text(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                }
+            });
+        } else {
+            $("#" + id).parent().next().text('');
+        }
+    });
+    if (parseInt($("#DataColumn-0").val()) > 0 && parseInt($("#DataColumn-1").val())) {
+        $("#btnInsertData").attr('disabled', false);
+    }
+    else {
+        $("#btnInsertData").attr('disabled', 'disabled');
+    }
+});
+</script>

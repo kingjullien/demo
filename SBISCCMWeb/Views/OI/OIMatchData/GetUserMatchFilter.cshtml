@@ -1,0 +1,62 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.LanguageResources;
+@model List<OIUserMatchFilterEntity>
+@{int i = 1;
+}
+@if (Model != null && Model.Count > 0)
+{
+    <div class="">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>@OIMatchDataLang.lblCCMin</th>
+                    <th>@OIMatchDataLang.lblCCMax</th>
+                    <th>@OIMatchDataLang.lblMatchGrade</th>
+                    <th>@OIMatchDataLang.lblMDPCode</th>
+                    <th>@OIMatchDataLang.lblCompanyScore</th>
+                    <th>@OIMatchDataLang.lblExclude</th>
+                    <th>@OIMatchDataLang.lblEdit</th>
+                    <th>@OIMatchDataLang.lblDelete</th>
+                    <th>@OIMatchDataLang.lblEnableDisabled</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ConfidenceCodeMin</td>
+                        <td>@item.ConfidenceCodeMax</td>
+                        <td>
+                            @item.MG_Company@item.MG_StreetNo@item.MG_StreetName@item.MG_City@item.MG_State@item.MG_Phone@item.MG_PostalCode@item.MG_Webdomain@item.MG_Country@item.MG_EIN
+                        </td>
+                        <td>@item.MDP_Company-@item.MDP_Webdomain
+
+                        <td>@item.Score_Company</td>
+                        <td>
+                            @item.Exclude
+
+                        </td>
+                        <td><a href="javascript:void(0);" id="@item.FilterId" class="editOIUserMatchFilter" title="@OIMatchDataLang.titleEdit"><i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i></a></td>
+                        <td><a href="javascript:void(0);" id="@item.FilterId" class="DeleteOIUserMatchFilter" title="@OIMatchDataLang.titleDelete"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a></td>
+                        <td>
+                            <label class="switch no-margin">
+                                <input type="checkbox" name="enableDisabled-@i" id="@item.FilterId" class="BtnEnableDisableOIAutoAcceptance" @(item.Enabled ? "checked" : "")>
+                                <span class="Toggleslider round"></span>
+                            </label>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+
+{
+<div class="pull-left">
+    <span>
+        @OIMatchDataLang.lblNofilterrecordsavailable
+    </span>
+</div>
+}

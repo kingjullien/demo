@@ -1,0 +1,182 @@
+﻿@model SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.TicketEntity
+@using SBISCCMWeb.Utility;
+@using PagedList;
+@using SBISCCMWeb.LanguageResources;
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + TicketLang.titleTicketDesk;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + TicketLang.titleTicketDesk;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divUploadImage",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST"
+    };
+}
+@{
+    List<string> lstFiles = new List<string>();
+    if (Model != null)
+    {
+        if (Model.Files != null)
+        {
+            string Files = Model.Files.TrimEnd(':');
+            for (int i = 0; i < Files.Split(':').Length; i++)
+            {
+                lstFiles.Add(Files.Split(':')[i].ToString());
+            }
+        }
+    }
+    IPagedList<dynamic> pagedImage = new StaticPagedList<dynamic>(lstFiles, 1, 10000, 0);
+}
+
+@using (Html.BeginForm("Create", "Ticket", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", onsubmit = "myFunction()", id = "AddUpdateticketFrm" }))
+{
+    @Html.Hidden("EnterBy", Model.EnteredBy)
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+    <div id="content" style="opacity: 1;">
+        <section id="widget-grid" class="">
+            <div class="row">
+                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark " data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <h2>
+                                <i class="fa fa-ticket"></i>
+                                <strong>@TicketLang.hdrCreateTicket</strong>
+                            </h2>
+                        </header>
+                        <div role="content">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body no-padding">
+                                <div class="tab-content padding-10">
+                                    <div id="hr2" class="tab-pane fade fade active in">
+                                        <div class="form-group">
+                                            <div class="row paddingto5">
+                                                <div class="col-md-12">
+                                                    <span><strong>@TicketLang.lblClientInformation </strong></span>
+                                                    @Html.TextBoxFor(m => m.ClientInformation, new { @class = "form-control col-md-12", @id = "txtClientInformation", @autocomplete = "off", @readonly = "true", maxlength = "200" })
+                                                    @Html.ValidationMessageFor(model => model.ClientInformation, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="row paddingto5">
+                                                <div class="col-md-12">
+                                                    <span><strong>@TicketLang.lblApplicationUser</strong></span>
+                                                    @Html.TextBoxFor(m => m.ApplicationUser, new { @class = "form-control col-md-12", @id = "txtApplicationUser", @autocomplete = "off", @readonly = "true", maxlength = "200" })
+                                                    @Html.ValidationMessageFor(model => model.ApplicationUser, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="row paddingto5">
+                                                <div class="col-md-12">
+                                                    <span><strong>@TicketLang.lblEnterBy</strong></span>
+                                                    @Html.TextBoxFor(m => m.EnteredBy, new { @class = "form-control col-md-12", @id = "txtEnteredBy", @autocomplete = "off", @readonly = "true", maxlength = "64" })
+                                                </div>
+                                            </div>
+
+                                            <div class="row paddingto5">
+                                                <div class="col-md-6">
+                                                    <span><strong>@TicketLang.lblEmail </strong></span>
+                                                    @Html.TextBoxFor(m => m.PrimaryEmailAddress, new { @class = "form-control col-md-12", @id = "txtPrimaryEmailAddress", @autocomplete = "off", maxlength = "200" })
+                                                    @Html.ValidationMessageFor(model => model.PrimaryEmailAddress, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span><strong>@TicketLang.lblContactNumber</strong></span>
+                                                    @Html.TextBoxFor(m => m.PrimaryContactNumber, new { @class = "form-control col-md-12", @id = "txtPrimaryContactNumber", @autocomplete = "off", maxlength = "25" })
+                                                    @Html.ValidationMessageFor(model => model.PrimaryContactNumber, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="row paddingto5">
+                                                <div class="col-md-6">
+                                                    <span><strong>@TicketLang.lblPriority</strong></span>
+                                                    @Html.DropDownList("Priority", new SelectList(SBISCCMWeb.Controllers.TicketController.GetTicketStatus("101", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Code", "Value"), "Select Priority", new { @class = "form-control ", @autocomplete = "off" })
+                                                    @Html.ValidationMessageFor(model => model.Priority, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span><strong>@TicketLang.lblStatus</strong></span>
+                                                    @Html.DropDownList("CurrentStatus", new SelectList(SBISCCMWeb.Controllers.TicketController.GetTicketStatus("102", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Code", "Value"), new { @class = "form-control col-md-12", @autocomplete = "off" })
+                                                    @Html.ValidationMessageFor(model => model.CurrentStatus, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="row paddingto5">
+                                                <div class="col-md-6">
+                                                    <span><strong>@TicketLang.lblTicketSource</strong></span>
+                                                    @Html.DropDownListFor(model => model.TicketSource, new SelectList(SBISCCMWeb.Controllers.TicketController.GetTicketStatus("103", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Code", "Value"), new { @class = "form-control col-md-12", @autocomplete = "off" })
+                                                    @Html.ValidationMessageFor(model => model.TicketSource, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <span><strong>@TicketLang.lblTicketType</strong></span>
+                                                    @Html.DropDownList("TicketType", new SelectList(SBISCCMWeb.Controllers.TicketController.GetTicketStatus("104", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Code", "Value"), CommonMessagesLang.lblSelectType, new { @class = "form-control col-md-12", @autocomplete = "off" })
+                                                    @Html.ValidationMessageFor(model => model.TicketType, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5" style="display:none;">
+                                                <div class="col-md-12">
+                                                    <span><strong>@TicketLang.lblAssignedTo</strong></span>
+                                                    <input id="txtAssigned" type="text" name="AssignedTo" class="form-control col-md-9" />
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <div class="col-md-12">
+                                                    <span><strong>@TicketLang.lblTitle</strong></span>
+                                                    @Html.TextBoxFor(m => m.Title, new { @class = "form-control col-md-12 ", @id = "txtTitle", @autocomplete = "off", maxlength = "200" })
+                                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <div class="col-md-12">
+                                                    <span><strong>@TicketLang.lblDescription</strong></span>
+                                                    <textarea id="txtIssueDescription" class="form-control input-block-level charcount" rows="6" placeholder="Enter Description" autocomplete="off" name="IssueDescription" data-val-maxlength-max="500" data-val-maxlength="Only 500 characters allowed" data-val="true" cols="8"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5" style="display:none;">
+                                                <div class="col-md-12">
+                                                    <span><strong>@TicketLang.lblResolutionDescription</strong></span>
+                                                    <textarea id="txtResolutionDescription" name="ResolutionDescription" autocomplete="off" class="form-control col-md-9 ResolutionDescription"></textarea>
+                                                </div>
+                                            </div>
+                                            <div id="divUploadImage">
+                                                @{Html.RenderPartial("_UploadImage", pagedImage);}
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <div class="col-md-12">
+                                                    <input type="submit" value="@TicketLang.lblCreate" class="btn btn-default CreateTicket btn-primary" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+
+}
+<div class="back">
+    @Html.ActionLink(TicketLang.lblBacktoList, "Index")
+</div>
+
+
+@section Scripts {
+    <script>
+        var confirmBox = '@CommonMessagesLang.lblConfirm';
+        var removeImageFile = '@TicketLang.msgRemoveImageFile';
+        var wrongFormat = '@CommonMessagesLang.msgWrongFormat';
+        var formatsAllowed = '@TicketLang.msgFormatsAllowed';
+    </script>
+    @Scripts.Render("~/bundles/ticket_create")
+
+}

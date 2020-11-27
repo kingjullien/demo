@@ -1,0 +1,76 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model SBISCCMWeb.Models.Dashboard
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + HomeLang.titleDashboard;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + HomeLang.titleDashboard;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="divPartialIndex" style="margin-left:-14px;margin-right:-14px;">
+    @{Html.RenderPartial("_index", Model); }
+</div>
+
+<div id="BackgroundProcessListModalMain"></div>
+<div id="ImportProcessDataQueueStatisticsModalMain">
+    <div class="modal" id="ImportProcessDataQueueStatisticsModal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <span class="alignUTCTime">
+                            <div class="col-md-1 pull-right">
+                                <a href="javascript:void(0)" class="DownloadDataQueueStatistics" title="@HomeLang.titleDownloadDataQueueStatistics"><em class="fa fa-download fa-lg"></em></a>
+                            </div>
+                        </span>
+                    </div>
+                    <h4 class="modal-title">@HomeLang.hdrImportProcessQueue</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="APIUsageReportModalMain"></div>
+
+@if (!String.IsNullOrEmpty(SessionHelper.RedirectUrl))
+{
+    <iframe height="0" width="0" style="border:none;" name="iframe"></iframe>
+    <form id="form1" runat="server" target="iframe" method="post" action="@SessionHelper.RedirectUrl"></form>
+    <script type="text/javascript">
+        $('#form1').submit();
+    </script>
+}
+@section scripts{
+    <script>
+        var settingPausemsg = '@HomeLang.msgPauseSetting';
+        var settingUnPausemsg = '@HomeLang.msgUnpauseSetting';
+        var allowedFormatsOnly = '@HomeLang.msgAllowedFormatsOnly';
+        var currentUTCTime = '@HomeLang.lblCurrentUTCTime';
+        var processStats = '@HomeLang.msgProcessStats';
+        var durtationInSeconds = '@HomeLang.msgDurationInSeconds';
+        var matchesByUsers = '@HomeLang.msgMatchesByUsers';
+        var matchesByConfidenceCode = '@HomeLang.msgMatchesByConfidenceCode';
+        var success = '@CommonMessagesLang.msgSuccess';
+        var noOfRecords = '@ReportsListLang.msgNoOfRecords';
+		var totalCountByMonth = '@ReportsListLang.msgtotalCountByMonth';
+        var currentMonthCount = '@ReportsListLang.msgCurrentMonthCount';
+        var currentMonthCountByAPI = '@ReportsListLang.msgCurrentMonthCountByAPI';
+        var currentYearCount = '@ReportsListLang.msgCurrentYearCount';
+        var currentYearCountByDnBAPIName = '@ReportsListLang.msgCurrentYearCountByDnBAPIName';
+        var confirmBox = '@CommonMessagesLang.lblConfirm';
+        var matches = '@HomeLang.msgMatches';
+        var records = '@HomeLang.msgRecords';
+    </script>
+    @Scripts.Render("~/bundles/home")
+}

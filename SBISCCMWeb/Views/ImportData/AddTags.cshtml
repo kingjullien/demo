@@ -1,0 +1,101 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+    ViewBag.Title = "AddTags";
+    string UserRole = Helper.oUser.UserRole;
+    string UserLOBTag = Helper.oUser.LOBTag;
+    bool isAllowLOBTag = ViewBag.isAllowLOBTag == null ? true : Convert.ToBoolean(ViewBag.isAllowLOBTag);
+}
+
+@Html.Hidden("UserRole", UserRole)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+@Html.Hidden("isAllowLOBTag", isAllowLOBTag)
+
+<link href="~/Content/Custom.css" rel="stylesheet" />
+<link href="~/Content/CustomPopUp.css" rel="stylesheet" />
+<div style="overflow:hidden">
+    @using (Html.BeginForm("AddTags", "Data", FormMethod.Post, new { autocomplete = "off" }))
+    {
+        @Html.Hidden("TagId", "0")
+        @Html.AntiForgeryToken()
+        <div id="content" style="opacity: 1;">
+            <section id="widget-grid" class="">
+                <div class="">
+                    <article class="sortable-grid ui-sortable">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading">
+                                <h2>
+                                    <i class="fa fa-files-o"></i>
+                                    <strong>@ImportDataLang.lblAddTag</strong>
+                                </h2>
+                            </header>
+                            <div role="content">
+                                <div class="jarviswidget-editbox"></div>
+                                <div class="widget-body">
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade active in">
+                                            <div class="text-center">
+                                                <div class="row paddingto5">
+                                                    <div class="col-xs-3 paddingtop7">
+                                                        <span class="pull-right"><strong>@ImportDataLang.lblTagType :</strong></span>
+                                                    </div>
+                                                    <div class="col-xs-6 ">
+                                                        @Html.DropDownList("TagTypeCode", (CommonDropdown.GetTagTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)), CommonMessagesLang.lblSelectTagtype, new { @class = "form-control", @autocomplete = "off" })
+                                                        <span id="spnTag" class="error pull-left" style="display:none;">@ImportDataLang.lblTagTypeRequire</span>
+                                                    </div>
+                                                </div>
+                                                <div class="row paddingto5 clsLobtag">
+                                                    <div class="col-xs-3 paddingtop7">
+                                                        <span class="pull-right"><strong>@ImportDataLang.lblLOBTag :</strong></span>
+                                                    </div>
+                                                    <div class="col-xs-6 ">
+                                                        @Html.DropDownList("LOBTag", new SelectList(CommonDropdown.GetTagByTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag"), CommonMessagesLang.lblSelectLOBTag, new { @class = "form-control width72", @autocomplete = "off" })
+                                                    </div>
+                                                </div>
+                                                <div class="row paddingto5">
+                                                    <div class="col-xs-3 paddingtop7">
+                                                        <span class="pull-right"><strong>@ImportDataLang.lblTagValue :</strong></span>
+                                                    </div>
+                                                    <div class="col-xs-6 ">
+                                                        <input type="text" id="txtTags" name="Tags" autocomplete="off" class="form-control" maxlength="23" />
+                                                        <span id="spnSearchText" class="error pull-left" style="display:none;">@ImportDataLang.lblTagRequire</span>
+                                                        <span id="spnIsValidTag" class="error pull-left" style="display:none;">@ImportDataLang.lblValidTagRequire</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row paddingto5">
+                                                    <div class="col-xs-3 paddingtop7">
+                                                        <span class="pull-right" style="display:none"><strong>@ImportDataLang.lblTag:</strong></span>
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <strong class="label-text-style">
+                                                            <label class="lbltag text-left font-weight-bold pull-left" id="txttag" style="padding-top:7px!important"></label>
+                                                        </strong>
+                                                    </div>
+                                                </div>
+                                                <div class="row paddingto5">
+                                                    <div class="col-xs-3 ">
+                                                        &nbsp;
+                                                    </div>
+                                                    <div class="col-xs-6">
+                                                        <input type="button" id="btnSubmit" value="Save" class="btn btn-primary btnAddTags" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+    }
+</div>
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/CustomJS-minified/Common.js"></script>
+<script src="~/Scripts/CustomJS-minified/AddTags.js"></script>
+<script src="~/Scripts/bootbox.min.js"></script>
+

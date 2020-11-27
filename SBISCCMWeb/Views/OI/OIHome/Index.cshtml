@@ -1,0 +1,28 @@
+﻿@using SBISCCMWeb.Models;
+@using SBISCCMWeb.LanguageResources;
+@model OIDashboard
+@{
+
+    ViewBag.Title = OIHomeLang.titleOIDashboard;
+}
+
+@{Html.RenderPartial("~/Views/OI/OIHome/_index.cshtml", Model); }
+<div id="OIAPIUsageStatisticsGridModalMain"></div>
+@section scripts{
+    <script src="~/Scripts/highcharts.js"></script>
+    <script src="~/Scripts/exporting.js"></script>
+    <script src="~/Scripts/chosen.jquery.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIHome.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIAPIUsageStatistics.js"></script>
+}
+<script>
+    var cleanseMatch = '@OIHomeLang.msgCLEANSEMATCH';
+    var running = '@OIHomeLang.msgRunning';
+    var successful = '@OIHomeLang.msgSuccessful';
+    var failed = '@OIHomeLang.msgFailed';
+    var noRecordsAvailable = '@OIHomeLang.msgNoRecords';
+    var lastProcess = '@OIHomeLang.msgLastProcess';
+    var completed = '@OIHomeLang.msgCompleted';
+    var minute = '@OIHomeLang.msgMinute';
+    var executions = '@OIHomeLang.msgExecutions';
+</script>

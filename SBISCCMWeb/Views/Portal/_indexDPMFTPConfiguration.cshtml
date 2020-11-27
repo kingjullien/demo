@@ -1,0 +1,81 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility
+@model List<DPMFTPConfigurationEntity>
+@{
+    AjaxOptions ajaxOptionsForUserPaging = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialIndexFTPConfiguration",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccessDPMFTPConfiguration"
+    };
+}
+<article class="col-md-12 sortable-grid ui-sortable" id="ArticleCountryGrp">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@PortalSettingLang.hdrDPMFTPConfigurationList</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div class="table-responsive">
+                        <table class="table table-bordered TbFTPConfiguration">
+                            <thead>
+                                <tr>
+                                    <th>@PortalSettingLang.lblHost</th>
+                                    <th>@PortalSettingLang.lblPort</th>
+                                    <th>@PortalSettingLang.lblUserName</th>
+                                    @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                    {
+                                        if (Helper.UserType.ToLower() != "steward")
+                                        {
+                                            <td class="nosort">@PortalSettingLang.lblDelete</td>
+                                        }
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        var Id = Utility.GetEncryptedString(Convert.ToString(item.Id)).Replace("+", Utility.urlseparator);
+                                        <tr data-FTPConfigurationId="@Id">
+                                            <td>@item.Host</td>
+                                            <td>@item.Port</td>
+                                            <td>@item.UserName</td>
+
+                                            @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                            {
+                                                if (Helper.UserType.ToLower() != "steward")
+                                                {
+                                                    <td>
+                                                        <a href="javascript:void(0)" id="@Id" clas class="deleteFTPConfiguration">@PortalSettingLang.lblDelete</a>
+                                                    </td>
+                                                }
+                                            }
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "DPMFTP Configuration")
+{
+    <script>
+        $(document).ready(function () {
+         InitPortalCompanyAttributeDataTable();
+         $('table#ArticleCountryGrp tbody tr:first').addClass('current');
+         OnSuccessDPMFTPConfiguration();
+    });
+    </script>
+}

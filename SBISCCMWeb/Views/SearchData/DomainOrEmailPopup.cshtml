@@ -1,0 +1,128 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Models
+@using SBISCCMWeb.Utility
+@model DomainOrEmailPopupViewModel
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + SearchDataLang.titleCleanseMatch;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + SearchDataLang.titleCleanseMatch;
+    }
+    Layout = null;
+    //Removed By Vijay as we are now using Model instead of viewdata
+    //string searchvalue = ViewBag.searchvalue;
+    //string type = ViewBag.type;
+    //bool IsCleanSearch = (bool)ViewBag.IsCleanSearch;
+    //string SrcRecId = ViewBag.SrcRecId;
+    //string InputId = ViewBag.InputId;
+}
+
+@Html.Hidden("IsCleanSearch", Model.IsCleanSearch)
+@Html.Hidden("SrcRecId", Model.SrcRecId)
+@Html.Hidden("InputId", Model.InputId)
+<style type="text/css">
+    /*body {
+        overflow: hidden;
+    }*/
+    .margintop2 {
+        margin-top: 2px;
+    }
+</style>
+<div class="modal" id="SearchByAltFieldsModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xs">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@SearchDataLang.lblSearchByAltFields</h4>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane fade active in">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-12 paddingtop7 form-group">
+                                @if (Helper.oUser.EnableSearchByDUNS)
+                                {
+                                    <div class="DomainRadioalign margintop2"><input type="radio" name="DominorEmailSearch" class="rButtonDominorEmailSearch" value="duns" @(Model.type == "duns" ? "checked" : "") /></div>
+                                }
+                                else
+                                {
+                                    <div class="DomainRadioalign"><input type="radio" disabled="disabled" name="DominorEmailSearch" class="rButtonDominorEmailSearch" /></div>
+
+                                }
+                                <div class="DomainRadioalign margin-top-4">@SearchDataLang.lblDUNS</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="DomainRadioalign margintop2"><input type="radio" name="DominorEmailSearch" class="rButtonDominorEmailSearch" value="Domain" checked="checked" @(Model.type == "domain" ? "checked" : (Helper.oUser.EnableSearchByDUNS ? "" : "checked")) /></div>
+                                <div class="DomainRadioalign margin-top-4">@SearchDataLang.lblDomain</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="DomainRadioalign margintop2"><input type="radio" name="DominorEmailSearch" class="rButtonDominorEmailSearch" value="Email" @(Model.type == "email" ? "checked" : "") /></div>
+                                <div class="DomainRadioalign margin-top-4">@SearchDataLang.lblEmail</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="DomainRadioalign margintop2"><input type="radio" name="DominorEmailSearch" class="rButtonDominorEmailSearch" value="Registration Number" @(Model.type == "registrationnumber" ? "checked" : "") /></div>
+                                <div class="DomainRadioalign margin-top-4">@SearchDataLang.lblRegistrationNumber</div>
+                            </div>
+                        </div>
+                        <div class="searchDUNS" style="display:none;">
+                            <div class=" form-group ">
+                                <div class="row">
+                                    <div class="col-xs-12 ">
+                                        <input type="text" id="txtDUNSNo" name="DUNSNo" autocomplete="off" class="form-control" maxlength="9" placeholder="DUNS No " />
+                                        <span id="spnDUNS" class="error" style="display:none;">@SearchDataLang.lblDUNSRequire </span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="searchDomainOrEmail">
+                            <div class="form-group">
+                                <div class=" row">
+                                    <div class="col-xs-12 ">
+                                        <input type="text" id="txtDominorEmail" name="DominorEmail" maxlength="100" autocomplete="off" class="form-control" value="@Model.searchvalue" placeholder="Search by domain" />
+                                        <span id="spnDominorEmail" class="error" style="display:none;">@SearchDataLang.lblDetailRequire</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class=" form-group ">
+                                <div class="row">
+                                    <div class="col-xs-12 ">
+                                        @Html.DropDownList("Country", (CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(SearchDataLang.lblSelectCountry), new { @class = "form-control", @autocomplete = "off" })
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="searchRegistrationNumber" style="display:none;">
+                            <div class=" form-group">
+                                <div class="row">
+                                    <div class="col-xs-12 ">
+                                        <input type="text" id="txtRegistrationNo" name="DominorEmail" maxlength="100" class="form-control" autocomplete="off" value="" placeholder="@SearchDataLang.placeholderRegistrationNumber" />
+                                        <span id="spnRegistrationNumber" class="error" style="display:none;">@SearchDataLang.lblRegistrationNumberRequire</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class=" form-group">
+                                <div class="row">
+                                    <div class="col-xs-12 ">
+                                        @Html.DropDownList("CountryRegistration", (CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(SearchDataLang.lblSelectCountry), new { @class = "form-control", @autocomplete = "off" })
+                                        <span id="spnRegistrationCountry" class="error" style="display:none;">@SearchDataLang.lblCountryRequire</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <input type="button" id="btnSearchDomain" value="@SearchDataLang.lblSearchMatch" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

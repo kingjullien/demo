@@ -1,0 +1,43 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.OI
+@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Utility;
+@model OIUserSessionFilterEntity
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + OIUserSessionFilterLang.titleUserSessionFilter;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + OIUserSessionFilterLang.titleUserSessionFilter;
+    }
+
+    AjaxOptions ajaxOption = new AjaxOptions
+    {
+        UpdateTargetId = "divUserSessionFilter",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST"
+    };
+}
+@Scripts.Render("~/bundles/popupjs")
+@Styles.Render("~/Content/popupcss")
+@using (Ajax.BeginForm("Index", "OIUserSessionFilter", null, ajaxOption, new { @autocomplete = "off" }))
+{
+    <div id="content" style="opacity: 1;">
+        <section id="widget-grid" class="">
+            <article class="sortable-grid ui-sortable"></article>
+            @{
+                <a href="#" id="" class="btn btn-primary OIuserFilter"><i class="fa fa-plus"></i></a>
+            }
+        </section>
+    </div>
+
+}
+@section scripts{
+    @Scripts.Render("~/bundles/oiviewresolutionmap")
+    <script>
+        var success = '@CommonMessagesLang.msgSuccess';
+        var message = '@LayoutLang.lblMessage';
+    </script>
+}
+

@@ -1,0 +1,203 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@model IPagedList<AutoAdditionalAcceptanceCriteriaEntity>
+@{
+
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialAutoAcceptance",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnSuccess = "OnSuccess"
+    };
+}
+@{ string ConfidenceCode = Convert.ToString(ViewBag.ConfidenceCode);
+    string MatchGrade = Convert.ToString(ViewBag.MatchGrade);
+    string SortOrder = Convert.ToString(ViewBag.SortOrder);
+    string SortBy = Convert.ToString(ViewBag.SortBy);
+    string matchGrade = Convert.ToString(TempData["MatchGrade"]);
+    var i = 0;
+}
+
+@Html.Hidden("ConfidenceCode", ConfidenceCode)
+@Html.Hidden("MatchGrade", MatchGrade)
+@Html.Hidden("MultiDeleteAutoAccept", "")
+@Html.Hidden("pagevalue", Convert.ToInt32(TempData["pagevalue"]))
+@Html.Hidden("SortOrder", SortOrder)
+@Html.Hidden("SortBy", SortBy)
+@Html.Hidden("matchGradeValue", matchGrade)
+<label class="select pull-right" style="padding-right:10px;">
+    Page Size :  @Html.DropDownList("pagevalue", new SelectList(SBISCCMWeb.Utility.CommonMethod.GetAutoAcceptancePageSize(), Convert.ToInt32(TempData["pagevalue"])), new { id = "pagevalue", @class = "pagevalueChangeAutoAcceptanceCriteria", @autocomplete = "off" })<i></i>
+</label>
+<div class="table-responsive ">
+    @using (Ajax.BeginForm("Index", "AutoAcceptance", FormMethod.Post, ajaxOptions, new { id = "form_additionalacceptance" }))
+    {
+        <table id="accordion" class="table table-bordered panel-group customTable divStewardshipPortal AutoAcceptanceTbcenter" role="grid">
+            <thead>
+                <tr>
+                    <th rowspan="2"></th>
+                    <th rowspan="2">@Ajax.ActionLink("CC", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions, new { @title = "Confidence Code" })</th>
+                    <th colspan="11">Match Grade</th>
+                    <th colspan="7">MDP Code</th>
+                    <th rowspan="2">@Ajax.ActionLink("Exclude From Auto Accept", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 20, sortorder = (ViewBag.SortBy == 20 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th rowspan="2">@Ajax.ActionLink("Country Group", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 21, sortorder = (ViewBag.SortBy == 21 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th rowspan="2">@Ajax.ActionLink("Tags", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 22, sortorder = (ViewBag.SortBy == 22 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th rowspan="2">Edit</th>
+                    <th rowspan="2">Delete</th>
+                    <th rowspan="2" style="text-align:center">
+                        Delete All<input type="checkbox" id="MultipleSelect" class="MultipleSelect MultiDeleteWith" />
+                    </th>
+                </tr>
+                <tr>
+                    <th>@Ajax.ActionLink("Company", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 2, sortorder = (ViewBag.SortBy == 2 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("Street No", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 3, sortorder = (ViewBag.SortBy == 3 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("StreetName", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 4, sortorder = (ViewBag.SortBy == 4 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("City", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 5, sortorder = (ViewBag.SortBy == 5 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("State", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 6, sortorder = (ViewBag.SortBy == 6 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("PO Box", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 7, sortorder = (ViewBag.SortBy == 7 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("Phone", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 8, sortorder = (ViewBag.SortBy == 8 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("PostalCode", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 9, sortorder = (ViewBag.SortBy == 9 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("Density", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 10, sortorder = (ViewBag.SortBy == 10 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("Uniqueness", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 11, sortorder = (ViewBag.SortBy == 11 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("SIC", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 12, sortorder = (ViewBag.SortBy == 12 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("Company", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 13, sortorder = (ViewBag.SortBy == 13 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("Street No", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 14, sortorder = (ViewBag.SortBy == 14 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("StreetName", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 15, sortorder = (ViewBag.SortBy == 15 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("City", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 16, sortorder = (ViewBag.SortBy == 16 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("State", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 17, sortorder = (ViewBag.SortBy == 17 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("PO Box", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 18, sortorder = (ViewBag.SortBy == 18 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>@Ajax.ActionLink("Phone", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 19, sortorder = (ViewBag.SortBy == 19 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        TempData["CollapsName"] = "Collaps" + i;
+                        i++;
+                        <tr class="panel panel-default tdlength partialrow">
+                            <td class="panel-heading tdlength">
+                                <a class="collapsed" data-CriteriaGroupId="@item.CriteriaGroupId"></a>
+                            </td>
+                            <td>@item.ConfidenceCode</td>
+                            <td>@item.CompanyGrade</td>
+                            <td>@item.StreetGrade</td>
+                            <td>@item.StreetNameGrade</td>
+                            <td>@item.CityGrade</td>
+                            <td>@item.StateGrade</td>
+                            <td>@item.AddressGrade</td>
+                            <td>@item.PhoneGrade</td>
+                            <td>@item.ZipGrade</td>
+                            <td>@item.Density</td>
+                            <td>@item.Uniqueness</td>
+                            <td>@item.SIC</td>
+                            <td>@item.CompanyCode</td>
+                            <td>@item.StreetCode</td>
+                            <td>@item.StreetNameCode</td>
+                            <td>@item.CityCode</td>
+                            <td>@item.StateCode</td>
+                            <td>@item.AddressCode</td>
+                            <td>@item.PhoneCode</td>
+                            <td style="text-align:center"><input type="checkbox" id="FirstCandidate" name="FirstCandidate" checked="@Convert.ToBoolean(item.ExcludeFromAutoAccept)" disabled="disabled"></td>
+                            <td>@item.GroupName</td>
+                            <td>@item.Tags</td>
+                            <td><a href="#" id="@item.CriteriaGroupId" class="edit">Edit</a></td>
+
+                            <td><a href="javascript:void(0);" data-CriteriaGroupId=@item.CriteriaGroupId id="@item.CriteriaGroupId" data-MatchGrade="@item.MatchGrade" class="delete">Delete</a></td>
+                            <td style="text-align:center"><input type="checkbox" data-val="@item.CriteriaGroupId" class="SelectedDelete" /></td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="11">No data are available</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+
+        @*<table class="table table-bordered">
+                <thead>
+                    <tr>
+
+                        <th>
+                            @Ajax.ActionLink("Confidence Code", "Index", "AutoAcceptance", new { CountyGroupId=ViewBag.CountyGroupId, Tags= ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                        </th>
+                        <th>
+                            @Ajax.ActionLink("Match Grade", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 2, sortorder = (ViewBag.SortBy == 2 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                        </th>
+                        <th>
+                            @Ajax.ActionLink("MDP Code", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 3, sortorder = (ViewBag.SortBy == 3 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                        </th>
+                        <th>
+                            @Ajax.ActionLink("Exclude", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 4, sortorder = (ViewBag.SortBy == 4 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                        </th>
+                        <th>
+                            @Ajax.ActionLink("Country Group ", "Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, Tags = ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 5, sortorder = (ViewBag.SortBy == 5 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                        </th>
+                        @if (Helper.LicenseEnableTags)
+                        {
+                            <th>
+                                @Ajax.ActionLink("Tags", "Index", "AutoAcceptance", new {CountyGroupId=ViewBag.CountyGroupId, Tags= ViewBag.TagList, ConfidenceCode = ViewBag.ConfidenceCode, MatchGrade = ViewBag.MatchGrade, page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 6, sortorder = (ViewBag.SortBy == 6 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                            </th>
+                        }
+                        <th>
+                            Edit
+                        </th>
+                        <th>
+                            Delete
+                        </th>
+                        <th>
+                            <input type="checkbox" id="MultipleSelect" class="MultipleSelect" /> Delete All
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.ConfidenceCode</td>
+                                <td>@item.MatchGrade</td>
+                                <td>@item.MDPCode</td>
+                                <td><input type="checkbox" id="FirstCandidate" name="FirstCandidate" checked="@Convert.ToBoolean(@item.ExcludeFromAutoAccept)" disabled="disabled"></td>
+                                <td>@item.GroupName</td>
+                                @if (Helper.LicenseEnableTags)
+                                {
+                                    <td>@item.Tags</td>
+                                }
+                                <td>
+                                    <a href="#" id="@item.CriteriaId" class="edit">Edit</a>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0);" data-criteriaid=@item.CriteriaId id="@item.CriteriaId"  data-MatchGrade="@item.MatchGrade" class="delete">Delete</a>
+                                </td>
+                                <td>
+                                    <input type="checkbox" data-val="@item.CriteriaId" class="SelectedDelete"/>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td class="noContain">No data are available</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>*@
+
+    }
+</div>
+<div class="dt-toolbar-footer">
+    <div class="col-sm-12 col-xs-12 hidden-xs">
+        <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+            <a id="pagingFormAction" href="@Url.Action(" Index", "AutoAcceptance" , new {CountyGroupId=ViewBag.CountyGroupId,ConfidenceCode =ViewBag.ConfidenceCode,Tags =ViewBag.TagList, MatchGrade=ViewBag.MatchGrade, page=1, pagevalue=ViewBag.pagevalue, sortby=ViewBag.SortBy, sortorder=ViewBag.SortOrder })" style="display:block"></a>
+            @Html.PagedListPager(Model, page => Url.Action("Index", "AutoAcceptance", new { CountyGroupId = ViewBag.CountyGroupId, ConfidenceCode = ViewBag.ConfidenceCode, Tags = ViewBag.TagList, MatchGrade = ViewBag.MatchGrade, page = page, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divPartialAutoAcceptance", LoadingElementId = "divProgress", OnSuccess = "OnSuccess()" }))
+        </div>
+    </div>
+</div>

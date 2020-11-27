@@ -1,0 +1,88 @@
+﻿@using SBISCCMWeb.LanguageResources
+@model SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.DPMFTPConfigurationEntity
+@using SBISCCMWeb.Utility
+@{ AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "UpdateDPMFTPConfigration"
+    };
+}
+<article class="col-md-12 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@PortalSettingLang.hdrDPMFTPConfigration</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                {
+                    if (Helper.UserType.ToLower() != "steward")
+                    {
+                        <li>
+                            <div class="btn btn-sm btn-Secondary" id="AddFTPConfiguration" title="@PortalSettingLang.titleAddDPMFTP">
+                                <span class="fa fa-plus"></span>
+                            </div>
+                        </li>
+                    }
+                    <li>
+                        <div class="btn btn-sm btn-Secondary" id="EditFTPConfiguration" title="@PortalSettingLang.titleEditDPMFTP">
+                            <span class="fa fa-pencil"></span>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade active in">
+                        @using (Ajax.BeginForm("AddDPMFTPConfigration", "Portal", null, ajaxOptions, new { @class = "formContent", id = "", @autocomplete = "off" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.Id)
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <span><strong>@PortalSettingLang.lblHost</strong></span>
+                                    @Html.TextBoxFor(model => model.Host, new { @class = "form-control", disabled = "disabled", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.Host, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-3">
+                                    <span><strong>@PortalSettingLang.lblPort</strong></span>
+                                    @Html.TextBoxFor(model => model.Port, new { @class = "form-control", disabled = "disabled", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.Port, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-md-3">
+                                    <span><strong>@PortalSettingLang.lblUserName</strong></span>
+                                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", disabled = "disabled", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-md-3">
+                                    <span><strong>@PortalSettingLang.lblPassword</strong></span>
+                                    @Html.PasswordFor(model => model.Password, new { value = Model.Password, @class = "form-control", disabled = "disabled", @autocomplete = "off" })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+
+                            </div>
+                            <div class="row paddingto5">
+                                <div class="col-md-12 text-right">
+                                    @if (Model.Id > 0)
+                                    {
+                                        <input type="submit" value="@PortalSettingLang.lblUpdate" class="btn btn-primary" id="InsertDPMFTPConfiguration" style="display:none" />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" value="@PortalSettingLang.lblCreate" class="btn btn-primary" id="InsertDPMFTPConfiguration" style="display:none" />
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

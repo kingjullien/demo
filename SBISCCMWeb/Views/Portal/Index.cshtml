@@ -1,0 +1,394 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@using System.Configuration;
+@using SBISCCMWeb.Models;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model dynamic
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + PortalSettingLang.titlePortal;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + PortalSettingLang.titlePortal;
+    }
+    string UserRoles = Helper.oUser.UserRole;
+    string UserLOBTag = Helper.oUser.LOBTag;
+    string LicenseType = ConfigurationManager.AppSettings["LicenseSKU"];
+}
+<style>
+    .tabBorder{
+        padding: 9px 14px 10px !important;
+    }
+    #RTabCommandUpload {
+        border: 1px solid #ddd;
+        border-top: none !important;
+        height: 1130px;
+    }
+    #RTabCommandDownload {
+        border: 1px solid #ddd;
+        border-top: none !important;
+        height: 1130px;
+    }
+    #RTabCommandDownloadSetup {
+        border: 1px solid #ddd;
+        border-top: none !important;
+        height: 1130px;
+    }
+</style>
+@Html.Hidden("UserRole", UserRoles)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+@Html.AntiForgeryToken()
+
+<div id="content" style="opacity: 1;">
+    <section id="widget-grid" class="">
+        <div class="row">
+            <div class="widget-body vertical_tab w-100">
+                <ul class="nav nav-tabs bordered" id="myTab1">
+                    @if (Helper.UserType.ToLower() != "steward")
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewBag.SelectedTab == "Features" ? "active" : "")" data-toggle="tab" href="#FeatureTab" id="IdFeatureTab" aria-expanded="@(ViewBag.SelectedTab == "Features" ? "true" : "false")">@PortalSettingLang.lblFeature</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewBag.SelectedTab == "Users" ? "active" : "")" data-toggle="tab" href="#UsersTab" id="IdUsersTab" aria-expanded="@(ViewBag.SelectedTab == "Users" ? "true" : "false")">@PortalSettingLang.lblUsers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewBag.SelectedTab == "Common" ? "active" : "")" data-toggle="tab" href="#CommonTab" id="IdCommonTab" aria-expanded="@(ViewBag.SelectedTab == "Common" ? "true" : "false")">@PortalSettingLang.lblCommon</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewBag.SelectedTab == "Data Governance" ? "active" : "" )" data-toggle="tab" href="#DataGovernance" id="IdDataGovernance" aria-expanded="false">@PortalSettingLang.lblDataGovernance</a>
+                        </li>
+                    }
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewBag.SelectedTab == "About Us" || Helper.UserType.ToLower() == "steward" ? "active" : "")" data-toggle="tab" href="#AboutUsTab" id="IdAboutUsTab" aria-expanded="@(ViewBag.SelectedTab == "About Us" ? "true" : "false")">@PortalSettingLang.lblAboutUs</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content padding-10 position-relative righttabportal PortalTabMenu" id="">
+                    @if (Helper.UserType.ToLower() != "steward")
+                    {
+                        <div id="FeatureTab" class="tab-pane padding-10 fade @(ViewBag.SelectedTab == "Features" ? "active in" : "")">
+                            <div id="divPartialFeature" class="tab-pane fade active in ">
+                                @if (ViewBag.SelectedTab == "Features")
+                                {
+                                    Html.RenderAction("IndexFeature", "Portal");
+                                }
+                            </div>
+                        </div>
+                        <div id="UsersTab" class="tab-pane padding-10 fade @(ViewBag.SelectedTab == "Users" ? "active in" : "")">
+                            <div id="divPartialAddUpdateUsers">
+                            </div>
+                            <div id="divUser">
+                                @if (ViewBag.SelectedTab == "Users")
+                                {
+                                    Html.RenderPartial("_indexUsers", Model as List<UsersEntity>);
+                                }
+                            </div>
+                        </div>
+                        <div id="CommonTab" class="tab-pane fade commontabstyle @(ViewBag.SelectedTab == "Common" ? "active in" : "")">
+                            <div role="content">
+                                <div class="jarviswidget-editbox"></div>
+                                <div class="widget-body">
+                                    <div class="tabs-left">
+                                        <ul id="CommonRightTab" class="nav nav-tabs tabs-left">
+                                            <li class="nav-item">
+                                                <a class="nav-link @(ViewBag.SelectedIndividualTab == "Country Groups" ? "active" : "")" data-toggle="tab" href="#RTabCountryGroup" id="IdRTabCountryGroup" aria-expanded="false">@PortalSettingLang.lblCountryGroups</a>
+                                            </li>
+                                            @if (Helper.LicenseEnableTags)
+                                            {
+                                                <li class="nav-item">
+                                                    <a class="nav-link @(ViewBag.SelectedIndividualTab == "Tags" ? "active" : "")" data-toggle="tab" href="#RTabTags" id="IdRTabTags" aria-expanded="false">@PortalSettingLang.lblTags</a>
+                                                </li>
+                                            }
+                                            <li class="nav-item">
+                                                <a class="nav-link @(ViewBag.SelectedIndividualTab == "User Comments" ? "active" : "")" data-toggle="tab" href="#RTabUserComment" id="IdRTabUserComment" aria-expanded="true">@PortalSettingLang.lblUserComments</a>
+                                            </li>
+                                            <li class="nav-item" style="display:none;">
+                                                <a class="nav-link" data-toggle="tab" href="#RTabEntity" id="IdRTabEntity" aria-expanded="true">@PortalSettingLang.lblEntity</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link @(ViewBag.SelectedIndividualTab == "Export Page Settings" ? "active" : "")" data-toggle="tab" href="#RTabExportPageSettings" id="IdRTabExportPageSettings" aria-expanded="false">@PortalSettingLang.lblExportPageSettings</a>
+                                            </li>
+                                            @if (Helper.LicenseSKU != LicenseType)
+                                            {
+                                                <li class="nav-item">
+                                                    <a class="nav-link @(ViewBag.SelectedIndividualTab == "DPMFTP Configuration" ? "active" : "")" data-toggle="tab" href="#RTabDPMFTPConfiguration" id="IdRTabDPMFTPConfiguration" aria-expanded="false">@PortalSettingLang.lblFTPConfiguration</a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                if (Helper.Branding == Branding.Matchbook.ToString())
+                                                {
+                                                    <li class="clsDisable nav-item" disabled="disabled" title="@BrandingLang.msgMBFeature">
+                                                        <a class="nav-link" data-toggle="tab" aria-expanded="false" style="pointer-events: none;">@PortalSettingLang.lblFTPConfiguration</a>
+                                                    </li>
+                                                }
+                                                else if (Helper.Branding == Branding.DandB.ToString())
+                                                {
+                                                    <li class="clsDisable nav-item" disabled="disabled" title="@BrandingLang.msgDNBFeature">
+                                                        <a class="nav-link" data-toggle="tab" aria-expanded="false" style="pointer-events: none;">@PortalSettingLang.lblFTPConfiguration</a>
+                                                    </li>
+                                                }
+                                            }
+                                            <li class="nav-item">
+                                                <a class="nav-link @(ViewBag.SelectedIndividualTab == "Configuration Settings" ? "active" : "")" data-toggle="tab" href="#RTabConfigurationSettings" id="IdRTabConfigurationSettings" aria-expanded="false">@PortalSettingLang.lblExternalDataSource</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content CommonTabContent paddingto5" id="CommonRightTabcontent">
+                                            <div id="RTabCountryGroup" class="tab-pane @(ViewBag.SelectedIndividualTab == "Country Groups" ? "active" : "")">
+                                                <div id="divPartialaddUpdateCountryGrp">
+                                                </div>
+                                                <div id="divCountry" class="divPartialCountryGroup">
+                                                    @if (ViewBag.SelectedIndividualTab == "Country Groups")
+                                                    {
+                                                        Html.RenderPartial("_indexCountryGrp", Model as List<CountryGroupEntity>);
+                                                    }
+                                                </div>
+                                            </div>
+                                            @if (Helper.LicenseEnableTags)
+                                            {
+                                                <div id="RTabTags" class="tab-pane @(ViewBag.SelectedIndividualTab == "Tags" ? "active" : "")">
+                                                    <div id="divPartialAddUpdateTags">
+                                                    </div>
+                                                    <div id="divPartialManageTags">
+                                                        @if (ViewBag.SelectedIndividualTab == "Tags")
+                                                        {
+                                                            Html.RenderPartial("_indexManageTags", Model as List<TagsEntity>);
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div id="RTabUserComment" class="tab-pane @(ViewBag.SelectedIndividualTab == "User Comments" ? "active" : "")">
+                                                <div id="AddUpdateUserCommentsId">
+                                                </div>
+                                                <div id="divPartialUserComments">
+                                                    @if (ViewBag.SelectedIndividualTab == "User Comments")
+                                                    {
+                                                        Html.RenderPartial("_indexUserComments", Model as List<UserCommentsEntity>);
+                                                    }
+                                                </div>
+                                            </div>
+
+
+                                            <div id="RTabEntity" class="tab-pane" style="display:none;">
+                                                <div class="tab-content" id="divPartialAddUpdateCDSEntity">
+                                                </div>
+                                                <article class="col-sm-10 sortable-grid ui-sortable width86pt" id="atricalCDSEntity">
+                                                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                                        <header role="heading">
+                                                            <h2>
+                                                                <i class="fa fa-group"></i>
+                                                                <strong>@PortalSettingLang.lblEntityList</strong>
+                                                            </h2>
+                                                        </header>
+                                                        <div role="content">
+                                                            <div class="jarviswidget-editbox"></div>
+                                                            <div class="widget-body no-padding">
+                                                                <div class="tab-content padding-10 " id="divPartialCDSEntity">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </div>
+
+                                            <div id="RTabExportPageSettings" class="tab-pane @(ViewBag.SelectedIndividualTab == "Export Page Settings" ? "active" : "")">
+                                                <div id="divPartialExportPageSettings">
+                                                    @if (ViewBag.SelectedIndividualTab == "Export Page Settings")
+                                                    {
+                                                        Html.RenderPartial("IndexExportPageSettings", Model as CleanseMatchSettingsModel);
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div id="RTabDPMFTPConfiguration" class="tab-pane @(ViewBag.SelectedIndividualTab == "DPMFTP Configuration" ? "active" : "")">
+                                                <div id="divPartialAddUpdateFTPConfiguration">
+                                                </div>
+                                                <div id="divPartialIndexFTPConfiguration">
+                                                    @if (ViewBag.SelectedIndividualTab == "DPMFTP Configuration")
+                                                    {
+                                                        Html.RenderPartial("_indexDPMFTPConfiguration", Model as List<DPMFTPConfigurationEntity>);
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div id="RTabConfigurationSettings" class="tab-pane @(ViewBag.SelectedIndividualTab == "Configuration Settings" ? "active" : "")">
+                                                <div id="divPartialIndexDataSourceConfiguration">
+                                                    @if (ViewBag.SelectedIndividualTab == "Configuration Settings")
+                                                    {
+                                                        Html.RenderPartial("IndexDataSourceConfiguration", Model as List<DataSourceConfigurationEntity>);
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end widget content -->
+                            </div>
+                        </div>
+
+                        <div id="CommandLine" class="tab-pane commontabstyle @(ViewBag.SelectedTab == "Data Governance" ? "active in" : "")">
+                            <div role="content">
+                                <div class="jarviswidget-editbox"></div>
+                                <div class="widget-body">
+                                    <div class="tabs-left">
+                                        <ul id="CommandRightTab" class="nav nav-tabs tabs-left">
+                                            <li class="nav-item">
+                                                <a class="nav-link @(ViewBag.SelectedIndividualTab == "Configure Imports" ? "active" : "")" data-toggle="tab" href="#RTabConfigureImports" id="IdRTabConfigureImports" aria-expanded="false">@PortalSettingLang.lblConfigureImports</a>
+                                            </li>
+                                            @if (Helper.LicenseEnableCommandLine)
+                                            {
+                                                <li class="nav-item">
+                                                    <a class="nav-link @(ViewBag.SelectedMainTab == "Integration Gateway" ? "active" : "")" data-toggle="tab" href="#CommandLine" id="IdCommandLine" aria-expanded="false">@PortalSettingLang.lblIntegrationGateway</a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                if (Helper.Branding == Branding.Matchbook.ToString())
+                                                {
+                                                    <li class="clsDisable nav-item" disabled="disabled" title="@BrandingLang.msgMBFeature">
+                                                        <a class="nav-link" data-toggle="tab" aria-expanded="false" style="pointer-events: none;">@PortalSettingLang.lblIntegrationGateway</a>
+                                                    </li>
+                                                }
+                                                else if (Helper.Branding == Branding.DandB.ToString())
+                                                {
+                                                    <li class="clsDisable nav-item" disabled="disabled" title="@BrandingLang.msgDNBFeature">
+                                                        <a class="nav-link" data-toggle="tab" aria-expanded="false" style="pointer-events: none;">@PortalSettingLang.lblIntegrationGateway</a>
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+
+                                        <div class="tab-content CommonTabContent paddingto5" id="CommandRightTabcontent">
+                                            <div id="RTabConfigureImports" class="tab-pane @(ViewBag.SelectedIndividualTab == "Configure Imports" ? "active" : "")">
+                                                <div id="divPartialConfigureImports">
+                                                    @if (ViewBag.SelectedIndividualTab == "Configure Imports")
+                                                    {
+                                                        Html.RenderPartial("_indexConfigureImports", Model as List<ImportFileConfigurationEntity>);
+                                                    }
+                                                </div>
+                                            </div>
+                                            @if (Helper.LicenseEnableCommandLine)
+                                            {
+                                                <div id="tabPaneIntegrationGateway" class="tab-pane @(ViewBag.SelectedMainTab == "Integration Gateway" ? "active" : "")">
+                                                    <ul id="CommandRightTab" class="nav nav-tabs bordered setTabs">
+                                                        <li class="nav-item">
+                                                            <a class="nav-link @(ViewBag.SelectedIndividualTab == "Upload Configuration" ? "active" : "")" data-toggle="tab" href="#RTabCommandUpload" id="IdRTabCommandUpload" aria-expanded="false">@PortalSettingLang.lblUploadConfiguration</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link @(ViewBag.SelectedIndividualTab == "Download Configuration" ? "active" : "")" data-toggle="tab" href="#RTabCommandDownload" id="IdRTabCommandDownload" aria-expanded="false">@PortalSettingLang.lblDownloadConfiguration</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link @(ViewBag.SelectedIndividualTab == "EXE Setup" ? "active" : "")" data-toggle="tab" href="#RTabCommandDownloadSetup" id="IdRTabCommandDownloadSetup" aria-expanded="false">@PortalSettingLang.lblEXESetup</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div id="RTabCommandUpload" class="tab-content padding-10 righttabportal position-relative @(ViewBag.SelectedIndividualTab == "Upload Configuration" ? "active" : "")">
+                                                        <div id="divPartialCommandMapping">
+                                                            @if (ViewBag.SelectedIndividualTab == "Upload Configuration")
+                                                            {
+                                                                Html.RenderPartial("_IndexCommand", Model as List<CommandUploadMappingEntity>);
+                                                            }
+                                                        </div>
+
+                                                    </div>
+                                                    <div id="RTabCommandDownload" class="tab-content padding-10 righttabportal position-relative @(ViewBag.SelectedIndividualTab == "Download Configuration" ? "active" : "")">
+                                                        <div id="divPartialCommandDownloadList">
+                                                            @if (ViewBag.SelectedIndividualTab == "Download Configuration")
+                                                            {
+                                                                Html.RenderPartial("_indexCommandDownload", Model as List<CommandDownloadMappingEntity>);
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div id="RTabCommandDownloadSetup" class="tab-content padding-10 righttabportal position-relative @(ViewBag.SelectedIndividualTab == "EXE Setup" ? "active" : "")">
+                                                        <div id="divPartialCommandDownloadSetup">
+                                                            @if (ViewBag.SelectedIndividualTab == "EXE Setup")
+                                                            {
+                                                                Html.RenderPartial("_indexCommandDownloadSetup");
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div id="AboutUsTab" class="tab-pane  @(Helper.UserType.ToLower() == "steward" ? "active" : "fade") @(ViewBag.SelectedTab == "About Us" ? "active in" : "")">
+                        <div id="divPartialAboutuUs">
+                            @if (ViewBag.SelectedTab == "About Us")
+                            {
+                                if (Helper.UserType.ToLower() == "steward")
+                                {
+                                    Html.RenderPartial("_indexAboutUs");
+                                }
+                                else
+                                {
+                                    Html.RenderPartial("_indexAboutUs");
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="PortalAboutUsModalMain"></div>
+<div id="PortalCountryGroupImportModalMain"></div>
+<div id="CountryGroupImportModalMain"></div>
+<div id="PortalDeleteUserModalMain"></div>
+<div id="UploadConfigurationModalMain"></div>
+<div id="DownloadConfigurationModalMain"></div>
+<div id="AddDataSourceConfigurationModalMain"></div>
+<div id="ConfigureImportsModalMain"></div>
+<div id="ImportFileIndexModalMain"></div>
+<div id="TemplateDetailsModalMain"></div>
+@section scripts {
+    <script>
+        var deleteUserMsg = '@PortalSettingLang.msgDeleteUser';
+        var deleteRecordMsg = '@PortalSettingLang.msgDeleteRecord';
+        var selectFile = '@PortalSettingLang.msgSelectFile';
+        var uploadData = '@PortalSettingLang.msgUploadData';
+        var allowedFormats = '@PortalSettingLang.msgAllowedFormats';
+        var dataCreated = '@PortalSettingLang.msgDataCreated';
+        var tagExists = '@PortalSettingLang.msgTagExists';
+        var userDeleted = '@PortalSettingLang.msgUserDeleted';
+        var nothingToMove = '@PortalSettingLang.msgNothingToMove';
+        var allowOnlyNumbers = '@PortalSettingLang.msgAllowOnlyNumbers';
+        var overwrite = '@PortalSettingLang.msgOverwrite';
+        var add = '@PortalSettingLang.lblAdd';
+        var update = '@PortalSettingLang.lblUpdate';
+        var create = '@PortalSettingLang.lblCreate';
+        var confirmBox = '@CommonMessagesLang.lblConfirm';
+        var notApplicable = '@PortalSettingLang.lblNotApplicable';
+        var addTagOptional = '@PortalSettingLang.lblAddTagOptional';
+        var dataDeleted = '@CommonMessagesLang.msgCommanDeleteMessage';
+        var updatedSuccessfully = '@PortalSettingLang.msgUpdatedSuccessfully';
+        var existsFail = '@PortalSettingLang.msgExistsFail';
+        var validTag = '@PortalSettingLang.msgValidTag';
+        var someFormatsAreAllowed = '@ImportDataLang.msgSomeFormatsAreAllowed';
+        var selectValidDelimiter = '@ImportDataLang.msgSelectValidDelimiter';
+        var alreadyBelongsToFile = '@ImportDataLang.msgAlreadyBelongsToFile';
+        var uploadFailed = '@ImportDataLang.msgUploadFailed';
+        var errorOccurred = '@ImportDataLang.msgErrorOccurred';
+        var error = '@ImportDataLang.msgError';
+        var unableImportBlankFile = '@ImportDataLang.msgUnableImportBlankFile';
+        var noRows = '@ImportDataLang.msgNoRows';
+        var invalidTempate = '@ImportDataLang.msgInvalidTempate';
+        var unicodeFormatNotValid = '@ImportDataLang.msgUnicodeFormatNotValid';
+        var dataImport = '@ImportDataLang.msgDataImport';
+        var isTrue = '@ImportDataLang.msgTrue';
+        var requiredFile = '@ImportDataLang.msgRequiredFile';
+        var saveAsTemplateImport = '@ImportDataLang.lblSaveAsTemplateImport';
+        var PostLoadActionParameters = '@PortalSettingLang.placeholderPostLoadActionParameters';
+        var ArchivePath = '@PortalSettingLang.placeholderArchivePath';
+        var NewFileExtension = '@PortalSettingLang.placeholderNewFileExtension';
+        var invalidFieldMapping = '@ImportDataLang.msgInvalidFieldMapping';
+    </script>
+    <script src="~/Scripts/jquery.pjax.js"></script>
+    @Scripts.Render("~/bundles/portal")
+}

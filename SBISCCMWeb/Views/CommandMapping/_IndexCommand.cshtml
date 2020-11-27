@@ -1,0 +1,104 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.LanguageResources;
+@model List<CommandUploadMappingEntity>
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+<article class="col-md-12 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@CommandLineLang.hdrUploadConfigurationList</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                {
+                    if (Helper.UserType.ToLower() != "steward")
+                    {
+                        <li>
+                            <div class="btn btn-sm" id="AddCommandMapping" title="@CommandLineLang.titleAddCommandMapping">
+                                <span class="fa fa-plus"></span>
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    @Html.AntiForgeryToken()
+
+                    <div class="table-responsive" style="overflow-x:visible!important">
+                        <table class="table table-bordered wordwrap" id="tbCmndMapping">
+                            <thead>
+                                <tr>
+                                    <th>@CommandLineLang.lblConfigurationName</th>
+                                    <th>@CommandLineLang.lblImportType</th>
+                                    <th>@CommandLineLang.lblFileFormat</th>
+                                    @*<th> @Ajax.ActionLink("FormatValue", "IndexCommand", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 4, sortorder = (ViewBag.SortBy == 4 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptionsForPaging)</th>*@
+                                    @*<th> @Ajax.ActionLink("ColumnMapping", "IndexCommand", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 4, sortorder = (ViewBag.SortBy == 5 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptionsForPaging)</th>*@
+                                    <th>@CommandLineLang.lblIsDefault</th>
+
+                                    @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                    {
+                                        if (Helper.UserType.ToLower() != "steward")
+                                        {
+                                            <th class="nosort">@CommandLineLang.lbEdit</th>
+                                            <th class="nosort">@CommandLineLang.lblDelete</th>
+                                        }
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr data-cmmdMappingId="@item.Id">
+                                        <td>@item.ConfigurationName</td>
+                                        <td>@item.ImportType</td>
+                                        <td>@item.FileFormat</td>
+                                        @*<td>@item.Formatvalue</td>*@
+                                        @*<td>@item.ColumnMapping</td>*@
+                                        <td>@item.IsDefault</td>
+                                        @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                        {
+                                            if (Helper.UserType.ToLower() != "steward")
+                                            {
+                                                <td><a href="javascript:void(0)" id="@item.Id" class="editCommanduploadMapping">@CommandLineLang.lbEdit</a></td>
+                                                if (item.IsDefault != true)
+                                                {
+                                                    <td><a href="javascript:void(0)" id="@item.Id" class="deleteCommanduploadMapping">@CommandLineLang.lblDelete</a></td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "Upload Configuration")
+{
+    <script>
+    $(document).ready(function () {
+        InitPortalUploadConfigurationDataTable();
+        $("#IdRTabCommandUpload").addClass("tabBorder");
+        $("#RTabCommandDownload").hide();
+        $("#RTabCommandDownloadSetup").hide();
+            if ($("table#tbCmndMapping tbody tr").length == 0) {
+                $("#EditCommandMapping").attr("disabled", true);
+            }
+            else {
+                $("table#tbCmndMapping tbody tr:first").addClass("current");
+            }
+    });
+    </script>
+}

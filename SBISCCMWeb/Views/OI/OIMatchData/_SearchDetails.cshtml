@@ -1,0 +1,143 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model OIlstMatchDetails
+@{
+    Layout = null;
+}
+@Html.AntiForgeryToken()
+<article class="col-xs-2 col-sm-2 col-md-2 col-lg-2 sortable-grid ui-sortable Custome-padding-left-0">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+
+        <div role="content" style="height: 470px;overflow-y:auto;">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                <div class="tab-content">
+                    <div class="tab-pane fade active in">
+                        <div class="panel-group smart-accordion-default divleftSearchPanel" id="accordion-2">
+                            @if (Model.lstOISearchMatch != null)
+                            {
+                            <div class="divSelectAllSearchMatches d-flex align-items-center justify-content-end">
+
+                                <div class="mr-1">
+                                    <a href="javascript:void(0)"><i class="fa fa-check-square-o  btnSelectAllStewOIMatch" title="@OIMatchDataLang.titleDeSelect" aria-hidden="true" data-value="true"></i></a>
+                                </div>
+                                <span>@OIMatchDataLang.lblSelectAll</span>
+                            </div>
+                                foreach (var item in Model.lstOISearchMatch)
+                                {
+
+                                    <div class="panel panel-default" style="background-color:@item.Color">
+                                        <div class="panel-heading" style="background-color:@item.Color">
+                                            <h4 class="panel-title">
+
+                                                <span>@OIMatchDataLang.lblSearch @(item.SearchNum)</span>
+                                                <span class="rightcontrol">
+                                                    @if (item.Selected)
+                                                    {
+                                                        <a href="javascript:void(0)"><i class="fa fa-check-square-o pull-right btnSelectUnselectStewOIMatch" title="@OIMatchDataLang.titleDeSelect" aria-hidden="true" data-value="true" data-MatchId="@item.MatchId"></i></a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="javascript:void(0)"><i class="fa fa-square-o pull-right btnSelectUnselectStewOIMatch" title="@OIMatchDataLang.lblSelect" aria-hidden="true" data-value="false" data-MatchId="@item.MatchId"></i></a>
+                                                    }
+                                                    <a data-toggle="collapse" data-parent="#accordion-2" href="#collapseThree-@(item.SearchNum)" class="@(item.SearchNum==1?"":"collapsed")" aria-expanded="false">
+                                                        <i class="fa fa-fw fa-plus-square  pull-right" title="@OIMatchDataLang.titleExpand"></i>
+                                                        <i class="fa fa-fw fa-minus-square pull-right" title="@OIMatchDataLang.titleCollapse"></i>
+                                                    </a>
+
+                                                    <a href="javascript:void(0)"><i title="@OIMatchDataLang.titleDelete" class="fa fa-window-close pull-right btnDeleteStewOIMatch" aria-hidden="true" id="" data-MatchId="@item.MatchId"></i></a>
+                                                </span>
+
+                                            </h4>
+                                        </div>
+                                        <div id="collapseThree-@(item.SearchNum)" class="panel-collapse collapse @(item.SearchNum==1?"show":"")" aria-expanded="false" style="height:@(item.SearchNum==1?"auto;":"0px;") ">
+                                            <div class="panel-body">
+                                                @if (!string.IsNullOrEmpty(item.MatchURL))
+                                                {
+                                                    var uri = new Uri(item.MatchURL);
+                                                    var query = HttpUtility.ParseQueryString(uri.Query);
+
+                                                    <div class="content">
+                                                          <span>@query.Get("CompanyName")</span>
+                                                    </div>
+                                                    <div class="content">
+                                                            @{
+                                                                string SearchAddress = query.Get("Address1");
+                                                                if (!string.IsNullOrEmpty(query.Get("City")))
+                                                                {
+                                                                    SearchAddress += "," + query.Get("City");
+                                                                }
+                                                                if (!string.IsNullOrEmpty(query.Get("State")))
+                                                                {
+                                                                    SearchAddress += "," + query.Get("State");
+                                                                }
+                                                                if (!string.IsNullOrEmpty(query.Get("PostalCode")))
+                                                                {
+                                                                    SearchAddress += "," + query.Get("PostalCode");
+                                                                }
+                                                                if (!string.IsNullOrEmpty(query.Get("Country")))
+                                                                {
+                                                                    SearchAddress += "," + query.Get("Country");
+                                                                }
+                                                                string OrbNum = query.Get("OrbNum");
+                                                                string Email = query.Get("Email");
+                                                                string Website = query.Get("Website");
+                                                                string EIN = query.Get("EIN");
+
+
+                                                            }
+                                                            <span>@(String.IsNullOrEmpty(SearchAddress) ? "" : SearchAddress.TrimStart(','))</span>
+                                                            @if (!string.IsNullOrEmpty(OrbNum))
+                                                            {
+                                                                <span>@OIMatchDataLang.lblOrbNum : @OrbNum</span>
+                                                            }
+                                                            @if (!string.IsNullOrEmpty(Email))
+                                                            {
+                                                                <span>@OIMatchDataLang.lblEmail : @Email</span>
+                                                            }@if (!string.IsNullOrEmpty(Website))
+                                                            {
+                                                                <span>@OIMatchDataLang.lblWebsite : @Website</span>
+                                                            }@if (!string.IsNullOrEmpty(EIN))
+                                                            {
+                                                                <span>@OIMatchDataLang.lblEIN : @EIN</span>
+                                                            }
+                                                    </div>
+                                                    <div class="content">
+                                                            <span><strong>@OIMatchDataLang.lblCandidateCount : </strong> @item.CandidateCount</span>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                <div>
+
+                                    <button id="btnRefreshMatchSearch" class="btn btn-Secondary pull-right">@OIMatchDataLang.lblRefresh</button>
+                                    @if (Helper.DeletedMatchId > 0)
+                                    {
+                                        <button id="btnUndoDeleteSearch" class="btn btn-Secondary pull-right marginright-5" data-MatchId="@Helper.DeletedMatchId">@OIMatchDataLang.lblUndoDelete</button>
+                                    }
+                                </div>
+                            }
+                            else
+                            {
+                                <div>
+                                    <span>@OIMatchDataLang.lblNorecordsfound</span>
+                                </div>
+                                <br />
+                                if (Helper.DeletedMatchId > 0)
+                                {
+                                    <div style="float:left">
+                                        <button id="btnUndoDeleteSearch" class="btn btn-Secondary pull-right marginright-5" data-MatchId="@Helper.DeletedMatchId">@OIMatchDataLang.lblUndoDelete</button>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

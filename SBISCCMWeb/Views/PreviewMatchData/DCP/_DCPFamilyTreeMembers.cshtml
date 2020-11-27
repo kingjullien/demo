@@ -1,0 +1,110 @@
+﻿@model  IEnumerable<SBISCCMWeb.Models.PreviewMatchData.DCP.DCP_Base>
+@{
+    var BaseItem = Model.FirstOrDefault();
+}
+
+<div class="table-responsive wrap tabScroll InnerTabHeight">
+    <article class="col-md-3 sortable-grid ui-sortable keyword" style="padding-top:5px">
+        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+            <header role="heading">
+                <h2>
+                    <strong>Headquarters OrganizationName Information</strong>
+                </h2>
+            </header>
+            <div style="padding:5px">
+                @if (!string.IsNullOrEmpty(BaseItem.Link_HeadquartersOrg_OrganizationName))
+                {
+                    @BaseItem.Link_HeadquartersOrg_OrganizationName
+                    <br />
+                    @BaseItem.Link_HeadquartersOrg_DUNSNumber
+                    <br />
+                    @BaseItem.Link_HeadquartersOrg_StreetAddressLine_LineText
+                    <br />
+                    @BaseItem.Link_HeadquartersOrg_PrimaryTownName <text>,</text> @BaseItem.Link_GlobalUltimateOrg_CountryISOAlpha2Code
+                }
+                else
+                {
+                    <text>No Data</text>
+                }
+            </div>
+        </div>
+    </article>
+
+    <article class="col-md-3 sortable-grid ui-sortable keyword" style="padding-top:5px">
+        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+            <header role="heading">
+                <h2>
+                    <strong>Parent OrganizationName Information</strong>
+                </h2>
+            </header>
+            <div style="padding:5px">
+                @if (!string.IsNullOrEmpty(BaseItem.Link_ParentOrg_OrganizationName))
+                {
+                    @BaseItem.Link_ParentOrg_OrganizationName
+                    <br />
+                    @BaseItem.Link_ParentOrg_DUNSNumber
+                    <br />
+                    @BaseItem.Link_ParentOrg_StreetAddressLine_LineText
+                    <br />
+                    @BaseItem.Link_ParentOrg_PrimaryTownName <text>,</text> @BaseItem.Link_ParentOrg_CountryISOAlpha2Code
+                }
+                else
+                {
+                    <text>No Data</text>
+                }
+            </div>
+        </div>
+    </article>
+
+    <article class="col-md-3 sortable-grid ui-sortable keyword" style="padding-top:5px">
+        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+            <header role="heading">
+                <h2>
+                    <strong>DomesticUltimateOrganization Information</strong>
+                </h2>
+            </header>
+            <div style="padding:5px">
+                @if (!string.IsNullOrEmpty(BaseItem.Link_DomesticUltimateOrg_OrganizationName))
+                {
+                    @BaseItem.Link_DomesticUltimateOrg_OrganizationName
+                    <br />
+                    @BaseItem.Link_DomesticUltimateOrg_DUNSNumber
+                    <br />
+                    @BaseItem.Link_DomesticUltimateOrg_StreetAddressLine1
+                    <br />
+                    @BaseItem.Link_DomesticUltimateOrg_PrimaryTownName<text>,</text>@BaseItem.Link_DomesticUltimateOrg_CountryISOAlpha2Code
+                }
+                else
+                {
+                    <text>No Data</text>
+                }
+            </div>
+        </div>
+    </article>
+
+    <article class="col-md-3 sortable-grid ui-sortable keyword" style="padding-top:5px">
+        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+            <header role="heading">
+                <h2>
+                    <strong>GlobalUltimateOrganization Information</strong>
+                </h2>
+            </header>
+            <div style="padding:5px">
+                @if (!string.IsNullOrEmpty(BaseItem.Link_GlobalUltimateOrg_OrganizationName))
+                {
+                    @BaseItem.Link_GlobalUltimateOrg_OrganizationName
+                    <br />
+                    @BaseItem.LLink_GlobalUltimateOrg_DUNSNumber
+                    <br />
+                    @BaseItem.Link_GlobalUltimateOrg_StreetAddressLine_LineText
+                    <br />
+                    @BaseItem.Link_GlobalUltimateOrg_PrimaryTownName <text>,</text> @BaseItem.Link_GlobalUltimateOrg_CountryISOAlpha2Code
+                }
+                else
+                {
+                    <text>No Data</text>
+                }
+            </div>
+        </div>
+    </article>
+</div>

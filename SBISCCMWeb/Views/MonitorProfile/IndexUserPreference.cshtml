@@ -1,0 +1,84 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@model PagedList.IPagedList<UserPreferenceEntity>
+@{
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialUserPrefrenceData",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+    string UserPrefSortOrder = Convert.ToString(ViewBag.SortOrder);
+    string UserPrefSortBy = Convert.ToString(ViewBag.SortBy);
+
+}
+@Html.Hidden("UserPrefPageValue", Convert.ToInt32(TempData["pagevalue"]))
+@Html.Hidden("UserPrefSortOrder", UserPrefSortOrder)
+@Html.Hidden("UserPrefSortBy", UserPrefSortBy)
+<div class="table-responsive" >
+    @using (Ajax.BeginForm("IndexUserPreference", "MonitorProfile", FormMethod.Post, ajaxOptions, new { id = "form_UserPrefrence" }))
+    {
+        @Html.AntiForgeryToken()
+        <label class="select pull-right" style="padding-right:10px;">
+            Page Size :  @Html.DropDownList("pagevalue", new SelectList(SBISCCMWeb.Utility.CommonMethod.GetPageSize(), Convert.ToInt32(TempData["pageno"])), new { id = "pagevalue", @class = "pagevalueChangeUserPrefrnc", @autocomplete = "off" })<i></i>
+        </label>
+        <table class="table table-bordered table-fixed-user">
+            <thead>
+                <tr>
+                    <th> @Ajax.ActionLink("Preference Name", "IndexUserPreference", "MonitorProfile", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th> @Ajax.ActionLink("Preference Value", "IndexUserPreference", "MonitorProfile", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 2, sortorder = (ViewBag.SortBy == 2 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th> @Ajax.ActionLink("Preference Type", "IndexUserPreference", "MonitorProfile", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 3, sortorder = (ViewBag.SortBy == 3 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.PreferenceName</td>
+                            <td>@item.PreferenceValue</td>
+                            <td>@item.PreferenceType</td>
+                            <td><a href="#" class="EditUserPrefrence" id="@item.PreferenceID">Edit</a></td>
+                            <td>@Html.ActionLink("Delete", "", "", new { @id = item.PreferenceID, @href = "javascript:void(0)", @class = "DeleteUserPrefrence" })</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="5">No record(s) Found.</td></tr>
+                }
+            </tbody>
+        </table>
+        <div class="dt-toolbar-footer">
+            <div class="col-sm-12 col-xs-12 hidden-xs">
+                <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                    <a id="pagingFormAction" href="@Url.Action("IndexUserPreference", "MonitorProfile", new {  page = 1, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder })" style="display:block"></a>
+                    @Html.PagedListPager(Model, page => Url.Action("IndexUserPreference", "MonitorProfile", new { page = page, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divPartialUserPrefrenceData", LoadingElementId = "divProgress", OnSuccess = "OnSuccess()" }))
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<div class="loaderMain" id="divProgress">
+    <div class="loaderDiv">
+        <p class="loaderTxt">Please wait while processing...</p>
+    </div>
+</div>
+@if (!string.IsNullOrEmpty(Convert.ToString(TempData["ResponseErroeMessage"])))
+{
+    <script type="text/javascript">
+        bootbox.alert({
+            title: "<i class='fa fa-info-circle' aria-hidden='true'></i> Message",
+            message: '@TempData["ResponseErroeMessage"]'
+        });
+    </script>
+    TempData.Remove("ResponseErroeMessage");
+
+}

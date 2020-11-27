@@ -1,0 +1,74 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model List<iResearchEntity>
+
+<div class="modal" id="MultiMiniModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div>
+                    <h4 class="modal-title">@iResearchInvestigationLang.hdrDAndBiResearchMini</h4>
+                    <i class="">@iResearchInvestigationLang.lbliResearchNote</i>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive table-wrapper-scroll-y my-custom-scrollbar">
+                    <table class="table table-bordered tblMiniReqMultiple table-striped">
+                        <thead>
+                            <tr>
+                                <th>@iResearchInvestigationLang.lblSrcId</th>
+                                <th>@iResearchInvestigationLang.lblCompany</th>
+                                <th>@iResearchInvestigationLang.lblAddress</th>
+                                <th>@iResearchInvestigationLang.lblCity</th>
+                                <th>@iResearchInvestigationLang.lblState</th>
+                                <th>@iResearchInvestigationLang.lblZip</th>
+                                <th>@iResearchInvestigationLang.lblCountry</th>
+                                <th>@iResearchInvestigationLang.lblAction</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr data-val="@SerializeHelper.SerializeObject(@item)">
+                                    <td class="@(string.IsNullOrEmpty(item.SrcRecordId) ? "cellError" : "")"><span>@item.SrcRecordId</span><input type="text" class="SrcRecordId" value="@item.SrcRecordId" style="display:none;width:80px" /></td>
+                                    <td class="@(string.IsNullOrEmpty(item.BusinessName) ? "cellError" : "")"><span>@item.BusinessName</span><input type="text" class="BusinessName" value="@item.BusinessName" style="display:none" /></td>
+                                    <td class="@(string.IsNullOrEmpty(item.StreetAddress) ? "cellError" : "")"><span>@item.StreetAddress</span><input type="text" class="StreetAddress" value="@item.StreetAddress" style="display:none" /></td>
+                                    <td class="@(string.IsNullOrEmpty(item.AddressLocality) ? "cellError" : "")"><span>@item.AddressLocality</span><input type="text" class="AddressLocality" value="@item.AddressLocality" style="display:none;width:80px" /></td>
+                                    <td><span>@item.AddressRegion</span><input type="text" class="AddressRegion" value="@item.AddressRegion" style="display:none;width:80px" /></td>
+                                    <td class="@(string.IsNullOrEmpty(item.PostalCode) ? "cellError" : "")"><span>@item.PostalCode</span><input type="text" class="PostalCode" value="@item.PostalCode" style="display:none;width:100px" /></td>
+                                    <td class="@(string.IsNullOrEmpty(item.CountryISOAlpha2Code) ? "cellError" : "")"><span>@item.CountryISOAlpha2Code</span><input type="text" class="CountryISOAlpha2Code" value="@item.CountryISOAlpha2Code" style="display:none;width:80px" /></td>
+                                    <td>
+                                        <a class="Edit" href="javascript:;">@iResearchInvestigationLang.lblEdit</a>
+                                        <a class="Update" href="javascript:;" style="display:none">@iResearchInvestigationLang.lblUpdate</a>
+                                        <a class="Cancel" href="javascript:;" style="display:none">@iResearchInvestigationLang.lblCancel</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-md-6">
+                        <span><strong>@iResearchInvestigationLang.lblResearchComments<span class="requireField">*</span></strong></span>
+                        <textarea name="Comment" id="rComments" rows="3" class="form-control"></textarea>
+                        <span class="error errResearchComments" style="display:none">@iResearchInvestigationLang.lblRequiredResearchComments</span>
+                    </div>
+                    <div class="col-md-6">
+                        <span><strong>@iResearchInvestigationLang.lblRequestorEmail<span class="requireField">*</span></strong></span>
+                        @Html.TextBoxFor(m => Model[0].CustomerRequestorEmail, new { @class = "form-control", autocomplete = "off", @id = "reqEmail" })
+                        <span class="error errCustEmail" style="display:none"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" style="" id="btnSubmitMultiMiniRequest">@iResearchInvestigationLang.lblSubmit</button>
+            </div>
+        </div>
+
+    </div>
+</div>

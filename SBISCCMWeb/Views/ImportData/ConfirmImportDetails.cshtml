@@ -1,0 +1,83 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility
+@model ImportJobDataEntity
+@{
+    bool isFromFinish = Convert.ToBoolean(ViewBag.IsFromFinish);
+    var MainColumns = Model.MainColumnMapping.Split(',').ToList();
+    var SelectedColumn = Model.ColumnMappings.Split(',').ToList();
+    int j = 0;
+}
+
+@Html.Hidden("IsFromFinish", isFromFinish)
+@Html.Hidden("ImportType", Model.ImportType.Contains("MATCH") ? "Data Import" : "Match Refresh")
+<div class="tab-pane padding-10 padding-Bottom-0">
+    <div class="padding-10 padding-Bottom-0">
+        <div class="mapping_data">
+            <div class="maping_text">
+                <ul>
+                    <li>@ImportDataLang.lblFileName :</li>
+                    <li>
+                        <span>@Model.SourceFileName</span>
+                    </li>
+                </ul>
+                <ul>
+                    <li>@ImportDataLang.lblFileType :</li>
+                    <li>
+                        <span>@Model.SourceType</span>
+                    </li>
+                </ul>
+                <ul>
+                    <li>@ImportDataLang.lblImportType :</li>
+                    <li>
+                        <span>@(Model.ImportType.Contains("MATCH") ? "Cleanse Match & Enrichment" : "Enrichment Only")</span>
+                    </li>
+                </ul>
+                @if (!string.IsNullOrEmpty(Model.Tags))
+                {
+                    <ul>
+                        <li>@ImportDataLang.lblTags :</li>
+                        <li><span>@Model.Tags</span></li>
+                    </ul>
+                }
+                @if (!string.IsNullOrEmpty(Model.InLanguage))
+                {
+                    <ul>
+                        <li>@ImportDataLang.lblLanguage :</li>
+                        <li><span>@Model.InLanguage</span></li>
+                    </ul>
+                }
+            </div>
+            <div class="maping">
+                <h5>@ImportDataLang.lblMapping</h5>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="thColor">
+                            <th class="width20">@ImportDataLang.lblSourceColumn</th>
+                            <th>@ImportDataLang.lblFileColumn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < SelectedColumn.Count; i++)
+                        {
+                            if (!string.IsNullOrEmpty(SelectedColumn[i]))
+                            {
+                                <tr class="@(j % 2 == 0 ? "" : "AlternateRow")">
+                                    <td>@MainColumns[i]</td>
+                                    <td>@SelectedColumn[i]</td>
+                                </tr>
+                                j++;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="text-align-right margin-top-20">
+                <input type="button" class="btn btn-primary" value="@ImportDataLang.lblPrev" id="ConfirmDetailsPrev" />
+                <input type="button" class="btn btn-primary" value="@ImportDataLang.lblFinish" id="ComfirmDetailsFinish" />
+            </div>
+        </div>
+    </div>
+</div>

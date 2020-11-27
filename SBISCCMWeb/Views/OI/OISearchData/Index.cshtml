@@ -1,0 +1,137 @@
+﻿@using SBISCCMWeb.Utility
+@using SBISCCMWeb.Models.OI.CleanseMatch;
+@using SBISCCMWeb.LanguageResources;
+@model OICleanseMatchViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var ActivateFeature = "";
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ActivateFeature = BrandingLang.msgMBFeature;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ActivateFeature = BrandingLang.msgDNBFeature;
+    }
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        LoadingElementId = "divProgress",
+        UpdateTargetId = "divPartialOISearchData"
+    };
+    ViewBag.Title = OISearchDataLang.titleOISearchData;
+}
+@Html.Hidden("ActivateFeature", ActivateFeature)
+<div id="content" style="opacity: 1;">
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            <i class="fa fa-filter"></i>
+                            <strong>@OISearchDataLang.hdrSearchData</strong>
+                        </h2>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content padding-10">
+                                <div class="tab-pane fade active in">
+                                    @using (Ajax.BeginForm("Index", "OISearchData", null, ajaxOptions, new { @class = "formContent", @autocomplete = "off" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div class="form-group">
+                                            <div class="row ">
+                                                <div class="col-md-3">
+                                                    <span><strong>@OISearchDataLang.lblCompany</strong></span>
+                                                    @Html.TextBox("CompanyName", "", new { @class = "form-control", maxlength = "240", @autocomplete = "off" })
+                                                    <span id="spnCompany" class="error" style="display:none;">@OISearchDataLang.lblRequiredCompany </span>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span><strong>@OISearchDataLang.lblAddress1</strong></span>
+                                                    @Html.TextBox("Address1", "", new { @class = "form-control", maxlength = "240", @autocomplete = "off" })
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span><strong>@OISearchDataLang.lblAddress2</strong></span>
+                                                    @Html.TextBox("Address2", "", new { @class = "form-control", maxlength = "240", @autocomplete = "off" })
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <span><strong>@OISearchDataLang.lblCity</strong></span>
+                                                            @Html.TextBox("City", "", new { @class = "form-control", maxlength = "64", @autocomplete = "off" })
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <span><strong>@OISearchDataLang.lblStateTerritory</strong></span>
+                                                            @Html.TextBox("State", "", new { @class = "form-control", maxlength = "64", @autocomplete = "off" })
+                                                            <span id="spnstate" class="error" style="display:none;">@OISearchDataLang.lblRequiredState </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <div class="col-md-3">
+                                                    <span><strong>@OISearchDataLang.lblPhone</strong></span>
+                                                    @Html.TextBox("Telephone", "", new { @class = "form-control", maxlength = "50", @autocomplete = "off" })
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span><strong>@OISearchDataLang.lblPostalCode</strong></span>
+                                                    @Html.TextBox("Zipcode", "", new { @class = "form-control", maxlength = "64", @autocomplete = "off" })
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span><strong>@OISearchDataLang.lblCountry</strong></span>
+                                                    @Html.DropDownList("Country", (CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)), new { @class = "form-control", @autocomplete = "off" })
+                                                    <span id="spnCountry" class="error" style="display:none;">@OISearchDataLang.lblRequiredCountry</span>
+                                                </div>
+
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <div class="col-md-12">
+                                                    <input type="submit" value="@OISearchDataLang.lblSearch" class="btn btn-primary" title="@OISearchDataLang.titleOrbIntelligenceSearchData" onclick="return ValidationOISearch()" />
+                                                    <button class="btn btn-Secondary" id="btnOIAltFieldsSearch" type="button">@OISearchDataLang.lblSearchByAltFields</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable widget-data">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            <i class="fa fa-table"></i>
+                            <strong>@OISearchDataLang.hdrSearchDatas</strong>
+                        </h2>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body ">
+                            <div class="dataTables_wrapper form-inline no-footer">
+                                <div id="divPartialOISearchData" class="table-responsive">
+                                    @{Html.RenderPartial("~/Views/OI/OISearchData/_Index.cshtml", Model);}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+<div id="OISearchByAltfieldsModalMain"></div>
+<div id="OISearchDataAddCompanyModalMain"></div>
+@section scripts {
+    <script src="~/Scripts/CustomJS/OI/OISearchData.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIAddCompany.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OISearchAltFields.js"></script>
+    <script>
+        var success = '@CommonMessagesLang.msgSuccess';
+        var addNewCompany = '@OISearchDataLang.msgAddNewCompany';
+        var addMatchAsCompany = '@OISearchDataLang.msgAddMatchAsCompany';
+    </script>
+}

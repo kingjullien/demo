@@ -1,0 +1,315 @@
+﻿@using SBISCCMWeb.Utility
+@using SBISCCMWeb.Models.BeneficialOwnership
+@using SBISCCMWeb.LanguageResources
+@model BeneficialOwnership_Main
+
+<div class="modal" id="BenificiaryGraphModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@BeneficialOwnershipLang.hdrBenificiaryGraphView</h4>
+            </div>
+            <div class="modal-body" style="overflow:hidden">
+                <div class="pull-right" style="position:relative;z-index:999">
+                    <table class="table table-bordered">
+                        <tr>
+                            <td style="color:#FF1493"><em class="fa fa-building"></em>&nbsp;&nbsp; @BeneficialOwnershipLang.spnPubliclyOwnedTradedCompanies</td>
+                        </tr>
+                        <tr>
+                            <td style="color:#EE82EE"><em class="fa fa-building"></em>&nbsp;&nbsp; @BeneficialOwnershipLang.spnPrivatelyOwned</td>
+                        </tr>
+                        <tr>
+                            <td style="color:#556B2F"><em class="fa fa-building"></em>&nbsp;&nbsp; @BeneficialOwnershipLang.spnStateOwned</td>
+                        </tr>
+                        <tr>
+                            <td style="color:#3BB9FC"><em class="fa fa-building"></em>&nbsp;&nbsp; @BeneficialOwnershipLang.spnOthers</td>
+                        </tr>
+                        <tr>
+                            <td style="color:#FFC83D"><em class="fa fa-user"></em>&nbsp;&nbsp; @BeneficialOwnershipLang.spnIndividual</td>
+                        </tr>
+                        <tr>
+                            <td style="color:#8B0000"><em class="fa fa-building"></em>&nbsp;&nbsp; @BeneficialOwnershipLang.spnTargetCompany</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="graphdiv">
+                    @Html.Hidden("graphjson", Model.graphJson.ResultJSON)
+                    <div id="modalgraph-container"></div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    /**
+* Create the chart
+*/
+    var ogmaModal = new Ogma({
+        container: 'modalgraph-container',
+        options: {
+            interactions: { zoom: { onDoubleClick: true } },
+            minimumHeight: (screen.availHeight - 160),
+            minimumWidth: (screen.availWidth-120)
+        }
+    });
+    /**
+     * Styling section
+     */
+    var personIcon = '\uf007';
+    var companyIcon = '\uf1ad';
+    var isShareholderType = 'IS-SHAREHOLDER';
+
+    function getNodeColor(node) {
+        var group = node.getAttribute('color');
+        return group;
+    }
+
+    function getEdgeColor(edge) {
+        var group = edge.getData('color');
+        return group;
+    }
+
+    function getEdgeHaloColor(edge) {
+        if (edge.getData('type') === isShareholderType) {
+            return '#BDF2FF';
+        }
+        return '#DABB98';
+    }
+
+    ogmaModal.styles.addNodeRule({
+        text: {
+            minVisibleSize: 0
+        },
+        color: 'white',
+        outerStroke: {
+            color: getNodeColor
+        },
+        icon: {
+            font: 'FontAwesome',
+            content: function (node) {
+                if (node.getData('area') === 'Not a Beneficiary') {
+                    return companyIcon;
+                }
+                return personIcon;
+            },
+            style: 'bold',
+            color: getNodeColor
+        },
+        badges: {
+            bottomRight: {
+                image: function (n) {
+                    var flag = '';
+                    if (n.getData('country') != null && n.getData('country') != "null" && n.getData('country') != '')
+                        flag = 'UBOflags/flags/' + n.getData('country').toLowerCase() + '.svg';
+                    return flag;
+                },
+                text: {
+                    font: 'FontAwesome',
+                    color: 'black',
+                    style: 'bold',
+                    content: function (n) {
+                        return n.getData('country');
+                    }
+                },
+                stroke: {
+                    color: 'inherit', // Use the node color
+                    width: 1
+                }
+            },
+            topRight: {
+                color: 'burlywood',
+                text: {
+                    font: 'FontAwesome', // Use FontAwesome icons.
+                    color: function (n) {
+                        return getAlertColor(n.getData('alertType'));
+                    }, // Use the node color.
+                    // Retrieve the icon based on the node id.
+                    style: 'bold',
+                    content: function (n) { return getAlertIcon(n.getData('alertType')); }
+                },
+                stroke: {
+                    color: 'inherit', // Use the node color
+                    width: 1
+                }
+            }
+        }
+    });
+
+    ogmaModal.styles.setHoveredNodeAttributes({
+        outline: false, // Disabling the shadow on hover
+        outerStroke: {
+            color: getNodeColor
+        },
+        text: {
+            tip: false
+        }
+    });
+
+    ogmaModal.styles.addEdgeRule({
+        shape: {
+            head: 'arrow'
+        },
+        color: getEdgeColor
+    });
+
+    ogmaModal.styles.setHoveredEdgeAttributes({
+        outline: true,
+        color: getEdgeColor,
+        halo: getEdgeHaloColor,
+        text: {
+            backgroundColor: 'rgb(220, 220, 220)',
+            minVisibleSize: 0
+        }
+    });
+
+    function formatContent(ids) {
+        if (!Array.isArray(ids)) {
+            return ''; // this is for regular nodes
+        }
+        return (
+            '<br/><br/>Contains:<ul/><li>"' + ids.join('"</li><li/>"') + '"</li></ul>'
+        );
+    }
+
+    function createTooltip(title, content, color) {
+        return (
+            '<div class="arrow"></div>' +
+            '<div class="ogma-tooltip-header">' +
+            '<span class="title">' +
+            title +
+            '<span class="line-color" style="background: ' +
+            color +
+            '">' +
+            '&nbsp;' +
+            '</span>' +
+            formatContent(content) +
+            '</span>' +
+            '</div>'
+        );
+    }
+
+    // Show some info from the hovered node
+    ogmaModal.tools.tooltip.onNodeHover(
+        function (node) {
+            // pick the color of the node
+            var color = node.getAttribute('outerStroke');
+            // Now change the title based on the type of node (grouped or not?)
+            var title = node.isVirtual()
+                ? 'Grouped Area&nbsp;'
+                : 'ID: "' + node.getId() + '"&nbsp;';
+            // and pick the content of the node if grouped;
+            var content = node.isVirtual() ? node.getData('ids') : node.getId();
+            return createTooltip(title, content, color);
+        },
+        {
+            className: 'ogma-tooltip' // tooltip container class to bind to css
+        }
+    );
+
+    ogmaModal.parse
+        .json($('#graphjson').val())
+        .then(function (graph) {
+            ogmaModal.setGraph(graph);
+            return ogmaModal.layouts.force();
+        })
+        .then(function () {
+            return ogmaModal.view.locateGraph({ padding: 120 });
+        }).then(function () {
+            return ogmaModal.view.setZoom(2.5);
+        });
+
+    // this is the duration of the animations
+    var transitionTime = 500;
+    // Menu at the top right
+    var form = document.querySelector('#ui form');
+    //form.addEventListener('change', updateUI);
+
+    //document.querySelector('#layout').addEventListener('click', function (evt) {
+    //    evt.preventDefault();
+    //    ogmaModal.layouts.force();
+    //});
+
+    // transformation objects: create them now and use them later
+    var nodeGrouping = ogmaModal.transformations.addNodeGrouping({
+        selector: function (node) {
+            return node.getData('type') === 'company';
+        },
+        groupIdFunction: function (node) {
+            return node.getData('group');
+        },
+        nodeGenerator: function (nodeList, groupId) {
+            return {
+                id: 'grouped-node-' + groupId,
+                attributes: {
+                    text: groupId + ' Group',
+                    radius: nodeList.size * 3,
+                    color: nodeList.getAttribute('icon').color
+                },
+                // add some content to be picked up later on in the tooltip
+                data: {
+                    group: nodeList.getData('group')[0],
+                    type: nodeList.getData('type')[0],
+                    ids: nodeList.getId()
+                }
+            };
+        },
+        groupEdges: false, // do not group edges as for now
+        enabled: false // create the transformation but do not activate it
+    });
+    var edgeGrouping = ogmaModal.transformations.addEdgeGrouping({
+        generator: function (edgeList, groupId) {
+            var data = edgeList.getData()[0];
+            return {
+                id: groupId,
+                data: data,
+                attributes: {
+                    width: edgeList.size
+                }
+            };
+        },
+        enabled: false // create the transformation but do not activate it
+    });
+
+    function updateUI() {
+        // Check what it should
+        var nodeGrouped = getMode('node-group') === 'group';
+        var edgeGrouped = getMode('edge-group') === 'group';
+
+        // instead of working out how to go from state A to state B
+        // execute all transformation and for each one workout what to do
+        return execute(edgeGrouping, edgeGrouped)
+            .then(function () {
+                return execute(nodeGrouping, nodeGrouped);
+            })
+            .then(function () {
+                return ogmaModal.layouts.force();
+            });
+    }
+
+    function execute(transformation, enable) {
+        // avoid extra work if we're already in the state requested
+        if (transformation.isEnabled() === enable) {
+            return Promise.resolve();
+        }
+        // if now toggle the state with animation
+        if (enable) {
+            return transformation.enable(transitionTime);
+        }
+        return transformation.disable(transitionTime);
+    }
+
+    function getMode(id) {
+        var select = form[id];
+        var currentMode = Array.prototype.filter.call(select, function (input) {
+            return input.checked;
+        })[0].value; // IE inconsistency
+        return currentMode;
+    }
+</script>
+

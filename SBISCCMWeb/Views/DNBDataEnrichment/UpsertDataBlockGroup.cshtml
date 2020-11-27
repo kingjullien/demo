@@ -1,0 +1,123 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model DataBlockGroupsEntity
+
+@{
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "UpdateUpsertDataBlockGroup"
+    };
+    List<DataBlocksEntity> lstBlocks = ViewBag.lstBlocks;
+}
+
+<article class="col-md-12 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrDataBlockGroup</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                <li>
+                    <div class="btn btn-sm btn-Secondary" id="addDataBlockGroup" title="@DandBSettingLang.titleAddDataBlockGroup">
+                        <span class="fa fa-plus"></span>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn btn-sm btn-Secondary" id="editDataBlockGroup" title="@DandBSettingLang.titleEditDataBlockGroup">
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                @using (Ajax.BeginForm("UpsertDataBlockGroup", "DNBDataEnrichment", null, ajaxOptions, new { @class = "formContent", id = "frm_DnBDataBlocks", @autocomplete = "off" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(x => x.DataBlockGroupId)
+                    @Html.HiddenFor(x => x.DataBlocksIds)
+                    @Html.HiddenFor(x => x.DataBlocks)
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="control-label">@DandBSettingLang.lblGroupName</label>
+                                @Html.TextBoxFor(x => x.DataBlockGroupName, new { @class = "form-control", disabled = "disabled", @autocomplete = "off", maxlength = "32" })
+                                <span id="spnDataBlockGroupName" class="error" style="display:none;">@DandBSettingLang.lblRequiredDataBlockGroupName</span>
+
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label">@DandBSettingLang.lblCustomerReference</label>
+                                @Html.TextBoxFor(x => x.CustomerReference, new { @class = "form-control", disabled = "disabled", @autocomplete = "off", maxlength = "50" })
+                            </div>
+                            <div class="col-md-4">
+                                <label class="control-label">@DandBSettingLang.lblTradeUp</label>
+                                @Html.DropDownListFor(x => x.TradeUp, new SelectList(CommonDropdown.GetTradeUps(), "Value", "Text"), new { @class = "form-control", @autocomplete = "off", disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        @if (lstBlocks != null && lstBlocks.Count > 0)
+                        {
+                            int rowCnt = 0;
+                            int MaxVersion = lstBlocks.Max(x => x.Level);
+                            var lstDataBlockName = lstBlocks.GroupBy(x => x.DataBlockName).ToList();
+                            <div class="row">
+                                @foreach (var item in lstDataBlockName)
+                                {
+                                    List<DataBlocksEntity> lstdataBlocks = lstBlocks.Where(x => x.DataBlockName == item.Key).ToList();
+                                    <div class="col-md-3">
+                                        <div class="LevelBlockbox disabledLevelBox">
+                                            <h4 style="">
+                                                @item.Key
+                                            </h4>
+                                            <div class="levelBlock">
+                                                <p>@DandBSettingLang.lblLevel</p>
+                                                <div class="level_counts">
+                                                    @foreach (var innerItem in lstdataBlocks)
+                                                    {
+                                                        <a href="javascript:void(0);" class="selectVersion" data-DataBlockId="@innerItem.DataBlockId" data-ProductCode="@innerItem.ProductCode"><p>@string.Concat("L", innerItem.Level)</p></a>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    if (rowCnt == 3)
+                                    {
+                                        @Html.Raw("</div>");
+                                        @Html.Raw("<div class='row'>")
+                                        @Html.Raw("<br/>")
+                                        rowCnt = 0;
+                                    }
+                                    else
+                                    {
+                                        rowCnt++;
+                                    }
+                                }
+                            </div>
+                        }
+                        <span id="spnDataBlocks" class="error" style="display:none;">@DandBSettingLang.lblRequiredOneDataBlock</span>
+                        <br />
+                        <span>@DandBSettingLang.lblAPIUrl : </span>
+                        <span id="spnAPIUrl" class="WordBreak">@(Model != null ? Model.APIURL : "")</span>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-12 text-align-right">
+                                <span class="alignedNote"><strong>@DandBSettingLang.lblNoteInformationAboutAttributes <a rel="noopener noreferrer" href="https://directplus.documentation.dnb.com/dictionary.html" target="_blank">@DandBSettingLang.lblclickhere</a></strong></span>
+                                <input type="submit" class="btn btn-primary" value="@DandBSettingLang.lblSave" style="display: none;" id="btnDataBlockGroup" onclick="return ValidateDataBlockGroup()" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</article>
+
+

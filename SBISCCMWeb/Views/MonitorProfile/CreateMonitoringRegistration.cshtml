@@ -1,0 +1,161 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model DUNSregistrationEntity
+@using SBISCCMWeb.Utility
+@{
+    Layout = null;
+    int z = 0;
+}
+@Scripts.Render("~/bundles/popupjs")
+@Styles.Render("~/Content/popupcss")
+<link href="~/Content/chosen.css" rel="stylesheet" />
+<div id="content" style="opacity: 1;">
+    <section id="widget-grid" class="">
+        <article class="col-lg-12 sortable-grid ui-sortable widget-data">
+            <div id="wid-id-Process" class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                <header role="heading">
+                    <h2 class="setwidth">
+                        @if (Model.MonitoringRegistrationId > 0)
+                        {
+                            <strong>Edit DUNS Registration Setup</strong>
+                        }
+                        else
+                        {
+                            <strong>Create DUNS Registration Setup</strong>
+                        }
+                    </h2>
+                    <ul id="widget-tab-Process" class="nav pull-right nav-pills Custom-pill">
+                        <li class="">
+                        </li>
+                    </ul>
+                </header>
+                <div role="content">
+                    <div class="jarviswidget-editbox"></div>
+                    <div class="widget-body no-padding">
+                        <div class="tab-content padding-10 ">
+                            @using (Html.BeginForm("CreateMonitoringRegistration", "MonitorProfile", FormMethod.Post, new { id = "frmNotificationProfile", onsubmit = "LoaderProgress()" }))
+                            {
+                                @Html.HiddenFor(m => m.MonitoringRegistrationId)
+                                @Html.Hidden("TagList", Model.Tags)
+
+                                @Html.Hidden("Tags", z)
+                                <div class="row form-group">
+                                    <div class="col-xs-4 text-right">
+                                        <label class="pull-right" for="MonitoringProfileId">Monitoring Profile :</label>
+                                    </div>
+                                    <div class="col-xs-6 text-left">
+                                        @Html.DropDownList("MonitoringProfileId", (SelectList)ViewBag.MonitoringProfile, new { @class = "form-control", autocomplete = "off" })
+                                        <span id="spnMonitoringProfileId" class="error" style="display:none;">Monitoring Profile Name is required.</span>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-xs-4 text-right">
+                                        <label class="pull-right" for="NotificationProfileId">Notification Profile :</label>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        @Html.DropDownList("NotificationProfileId", (SelectList)ViewBag.NotificationProfile, new { @class = "form-control", autocomplete = "off" })
+                                        <span id="spnNotificationProfileId" class="error" style="display:none;">Notification Profile Name is required.</span>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-xs-4 text-right">
+                                        <label class="pull-right" for="TradeUp">Trade Up :</label>
+                                    </div>
+                                    <div class="col-xs-6 text-left">
+                                        @Html.CheckBoxFor(m => m.TradeUpIndicator)
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-xs-4 text-right">
+                                        <label class="pull-right" for="DeliveryFrequency">Auto Renew :</label>
+                                    </div>
+                                    <div class="col-xs-6 text-left">
+                                        @Html.CheckBoxFor(m => m.AutoRenewalIndicator)
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-xs-4 text-right">
+                                        <label class="pull-right" for="Monitoring">Subject Category :</label>
+                                    </div>
+                                    <div class="col-xs-6 text-left">
+                                        @Html.DropDownList("SubjectCategory", new List<SelectListItem>() {
+                                            new SelectListItem() {Text= "Optional Subject Category", Value="" },
+                                            new SelectListItem() {Text= "High", Value="High" },
+                                            new SelectListItem() {Text= "Medium", Value="Medium" },
+                                            new SelectListItem() {Text= "Low", Value="Low" }
+                                        }, new { @class = "form-control", autocomplete = "off" })
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-xs-4 text-right">
+                                        <label class="pull-right" for="CustomerReferenceText">Customer Reference Text :</label>
+                                    </div>
+                                    <div class="col-xs-6 text-left">
+                                        @Html.TextBoxFor(m => m.CustomerReferenceText, new { @class = "form-control", @placeholder = "Customer Reference Text", autocomplete = "off", maxlength = "100" })
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-xs-4 text-right">
+                                        <label class="pull-right" for="BillingEndorsementText">Billing Endorsement Text :</label>
+                                    </div>
+                                    <div class="col-xs-6 text-right">
+                                        @Html.TextBoxFor(m => m.BillingEndorsementText, new { @class = "form-control", @placeholder = "Customer Reference Text", autocomplete = "off", maxlength = "100" })
+                                    </div>
+                                </div>
+                                if (Helper.LicenseEnableTags)
+                                {
+                                    <div class="row form-group">
+                                        <div class="col-xs-4 text-right">
+                                            <label class="pull-right" for="TagsValue">Tags :</label>
+                                        </div>
+                                        <div class="col-xs-6 text-left tagfullwidth">
+                                            @Html.DropDownList("TagsValue", new SelectList(SBISCCMWeb.Controllers.DataController.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", Model.Tags), new { @class = "form-control chzn-select clstag MonitoringRegistration", multiple = "true" })
+                                            <i class="fa fa-plus OpenTags tagstyle"></i>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="row form-group">
+                                    <div class="col-xs-offset-4 col-md-2">
+                                        @if (Model.MonitoringRegistrationId > 0)
+                                        {
+                                            <input type="submit" value="Update DUNS Registration" name="btnMonitorRegistration" id="btnMonitorRegistration" class="btn btn-primary" />
+                                        }
+                                        else
+                                        {
+                                            <input type="submit" value="Create DUNS Registration" name="btnMonitorRegistration" id="btnMonitorRegistration" class="btn btn-primary" />
+                                        }
+
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+</div>
+<div class="loaderMain" id="divProgress">
+    <div class="loaderDiv">
+        <p class="loaderTxt">Please wait while processing...</p>
+    </div>
+</div>
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/CustomJS-minified/Common.js"></script>
+<script src="~/Scripts/CustomJS-minified/Notification.js"></script>
+<script src="~/Scripts/CustomJS-minified/MonitoringRegistration.js"></script>
+<script src="~/Scripts/chosen.jquery.js"></script>
+<script src="~/Scripts/bootbox.min.js"></script>
+
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        bootbox.alert({
+            title: "<i class='fa fa-info-circle' aria-hidden='true'></i> Message",
+            message: '@ViewBag.Message', callback: function () {
+                if ('@ViewBag.Message' == "DUNS Registration created successfully." || '@ViewBag.Message' == "DUNS Registration updated successfully.") {
+                    window.parent.$.magnificPopup.close();
+                }
+            }
+        });
+    </script>
+}

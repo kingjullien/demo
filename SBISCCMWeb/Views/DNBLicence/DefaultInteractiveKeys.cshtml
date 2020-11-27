@@ -1,0 +1,226 @@
+﻿
+@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Utility;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@model ThirdPartyAPIEntity
+@{
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.InsertAfter,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccessDefaultInteractiveKey"
+    };
+    List<CVRefEntity> lstProviders = CommonDropdown.GetThirdPartyProviders(0, this.LayoutModel.CurrentClient.ApplicationDBConnectionString);
+}
+<article class="col-md-8 sortable-grid ui-sortable widget-data " id="articleAddUpdateNotificationProfile">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrDefaultKeysForUI</strong>
+            </h2>
+
+        </header>
+        <div role="content" style="padding-bottom:13px">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                <div class="tab-content">
+                    @using (Ajax.BeginForm("SetDefaultInteractiveKeys", "DNBLicence", null, ajaxOptions, new { @class = "formContent", @autocomplete = "off" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(x => x.TypeOWNERSHIP)
+                        @Html.HiddenFor(x => x.OwnershipDnBAPIId)
+                        if (Helper.LicenseEnableDataStewardship)
+                        {
+                            <div class="form-group  col-md-6">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span><string>@DandBSettingLang.lblSingleentitysearch :</string></span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(m => m.DNB_SINGLE_ENTITY_SEARCH, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.DNB.ToString(), ""), "CredentialId", "CredentialName", Model.DNB_SINGLE_ENTITY_SEARCH), new { @class = "form-control", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group  col-md-6 clsDisable ">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span><string>@DandBSettingLang.lblSingleentitysearch :</string></span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(m => m.DNB_SINGLE_ENTITY_SEARCH, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.DNB.ToString(), ""), "CredentialId", "CredentialName", Model.DNB_SINGLE_ENTITY_SEARCH), new { @class = "form-control", @autocomplete = "off", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        if (Helper.LicenseEnableDataStewardship && Helper.LicenseBuildAList)
+                        {
+                            <div class="form-group  col-md-6 ">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span><string>@DandBSettingLang.lblProspectingBuildalist :</string></span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(m => m.DNB_BUILD_A_LIST, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.DNB.ToString(), "DirectPlus"), "CredentialId", "CredentialName", Model.DNB_BUILD_A_LIST), new { @class = "form-control", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group  col-md-6 clsDisable ">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span><string>@DandBSettingLang.lblProspectingBuildalist :</string></span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(m => m.DNB_BUILD_A_LIST, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.DNB.ToString(), "DirectPlus"), "CredentialId", "CredentialName", Model.DNB_BUILD_A_LIST), new { @class = "form-control", @autocomplete = "off", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        if (Helper.LicenseEnableInvestigations)
+                        {
+                            <div class="form-group  col-md-6 ">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span><string>@DandBSettingLang.lblInvestigations :</string></span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(m => m.DNB_INVESTIGATIONS, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.DNB.ToString(), "DirectPlus"), "CredentialId", "CredentialName", Model.DNB_INVESTIGATIONS), new { @class = "form-control", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group clsDisable  col-md-6 ">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span><string>>@DandBSettingLang.lblInvestigations :</string></span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(m => m.DNB_INVESTIGATIONS, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.DNB.ToString(), "DirectPlus"), "CredentialId", "CredentialName", Model.DNB_INVESTIGATIONS), new { @class = "form-control", @autocomplete = "off", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        if (Helper.LicenseEnableDataStewardship)
+                        {
+                            <div class="form-group col-md-6 ">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span><string>@DandBSettingLang.lblTypeAheadSearch :</string></span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(m => m.DNB_TYPEAHEAD_SEARCH, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.DNB.ToString(), "DirectPlus"), "CredentialId", "CredentialName", Model.DNB_TYPEAHEAD_SEARCH), new { @class = "form-control", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group clsDisable col-md-6 ">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span><string>@DandBSettingLang.lblTypeAheadSearch :</string></span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(m => m.DNB_TYPEAHEAD_SEARCH, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.DNB.ToString(), "DirectPlus"), "CredentialId", "CredentialName", Model.DNB_TYPEAHEAD_SEARCH), new { @class = "form-control", @autocomplete = "off", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        if (Helper.LicenseEnableCompliance && Helper.oUser.EnableCompliance)
+                        {
+                            <div class="form-group col-md-6">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span><string>@DandBSettingLang.lblCompliance :</string></span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(m => m.OwnershipCredId, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.DNB.ToString(), "DirectPlus"), "CredentialId", "CredentialName", Model.OwnershipCredId), new { @class = "form-control", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group clsDisable col-md-6">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span><string>@DandBSettingLang.lblCompliance :</string></span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(m => m.OwnershipCredId, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.DNB.ToString(), "DirectPlus"), "CredentialId", "CredentialName", Model.OwnershipCredId), new { @class = "form-control", @autocomplete = "off", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        if (lstProviders.FirstOrDefault(x => x.Value == ThirdPartyProvider.GOOG.ToString()) != null)
+                        {
+                            <div class="form-group col-md-6 ">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span><string>@DandBSettingLang.lblGoogle :</string></span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(m => m.GOOGLE, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.GOOG.ToString(), ""), "CredentialId", "CredentialName"), new { @class = "form-control", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group clsDisable col-md-6 ">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span><string>@DandBSettingLang.lblGoogle :</string></span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(m => m.GOOGLE, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.GOOG.ToString(), ""), "CredentialId", "CredentialName"), new { @class = "form-control", @autocomplete = "off", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        if (lstProviders.FirstOrDefault(x => x.Value == ThirdPartyProvider.DESCARTES.ToString()) != null)
+                        {
+                            <div class="form-group col-md-6 ">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span><string>Descartes :</string></span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(m => m.DESCARTES, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.DESCARTES.ToString(), ""), "CredentialId", "CredentialName"), new { @class = "form-control", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group clsDisable col-md-6">
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <span><string>Descartes :</string></span>
+                                    </div>
+                                    <div class="col-md-7">
+                                        @Html.DropDownListFor(m => m.DESCARTES, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.DESCARTES.ToString(), ""), "CredentialId", "CredentialName"), new { @class = "form-control", @autocomplete = "off", @disabled = "disabled" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="col-md-12 no-padding">
+                            <button type="submit" class="btn btn-primary">@DandBSettingLang.lblUpdate</button>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

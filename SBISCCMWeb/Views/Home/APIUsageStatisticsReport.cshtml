@@ -1,0 +1,62 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + HomeLang.titleAPIUsageStatistics;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + HomeLang.titleAPIUsageStatistics;
+    }
+    Layout = null;
+}
+<div class="modal" id="APIUsageReportModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@HomeLang.hdrAPIUsageStatistics</h4>
+            </div>
+            <div class="modal-body" style="height:auto">
+                <div class="row">
+                    <div class="dashboard_data">
+                        <div id="partialAPIUsageGrid" class="DashboardAPIUsageGrid">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-3 reportPaddingCC">
+                        <div id="partialCurntMonthCnt"></div>
+                    </div>
+                    <div class="col-md-9 reportPaddingCC">
+                        <div id="partialCurntYearCnt"></div>
+                    </div>
+                </div>
+                <div class="">
+                    <div id="partialDivLinechart"></div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+
+@Scripts.Render("~/bundles/onlyreport")
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            APIUsageGrid(true);
+            ChartAPIUsagesCurntMonthCnt();
+            ChartAPIUsagesCurntYearCnt();
+            ChartAPIUsagesLineTotalCnt();
+            $('#divProgress').hide();
+            $("#loading-popup").hide();
+        }, 500);
+    });
+</script>

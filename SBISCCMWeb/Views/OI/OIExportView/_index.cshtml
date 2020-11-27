@@ -1,0 +1,124 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model List<OIExportJobSettingsEntity>
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divExportJobListing",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnSuccess = "OnSuccess"
+    };
+    string url = Request.Url.Scheme + "://" + Request.Url.Authority + Url.Action("Login", "Account");
+    string[] hostParts = new System.Uri(url).Host.Split('.');
+    string domain = hostParts[0];
+    string FileType = Convert.ToString(ViewBag.FileType);
+}
+<style type="text/css">
+    .popover.top {
+        z-index: 9999;
+    }
+
+    #ExportJobs .popover {
+        white-space: normal !important;
+        word-break: break-all !important;
+    }
+</style>
+@using (Ajax.BeginForm("Index", "OIExportView", FormMethod.Post, ajaxOptions, new { id = "form_ExportData", @autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("FileType", FileType)
+
+    <label class="select pull-left">
+        @Html.DropDownList("DisplayFileType", new SelectList(CommonDropdown.GetFileType(), Convert.ToString(ViewBag.FileType)), new { id = "DisplayFileType", @class = "DisplayFileType", @autocomplete = "off" })<i></i>
+    </label>
+    <table id="ExportJobs" class="table table-bordered panel-group">
+        <thead>
+            <tr>
+                <th>@OIExportDataLang.lblFileName</th>
+                <th>@OIExportDataLang.lblRequestedDate</th>
+                <th>@OIExportDataLang.lblStatus</th>
+                <th class="nosort">@OIExportDataLang.lblDownload</th>
+                <th class="nosort">@OIExportDataLang.lblCancel</th>
+                <th class="nosort">@OIExportDataLang.lblDelete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    string ApiName = (item.MatchOutPut ? " " + OIExportDataLang.lblMatchOutput +"," : "") + (item.Enrichment ? " " + OIExportDataLang.lblFirmographics +"," : "") + (item.CompanyTree ? " " + OIExportDataLang.lblCompanyTree +"," : "") + (item.ActiveDataQueue ? " " + OIExportDataLang.lblActiveDataQueue +"," : "");
+                    string strTitle = string.Empty;
+                    if (Helper.LicenseEnableTags)
+                    {
+                        strTitle += "<strong>" + OIExportDataLang.lblTags + ":</strong>" + (!string.IsNullOrEmpty(item.Tags) ? (item.Tags == "[*]" ? "" + OIExportDataLang.lblNoTag + " ,</br>" : item.Tags + ",</br> ") : "</br>");
+                        strTitle += "<strong>" + OIExportDataLang.lblLOBTags + ":</strong>" + (!string.IsNullOrEmpty(item.LOBTag) ? "'" + item.LOBTag + "</br> " : "</br>");
+                    }
+                    strTitle += "<strong>" + OIExportDataLang.lblImportProcess + ":</strong>" + (!string.IsNullOrEmpty(item.Input) ? item.Input + "</br> " : " </br>");
+                    strTitle += "<strong>" +OIExportDataLang.lblOutputQueue + ":</strong>" + (!string.IsNullOrEmpty(ApiName) ? ApiName.TrimEnd(',') : "") + "</br>";
+                    strTitle += "<strong>" + OIExportDataLang.lblFormat + ":</strong>" + (!string.IsNullOrEmpty(item.Format) ? item.Format.Replace("TSV", "Tab Separated").Replace("Delimiter", "Custom Delimiter") : "") + "</br> ";
+                    strTitle += "<strong>" + OIExportDataLang.lblMarkAsExported + ":</strong>" + item.MarkAsExported + "</br>";
+                    strTitle += "<span style='word-break: break-all;display:block;'><strong>" + OIExportDataLang.lblSrcRecID + ":</strong>" + (!string.IsNullOrEmpty(item.SrcRecID) ? item.SrcRecID + "</br>" : " </span>");
+                    strTitle += "<strong>" + OIExportDataLang.lblIsExactMatch + ":</strong>" + item.SrcRecIdExactMatch;
+
+                    <tr rel="popover-hover" data-placement="top" data-original-title="<strong>Process<strong>" data-content="@strTitle" data-html="true">
+                        <td class="WordBreak">@item.FilePath</td>
+                        <td>@item.RequestedDate.ToDatetimeFull()</td>
+                        <td>
+                            @if (item.IsProcessComplete)
+                            {
+                                <strong class="ColorGreen">
+                                    <span>@OIExportDataLang.lblReady</span>
+                                </strong>
+                            }
+                            else if (@item.IsCancelled)
+                            {<span class="ColorF">@OIExportDataLang.lblCancelled</span>}
+                        else if (!item.IsProcessComplete && item.ProcessStartDate != null && item.ProcessEndDate != null)
+                        {
+                            {<span class="ColorF"><span title="@item.ErrorMessage">@OIExportDataLang.lblFailed</span></span>}
+                    }
+                    else
+                    {
+                        <strong>
+                            <span class="colorInProgress">@OIExportDataLang.lblInProcess</span>
+                        </strong>
+                    }
+                        </td>
+                        <td>
+                            @if (@item.IsProcessComplete)
+                            {
+                                <a href="/OIExportView/GetBlobFile?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(ImageHelper.GetFileURLByDomain("exportdata\\"+ domain, @item.FilePath)))" id="lnkDownload" onclick=" return SetDownloadValue()" title="@OIExportDataLang.titleDownload" data-Id="@item.Id"><i class="fa fa-download fa-lg" aria-hidden="true"></i></a>
+                            }
+                        </td>
+                        <td>
+
+
+                            @if (!@item.IsProcessComplete && item.ProcessStartDate == null && !item.IsCancelled && item.UserId == Helper.oUser.UserId)
+                            {
+                                <a href="javascript:void(0)" id="@item.Id" class="CancelFile">@OIExportDataLang.lblCancel</a>
+                            }
+                        </td>
+                        <td>
+                            @if (@item.UserId == Helper.oUser.UserId && item.ApplicationId == this.LayoutModel.CurrentClient.ApplicationId && @item.IsProcessComplete)
+                            {
+                                <a href="javascript:void(0)" id="@item.Id" class="deleteFile">@OIExportDataLang.lblDelete</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+
+
+
+
+
+
+
+
+

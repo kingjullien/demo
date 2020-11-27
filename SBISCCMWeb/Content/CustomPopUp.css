@@ -1,0 +1,19 @@
+﻿#content {
+    padding: 0 !important;
+}
+
+
+
+    .jarviswidget .widget-body {
+        padding-bottom: 0 !important;
+    }
+
+    .jarviswidget.jarviswidget-color-blueDark.jarviswidget-sortable {
+        box-shadow: none!important;
+        margin: 0 !important;
+    }
+
+        .jarviswidget.jarviswidget-color-blueDark.jarviswidget-sortable .jarviswidget.jarviswidget-color-blueDark.jarviswidget-sortable {
+            box-shadow: 0 0 5px #ccc !important;
+            margin-bottom: 15px !important;
+        }

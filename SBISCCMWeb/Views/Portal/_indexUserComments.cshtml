@@ -1,0 +1,57 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@model List<UserCommentsEntity>
+<article class="col-md-12 sortable-grid ui-sortable" id="AtricalUserComments">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong> @PortalSettingLang.hdrUserCommentsList</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                <div class="table-responsive" id="listUserCommentId">
+                    <table class="table table-bordered UserCommentTB">
+                        <thead>
+                            <tr>
+                                <th>@PortalSettingLang.lblCommentType</th>
+                                <th>@PortalSettingLang.lblComment</th>
+                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                {
+                                    <th class="nosort">@PortalSettingLang.lblDelete</th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr data-CommentId="@item.CommentId">
+                                        <td>@item.CommentType</td>
+                                        <td>@item.Comment</td>
+                                        @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                        {
+                                            <td><a href="javascript:void(0)" id="@item.CommentId" class="DeleteUserComment"> @PortalSettingLang.lblDelete</a></td>
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "User Comments")
+{
+    <script>
+        $(document).ready(function () {
+            InitPortalUserCommentsDataTable();
+         OnSuccessUserComments();
+    });
+    </script>
+}

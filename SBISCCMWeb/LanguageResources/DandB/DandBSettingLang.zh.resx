@@ -1,0 +1,2336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrAddAdditionalAutoAcceptanceRules" xml:space="preserve">
+    <value>添加其他自动接受规则</value>
+    <comment>Add Additional Auto Acceptance Rules</comment>
+  </data>
+  <data name="hdrAddBusinessElements" xml:space="preserve">
+    <value>添加商业元素</value>
+    <comment>Add Business Elements</comment>
+  </data>
+  <data name="hdrAddDUNStoregistration" xml:space="preserve">
+    <value>添加 DUNS 到注册</value>
+    <comment>Add DUNS to registration</comment>
+  </data>
+  <data name="hdrAddElementConditions" xml:space="preserve">
+    <value>添加元素条件</value>
+    <comment>Add Element Conditions</comment>
+  </data>
+  <data name="hdrAdditionalAutoAcceptFilter" xml:space="preserve">
+    <value>其他自动接受筛选条件</value>
+    <comment>Additional Auto-Accept Filter</comment>
+  </data>
+  <data name="hdrAdditionalAutoAcceptRules" xml:space="preserve">
+    <value>其他自动接受规则</value>
+    <comment>Additional Auto-Accept Rules</comment>
+  </data>
+  <data name="hdrAutoAcceptanceFilter" xml:space="preserve">
+    <value>自动接受筛选条件</value>
+    <comment>Auto Acceptance Filter</comment>
+  </data>
+  <data name="hdrAutoRefreshEnrichmentSettings" xml:space="preserve">
+    <value>自动刷新扩充设置</value>
+    <comment>Auto Refresh Enrichment Settings</comment>
+  </data>
+  <data name="hdrBackgroundProcessSettings" xml:space="preserve">
+    <value>背景流程设置</value>
+    <comment>Background Process Settings</comment>
+  </data>
+  <data name="hdrCachedDataSettings" xml:space="preserve">
+    <value>缓存数据设置</value>
+    <comment>Cached Data Settings</comment>
+  </data>
+  <data name="hdrDandBLicenseKeys" xml:space="preserve">
+    <value>D&amp;B 许可证秘钥</value>
+    <comment>D&amp;B License Keys</comment>
+  </data>
+  <data name="hdrDataBlockGroup" xml:space="preserve">
+    <value>数据块组</value>
+    <comment>Data Block Group</comment>
+  </data>
+  <data name="hdrDataEnrichmentList" xml:space="preserve">
+    <value>数据扩充列表</value>
+    <comment>Data Enrichment List</comment>
+  </data>
+  <data name="hdrDeDuplicateData" xml:space="preserve">
+    <value>重复数据删除</value>
+    <comment>De-Duplicate Data</comment>
+  </data>
+  <data name="hdrDefaultKeysForUI" xml:space="preserve">
+    <value>UI 的默认键</value>
+    <comment>Default Keys For UI</comment>
+  </data>
+  <data name="hdrDefineBusinessElements" xml:space="preserve">
+    <value>定义商业元素</value>
+    <comment>Define Business Elements</comment>
+  </data>
+  <data name="hdrDeleteCleanseMatchData" xml:space="preserve">
+    <value>删除清除匹配数据</value>
+    <comment>Delete Cleanse Match Data</comment>
+  </data>
+  <data name="hdrDeleteEnrichmentData" xml:space="preserve">
+    <value>删除扩充数据</value>
+    <comment>Delete Enrichment Data</comment>
+  </data>
+  <data name="hdrDnBApiGroup" xml:space="preserve">
+    <value>DnBApi 组</value>
+    <comment>DnBApi Group</comment>
+  </data>
+  <data name="hdrDownloadCacheData" xml:space="preserve">
+    <value>下载缓存数据</value>
+    <comment>Download Cache Data</comment>
+  </data>
+  <data name="hdrDUNSRegistrationSetup" xml:space="preserve">
+    <value>DUNS 注册设置</value>
+    <comment>DUNS Registration Setup</comment>
+  </data>
+  <data name="hdrDUNSRegistrationSetupList" xml:space="preserve">
+    <value>DUNS 注册设置列表</value>
+    <comment>DUNS Registration Setup List</comment>
+  </data>
+  <data name="hdrEditAdditionalAutoAcceptanceRules" xml:space="preserve">
+    <value>编辑其他自动接受规则</value>
+    <comment>Edit Additional Auto Acceptance Rules</comment>
+  </data>
+  <data name="hdrEditBusinessElements" xml:space="preserve">
+    <value>编辑商业元素</value>
+    <comment>Edit Business Elements</comment>
+  </data>
+  <data name="hdrExactMatchRequired" xml:space="preserve">
+    <value>必须精确匹配</value>
+    <comment>Exact Match Required</comment>
+  </data>
+  <data name="hdrExclusionsforCleanseMatchAPICalls" xml:space="preserve">
+    <value>清除匹配 API 呼叫的除外情况</value>
+    <comment>Exclusions for Cleanse Match API Calls</comment>
+  </data>
+  <data name="hdrGlobal MatchAutoAcceptanceSettings" xml:space="preserve">
+    <value>全局匹配自动接受设置</value>
+    <comment>Global Match Auto-Acceptance Settings</comment>
+  </data>
+  <data name="hdrGlobalMatchAutoAcceptanceSettings" xml:space="preserve">
+    <value>全局匹配自动接受设置</value>
+    <comment>Global Match Auto-Acceptance Settings</comment>
+  </data>
+  <data name="hdrGlobalMinimumMatchCriteria" xml:space="preserve">
+    <value>全局最低匹配条件</value>
+    <comment>Global Minimum Match Criteria</comment>
+  </data>
+  <data name="hdrLicenseSettings" xml:space="preserve">
+    <value>许可证设置</value>
+    <comment>License Settings</comment>
+  </data>
+  <data name="hdrMatchCandidates" xml:space="preserve">
+    <value>匹配候选项</value>
+    <comment>Match Candidates</comment>
+  </data>
+  <data name="hdrMatchGrade" xml:space="preserve">
+    <value>匹配等级</value>
+    <comment>Match Grade</comment>
+  </data>
+  <data name="hdrMinimumMatchCriteriaOverride" xml:space="preserve">
+    <value>最低匹配条件覆盖</value>
+    <comment>Minimum Match Criteria Override</comment>
+  </data>
+  <data name="hdrMonitoringDirectPlus" xml:space="preserve">
+    <value>监视 Direct +</value>
+    <comment>Monitoring Direct +</comment>
+  </data>
+  <data name="hdrMonitoringDUNSDetails" xml:space="preserve">
+    <value>监视 DUNS 详细信息</value>
+    <comment>Monitoring DUNS Details</comment>
+  </data>
+  <data name="hdrMonitorProfile" xml:space="preserve">
+    <value>监视配置文件</value>
+    <comment>Monitor Profile</comment>
+  </data>
+  <data name="hdrMonitorProfileList" xml:space="preserve">
+    <value>监视配置文件列表</value>
+    <comment>Monitor Profile List</comment>
+  </data>
+  <data name="hdrMultiPassConfiguration" xml:space="preserve">
+    <value>多遍配置</value>
+    <comment>Multi-Pass Configuration</comment>
+  </data>
+  <data name="hdrMultiPassPrecedence" xml:space="preserve">
+    <value>多次通过优先级</value>
+    <comment>Multi-Pass Precedence</comment>
+  </data>
+  <data name="hdrMultiPassTagSelection" xml:space="preserve">
+    <value>多遍标签选择</value>
+    <comment>Multi-Pass Tag Selection</comment>
+  </data>
+  <data name="hdrNotificationProfile" xml:space="preserve">
+    <value>通知配置文件</value>
+    <comment>Notification Profile</comment>
+  </data>
+  <data name="hdrNotificationProfileList" xml:space="preserve">
+    <value>通知配置文件列表</value>
+    <comment>Notification Profile List</comment>
+  </data>
+  <data name="hdrOverrideDandBAPICredentials" xml:space="preserve">
+    <value>覆盖 D&amp;B API 凭据</value>
+    <comment>Override D&amp;B API Credentials</comment>
+  </data>
+  <data name="hdrOverrideList" xml:space="preserve">
+    <value>覆盖列表</value>
+    <comment>Override List</comment>
+  </data>
+  <data name="hdrProcessSetting" xml:space="preserve">
+    <value>流程设置</value>
+    <comment>Process Setting</comment>
+  </data>
+  <data name="hdrRegistrationDetails" xml:space="preserve">
+    <value>注册详细信息</value>
+    <comment>Registration Details</comment>
+  </data>
+  <data name="hdrRemoveDUNSregistration" xml:space="preserve">
+    <value>从注册中删除 DUNS</value>
+    <comment>Remove DUNS from registration</comment>
+  </data>
+  <data name="hdrThirdPartyEnrichment" xml:space="preserve">
+    <value>第三方充实</value>
+    <comment>ThirdParty Enrichment</comment>
+  </data>
+  <data name="hdrTM" xml:space="preserve">
+    <value>TM</value>
+    <comment>TM</comment>
+  </data>
+  <data name="hdrUserComment" xml:space="preserve">
+    <value>用户注释</value>
+    <comment>User Comment</comment>
+  </data>
+  <data name="hdrUserPreference" xml:space="preserve">
+    <value>用户偏好</value>
+    <comment>User Preference</comment>
+  </data>
+  <data name="hdrUserPreferenceList" xml:space="preserve">
+    <value>用户偏好列表</value>
+    <comment>User Preference List</comment>
+  </data>
+  <data name="hdrVerificationGroup" xml:space="preserve">
+    <value>验证组</value>
+    <comment>Verification Groups</comment>
+  </data>
+  <data name="lblA" xml:space="preserve">
+    <value>A</value>
+    <comment>A</comment>
+  </data>
+  <data name="lblAcceptActiveOnly" xml:space="preserve">
+    <value>仅接受活动记录</value>
+    <comment>Accept Active Records Only</comment>
+  </data>
+  <data name="lblAcceptHQOnly" xml:space="preserve">
+    <value>仅接受总部记录</value>
+    <comment>Accept Headquarters Record Only</comment>
+  </data>
+  <data name="lblAcceptLinkedOnly" xml:space="preserve">
+    <value>仅接受链接的记录</value>
+    <comment>Accept Linked Records Only</comment>
+  </data>
+  <data name="lblAcceptsExcelFiles" xml:space="preserve">
+    <value>（仅接受 Excel 文件）</value>
+    <comment>(Accepts only Excel files)</comment>
+  </data>
+  <data name="lblAcceptSingleOnly" xml:space="preserve">
+    <value>仅接受单个候选记录</value>
+    <comment>Accept Single Candidate Records Only</comment>
+  </data>
+  <data name="lblActivationDateTime" xml:space="preserve">
+    <value>激活日期时间</value>
+    <comment>Activation Date Time</comment>
+  </data>
+  <data name="lblActiveRulesOnly" xml:space="preserve">
+    <value>活动规则</value>
+    <comment>Active Rules only</comment>
+  </data>
+  <data name="lblAdd" xml:space="preserve">
+    <value>加</value>
+    <comment>Add</comment>
+  </data>
+  <data name="lblAddDandBLicenseKey" xml:space="preserve">
+    <value>添加 D&amp;B 许可证秘钥</value>
+    <comment>Add D&amp;B License Key</comment>
+  </data>
+  <data name="lblAddDUNSRegistration" xml:space="preserve">
+    <value>添加 DUNS 到注册</value>
+    <comment>Add DUNS to registration</comment>
+  </data>
+  <data name="lblAddElements" xml:space="preserve">
+    <value>添加元素</value>
+    <comment>Add Elements</comment>
+  </data>
+  <data name="lblAdditionalActions" xml:space="preserve">
+    <value>其他操作</value>
+    <comment>Additional Actions</comment>
+  </data>
+  <data name="lblAddNotification" xml:space="preserve">
+    <value>创建通知配置文件</value>
+    <comment>Create Notification Profile</comment>
+  </data>
+  <data name="lblAddress" xml:space="preserve">
+    <value>其他操作</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAlwaysRefresh" xml:space="preserve">
+    <value>总是刷新</value>
+    <comment>Always Refresh</comment>
+  </data>
+  <data name="lblAnd" xml:space="preserve">
+    <value>并且</value>
+    <comment>And</comment>
+  </data>
+  <data name="lblAPIFamily" xml:space="preserve">
+    <value>API家族</value>
+    <comment>APIFamily</comment>
+  </data>
+  <data name="lblAPIKey" xml:space="preserve">
+    <value>API 秘钥</value>
+    <comment>API Key</comment>
+  </data>
+  <data name="lblAPIKeyRequired" xml:space="preserve">
+    <value>API 密钥为必填。</value>
+    <comment>API Key is required.</comment>
+  </data>
+  <data name="lblAPIPassword" xml:space="preserve">
+    <value>API 密码</value>
+    <comment>API Password</comment>
+  </data>
+  <data name="lblAPISecret" xml:space="preserve">
+    <value>API 密码</value>
+    <comment>API Secret</comment>
+  </data>
+  <data name="lblAPISecretRequired" xml:space="preserve">
+    <value>API 密码为必填。</value>
+    <comment>API Secret is required.</comment>
+  </data>
+  <data name="lblAPIType" xml:space="preserve">
+    <value>API 类型</value>
+    <comment>API Type</comment>
+  </data>
+  <data name="lblAPITypeRequire" xml:space="preserve">
+    <value>请选择API类型。</value>
+    <comment>Please select API Type.</comment>
+  </data>
+  <data name="lblAPIUrl" xml:space="preserve">
+    <value>网址API</value>
+    <comment>API Url</comment>
+  </data>
+  <data name="lblApply" xml:space="preserve">
+    <value>应用</value>
+    <comment>Apply</comment>
+  </data>
+  <data name="lblAtleastOneproduct" xml:space="preserve">
+    <value>请选择至少一件产品。</value>
+    <comment>Please select atleast one product.</comment>
+  </data>
+  <data name="lblAutoAcceptance" xml:space="preserve">
+    <value>自动接受</value>
+    <comment>Auto Acceptance</comment>
+  </data>
+  <data name="lblAutoAcceptanceCriteria" xml:space="preserve">
+    <value>自动接受条件（良好匹配）</value>
+    <comment>Auto-Acceptance Criteria (Good Match)</comment>
+  </data>
+  <data name="lblAutoAcceptDirectives" xml:space="preserve">
+    <value>自动接受指令</value>
+    <comment>Auto-Accept Directives</comment>
+  </data>
+  <data name="lblAutoRefreshEnrichmentSettings" xml:space="preserve">
+    <value>自动刷新扩充设置</value>
+    <comment>Auto Refresh Enrichment Settings</comment>
+  </data>
+  <data name="lblAutoRenew" xml:space="preserve">
+    <value>自动续订</value>
+    <comment>Auto Renew</comment>
+  </data>
+  <data name="lblAutoTransferDUNS" xml:space="preserve">
+    <value>自动传输 DUNS</value>
+    <comment>Auto Transfer DUNS</comment>
+  </data>
+  <data name="lblAvailablePrecedence" xml:space="preserve">
+    <value>可用优先顺序</value>
+    <comment>Available Precedence</comment>
+  </data>
+  <data name="lblB" xml:space="preserve">
+    <value>乙</value>
+    <comment>B</comment>
+  </data>
+  <data name="lblBackToMonitoringProfile" xml:space="preserve">
+    <value>返回监视配置文件</value>
+    <comment>Back To Monitoring Profile</comment>
+  </data>
+  <data name="lblBatchSize" xml:space="preserve">
+    <value>批大小</value>
+    <comment>Batch Size</comment>
+  </data>
+  <data name="lblBatchSizeRequired" xml:space="preserve">
+    <value>清除匹配批大小为必填。</value>
+    <comment>Cleanse Match Batch Size is required.</comment>
+  </data>
+  <data name="lblBeginDate" xml:space="preserve">
+    <value>开始日期</value>
+    <comment>Begin Date</comment>
+  </data>
+  <data name="lblBillingEndorsementText" xml:space="preserve">
+    <value>账单背书文本</value>
+    <comment>Billing Endorsement Text</comment>
+  </data>
+  <data name="lblBusinessName" xml:space="preserve">
+    <value>企业名称</value>
+    <comment>Business Name</comment>
+  </data>
+  <data name="lblBusinessType" xml:space="preserve">
+    <value>业务类型</value>
+    <comment>Business Type</comment>
+  </data>
+  <data name="lblCacheDataDanBNote" xml:space="preserve">
+    <value>请联系 Dun &amp; Bradstreet 支持团队，以启用数据缓存，并输入你的唯一客户代码。</value>
+    <comment>Please contact Dun &amp; Bradstreet Support team to enable data caching and enter your unique client code.</comment>
+  </data>
+  <data name="lblCacheDataMatchbookNote" xml:space="preserve">
+    <value>请联系 Matchbook 支持团队，以启用数据缓存，并输入你的唯一客户代码。</value>
+    <comment>Please contact Matchbook Support team to enable data caching and enter your unique client code.</comment>
+  </data>
+  <data name="lblCancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="lblCandidateRange" xml:space="preserve">
+    <value>候选项结果的范围的值应在 1 到 50 之间</value>
+    <comment>Candidate Result range should 1 to 50</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>市/县</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCleanseMatchBatchSize" xml:space="preserve">
+    <value>清除匹配批大小</value>
+    <comment>Cleanse Match Batch Size</comment>
+  </data>
+  <data name="lblCleanseMatchBatchSizeRequired" xml:space="preserve">
+    <value>清除匹配批大小为必填。</value>
+    <comment>Cleanse Match Batch Size is required.</comment>
+  </data>
+  <data name="lblClearFilter" xml:space="preserve">
+    <value>清除筛选</value>
+    <comment>Clear Filter</comment>
+  </data>
+  <data name="lblclickhere" xml:space="preserve">
+    <value>点击这里</value>
+    <comment>click here</comment>
+  </data>
+  <data name="lblClientCode" xml:space="preserve">
+    <value>客户代码</value>
+    <comment>Client Code</comment>
+  </data>
+  <data name="lblComment" xml:space="preserve">
+    <value>注释</value>
+    <comment>Comment</comment>
+  </data>
+  <data name="lblCommentRequire" xml:space="preserve">
+    <value>请选择注释</value>
+    <comment>Please select comment</comment>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>公司</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCompanyName" xml:space="preserve">
+    <value>CompanyName</value>
+    <comment>CompanyName</comment>
+  </data>
+  <data name="lblCompanyScore" xml:space="preserve">
+    <value>公司得分</value>
+    <comment>Company Score</comment>
+  </data>
+  <data name="lblCompliance" xml:space="preserve">
+    <value>合规</value>
+    <comment>Compliance</comment>
+  </data>
+  <data name="lblCompressedProductIndicator" xml:space="preserve">
+    <value>压缩的产品指示器</value>
+    <comment>Compressed Product Indicator</comment>
+  </data>
+  <data name="lblCondition" xml:space="preserve">
+    <value>条件</value>
+    <comment>Condition</comment>
+  </data>
+  <data name="lblConditions" xml:space="preserve">
+    <value>条件</value>
+    <comment>Conditions</comment>
+  </data>
+  <data name="lblConditionsRequired" xml:space="preserve">
+    <value>条件为必填。</value>
+    <comment>Conditions is required.</comment>
+  </data>
+  <data name="lblConfidenceCode" xml:space="preserve">
+    <value>置信代码</value>
+    <comment>Confidence Code</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>国家/地区</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCountryCode" xml:space="preserve">
+    <value>国家/地区代码</value>
+    <comment>Country Code</comment>
+  </data>
+  <data name="lblCountryGroup" xml:space="preserve">
+    <value>国家/地区组</value>
+    <comment>Country Group</comment>
+  </data>
+  <data name="lblCountryGroupName" xml:space="preserve">
+    <value>国家/地区组名称</value>
+    <comment>Country Group Name</comment>
+  </data>
+  <data name="lblCreateConditions" xml:space="preserve">
+    <value>创建条件</value>
+    <comment>Create Conditions</comment>
+  </data>
+  <data name="lblCreateDUNSRegistration" xml:space="preserve">
+    <value>创建DUNS注册</value>
+    <comment>Create DUNS Registration</comment>
+  </data>
+  <data name="lblCreateMonitoringProfile" xml:space="preserve">
+    <value>创建监视配置文件</value>
+    <comment>Create Monitoring Profile</comment>
+  </data>
+  <data name="lblCreateUserPreference" xml:space="preserve">
+    <value>创建用户首选项</value>
+    <comment>Create User Preference</comment>
+  </data>
+  <data name="lblCredential" xml:space="preserve">
+    <value>凭据</value>
+    <comment>Credential</comment>
+  </data>
+  <data name="lblCredentialName" xml:space="preserve">
+    <value>凭据名称</value>
+    <comment>Credential Name</comment>
+  </data>
+  <data name="lblCredentialNameRequire" xml:space="preserve">
+    <value>请选择凭据名称。</value>
+    <comment>Please select Credential Name.</comment>
+  </data>
+  <data name="lblCredentialNameRequired" xml:space="preserve">
+    <value>凭据名称为必填。</value>
+    <comment>Credential Name is required</comment>
+  </data>
+  <data name="lblCustomerReference" xml:space="preserve">
+    <value>客户参考</value>
+    <comment>Customer Reference</comment>
+  </data>
+  <data name="lblCustomerReferenceText" xml:space="preserve">
+    <value>客户参考文本</value>
+    <comment>Customer Reference Text</comment>
+  </data>
+  <data name="lblDataBlockGroups" xml:space="preserve">
+    <value>数据块组</value>
+    <comment>Data Block Groups</comment>
+  </data>
+  <data name="lblDataBlocks" xml:space="preserve">
+    <value>数据块</value>
+    <comment>Data Blocks</comment>
+  </data>
+  <data name="lblDataEnrichment" xml:space="preserve">
+    <value>数据扩充</value>
+    <comment>Data Enrichment</comment>
+  </data>
+  <data name="lblDataImportDuplicateHandling" xml:space="preserve">
+    <value>数据导入重复处理</value>
+    <comment>Data Import Duplicate Handling</comment>
+  </data>
+  <data name="lblDataImportErrorResolution" xml:space="preserve">
+    <value>数据导入错误分析</value>
+    <comment>Data Import Error Resolution</comment>
+  </data>
+  <data name="lblDeDuplicateData" xml:space="preserve">
+    <value>重复数据</value>
+    <comment>De-Duplicate Data</comment>
+  </data>
+  <data name="lblDefaultPreference" xml:space="preserve">
+    <value>默认偏好</value>
+    <comment>Default Preference</comment>
+  </data>
+  <data name="lblDelete" xml:space="preserve">
+    <value>删除</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="lblDeleteAll" xml:space="preserve">
+    <value>删除所有</value>
+    <comment>Delete All</comment>
+  </data>
+  <data name="lblDeleteCleanseMatchData" xml:space="preserve">
+    <value>删除清除匹配数据</value>
+    <comment>Delete Cleanse Match Data</comment>
+  </data>
+  <data name="lblDeleteEnrichmentData" xml:space="preserve">
+    <value>删除扩充数据</value>
+    <comment>Delete Enrichment Data</comment>
+  </data>
+  <data name="lblDeliveryFrequency" xml:space="preserve">
+    <value>交付频率</value>
+    <comment>Delivery Frequency</comment>
+  </data>
+  <data name="lblDeliveryFrequencyRequired" xml:space="preserve">
+    <value>交付频率为必填。</value>
+    <comment>Delivery Frequency is required.</comment>
+  </data>
+  <data name="lblDeliveryTrigger" xml:space="preserve">
+    <value>传送触发</value>
+    <comment>Delivery Trigger</comment>
+  </data>
+  <data name="lblDensity" xml:space="preserve">
+    <value>密度</value>
+    <comment>Density</comment>
+  </data>
+  <data name="lblDescription" xml:space="preserve">
+    <value>描述</value>
+    <comment>Description</comment>
+  </data>
+  <data name="lblDescriptionRequired" xml:space="preserve">
+    <value>描述名称为必填。</value>
+    <comment>Description Name is required.</comment>
+  </data>
+  <data name="lblDnBAddressUndeliverable" xml:space="preserve">
+    <value>DnBAddress无法交付</value>
+    <comment>DnBAddressUndeliverable</comment>
+  </data>
+  <data name="lblDnBConfidenceCode" xml:space="preserve">
+    <value>DnBConfidenceCode</value>
+    <comment>DnBConfidenceCode</comment>
+  </data>
+  <data name="lblDnBCountryCode" xml:space="preserve">
+    <value>DnB 国家/地区代码</value>
+    <comment>DnB Country Code</comment>
+  </data>
+  <data name="lblDnBDisplaySequence" xml:space="preserve">
+    <value>DnBDisplaySequence</value>
+    <comment>DnBDisplaySequence</comment>
+  </data>
+  <data name="lblDnBDUNSNumber" xml:space="preserve">
+    <value>DnBDUNS编号</value>
+    <comment>DnBDUNSNumber</comment>
+  </data>
+  <data name="lblDnBFamilyTreeMemberRole" xml:space="preserve">
+    <value>DnBF家庭树成员角色</value>
+    <comment>DnBFamilyTreeMemberRole</comment>
+  </data>
+  <data name="lblDnBMatchDataProfileText" xml:space="preserve">
+    <value>DnBMatchDataProfileText</value>
+    <comment>DnBMatchDataProfileText</comment>
+  </data>
+  <data name="lblDnBMatchGradeText" xml:space="preserve">
+    <value>DnBMatchGradeText</value>
+    <comment>DnBMatchGradeText</comment>
+  </data>
+  <data name="lblDnBMDPCount" xml:space="preserve">
+    <value>DnB MDP 计数</value>
+    <comment>DnB MDP Count</comment>
+  </data>
+  <data name="lblDnBOperatingStatus" xml:space="preserve">
+    <value>DnBO经营状况</value>
+    <comment>DnBOperatingStatus</comment>
+  </data>
+  <data name="lblDnBOrganizationName" xml:space="preserve">
+    <value>DnBOrganizationName</value>
+    <comment>DnBOrganizationName</comment>
+  </data>
+  <data name="lblDnBPostalCode" xml:space="preserve">
+    <value>DnBPostalCode</value>
+    <comment>DnBPostalCode</comment>
+  </data>
+  <data name="lblDnBPostalCodeExtensionCode" xml:space="preserve">
+    <value>DnBPostalCodeExtensionCode</value>
+    <comment>DnBPostalCodeExtensionCode</comment>
+  </data>
+  <data name="lblDnBPrimaryTownName" xml:space="preserve">
+    <value>DnBPrimaryTownName</value>
+    <comment>DnBPrimaryTownName</comment>
+  </data>
+  <data name="lblDnBSeniorPrincipalName" xml:space="preserve">
+    <value>DnBSeniorPrincipalName</value>
+    <comment>DnBSeniorPrincipalName</comment>
+  </data>
+  <data name="lblDnBStandaloneOrganization" xml:space="preserve">
+    <value>DnB独立组织</value>
+    <comment>DnBStandaloneOrganization</comment>
+  </data>
+  <data name="lblDnBStreetAddressLine" xml:space="preserve">
+    <value>DnBStreetAddressLine</value>
+    <comment>DnBStreetAddressLine</comment>
+  </data>
+  <data name="lblDnBTelephoneNumber" xml:space="preserve">
+    <value>DnBT电话号码</value>
+    <comment>DnBTelephoneNumber</comment>
+  </data>
+  <data name="lblDnBTerritoryAbbreviatedName" xml:space="preserve">
+    <value>DnBTerritoryAbbreviatedName</value>
+    <comment>DnBTerritoryAbbreviatedName</comment>
+  </data>
+  <data name="lblDnBTradeStyleName" xml:space="preserve">
+    <value>DnBTradeStyleName</value>
+    <comment>DnBTradeStyleName</comment>
+  </data>
+  <data name="lblDontImportDataAlreadyMatchbookQueues" xml:space="preserve">
+    <value>请勿导入 Matchbook 队列中已存在的数据</value>
+    <comment>Don't import data already in Matchbook Queues</comment>
+  </data>
+  <data name="lblDontimportdataSlreadyDunBradstreetQueues" xml:space="preserve">
+    <value>请勿导入 Dun &amp; Bradstreet 队列中已存在的数据</value>
+    <comment>Don't import data already in Dun &amp; Bradstreet Queues</comment>
+  </data>
+  <data name="lblDOS1" xml:space="preserve">
+    <value>分离度1</value>
+    <comment>Degrees Of Separation 1</comment>
+  </data>
+  <data name="lblDOS2" xml:space="preserve">
+    <value>分离度2</value>
+    <comment>Degrees Of Separation 2</comment>
+  </data>
+  <data name="lblDOS3" xml:space="preserve">
+    <value>分离度3</value>
+    <comment>Degrees Of Separation 3</comment>
+  </data>
+  <data name="lblDOS4" xml:space="preserve">
+    <value>分离度4</value>
+    <comment>Degrees Of Separation 4</comment>
+  </data>
+  <data name="lblDOS5" xml:space="preserve">
+    <value>分离度5</value>
+    <comment>Degrees Of Separation 5</comment>
+  </data>
+  <data name="lblDOS6" xml:space="preserve">
+    <value>分离度6</value>
+    <comment>Degrees Of Separation 6</comment>
+  </data>
+  <data name="lblDOS7" xml:space="preserve">
+    <value>分离度7</value>
+    <comment>Degrees Of Separation 7</comment>
+  </data>
+  <data name="lblDownloadCacheData" xml:space="preserve">
+    <value>下载缓存数据</value>
+    <comment>Download Cache Data</comment>
+  </data>
+  <data name="lblDownloadSamplefile" xml:space="preserve">
+    <value>下载样本文件</value>
+    <comment>Download Sample file</comment>
+  </data>
+  <data name="lblDUNS" xml:space="preserve">
+    <value>邓斯</value>
+    <comment>DUNS</comment>
+  </data>
+  <data name="lblDunsCount" xml:space="preserve">
+    <value>Duns 计数</value>
+    <comment>Duns Count</comment>
+  </data>
+  <data name="lblDUNSDetail" xml:space="preserve">
+    <value>DUNS 详细信息</value>
+    <comment>DUNS Detail</comment>
+  </data>
+  <data name="lblDUNSNumber" xml:space="preserve">
+    <value>DUNSNumber</value>
+    <comment>DUNSNumber</comment>
+  </data>
+  <data name="lblDUNSRegistration" xml:space="preserve">
+    <value>对于值在 100,000 或以下的列表，每天可以提交多次请求，但是应限于 2 次或 3 次</value>
+    <comment>For lists 100,000 or fewer, multiple requests per day can be submitted, but should be limited to 2 or 3</comment>
+  </data>
+  <data name="lblDUNSRegistrationSetup" xml:space="preserve">
+    <value>DUNS 注册设置</value>
+    <comment>DUNS Registration Setup</comment>
+  </data>
+  <data name="lblEdit" xml:space="preserve">
+    <value>编辑</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="lblEditElements" xml:space="preserve">
+    <value>编辑元素</value>
+    <comment>Edit Elements</comment>
+  </data>
+  <data name="lblElement" xml:space="preserve">
+    <value>元素</value>
+    <comment>Element</comment>
+  </data>
+  <data name="lblElementRequired" xml:space="preserve">
+    <value>元素为必填。</value>
+    <comment>Element is required.</comment>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>电子邮件</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblEmailRequired" xml:space="preserve">
+    <value>电子邮件为必填。</value>
+    <comment>Email is required.</comment>
+  </data>
+  <data name="lblEnable" xml:space="preserve">
+    <value>启用</value>
+    <comment>Enable</comment>
+  </data>
+  <data name="lblEnableDataCacheCleanseMatch" xml:space="preserve">
+    <value>为清除匹配启用数据缓存</value>
+    <comment>Enable data cache for Cleanse Match</comment>
+  </data>
+  <data name="lblEnableDataCacheEnrichment" xml:space="preserve">
+    <value>为扩充启用数据缓存</value>
+    <comment>Enable data cache for Enrichment</comment>
+  </data>
+  <data name="lblEnableInvestigation" xml:space="preserve">
+    <value>启用调查</value>
+    <comment>Enable Investigation</comment>
+  </data>
+  <data name="lblEnableMissingDataFromProvider" xml:space="preserve">
+    <value>从供应程序启用缺失数据</value>
+    <comment>Enable Missing Data From Provider</comment>
+  </data>
+  <data name="lblEnableMonitoring" xml:space="preserve">
+    <value>启用监视</value>
+    <comment>Enable Monitoring</comment>
+  </data>
+  <data name="lblEnablePeriodicRefresh" xml:space="preserve">
+    <value>启用定期刷新</value>
+    <comment>Enable Periodic Refresh</comment>
+  </data>
+  <data name="lblEndDate" xml:space="preserve">
+    <value>结束日期</value>
+    <comment>End Date</comment>
+  </data>
+  <data name="lblEnrichmentGroupName" xml:space="preserve">
+    <value>扩充区组名称</value>
+    <comment>Enrichment Group Name</comment>
+  </data>
+  <data name="lblEnrichmentSettingsforUIFirmographics" xml:space="preserve">
+    <value>UI Firmographics 的扩充设置</value>
+    <comment>Enrichment Settings for UI Firmographics</comment>
+  </data>
+  <data name="lblEntitlements" xml:space="preserve">
+    <value>权益</value>
+    <comment>Entitlements</comment>
+  </data>
+  <data name="lblError" xml:space="preserve">
+    <value>错误</value>
+    <comment>Error</comment>
+  </data>
+  <data name="lblExample" xml:space="preserve">
+    <value>范例</value>
+    <comment>Example</comment>
+  </data>
+  <data name="lblExcludedCandidate" xml:space="preserve">
+    <value>排除候选人</value>
+    <comment>ExcludedCandidate</comment>
+  </data>
+  <data name="lblExcludeFromAutoAccept" xml:space="preserve">
+    <value>从自动接受中排除</value>
+    <comment>Exclude From Auto Accept</comment>
+  </data>
+  <data name="lblExclusionsforCleanseMatchAPI" xml:space="preserve">
+    <value>清除匹配 API 的除外情况</value>
+    <comment>Exclusions for Cleanse Match API</comment>
+  </data>
+  <data name="lblExport" xml:space="preserve">
+    <value>导出</value>
+    <comment>Export</comment>
+  </data>
+  <data name="lblExportCSV" xml:space="preserve">
+    <value>导出为 CSV</value>
+    <comment>Export to CSV</comment>
+  </data>
+  <data name="lblExportToExcel" xml:space="preserve">
+    <value>导出为 Excel</value>
+    <comment>Export To Excel</comment>
+  </data>
+  <data name="lblF" xml:space="preserve">
+    <value>F</value>
+    <comment>F</comment>
+  </data>
+  <data name="lblFailImportOnError" xml:space="preserve">
+    <value>错误导入失败</value>
+    <comment>Fail Import On Error</comment>
+  </data>
+  <data name="lblFalse" xml:space="preserve">
+    <value>假</value>
+    <comment>False</comment>
+  </data>
+  <data name="lblFeature" xml:space="preserve">
+    <value>功能</value>
+    <comment>Feature</comment>
+  </data>
+  <data name="lblFieldRequired" xml:space="preserve">
+    <value>必填项</value>
+    <comment>Field is required</comment>
+  </data>
+  <data name="lblFields" xml:space="preserve">
+    <value>领域</value>
+    <comment>Fields</comment>
+  </data>
+  <data name="lblFileTransferProfile" xml:space="preserve">
+    <value>文件传输配置文件</value>
+    <comment>File Transfer Profile</comment>
+  </data>
+  <data name="lblFilterRecords" xml:space="preserve">
+    <value>筛选记录</value>
+    <comment>Filter Records</comment>
+  </data>
+  <data name="lblFirmographicAPI" xml:space="preserve">
+    <value>固件APIAPI类型。</value>
+    <comment>Firmographic API</comment>
+  </data>
+  <data name="lblFirstRowFileheader" xml:space="preserve">
+    <value>第一行为文件标头</value>
+    <comment>First row is a file header</comment>
+  </data>
+  <data name="lblGlobalMatchAutoAcceptance" xml:space="preserve">
+    <value>全局匹配自动接受</value>
+    <comment>Global Match Auto-Acceptance</comment>
+  </data>
+  <data name="lblGoogle" xml:space="preserve">
+    <value>谷歌</value>
+    <comment>Google</comment>
+  </data>
+  <data name="lblGroupIdRequired" xml:space="preserve">
+    <value>组 ID 字段为必填。</value>
+    <comment>The groupId field is required.</comment>
+  </data>
+  <data name="lblGroupName" xml:space="preserve">
+    <value>组名称</value>
+    <comment>Group Name</comment>
+  </data>
+  <data name="lblGroupNameRequire" xml:space="preserve">
+    <value>请输入组名称。</value>
+    <comment>Please enter group name.</comment>
+  </data>
+  <data name="lblIdentityResolution" xml:space="preserve">
+    <value>身份分析</value>
+    <comment>Identity Resolution</comment>
+  </data>
+  <data name="lblImportData" xml:space="preserve">
+    <value>导入数据</value>
+    <comment>Import Data</comment>
+  </data>
+  <data name="lblImportDatatoDB" xml:space="preserve">
+    <value>将数据导入数据库</value>
+    <comment>Import data into database</comment>
+  </data>
+  <data name="lblInactiveRulesOnly" xml:space="preserve">
+    <value>无效规则</value>
+    <comment>Inactive Rules</comment>
+  </data>
+  <data name="lblInputHeader" xml:space="preserve">
+    <value>输入标头</value>
+    <comment>Input Header</comment>
+  </data>
+  <data name="lblInquiryReferenceText" xml:space="preserve">
+    <value>查询参考文本</value>
+    <comment>Inquiry Reference Text</comment>
+  </data>
+  <data name="lblInquiryReferenceTextRequired" xml:space="preserve">
+    <value>查询参考文本为必填。</value>
+    <comment>Inquiry Reference Text is required.</comment>
+  </data>
+  <data name="lblInvestigations" xml:space="preserve">
+    <value>调查</value>
+    <comment>Investigations</comment>
+  </data>
+  <data name="lblLevel" xml:space="preserve">
+    <value>层级</value>
+    <comment>Level</comment>
+  </data>
+  <data name="lblLicense" xml:space="preserve">
+    <value>许可证</value>
+    <comment>License</comment>
+  </data>
+  <data name="lblLimitDOS" xml:space="preserve">
+    <value>基于分离度的极限记录</value>
+    <comment>Limit Records Based on Degrees of Separation</comment>
+  </data>
+  <data name="lblManageCacheDataSettings" xml:space="preserve">
+    <value>管理缓存数据设置</value>
+    <comment>Manage Cache Data Settings</comment>
+  </data>
+  <data name="lblMappingColumns" xml:space="preserve">
+    <value>请将文件列映射到相应的表列</value>
+    <comment>Please map your file columns to the corresponding table columns</comment>
+  </data>
+  <data name="lblMatchDataCriteria" xml:space="preserve">
+    <value>比赛条件</value>
+    <comment>Match Data Criteria</comment>
+  </data>
+  <data name="lblMatchGrade" xml:space="preserve">
+    <value>匹配等级</value>
+    <comment>Match Grade</comment>
+  </data>
+  <data name="lblMatchGradeComponent" xml:space="preserve">
+    <value>比赛引擎</value>
+    <comment>Match Grade Component</comment>
+  </data>
+  <data name="lblMatchGradeComponentCount" xml:space="preserve">
+    <value>匹配等级组件计数</value>
+    <comment>Match Grade Component Count</comment>
+  </data>
+  <data name="lblMaxCandidateQty" xml:space="preserve">
+    <value>字段的值必须在 1 到 50 之间。</value>
+    <comment>The field must be in range 1 to 50.</comment>
+  </data>
+  <data name="lblMaxCandidateResults" xml:space="preserve">
+    <value>最多候选项结果</value>
+    <comment>Max Candidate Results</comment>
+  </data>
+  <data name="lblMaximumCandidateResults" xml:space="preserve">
+    <value>最多候选项结果</value>
+    <comment>Maximum Candidate Results</comment>
+  </data>
+  <data name="lblMaximumParallelThread" xml:space="preserve">
+    <value>最多并行线程</value>
+    <comment>Maximum Parallel Thread</comment>
+  </data>
+  <data name="lblMDPCode" xml:space="preserve">
+    <value>MDP代码</value>
+    <comment>MDPCode</comment>
+  </data>
+  <data name="lblMDPValue" xml:space="preserve">
+    <value>MDP 值</value>
+    <comment>MDP Value</comment>
+  </data>
+  <data name="lblMinConfidenceCode" xml:space="preserve">
+    <value>最小置信代码</value>
+    <comment>Min Confidence Code</comment>
+  </data>
+  <data name="lblMinimumConfidenceLevel" xml:space="preserve">
+    <value>最小置信代码</value>
+    <comment>Minimum Confidence Level</comment>
+  </data>
+  <data name="lblMinimumMatchCriteria" xml:space="preserve">
+    <value>最低匹配条件</value>
+    <comment>Minimum Match Criteria</comment>
+  </data>
+  <data name="lblMinimumMatchCriteriaOverride" xml:space="preserve">
+    <value>最低匹配条件覆盖</value>
+    <comment>Minimum Match Criteria Override</comment>
+  </data>
+  <data name="lblMinMatchScore" xml:space="preserve">
+    <value>最低匹配得分</value>
+    <comment>Min.Match Score</comment>
+  </data>
+  <data name="lblMinMaxConfidanceLevel" xml:space="preserve">
+    <value>字段的值必须在 1 到 10 之间。</value>
+    <comment>The field must be in range 1 to 50.</comment>
+  </data>
+  <data name="lblMonitorEntireProductLayer" xml:space="preserve">
+    <value>监视整个产品层的更改</value>
+    <comment>Monitor entire Product Layer for changes</comment>
+  </data>
+  <data name="lblMonitoring" xml:space="preserve">
+    <value>监视</value>
+    <comment>Monitoring</comment>
+  </data>
+  <data name="lblMonitoringDirect20" xml:space="preserve">
+    <value>监视 Direct 2.0</value>
+    <comment>Monitoring Direct 2.0</comment>
+  </data>
+  <data name="lblMonitoringDirectPlus" xml:space="preserve">
+    <value>监视 Direct +</value>
+    <comment>Monitoring Direct +</comment>
+  </data>
+  <data name="lblMonitoringProfile" xml:space="preserve">
+    <value>监视配置文件</value>
+    <comment>Monitoring Profile</comment>
+  </data>
+  <data name="lblMonitoringProfileRequired" xml:space="preserve">
+    <value>监视配置文件名称为必填</value>
+    <comment>Monitoring Profile Name is required</comment>
+  </data>
+  <data name="lblNationalID" xml:space="preserve">
+    <value>国民身份证</value>
+    <comment>National ID</comment>
+  </data>
+  <data name="lblNo" xml:space="preserve">
+    <value>没有</value>
+    <comment>No</comment>
+  </data>
+  <data name="lblNoDataAreAvailable" xml:space="preserve">
+    <value>无可用数据</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNoDUNSfound" xml:space="preserve">
+    <value>未找到 DUNS。</value>
+    <comment>No DUNS found.</comment>
+  </data>
+  <data name="lblNoduplicatecheckforimport" xml:space="preserve">
+    <value>无导入重复项检查</value>
+    <comment>No duplicate check for import</comment>
+  </data>
+  <data name="lblNote" xml:space="preserve">
+    <value>备注</value>
+    <comment>Note</comment>
+  </data>
+  <data name="lblNoteDeDuplicate" xml:space="preserve">
+    <value>此流程将删除所有队列中的重复记录，包括匹配数据、清理数据和输出队列</value>
+    <comment>This process removes duplicate records across all queues, including the Match Data, Clean Data and Output Queue</comment>
+  </data>
+  <data name="lblNoteFeatures" xml:space="preserve">
+    <value>一经启用，重复检查流程将通过结合使用 SrcRecorId 和导入数据中的源标签来标识潜在的重复项</value>
+    <comment>if enabled, duplicate check uses a combination of SrcRecordId and the Source tags in the imported data to identity potential duplicates</comment>
+  </data>
+  <data name="lblNoteInformationAboutAttributes" xml:space="preserve">
+    <value>注意：有关属性的更多信息，请</value>
+    <comment>Note : For more information about attributes please</comment>
+  </data>
+  <data name="lblNotePreviewAutoAcceptance" xml:space="preserve">
+    <value>注：只显示前 100 条记录作为预览，请下载文件，使用导出预览所有数据</value>
+    <comment>Note : we are showing only top 100 records for preview, please download file using export for preview all data</comment>
+  </data>
+  <data name="lblNotificationProfile" xml:space="preserve">
+    <value>通知配置文件</value>
+    <comment>Notification Profile</comment>
+  </data>
+  <data name="lblNotificationProfileDescription" xml:space="preserve">
+    <value>通知配置文件描述</value>
+    <comment>Notification Profile Description</comment>
+  </data>
+  <data name="lblNotificationProfileDescriptionRequired" xml:space="preserve">
+    <value>通知配置文件描述为必填。</value>
+    <comment>Notification Profile Description is required.</comment>
+  </data>
+  <data name="lblNotificationProfileName" xml:space="preserve">
+    <value>通知配置文件名称</value>
+    <comment>Notification Profile Name</comment>
+  </data>
+  <data name="lblNotificationProfileNameRequired" xml:space="preserve">
+    <value>通知配置文件名称为必填。</value>
+    <comment>Notification Profile Name is required.</comment>
+  </data>
+  <data name="lblNotificationProfileRequired" xml:space="preserve">
+    <value>通知配置文件名称为必填。</value>
+    <comment>Notification Profile Name is required.</comment>
+  </data>
+  <data name="lblNotificationsSuppressed" xml:space="preserve">
+    <value>通知取消</value>
+    <comment>Notifications Suppressed</comment>
+  </data>
+  <data name="lblNumberofDays" xml:space="preserve">
+    <value>天数</value>
+    <comment>Number of Days</comment>
+  </data>
+  <data name="lblOperatingStatus" xml:space="preserve">
+    <value>运行状态</value>
+    <comment>Operating Status</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>页面大小</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblPauseCleanseMatch" xml:space="preserve">
+    <value>暂停清除匹配</value>
+    <comment>Pause Cleanse Match</comment>
+  </data>
+  <data name="lblPauseDataEnrichment" xml:space="preserve">
+    <value>暂停数据扩充</value>
+    <comment>Pause Data Enrichment</comment>
+  </data>
+  <data name="lblPeriodicRefreshIntervalDays" xml:space="preserve">
+    <value>定期刷新间隔天数</value>
+    <comment>Periodic Refresh IntervalDays</comment>
+  </data>
+  <data name="lblPhone" xml:space="preserve">
+    <value>电话</value>
+    <comment>Phone</comment>
+  </data>
+  <data name="lblPhoneNbr" xml:space="preserve">
+    <value>电话号码</value>
+    <comment>PhoneNbr</comment>
+  </data>
+  <data name="lblPhoneNumber" xml:space="preserve">
+    <value>电话号码</value>
+    <comment>Phone Number</comment>
+  </data>
+  <data name="lblPOBox" xml:space="preserve">
+    <value>邮政信箱</value>
+    <comment>PO Box</comment>
+  </data>
+  <data name="lblPostalCode" xml:space="preserve">
+    <value>邮编</value>
+    <comment>Postal Code</comment>
+  </data>
+  <data name="lblPrecedenceSteps" xml:space="preserve">
+    <value>优先步骤</value>
+    <comment>Precedence Steps</comment>
+  </data>
+  <data name="lblPreferenceDescription" xml:space="preserve">
+    <value>偏好描述</value>
+    <comment>Preference Description</comment>
+  </data>
+  <data name="lblPreferenceDescriptionRequired" xml:space="preserve">
+    <value>偏好描述为必填。</value>
+    <comment>Preference Description is required.</comment>
+  </data>
+  <data name="lblPreferenceName" xml:space="preserve">
+    <value>偏好名称</value>
+    <comment>Preference Name</comment>
+  </data>
+  <data name="lblPreferenceNameRequired" xml:space="preserve">
+    <value>偏好名称为必填。</value>
+    <comment>Preference name is required.</comment>
+  </data>
+  <data name="lblPreferenceType" xml:space="preserve">
+    <value>偏好类型</value>
+    <comment>Preference Type</comment>
+  </data>
+  <data name="lblPreferenceValue" xml:space="preserve">
+    <value>偏好值（电子邮件）</value>
+    <comment>Preference Value (Email)</comment>
+  </data>
+  <data name="lblPreferHQ" xml:space="preserve">
+    <value>偏爱总部记录</value>
+    <comment>Prefer Headquarters Record</comment>
+  </data>
+  <data name="lblPreferLinked" xml:space="preserve">
+    <value>优先链接记录</value>
+    <comment>Prefer Linked Records</comment>
+  </data>
+  <data name="lblPreview" xml:space="preserve">
+    <value>预习</value>
+    <comment>Preview</comment>
+  </data>
+  <data name="lblProcessing" xml:space="preserve">
+    <value>正在处理中，请稍候...</value>
+    <comment>Please wait while processing...</comment>
+  </data>
+  <data name="lblProduct" xml:space="preserve">
+    <value>产品</value>
+    <comment>Product</comment>
+  </data>
+  <data name="lblProductLayer" xml:space="preserve">
+    <value>产品层</value>
+    <comment>Product Layer</comment>
+  </data>
+  <data name="lblProductRequired" xml:space="preserve">
+    <value>产品为必填。</value>
+    <comment>Product is required.</comment>
+  </data>
+  <data name="lblProfileName" xml:space="preserve">
+    <value>配置文件名称</value>
+    <comment>Profile Name</comment>
+  </data>
+  <data name="lblProfileNameRequired" xml:space="preserve">
+    <value>配置文件名称为必填。</value>
+    <comment>Profile Name is required.</comment>
+  </data>
+  <data name="lblProspectingBuildalist" xml:space="preserve">
+    <value>展望/构建列表</value>
+    <comment>Prospecting / Build-a-list</comment>
+  </data>
+  <data name="lblProvider" xml:space="preserve">
+    <value>提供者</value>
+    <comment>Provider</comment>
+  </data>
+  <data name="lblRegistartionStatus" xml:space="preserve">
+    <value>注册状态</value>
+    <comment>Registartion Status</comment>
+  </data>
+  <data name="lblRegistration" xml:space="preserve">
+    <value>注册</value>
+    <comment>Registration</comment>
+  </data>
+  <data name="lblRegistrationDunsNote" xml:space="preserve">
+    <value>对于值在 100,000 或以下的列表，每天可以提交多次请求，但是应限于 2 次或 3 次</value>
+    <comment>For lists 100,000 or fewer, multiple requests per day can be submitted, but should be limited to 2 or 3</comment>
+  </data>
+  <data name="lblRegistrationName" xml:space="preserve">
+    <value>注册名称</value>
+    <comment>Registration Name</comment>
+  </data>
+  <data name="lblRegistrations" xml:space="preserve">
+    <value>注册</value>
+    <comment>Registrations</comment>
+  </data>
+  <data name="lblRegistrationType" xml:space="preserve">
+    <value>注册类型</value>
+    <comment>Registration Type</comment>
+  </data>
+  <data name="lblRejectErrorRows" xml:space="preserve">
+    <value>拒绝错误行</value>
+    <comment>Reject Error Rows</comment>
+  </data>
+  <data name="lblRemoveDUNSregistration" xml:space="preserve">
+    <value>从注册中删除 DUNS</value>
+    <comment>Remove DUNS from registration</comment>
+  </data>
+  <data name="lblRemoveDuplicaterecordsActiveAndOutputQueues" xml:space="preserve">
+    <value>从活动及输出队列中删除重复记录</value>
+    <comment>Remove duplicate records from Active and Output Queues</comment>
+  </data>
+  <data name="lblRemoveDuplicateRecordsActiveOutputQueues" xml:space="preserve">
+    <value>从活动及输出队列中删除重复记录</value>
+    <comment>Remove duplicate records from Active and Output Queues</comment>
+  </data>
+  <data name="lblRemoveDuplicateRecordsActiveQueues" xml:space="preserve">
+    <value>从活动队列中删除重复记录</value>
+    <comment>Remove duplicate records from the Active Queues</comment>
+  </data>
+  <data name="lblRequiredAPICred" xml:space="preserve">
+    <value>APICredential字段为必填字段。</value>
+    <comment>The APICredential field is required.</comment>
+  </data>
+  <data name="lblRequiredAPIPassword" xml:space="preserve">
+    <value>APIPassword字段为必填字段。</value>
+    <comment>The APIPassword field is required.</comment>
+  </data>
+  <data name="lblRequiredCredential" xml:space="preserve">
+    <value>请选择凭证</value>
+    <comment>please select Credential</comment>
+  </data>
+  <data name="lblRequiredCredName" xml:space="preserve">
+    <value>CredentialName字段为必填。</value>
+    <comment>The CredentialName field is required.</comment>
+  </data>
+  <data name="lblRequiredDataBlockGroupName" xml:space="preserve">
+    <value>数据块组名称是必需的。</value>
+    <comment>Data Block Group name is required.</comment>
+  </data>
+  <data name="lblRequiredOneDataBlock" xml:space="preserve">
+    <value>选择至少一个数据块。</value>
+    <comment>select at least one data block.</comment>
+  </data>
+  <data name="lblResertTypeYes" xml:space="preserve">
+    <value>请输入“YES”重置数据。</value>
+    <comment>Please type 'YES' to reset data.</comment>
+  </data>
+  <data name="lblReset" xml:space="preserve">
+    <value>重启</value>
+    <comment>Reset</comment>
+  </data>
+  <data name="lblResetData" xml:space="preserve">
+    <value>重置数据</value>
+    <comment>Reset Data</comment>
+  </data>
+  <data name="lblResetDataConfiguration" xml:space="preserve">
+    <value>重置数据和配置</value>
+    <comment>Reset Data and Configuration</comment>
+  </data>
+  <data name="lblRetrievechangesonly" xml:space="preserve">
+    <value>仅检索更改</value>
+    <comment>Retrieve changes only</comment>
+  </data>
+  <data name="lblRetrievecompleterecord" xml:space="preserve">
+    <value>检索完整记录</value>
+    <comment>Retrieve complete record</comment>
+  </data>
+  <data name="lblRunRules" xml:space="preserve">
+    <value>运行规则</value>
+    <comment>Run Rules</comment>
+  </data>
+  <data name="lblSave" xml:space="preserve">
+    <value>保存</value>
+    <comment>Save</comment>
+  </data>
+  <data name="lblScoreRange" xml:space="preserve">
+    <value>得分范围</value>
+    <comment>Score Range</comment>
+  </data>
+  <data name="lblseedData" xml:space="preserve">
+    <value>seedData</value>
+    <comment>seedData</comment>
+  </data>
+  <data name="lblSelect" xml:space="preserve">
+    <value>- 选择 -</value>
+    <comment>--Select--</comment>
+  </data>
+  <data name="lblSelectAddressCode" xml:space="preserve">
+    <value>选择地址码</value>
+    <comment>Select Address Code</comment>
+  </data>
+  <data name="lblSelectAddressGrade" xml:space="preserve">
+    <value>选择地址等级</value>
+    <comment>Select Address Grade</comment>
+  </data>
+  <data name="lblSelectAll" xml:space="preserve">
+    <value>全选</value>
+    <comment>Select All</comment>
+  </data>
+  <data name="lblSelectCityCode" xml:space="preserve">
+    <value>选择城市代码</value>
+    <comment>Select City Code</comment>
+  </data>
+  <data name="lblSelectCityGrade" xml:space="preserve">
+    <value>选择城市等级</value>
+    <comment>Select City Grade</comment>
+  </data>
+  <data name="lblSelectCompanyCode" xml:space="preserve">
+    <value>选择公司代码</value>
+    <comment>Select Company Code</comment>
+  </data>
+  <data name="lblSelectCompanyGrade" xml:space="preserve">
+    <value>选择公司等级</value>
+    <comment>Select Company Grade</comment>
+  </data>
+  <data name="lblSelectConfidenceCode" xml:space="preserve">
+    <value>选择信任码</value>
+    <comment>Select Confidence Code</comment>
+  </data>
+  <data name="lblSelectCountry" xml:space="preserve">
+    <value>选择国家</value>
+    <comment>Select Country</comment>
+  </data>
+  <data name="lblSelectCountryCode" xml:space="preserve">
+    <value>选择国家代码</value>
+    <comment>Select Country Code</comment>
+  </data>
+  <data name="lblSelectCountryGroup" xml:space="preserve">
+    <value>选择国家组</value>
+    <comment>Select Country Group</comment>
+  </data>
+  <data name="lblSelectDensity" xml:space="preserve">
+    <value>选择密度</value>
+    <comment>Select Density</comment>
+  </data>
+  <data name="lblSelectedPrecedence" xml:space="preserve">
+    <value>选定的优先顺序</value>
+    <comment>Selected Precedence</comment>
+  </data>
+  <data name="lblSelectLookups" xml:space="preserve">
+    <value>选择查找</value>
+    <comment>Select Lookups</comment>
+  </data>
+  <data name="lblSelectPhoneCode" xml:space="preserve">
+    <value>选择电话代码</value>
+    <comment>Select Phone Code</comment>
+  </data>
+  <data name="lblSelectPhoneGrade" xml:space="preserve">
+    <value>选择手机等级</value>
+    <comment>Select Phone Grade</comment>
+  </data>
+  <data name="lblSelectSIC" xml:space="preserve">
+    <value>选择SIC</value>
+    <comment>Select SIC</comment>
+  </data>
+  <data name="lblSelectStateCode" xml:space="preserve">
+    <value>选择州代码</value>
+    <comment>Select State Code</comment>
+  </data>
+  <data name="lblSelectStateGrade" xml:space="preserve">
+    <value>选择州等级</value>
+    <comment>Select State Grade</comment>
+  </data>
+  <data name="lblSelectStreetCode" xml:space="preserve">
+    <value>选择街道代码</value>
+    <comment>Select Street Code</comment>
+  </data>
+  <data name="lblSelectStreetGrade" xml:space="preserve">
+    <value>选择街道等级</value>
+    <comment>Select Street Grade</comment>
+  </data>
+  <data name="lblSelectStreetNameCode" xml:space="preserve">
+    <value>选择街道名称代码</value>
+    <comment>Select Street Name Code</comment>
+  </data>
+  <data name="lblSelectStreetNameGrade" xml:space="preserve">
+    <value>选择街道名称等级</value>
+    <comment>Select Street Name Grade</comment>
+  </data>
+  <data name="lblSelectUniqueness" xml:space="preserve">
+    <value>选择唯一性</value>
+    <comment>Select Uniqueness</comment>
+  </data>
+  <data name="lblSelectZipGrade" xml:space="preserve">
+    <value>选择邮编等级</value>
+    <comment>Select Zip Grade</comment>
+  </data>
+  <data name="lblSetEntitlements" xml:space="preserve">
+    <value>设置权利</value>
+    <comment>Set Entitlements</comment>
+  </data>
+  <data name="lblSIC" xml:space="preserve">
+    <value>集成电路</value>
+    <comment>SIC</comment>
+  </data>
+  <data name="lblSingleCandidateMatch" xml:space="preserve">
+    <value>仅匹配单个候选记录</value>
+    <comment>Match Single Candidate Record Only</comment>
+  </data>
+  <data name="lblSingleentitysearch" xml:space="preserve">
+    <value>单一实体搜索</value>
+    <comment>Single entity search</comment>
+  </data>
+  <data name="lblSrcRecordId" xml:space="preserve">
+    <value>SrcRecordId</value>
+    <comment>SrcRecordId</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>州</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblStopDeliveryIndicator" xml:space="preserve">
+    <value>停止交付指示器</value>
+    <comment>Stop Delivery Indicator</comment>
+  </data>
+  <data name="lblStreet" xml:space="preserve">
+    <value>街道编号</value>
+    <comment>Street#</comment>
+  </data>
+  <data name="lblStreetName" xml:space="preserve">
+    <value>街道名称</value>
+    <comment>Street Name</comment>
+  </data>
+  <data name="lblStreetNo" xml:space="preserve">
+    <value>街道编号</value>
+    <comment>StreetNo</comment>
+  </data>
+  <data name="lblSubjectCategory" xml:space="preserve">
+    <value>主题类别</value>
+    <comment>Subject Category</comment>
+  </data>
+  <data name="lblSubmit" xml:space="preserve">
+    <value>提交</value>
+    <comment>Submit</comment>
+  </data>
+  <data name="lblSuccess" xml:space="preserve">
+    <value>成功</value>
+    <comment>Success</comment>
+  </data>
+  <data name="lblSuppressNotifications" xml:space="preserve">
+    <value>禁止通知</value>
+    <comment>Suppress Notifications</comment>
+  </data>
+  <data name="lblSyncMonitoringData" xml:space="preserve">
+    <value>同步监视数据</value>
+    <comment>Sync Monitoring Data</comment>
+  </data>
+  <data name="lblSyncNotificationData" xml:space="preserve">
+    <value>同步通知数据</value>
+    <comment>Sync Notification Data</comment>
+  </data>
+  <data name="lblSyncRegistration" xml:space="preserve">
+    <value>同步注册</value>
+    <comment>Sync Registration</comment>
+  </data>
+  <data name="lblSyncUserPrefrenceData" xml:space="preserve">
+    <value>同步用户偏好数据</value>
+    <comment>Sync User Prefrence Data</comment>
+  </data>
+  <data name="lblTableColumn" xml:space="preserve">
+    <value>表列</value>
+    <comment>Table Column</comment>
+  </data>
+  <data name="lblTag" xml:space="preserve">
+    <value>标签</value>
+    <comment>Tag</comment>
+  </data>
+  <data name="lblTagRequired" xml:space="preserve">
+    <value>标签为必填。</value>
+    <comment>Tag is required.</comment>
+  </data>
+  <data name="lblTags" xml:space="preserve">
+    <value>标签</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="lblTelephone" xml:space="preserve">
+    <value>电话</value>
+    <comment>Telephone</comment>
+  </data>
+  <data name="lblTextForA" xml:space="preserve">
+    <value>81-100</value>
+    <comment>81-100</comment>
+  </data>
+  <data name="lblTextForB" xml:space="preserve">
+    <value>37-80</value>
+    <comment>37-80</comment>
+  </data>
+  <data name="lblTextForF" xml:space="preserve">
+    <value>36以下</value>
+    <comment>Below 36</comment>
+  </data>
+  <data name="lblTextForZ" xml:space="preserve">
+    <value>0</value>
+    <comment>0</comment>
+  </data>
+  <data name="lblThirdPartyEnrichment" xml:space="preserve">
+    <value>第三方充实</value>
+    <comment>ThirdParty Enrichment</comment>
+  </data>
+  <data name="lblThirdPartyProvider" xml:space="preserve">
+    <value>第三方提供商</value>
+    <comment>ThirdParty Provider</comment>
+  </data>
+  <data name="lblThirdPartyProviderRequired" xml:space="preserve">
+    <value>需要第三方提供商</value>
+    <comment>Third party provider is required</comment>
+  </data>
+  <data name="lblTradeUp" xml:space="preserve">
+    <value>交易</value>
+    <comment>Trade Up</comment>
+  </data>
+  <data name="lblTransactionTimestamp" xml:space="preserve">
+    <value>交易时间戳</value>
+    <comment>TransactionTimestamp</comment>
+  </data>
+  <data name="lblTransferDunsAutoEnrich" xml:space="preserve">
+    <value>转让Duns Auto Enrich</value>
+    <comment>Transfer Duns Auto Enrich</comment>
+  </data>
+  <data name="lblTransferDunsAutoEnrichTag" xml:space="preserve">
+    <value>传输 Duns 自动扩充标签</value>
+    <comment>Transfer Duns Auto Enrich Tag</comment>
+  </data>
+  <data name="lblTrue" xml:space="preserve">
+    <value>真正</value>
+    <comment>True</comment>
+  </data>
+  <data name="lblTypeAheadSearch" xml:space="preserve">
+    <value>提前键入搜索</value>
+    <comment>Type Ahead Search</comment>
+  </data>
+  <data name="lblUniqueness" xml:space="preserve">
+    <value>唯一性</value>
+    <comment>Uniqueness</comment>
+  </data>
+  <data name="lblUnsuppressNotifications" xml:space="preserve">
+    <value>取消抑制通知</value>
+    <comment>Un-suppress Notifications</comment>
+  </data>
+  <data name="lblUpdate" xml:space="preserve">
+    <value>更新</value>
+    <comment>Update</comment>
+  </data>
+  <data name="lblUpdateDandBLicenseKey" xml:space="preserve">
+    <value>更新 D&amp;B 许可证秘钥</value>
+    <comment>Update D&amp;B License Key</comment>
+  </data>
+  <data name="lblUpdateDUNSRegistration" xml:space="preserve">
+    <value>更新DUNS注册</value>
+    <comment>Update DUNS Registration</comment>
+  </data>
+  <data name="lblUpdateMonitoringProfile" xml:space="preserve">
+    <value>更新监视配置文件</value>
+    <comment>Update Monitoring Profile</comment>
+  </data>
+  <data name="lblUpdateMonitoringRegistration" xml:space="preserve">
+    <value>更新监控注册</value>
+    <comment>Update Monitoring Registration</comment>
+  </data>
+  <data name="lblUpdateNotification" xml:space="preserve">
+    <value>更新通知配置文件</value>
+    <comment>Update Notification Profile</comment>
+  </data>
+  <data name="lblUpdateUserPreference" xml:space="preserve">
+    <value>更新用户偏好</value>
+    <comment>Update User Preference</comment>
+  </data>
+  <data name="lblURL" xml:space="preserve">
+    <value>网址</value>
+    <comment>URL</comment>
+  </data>
+  <data name="lblUseForCleanseMatch" xml:space="preserve">
+    <value>用于清除匹配</value>
+    <comment>Use For Cleanse Match</comment>
+  </data>
+  <data name="lblUseForEnrichOverride" xml:space="preserve">
+    <value>用户扩充覆盖</value>
+    <comment>Use For Enrich Override</comment>
+  </data>
+  <data name="lblUserPreference" xml:space="preserve">
+    <value>用户首选项</value>
+    <comment>UserPreference</comment>
+  </data>
+  <data name="lblUserPreferenceName" xml:space="preserve">
+    <value>用户偏好名称</value>
+    <comment>User Preference Name</comment>
+  </data>
+  <data name="lblUserPreferencesRequired" xml:space="preserve">
+    <value>用户偏好为必填。</value>
+    <comment>User Preferences is required.</comment>
+  </data>
+  <data name="lblValidCandidate" xml:space="preserve">
+    <value>候选项结果的范围的值应在 1 到 50 之间</value>
+    <comment>Candidate Result range should 1 to 50</comment>
+  </data>
+  <data name="lblValidEmail" xml:space="preserve">
+    <value>电子邮件无效。</value>
+    <comment>Email is not valid.</comment>
+  </data>
+  <data name="lblValidNumberDays" xml:space="preserve">
+    <value>请输入 1 至 30 之间的有效值。</value>
+    <comment>Please enter valid value between 1 and 30.</comment>
+  </data>
+  <data name="lblValue" xml:space="preserve">
+    <value>值</value>
+    <comment>Value</comment>
+  </data>
+  <data name="lblVerificationGroupName" xml:space="preserve">
+    <value>验证组名称</value>
+    <comment>Verification Group Name</comment>
+  </data>
+  <data name="lblVersion" xml:space="preserve">
+    <value>版本</value>
+    <comment>Version</comment>
+  </data>
+  <data name="lblWaitTimeBetweenBatches" xml:space="preserve">
+    <value>WaitTimeBetweenBatches</value>
+    <comment>WaitTimeBetweenBatches</comment>
+  </data>
+  <data name="lblWaitTimeBetweenBatchesRequired" xml:space="preserve">
+    <value>批次之间的等待时间为必填。</value>
+    <comment>Wait Time Between Batches is required.</comment>
+  </data>
+  <data name="lblYes" xml:space="preserve">
+    <value>是</value>
+    <comment>Yes</comment>
+  </data>
+  <data name="lblZ" xml:space="preserve">
+    <value>Z</value>
+    <comment>Z</comment>
+  </data>
+  <data name="lblZipCode" xml:space="preserve">
+    <value>邮编</value>
+    <comment>Zip Code</comment>
+  </data>
+  <data name="lbMatchGrade" xml:space="preserve">
+    <value>匹配等级</value>
+    <comment>Match Grade</comment>
+  </data>
+  <data name="msgAllowNumbers" xml:space="preserve">
+    <value>仅接受数值。</value>
+    <comment>Only numeric values accepted.</comment>
+  </data>
+  <data name="msgAME" xml:space="preserve">
+    <value>母亲</value>
+    <comment>AME</comment>
+  </data>
+  <data name="msgClientCodeNotFound" xml:space="preserve">
+    <value>找不到客户端代码</value>
+    <comment>Client code not found</comment>
+  </data>
+  <data name="msgCommanPurgeMessage" xml:space="preserve">
+    <value>数据已成功清除</value>
+    <comment>Data purged successfully</comment>
+  </data>
+  <data name="msgCommanRejectMessage" xml:space="preserve">
+    <value>数据已成功拒绝</value>
+    <comment>Data rejected successfully</comment>
+  </data>
+  <data name="msgCommonDeleteMessage" xml:space="preserve">
+    <value>数据已成功删除</value>
+    <comment>Data Deleted Successfully</comment>
+  </data>
+  <data name="msgCommonMovedMessage" xml:space="preserve">
+    <value>数据已成功移动</value>
+    <comment>Data Moved Successfully</comment>
+  </data>
+  <data name="msgCountryGroupDelete" xml:space="preserve">
+    <value>数据已成功删除。</value>
+    <comment>Data deleted successfully.</comment>
+  </data>
+  <data name="msgCreateDUNSRegistration" xml:space="preserve">
+    <value>创建DUNS注册</value>
+    <comment>Create DUNS Registration</comment>
+  </data>
+  <data name="msgCreateMonitoringProfile" xml:space="preserve">
+    <value>监视配置文件已成功删除。</value>
+    <comment>Create Monitoring Profile</comment>
+  </data>
+  <data name="msgCreateNotificationProfile" xml:space="preserve">
+    <value>创建通知配置文件</value>
+    <comment>Create Notification Profile</comment>
+  </data>
+  <data name="msgCreateUserPreference" xml:space="preserve">
+    <value>创建用户首选项</value>
+    <comment>Create User Preference</comment>
+  </data>
+  <data name="msgDataUpdated" xml:space="preserve">
+    <value>数据更新成功。</value>
+    <comment>Data updated successfully.</comment>
+  </data>
+  <data name="msgDeleteAutoAcceptance" xml:space="preserve">
+    <value>您确定要删除记录吗？</value>
+    <comment>Are you sure you want to delete record ?</comment>
+  </data>
+  <data name="msgDeleteDataBlockRecord" xml:space="preserve">
+    <value>您确定要删除记录吗？</value>
+    <comment>Are you sure you want to delete record ?</comment>
+  </data>
+  <data name="msgDeleteElements" xml:space="preserve">
+    <value>您确定要删除Elements吗？</value>
+    <comment>Are you sure you want to delete Elements?</comment>
+  </data>
+  <data name="msgDeleteMinCCOverride" xml:space="preserve">
+    <value>您确定要删除该记录吗？</value>
+    <comment>Are you sure you want to delete this record?</comment>
+  </data>
+  <data name="msgDeleteMonitoringProfile" xml:space="preserve">
+    <value>监控配置文件成功删除。</value>
+    <comment>Monitoring profile deleted successfully.</comment>
+  </data>
+  <data name="msgDeleteMonitorProfile" xml:space="preserve">
+    <value>您确定要删除监视器配置文件吗？</value>
+    <comment>Are you sure you want to delete Monitor Profile?</comment>
+  </data>
+  <data name="msgDeleteNotification" xml:space="preserve">
+    <value>通知已成功删除。</value>
+    <comment>Notification deleted successfully.</comment>
+  </data>
+  <data name="msgDeleteRecord" xml:space="preserve">
+    <value>您确定要删除该记录吗？</value>
+    <comment>Are you sure you want to delete this record?</comment>
+  </data>
+  <data name="msgDeleteThirdPartyAPICred" xml:space="preserve">
+    <value>您确定要删除记录吗？</value>
+    <comment>Are you sure you want to delete record?</comment>
+  </data>
+  <data name="msgDeleteUser" xml:space="preserve">
+    <value>用户已成功删除。</value>
+    <comment>User deleted successfully.</comment>
+  </data>
+  <data name="msgDeleteUserPreference" xml:space="preserve">
+    <value>用户偏好已成功删除。</value>
+    <comment>User preference deleted successfully.</comment>
+  </data>
+  <data name="msgDisableRule" xml:space="preserve">
+    <value>禁用规则</value>
+    <comment>Disable Rule</comment>
+  </data>
+  <data name="msgDuplicateConditionMonitoringProfile" xml:space="preserve">
+    <value>要素或条件已存在。请尝试使用其他要素或条件。</value>
+    <comment>Element or Condition is already exist. please try with different Elements or Condition.</comment>
+  </data>
+  <data name="msgDuplicateElementsMonitoringProfile" xml:space="preserve">
+    <value>相同产品、要素和条件的配置文件已经存在。</value>
+    <comment>Profile already exists with same product, elements and condition.</comment>
+  </data>
+  <data name="msgDuplicateEmail" xml:space="preserve">
+    <value>此电子邮件地址已经存在。请输入其他电子邮件地址。</value>
+    <comment>This Email address is already exist. Please enter another Email address.</comment>
+  </data>
+  <data name="msgDuplicateNameMonitoringProfile" xml:space="preserve">
+    <value>此配置文件名称已经存在。请输入其他配置文件名称。</value>
+    <comment>This Profile Name is already exist. Please enter another Profile Name.</comment>
+  </data>
+  <data name="msgDuplicateNameUserPreference" xml:space="preserve">
+    <value>同名用户偏好已经存在。请更改用户偏好名称。</value>
+    <comment>User Preference is already exist with same name. Please change user preference name.</comment>
+  </data>
+  <data name="msgDuplicateNotification" xml:space="preserve">
+    <value>同名通知配置文件已经存在。请使用其他名称。</value>
+    <comment>Notification profile is already exist with same name. Please use different name.</comment>
+  </data>
+  <data name="msgDuplicateProductMonitoringProfile" xml:space="preserve">
+    <value>相同产品和监视层级的配置文件已经存在。</value>
+    <comment>Profile already exists with same product and monitoring level.</comment>
+  </data>
+  <data name="msgDuplicateSAMLuser" xml:space="preserve">
+    <value>此 SAML 用户已经存在。请输入其他 SAML 用户。</value>
+    <comment>This SAML user is already exist. Please enter another SAML user.</comment>
+  </data>
+  <data name="msgEmailValidation" xml:space="preserve">
+    <value>请插入电子邮件地址。</value>
+    <comment>Please insert email address.</comment>
+  </data>
+  <data name="msgEmailValidation1" xml:space="preserve">
+    <value>请先输入电子邮件地址。</value>
+    <comment>Please enter email address first.</comment>
+  </data>
+  <data name="msgEntitlementsReq" xml:space="preserve">
+    <value>必须提供权利。</value>
+    <comment>Entitlements are required.</comment>
+  </data>
+  <data name="msgErrorInsertMonitoringProfile" xml:space="preserve">
+    <value>监视配置文件未成功创建，请重试。</value>
+    <comment>Please try again Monitoring profile is not created successfully.</comment>
+  </data>
+  <data name="msgGroupConfigurationValidation" xml:space="preserve">
+    <value>每个组的配置都应该是唯一的。</value>
+    <comment>Every group configurations should be unique.</comment>
+  </data>
+  <data name="msgGroupNameExist" xml:space="preserve">
+    <value>此组名称已经存在。请输入其他组名称。</value>
+    <comment>This Group Name already exist. Please enter another Group Name.</comment>
+  </data>
+  <data name="msgGroupNameValidation" xml:space="preserve">
+    <value>每个组名都应该是唯一的。</value>
+    <comment>Every group name should be unique.</comment>
+  </data>
+  <data name="msgInertUserPreference" xml:space="preserve">
+    <value>用户偏好已成功创建。</value>
+    <comment>User preference created successfully.</comment>
+  </data>
+  <data name="msgInsertAutoAcceptance" xml:space="preserve">
+    <value>自动接受规则已成功添加。</value>
+    <comment>Auto Acceptance rule added successfully.</comment>
+  </data>
+  <data name="msgInsertDUNSRegistration" xml:space="preserve">
+    <value>DUNS 注册已成功创建。</value>
+    <comment>DUNS Registration created successfully.</comment>
+  </data>
+  <data name="msgInsertMonitoringProfile" xml:space="preserve">
+    <value>监视配置文件已成功创建。</value>
+    <comment>Monitoring profile created successfully.</comment>
+  </data>
+  <data name="msgInsertNotification" xml:space="preserve">
+    <value>通知配置文件已成功创建。</value>
+    <comment>Notification profile created successfully.</comment>
+  </data>
+  <data name="msgInsertUser" xml:space="preserve">
+    <value>数据已成功插入。</value>
+    <comment>Data inserted successfully.</comment>
+  </data>
+  <data name="msgInvadilState" xml:space="preserve">
+    <value>请填充适当信息。</value>
+    <comment>Please fill proper information.</comment>
+  </data>
+  <data name="msgInvalidCredential" xml:space="preserve">
+    <value>凭据无效</value>
+    <comment>credential are not valid</comment>
+  </data>
+  <data name="msgInvalidTemplate" xml:space="preserve">
+    <value>所选文件的模板无效。</value>
+    <comment>Invalid template for the selected file.</comment>
+  </data>
+  <data name="msgLookUpValidation" xml:space="preserve">
+    <value>请选择1个以上的查询</value>
+    <comment>Please select more than 1 Lookups</comment>
+  </data>
+  <data name="msgMatchEngineGolfGmc" xml:space="preserve">
+    <value>高尔夫/ GMC</value>
+    <comment>Golf/GMC</comment>
+  </data>
+  <data name="msgMatchEngineNextGen" xml:space="preserve">
+    <value>下一代</value>
+    <comment>NextGen</comment>
+  </data>
+  <data name="msgMonitoringRegistration" xml:space="preserve">
+    <value>与D＆B监视注册同步</value>
+    <comment>Monitoring Registration sync with D&amp;B</comment>
+  </data>
+  <data name="msgMultiPassGroupValidation" xml:space="preserve">
+    <value>请添加至少一个组配置。</value>
+    <comment>Please add atlease one group configuration.</comment>
+  </data>
+  <data name="msgMultipleDeleteAutoAccept" xml:space="preserve">
+    <value>您确定要删除记录吗？</value>
+    <comment>Are you sure you want to delete records ?</comment>
+  </data>
+  <data name="msgNoRecordsFound" xml:space="preserve">
+    <value>没有找到记录</value>
+    <comment>No record(s) found</comment>
+  </data>
+  <data name="msgNothingToMove" xml:space="preserve">
+    <value>没有动静。</value>
+    <comment>Nothing to move.</comment>
+  </data>
+  <data name="msgOverwrite" xml:space="preserve">
+    <value>您要覆盖吗？</value>
+    <comment>Do you want to overwrite?</comment>
+  </data>
+  <data name="msgOverwriteRulesConfirmMessage" xml:space="preserve">
+    <value>您确定要覆盖规则，它将删除所有现有规则吗？</value>
+    <comment>Are you sure you want to overwrite rules, it will remove all your existing rules?</comment>
+  </data>
+  <data name="msgProcessSettingUpdate" xml:space="preserve">
+    <value>流程设置已成功更新。请注意，用户需要注销并重新登录到应用程序，然后方可应用这些变更</value>
+    <comment>Process Settings updated successfully. Please note that users will need to log out and log back into the application before these changes can be applied</comment>
+  </data>
+  <data name="msgPurgeDuplicateRecords" xml:space="preserve">
+    <value>您确定要清除重复记录吗？</value>
+    <comment>Are you sure you want to purge duplicate records ?</comment>
+  </data>
+  <data name="msgResetData" xml:space="preserve">
+    <value>您确定要重置数据吗？</value>
+    <comment>Are you sure you want to Reset Data ?</comment>
+  </data>
+  <data name="msgResetDataSuccessfully" xml:space="preserve">
+    <value>数据重置成功。</value>
+    <comment>Reset Data successfully.</comment>
+  </data>
+  <data name="msgResetDataUnsuccessfully" xml:space="preserve">
+    <value>数据重置未完成。请重试。</value>
+    <comment>Reset Data not complete. Please try again.</comment>
+  </data>
+  <data name="msgRuleDisabled" xml:space="preserve">
+    <value>规则已成功禁用</value>
+    <comment>Rule disabled successfully</comment>
+  </data>
+  <data name="msgRuleEnabled" xml:space="preserve">
+    <value>规则成功启用</value>
+    <comment>Rule enabled successfully</comment>
+  </data>
+  <data name="msgRunRule" xml:space="preserve">
+    <value>这将根据这些匹配条件自动接受“匹配数据队列”中当前存在的匹配。</value>
+    <comment>This will auto-accept matches currently in the Match Data Queue based on these match criteria.</comment>
+  </data>
+  <data name="msgRunRules" xml:space="preserve">
+    <value>基于匹配条件接受的匹配项</value>
+    <comment>Matches accepted based on match criteria</comment>
+  </data>
+  <data name="msgSelectDensityCode" xml:space="preserve">
+    <value>选择密度码</value>
+    <comment>Select Density Code</comment>
+  </data>
+  <data name="msgSelectPrecedence" xml:space="preserve">
+    <value>请选择优先顺序。</value>
+    <comment>Please Select Precedence.</comment>
+  </data>
+  <data name="msgSelectRecordtoDelete" xml:space="preserve">
+    <value>请选择至少一条记录以删除。</value>
+    <comment>Please select at least one record to delete.</comment>
+  </data>
+  <data name="msgSelectSICCode" xml:space="preserve">
+    <value>选择SIC代码</value>
+    <comment>Select SIC Code</comment>
+  </data>
+  <data name="msgSelectUniquenessCode" xml:space="preserve">
+    <value>选择唯一码</value>
+    <comment>Select Uniqueness Code</comment>
+  </data>
+  <data name="msgSelectZipCode" xml:space="preserve">
+    <value>选择邮递区号</value>
+    <comment>Select Zip Code</comment>
+  </data>
+  <data name="msgSettingNotUpdate" xml:space="preserve">
+    <value>设置未成功更新。</value>
+    <comment>Settings are not updated successfully.</comment>
+  </data>
+  <data name="msgSettingUpdate" xml:space="preserve">
+    <value>设置已成功更新。</value>
+    <comment>Settings updated successfully.</comment>
+  </data>
+  <data name="msgSuccessApplyAutoAcceptance" xml:space="preserve">
+    <value>基于应用的规则接受数据</value>
+    <comment>Data are accepted based on Rules applied</comment>
+  </data>
+  <data name="msgSuppDUNS" xml:space="preserve">
+    <value>补给。</value>
+    <comment>SuppDUNS.</comment>
+  </data>
+  <data name="msgSyncMonirotingRegistration" xml:space="preserve">
+    <value>与D＆B监视注册同步</value>
+    <comment>Monitoring Registration sync with D&amp;B</comment>
+  </data>
+  <data name="msgThirdPartyProviderNotFound1" xml:space="preserve">
+    <value>找不到第三方提供商。请联系Matchbook服务团队</value>
+    <comment>No Third Party provider found. ﻿Please contact the Matchbook Services team</comment>
+  </data>
+  <data name="msgThirdPartyProviderNotFound2" xml:space="preserve">
+    <value>许可数据。</value>
+    <comment>to license the data.</comment>
+  </data>
+  <data name="msgUnicodeFormat" xml:space="preserve">
+    <value>Unicode格式对带有模板的所选文件无效。</value>
+    <comment>Unicode format is not valid for selected file with template.</comment>
+  </data>
+  <data name="msgUnsuppDUNS" xml:space="preserve">
+    <value>供应不足。</value>
+    <comment>UnsuppDUNS.</comment>
+  </data>
+  <data name="msgUpdateAutoAcceptance" xml:space="preserve">
+    <value>自动接受规则已成功更新。</value>
+    <comment>Auto Acceptance rule updated successfully.</comment>
+  </data>
+  <data name="msgUpdateDUNSRegistration" xml:space="preserve">
+    <value>DUNS 注册已成功更新。</value>
+    <comment>DUNS Registration updated successfully.</comment>
+  </data>
+  <data name="msgUpdateMonitoringProfile" xml:space="preserve">
+    <value>监视配置文件已成功更新。</value>
+    <comment>Monitoring profile updated successfully.</comment>
+  </data>
+  <data name="msgUpdateNotification" xml:space="preserve">
+    <value>通知配置文件已成功更新。</value>
+    <comment>Notification profile updated successfully.</comment>
+  </data>
+  <data name="msgUpdateUser" xml:space="preserve">
+    <value>用户配置文件已更新。请注意，用户需要注销并重新登录到应用程序，然后方可应用这些变更</value>
+    <comment>User profile updated. Please note that users will need to log out and log back into the application before these changes can be applied</comment>
+  </data>
+  <data name="msgUpdateUserPreference" xml:space="preserve">
+    <value>用户偏好已成功更新。</value>
+    <comment>User preference updated successfully.</comment>
+  </data>
+  <data name="msgUsedMonitoringProfile" xml:space="preserve">
+    <value>监视配置文件已用于 DUNS 注册，请尝试先删除 DUNS 注册。</value>
+    <comment>Monitor profile is used in DUNS Registration, please try delete first DUNS Registration.</comment>
+  </data>
+  <data name="msgUsedNotification" xml:space="preserve">
+    <value>通知已用于 DUNS 注册，请尝试先删除 DUNS 注册。</value>
+    <comment>Notification is used in DUNS Registration, please try delete first DUNS Registration.</comment>
+  </data>
+  <data name="msgUsedUserPreference" xml:space="preserve">
+    <value>用户偏好已用于通知，请尝试先删除通知。</value>
+    <comment>User preference is used in notification, please try delete first notification.</comment>
+  </data>
+  <data name="msgUserActivate" xml:space="preserve">
+    <value>用户已成功激活。</value>
+    <comment>User activated successfully.</comment>
+  </data>
+  <data name="msgUserLimit" xml:space="preserve">
+    <value>无法再创建用户。已超出限制。</value>
+    <comment>No more user can be created. Limit exceeded.</comment>
+  </data>
+  <data name="msgValidateMultipleMatchCriteria" xml:space="preserve">
+    <value>您是否需要针对多个比赛条件对最终比赛候选者进行验证？</value>
+    <comment>Do you need final match candidate to be validated against multiple match criteria?</comment>
+  </data>
+  <data name="msgValidCredential" xml:space="preserve">
+    <value>凭据有效。</value>
+    <comment>credential are valid.</comment>
+  </data>
+  <data name="Notification Profile Name" xml:space="preserve">
+    <value>通知配置文件名称</value>
+    <comment>Notification Profile Name</comment>
+  </data>
+  <data name="placeholderBatchSize" xml:space="preserve">
+    <value>批量大小</value>
+    <comment>Batch Size</comment>
+  </data>
+  <data name="placeholderCustRef" xml:space="preserve">
+    <value>客户参考文字</value>
+    <comment>Customer Reference Text</comment>
+  </data>
+  <data name="placeholderEnterValue" xml:space="preserve">
+    <value>输入值</value>
+    <comment>Enter Value</comment>
+  </data>
+  <data name="placeholderWaitTime" xml:space="preserve">
+    <value>等待时间</value>
+    <comment>Wait Time</comment>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>团队名字</value>
+    <comment>Group Name</comment>
+  </data>
+  <data name="titleAddAPI" xml:space="preserve">
+    <value>添加API</value>
+    <comment>Add API</comment>
+  </data>
+  <data name="titleAddDataBlockGroup" xml:space="preserve">
+    <value>添加数据块组</value>
+    <comment>Add Data Block Group</comment>
+  </data>
+  <data name="titleAddDnBApiGroup" xml:space="preserve">
+    <value>添加新的 DnBApi 组</value>
+    <comment>Add New DnBApi Group</comment>
+  </data>
+  <data name="titleAddDUNSRegistration" xml:space="preserve">
+    <value>添加新的 DUNS 注册</value>
+    <comment>Add New DUNS Registration</comment>
+  </data>
+  <data name="titleAddMininumConfidanceCodeOverride" xml:space="preserve">
+    <value>添加新的最低置信代码覆盖</value>
+    <comment>Add New Mininum confidance code Override</comment>
+  </data>
+  <data name="titleAddMonitorProfile" xml:space="preserve">
+    <value>添加新的监视配置文件</value>
+    <comment>Add New Monitor Profile</comment>
+  </data>
+  <data name="titleAddNewCredentials" xml:space="preserve">
+    <value>添加新的第三方API凭据</value>
+    <comment>Add New Third Party API Credentials</comment>
+  </data>
+  <data name="titleAddNotificationProfile" xml:space="preserve">
+    <value>添加新的通知配置文件</value>
+    <comment>Add New Notification Profile</comment>
+  </data>
+  <data name="titleAddThrirdPartyEnrichment" xml:space="preserve">
+    <value>添加第三方充实</value>
+    <comment>Add Third Party Enrichment</comment>
+  </data>
+  <data name="titleAddUserPreference" xml:space="preserve">
+    <value>添加新的用户偏好</value>
+    <comment>Add New User Preference</comment>
+  </data>
+  <data name="titleAutoAcceptance" xml:space="preserve">
+    <value>自动接受</value>
+    <comment>Auto Acceptance</comment>
+  </data>
+  <data name="titleCleanseMatchDataMatch" xml:space="preserve">
+    <value>净化火柴|资料比对</value>
+    <comment>Cleanse Match| Data Match</comment>
+  </data>
+  <data name="titleConfidenceCode" xml:space="preserve">
+    <value>置信码</value>
+    <comment>Confidence Code</comment>
+  </data>
+  <data name="titleDAndB" xml:space="preserve">
+    <value>D B</value>
+    <comment>D &amp; B</comment>
+  </data>
+  <data name="titleDuplicateData" xml:space="preserve">
+    <value>重复数据</value>
+    <comment>DuplicateData</comment>
+  </data>
+  <data name="titleEditDataBlockGroup" xml:space="preserve">
+    <value>编辑数据块组</value>
+    <comment>Edit Data Block Group</comment>
+  </data>
+  <data name="titleEditDnBApiGroup" xml:space="preserve">
+    <value>编辑 DnBApi 组</value>
+    <comment>Edit DnBApi Group</comment>
+  </data>
+  <data name="titleEditDUNSRegistration" xml:space="preserve">
+    <value>编辑 DUNS 注册</value>
+    <comment>Edit DUNS Registration</comment>
+  </data>
+  <data name="titleEditMininumConfidanceCodeOverride" xml:space="preserve">
+    <value>编辑最低置信代码覆盖</value>
+    <comment>Edit Mininum confidance code Override</comment>
+  </data>
+  <data name="titleEditMonitoringRegistration" xml:space="preserve">
+    <value>编辑监控注册</value>
+    <comment>Edit Monitoring Registration</comment>
+  </data>
+  <data name="titleEditMonitorProfile" xml:space="preserve">
+    <value>编辑监视配置文件</value>
+    <comment>Edit Monitor Profile</comment>
+  </data>
+  <data name="titleEditNotificationProfile" xml:space="preserve">
+    <value>编辑通知配置文件</value>
+    <comment>Edit Notification Profile</comment>
+  </data>
+  <data name="titleEditThrirdPartyEnrichment" xml:space="preserve">
+    <value>编辑第三方充实</value>
+    <comment>Edit ThirdParty Enrichment</comment>
+  </data>
+  <data name="titleEditUserPreference" xml:space="preserve">
+    <value>编辑用户偏好</value>
+    <comment>Edit User Preference</comment>
+  </data>
+  <data name="titleImportData" xml:space="preserve">
+    <value>将数据导入数据库</value>
+    <comment>Import data into database</comment>
+  </data>
+  <data name="titleMatchData" xml:space="preserve">
+    <value>比赛资料</value>
+    <comment>Match Data</comment>
+  </data>
+  <data name="titleMonitorProfile" xml:space="preserve">
+    <value>监控器配置文件</value>
+    <comment>Monitor Profile</comment>
+  </data>
+  <data name="titleOverrideDetail" xml:space="preserve">
+    <value>覆盖详细信息</value>
+    <comment>Override Detail</comment>
+  </data>
+  <data name="titleResetData" xml:space="preserve">
+    <value>重置D＆B数据</value>
+    <comment>Reset D&amp;B Data</comment>
+  </data>
+  <data name="ttlAddMultiPassConfiguration" xml:space="preserve">
+    <value>添加多通道配置</value>
+    <comment>Add MultiPass Configuration</comment>
+  </data>
+</root>

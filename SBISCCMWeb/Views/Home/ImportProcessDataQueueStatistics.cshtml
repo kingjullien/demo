@@ -1,0 +1,192 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.LanguageResources;
+@model List<DashboardImportProcessDataQueueStatisticsEntity>
+@{
+    Layout = null;
+    int intButtonNo = 0;
+    bool byTag = Convert.ToBoolean(ViewBag.ByTag);
+}
+<style>
+    .container, .container-fluid {
+        margin-right: 0;
+        margin-left: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+</style>
+<div>
+    <div class="text-align-center">
+        <span class="spnUsingImportProcess @(byTag ? "" : "thColor")"><strong>@HomeLang.spnByImportProcess &nbsp;&nbsp;&nbsp;</strong></span>
+        <label class="switch">
+            <input type="checkbox" name="FilterByTag" id="FilterByTag" @(byTag ? "checked" : "")>
+            <span class="Toggleslider round" wfd-id="108"></span>
+        </label>
+        <span class="spnUsingTags @(byTag ? "thColor" : "")"><strong>&nbsp;&nbsp;&nbsp;@HomeLang.spnByTags</strong></span>
+    </div>
+    <div class="row">
+        @Html.AntiForgeryToken()
+        <div id="divPartialImportProcess">
+            <form id="frmExportToExcel" action="~/Home/ImportProcessQueue">
+                @Html.Hidden("ByTags",byTag)
+                <div>
+                    <table class="table table-hover table-bordered margin-bottom-0" id="tbImportProcess">
+                        <thead>
+                            <tr class="custom-text-align-center">
+                                @if (byTag)
+                                {
+                                    <th class="width20">@HomeLang.lblTag </th>
+                                }
+                                else
+                                {
+                                    <th class="width35">@HomeLang.lblImportProcess</th>
+                                    <th class="width10">@HomeLang.lblImportDate</th>
+                                    <th class="width5"><span class="ele-clone">@HomeLang.lblImportedRow</span></th>
+                                }
+                                <th class="width5"><span class="ele-clone">@HomeLang.lblInputRecord</span></th>
+                                <th class="width5"><span class="ele-clone">@HomeLang.lblLowConfidence</span></th>
+                                <th class="width5"><span class="ele-clone">@HomeLang.lblNoMatch</span></th>
+                                <th class="width5"><span class="ele-clone">@HomeLang.lblMatchProcessing</span></th>
+                                <th class="width5"><span class="ele-clone">@HomeLang.lblEnrichmentProcessing</span></th>
+                                <th class="width5"><span class="ele-clone">@HomeLang.lblMatch_output</span></th>
+                                <th class="width5"><span class="ele-clone">@HomeLang.lblEnrichment_output</span></th>
+                                <th class="width5"><span class="ele-clone">@HomeLang.lblArchival</span></th>
+                                <th class="width5"><span class="ele-clone">@HomeLang.lblUnderInvestigation</span></th>
+                                @if (!byTag)
+                                {
+                                    <th class="width5 nosort"></th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    intButtonNo++;
+                                    <tr>
+                                        @if (byTag)
+                                        {
+                                            <td class="thColor">@item.Tag</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="thColor">@item.ImportProcess</td>
+                                            <td class="thColor">@Convert.ToDateTime(@item.ImportDate).ToDatetimeShort()</td>
+                                            if (item.ImportedRowCount == 0)
+                                            {
+                                                <td></td>
+                                            }
+                                            else
+                                            {
+                                                <td>@item.ImportedRowCount.ToString("#,##0")</td>
+                                            }
+                                        }
+                                        @if (item.InputRecordCount == 0)
+                                        {
+                                            <td></td>
+                                        }
+                                        else
+                                        {
+                                            <td>@item.InputRecordCount.ToString("#,##0")</td>
+                                        }
+                                        @if (item.DS_LowConfidenceMatchRecordCount == 0)
+                                        {
+                                            <td></td>
+                                        }
+                                        else
+                                        {
+                                            <td>@item.DS_LowConfidenceMatchRecordCount.ToString("#,##0")</td>
+                                        }
+                                        @if (item.DS_NoMatchRecordCount == 0)
+                                        {
+                                            <td></td>
+                                        }
+                                        else
+                                        {
+                                            <td>@item.DS_NoMatchRecordCount.ToString("#,##0")</td>
+                                        }
+                                        @if (item.MatchProcessingRecordCount == 0)
+                                        {
+                                            <td></td>
+                                        }
+                                        else
+                                        {
+                                            <td>@item.MatchProcessingRecordCount.ToString("#,##0")</td>
+                                        }
+                                        @if (item.EnrichmentProcessingDUNSCount == 0)
+                                        {
+                                            <td></td>
+                                        }
+                                        else
+                                        {
+                                            <td>@item.EnrichmentProcessingDUNSCount.ToString("#,##0")</td>
+                                        }
+                                        @if (item.MatchExportRecordCount == 0)
+                                        {
+                                            <td></td>
+                                        }
+                                        else
+                                        {
+                                            <td>@item.MatchExportRecordCount.ToString("#,##0")</td>
+                                        }
+                                        @if (item.EnrichmentExportDUNSCount == 0)
+                                        {
+                                            <td></td>
+                                        }
+                                        else
+                                        {
+                                            <td>@item.EnrichmentExportDUNSCount.ToString("#,##0")</td>
+                                        }
+                                        @if (item.ArchivalQueueCount == 0)
+                                        {
+                                            <td></td>
+                                        }
+                                        else
+                                        {
+                                            <td>@item.ArchivalQueueCount.ToString("#,##0")</td>
+                                        }
+                                        @if (item.DS_RecordsUnderInvestigationCount == 0)
+                                        {
+                                            <td></td>
+                                        }
+                                        else
+                                        {
+                                            <td>@item.DS_RecordsUnderInvestigationCount.ToString("#,##0")</td>
+                                        }
+                                        @if (!byTag)
+                                        {
+                                            <td>
+                                                @if (item.ImportProcessId > 0)
+                                                {
+                                                    <i class="fa fa-trash fa-lg thColor removeDataFromFile cursor-pointer" aria-hidden="true" data-ImportProcessId="@item.ImportProcessId"></i>
+                                                }
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+   var removeDataFromFile = '@HomeLang.msgRemoveDataFromFile';
+</script>
+<script>
+    $(document).ready(function () {
+        InitDataTable("#tbImportProcess", [5, 10, 15], false, [1, 'desc']);
+    });
+</script>
+<script>
+    $(".ele-clone").prop("title", function () {
+        return $(this).text();
+    });
+</script>
+
+
+

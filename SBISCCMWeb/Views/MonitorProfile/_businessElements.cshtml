@@ -1,0 +1,68 @@
+﻿@using SBISCCMWeb.Models;
+@model List<BusinessElementssConditonList>
+
+<article class="col-xs-12  sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>Elements</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                <li>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div id="hr2" class="tab-pane fade fade active in">
+                        <div class="row paddingto5">
+                            <div class="col-md-12">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th class="col-md-4">Condition</th>
+                                            <th class="col-md-4">Edit</th>
+                                            <th class="col-md-4">Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model != null)
+                                        {
+                                            if (Model.Count > 0)
+                                            {
+
+                                                foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@item.strCondition</td>
+                                                        <td>@Html.ActionLink("Edit", "", "", new { @id = item.ElementsConditonListId, href = "#" , @class = "EditBussnessCondition" })</td>
+                                                        <td>@Html.ActionLink("Delete", "", "", new { @id = item.ElementsConditonListId, href = "#", @class = "DeleteBussnessCondition" })</td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr ><td colspan="3">No Record(s) found</td></tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                        }
+                                    </tbody>
+
+                                    <tbody class="tbdataMatch"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="custom-text-align-center">
+                            <input id="btncloseBusinessElements" class="btn btn-primary btnBlack " type="button" value="Save" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</article>

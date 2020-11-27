@@ -1,0 +1,142 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.Models;
+@using SBISCCMWeb.LanguageResources;
+@model PreviewMatchDataModel
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + PreviewMatchedDataLang.titlePreviewData;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + PreviewMatchedDataLang.titlePreviewData;
+    }
+    Layout = null;
+
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+    string UserType = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserType) ? "" : Helper.oUser.UserType : "";
+    string StwerdTags = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.Tags) ? "" : Helper.oUser.Tags : "";
+
+}
+<div class="modal" id="PreviewMatchFilterModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@PreviewMatchedDataLang.hdrSearchData</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Hidden("UserLOBTag", UserLOBTag)
+                @Html.Hidden("UserRole", UserRoles)
+                <div class="form-group">
+                    <div class="row paddingtop8 align-items-center">
+                        <div class="col-sm-3 col-xs-3 clsPreviewSrcId">
+                            <span><strong>@PreviewMatchedDataLang.lblSrcRecordId </strong></span>
+                            @*<input id="txtSrcRecID" type="text" name="SrcRecID" class="form-control" maxlength="50" />*@
+                            @Html.TextBoxFor(model => model.SrcRecordId, null, new { @class = "form-control", id = "txtSrcRecID", maxlength = "50", @autocomplete = "off" })
+                        </div>
+                        <div class="col-sm-3 col-xs-3 clsPreviewIsExactMatch">
+                            <span>&nbsp;</span>
+                            <label class="checkbox mt-0 mb-0">
+                                @Html.CheckBoxFor(model => model.IsExactMatch)
+                                <div> <span> <strong>@PreviewMatchedDataLang.lblIsExactMatch</strong> </span></div>
+                            </label>
+                        </div>
+
+                        <div class="col-sm-6 col-xs-6 custom-dropdown-search chosenImportProcess">
+                            <span><strong>@PreviewMatchedDataLang.lblImportProcess</strong></span>
+                            @Html.DropDownListFor(model => model.ImportProcess, new SelectList(SBISCCMWeb.Controllers.ExportViewController.GetExportDataImportProcess(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ImportProcess.ExportData.ToString(), false), "Value", "Text"), CommonMessagesLang.lblSelectImportProcessOptional, new { @class = "form-control selectbox chzn-select", @autocomplete = "off" })
+                            @*@Html.DropDownList("ImportPorcess", new SelectList(SBISCCMWeb.Controllers.ExportViewController.GetExportDataImportProcess(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text", ""), "Select Import Process (Optional)", new { @class = "form-control selectbox" })*@
+
+                        </div>
+                    </div>
+                    <div class="row paddingtop8">
+                        <div class="col-sm-6 col-xs-6 divMultipleConfidenceCode">
+                            <span><strong>@PreviewMatchedDataLang.lblConfidenceCodes</strong></span>
+                            <div>
+                                @Html.HiddenFor(model => model.ConfidenceCode)
+                                @Html.DropDownList("MultipleConfidenceCode", new SelectList(new CommonDropdown().ComboboxItems("AutoSettingConfidenceCode"), "Value", "Text", Model.ConfidenceCode), new { @class = "form-control selectbox", multiple = "multiple", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-xs-6">
+                            <span><strong>@PreviewMatchedDataLang.lblAcceptedBy</strong></span>
+                            @Html.DropDownListFor(model => model.AcceptedBy, new SelectList(CommonDropdown.GetAcceptedBy(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text"), CommonMessagesLang.lblSelectAcceptedBy, new { @class = "form-control selectbox", @autocomplete = "off" })
+                        </div>
+                    </div>
+                    @if (Helper.LicenseEnableTags)
+                    {<div class="row paddingtop8">
+
+                            <div class="col-sm-6 col-xs-6">
+                                <span><strong>@PreviewMatchedDataLang.lblLOBTag</strong></span>
+                                @Html.DropDownListFor(model => model.LobTag, new SelectList(CommonDropdown.GetTagByTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag"), CommonMessagesLang.lblSelectLOBTagOptional, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <span><strong>@PreviewMatchedDataLang.lblTag</strong></span>
+                                @Html.DropDownListFor(model => model.Tag, new SelectList(CommonDropdown.GetExportDataTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "TagName"), CommonMessagesLang.lblSelectTagsOptional, new { @class = "form-control selectbox", @autocomplete = "off" })
+                            </div>
+
+                        </div>
+                    }
+                    <div class="paddingtop8 text-center">
+                        <button class="btn btn-primary" onclick="SearchPreviewMatchData()">@PreviewMatchedDataLang.lblSearch</button>
+                        <a class="btn btn-Secondary" onclick="ClearPreviewMatchData()">@PreviewMatchedDataLang.lblClear</a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function (e) {
+        $.UserRole = $("#UserRole").val();
+        $.UserLOBTag = $("#UserLOBTag").val();
+
+        $("select.chzn-select").chosen({
+            no_results_text: "Oops, nothing found!",
+            width: "100%",
+            search_contains: true
+        });
+
+        var ConfidenceCode = $("#ConfidenceCode").val().split(',');
+
+        $("#MultipleConfidenceCode option").each(function () {
+            for (var i = 0; i < ConfidenceCode.length; i++) {
+                if ($(this).val() == ConfidenceCode[i]) {
+                    $(this).attr("selected", "selected");
+                }
+            }
+        });
+
+        $('#MultipleConfidenceCode').multiselect({
+            includeSelectAllOption: true
+        });
+        if ($.UserRole.toLowerCase() == "lob") {
+            $("#LOBTag").val($.UserLOBTag);
+            $("#LOBTag").attr("disabled", true);
+        }
+    });
+    function ClearPreviewMatchData() {
+        $("#IsExactMatch").prop('checked', false);
+        $("#txtSrcRecID").val('');
+        $("#ImportPorcess").val('');
+        $("#LOBTag").val('');
+        $("#Tag").val('');
+        $("#AcceptedBy").val('');
+        $("#MultipleConfidenceCode").val('');
+        $("#MultipleConfidenceCode").multiselect("refresh");
+        $('#MultipleConfidenceCode').multiselect({
+            includeSelectAllOption: true
+        });
+        var search = {
+            'IsClear': true
+        };
+        CallbackSearchPreviewMatchData(search, true);
+    }
+
+</script>

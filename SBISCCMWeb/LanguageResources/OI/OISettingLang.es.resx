@@ -1,0 +1,432 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrAddAutoAcceptanceRules" xml:space="preserve">
+    <value>Añadir reglas de autoaceptación</value>
+    <comment>Add Auto Acceptance Rules</comment>
+  </data>
+  <data name="hdrAutoAcceptance" xml:space="preserve">
+    <value>Autoaceptación</value>
+    <comment>Auto Acceptance</comment>
+  </data>
+  <data name="hdrAutoAcceptDirectives" xml:space="preserve">
+    <value>Directivas de autoaceptación</value>
+    <comment>Auto-Accept Directives</comment>
+  </data>
+  <data name="hdrBackgroundProcessSettings" xml:space="preserve">
+    <value>Ajustes del proceso de fondo</value>
+    <comment>Background Process Settings</comment>
+  </data>
+  <data name="hdrEditAutoAcceptanceRules" xml:space="preserve">
+    <value>Editar reglas de autoaceptación</value>
+    <comment>Edit Auto Acceptance Rules</comment>
+  </data>
+  <data name="hdrImportDataHandling" xml:space="preserve">
+    <value>Importar manejo de datos</value>
+    <comment>Import Data Handling</comment>
+  </data>
+  <data name="hdrOrbCredentials" xml:space="preserve">
+    <value>Credenciales Orb</value>
+    <comment>Orb Credentials</comment>
+  </data>
+  <data name="hdrResetData" xml:space="preserve">
+    <value>Restablecer datos</value>
+    <comment>Reset Data</comment>
+  </data>
+  <data name="lbAPIKey" xml:space="preserve">
+    <value>Clave API</value>
+    <comment>API Key</comment>
+  </data>
+  <data name="lblAcceptActiveRecordsOnly" xml:space="preserve">
+    <value>Aceptar solo registros activos</value>
+    <comment>Accept Active Records Only</comment>
+  </data>
+  <data name="lblAdd" xml:space="preserve">
+    <value>Agregar</value>
+    <comment>Add</comment>
+  </data>
+  <data name="lblAPIkeyisrequired" xml:space="preserve">
+    <value>Se requiere una clave API.</value>
+    <comment>API key is required.</comment>
+  </data>
+  <data name="lblCCFrom" xml:space="preserve">
+    <value>CC de</value>
+    <comment>CC From</comment>
+  </data>
+  <data name="lblCCMax" xml:space="preserve">
+    <value>CCMax</value>
+    <comment>CCMax</comment>
+  </data>
+  <data name="lblCCMin" xml:space="preserve">
+    <value>CCMin</value>
+    <comment>CCMin</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>Ciudad</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>Compañía</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCompanyScore" xml:space="preserve">
+    <value>Puntuación de la compañía</value>
+    <comment>Company Score</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>País</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCountryGroup" xml:space="preserve">
+    <value>Grupo de países</value>
+    <comment>Country Group</comment>
+  </data>
+  <data name="lblDelete" xml:space="preserve">
+    <value>Eliminar</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="lblDontimportdataalreadyinMatchbookQueues" xml:space="preserve">
+    <value>No importar los datos que ya están en las colas de Matchbook</value>
+    <comment>Don't import data already in Matchbook Queues</comment>
+  </data>
+  <data name="lblEdit" xml:space="preserve">
+    <value>Editar</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="lblEIN" xml:space="preserve">
+    <value>EIN</value>
+    <comment>EIN</comment>
+  </data>
+  <data name="lblEnterBatchSize" xml:space="preserve">
+    <value>Ingresar el tamaño del lote</value>
+    <comment>Enter Batch Size</comment>
+  </data>
+  <data name="lblEnterBATCHWAITTIMESECS" xml:space="preserve">
+    <value>Ingresar SEG DE ESPERA DEL LOTE</value>
+    <comment>Enter BATCH WAITTIME SECS</comment>
+  </data>
+  <data name="lblEnterMaxParallelThreads" xml:space="preserve">
+    <value>Ingresar hilos paralelos máximos</value>
+    <comment>Enter Max Parallel Threads</comment>
+  </data>
+  <data name="lblExcludeFromAutoAccept" xml:space="preserve">
+    <value>Excluir de la autoaceptación</value>
+    <comment>Exclude From Auto Accept</comment>
+  </data>
+  <data name="lblIdentityResolution" xml:space="preserve">
+    <value>Resolución de identidad</value>
+    <comment>Identity Resolution</comment>
+  </data>
+  <data name="lblLicense" xml:space="preserve">
+    <value>Licencia</value>
+    <comment>License</comment>
+  </data>
+  <data name="lblMatchGrade" xml:space="preserve">
+    <value>Grado de coincidencia</value>
+    <comment>Match Grade</comment>
+  </data>
+  <data name="lblMDPCode" xml:space="preserve">
+    <value>Código de MDP</value>
+    <comment>MDP Code</comment>
+  </data>
+  <data name="lblMDPValue" xml:space="preserve">
+    <value>Valor de MDP</value>
+    <comment>MDP Value</comment>
+  </data>
+  <data name="lblMinMatchScore" xml:space="preserve">
+    <value>Puntuación mín. de coincidencia</value>
+    <comment>Min.Match Score</comment>
+  </data>
+  <data name="lblNodataareavailable" xml:space="preserve">
+    <value>No hay datos disponibles</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNoduplicatecheckforimport" xml:space="preserve">
+    <value>No hay verificación de duplicados para importar</value>
+    <comment>No duplicate check for import</comment>
+  </data>
+  <data name="lblORBBATCHSIZE" xml:space="preserve">
+    <value>TAMAÑO DEL LOTE ORB</value>
+    <comment>ORB BATCH SIZE</comment>
+  </data>
+  <data name="lblORBBATCHWAITTIMESECS" xml:space="preserve">
+    <value>SEG DE ESPERA DEL LOTE ORB</value>
+    <comment>ORB BATCH WAITTIME SECS</comment>
+  </data>
+  <data name="lblORBDATAIMPORTDUPLICATERESOLUTIONTAGS" xml:space="preserve">
+    <value>ETIQUETAS DE RESOLUCIÓN DE DUPLICADOS DE IMPORTACIÓN DE DATOS ORB</value>
+    <comment>ORB DATA IMPORT DUPLICATE RESOLUTION TAGS</comment>
+  </data>
+  <data name="lblORBENABLECORPORATETREEENRICHMENT" xml:space="preserve">
+    <value>ENRIQUECIMIENTO DE ÁRBOL CORPORATIVO HABILITADO PARA ORB</value>
+    <comment>ORB ENABLE CORPORATE TREE ENRICHMENT</comment>
+  </data>
+  <data name="lblORBMAXPARALLELTHREADS" xml:space="preserve">
+    <value>HILOS PARALELOS MÁXIMOS DE ORB</value>
+    <comment>ORB MAX PARALLEL THREADS</comment>
+  </data>
+  <data name="lblPAUSEORBBATCHMATCHETL" xml:space="preserve">
+    <value>PAUSAR ORB BATCHMATCH ETL</value>
+    <comment>PAUSE ORB BATCHMATCH ETL</comment>
+  </data>
+  <data name="lblPhone" xml:space="preserve">
+    <value>Teléfono</value>
+    <comment>Phone</comment>
+  </data>
+  <data name="lblPleasetypeYEStoresetdata" xml:space="preserve">
+    <value>Por favor, escriba "SÍ" para restablecer los datos.</value>
+    <comment>Please type 'YES' to reset data.</comment>
+  </data>
+  <data name="lblPostalCode" xml:space="preserve">
+    <value>Código postal</value>
+    <comment>Postal Code</comment>
+  </data>
+  <data name="lblPreferLinkedRecords" xml:space="preserve">
+    <value>Preferir registros unidos</value>
+    <comment>Prefer Linked Records</comment>
+  </data>
+  <data name="lblRemoveduplicaterecordsfromActiveandOutputQueues" xml:space="preserve">
+    <value>Eliminar registros duplicados de las colas activas y de salida</value>
+    <comment>Remove duplicate records from Active and Output Queues</comment>
+  </data>
+  <data name="lblRemoveduplicaterecordsfromtheActiveQueues" xml:space="preserve">
+    <value>Eliminar registros duplicados de las colas activas</value>
+    <comment>Remove duplicate records from the Active Queues</comment>
+  </data>
+  <data name="lblReset" xml:space="preserve">
+    <value>Reiniciar</value>
+    <comment>Reset</comment>
+  </data>
+  <data name="lblResetOIData" xml:space="preserve">
+    <value>Restablecer datos OI</value>
+    <comment>Reset OI Data</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>Estado</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblStreet" xml:space="preserve">
+    <value>Nro. de calle</value>
+    <comment>Street#</comment>
+  </data>
+  <data name="lblStreetName" xml:space="preserve">
+    <value>Nombre de la calle</value>
+    <comment>Street Name</comment>
+  </data>
+  <data name="lblStreetNo" xml:space="preserve">
+    <value>Nro. de calle</value>
+    <comment>Street No</comment>
+  </data>
+  <data name="lblTagisrequired" xml:space="preserve">
+    <value>Se requiere una etiqueta.</value>
+    <comment>Tag is required.</comment>
+  </data>
+  <data name="lblTags" xml:space="preserve">
+    <value>Etiquetas</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="lblTo" xml:space="preserve">
+    <value>A</value>
+    <comment>To</comment>
+  </data>
+  <data name="lblUpdate" xml:space="preserve">
+    <value>Actualizar</value>
+    <comment>Update</comment>
+  </data>
+  <data name="lblValidBatch" xml:space="preserve">
+    <value>Por favor ingrese solo numérica</value>
+    <comment>Please enter only numeric</comment>
+  </data>
+  <data name="lblWebDomain" xml:space="preserve">
+    <value>dominio web</value>
+    <comment>Web Domain</comment>
+  </data>
+  <data name="msgConfidenceCodeMinMaxValue" xml:space="preserve">
+    <value>El valor máximo debe ser mayor que el valor mínimo.</value>
+    <comment>maximum value must be greater than minimum value.</comment>
+  </data>
+  <data name="msgDataDeleted" xml:space="preserve">
+    <value>data deleted successfully</value>
+    <comment>data deleted successfully</comment>
+  </data>
+  <data name="msgDeleteAutoAcceptanceRecord" xml:space="preserve">
+    <value>¿Estás seguro de que quieres eliminar el registro?</value>
+    <comment>Are you sure you want to delete record ?</comment>
+  </data>
+  <data name="msgDeleteThirdPartyAPICredentials" xml:space="preserve">
+    <value>¿Estás seguro de que quieres eliminar el registro?</value>
+    <comment>Are you sure you want to delete record?</comment>
+  </data>
+  <data name="msgResetOIData" xml:space="preserve">
+    <value>¿Estás segura de que quieres restablecer datos?</value>
+    <comment>Are you sure you want to Reset Data ?</comment>
+  </data>
+  <data name="msgSelectCityGrade" xml:space="preserve">
+    <value>Seleccione ciudad grado</value>
+    <comment>Select City Grade</comment>
+  </data>
+  <data name="msgSelectCompanyCode" xml:space="preserve">
+    <value>Seleccionar código de empresa</value>
+    <comment>Select Company Code</comment>
+  </data>
+  <data name="msgSelectCompanyGrade" xml:space="preserve">
+    <value>Seleccionar grado de empresa</value>
+    <comment>Select Company Grade</comment>
+  </data>
+  <data name="msgSelectCountryGrade" xml:space="preserve">
+    <value>Seleccione país grado</value>
+    <comment>Select Country Grade</comment>
+  </data>
+  <data name="msgSelectEINGrade" xml:space="preserve">
+    <value>Seleccione EIN Grade</value>
+    <comment>Select EIN Grade</comment>
+  </data>
+  <data name="msgSelectPhone Grade" xml:space="preserve">
+    <value>Seleccionar grado de teléfono</value>
+    <comment>Select Phone Grade</comment>
+  </data>
+  <data name="msgSelectPostalCodeGrade" xml:space="preserve">
+    <value>Seleccionar grado de código postal</value>
+    <comment>Select Postal Code Grade</comment>
+  </data>
+  <data name="msgSelectStateGrade" xml:space="preserve">
+    <value>Seleccionar grado estatal</value>
+    <comment>Select State Grade</comment>
+  </data>
+  <data name="msgSelectStreetGrade" xml:space="preserve">
+    <value>Seleccionar grado de calle</value>
+    <comment>Select Street Grade</comment>
+  </data>
+  <data name="msgSelectStreetNameGrade" xml:space="preserve">
+    <value>Seleccione el nombre de la calle Grado</value>
+    <comment>Select Street Name Grade</comment>
+  </data>
+  <data name="msgSelectWebDomainCode" xml:space="preserve">
+    <value>Seleccionar código de dominio web</value>
+    <comment>Select Web Domain Code</comment>
+  </data>
+  <data name="msgSelectWebDomainGrade" xml:space="preserve">
+    <value>Seleccionar grado de dominio web</value>
+    <comment>Select Web Domain Grade</comment>
+  </data>
+  <data name="titleOrbIntelligence" xml:space="preserve">
+    <value>Matchbook | Orb Intelligence</value>
+    <comment>Matchbook | Orb Intelligence</comment>
+  </data>
+</root>

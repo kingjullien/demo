@@ -1,0 +1,60 @@
+﻿@using SBISCCMWeb.Utility;
+@model IPagedList<dynamic>
+
+@{
+    AjaxOptions ajaxOptionsForUserPaging = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialCDSEnvironment",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+    string sortorder = Convert.ToString(ViewBag.sortorder);
+    string SortBy = Convert.ToString(ViewBag.SortBy);
+}
+@Html.Hidden("CDSEnvironmentPageValue", Convert.ToInt32(TempData["CDSEnvironmentPageValue"]))
+@Html.Hidden("CDSEnvironmentSortOrder", sortorder)
+@Html.Hidden("CDSEnvironmentSortBy", SortBy)
+
+<div class="table-responsive">
+    <label class="select pull-right" style="padding-right:10px;">
+        Page Size :  @Html.DropDownList("CDSEnvironmentPageValue", new SelectList(SBISCCMWeb.Utility.CommonMethod.GetPageSize(), Convert.ToInt32(TempData["CDSEnvironmentPageValue"])), new { id = "CDSEnvironmentPageValue", @class = "CDSEnvironmentPageValueChange", @autocomplete = "off" })<i></i>
+    </label>
+    <table class="table table-bordered ">
+        <thead>
+            <tr>
+                <th> @Ajax.ActionLink("Environment Name", "indexEnvironment", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptionsForUserPaging)</th>
+                <th>Delete </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.EnvironmentName</td>
+                    <td>
+                        <a href="javascript:void(0)" id="@item.EnvironmentId" class="deleteCDSEnvironment">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="dt-toolbar-footer pull-right">
+    <div class="hidden-xs New-Paging">
+        <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+            <a id="pagingFormAction" href="@Url.Action("indexEnvironment", "ConfigurationData", new {  page = 1, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder })" style="display:block"></a>
+            @Html.PagedListPager(Model, page => Url.Action("indexEnvironment", "ConfigurationData", new { page = page, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divPartialCDSEnvironment", LoadingElementId = "divProgress", OnSuccess = "OnSuccess()" }))
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 text-center padding-10">
+        <input type="button" value="Add" id="btnAddEnvironment" name="btnAddEnvironment" class="btn btn-primary" />
+    </div>
+</div>
+
+
+

@@ -1,0 +1,102 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.Models;
+@model List<TempMonitoring>
+
+@{
+    ViewBag.Title = "Monitor Profile";
+    Layout = null;
+    string ConditionListUpdatesId = Convert.ToString(TempData["ConditionListUpdatesId"]);
+}
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST"
+    };
+}
+
+@Scripts.Render("~/bundles/popupjs")
+@Styles.Render("~/Content/popupcss")
+
+<div id="content" style="opacity: 1;" class="overflow-hidden">
+    <section id="widget-grid" class="">
+        <div class="row">
+            @using (Ajax.BeginForm("AddElementCondition", "MonitorProfile", null, ajaxOptions, new { @class = "formContent" }))
+            {
+                <article class="col-xs-12  sortable-grid ui-sortable">
+                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <h2>
+                                <strong>Add Element Conditions</strong>
+                            </h2>
+                            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                                <li>
+                                 
+                                </li>
+                            </ul>
+                        </header>
+
+                        <div role="content">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body no-padding custome-section">
+                                <div class="tab-content padding-10">
+                                    <div id="hr2" class="tab-pane fade fade active in">
+                                        <div class="form-group">
+                                            <div class="row paddingto5">
+                                                <div class="col-sm-6">
+                                                    <span class="context-menu-one Conditon">And</span>
+                                                    <a id="btnSubmit" href="#"><span class="glyphicon glyphicon-plus" id="AddCondition"></span></a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="col-xs-12  sortable-grid ui-sortable">
+                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark boxheight" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <h2>
+                                <strong>Conditions</strong>
+                            </h2>
+                            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                                <li>
+                                </li>
+                            </ul>
+                        </header>
+
+                        <div role="content">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body no-padding">
+                                <div id="ElementsList" class="tab-content padding-10">
+                                    @{Html.RenderPartial("_conditonListView", Model);}
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-sm-2">
+                                @if (string.IsNullOrEmpty(ConditionListUpdatesId))
+                                {
+                                    <button class="btn btn-primary form-control AddinList">Add</button>
+                                }
+                                else
+                                {
+                                    @Html.Hidden("ConditionUpdatesId", ConditionListUpdatesId)
+                                    <button class="btn btn-primary form-control AddinList">Update</button>
+                                    TempData.Keep();
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                                        }
+        </div>
+    </section>
+</div>
+
+
+<script src="~/Scripts/CustomJS-minified/MonitorProfile.js"></script>

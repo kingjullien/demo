@@ -1,0 +1,86 @@
+﻿@using SBISCCMWeb.Models.OI.CleanseMatch
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model OICleanseMatchViewModel
+@{
+
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialOISearchData",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "ReloadSuccess()"
+    };
+    int intButtonNo = 0;
+}
+@if (Model.oICleanseMatchOutputs != null && Model.oICleanseMatchOutputs.Count > 0)
+{
+    <table id="tbSearchData" class="table SearchData customTable " role="grid">
+        <thead>
+            <tr class="tablesorter">
+                <th>@OISearchDataLang.lblSeq</th>
+                <th>@OISearchDataLang.lblCC</th>
+                <th>@OISearchDataLang.lblOrbNo</th>
+                <th>@OISearchDataLang.lblCompanyName</th>
+                <th>@OISearchDataLang.lblAddress</th>
+                <th>@OISearchDataLang.lblStatus</th>
+                <th>@OISearchDataLang.lblEntityType</th>
+                <th>@OISearchDataLang.lblIsStandalone</th>
+                <th>@OISearchDataLang.lblBranchesCount</th>
+            </tr>
+             
+        </thead>
+        <tbody>
+            @foreach (var item in Model.oICleanseMatchOutputs)
+            {
+                intButtonNo++;
+                <tr id="@item.orb_num" class="@(intButtonNo % 2 == 0 ? "AlternateRow" : null) context-menu-one" data-val="@SerializeHelper.SerializeObject(Model)">
+                    <td>@item.result_number</td>
+                    <td>@Math.Round(Convert.ToDecimal(item.confidence_score))</td>
+                    <td>@item.orb_num</td>
+                    <td>@item.name</td>
+                    <td>
+                       
+                        @{
+                            string AddressDetails = "";
+                            string Address = string.IsNullOrEmpty(item.std_streetnum) ? item.address1 : item.std_streetnum;
+                            if (!string.IsNullOrEmpty(Address))
+                            {
+                                AddressDetails += "," + Address;
+                            }
+                            if (!string.IsNullOrEmpty(item.city))
+                            {
+                                AddressDetails += "," + item.city;
+                            }
+                            if (!string.IsNullOrEmpty(item.state))
+                            {
+                                AddressDetails += "," + item.state;
+                            }
+                            if (!string.IsNullOrEmpty(item.zip))
+                            {
+                                AddressDetails += "," + item.zip;
+                            }
+                        }
+                        @(string.IsNullOrEmpty(AddressDetails) ? "" : AddressDetails.TrimStart(','))
+                    </td>
+                    <td>@item.company_status</td>
+                    <td>@item.entity_type</td>
+                    <td>@item.is_standalone_company</td>
+                    <td>@item.branches_count</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="col-md-12">@OISearchDataLang.lblNodataareavailable</div>
+}
+
+
+@if (!string.IsNullOrEmpty(Convert.ToString(ViewBag.ErrorMessage)))
+{
+    <script>
+     ShowMessageNotification("success",'@ViewBag.ErrorMessage', false);
+    </script>
+}

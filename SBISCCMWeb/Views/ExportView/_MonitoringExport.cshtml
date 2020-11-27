@@ -1,0 +1,105 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@model List<MonitoringNotificationJobSettingsEntity>
+
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divMonitoringExportJobListing",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnSuccess = "OnSuccess"
+    };
+
+    string url = Request.Url.Scheme + "://" + Request.Url.Authority + Url.Action("Login", "Account");
+    string[] hostParts = new System.Uri(url).Host.Split('.');
+    string domain = hostParts[0];
+    string MonitoringFileType = Convert.ToString(ViewBag.MonitoringFileType);
+}
+
+<label class="select pull-left margin-left-13">
+    @Html.DropDownList("MonitoringDisplayFileType", new SelectList(CommonDropdown.GetFileType(), Convert.ToString(ViewBag.MonitoringFileType)), new { id = "MonitoringDisplayFileType", @class = "MonitoringDisplayFileType", @autocomplete = "off" })<em></em>
+</label>
+<table id="ExportMonitoringJobs" class="table table-bordered panel-group">
+    <thead>
+        <tr>
+            <th>@ExportLang.lblFileName</th>
+            <th>@ExportLang.lblRequestedDate</th>
+            <th>@ExportLang.lblStatus</th>
+            <th class="nosort">@ExportLang.lblDownload</th>
+            <th class="nosort">@ExportLang.lblCancel</th>
+            <th class="nosort">@ExportLang.lblDelete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                string strTitle = string.Empty;
+                strTitle += "<strong>API Layer :</strong>" + (!string.IsNullOrEmpty(item.APILayer) ? item.APILayer + "</br> " : " </br>");
+                strTitle += "<strong>Format :</strong>" + (!string.IsNullOrEmpty(item.Format) ? item.Format.Replace("TSV", "Tab Separated").Replace("Delimiter", "Custom Delimiter") : "") + "</br> ";
+                strTitle += "<strong>Mark As Exported :</strong>" + item.MarkAsExported + "</br>";
+                <tr rel="popover-hover" data-placement="top" data-original-title="<strong>Process<strong>" data-content="@strTitle" data-html="true">
+                    <td class="WordBreak">@item.FilePath</td>
+                    <td>@item.RequestedDate.ToDatetimeFull()</td>
+                    <td>
+                        @if (item.IsProcessComplete)
+                        {
+                            <strong class="ColorGreen">
+                                <span>@ExportLang.lblReady</span>
+                            </strong>
+                        }
+                        else if (@item.IsCancelled)
+                        {<span class="ColorF">@ExportLang.lblCancelled</span>}
+                    else if (!item.IsProcessComplete && item.ProcessStartDate != null && item.ProcessEndDate != null)
+                    {
+                        {<span class="ColorF"><span title="@item.ErrorMessage">@ExportLang.lblFailed</span></span>}
+                }
+                else
+                {
+                    <strong>
+                        <span class="colorInProgress">@ExportLang.lblInProcess</span>
+                    </strong>
+                }
+                    </td>
+                    <td>
+                        @if (@item.IsProcessComplete)
+                        {
+                            <a href="/ExportView/GetBlobFile?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(ImageHelper.GetFileURLByDomain("monitoringexportdata\\"+ domain, @item.FilePath)))" id="lnkDownload" onclick=" return SetDownloadValue()" title="@ExportLang.titleDownload" data-Id="@item.Id"><i class="fa fa-download fa-lg" aria-hidden="true"></i></a>
+                        }
+                    </td>
+                    <td>
+                        @if (!@item.IsProcessComplete && item.ProcessStartDate == null && !item.IsCancelled)
+                        {<a href="javascript:void(0)" id="@item.Id" class="CancelMoniroringFile">@ExportLang.lblCancel</a>}
+                    </td>
+                    <td>
+                        @if (@item.UserId == Helper.oUser.UserId && item.ApplicationId == this.LayoutModel.CurrentClient.ApplicationId && @item.IsProcessComplete)
+                        {
+                            <a href="javascript:void(0)" id="@item.Id" class="deleteFile">@ExportLang.lblDelete</a>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+@if (!string.IsNullOrEmpty(Convert.ToString(SessionHelper.ExportView_Message)))
+{
+    <script type="text/javascript">
+        //show notification message instade of Bootbox Message...if you pass "success" than show Notification message and if you pass "error" than show bootbox message.
+        ShowMessageNotification("success",'@SessionHelper.ExportView_Message', false);
+    </script>
+    SessionHelper.ExportView_Message = null;
+}
+@if (ViewBag.SelectedTab == "MonitoringData")
+{
+    <script>
+        $(document).ready(function () {
+            $('table#ExportMonitoringJobs tbody tr:first').addClass('current');
+            InitPortalExportMonitoringData();
+            OnSuccess();
+        });
+    </script>
+}

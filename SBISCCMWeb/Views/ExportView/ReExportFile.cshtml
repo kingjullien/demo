@@ -1,0 +1,127 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility
+@model ReExportDataEntity
+@{
+    ViewBag.Title = "Re-Export Data";
+    Layout = null;
+    int z = 0;
+}
+<style>
+    #ReExportFileModal .chosen-containe, #ReExportFileModal .chosen-container {
+        width: 100% !important;
+    }
+</style>
+
+<div class="modal" id="ReExportFileModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@ExportLang.lblReExportData</h4>
+            </div>
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+                @Html.Hidden("TagList", "")
+                @Html.Hidden("Tags", z)
+                <div class=" ">
+                    <div class="row">
+                        <div class="control-label col-md-3 col-sm-3 col-xs-3">
+                            <label class="pull-right margin-top-5"><strong>@ExportLang.lblSrcRecordId :</strong></label>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            @Html.TextBoxFor(m => m.SrcRecordId, new { @class = "form-control", @maxlength = "50", @autocomplete = "off" })
+                        </div>
+                    </div>
+                    <div class="row margintop10">
+                        <div class="control-label col-md-3 col-sm-3 col-xs-3">
+                            <label class="pull-right margin-top-5"><strong>@ExportLang.lblSrcRecordIdList :</strong></label>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            @Html.TextBoxFor(m => m.SrcRecordIdList, new { @class = "form-control", @maxlength = "200", @autocomplete = "off" })
+                        </div>
+                    </div>
+                    <div class="row margintop10 custom-dropdown-search chosenPopup">
+                        <div class="control-label col-md-3 col-sm-3 col-xs-3">
+                            <label class="pull-right margin-top-5"><strong>@ExportLang.lblImportProcess :</strong></label>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            @Html.DropDownListFor(m => m.ImportProcess, new SelectList(SBISCCMWeb.Controllers.ExportViewController.GetExportedDataImportProcess(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text"), CommonMessagesLang.lblSelectImportProcessOptional, new { @class = "form-control selectbox chzn-select", @autocomplete = "off" })
+                        </div>
+                    </div>
+                    <div class="row margintop10">
+                        <div class="control-label col-md-3 col-sm-3 col-xs-3">
+                            <label class="pull-right margin-top-5"><strong>@ExportLang.lblCountryGroup :</strong></label>
+                        </div>
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            @Html.DropDownListFor(m => m.CountryGroupId, new SelectList(new CommonDropdown().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName"), CommonMessagesLang.lblSelectCountryGroup, new { @class = "form-control selectbox", @autocomplete = "off" })
+                        </div>
+                    </div>
+                    @if (Helper.LicenseEnableTags)
+                    {
+                        <div class="row margintop10 reExportTagSize">
+                            <div class="control-label col-md-3 col-sm-3 col-xs-3">
+                                <span class="pull-right margin-top-5"><strong>@ExportLang.lblTags :</strong></span>
+                            </div>
+
+                            <div class="col-md-9 col-sm-9 col-xs-9">
+                                @Html.DropDownList("TagsValue", new SelectList(SBISCCMWeb.Controllers.ExportViewController.GetExportedDataTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "TagName"), new { @class = "form-control chzn-select", multiple = "true", @autocomplete = "off" })
+                                <em class="fa fa-plus OpenTags" style="display:none;"></em>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="row margintop10 custom-text-align-center">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            &nbsp;&nbsp;&nbsp;<input type="radio" name="Recordtype" id="rdMatchOutput" value="MATCHED" checked="checked" />
+                            <strong class="">@ExportLang.lblMatchOutput</strong>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="Recordtype" id="rdENRICHED " value="ENRICHED" />
+                            <strong class="">@ExportLang.lblEnrichment</strong>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <input type="radio" name="Recordtype" id="edBoth " value="Both" />
+                            <strong class="">@ExportLang.lblBoth</strong>
+                        </div>
+                    </div>
+                    <div class="row margintop10 custom-text-align-center">
+                        <div class="col-md-12">
+                            <input type="button" id="btnUnFlagAll" value="@ExportLang.lblSubmit" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+    var TagList = $("#TagList").val().split(',');
+    if (TagList != null || TagList != "") {
+        $(".chzn-select option").each(function () {
+            for (var i = 0; i < TagList.length; i++) {
+                if ($(this).val() == TagList[i]) {
+                    $(this).attr("selected", "selected");
+                }
+            }
+        });
+        $("#Tags").val(TagList);
+    }
+    if ($(".chzn-select").length > 0) {
+        $(".chzn-select").chosen().change(function (event) {
+
+            if (event.target == this) {
+                $("#Tags").val($(this).val());
+            }
+        });
+    }
+    $("select.chzn-select").chosen({
+        no_results_text: "Oops, nothing found!",
+        width: "100%",
+        search_contains: true
+    });
+});
+</script>

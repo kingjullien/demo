@@ -1,0 +1,29 @@
+@using SBISCCMWeb.Utility
+@model object
+
+@{
+    var htmlAttributes = new RouteValueDictionary();
+    if (ViewBag.@class != null)
+    {
+        htmlAttributes.Add("class", ViewBag.@class);
+    }
+    if (ViewBag.@type != null)
+    {
+        htmlAttributes.Add("type", ViewBag.@type);
+    }
+    if (ViewBag.placeholder != null)
+    {
+        htmlAttributes.Add("placeholder", ViewBag.placeholder);
+    }
+    
+}
+<section class="@ViewBag.sectionclass">
+    @Html.LabelFor(m => m, new { @class = "label" })
+	<label class="input@(Html.ValidationErrorFor(m => m, " state-error"))">
+        @Html.TextBox(
+            "",
+            ViewData.TemplateInfo.FormattedModelValue,
+            htmlAttributes)        
+	</label>
+    @Html.ValidationMessageFor(m => m, null, new { @class = "help-block" })
+</section>

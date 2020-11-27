@@ -1,0 +1,164 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model IPagedList<OICompanyEntity>
+
+@{
+    var i = 0;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "partialDivOICompanyMatchdata",
+        InsertionMode = InsertionMode.Replace,
+        LoadingElementId = "divProgress"
+        //OnSuccess = "OnSuccess"
+    };
+    string OIMatchsortorder = Convert.ToString(ViewBag.OIMatchsortorder);
+    string OIMatchSortby = Convert.ToString(ViewBag.OIMatchSortby);
+    int OIMatchPageValue = Convert.ToInt32(ViewBag.OIMatchsortPagevalue);
+    bool IncludeWithoutCandidates = ViewBag.IncludeWithoutCandidates;
+    bool IncludeWithCandidates = ViewBag.IncludeWithCandidates;
+}
+@Html.Hidden("OIMatchPageValue", OIMatchPageValue)
+@Html.Hidden("OIMatchsortorder", OIMatchsortorder)
+@Html.Hidden("OIMatchSortby", OIMatchSortby)
+<div class="col-md-7 ">
+    <div class="">
+        <strong class="pull-left error">
+            @ViewBag.QueueMessage
+        </strong>
+    </div>
+</div>
+<div id="example_wrapper" class="dataTables_wrapper form-inline no-footer">
+    <div class="col-md-5">
+
+        <label class="select pull-right DisplayFlex">
+            <div>
+                <a href="javascript:void(0)" id="btnRefreshStewardshipQueue"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+            </div>
+            <span>&nbsp;@OIMatchDataLang.lblRefreshStewardshipQueue&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            @OIMatchDataLang.lblPageSize&nbsp;:&nbsp;@Html.DropDownList("pagevalue", new SelectList(CommonDropdown.GetDataStewardshipPageSize(), OIMatchPageValue), new { id = "pagevalue", @class = "pagevalueChange", @autocomplete = "off" })<i></i>
+        </label>
+    </div>
+</div>
+<br />
+
+<table id="accordion" class="table table-bordered panel-group customTable " role="grid">
+    <thead>
+        <tr>
+            <th class="sort-header">
+                @Ajax.ActionLink(OIMatchDataLang.lblSrcId, "GetFilteredCompanyList", new {OIMatchPage=ViewBag.OIMatchPageno, IncludeWithCandidates = ViewBag.IncludeWithCandidates, IncludeWithoutCandidates = ViewBag.IncludeWithoutCandidates, OIMatchsortPagevalue = ViewBag.OIMatchsortPagevalue, OIMatchSortby = 1, OIMatchsortorder = (ViewBag.OIMatchSortby == 1 ? (ViewBag.OIMatchsortorder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th class="sort-header companyWidth">
+                @Ajax.ActionLink(OIMatchDataLang.lblCompany, "GetFilteredCompanyList", new {OIMatchPage=ViewBag.OIMatchPageno, IncludeWithCandidates = ViewBag.IncludeWithCandidates, IncludeWithoutCandidates = ViewBag.IncludeWithoutCandidates, OIMatchsortPagevalue = ViewBag.OIMatchsortPagevalue, OIMatchSortby = 2, OIMatchsortorder = (ViewBag.OIMatchSortby == 2 ? (ViewBag.OIMatchsortorder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th class="sort-header">
+                @Ajax.ActionLink(OIMatchDataLang.lblAddress, "GetFilteredCompanyList", new {OIMatchPage=ViewBag.OIMatchPageno, IncludeWithCandidates = ViewBag.IncludeWithCandidates, IncludeWithoutCandidates = ViewBag.IncludeWithoutCandidates, OIMatchsortPagevalue = ViewBag.OIMatchsortPagevalue, OIMatchSortby = 3, OIMatchsortorder = (ViewBag.OIMatchSortby == 3 ? (ViewBag.OIMatchsortorder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th class="sort-header">
+                @Ajax.ActionLink(OIMatchDataLang.lblCity, "GetFilteredCompanyList", new {OIMatchPage=ViewBag.OIMatchPageno, IncludeWithCandidates = ViewBag.IncludeWithCandidates, IncludeWithoutCandidates = ViewBag.IncludeWithoutCandidates, OIMatchsortPagevalue = ViewBag.OIMatchsortPagevalue, OIMatchSortby = 4, OIMatchsortorder = (ViewBag.OIMatchSortby == 4 ? (ViewBag.OIMatchsortorder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th class="sort-header">
+                @Ajax.ActionLink(OIMatchDataLang.lblState, "GetFilteredCompanyList", new {OIMatchPage=ViewBag.OIMatchPageno, IncludeWithCandidates = ViewBag.IncludeWithCandidates, IncludeWithoutCandidates = ViewBag.IncludeWithoutCandidates, OIMatchsortPagevalue = ViewBag.OIMatchsortPagevalue, OIMatchSortby = 5, OIMatchsortorder = (ViewBag.OIMatchSortby == 5 ? (ViewBag.OIMatchsortorder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th class="sort-header">
+                @Ajax.ActionLink(OIMatchDataLang.lblPostalCode, "GetFilteredCompanyList", new {OIMatchPage=ViewBag.OIMatchPageno, IncludeWithCandidates = ViewBag.IncludeWithCandidates, IncludeWithoutCandidates = ViewBag.IncludeWithoutCandidates, OIMatchsortPagevalue = ViewBag.OIMatchsortPagevalue, OIMatchSortby = 6, OIMatchsortorder = (ViewBag.OIMatchSortby == 6 ? (ViewBag.OIMatchsortorder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th class="sort-header">
+                @Ajax.ActionLink(OIMatchDataLang.lblCountry, "GetFilteredCompanyList", new {OIMatchPage=ViewBag.OIMatchPageno, IncludeWithCandidates = ViewBag.IncludeWithCandidates, IncludeWithoutCandidates = ViewBag.IncludeWithoutCandidates, OIMatchsortPagevalue = ViewBag.OIMatchsortPagevalue, OIMatchSortby = 7, OIMatchsortorder = (ViewBag.OIMatchSortby == 7 ? (ViewBag.OIMatchsortorder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th class="sort-header">
+                @Ajax.ActionLink(OIMatchDataLang.lblPhone, "GetFilteredCompanyList", new {OIMatchPage=ViewBag.OIMatchPageno, IncludeWithCandidates = ViewBag.IncludeWithCandidates, IncludeWithoutCandidates = ViewBag.IncludeWithoutCandidates, OIMatchsortPagevalue = ViewBag.OIMatchsortPagevalue, OIMatchSortby = 8, OIMatchsortorder = (ViewBag.OIMatchSortby == 8 ? (ViewBag.OIMatchsortorder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th class="sort-header tdFiltersMatchvsNoCandidate">
+                <div class="dropdown">
+                    @Ajax.ActionLink(OIMatchDataLang.lblMatches, "GetFilteredCompanyList", new {OIMatchPage=ViewBag.OIMatchPageno, IncludeWithCandidates = ViewBag.IncludeWithCandidates, IncludeWithoutCandidates = ViewBag.IncludeWithoutCandidates, OIMatchsortPagevalue = ViewBag.OIMatchsortPagevalue, OIMatchSortby = 9, OIMatchsortorder = (ViewBag.OIMatchSortby == 9 ? (ViewBag.OIMatchsortorder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                    <span class="caret" data-toggle="dropdown"></span>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <label class="check">
+                                @OIMatchDataLang.lblAll
+                                <input type="checkbox" class="FilterMatchesAllCandidate" @(IncludeWithoutCandidates && IncludeWithCandidates ? "checked='checked'" : "")>
+                                <span class="checkmark"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="check">
+                                @OIMatchDataLang.lblWithCandidates
+                                <input type="checkbox" class="FilterIncludeWithCandidates" @(IncludeWithCandidates ? "checked='checked'" : "")>
+                                <span class="checkmark"></span>
+                            </label>
+                        </li>
+                        <li>
+                            <label class="check">
+                                @OIMatchDataLang.lblWithoutCandidates
+                                <input type="checkbox" class="FilterIncludeWithoutCandidates" @(IncludeWithoutCandidates ? "checked='checked'" : "")>
+                                <span class="checkmark"></span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+            </th>
+
+
+
+        </tr>
+    </thead>
+
+    <tbody class="cursor-pointer">
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                i++;
+                <tr id="@item.InputId" class="@(i % 2 == 0 ? "AlternateRow" : null) context-menu-one-delete" data-SrcRecordId="@item.SrcRecordId" data-City="@item.InpCity" data-State="@item.InpState">
+                    <td>@item.SrcRecordId</td>
+                    <td>@item.InpCompanyName</td>
+                    <td>@item.InpAddress1</td>
+                    <td>@item.InpCity</td>
+                    <td>@item.InpState</td>
+                    <td>@item.InpPostalCode</td>
+                    <td>@item.InpCountryISOAlpha2Code</td>
+                    <td>@item.InpPhoneNbr</td>
+                    <td>
+                        @if (item.CandidateCount > 0)
+                        {
+                            <a href="javascript:void(0)" data-inputId="@item.InputId" class="openOIMatchdetailPopup">@item.CandidateCount @OIMatchDataLang.lblCandidate</a>
+                        }
+                        else
+                        {
+                            <a href="javascript:void(0)" data-inputId="@item.InputId" class="openOIMatchdetailPopup">@OIMatchDataLang.lblNoCandidate</a>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="9">@OIMatchDataLang.lblNodataareavailable</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="text-center">
+    <div class="dt-toolbar-footer">
+
+        <div class="hidden-xs New-Paging">
+            <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                <a id="pagingFormAction" href="@Url.Action("indexEnvironment", "OIMatchData", new {  OIMatchPage = 1, OIMatchsortPagevalue = ViewBag.OIMatchsortPagevalue, OIMatchSortby = ViewBag.OIMatchSortby, OIMatchsortorder = ViewBag.OIMatchsortorder,IncludeWithCandidates= ViewBag.IncludeWithCandidates, IncludeWithoutCandidates= ViewBag.IncludeWithoutCandidates })" style="display:block"></a>
+                @Html.PagedListPager(Model, page => Url.Action("Index", "OIMatchData", new { OIMatchPage = page, OIMatchsortPagevalue = ViewBag.OIMatchsortPagevalue, OIMatchSortby = ViewBag.OIMatchSortby, OIMatchsortorder = ViewBag.OIMatchsortorder, IncludeWithCandidates = ViewBag.IncludeWithCandidates, IncludeWithoutCandidates = ViewBag.IncludeWithoutCandidates }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, ajaxOptions))
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@if (!string.IsNullOrEmpty(Convert.ToString(ViewBag.ErrorMessage)))
+{
+    <script>
+     ShowMessageNotification("success",'@ViewBag.ErrorMessage', false);
+    </script>
+}
+
+

@@ -1,0 +1,81 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model InpCompanyDataRefershEntity
+@using SBISCCMWeb.Utility
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | Dashboard";
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | Dashboard";
+    }
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+    string Message = Convert.ToString(ViewBag.Message);
+    var z = Model.Tags;
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+}
+
+@Html.Hidden("UserRole", UserRoles)
+@Html.Hidden("UserLOBTag", UserLOBTag)
+<style type="text/css">
+    body {
+        overflow: hidden;
+    }
+
+    .padding-import-bottom {
+        padding: 0;
+        margin: 0 !important;
+    }
+
+    .dataimportbox {
+        padding-top: 60px;
+    }
+</style>
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/bootbox.min.js"></script>
+<link href="~/Content/chosen.css" rel="stylesheet" />
+<link href="~/Content/CustomPopUp.css" rel="stylesheet" />
+<div id="content" style="opacity: 1;">
+    <section id="widget-grid" class="">
+        <div class="">
+            <article class="sortable-grid ui-sortable">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            <i class="fa fa-files-o"></i>
+                            <strong>@ImportDataLang.lblImportData</strong>
+                        </h2>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body">
+                            <div class="importRadio">
+                                <input type="radio" name="rBtnImportDataOption" class="rButtonImportData" value="Data Import" checked="checked" />&nbsp;<span class="checkboxalign"><strong>@ImportDataLang.lblCleanseMatchEnrichment</strong></span> &nbsp;&nbsp;&nbsp;
+                                <input type="radio" name="rBtnImportDataOption" class="rButtonImportData" value="Match Refresh" />&nbsp;<span class="checkboxalign"><strong>@ImportDataLang.lblEnrichmentOnly</strong></span> &nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="SingleEntryMain">
+                                @Html.Partial("_SingleMatchRefreshFormEntry", Model)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+@Scripts.Render("~/bundles/bootstrap")
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/notification/SmartNotification.min.js"></script>
+<script src="~/Scripts/smartwidgets/jarvis.widget.min.js"></script>
+<script src="~/Scripts/jquery.validate1.19.1.min.js"></script>
+<script src="~/Scripts/plugin/magnific/jquery.magnific-popup.min.js"></script>
+<script src="~/Scripts/bootbox.min.js"></script>
+<script src="~/Scripts/chosen.jquery.js"></script>
+<script src="~/Scripts/CustomJS-minified/Common.js"></script>
+<script src="~/Scripts/CustomJS/SingleMatchRefreshEntryForm.js"></script>
+<script src="~/Scripts/CustomJS/SingleEntryForm.js"></script>
+
+

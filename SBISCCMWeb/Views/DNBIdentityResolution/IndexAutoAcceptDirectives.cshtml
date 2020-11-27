@@ -1,0 +1,504 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Utility
+@model SBISCCMWeb.Models.CleanseMatchSettingsModel
+@{
+    AjaxOptions ajaxOptionsForAAC = new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "GET" };
+    int z = 0;
+    string TagHide = !Helper.LicenseEnableTags ? "TagHide" : "";
+}
+<article class="col-md-12 sortable-grid ui-sortable widget-data" @*style="width:100% !important"*@>
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.lblAutoAcceptDirectives</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10 " id="CleanseMatchExclusionDirectives">
+                    <form id="frmAutoAcceptanceDirective">
+                        @Html.Hidden("IsLicenseEnableAdvancedMatch", Helper.LicenseEnableAdvancedMatch)
+
+                        @Html.Hidden("TagList6", Model.oAutoAcceptanceDirectivesEntity.Tags1)
+                        @Html.Hidden("TagList7", Model.oAutoAcceptanceDirectivesEntity.Tags2)
+                        @Html.Hidden("TagList8", Model.oAutoAcceptanceDirectivesEntity.Tags3)
+                        @Html.Hidden("TagList9", Model.oAutoAcceptanceDirectivesEntity.Tags4)
+                        @Html.Hidden("TagList10", Model.oAutoAcceptanceDirectivesEntity.Tags5)
+                        @Html.Hidden("TagList11", Model.oAutoAcceptanceDirectivesEntity.Tags6)
+                        @Html.Hidden("TagList12", Model.oAutoAcceptanceDirectivesEntity.Tags7)
+                        @Html.Hidden("TagList13", Model.oAutoAcceptanceDirectivesEntity.Tags8)
+                        @Html.Hidden("TagList14", Model.oAutoAcceptanceDirectivesEntity.Tags9)
+                        @Html.Hidden("TagList15", Model.oAutoAcceptanceDirectivesEntity.Tags10)
+                        @Html.Hidden("TagList16", Model.oAutoAcceptanceDirectivesEntity.Tags11)
+                        @Html.Hidden("TagList17", Model.oAutoAcceptanceDirectivesEntity.Tags12)
+                        @Html.Hidden("TagList18", Model.oAutoAcceptanceDirectivesEntity.Tags13)
+                        @Html.Hidden("TagList19", Model.oAutoAcceptanceDirectivesEntity.Tags14)
+
+                        @Html.Hidden("Tags6", z)
+                        @Html.Hidden("Tags7", z)
+                        @Html.Hidden("Tags8", z)
+                        @Html.Hidden("Tags9", z)
+                        @Html.Hidden("Tags10", z)
+                        @Html.Hidden("Tags11", z)
+                        @Html.Hidden("Tags12", z)
+                        @Html.Hidden("Tags13", z)
+                        @Html.Hidden("Tags14", z)
+                        @Html.Hidden("Tags15", z)
+                        @Html.Hidden("Tags16", z)
+                        @Html.Hidden("Tags17", z)
+                        @Html.Hidden("Tags18", z)
+                        @Html.Hidden("Tags19", z)
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="title">
+                                    <label><strong class="margin-left-13">@DandBSettingLang.lblEnable</strong></label>
+                                </div>
+                            </div>
+                            @if (Helper.LicenseEnableAdvancedMatch)
+                            {
+                                <div class="col-md-6 form-group">
+                                    <div class="title">
+                                        @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active7, new { autocomplete = "off" })
+                                        <label for="oAutoAcceptanceDirectivesEntity_Active7" class="labelspace" style="font-weight:bold">@DandBSettingLang.lblLimitDOS</label>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                if (Helper.Branding == Branding.Matchbook.ToString())
+                                {
+                                    <div class="col-md-6 form-group">
+                                        <div class="title">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active7, new { autocomplete = "off", disabled = "disabled" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active7" class="labelspace" style="font-weight:bold">@DandBSettingLang.lblLimitDOS</label>
+                                        </div>
+                                    </div>
+                                }
+                                else if (Helper.Branding == Branding.DandB.ToString())
+                                {
+                                    <div class="col-md-6 form-group">
+                                        <div class="title">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active7, new { autocomplete = "off", disabled = "disabled" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active7" class="labelspace" style="font-weight:bold">@DandBSettingLang.lblLimitDOS</label>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="form-group col-md-5 m-t-sm">
+                                        @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active1, new { autocomplete = "off" })
+                                        <label for="oAutoAcceptanceDirectivesEntity_Active1" class="labelspace">@DandBSettingLang.lblAcceptActiveOnly</label>
+                                    </div>
+                                    @if (Helper.LicenseEnableTags)
+                                    {
+                                        <div class="form-group col-md-6 @TagHide" style="display:flex">
+                                            @Html.DropDownList("TagsValue6", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags1), new { @class = "form-control chzn-select clstag6 Directive", multiple = "true", autocomplete = "off" })
+                                            @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                            {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-5 m-t-sm">
+                                        @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active2, new { autocomplete = "off" })
+                                        <label for="oAutoAcceptanceDirectivesEntity_Active2" class="labelspace">@DandBSettingLang.lblPreferHQ</label>
+                                    </div>
+                                    @if (Helper.LicenseEnableTags)
+                                    {
+                                        <div class="form-group col-md-6 @TagHide" style="display:flex">
+                                            @Html.DropDownList("TagsValue7", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags2), new { @class = "form-control chzn-select clstag7 Directive", multiple = "true", autocomplete = "off" })
+                                            @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                            {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-5 m-t-sm">
+                                        @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active3, new { autocomplete = "off" })
+                                        <label for="oAutoAcceptanceDirectivesEntity_Active3" class="labelspace">@DandBSettingLang.lblAcceptHQOnly</label>
+                                    </div>
+                                    @if (Helper.LicenseEnableTags)
+                                    {
+                                        <div class="form-group col-md-6 @TagHide" style="display:flex">
+                                            @Html.DropDownList("TagsValue8", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags3), new { @class = "form-control chzn-select clstag8 Directive", multiple = "true", autocomplete = "off" })
+                                            @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                            {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                                @if (Helper.LicenseEnableAdvancedMatch)
+                                {
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active4, new { autocomplete = "off" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active4" class="labelspace">@DandBSettingLang.lblAcceptSingleOnly</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue9", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags4), new { @class = "form-control chzn-select clstag9 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active5, new { autocomplete = "off" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active5" class="labelspace">@DandBSettingLang.lblAcceptLinkedOnly</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue10", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags5), new { @class = "form-control chzn-select clstag10 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active6, new { autocomplete = "off" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active6" class="labelspace">@DandBSettingLang.lblPreferLinked</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue11", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags6), new { @class = "form-control chzn-select clstag11 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active4, new { autocomplete = "off", disabled = "disabled" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active4" class="labelspace">@DandBSettingLang.lblAcceptSingleOnly</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue9", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags4), new { @class = "form-control chzn-select clstag9 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active5, new { autocomplete = "off", disabled = "disabled" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active5" class="labelspace">@DandBSettingLang.lblAcceptLinkedOnly</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue10", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags5), new { @class = "form-control chzn-select clstag10 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active6, new { autocomplete = "off", disabled = "disabled" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active6" class="labelspace">@DandBSettingLang.lblPreferLinked</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue11", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags6), new { @class = "form-control chzn-select clstag11 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                            @if (Helper.LicenseEnableAdvancedMatch)
+                            {
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active8, new { autocomplete = "off", @class="DegreeOfSeparation" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active8" class="labelspace">@DandBSettingLang.lblDOS1</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 tag13 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue13", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags8), new { @class = "form-control chzn-select clstag13 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active9, new { autocomplete = "off", @class="DegreeOfSeparation" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active9" class="labelspace">@DandBSettingLang.lblDOS2</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 tag14 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue14", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags9), new { @class = "form-control chzn-select clstag14 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active10, new { autocomplete = "off", @class="DegreeOfSeparation" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active10" class="labelspace">@DandBSettingLang.lblDOS3</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 tag15 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue15", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags10), new { @class = "form-control chzn-select clstag15 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active11, new { autocomplete = "off", @class="DegreeOfSeparation" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active11" class="labelspace">@DandBSettingLang.lblDOS4</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 tag16 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue16", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags11), new { @class = "form-control chzn-select clstag16 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active12, new { autocomplete = "off", @class="DegreeOfSeparation" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active12" class="labelspace">@DandBSettingLang.lblDOS5</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 tag17 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue17", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags12), new { @class = "form-control chzn-select clstag17 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active13, new { autocomplete = "off", @class="DegreeOfSeparation" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active13" class="labelspace">@DandBSettingLang.lblDOS6</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 tag18 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue18", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags13), new { @class = "form-control chzn-select clstag18 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active14, new { autocomplete = "off", @class="DegreeOfSeparation" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active14" class="labelspace">@DandBSettingLang.lblDOS7</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 tag19 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue19", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags14), new { @class = "form-control chzn-select clstag19 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active8, new { autocomplete = "off", @class="DegreeOfSeparation", disabled = "disabled" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active8" class="labelspace">@DandBSettingLang.lblDOS1</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 tag13 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue13", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags8), new { @class = "form-control chzn-select clstag13 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active9, new { autocomplete = "off", @class="DegreeOfSeparation", disabled = "disabled" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active9" class="labelspace">@DandBSettingLang.lblDOS2</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 tag14 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue14", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags9), new { @class = "form-control chzn-select clstag14 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active10, new { autocomplete = "off", @class="DegreeOfSeparation", disabled = "disabled" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active10" class="labelspace">@DandBSettingLang.lblDOS3</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 tag15 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue15", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags10), new { @class = "form-control chzn-select clstag15 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active11, new { autocomplete = "off", @class="DegreeOfSeparation", disabled = "disabled" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active11" class="labelspace">@DandBSettingLang.lblDOS4</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 tag16 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue16", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags11), new { @class = "form-control chzn-select clstag16 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active12, new { autocomplete = "off", @class="DegreeOfSeparation", disabled = "disabled" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active12" class="labelspace">@DandBSettingLang.lblDOS5</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 tag17 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue17", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags12), new { @class = "form-control chzn-select clstag17 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active13, new { autocomplete = "off", @class="DegreeOfSeparation", disabled = "disabled" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active13" class="labelspace">@DandBSettingLang.lblDOS6</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 tag18 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue18", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags13), new { @class = "form-control chzn-select clstag18 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-5 m-t-sm">
+                                            @Html.CheckBoxFor(m => m.oAutoAcceptanceDirectivesEntity.Active14, new { autocomplete = "off", @class="DegreeOfSeparation", disabled = "disabled" })
+                                            <label for="oAutoAcceptanceDirectivesEntity_Active14" class="labelspace">@DandBSettingLang.lblDOS7</label>
+                                        </div>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <div class="form-group col-md-6 tag19 @TagHide" style="display:flex">
+                                                @Html.DropDownList("TagsValue19", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oAutoAcceptanceDirectivesEntity.Tags14), new { @class = "form-control chzn-select clstag19 Directive", multiple = "true", autocomplete = "off" })
+                                                @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                                {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                        @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                        {
+                            <input type="button" value="@DandBSettingLang.lblUpdate" name="btnSubmitDirectives" id="btnSubmitDirectives" class="btn btn-primary centerAlign" />
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "Auto Accept Directives")
+{
+    <script>
+        $(document).ready(function () {
+            if ($.UserRole.toLowerCase() == "lob") {
+                $("#frmAutoAcceptanceDirective .chzn-select").each(function () {
+                    $(this).attr("disabled", true);
+                });
+                $("#frmAutoAcceptanceDirective input[type=checkbox]").each(function () {
+                    $(this).attr("disabled", true);
+                });
+                $("#frmAutoAcceptanceDirective .OpenTags").each(function () {
+                    $(this).remove();
+                });
+            }
+            var EnableMatch = $("#IsLicenseEnableAdvancedMatch").val();
+            if (EnableMatch.toLowerCase() == "false") {
+                IsEnableMatchEnableMatch();
+            }
+            DirectiveLoadTags();
+            if ($.UserRole.toLowerCase() == "global") {
+                oAutoAcceptanceDirectives1Changes();
+                oAutoAcceptanceDirectives2Changes();
+                oAutoAcceptanceDirectives3Changes();
+                oAutoAcceptanceDirectives4Changes();
+                oAutoAcceptanceDirectives5Changes();
+                oAutoAcceptanceDirectives6Changes();
+                oAutoAcceptanceDirectives7Changes();
+                oAutoAcceptanceDirectives8Changes();
+                oAutoAcceptanceDirectives9Changes();
+                oAutoAcceptanceDirectives10Changes();
+                oAutoAcceptanceDirectives11Changes();
+                oAutoAcceptanceDirectives12Changes();
+                oAutoAcceptanceDirectives13Changes();
+                oAutoAcceptanceDirectives14Changes();
+            }
+        });
+    </script>
+}

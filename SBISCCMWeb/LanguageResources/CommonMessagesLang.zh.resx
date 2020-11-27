@@ -1,0 +1,649 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="lblActiveDataQueue" xml:space="preserve">
+    <value>活动数据队列</value>
+    <comment>Active Data Queue</comment>
+  </data>
+  <data name="lblAllFiles" xml:space="preserve">
+    <value>所有的文件</value>
+    <comment>All Files</comment>
+  </data>
+  <data name="lblAny" xml:space="preserve">
+    <value>任何</value>
+    <comment>Any</comment>
+  </data>
+  <data name="lblBenificiaryDetails" xml:space="preserve">
+    <value>查看受益人详细信息</value>
+    <comment>Benificiary Details</comment>
+  </data>
+  <data name="lblBrowse" xml:space="preserve">
+    <value>浏览</value>
+    <comment>Browse</comment>
+  </data>
+  <data name="lblBusinessName" xml:space="preserve">
+    <value>00：商家名称</value>
+    <comment>00: Business Name</comment>
+  </data>
+  <data name="lblCleanseMatch" xml:space="preserve">
+    <value>净化，搭配和丰富</value>
+    <comment>Cleanse, Match &amp; Enrichment</comment>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>公司</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCompanyTree" xml:space="preserve">
+    <value>公司树</value>
+    <comment>CompanyTree</comment>
+  </data>
+  <data name="lblConfirm" xml:space="preserve">
+    <value>确认</value>
+    <comment>Confirm</comment>
+  </data>
+  <data name="lblDAndB" xml:space="preserve">
+    <value>D B</value>
+    <comment>D&amp;B</comment>
+  </data>
+  <data name="lblDifferent" xml:space="preserve">
+    <value>F：不同</value>
+    <comment>F: Different</comment>
+  </data>
+  <data name="lblDunBradstreet" xml:space="preserve">
+    <value>邓白氏</value>
+    <comment>Dun &amp; Bradstreet</comment>
+  </data>
+  <data name="lblEnrichment" xml:space="preserve">
+    <value>仅富集</value>
+    <comment>Enrichment Only</comment>
+  </data>
+  <data name="lblFalse" xml:space="preserve">
+    <value>假</value>
+    <comment>False</comment>
+  </data>
+  <data name="lblFirmographics" xml:space="preserve">
+    <value>固件</value>
+    <comment>Firmographics</comment>
+  </data>
+  <data name="lblMatchbook" xml:space="preserve">
+    <value>火柴盒</value>
+    <comment>Matchbook</comment>
+  </data>
+  <data name="lblMatchOutput" xml:space="preserve">
+    <value>匹配输出</value>
+    <comment>Match Output</comment>
+  </data>
+  <data name="lblMissingInput" xml:space="preserve">
+    <value>Z：缺少输入</value>
+    <comment>Z: Missing Input</comment>
+  </data>
+  <data name="lblMyFiles" xml:space="preserve">
+    <value>我的文件</value>
+    <comment>My Files</comment>
+  </data>
+  <data name="lblNoData" xml:space="preserve">
+    <value>X：无数据</value>
+    <comment>X: No Data</comment>
+  </data>
+  <data name="lblNone" xml:space="preserve">
+    <value>没有</value>
+    <comment>None</comment>
+  </data>
+  <data name="lblOrbCleanseMatch" xml:space="preserve">
+    <value>宝珠净化，搭配和浓缩</value>
+    <comment>Orb Cleanse, Match &amp; Enrichment</comment>
+  </data>
+  <data name="lblOrbEnrichment" xml:space="preserve">
+    <value>仅球体浓缩</value>
+    <comment>Orb Enrichment Only</comment>
+  </data>
+  <data name="lblOrbIntelligence" xml:space="preserve">
+    <value>宝珠智力</value>
+    <comment>Orb Intelligence</comment>
+  </data>
+  <data name="lblOtherName" xml:space="preserve">
+    <value>01：其他名称</value>
+    <comment>01: Other Name</comment>
+  </data>
+  <data name="lblSame" xml:space="preserve">
+    <value>答：相同</value>
+    <comment>A: Same</comment>
+  </data>
+  <data name="lblSelectAcceptedBy" xml:space="preserve">
+    <value>选择已接受</value>
+    <comment>Select AcceptedBy</comment>
+  </data>
+  <data name="lblSelectApiLayer" xml:space="preserve">
+    <value>选择Api层</value>
+    <comment>Select Api Layer</comment>
+  </data>
+  <data name="lblSelectConfidenceCode" xml:space="preserve">
+    <value>选择信任码</value>
+    <comment>Select Confidence Code</comment>
+  </data>
+  <data name="lblSelectCountry" xml:space="preserve">
+    <value>选择国家</value>
+    <comment>Select Country</comment>
+  </data>
+  <data name="lblSelectCountryGroup" xml:space="preserve">
+    <value>选择国家组</value>
+    <comment>Select Country Group</comment>
+  </data>
+  <data name="lblSelectImportProcess" xml:space="preserve">
+    <value>选择导入过程</value>
+    <comment>Select Import Process</comment>
+  </data>
+  <data name="lblSelectImportProcessOptional" xml:space="preserve">
+    <value>选择导入过程（可选）</value>
+    <comment>Select Import Process (Optional)</comment>
+  </data>
+  <data name="lblSelectIndustry" xml:space="preserve">
+    <value>选择行业</value>
+    <comment>Select Industry</comment>
+  </data>
+  <data name="lblSelectLanguage" xml:space="preserve">
+    <value>选择语言</value>
+    <comment>Select Language</comment>
+  </data>
+  <data name="lblSelectLOBTag" xml:space="preserve">
+    <value>选择LOB标签</value>
+    <comment>Select LOB Tag</comment>
+  </data>
+  <data name="lblSelectLOBTagOptional" xml:space="preserve">
+    <value>选择LOB标签（可选）</value>
+    <comment>Select LOB Tag (Optional)</comment>
+  </data>
+  <data name="lblSelectNAICSCode" xml:space="preserve">
+    <value>选择NAICS代码</value>
+    <comment>Select NAICS Code</comment>
+  </data>
+  <data name="lblSelectPriority" xml:space="preserve">
+    <value>选择优先级</value>
+    <comment>Select Priority</comment>
+  </data>
+  <data name="lblSelectProductLayer" xml:space="preserve">
+    <value>选择产品层</value>
+    <comment>Select Product Layer</comment>
+  </data>
+  <data name="lblSelectRanking" xml:space="preserve">
+    <value>选择排名</value>
+    <comment>Select Ranking</comment>
+  </data>
+  <data name="lblSelectSecurityQuestion" xml:space="preserve">
+    <value>选择安全问题</value>
+    <comment>Select Security Question</comment>
+  </data>
+  <data name="lblSelectSICCode" xml:space="preserve">
+    <value>选择SIC代码</value>
+    <comment>Select SIC Code</comment>
+  </data>
+  <data name="lblSelectState" xml:space="preserve">
+    <value>选择州</value>
+    <comment>Select State</comment>
+  </data>
+  <data name="lblSelectTag" xml:space="preserve">
+    <value>选择标签</value>
+    <comment>Select Tag</comment>
+  </data>
+  <data name="lblSelectTagsOptional" xml:space="preserve">
+    <value>选择标签（可选）</value>
+    <comment>Select Tags (Optional)</comment>
+  </data>
+  <data name="lblSelectTagtype" xml:space="preserve">
+    <value>选择标签类型</value>
+    <comment>Select Tag type</comment>
+  </data>
+  <data name="lblSelectTechnologies" xml:space="preserve">
+    <value>选择技术</value>
+    <comment>Select Technologies</comment>
+  </data>
+  <data name="lblSelectTechnologiesCategories" xml:space="preserve">
+    <value>选择技术类别</value>
+    <comment>Select Technologies Categories</comment>
+  </data>
+  <data name="lblSelectTicker" xml:space="preserve">
+    <value>选择股票代号</value>
+    <comment>Select Ticker</comment>
+  </data>
+  <data name="lblSelectType" xml:space="preserve">
+    <value>选择类型</value>
+    <comment>Select Type</comment>
+  </data>
+  <data name="lblSimilar" xml:space="preserve">
+    <value>B：类似</value>
+    <comment>B: Similar</comment>
+  </data>
+  <data name="lblSrcRecordId" xml:space="preserve">
+    <value>SrcRecordId</value>
+    <comment>SrcRecordId</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>州</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblTrue" xml:space="preserve">
+    <value>真正</value>
+    <comment>True</comment>
+  </data>
+  <data name="lblTypeAhead" xml:space="preserve">
+    <value>提前输入</value>
+    <comment>Type Ahead</comment>
+  </data>
+  <data name="msgAccountSuspended" xml:space="preserve">
+    <value>您的帐户暂时被暂停。</value>
+    <comment>Your account is temporarily suspended.</comment>
+  </data>
+  <data name="msgAccountSuspendedTemporarily" xml:space="preserve">
+    <value>您的帐户暂时被暂停。请与管理员联系以激活帐户。</value>
+    <comment>Your account is temporarily suspended. Please contact administrator to active account.</comment>
+  </data>
+  <data name="msgAccountTemporarilySuspended" xml:space="preserve">
+    <value>您的帐户暂时被暂停</value>
+    <comment>Your account is temporarily suspended</comment>
+  </data>
+  <data name="msgActiveUsers" xml:space="preserve">
+    <value>活跃用户</value>
+    <comment>Active Users</comment>
+  </data>
+  <data name="msgAddFilter" xml:space="preserve">
+    <value>添加过滤器</value>
+    <comment>Add filter</comment>
+  </data>
+  <data name="msgaddMatchAsCompany" xml:space="preserve">
+    <value>将匹配项添加为新公司</value>
+    <comment>Add match as a new company</comment>
+  </data>
+  <data name="msgAddTag" xml:space="preserve">
+    <value>添加标签（可选）</value>
+    <comment>Add Tags (Optional)</comment>
+  </data>
+  <data name="msgAllowedFormats" xml:space="preserve">
+    <value>仅允许的格式为：jpeg，jpg，png，gif，bmp</value>
+    <comment>Only formats allowed are :jpeg, jpg, png, gif, bmp</comment>
+  </data>
+  <data name="msgAllowedOnlyExcel" xml:space="preserve">
+    <value>仅允许的格式是.xls和.xlsx</value>
+    <comment>Only formats allowed are .xls and .xlsx</comment>
+  </data>
+  <data name="msgAuthError" xml:space="preserve">
+    <value>用户无权作出此项更改。</value>
+    <comment>User is not authorized to make this change.</comment>
+  </data>
+  <data name="msgCommanChechExcelFile" xml:space="preserve">
+    <value>允许的格式仅为：xls、xlsx</value>
+    <comment>Only formats allowed are :xls,xlsx</comment>
+  </data>
+  <data name="msgCommanDeleteMessage" xml:space="preserve">
+    <value>数据已成功删除</value>
+    <comment>Data deleted successfully</comment>
+  </data>
+  <data name="msgCommanEnableFileImport" xml:space="preserve">
+    <value>无法将数据导入数据库。请重试或联系 Matchbook Services 支持中心。</value>
+    <comment>Unable to import the data into the database. Please try again or contact Matchbook Services support.</comment>
+  </data>
+  <data name="msgCommanErrorMessage" xml:space="preserve">
+    <value>发生错误。请重试</value>
+    <comment>Error occurred. Please try again</comment>
+  </data>
+  <data name="msgCommanFileEmpty" xml:space="preserve">
+    <value>文件为空。</value>
+    <comment>File is Empty.</comment>
+  </data>
+  <data name="msgCommanInsertMessage" xml:space="preserve">
+    <value>数据已成功创建</value>
+    <comment>Data created successfully</comment>
+  </data>
+  <data name="msgCommanUpdateMessage" xml:space="preserve">
+    <value>数据已成功更新</value>
+    <comment>Data updated successfully</comment>
+  </data>
+  <data name="msgDataRejected" xml:space="preserve">
+    <value>数据成功拒绝</value>
+    <comment>Data rejected successfully</comment>
+  </data>
+  <data name="msgDeleteSessionFilter" xml:space="preserve">
+    <value>您确定要删除会话过滤器吗？</value>
+    <comment>Are you sure you want to delete session filter?</comment>
+  </data>
+  <data name="msgEnterValidName" xml:space="preserve">
+    <value>请输入有效的文件名。</value>
+    <comment>Please enter valid file name.</comment>
+  </data>
+  <data name="msgErrorOccurred" xml:space="preserve">
+    <value>错误发生。</value>
+    <comment>Error occurred.</comment>
+  </data>
+  <data name="msgExist" xml:space="preserve">
+    <value>存在</value>
+    <comment>Exist</comment>
+  </data>
+  <data name="msgExistsFail" xml:space="preserve">
+    <value>存在失败</value>
+    <comment>ExistsFail</comment>
+  </data>
+  <data name="msgFail" xml:space="preserve">
+    <value>失败</value>
+    <comment>fail</comment>
+  </data>
+  <data name="msgFailer" xml:space="preserve">
+    <value>失败者</value>
+    <comment>Failer</comment>
+  </data>
+  <data name="msgFileNotSpecified" xml:space="preserve">
+    <value>您尚未指定文件。</value>
+    <comment>You have not specified a file.</comment>
+  </data>
+  <data name="msgFiles" xml:space="preserve">
+    <value>您的档案</value>
+    <comment>Your file(s)</comment>
+  </data>
+  <data name="msgFilesReadyToDownload" xml:space="preserve">
+    <value>准备下载。</value>
+    <comment>are ready for the download.</comment>
+  </data>
+  <data name="msgFileUploaded" xml:space="preserve">
+    <value>文件上传成功</value>
+    <comment>File uploaded successfully</comment>
+  </data>
+  <data name="msgInvadilState" xml:space="preserve">
+    <value>请填写正确的信息。</value>
+    <comment>Please fill proper information.</comment>
+  </data>
+  <data name="msgInvalidEmail" xml:space="preserve">
+    <value>电子邮件无效。</value>
+    <comment>Email is not valid.</comment>
+  </data>
+  <data name="msgInvalidFile" xml:space="preserve">
+    <value>请选择合适的文件。</value>
+    <comment>Please select proper file.</comment>
+  </data>
+  <data name="msgInvalidTemplate" xml:space="preserve">
+    <value>所选文件的模板无效。</value>
+    <comment>Invalid template for the selected file.</comment>
+  </data>
+  <data name="msgInvalidUnicodeFormat" xml:space="preserve">
+    <value>Unicode格式对于带有模板的所选文件无效。</value>
+    <comment>Unicode format is not valid for selected file with template.</comment>
+  </data>
+  <data name="msgInvalidUser" xml:space="preserve">
+    <value>无效的用户。</value>
+    <comment>Invalid user.</comment>
+  </data>
+  <data name="msgInvalidUsernamePassword" xml:space="preserve">
+    <value>用户名或密码无效。</value>
+    <comment>Invalid username or password.</comment>
+  </data>
+  <data name="msgInvestigateRecord" xml:space="preserve">
+    <value>调查记录</value>
+    <comment>Investigate Record</comment>
+  </data>
+  <data name="msgMultipleInvestigationSubmit" xml:space="preserve">
+    <value>您的请求正在排队，需要一段时间才能提交所有选定的调查。请在几分钟内查看调查报告中所有请求的状态。</value>
+    <comment>Your requests are in queue, it will take a while to submit all selected Investigation. Please check Investigation reports for status of all requests in few minutes.</comment>
+  </data>
+  <data name="msgNext" xml:space="preserve">
+    <value>下一个</value>
+    <comment>Next</comment>
+  </data>
+  <data name="msgNoDataAvailable" xml:space="preserve">
+    <value>无可用数据。</value>
+    <comment>No data available.</comment>
+  </data>
+  <data name="msgNoDataInSystem" xml:space="preserve">
+    <value>系统中没有可用于文件的数据。</value>
+    <comment>There is no data available in system for file.</comment>
+  </data>
+  <data name="msgNoDefaultKeyForBuildList" xml:space="preserve">
+    <value>没有用于构建列表的默认键集。</value>
+    <comment>There is no default key set for build a list.</comment>
+  </data>
+  <data name="msgNoDefaultKeyForSearch" xml:space="preserve">
+    <value>没有用于单一实体搜索的默认键集。</value>
+    <comment>There is no default key set for single entity search.</comment>
+  </data>
+  <data name="msgNoRecords" xml:space="preserve">
+    <value>共有0条记录受到影响，您确定要继续吗？</value>
+    <comment>Total 0 records are affected, are you sure you want to continue ?</comment>
+  </data>
+  <data name="msgNoResultsMatch" xml:space="preserve">
+    <value>没有结果匹配</value>
+    <comment>No results match</comment>
+  </data>
+  <data name="msgNotExist" xml:space="preserve">
+    <value>不存在</value>
+    <comment>NotExist</comment>
+  </data>
+  <data name="msgNothingFound" xml:space="preserve">
+    <value>糟糕，未找到任何内容！</value>
+    <comment>Oops, nothing found!</comment>
+  </data>
+  <data name="msgNothingToMove" xml:space="preserve">
+    <value>什么也没动。</value>
+    <comment>Nothing to move.</comment>
+  </data>
+  <data name="msgNotificationDismissed" xml:space="preserve">
+    <value>通知成功关闭。</value>
+    <comment>Notification Dismiss successfully.</comment>
+  </data>
+  <data name="msgPageSize" xml:space="preserve">
+    <value>页面大小</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="msgPasswordReset" xml:space="preserve">
+    <value>密码重置成功。</value>
+    <comment>Password Reset Successfully.</comment>
+  </data>
+  <data name="msgPrevious" xml:space="preserve">
+    <value>以前</value>
+    <comment>Previous</comment>
+  </data>
+  <data name="msgPurgeRecord" xml:space="preserve">
+    <value>清除记录</value>
+    <comment>Purge Record</comment>
+  </data>
+  <data name="msgRecordsAffected" xml:space="preserve">
+    <value>记录受到影响，您确定要继续吗？</value>
+    <comment>records are affected, are you sure you want to continue ?</comment>
+  </data>
+  <data name="msgReMatchRecord" xml:space="preserve">
+    <value>重赛记录</value>
+    <comment>Re-Match Record</comment>
+  </data>
+  <data name="msgRequestSubmitted" xml:space="preserve">
+    <value>请求已成功提交。</value>
+    <comment>Requests submitted successfully.</comment>
+  </data>
+  <data name="msgRequiredEmail" xml:space="preserve">
+    <value>请输入电子邮件地址并设置有效密码。
+Qǐng shūrù diànzǐ yóujiàn dì</value>
+    <comment>Please enter email address and set valid password.</comment>
+  </data>
+  <data name="msgRequiredFileName" xml:space="preserve">
+    <value>请输入文件名。</value>
+    <comment>Please enter file name.</comment>
+  </data>
+  <data name="msgResetSuccessfully" xml:space="preserve">
+    <value>成功恢复</value>
+    <comment>Resert successfully</comment>
+  </data>
+  <data name="msgResponseErroeMessage" xml:space="preserve">
+    <value>发生错误。请联系 Matchbook Services 支持中心或创建咨询台工单。</value>
+    <comment>Error Occurred. Please contact matchbookservices or create helpdesk ticket.</comment>
+  </data>
+  <data name="msgSetDefaultCredentialForMonitoring" xml:space="preserve">
+    <value>未设置默认凭据进行监视</value>
+    <comment>Default Credential not set for monitoring</comment>
+  </data>
+  <data name="msgSomethingWentWrong" xml:space="preserve">
+    <value>出了些问题！发生了错误。</value>
+    <comment>Something went wrong! Error Occured.</comment>
+  </data>
+  <data name="msgSomethingWrong" xml:space="preserve">
+    <value>有问题！请稍后再试。</value>
+    <comment>Something wrong! Please try again later.</comment>
+  </data>
+  <data name="msgSuccess" xml:space="preserve">
+    <value>成功</value>
+    <comment>Success</comment>
+  </data>
+  <data name="msgSureWantToContinue" xml:space="preserve">
+    <value>你确定你要继续吗 ？</value>
+    <comment>are you sure you want to continue ?</comment>
+  </data>
+  <data name="msgTemplateSaved" xml:space="preserve">
+    <value>模板保存成功。</value>
+    <comment>Template saved successfully.</comment>
+  </data>
+  <data name="msgTemplateUpdated" xml:space="preserve">
+    <value>模板更新成功。</value>
+    <comment>Template updated successfully.</comment>
+  </data>
+  <data name="msgTotal" xml:space="preserve">
+    <value>总</value>
+    <comment>Total</comment>
+  </data>
+  <data name="msgUpdateLicance" xml:space="preserve">
+    <value>许可证已更新。请注意，用户需要注销并重新登录到应用程序，然后方可应用这些变更</value>
+    <comment>License updated. Please note that users will need to log out and log back into the application before these changes can be applied</comment>
+  </data>
+  <data name="msgUserAlreadyLoggedIn" xml:space="preserve">
+    <value>用户已经在另一个浏览器上登录。</value>
+    <comment>User is already logged in at another browser.</comment>
+  </data>
+  <data name="msgUserAlreadyLoggedInAnotherLocation" xml:space="preserve">
+    <value>用户已经在其他位置登录。</value>
+    <comment>User is already logged in at another location.</comment>
+  </data>
+  <data name="msgValidCharacters" xml:space="preserve">
+    <value>请仅输入字母数字，连字符或下划线</value>
+    <comment>Please enter only alphanumeric,hyphen or underscore</comment>
+  </data>
+  <data name="msgWantToContiune" xml:space="preserve">
+    <value>， 你确定你要继续吗 ？</value>
+    <comment>, are you sure you want to continue ?</comment>
+  </data>
+  <data name="msgWrongFormat" xml:space="preserve">
+    <value>错误格式</value>
+    <comment>wrongFormat</comment>
+  </data>
+  <data name="msgZeroDeleted" xml:space="preserve">
+    <value>总数0将被删除，您确定要继续吗？</value>
+    <comment>Total 0 will be deleted, are you sure you want to continue ?</comment>
+  </data>
+</root>

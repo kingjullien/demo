@@ -1,0 +1,856 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model SBISCCMWeb.Models.PreviewMatchData.Main.DunsInfo
+
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.Matchbook) + " | MatchBookData";
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.DandB) + " | MatchBookData";
+    }
+    Layout = null;
+}
+<style>
+    .paddingRightLeftNone {
+        padding: 5px 0 !important;
+    }
+
+    .padding-5 {
+        padding: 5px;
+    }
+
+    .padding-bottom-5 {
+        padding-bottom: 5px;
+    }
+    .preview-matchtab .nav-tabs .nav-link {
+        color: #fff !important;
+        font-size: 13px
+    }
+</style>
+<div class="modal" id="PreviewMatchViewDetailsModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">
+                    @if (Model.lstCurrentPrincipals.Count == 0 && Model.lstIndustryCodes.Count == 0 && Model.lstRegistrationNumbers.Count == 0 && Model.lstStockExchanges.Count == 0)
+                    {
+                        <span>@PreviewMatchedDataLang.hdrPreviewEnrichmentData</span>
+                    }
+                    else
+                    {
+                        <span>@Model.Base.DnBDUNSNumber  - @Model.Base.primaryName</span>
+                    }
+                </h4>
+            </div>
+            <div class="modal-body">
+                @if (Model.lstCurrentPrincipals.Count == 0 && Model.lstIndustryCodes.Count == 0 && Model.lstRegistrationNumbers.Count == 0 && Model.lstStockExchanges.Count == 0)
+                {
+                    <div class="">
+                        <span>@PreviewMatchedDataLang.lblNoData</span>
+                    </div>
+                }
+                else
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="paddingLeft-15">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5">
+                                        <strong> @PreviewMatchedDataLang.lblBusinessEntity : </strong>
+                                    </div>
+                                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5">
+                                        @Model.Base.businessEntityTypeDescription
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5">
+                                        <strong>@PreviewMatchedDataLang.lblOperating : </strong>
+                                    </div>
+                                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5">
+                                        @Model.Base.operatingStatus
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5">
+                                        <strong>@PreviewMatchedDataLang.lblPrimaryAddress : </strong>
+                                    </div>
+                                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5">
+                                        @{
+                                            string MainPrimaryAddress = string.Empty;
+                                            MainPrimaryAddress = CommonMethod.DisplayFormattedAddress(Model.Base.primaryAddressStreetLine1, Model.Base.primaryAddressCity, Model.Base.primaryAddressState, Model.Base.primaryAddressPostalCode, Model.Base.primaryAddressCountryIsoAlpha2Code);
+                                        }
+                                        @MainPrimaryAddress
+                                        @if (!string.IsNullOrEmpty(MainPrimaryAddress))
+                                        {
+                                            <a onclick="window.open('http://maps.google.com/?q=@MainPrimaryAddress')" href="javascript:void(false)">
+                                                <i class="fa fa-map-marker fa-lg"></i>
+                                            </a>
+                                        }
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5">
+                                        <strong>@PreviewMatchedDataLang.lblStandalone : </strong>
+                                    </div>
+                                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5">
+                                        @Model.Base.isStandalone
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                        <strong>@PreviewMatchedDataLang.lblFamilyTreeRolesPlayed : </strong>
+                                    </div>
+                                    <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+                                        <span>@Model.Base.corporateLinkageFamilytreeRolesPlayedDescription1</span>
+                                        <span>@(string.IsNullOrEmpty(Model.Base.corporateLinkageFamilytreeRolesPlayedDescription2) ? "" : " , " + Model.Base.corporateLinkageFamilytreeRolesPlayedDescription2) </span>
+                                        <span>@(string.IsNullOrEmpty(Model.Base.corporateLinkageFamilytreeRolesPlayedDescription3) ? "" : " , " + Model.Base.corporateLinkageFamilytreeRolesPlayedDescription3) </span>
+                                    </div>
+                                </div>
+                                @{
+                                    string GlobalUltimateAdd = (string.IsNullOrEmpty(Model.Base.corporateLinkageGlobalUltimateStreetAddressLine1) ? "" : Model.Base.corporateLinkageGlobalUltimateStreetAddressLine1) +
+                                                                                (string.IsNullOrEmpty(Model.Base.corporateLinkageGlobalUltimateCity) ? "" : " , " + Model.Base.corporateLinkageGlobalUltimateCity) +
+                                                                                (string.IsNullOrEmpty(Model.Base.corporateLinkageGlobalUltimateState) ? "" : " , " + Model.Base.corporateLinkageGlobalUltimateState) +
+                                                                                (string.IsNullOrEmpty(Model.Base.corporateLinkageGlobalUltimatePostalCode) ? "" : " , " + Model.Base.corporateLinkageGlobalUltimatePostalCode) +
+                                                                                (string.IsNullOrEmpty(Model.Base.corporateLinkageGlobalUltimateCountryIsoAlpha2Code) ? "" : " , " + Model.Base.corporateLinkageGlobalUltimateCountryIsoAlpha2Code);
+
+                                    string DomesticUltimateAdd = (string.IsNullOrEmpty(Model.Base.corporateLinkageDomesticUltimateStreetAddressLine1) ? "" : Model.Base.corporateLinkageDomesticUltimateStreetAddressLine1) +
+                                                                                 (string.IsNullOrEmpty(Model.Base.corporateLinkageDomesticUltimateCity) ? "" : " , " + Model.Base.corporateLinkageDomesticUltimateCity) +
+                                                                                 (string.IsNullOrEmpty(Model.Base.corporateLinkageDomesticUltimateState) ? "" : " , " + Model.Base.corporateLinkageDomesticUltimateState) +
+                                                                                 (string.IsNullOrEmpty(Model.Base.corporateLinkageDomesticUltimatePostalCode) ? "" : " , " + Model.Base.corporateLinkageDomesticUltimatePostalCode) +
+                                                                                 (string.IsNullOrEmpty(Model.Base.corporateLinkageDomesticUltimateIsoAlpha2Code) ? "" : " , " + Model.Base.corporateLinkageDomesticUltimateIsoAlpha2Code);
+
+                                    string ParentAdd = (string.IsNullOrEmpty(Model.Base.corporateLinkageParentStreetAddressLine1) ? "" : Model.Base.corporateLinkageParentStreetAddressLine1) +
+                                                                                (string.IsNullOrEmpty(Model.Base.corporateLinkageParentCity) ? "" : " , " + Model.Base.corporateLinkageParentCity) +
+                                                                                (string.IsNullOrEmpty(Model.Base.corporateLinkageParentState) ? "" : " , " + Model.Base.corporateLinkageParentState) +
+                                                                                (string.IsNullOrEmpty(Model.Base.corporateLinkageParentPostalCode) ? "" : " , " + Model.Base.corporateLinkageParentPostalCode) +
+                                                                                (string.IsNullOrEmpty(Model.Base.corporateLinkageParentIsoAlpha2Code) ? "" : " , " + Model.Base.corporateLinkageParentIsoAlpha2Code);
+                                }
+
+
+                                @if (Model.Base.corporateLinkageGlobalUltimateDuns == Model.Base.corporateLinkageDomesticUltimateDuns && Model.Base.corporateLinkageGlobalUltimateDuns == Model.Base.corporateLinkageParentDuns)
+                                {
+                                    if (!string.IsNullOrEmpty(GlobalUltimateAdd))
+                                    {
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                <strong>@PreviewMatchedDataLang.lblGlobalUltimate /<br /> @PreviewMatchedDataLang.lblDomesticUltimate /<br /> @PreviewMatchedDataLang.lblParent: </strong>
+                                            </div>
+                                            <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                <span>@Model.Base.corporateLinkageGlobalUltimateDuns @Model.Base.corporateLinkageGlobalUltimatePrimaryName</span>
+                                                <br />
+                                                <span>@GlobalUltimateAdd</span>
+                                            </div>
+                                        </div>
+                                    }
+
+                                }
+                                else if (Model.Base.corporateLinkageGlobalUltimateDuns == Model.Base.corporateLinkageDomesticUltimateDuns)
+                                {
+                                    if (!string.IsNullOrEmpty(GlobalUltimateAdd))
+                                    {
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                <strong>@PreviewMatchedDataLang.lblGlobalUltimate / <br />@PreviewMatchedDataLang.lblDomesticUltimate : </strong>
+                                            </div>
+                                            <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                <span>@Model.Base.corporateLinkageGlobalUltimateDuns @Model.Base.corporateLinkageGlobalUltimatePrimaryName</span><br />
+                                                <span>@GlobalUltimateAdd</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    if (!string.IsNullOrEmpty(ParentAdd))
+                                    {
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                <strong>@PreviewMatchedDataLang.lblParent : </strong>
+                                            </div>
+                                            <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+
+                                                <span>@Model.Base.corporateLinkageParentDuns @Model.Base.corporateLinkageParentName</span>
+                                                <br />
+                                                <span>@ParentAdd</span>
+                                            </div>
+                                        </div>
+                                    }
+
+                                }
+                                else if (Model.Base.corporateLinkageGlobalUltimateDuns == Model.Base.corporateLinkageParentDuns)
+                                {
+                                    if (!string.IsNullOrEmpty(GlobalUltimateAdd))
+                                    {
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                <strong>@PreviewMatchedDataLang.lblGlobalUltimate /<br /> @PreviewMatchedDataLang.lblParent : </strong>
+                                            </div>
+                                            <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+
+                                                <span>@Model.Base.corporateLinkageGlobalUltimateDuns @Model.Base.corporateLinkageGlobalUltimatePrimaryName</span>
+                                                <br />
+                                                <span>@GlobalUltimateAdd</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    if (!string.IsNullOrEmpty(DomesticUltimateAdd))
+                                    {
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                <strong>@PreviewMatchedDataLang.lblDomesticUltimate :  </strong>
+                                            </div>
+                                            <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+
+                                                <span>@Model.Base.corporateLinkageDomesticUltimateDuns @Model.Base.corporateLinkageDomesticUltimatePrimaryName</span>
+                                                <br />
+                                                <span>@DomesticUltimateAdd</span>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else if (Model.Base.corporateLinkageDomesticUltimateDuns == Model.Base.corporateLinkageParentDuns)
+                                {
+                                    if (!string.IsNullOrEmpty(GlobalUltimateAdd))
+                                    {
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                <strong>@PreviewMatchedDataLang.lblGlobalUltimate : </strong>
+                                            </div>
+                                            <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+
+                                                <span>@Model.Base.corporateLinkageGlobalUltimateDuns @Model.Base.corporateLinkageGlobalUltimatePrimaryName</span>
+                                                <br />
+                                                <span>@GlobalUltimateAdd</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    if (!string.IsNullOrEmpty(DomesticUltimateAdd))
+                                    {
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                <strong>@PreviewMatchedDataLang.lblDomesticUltimate /<br /> @PreviewMatchedDataLang.lblParent :  </strong>
+                                            </div>
+                                            <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+
+                                                <span>@Model.Base.corporateLinkageDomesticUltimateDuns @Model.Base.corporateLinkageDomesticUltimatePrimaryName</span>
+                                                <br />
+                                                <span>@DomesticUltimateAdd</span>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                                else
+                                {
+                                    if (!string.IsNullOrEmpty(GlobalUltimateAdd))
+                                    {
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                <strong>@PreviewMatchedDataLang.lblGlobalUltimate : </strong>
+                                            </div>
+                                            <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+
+                                                <span>@Model.Base.corporateLinkageGlobalUltimateDuns @Model.Base.corporateLinkageGlobalUltimatePrimaryName</span>
+                                                <br />
+                                                <span>@GlobalUltimateAdd</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    if (!string.IsNullOrEmpty(DomesticUltimateAdd))
+                                    {
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                <strong>@PreviewMatchedDataLang.lblDomesticUltimate : </strong>
+                                            </div>
+                                            <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                <span>@Model.Base.corporateLinkageDomesticUltimateDuns @Model.Base.corporateLinkageDomesticUltimatePrimaryName</span>
+                                                <br />
+                                                <span>@DomesticUltimateAdd</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    if (!string.IsNullOrEmpty(ParentAdd))
+                                    {
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                <strong>@PreviewMatchedDataLang.lblParent : </strong>
+                                            </div>
+                                            <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                <span>@Model.Base.corporateLinkageParentDuns @Model.Base.corporateLinkageParentName</span><br />
+                                                <span>@ParentAdd</span>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="widget-body preview-matchtab">
+                        <ul class="nav nav-tabs bordered" id="myTab1">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#Base" id="ParentBase" aria-expanded="true">@PreviewMatchedDataLang.lblBase</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#CompanyClassification" id="ParentCompanyClassification" aria-expanded="false">@PreviewMatchedDataLang.lblCompanyClassification</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#RegistrationNumbers" id="ParentRegistrationNumbers" aria-expanded="false">@PreviewMatchedDataLang.lblRegistrationNumbers</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#SeniorManagement" id="ParentSeniorManagement" aria-expanded="false">@PreviewMatchedDataLang.lblSeniorManagement</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#StockExchanges" id="ParentStockExchanges" aria-expanded="false">@PreviewMatchedDataLang.lblStockDetail</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content position-relative righttabportalPreviewData PortalTabMenu" id="">
+                            <div id="Base" class="tab-pane padding-10 active in">
+                                <article class="sortable-grid ui-sortable keyword">
+                                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                                        <header role="heading">
+                                            <h2>
+                                                <strong>@PreviewMatchedDataLang.hdrKEYINFORMATION</strong>
+                                            </h2>
+                                        </header>
+                                        <div class="col-xs-12">
+                                            <div class="col-xs-6">
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblStartDate : </strong>
+                                                    @if (!string.IsNullOrEmpty(Model.Base.startDate))
+                                                    {
+                                                        <span>
+                                                            @Model.Base.startDate.Split('-').First() (Since @(Convert.ToInt32(DateTime.Now.Year) - Convert.ToInt32(Model.Base.startDate.Split('-').First())) years)
+                                                        </span>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <i class="fa fa-internet-explorer"></i> @Model.Base.websiteAddressUrl0
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <i class="fa fa-phone"></i> @Model.Base.telephoneNumber
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblAgent : </strong>
+                                                    @if (Model.Base.isAgent)
+                                                    {
+                                                        <text>Yes</text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>No</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblMarketable : </strong>
+                                                    @if (Model.Base.isMarketable)
+                                                    {
+                                                        <text>True</text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>False</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblExporter : </strong>
+                                                    @if (Model.Base.isExporter)
+                                                    {
+                                                        <text>True</text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>False</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblImporter : </strong>
+                                                    @if (Model.Base.isImporter)
+                                                    {
+                                                        <text>True</text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>False</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblUSTaxID : </strong>
+                                                    @Model.Base.UsTaxId
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblSrPrincipal : </strong>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.mostSeniorPrincipalFullName))
+                                                    {
+                                                        @Model.Base.mostSeniorPrincipalFullName
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription0))
+                                                    {
+                                                        @Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription0
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblSrPrincipalResponsibilities : </strong>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription0))
+                                                    {
+                                                        <text> @Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription0</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription1))
+                                                    {
+                                                        <text> @Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription1</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription2))
+                                                    {
+                                                        <text> @Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription2</text>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblTradeStyleName : </strong>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.tradeStyleName0))
+                                                    {
+                                                        <text> @Model.Base.tradeStyleName0 </text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.tradeStyleName1))
+                                                    {
+                                                        <text> @Model.Base.tradeStyleName1</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.tradeStyleName2))
+                                                    {
+                                                        <text> @Model.Base.tradeStyleName2</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.tradeStyleName3))
+                                                    {
+                                                        <text> @Model.Base.tradeStyleName3</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.tradeStyleName4))
+                                                    {
+                                                        <text> @Model.Base.tradeStyleName4</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblConsolidateEmployeeCount : </strong>
+                                                    @Model.Base.ConsolidatedNumberOfEmployees
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.ConsolidatedReliabilityDescription))
+                                                    {
+                                                        <text>(</text>@Model.Base.ConsolidatedReliabilityDescription<text>)</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblIndividualEmployeeCount : </strong>
+                                                    @Model.Base.IndividualNumberOfEmployees
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.IndividualReliabilityDescription))
+                                                    {
+                                                        <text>(</text>@Model.Base.IndividualReliabilityDescription<text>)</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblRevenue : </strong>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.financialsYearlyRevenueCurrency1))
+                                                    {
+                                                        <text>@Model.Base.financialsYearlyRevenueCurrency1</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.financialsYearlyRevenueValue1))
+                                                    {
+                                                        <text>@Model.Base.financialsYearlyRevenueValue1</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.financialsReliabilityDescription))
+                                                    {
+                                                        <text>@Model.Base.financialsReliabilityDescription</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.financialsUnitCode))
+                                                    {
+                                                        <text>(</text>@Model.Base.financialsUnitCode<text>)</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblMailUndeliverable : </strong>
+                                                    @Model.Base.isMailUndeliverable
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        @PreviewMatchedDataLang.lblFax :
+                                                    </strong>
+                                                    @Model.Base.faxNumber
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        @PreviewMatchedDataLang.lblDelisted :
+                                                    </strong>
+                                                    @Model.Base.isDelisted
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblControlOwnershipDate : </strong>
+                                                    @Model.Base.controlOwnershipDate
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblPrimaryStock : </strong>
+                                                    @Model.Base.primaryStockSymbol
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="sortable-grid ui-sortable keyword">
+                                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                                        <header role="heading">
+                                            <h2>
+                                                <strong>@PreviewMatchedDataLang.lblCLASSIFICATION</strong>
+                                            </h2>
+                                        </header>
+                                        <div class="col-xs-12">
+                                            <div class="col-xs-6">
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        @PreviewMatchedDataLang.lblPrimarySIC :
+                                                    </strong>
+                                                    @Model.Base.PrimarySic
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.PrimarySic))
+                                                    {
+                                                        <text>-</text> @Model.Base.PrimarySicDesc
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        @PreviewMatchedDataLang.lblPrimaryNAICS :
+                                                    </strong>
+                                                    @Model.Base.PrimaryNaics
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.PrimaryNaicsDesc))
+                                                    {
+                                                        <text>-</text> @Model.Base.PrimaryNaicsDesc
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        @PreviewMatchedDataLang.lblPrimarySIC8 :
+                                                    </strong>
+                                                    @Model.Base.PrimarySic8
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.PrimarySic8Desc))
+                                                    {
+                                                        <text>-</text> @Model.Base.PrimarySic8Desc
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 padding-bottom-5">
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        @PreviewMatchedDataLang.lblSecondarySIC :
+                                                    </strong>
+                                                    @Model.Base.SecondSic
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.SecondSicDesc))
+                                                    {
+                                                        <text>-</text> @Model.Base.SecondSicDesc
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        @PreviewMatchedDataLang.lblSecondaryNAICS :
+                                                    </strong>
+                                                    @Model.Base.SecondNaics
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.SecondNaicsDesc))
+                                                    {
+                                                        <text>-</text> @Model.Base.SecondNaicsDesc
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        @PreviewMatchedDataLang.lblSecondarySIC8 :
+                                                    </strong>
+                                                    @Model.Base.SecondSic8
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.SecondSic8Desc))
+                                                    {
+                                                        <text>-</text> @Model.Base.SecondSic8Desc
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="sortable-grid ui-sortable keyword">
+                                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                                        <header role="heading">
+                                            <h2>
+                                                <strong>@PreviewMatchedDataLang.hdrLOCATION</strong>
+                                            </h2>
+                                        </header>
+                                        <div class="">
+                                            <div class="col-xs-6">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-5">
+                                                        <strong>
+                                                            @PreviewMatchedDataLang.lblPrimaryAddress :
+                                                        </strong>
+                                                        @{
+                                                            string PrimaryAddress = string.Empty;
+                                                            PrimaryAddress = CommonMethod.DisplayFormattedAddress(Model.Base.primaryAddressStreetLine1, Model.Base.primaryAddressCity, Model.Base.primaryAddressState, Model.Base.primaryAddressPostalCode, Model.Base.primaryAddressCountryIsoAlpha2Code);
+                                                        }
+                                                        @PrimaryAddress
+                                                        @if (!string.IsNullOrEmpty(PrimaryAddress))
+                                                        {
+                                                            <a onclick="window.open('http://maps.google.com/?q=@PrimaryAddress')" href="javascript:void(false)">
+                                                                <i class="fa fa-map-marker fa-lg"></i>
+                                                            </a>
+                                                        }
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-5">
+                                                        <strong>@PreviewMatchedDataLang.lblPremisesAreaMeasurement : </strong>
+
+                                                        @if (!string.IsNullOrEmpty(Model.Base.primaryAddressPremisesAreaMeasurement))
+                                                        {
+                                                            @Model.Base.primaryAddressPremisesAreaMeasurement
+                                                        }
+                                                        @if (!string.IsNullOrEmpty(Model.Base.primaryAddressPremisesAreaUnitDescription))
+                                                        {
+                                                            <text>,</text> @Model.Base.primaryAddressPremisesAreaUnitDescription
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 padding-5">
+                                                        <strong>@PreviewMatchedDataLang.lblLat :</strong>
+                                                        @if (!string.IsNullOrEmpty(Model.Base.primaryAddressLatitude))
+                                                        {
+                                                            @Model.Base.primaryAddressLatitude <text>,</text>
+                                                        }
+                                                        <strong>&nbsp; @PreviewMatchedDataLang.lblLong : </strong>
+
+                                                        @if (!string.IsNullOrEmpty(Model.Base.primaryAddressLongitude))
+                                                        {
+                                                            @Model.Base.primaryAddressLongitude
+                                                        }
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-5">
+                                                        <strong>@PreviewMatchedDataLang.lblAreaPopulationRank : </strong>
+                                                        @if (!string.IsNullOrEmpty(Model.Base.primaryAddressStatisticalAreaPopulationRank))
+                                                        {
+                                                            @Model.Base.primaryAddressLongitude
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        @PreviewMatchedDataLang.lblRegisteredAddress :
+                                                    </strong>
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    @{
+                                                        string RegisteredAddress = string.Empty;
+                                                        RegisteredAddress = CommonMethod.DisplayFormattedAddress(Model.Base.registeredAddressStreetLine1, Model.Base.registeredAddressCity, Model.Base.registeredAddressState, Model.Base.registeredAddressPostalCode, Model.Base.registeredAddressCountry);
+                                                    }
+                                                    @RegisteredAddress
+                                                    @if (!string.IsNullOrEmpty(RegisteredAddress))
+                                                    {<a onclick="window.open('http://maps.google.com/?q=@RegisteredAddress')" href="javascript:void(false)">
+                                                            <i class="fa fa-map-marker fa-lg"></i>
+                                                        </a>}
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>@PreviewMatchedDataLang.lblMailingAddress : </strong>
+                                                    @{
+                                                        string MailingAddress = string.Empty;
+                                                        MailingAddress = CommonMethod.DisplayFormattedAddress(Model.Base.mailingAddressStreetAddressLine1, Model.Base.mailingAddressCity, Model.Base.mailingAddressState, Model.Base.mailingAddressPostalCode, Model.Base.mailingAddressCountryIsoAlpha2Code);
+                                                    }
+                                                    @MailingAddress
+                                                    @if (!string.IsNullOrEmpty(MailingAddress))
+                                                    {<a onclick="window.open('http://maps.google.com/?q=@MailingAddress')" href="javascript:void(false)">
+                                                            <i class="fa fa-map-marker fa-lg"></i>
+                                                        </a>}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </article>
+
+                            </div>
+                            <div id="CompanyClassification" class="tab-pane padding-10">
+                                <div class="table-responsive wrap">
+                                    <table id="accordion" class="table table-bordered panel-group customTable" role="grid">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    @PreviewMatchedDataLang.lblClassificationType
+                                                </th>
+                                                <th>
+                                                    @PreviewMatchedDataLang.lblIndustryClassificationCode
+                                                </th>
+                                                <th>
+                                                    @PreviewMatchedDataLang.lblIndustryclassification
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.lstIndustryCodes.Count > 0)
+                                            {
+                                                foreach (var item in Model.lstIndustryCodes)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @item.typeDescription
+                                                        </td>
+                                                        <td>
+                                                            @item.typeCode
+                                                        </td>
+                                                        <td>
+                                                            @item.industryDescription
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="3">@PreviewMatchedDataLang.lblNodataavailable</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="RegistrationNumbers" class="tab-pane padding-10">
+                                <div class="table-responsive wrap">
+                                    <table id="tblRegistration" class="table table-bordered panel-group customTable" role="grid">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    @PreviewMatchedDataLang.lblRegistrationNumberType
+                                                </th>
+                                                <th>
+                                                    @PreviewMatchedDataLang.lblRegistrationNumber
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.lstRegistrationNumbers.Count > 0)
+                                            {
+                                                foreach (var item in Model.lstRegistrationNumbers)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @item.registrationNumbersTypeDescription
+                                                        </td>
+                                                        <td>
+                                                            @item.registrationNumber
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="2">
+                                                        @PreviewMatchedDataLang.lblNodataavailable
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div id="SeniorManagement" class="tab-pane padding-10">
+                                <div class="table-responsive wrap">
+                                    <table id="tblSeniorManagement" class="table table-bordered panel-group customTable" role="grid">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    @PreviewMatchedDataLang.lblName
+                                                </th>
+                                                <th>
+                                                    @PreviewMatchedDataLang.lblJobTitle
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.lstCurrentPrincipals.Count > 0)
+                                            {
+                                                foreach (var item in Model.lstCurrentPrincipals)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @item.fullName
+                                                        </td>
+                                                        <td>
+                                                            @item.jobTitle
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="2">
+                                                        @PreviewMatchedDataLang.lblNodataavailable
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div id="StockExchanges" class="tab-pane padding-10">
+                                <div class="table-responsive wrap">
+                                    <table id="tblStockExchange" class="table table-bordered panel-group customTable" role="grid">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    @PreviewMatchedDataLang.lblStockSymbol
+                                                </th>
+                                                <th>
+                                                    @PreviewMatchedDataLang.lblDescription
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.lstStockExchanges.Count > 0)
+                                            {
+                                                foreach (var item in Model.lstStockExchanges)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @item.tickerName
+                                                        </td>
+                                                        <td>
+                                                            @item.description
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="2">
+                                                        @PreviewMatchedDataLang.lblNodataavailable
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

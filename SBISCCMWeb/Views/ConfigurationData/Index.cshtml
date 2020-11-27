@@ -1,0 +1,59 @@
+﻿@model SBISCCMWeb.Models.UsersModel
+
+@{
+
+    ViewBag.Title = "Matchbook | Configuration Data";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialConfigurationData",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST"
+    };
+}
+
+@using (Ajax.BeginForm("Index", "ConfigurationData", null, ajaxOptions, new { id = "form_ConfigurationData" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div id="content" style="opacity: 1;">
+        <section id="widget-grid" class="">
+            <div class="row">
+                <div id="divPartialConfigurationData">
+                    @{Html.RenderPartial("_Index", Model);}
+                </div>
+            </div>
+        </section>
+    </div>
+                        if (!string.IsNullOrEmpty(Convert.ToString(TempData["DeleteMessage"])))
+                        {
+                            <script type="text/javascript">
+                                bootbox.alert({
+                                    title: "<i class='fa fa-info-circle' aria-hidden='true'></i> Message",
+                                    message: '@TempData["DeleteMessage"]'
+                                });
+                            </script>
+                            TempData["DeleteMessage"] = null;
+                        }
+                        if (!string.IsNullOrEmpty(Convert.ToString(TempData["ActivateUser"])))
+                        {
+                            <script type="text/javascript">
+                                bootbox.alert({
+                                    title: "<i class='fa fa-info-circle' aria-hidden='true'></i> Message",
+                                    message: '@TempData["ActivateUser"]'
+                                });
+                            </script>
+                                TempData["ActivateUser"] = null;
+                            }
+                        }
+<div class="loaderMain" id="divProgress">
+    <div class="loaderDiv">
+        <p class="loaderTxt">Please wait while processing...</p>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Scripts/CustomJS-minified/ConfigurationData.js"></script>
+}

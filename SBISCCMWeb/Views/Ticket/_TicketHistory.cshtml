@@ -1,0 +1,42 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.LanguageResources;
+@model List<TicketHistory>
+<div>
+    <div>
+        @if (Model != null && Model.Any() && (Model.Where(x => x.itemModification.Count > 0).Any() || Model.Where(x => !string.IsNullOrEmpty(x.Note)).Any()))
+        {
+            <h2 style="font-weight:normal">@TicketLang.hdrTicketHistory</h2>
+            <div class="ticket-well">
+                @foreach (var itemHistory in Model.OrderByDescending(x => x.ModificationDate))
+                {
+                    if (itemHistory.itemModification.Any() || !string.IsNullOrEmpty(itemHistory.Note))
+                    {
+                        <div class="ticket-main">
+                            <div class="ticketbox"><span>by</span> <h4>@itemHistory.ChangedByName</h4> <div class="ticket-date">@itemHistory.ModificationDate.ToShortDateString()</div></div>
+                            <div>
+                                @foreach (var item in itemHistory.itemModification)
+                                {
+                                    if (string.IsNullOrEmpty(item.OldValue))
+                                    {
+                                        <div><b>@item.FieldName</b> : <b>@item.NewValue</b></div>
+                                    }
+                                    else
+                                    {
+                                        <div><b>@item.FieldName</b><span> @TicketLang.lblchangedfrom </span><b>@item.OldValue</b><span> @TicketLang.lblto </span><b>@item.NewValue</b></div>
+                                    }
+                                }
+                                @if (!string.IsNullOrEmpty(itemHistory.Note))
+                                {
+                                    <div class="notebox">
+                                        @itemHistory.Note
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <br />
+                    }
+                }
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,30 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@{
+    ViewBag.Title = AccountLang.titleActivateAccount;
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    bool Valid = Convert.ToBoolean(ViewBag.IsValid);
+    string EmailAddress = Convert.ToString(ViewBag.EmailAddress);
+}
+
+<div class="title">
+    <h1>@ViewBag.Title.</h1>
+</div>
+@if (Valid)
+{
+    <div>
+        <p>
+            @AccountLang.lblYouraccounthasbeenunlockedPlease @Html.ActionLink(AccountLang.lblClickToLogIn, AccountLang.lblLogin, "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+        </p>
+    </div>
+}
+else
+{
+    <div>
+        <p>
+            @AccountLang.lblYourlinkisexpiredPlease @Html.ActionLink(AccountLang.lblResendLink, AccountLang.lblSendSecurityLockMail, "Account", new { EmailAddress = @Utility.GetEncryptedString(EmailAddress) },null)
+        </p>
+    </div>
+
+}
+

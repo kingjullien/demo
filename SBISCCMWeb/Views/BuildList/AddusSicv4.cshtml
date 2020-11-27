@@ -1,0 +1,91 @@
+﻿@using SBISCCMWeb.LanguageResources
+@{
+    Layout = null;
+}
+    <style>
+        .addusSicv4Popup {
+            min-height: 450px !important;
+            max-width: 700px !important;
+        }
+    </style>
+<div class="modal" id="AddusSicv4Modal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xs">
+        <!-- Modal content-->
+        <div class="modal-content addusSicv4Popup">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal" onclick="CloseusSicV4Popup()">&times;</button>
+                </div>
+                <h4 class="modal-title">@BuildAListLang.hdrusSicV4Detail</h4>
+            </div>
+            <div class="modal-body">
+                <div id="divHistory">
+                    <div class="tasble-responsive container tablewidth matchtdstyle ">
+                        <table class="textBlue popuptopcolor">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="text" value="" id="txtPopupusSicV4" autocomplete="off" class="form-control" style="width:250px" maxlength="4" />
+                                    </td>
+                                    <td class="col-md-4">
+                                        <input type="button" value="@BuildAListLang.lblAdd" class="btn btn-Secondary" width="100" id="btnPopupAddusSicV4" onclick="window.parent.AddusSicV4()" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br />
+                        <input type="hidden" value="" id="hdnusSicV4RowIndex" />
+                        <table class="textBlue table-bordered table popuptopcolor MatchedItem margin-top-4 " id="tblusSicV4">
+                            <thead>
+                                <tr>
+                                    <th style="width:80%">
+                                        @BuildAListLang.lblusSicV4
+                                    </th>
+                                    <th>
+                                        @BuildAListLang.lblEdit
+                                    </th>
+                                    <th>
+                                        @BuildAListLang.lblDelete
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var usSicV4 = window.parent.$("#txtusSicV4").val();
+        if (usSicV4 != '') {
+            var array = usSicV4.split(',');
+            $.each(array, function (index, value) {
+                $('#tblusSicV4').append('<tr><td>' + value + '</td><td><a class="Edit" onclick="window.parent.EditusSicV4(this)" >' + edit + '</a></td><td><a class="Delete" onclick="window.parent.DeleteusSicV4(this)" >' + btnDelete + '</a></td></tr>');
+            });
+        }
+    });
+    $("#txtPopupusSicV4").keypress(function (e) {
+
+        var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+         var ret = ((keyCode >= 48 && keyCode <= 57) || keyCode == 8);
+        return ret;
+
+    });
+    $("body").on('blur', '#txtPopupusSicV4', function () {
+        var text = $(this).val();
+        if (text != "") {
+            if (!$.isNumeric(text)) {
+                $(this).val("");
+                //show notification message instade of Bootbox Message...if you pass "success" than show Notification message and if you pass "error" than show bootbox message.
+                parent.ShowMessageNotification("success", allowOnlyNumbers, false);
+            }
+        }
+    });
+
+</script>
+

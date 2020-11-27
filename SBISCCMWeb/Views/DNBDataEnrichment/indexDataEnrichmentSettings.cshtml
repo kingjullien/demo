@@ -1,0 +1,90 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility;
+<article class="col-md-12 sortable-grid ui-sortable" id="articleDataEnrichment">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrDataEnrichmentList</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered APIEnrichmentTB">
+                        <thead>
+                            <tr>
+                                <th>@DandBSettingLang.lblEnrichmentGroupName </th>
+                                @if (Helper.LicenseEnableTags)
+                                {
+                                    <th>@DandBSettingLang.lblTags</th>
+                                }
+                                <th>@DandBSettingLang.lblCountryGroupName </th>
+                                @if (Helper.UserType.ToLower() != "steward")
+                                {
+                                    <th class="nosort">@DandBSettingLang.lblDelete </th>
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                foreach (var item in Model)
+                                {
+                                    var APIGroupId = @Utility.GetEncryptedString(Convert.ToString(item.APIGroupId)).Replace("+", Utility.urlseparator);
+                                    <tr data-APIGroupId="@APIGroupId">
+                                        <td>@item.APIGroupName</td>
+                                        @if (Helper.LicenseEnableTags)
+                                        {
+                                            <td>@item.Tags</td>
+                                        }
+                                        <td>@item.CountryGroupName</td>
+                                        @if (Helper.UserType.ToLower() != "steward")
+                                        {
+                                            <td>
+                                                <a href="javascript:void(0)" id="@APIGroupId" class="deleteEnrichment">@DandBSettingLang.lblDelete</a>
+                                            </td>
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "Data Enrichments")
+{
+    <script>
+        $(document).ready(function () {
+            $("table.APIEnrichmentTB tbody tr:first").addClass("current");
+            var id = $("table.APIEnrichmentTB tbody tr:first").attr("data-apigroupid");
+            if (id != undefined && id != null && id != "") {
+            }
+            else {
+                id = null;
+            }
+            $.ajax({
+                type: 'GET',
+                url: "/DNBDataEnrichment/InsertUpdateDataEnrichment?Parameters=" + id,
+                dataType: 'HTML',
+                contentType: 'application/html',
+                cache: false,
+                success: function (data) {
+                    $("#divPartialAddUdateDataEnrichmentSettings").html(data);
+                    InitDandBDataEnrichmentDataTable();
+                    if ($.UserRole.toLowerCase() == 'lob') {
+                        $("#frm_DnBEnrichment .chzn-select").attr("data-placeholder", "Add Tags (Required)");
+                        $("#frm_DnBEnrichment .chzn-select").trigger("chosen:updated");
+                    }
+                    if ($("table.APIEnrichmentTB tbody tr").length == 0) {
+                        $("#editAPIEnrichment").attr("disabled", true);
+                    }
+                    LoadTagsDnBApiGroupTag();
+                }
+            });
+        });
+    </script>
+}

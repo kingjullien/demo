@@ -1,0 +1,117 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@model CompanyEntity
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.Matchbook) + " | Match Data";
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.DandB) + " | Match Data";
+    }
+    Layout = null;
+    int intButtonNo = 0;
+
+}
+
+@Html.AntiForgeryToken()
+<table id="@TempData["CollapsName"]" class="table  table-border customTable2 panel-collapse collapse  customTable inlinetable ">
+    <thead>
+        <tr>
+            <th>DUNS NO</th>
+            <th>Company</th>
+            <th>Street#</th>
+            <th>Street Name</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Postal</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th>Role</th>
+            <th>Sequence</th>
+            <th>Match</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Matches.Count > 0)
+            {
+                foreach (var innerItem in Model.Matches)
+                {
+                    string MatchDataProfileText = innerItem.DnBMatchDataProfileText;
+
+                    if (MatchDataProfileText.Length > 18)
+                    {
+                        MatchDataProfileText = MatchDataProfileText.Substring(0, 18) + " " + MatchDataProfileText.Substring(18, MatchDataProfileText.Length - 18);
+                    }
+
+                    intButtonNo++;
+                <tr id="@(innerItem.DnBDUNSNumber+"DUNS"+ Model.InputId)" class="@(intButtonNo%2==0?"AlternateRow":null) @(intButtonNo==1?"current":null) currentChildRow context-menu-one" data-val="@SerializeHelper.SerializeObject(@innerItem)">
+                    <td class="trMatchedItem_td1">
+                        <span class="numberPlate">
+                            <a href="#MatchedItemDetails" class="clsViewMatchedItemDetails @innerItem.DnBDUNSNumber" id="@(innerItem.SrcRecordId + "@#$" + intButtonNo)" data-prev="@(intButtonNo > 1  ? Model.Matches[intButtonNo-2].DnBDUNSNumber:null)" data-next="@(Model.Matches.Count > intButtonNo ? Model.Matches[intButtonNo].DnBDUNSNumber:null)" data-val="@SerializeHelper.SerializeObject(@innerItem)" data-DUNS="@innerItem.DnBDUNSNumber" data-Id="@innerItem.InputId" data-Seqence="@intButtonNo">                           
+                                @innerItem.DnBDUNSNumber
+                            </a>
+                        </span>
+                    </td>
+                    <td class="trMatchedItem_td2 @(innerItem.DnBMatchGradeText.Length > 0?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(0,1)):"/ColorZ/")">@innerItem.DnBOrganizationName</td>
+                    <td class="trMatchedItem_td3 @(innerItem.DnBMatchGradeText.Length > 1?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(1,1)):"/ColorZ/")">@innerItem.StreetNo</td>
+                    <td class="trMatchedItem_td3 @(innerItem.DnBMatchGradeText.Length > 2?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(2,1)):"/ColorZ/") colwidth">@innerItem.StreetName</td>
+                    <td class="trMatchedItem_td4 @(innerItem.DnBMatchGradeText.Length > 3?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(3,1)):"/ColorZ/")">@innerItem.DnBPrimaryTownName</td>
+                    <td class="trMatchedItem_td5 @(innerItem.DnBMatchGradeText.Length > 4?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(4,1)):"/ColorZ/")">@innerItem.DnBTerritoryAbbreviatedName</td>
+                    <td class="trMatchedItem_td6 @(innerItem.DnBMatchGradeText.Length > 7?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(7,1)):"/ColorZ/")">@innerItem.DnBPostalCode</td>
+                    <td class="trMatchedItem_td6 @(innerItem.DnBMatchGradeText.Length > 6?Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(6,1)):"/ColorZ/")">@innerItem.DnBTelephoneNumber</td>
+                    <td class="trMatchedItem_td7">@innerItem.DnBOperatingStatus</td>
+                    <td class="trMatchedItem_td8">@innerItem.DnBFamilyTreeMemberRole </td>
+                    <td class="trMatchedItem_td9">@innerItem.DnBDisplaySequence</td>
+
+                    <td class="trMatchedItem_td10" id="@(Model.InputId+ "-" + innerItem.DnBDisplaySequence + "-" + innerItem.DnBDUNSNumber)">
+                        @if (innerItem.IsSelected == true)
+                        {
+                            <div id="@(innerItem.InputId + "InnerMatch")" class=" @innerItem.InputId actionButton btnSelected " data-val="@innerItem.DnBDisplaySequence">
+                                <span></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="@(innerItem.InputId +"InnerMatch")" class="@innerItem.InputId actionButton btnUnselected " data-val="@innerItem.DnBDisplaySequence">
+                                <span></span>
+                            </div>
+                        }
+                    </td>
+                </tr>
+                <tr id="@(innerItem.DnBDUNSNumber)-2-@(Model.InputId)" class="tablerowBorder border-top-none @(intButtonNo%2==0?"AlternateRow":null) @(intButtonNo==1?"current":null) currentChildRow context-menu-one" data-val="@SerializeHelper.SerializeObject(@innerItem)">
+                    <td class="textBlue " colspan="2">
+                        <span class="popuptopcolor">
+                          
+                            Confidence Code :
+                        </span>@innerItem.DnBConfidenceCode
+                    </td>
+                  
+                    <td class="textBlue" colspan="3">
+                        <span class="popuptopcolor">
+                          
+                            Match Grade :
+                        </span>@innerItem.DnBMatchGradeText
+                    </td>
+                  
+                    <td class="textBlue" colspan="7">
+                        <span class="popuptopcolor">
+                         
+                            MDP :
+                        </span> @innerItem.MDPCompanyName @innerItem.MDPPhysicalAddress @innerItem.MDPPhone
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="12">No data are available</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

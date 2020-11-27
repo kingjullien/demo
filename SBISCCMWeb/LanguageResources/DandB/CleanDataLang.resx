@@ -1,0 +1,604 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnAddCompany" xml:space="preserve">
+    <value>Add Company</value>
+    <comment>Add Company</comment>
+  </data>
+  <data name="hdrAddnewcompany" xml:space="preserve">
+    <value>Add new company</value>
+    <comment>Add new company</comment>
+  </data>
+  <data name="hdrCleanData" xml:space="preserve">
+    <value>Clean Data</value>
+    <comment>Clean Data</comment>
+  </data>
+  <data name="hdrCompanyFilter" xml:space="preserve">
+    <value>Company Filter</value>
+    <comment>Company Filter</comment>
+  </data>
+  <data name="hdrReMatchRecords" xml:space="preserve">
+    <value>Re-Match Records</value>
+    <comment>Re-Match Records</comment>
+  </data>
+  <data name="hdrSearchData" xml:space="preserve">
+    <value>Search Data</value>
+    <comment>Search Data</comment>
+  </data>
+  <data name="lblActive" xml:space="preserve">
+    <value>Active</value>
+    <comment>Active</comment>
+  </data>
+  <data name="lblAddCompany" xml:space="preserve">
+    <value>Add Company</value>
+    <comment>Add Company</comment>
+  </data>
+  <data name="lblAdditionalActions" xml:space="preserve">
+    <value>Additional Actions</value>
+    <comment>Additional Actions</comment>
+  </data>
+  <data name="lblAdditionalFields" xml:space="preserve">
+    <value>Additional Fields</value>
+    <comment>Additional Fields</comment>
+  </data>
+  <data name="lblAddress" xml:space="preserve">
+    <value>Address</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAddress1" xml:space="preserve">
+    <value>Address1</value>
+    <comment>Address1</comment>
+  </data>
+  <data name="lblAddress2" xml:space="preserve">
+    <value>Address2</value>
+    <comment>Address2</comment>
+  </data>
+  <data name="lblAltAddress" xml:space="preserve">
+    <value>Alt. Address</value>
+    <comment>Alt. Address</comment>
+  </data>
+  <data name="lblAltAddress2" xml:space="preserve">
+    <value>Alt. Address2</value>
+    <comment>Alt. Address2</comment>
+  </data>
+  <data name="lblAltCity" xml:space="preserve">
+    <value>Alt City</value>
+    <comment>Alt City</comment>
+  </data>
+  <data name="lblAltCompanyName" xml:space="preserve">
+    <value>Alt. Company Name</value>
+    <comment>Alt. Company Name</comment>
+  </data>
+  <data name="lblAltCountry" xml:space="preserve">
+    <value>Alt Country</value>
+    <comment>Alt Country</comment>
+  </data>
+  <data name="lblAltPostalCode" xml:space="preserve">
+    <value>Alt. PostalCode</value>
+    <comment>Alt. PostalCode</comment>
+  </data>
+  <data name="lblAltState" xml:space="preserve">
+    <value>Alt. State</value>
+    <comment>Alt. State</comment>
+  </data>
+  <data name="lblAssignDUNS" xml:space="preserve">
+    <value>Assign DUNS</value>
+    <comment>Assign DUNS</comment>
+  </data>
+  <data name="lblBingSearch" xml:space="preserve">
+    <value>Bing Search</value>
+    <comment>Bing Search</comment>
+  </data>
+  <data name="lblBingsearches" xml:space="preserve">
+    <value>Bing search</value>
+    <comment>Bing search</comment>
+  </data>
+  <data name="lblCC" xml:space="preserve">
+    <value>CC</value>
+    <comment>CC</comment>
+  </data>
+  <data name="lblCEOName" xml:space="preserve">
+    <value>CEO Name</value>
+    <comment>CEO Name</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>City</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCityExactMatch" xml:space="preserve">
+    <value>City Exact Match</value>
+    <comment>City Exact Match</comment>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>Company</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCompanyHeader" xml:space="preserve">
+    <value>Company/National Id/URL/Email/DUNS</value>
+    <comment>Header Company Name</comment>
+  </data>
+  <data name="lblCopy" xml:space="preserve">
+    <value>Copy</value>
+    <comment>Copy</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>Country</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCountryGroup" xml:space="preserve">
+    <value>Country Group</value>
+    <comment>Country Group</comment>
+  </data>
+  <data name="lblDUNSNO" xml:space="preserve">
+    <value>DUNS NO</value>
+    <comment>DUNS NO</comment>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>Email</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblErrorCode" xml:space="preserve">
+    <value>Error Code</value>
+    <comment>Error Code</comment>
+  </data>
+  <data name="lblErrorDescription" xml:space="preserve">
+    <value>Error Description</value>
+    <comment>Error Description</comment>
+  </data>
+  <data name="lblExcludeNonHeadQuarters" xml:space="preserve">
+    <value>Exclude Non HeadQuarters</value>
+    <comment>Exclude Non HeadQuarters</comment>
+  </data>
+  <data name="lblExcludeNonMarketable" xml:space="preserve">
+    <value>Exclude Non Marketable</value>
+    <comment>Exclude Non Marketable</comment>
+  </data>
+  <data name="lblExcludeOutofBusiness" xml:space="preserve">
+    <value>Exclude Out of Business</value>
+    <comment>Exclude Out of Business</comment>
+  </data>
+  <data name="lblExcludeUndeliverable" xml:space="preserve">
+    <value>Exclude Undeliverable</value>
+    <comment>Exclude Undeliverable</comment>
+  </data>
+  <data name="lblExcludeUnreachable" xml:space="preserve">
+    <value>Exclude Unreachable</value>
+    <comment>Exclude Unreachable</comment>
+  </data>
+  <data name="lblGoogleSearch" xml:space="preserve">
+    <value>Google Search</value>
+    <comment>Google Search</comment>
+  </data>
+  <data name="lblImportProcess" xml:space="preserve">
+    <value>Import Process</value>
+    <comment>Import Process</comment>
+  </data>
+  <data name="lblInpDUNSNO" xml:space="preserve">
+    <value>Inp DUNS NO</value>
+    <comment>Inp DUNS NO</comment>
+  </data>
+  <data name="lblInvestigate" xml:space="preserve">
+    <value>Investigate</value>
+    <comment>Investigate</comment>
+  </data>
+  <data name="lblInvestigateSelectedRecords" xml:space="preserve">
+    <value>Investigate Selected Records</value>
+    <comment>Investigate Selected Records</comment>
+  </data>
+  <data name="lblLanguage" xml:space="preserve">
+    <value>Language</value>
+    <comment>Language</comment>
+  </data>
+  <data name="lblMailingAddress" xml:space="preserve">
+    <value>Mailing Address</value>
+    <comment>Mailing Address</comment>
+  </data>
+  <data name="lblMarketable" xml:space="preserve">
+    <value>Marketable</value>
+    <comment>Marketable</comment>
+  </data>
+  <data name="lblMatchGrade" xml:space="preserve">
+    <value>Match Grade</value>
+    <comment>Match Grade</comment>
+  </data>
+  <data name="lblMDP" xml:space="preserve">
+    <value>MDP</value>
+    <comment>MDP</comment>
+  </data>
+  <data name="lblNoDataAreAvailable" xml:space="preserve">
+    <value>No data are available.</value>
+    <comment>No data are available.</comment>
+  </data>
+  <data name="lblNodataavailable" xml:space="preserve">
+    <value>No data available.</value>
+    <comment>No data available.</comment>
+  </data>
+  <data name="lblNonMarketable" xml:space="preserve">
+    <value>Non Marketable</value>
+    <comment>Non Marketable</comment>
+  </data>
+  <data name="lblOperating" xml:space="preserve">
+    <value>Operating</value>
+    <comment>Operating</comment>
+  </data>
+  <data name="lblOutofbusiness" xml:space="preserve">
+    <value>Out of business</value>
+    <comment>Out of business</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>Page Size</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblPhone" xml:space="preserve">
+    <value>Phone</value>
+    <comment>Phone</comment>
+  </data>
+  <data name="lblPleaseselectalltags" xml:space="preserve">
+    <value>Please select all tags.</value>
+    <comment>Please select all tags.</comment>
+  </data>
+  <data name="lblPleaseSelectCountry" xml:space="preserve">
+    <value>Please Select Country</value>
+    <comment>Please Select Country</comment>
+  </data>
+  <data name="lblPleaseSelectLanguage" xml:space="preserve">
+    <value>Please Select Language</value>
+    <comment>Please Select Language</comment>
+  </data>
+  <data name="lblPostal" xml:space="preserve">
+    <value>Postal</value>
+    <comment>Postal</comment>
+  </data>
+  <data name="lblPurge" xml:space="preserve">
+    <value>Purge</value>
+    <comment>Purge</comment>
+  </data>
+  <data name="lblPurgeFromFile" xml:space="preserve">
+    <value>Purge From File</value>
+    <comment>Purge From File</comment>
+  </data>
+  <data name="lblPurgeRecord" xml:space="preserve">
+    <value>Purge Record</value>
+    <comment>Purge Record</comment>
+  </data>
+  <data name="lblPurgeRecords" xml:space="preserve">
+    <value>Purge Records</value>
+    <comment>Purge Records</comment>
+  </data>
+  <data name="lblPurgeSelectedRecords" xml:space="preserve">
+    <value>Purge Selected Records</value>
+    <comment>Purge Selected Records</comment>
+  </data>
+  <data name="lblRegistrationNumber" xml:space="preserve">
+    <value>Registration Number</value>
+    <comment>Registration Number</comment>
+  </data>
+  <data name="lblRegistrationType" xml:space="preserve">
+    <value>Registration Type</value>
+    <comment>Registration Type</comment>
+  </data>
+  <data name="lblRematch" xml:space="preserve">
+    <value>Re-Match</value>
+    <comment>Re-Match</comment>
+  </data>
+  <data name="lblReMatchRecords" xml:space="preserve">
+    <value>Re-Match Records</value>
+    <comment>Re-Match Records</comment>
+  </data>
+  <data name="lblReMatchSelectedRecords" xml:space="preserve">
+    <value>Re-Match Selected Records</value>
+    <comment>Re-Match Selected Records</comment>
+  </data>
+  <data name="lblRequiredCountry" xml:space="preserve">
+    <value>Please Select Country</value>
+    <comment>Please Select Country</comment>
+  </data>
+  <data name="lblRequiredSrcRecordId" xml:space="preserve">
+    <value>Please fill SrcRecordId</value>
+    <comment>Please fill SrcRecordId</comment>
+  </data>
+  <data name="lblSearch" xml:space="preserve">
+    <value>Search</value>
+    <comment>Search</comment>
+  </data>
+  <data name="lblSearchByAddress" xml:space="preserve">
+    <value>Search By Address</value>
+    <comment>Search By Address</comment>
+  </data>
+  <data name="lblSearchByAltFields" xml:space="preserve">
+    <value>Search By Alt. Fields</value>
+    <comment>Search By Alt. Fields</comment>
+  </data>
+  <data name="lblSearchByCompany" xml:space="preserve">
+    <value>Search By Company</value>
+    <comment>Search By Company</comment>
+  </data>
+  <data name="lblSelectAll" xml:space="preserve">
+    <value>Select All</value>
+    <comment>Select All</comment>
+  </data>
+  <data name="lblSrcId" xml:space="preserve">
+    <value>Src Id</value>
+    <comment>Src Id</comment>
+  </data>
+  <data name="lblSrcRecID" xml:space="preserve">
+    <value>SrcRec ID</value>
+    <comment>SrcRec ID</comment>
+  </data>
+  <data name="lblSrcRecordId" xml:space="preserve">
+    <value>SrcRecordId</value>
+    <comment>SrcRecordId</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>State</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblStateExactMatch" xml:space="preserve">
+    <value>State Exact Match</value>
+    <comment>State Exact Match</comment>
+  </data>
+  <data name="lblStreet" xml:space="preserve">
+    <value>Street#</value>
+    <comment>Street#</comment>
+  </data>
+  <data name="lblStreetName" xml:space="preserve">
+    <value>Street Name</value>
+    <comment>Street Name</comment>
+  </data>
+  <data name="lblTag" xml:space="preserve">
+    <value>Tag</value>
+    <comment>Tag</comment>
+  </data>
+  <data name="lblTagisrequired" xml:space="preserve">
+    <value>Tag is required.</value>
+    <comment>Tag is required.</comment>
+  </data>
+  <data name="lblTags" xml:space="preserve">
+    <value>Tags</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="lblUpdateRecord" xml:space="preserve">
+    <value>Update Record</value>
+    <comment>Update Record</comment>
+  </data>
+  <data name="lblValidateInputAddress" xml:space="preserve">
+    <value>Validate Input Address</value>
+    <comment>Validate Input Address</comment>
+  </data>
+  <data name="lblViewCandidatesonMap" xml:space="preserve">
+    <value>View Candidates on Map</value>
+    <comment>View Candidates on Map</comment>
+  </data>
+  <data name="lblWebsite" xml:space="preserve">
+    <value>Website</value>
+    <comment>Website</comment>
+  </data>
+  <data name="lblZip" xml:space="preserve">
+    <value>Zip</value>
+    <comment>Zip</comment>
+  </data>
+  <data name="msgAddNewCompany" xml:space="preserve">
+    <value>New company added successfully</value>
+    <comment>New company added successfully</comment>
+  </data>
+  <data name="msgAssignDUNS" xml:space="preserve">
+    <value>Are you sure you want to assign this DUNS Number to this Input record?</value>
+    <comment>Are you sure you want to assign this DUNS Number to this Input record?</comment>
+  </data>
+  <data name="msgCleanSearchPurgeRecord" xml:space="preserve">
+    <value>Are you sure, you want to purge this record ?</value>
+    <comment>Are you sure, you want to purge this record ?</comment>
+  </data>
+  <data name="msgDataRejected" xml:space="preserve">
+    <value>Data rejected successfully</value>
+    <comment>Data rejected successfully</comment>
+  </data>
+  <data name="msgFilterByErrorCode" xml:space="preserve">
+    <value>Filter by Error Code</value>
+    <comment>Filter by Error Code</comment>
+  </data>
+  <data name="msgFormatsAllowed" xml:space="preserve">
+    <value>Only formats allowed are :</value>
+    <comment>Only formats allowed are :</comment>
+  </data>
+  <data name="msgNoRecords" xml:space="preserve">
+    <value>No record(s) found</value>
+    <comment>No record(s) found</comment>
+  </data>
+  <data name="msgNoRecordsAffected" xml:space="preserve">
+    <value>Total 0 records are affected, are you sure you want to continue ?</value>
+    <comment>Total 0 records are affected, are you sure you want to continue ?</comment>
+  </data>
+  <data name="msgOnlyNumbersAllowed" xml:space="preserve">
+    <value>Only numeric values accepted.</value>
+    <comment>Only numeric values accepted.</comment>
+  </data>
+  <data name="msgPurgeRecord" xml:space="preserve">
+    <value>Are you sure you want to Purge this record ?</value>
+    <comment>Are you sure you want to Purge this record ?</comment>
+  </data>
+  <data name="msgPurgeRecords" xml:space="preserve">
+    <value>Are you sure you want to purge records ?</value>
+    <comment>Are you sure you want to purge records ?</comment>
+  </data>
+  <data name="msgRematchRecord" xml:space="preserve">
+    <value>Are you sure you want to re-match this record ?</value>
+    <comment>Are you sure you want to re-match this record ?</comment>
+  </data>
+  <data name="msgRematchRecords" xml:space="preserve">
+    <value>records are affected, are you sure you want to continue ?</value>
+    <comment>records are affected, are you sure you want to continue ?</comment>
+  </data>
+  <data name="msgReMatchRequestCompleted" xml:space="preserve">
+    <value>Data ReMatch Request Completed Successfully.</value>
+    <comment>Data ReMatch Request Completed Successfully.</comment>
+  </data>
+  <data name="msgRowsSentForReMatch" xml:space="preserve">
+    <value>rows sent for ReMatch.</value>
+    <comment>rows sent for ReMatch.</comment>
+  </data>
+  <data name="msgSelectRecordToPurge" xml:space="preserve">
+    <value>Please select at least one record to purge</value>
+    <comment>Please select at least one record to purge</comment>
+  </data>
+  <data name="msgSelectRecordToRematch" xml:space="preserve">
+    <value>Please select at least one record to re-match</value>
+    <comment>Please select at least one record to re-match</comment>
+  </data>
+  <data name="msgSelectRecotdToInvestigate" xml:space="preserve">
+    <value>Please select at least one record to investigate</value>
+    <comment>Please select at least one record to investigate</comment>
+  </data>
+  <data name="msgTotal" xml:space="preserve">
+    <value>Total</value>
+    <comment>Total</comment>
+  </data>
+  <data name="msgUpdateSettings" xml:space="preserve">
+    <value>Settings updated successfully.</value>
+    <comment>Settings updated successfully.</comment>
+  </data>
+  <data name="titleCleanData" xml:space="preserve">
+    <value>Clean Data</value>
+    <comment>Clean Data</comment>
+  </data>
+  <data name="titleCleanseMatch" xml:space="preserve">
+    <value>Cleanse Match</value>
+    <comment>Cleanse Match</comment>
+  </data>
+  <data name="titleClearCompanyFilter" xml:space="preserve">
+    <value>Clear Company Filter</value>
+    <comment>Clear Company Filter</comment>
+  </data>
+  <data name="titleEnrichmentdetail" xml:space="preserve">
+    <value>Enrichment detail</value>
+    <comment>Enrichment detail</comment>
+  </data>
+  <data name="titleReMatchRecords" xml:space="preserve">
+    <value>Re-Match Records</value>
+    <comment>Re-Match Records</comment>
+  </data>
+  <data name="titleSearchData" xml:space="preserve">
+    <value>Search Data</value>
+    <comment>Search Data</comment>
+  </data>
+  <data name="titleSetDefaultPageSize" xml:space="preserve">
+    <value>Set Default Page Size</value>
+    <comment>Set Default Page Size</comment>
+  </data>
+</root>

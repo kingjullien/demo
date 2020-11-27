@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrDataQueueStatistics" xml:space="preserve">
+    <value>数据队列统计</value>
+    <comment>Data Queue Statistics</comment>
+  </data>
+  <data name="lblAPIUsage" xml:space="preserve">
+    <value>API 使用情况</value>
+    <comment>API Usage</comment>
+  </data>
+  <data name="lblArchivalQueueCount" xml:space="preserve">
+    <value>存档队列计数</value>
+    <comment>Archival Queue Count</comment>
+  </data>
+  <data name="lblBackgroundProcess" xml:space="preserve">
+    <value>背景流程</value>
+    <comment>Background Process</comment>
+  </data>
+  <data name="lblCompanyTree" xml:space="preserve">
+    <value>公司树</value>
+    <comment>Company Tree</comment>
+  </data>
+  <data name="lblCurrentMonth" xml:space="preserve">
+    <value>本月</value>
+    <comment>Current Month</comment>
+  </data>
+  <data name="lblDataQueue" xml:space="preserve">
+    <value>数据队列</value>
+    <comment>Data Queue</comment>
+  </data>
+  <data name="lblFirmographics" xml:space="preserve">
+    <value>企业概要</value>
+    <comment>Firmographics</comment>
+  </data>
+  <data name="lblFirmographicsExportQueueCount" xml:space="preserve">
+    <value>Firmographics 导出队列计数</value>
+    <comment>Firmographics Export Queue Count</comment>
+  </data>
+  <data name="lblImportDate" xml:space="preserve">
+    <value>导入日期</value>
+    <comment>Import Date</comment>
+  </data>
+  <data name="lblImportProcess" xml:space="preserve">
+    <value>导入流程</value>
+    <comment>Import Process</comment>
+  </data>
+  <data name="lblInput" xml:space="preserve">
+    <value>输入</value>
+    <comment>Input</comment>
+  </data>
+  <data name="lblLast24Hours" xml:space="preserve">
+    <value>过去 24 小时</value>
+    <comment>Last 24 Hours</comment>
+  </data>
+  <data name="lblMatchedOutputQueueCount" xml:space="preserve">
+    <value>匹配的输出队列计数</value>
+    <comment>Matched Output Queue Count</comment>
+  </data>
+  <data name="lblMatchEnrichProcess" xml:space="preserve">
+    <value>匹配/扩充流程</value>
+    <comment>Match/Enrich Process</comment>
+  </data>
+  <data name="lblMatchOutput" xml:space="preserve">
+    <value>匹配输出</value>
+    <comment>Match Output</comment>
+  </data>
+  <data name="lblNodataareavailable" xml:space="preserve">
+    <value>无可用数据</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblTotalRecords" xml:space="preserve">
+    <value>记录总计</value>
+    <comment>Total Records</comment>
+  </data>
+  <data name="lblUnMatched" xml:space="preserve">
+    <value>未匹配</value>
+    <comment>UnMatched</comment>
+  </data>
+  <data name="lblUnMatchedRecordCount" xml:space="preserve">
+    <value>未匹配记录计数</value>
+    <comment>UnMatched Record Count</comment>
+  </data>
+  <data name="msgCLEANSEMATCH" xml:space="preserve">
+    <value>清洁搭配</value>
+    <comment>CLEANSE MATCH</comment>
+  </data>
+  <data name="msgCompleted" xml:space="preserve">
+    <value>已完成</value>
+    <comment>Completed</comment>
+  </data>
+  <data name="msgExecutions" xml:space="preserve">
+    <value>执行力</value>
+    <comment>Executions</comment>
+  </data>
+  <data name="msgFailed" xml:space="preserve">
+    <value>失败的</value>
+    <comment>Failed</comment>
+  </data>
+  <data name="msgLastProcess" xml:space="preserve">
+    <value>最后过程</value>
+    <comment>Last Process</comment>
+  </data>
+  <data name="msgMinute" xml:space="preserve">
+    <value>分钟</value>
+    <comment>Minute</comment>
+  </data>
+  <data name="msgNoRecords" xml:space="preserve">
+    <value>没有可用的记录</value>
+    <comment>No record(s) available</comment>
+  </data>
+  <data name="msgRunning" xml:space="preserve">
+    <value>跑步</value>
+    <comment>Running</comment>
+  </data>
+  <data name="msgSuccessful" xml:space="preserve">
+    <value>成功的</value>
+    <comment>Successful</comment>
+  </data>
+  <data name="titleActiveDataQueueDetailReport" xml:space="preserve">
+    <value>活动日期队列详细信息报告</value>
+    <comment>Active Data Queue Detail Report</comment>
+  </data>
+  <data name="titleAPIStatistics" xml:space="preserve">
+    <value>火柴盒API使用统计</value>
+    <comment>Matchbook | API Usage Statistics</comment>
+  </data>
+  <data name="titleDownloadDataQueueStatistics" xml:space="preserve">
+    <value>下载数据队列统计</value>
+    <comment>Download Data Queue Statistics</comment>
+  </data>
+  <data name="titleOIDashboard" xml:space="preserve">
+    <value>火柴盒OI资讯主页</value>
+    <comment>Matchbook | OI Dashboard</comment>
+  </data>
+  <data name="titleRefreshActiveDataQueueStatistics" xml:space="preserve">
+    <value>刷新活动数据队列统计</value>
+    <comment>Refresh Active Data Queue Statistics</comment>
+  </data>
+  <data name="titleRefreshBackgroundProcessStatistics" xml:space="preserve">
+    <value>刷新背景流程统计</value>
+    <comment>Refresh Background Process Statistics</comment>
+  </data>
+  <data name="titleRefreshDataStewardshipStatistics" xml:space="preserve">
+    <value>刷新数据托管统计</value>
+    <comment>Refresh Data Stewardship Statistics</comment>
+  </data>
+</root>

@@ -1,0 +1,1 @@
+﻿function OnSuccess() { $("#divProgress").hide() } $(document).ajaxStart(function () { $("#divProgress").show() }).ajaxStop(function () { $("#divProgress").hide() }), $("body").on("click", "#btnBingsearchSubmit", function () { if ("" == $("#searchValue").val()) return $("#searchValue").parent().addClass("has-error"), !1; $("#searchValue").parent().removeClass("has-error") });

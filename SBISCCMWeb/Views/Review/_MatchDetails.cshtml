@@ -1,0 +1,229 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@model MatchEntity
+@{
+    var innerItem = Model;
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + ReviewMatchLang.titleMatchRecordsDetailsView;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + ReviewMatchLang.titleMatchRecordsDetailsView;
+    }
+    Layout = null;
+    string dataNext = Convert.ToString(ViewBag.dataNext);
+    string dataPrev = Convert.ToString(ViewBag.dataPrev);
+    var NextToNextDUNS = Convert.ToString(ViewBag.NextToNextDUNS);
+    var PrevToPrevDUNS = Convert.ToString(ViewBag.PrevToPrevDUNS);
+    var NextDUNS = Convert.ToString(ViewBag.NextDUNS);
+    var PrevDUNS = Convert.ToString(ViewBag.PrevDUNS);
+    string TopMatchCandidate = Convert.ToString(ViewBag.TopMatchCandidate);
+    string CountryGroup = Convert.ToString(ViewBag.CountryGroup);
+    string OrderBy = Convert.ToString(ViewBag.OrderBy);
+    bool IsSearchData = false;
+    if (!string.IsNullOrEmpty(Convert.ToString(ViewBag.SelectData)))
+    {
+        IsSearchData = Convert.ToBoolean(ViewBag.SelectData);
+    }
+
+    string streetNo = string.Empty;
+    string streetName = string.Empty;
+    if (!string.IsNullOrEmpty(Helper.Address) && !string.IsNullOrWhiteSpace(Helper.Address))
+    {
+        streetNo = Helper.Address != null ? Convert.ToString(Helper.Address.Length > 0 ? Helper.Address.Split(' ')[0] : "") : "";
+        streetName = Helper.Address != null ? Convert.ToString(Helper.Address.Contains(' ') ? Helper.Address.Replace(Helper.Address.Split(' ')[0], "") : "") : "";
+    }
+
+
+}
+
+<header role="heading">
+    <h4 class="background-blue">
+        <strong>@ReviewMatchLang.lblMatchData</strong>
+    </h4>
+</header>
+@Html.Hidden("Approve", Helper.Approve)
+@Html.Hidden("TopMatchCandidate", TopMatchCandidate)
+@Html.Hidden("CountryGroup", CountryGroup)
+@Html.Hidden("OrderBy", OrderBy)
+
+<div class="table-responsive">
+    <table class="textBlue borderNone table popuptopcolor MatchedItem">
+        <tbody>
+            <tr>
+                <td>@ReviewMatchLang.lblDUNSNO : @innerItem.DnBDUNSNumber </td>
+                <td>@ReviewMatchLang.lblCompanyName : @innerItem.DnBOrganizationName </td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>@ReviewMatchLang.lblConfidenceCode: @innerItem.DnBConfidenceCode  </td>
+                <td>@ReviewMatchLang.lblMatchGrade : @innerItem.DnBMatchGradeText  </td>
+                <td>@ReviewMatchLang.lblMDP :  @innerItem.MDP_Name-@innerItem.MDP_PhysicalAddress-@innerItem.MDP_MailAddress-@innerItem.MDP_Phone  </td>
+                <td class="clsselectmatch">
+                    @if (!IsSearchData)
+                    {
+
+                        if (innerItem.IsSelected == true)
+                        {
+                            <span class="displaylbl ">@ReviewMatchLang.lblSelected </span>
+                            <div id="@ViewBag.childButtonId" class="@innerItem.SrcRecordId.Replace(" ","")  actionButton  btnSelected margin-left-5">
+                                <span></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <span class="displaylbl ">@ReviewMatchLang.lblSelect </span>
+                            <div id="@ViewBag.childButtonId" class="@innerItem.SrcRecordId.Replace(" ","") actionButton  btnUnselected margin-left-5">
+                                <span></span>
+                            </div>
+                        }
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>Operating: @innerItem.DnBOperatingStatus  </td>
+                <td>Role: @innerItem.DnBFamilyTreeMemberRole  </td>
+                <td colspan="2">Seq#: @innerItem.DnBDisplaySequence  </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row  pull-right margintop">
+    <div class="marginright-5 " role="menu">
+        <ul class="pagination pagination-xs preNext">
+            <li class="@(dataPrev ==""?"disabled":null)">
+                <a href="javascript:void(0);" onclick="prevClick(this);" class="matchdetail-Prev" data-val="@dataPrev" data-prev="@PrevToPrevDUNS" data-prevDUNS="@PrevDUNS" data-Id="@innerItem.InputId">@ReviewMatchLang.lblPrev</a>
+            </li>
+            <li class="@(dataNext ==""?"disabled":null)">
+                <a href="javascript:void(0);" onclick="nextClick(this);" class="matchdetail-Next" data-val="@dataNext" data-Next="@NextToNextDUNS" data-NextDUNS="@NextDUNS" data-Id="@innerItem.InputId">@ReviewMatchLang.lblNext</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="">
+    <table class="table borderNone MatchedItem">
+        <thead>
+            <tr>
+                <th>@ReviewMatchLang.lblType</th>
+                <th>@ReviewMatchLang.lblInput  </th>
+                <th>@ReviewMatchLang.lblDandBData</th>
+                <th>@ReviewMatchLang.lblMatchGrade</th>
+                <th>@ReviewMatchLang.lblMDP</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@ReviewMatchLang.lblCompanyName</td>
+                <td>@(Helper.CompanyName)</td>
+                <td class="@(innerItem.DnBMatchGradeText.Length > 0 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(0, 1)) : "/ColorZ/")">@(innerItem.DnBOrganizationName) </td>
+                <td>@innerItem.MGVCompanyName  </td>
+                <td>@(Helper.GetMDPValue(innerItem.MDPVCompanyName, "Company", this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+
+            </tr>
+            @if (!string.IsNullOrEmpty(innerItem.DnBTradeStyleName))
+            {
+                <tr>
+                    <td>@ReviewMatchLang.lblTradeStyleName</td>
+                    <td></td>
+                    <td>@innerItem.DnBTradeStyleName</td>
+                    <td> </td>
+                    <td></td>
+
+                </tr>
+            }
+            @if (!string.IsNullOrEmpty(innerItem.DnBSeniorPrincipalName))
+            {
+                <tr>
+                    <td>@ReviewMatchLang.lblSrPrincipalName</td>
+                    <td></td>
+                    <td>@innerItem.DnBSeniorPrincipalName </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            }
+            <tr>
+                <td>@ReviewMatchLang.lblStreet #</td>
+                <td>@(streetNo) </td>
+                <td class="@(innerItem.DnBMatchGradeText.Length > 1 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(1, 1)) : "/ColorZ/")">@innerItem.StreetNo  </td>
+                <td>@innerItem.MGVStreetNo </td>
+                <td>@(Helper.GetMDPValue(innerItem.MDPVStreetNo, "StreetNo", this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+            </tr>
+            <tr>
+                <td>@ReviewMatchLang.lblStreet Name</td>
+                <td>@(streetName)</td>
+                <td class="@(innerItem.DnBMatchGradeText.Length > 2 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(2, 1)) : "/ColorZ/")">@innerItem.StreetName</td>
+                <td>@innerItem.MGVStreetName</td>
+                <td>@(Helper.GetMDPValue(innerItem.MDPVStreetName, "StreetName", this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+
+            </tr>
+            <tr>
+                <td>@ReviewMatchLang.lblCity/Town</td>
+                <td>@(Helper.City) </td>
+                <td class="@(innerItem.DnBMatchGradeText.Length > 3 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(3, 1)) : "/ColorZ/")">@(innerItem.DnBPrimaryTownName) </td>
+                <td>@innerItem.MGVCity</td>
+                <td>@(Helper.GetMDPValue(innerItem.MDPVCity, "City", this.LayoutModel.CurrentClient.ApplicationDBConnectionString))</td>
+            </tr>
+            <tr>
+                <td>@ReviewMatchLang.lblState</td>
+                <td>@(Helper.State)</td>
+                <td class="@(innerItem.DnBMatchGradeText.Length > 4 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(4, 1)) : "/ColorZ/")">@(innerItem.DnBTerritoryAbbreviatedName)</td>
+                <td>@innerItem.MGVState </td>
+                <td>@(Helper.GetMDPValue(innerItem.MDPVState, "State", this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+            </tr>
+            <tr>
+                <td>@ReviewMatchLang.lblPOBox</td>
+                <td></td>
+                <td class="@(innerItem.DnBMatchGradeText.Length > 5 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(5, 1)) : "/ColorZ/")"> </td>
+                <td>@innerItem.MGVMailingAddress</td>
+                <td>@(Helper.GetMDPValue(innerItem.MDPVMailingAddress, "MailingAddress", this.LayoutModel.CurrentClient.ApplicationDBConnectionString))  </td>
+            </tr>
+            <tr>
+                <td>@ReviewMatchLang.lblPhoneNumber</td>
+                <td>@(Helper.PhoneNbr) </td>
+                <td class="@(innerItem.DnBMatchGradeText.Length > 6 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(6, 1)) : "/ColorZ/")">@(innerItem.DnBTelephoneNumber) </td>
+                <td>@innerItem.MGVTelephone </td>
+                <td>@(Helper.GetMDPValue(innerItem.MDPVTelephone, "Phone", this.LayoutModel.CurrentClient.ApplicationDBConnectionString)) </td>
+            </tr>
+            <tr>
+                <td>@ReviewMatchLang.lblPostalCode</td>
+                <td>@(Helper.Zip)</td>
+                <td class="@(innerItem.DnBMatchGradeText.Length > 7 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(7, 1)) : "/ColorZ/")">@(innerItem.DnBPostalCode) </td>
+                <td>@innerItem.MGVZipCode</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>@ReviewMatchLang.lblDensity</td>
+                <td></td>
+                <td class="@(innerItem.DnBMatchGradeText.Length > 8 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(8, 1)) : "/ColorZ/")"></td>
+                <td>@innerItem.MGVDensity </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>@ReviewMatchLang.lblUniqueness</td>
+                <td></td>
+                <td class="@(innerItem.DnBMatchGradeText.Length > 9 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(9, 1)) : "/ColorZ/")"></td>
+                <td>@innerItem.MGVUniqueness </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>@ReviewMatchLang.lblSIC</td>
+                <td></td>
+                <td class="@(innerItem.DnBMatchGradeText.Length > 10 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(10, 1)) : "/ColorZ/")"></td>
+                <td>@innerItem.MGVSIC </td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="paddingto5">
+    <div class="text-center">
+        <input type="button" id="btnAddCompany" value="@ReviewMatchLang.titleAddmatchasanewcompany" class="btn btn-primary btnAddCompany" data-val="@SerializeHelper.SerializeObject(@innerItem)" />
+    </div>
+</div>
+
+

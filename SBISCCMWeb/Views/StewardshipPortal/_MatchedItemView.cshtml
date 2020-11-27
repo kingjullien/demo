@@ -1,0 +1,320 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model CompanyEntity
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + MatchDataLang.titleMatchData;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + MatchDataLang.titleMatchData;
+    }
+    Layout = null;
+    int intButtonNo = 0;
+    bool LicenseAllowEnrichment = Helper.oUser.LicenseAllowEnrichment;
+    bool Compliance = Helper.LicenseADACompliance;
+    string APITypeForInvestigation = Helper.lstThirdPartyAPIs.Where(x => x.Code == "DNB_INVESTIGATIONS").Select(x => x.APIType).FirstOrDefault();
+}
+@Html.Hidden("APITypeForInvestigation", APITypeForInvestigation)
+@Html.AntiForgeryToken()
+<table id="@TempData["CollapsName"]" class="table  table-border customTable2 panel-collapse collapse  customTable inlinetable table-Matchfixed">
+    <thead>
+        <tr>
+            <th class="matchSqu">@MatchDataLang.lblSeq</th>
+            <th class="matchDuns">@MatchDataLang.lblDUNSNO</th>
+            <th class="matchcmpny">
+                @MatchDataLang.lblCompany
+                @if (Helper.LicenseEnableGoogleMap)
+                {
+                    <a href="javascript:void(0)"><a class="GoogleMapPopUp matchGlobGoogleMap" data-val="@Model.SrcRecordId">@MatchDataLang.lblViewCandidatesonMap</a></a>
+                }
+            </th>
+            <th class="matchstreet">@MatchDataLang.lblStreet</th>
+            <th class="matchStreetName">@MatchDataLang.lblStreetName</th>
+            <th class="matchCity">@MatchDataLang.lblCity</th>
+            <th class="matchState">@MatchDataLang.lblState</th>
+            <th class="matchPostal">@MatchDataLang.lblPostal</th>
+            <th class="matchPhn">@MatchDataLang.lblPhone</th>
+            <th class="matchMatch">@MatchDataLang.lblMatch</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.Matches.Count > 0)
+        {
+            foreach (var innerItem in Model.Matches)
+            {
+                string MatchDataProfileText = innerItem.DnBMatchDataProfileText;
+
+                if (MatchDataProfileText.Length > 18)
+                {
+                    MatchDataProfileText = MatchDataProfileText.Substring(0, 18) + " " + MatchDataProfileText.Substring(18, MatchDataProfileText.Length - 18);
+                }
+                intButtonNo++;
+                <tr id="@(innerItem.DnBDUNSNumber + "DUNS" + Model.InputId)" class="@(intButtonNo % 2 == 0 ? "AlternateRow" : null) @(intButtonNo == 1 ? "current" : null) currentChildRow context-menu-one" data-val="@SerializeHelper.SerializeObject(@innerItem)" data-InputId="@innerItem.InputId" data-SrcId="@innerItem.SrcRecordId" data-Duns="@innerItem.DnBDUNSNumber" data-Tags="@innerItem.Tags">
+                    <td class="trMatchedItem_td9 matchSqu">@innerItem.DnBDisplaySequence</td>
+                    <td class="trMatchedItem_td1 matchDuns">
+                        <span class="numberPlate">
+                            <a href="#MatchedItemDetails" class="clsViewMatchedItemDetails @innerItem.DnBDUNSNumber" id="@(innerItem.SrcRecordId + "@#$" + intButtonNo)">
+                                @innerItem.DnBDUNSNumber
+                            </a>
+                            @if (LicenseAllowEnrichment)
+                            {
+                                <a class="margin-left-5">
+                                    <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/PreviewEnrichmentData.png"))" title="@MatchDataLang.titleEnrichmentdetail" class="Enrichment" data-dunsnumber="@innerItem.DnBDUNSNumber" data-country="@innerItem.DnBCountryISOAlpha2Code" />
+                                </a>
+                            }
+                        </span>
+                    </td>
+                    <td class="trMatchedItem_td2 nameAlignMatchData matchcmpny">
+                        <span class="@(Compliance ? " " : (innerItem.DnBMatchGradeText.Length > 0 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(0, 1)) : "/ColorZ/"))">
+                            @if (Compliance)
+                            {
+                                if (@innerItem.DnBOrganizationName != null && innerItem.DnBOrganizationName != "")
+                                {
+                                    if (innerItem.DnBMatchGradeText.Substring(0, 1) == "A")
+                                    {
+                                        <i class="fa fa-check ColorZ iconSetMatchData"></i>
+                                    }
+                                    else if (innerItem.DnBMatchGradeText.Substring(0, 1) == "B")
+                                    {
+                                        <i class="fa fa-exclamation ColorZ iconSetMatchData"></i>
+                                    }
+                                    else if (innerItem.DnBMatchGradeText.Substring(0, 1) == "F")
+                                    {
+                                        <i class="fa fa-times ColorZ iconSetMatchData"></i>
+                                    }
+                                }
+                            }
+                            @innerItem.DnBOrganizationName
+                        </span>
+                        <strong>
+                            @(string.IsNullOrEmpty(innerItem.ScoreCompany) ? "" : "(" + @innerItem.ScoreCompany + ")")
+                        </strong>
+                    </td>
+                    <td class="trMatchedItem_td3 nameAlignMatchData matchstreet @(Compliance ? " " : (innerItem.DnBMatchGradeText.Length > 1 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(1, 1)) : "/ColorZ/"))">
+                        @if (Compliance)
+                        {
+                            if (innerItem.StreetNo != null && innerItem.StreetNo != "")
+                            {
+                                if (innerItem.DnBMatchGradeText.Substring(1, 1) == "A")
+                                {
+                                    <i class="fa fa-check ColorZ iconSetMatchData"></i>
+                                }
+                                else if (innerItem.DnBMatchGradeText.Substring(1, 1) == "B")
+                                {
+                                    <i class="fa fa-exclamation ColorZ iconSetMatchData"></i>
+                                }
+                                else if (innerItem.DnBMatchGradeText.Substring(1, 1) == "F")
+                                {
+                                    <i class="fa fa-times ColorZ iconSetMatchData"></i>
+                                }
+                            }
+                        }
+                        @innerItem.StreetNo
+                    </td>
+                    <td class="trMatchedItem_td3 nameAlignMatchData matchStreetName @(Compliance ? " " : (innerItem.DnBMatchGradeText.Length > 2 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(2, 1)) : "/ColorZ/"))">
+                        @if (Compliance)
+                        {
+                            if (innerItem.StreetName != null && innerItem.StreetName != "")
+                            {
+                                if (innerItem.DnBMatchGradeText.Substring(2, 1) == "A")
+                                {
+                                    <i class="fa fa-check ColorZ iconSetMatchData"></i>
+                                }
+                                else if (innerItem.DnBMatchGradeText.Substring(2, 1) == "B")
+                                {
+                                    <i class="fa fa-exclamation ColorZ iconSetMatchData"></i>
+                                }
+                                else if (innerItem.DnBMatchGradeText.Substring(2, 1) == "F")
+                                {
+                                    <i class="fa fa-times ColorZ iconSetMatchData"></i>
+                                }
+                            }
+                        }
+                        @innerItem.StreetName
+                    </td>
+                    <td class="trMatchedItem_td4 nameAlignMatchData matchCity @(Compliance ? " " : (innerItem.DnBMatchGradeText.Length > 3 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(3, 1)) : "/ColorZ/"))">
+                        @if (Compliance)
+                        {
+                            if (innerItem.DnBPrimaryTownName != null && innerItem.DnBPrimaryTownName != "")
+                            {
+                                if (innerItem.DnBMatchGradeText.Substring(3, 1) == "A")
+                                {
+                                    <i class="fa fa-check ColorZ iconSetMatchData"></i>
+                                }
+                                else if (innerItem.DnBMatchGradeText.Substring(3, 1) == "B")
+                                {
+                                    <i class="fa fa-exclamation ColorZ iconSetMatchData"></i>
+                                }
+                                else if (innerItem.DnBMatchGradeText.Substring(3, 1) == "F")
+                                {
+                                    <i class="fa fa-times ColorZ iconSetMatchData"></i>
+                                }
+                            }
+                        }
+                        @innerItem.DnBPrimaryTownName
+                    </td>
+                    <td class="trMatchedItem_td5 nameAlignMatchData matchState @(Compliance ? " " : (innerItem.DnBMatchGradeText.Length > 4 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(4, 1)) : "/ColorZ/"))">
+                        @if (Compliance)
+                        {
+                            if (innerItem.DnBTerritoryAbbreviatedName != null && innerItem.DnBTerritoryAbbreviatedName != "")
+                            {
+                                if (innerItem.DnBMatchGradeText.Substring(4, 1) == "A")
+                                {
+                                    <i class="fa fa-check ColorZ iconSetMatchData"></i>
+                                }
+                                else if (innerItem.DnBMatchGradeText.Substring(4, 1) == "B")
+                                {
+                                    <i class="fa fa-exclamation ColorZ iconSetMatchData"></i>
+                                }
+                                else if (innerItem.DnBMatchGradeText.Substring(4, 1) == "F")
+                                {
+                                    <i class="fa fa-times ColorZ iconSetMatchData"></i>
+                                }
+                            }
+                        }
+                        @innerItem.DnBTerritoryAbbreviatedName
+                    </td>
+                    <td class="trMatchedItem_td6 nameAlignMatchData matchPostal @(Compliance ? " " : (innerItem.DnBMatchGradeText.Length > 7 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(7, 1)) : "/ColorZ/"))">
+                        @if (innerItem.DnBMatchGradeText.Length > 7)
+                        {
+                            if (Compliance)
+                            {
+                                if (innerItem.DnBPostalCode != null && innerItem.DnBPostalCode != "")
+                                {
+                                    if (innerItem.DnBMatchGradeText.Substring(7, 1) == "A")
+                                    {
+                                        <i class="fa fa-check ColorZ iconSetMatchData"></i>
+                                    }
+                                    else if (innerItem.DnBMatchGradeText.Substring(7, 1) == "B")
+                                    {
+                                        <i class="fa fa-exclamation ColorZ iconSetMatchData"></i>
+                                    }
+                                    else if (innerItem.DnBMatchGradeText.Substring(7, 1) == "F")
+                                    {
+                                        <i class="fa fa-times ColorZ iconSetMatchData"></i>
+                                    }
+                                }
+                            }
+                        }
+                        @innerItem.DnBPostalCode
+                    </td>
+                    <td class="trMatchedItem_td6 nameAlignMatchData matchPhn @(Compliance ? " " : (innerItem.DnBMatchGradeText.Length > 6 ? Helper.GetMatchColor(innerItem.DnBMatchGradeText.Substring(6, 1)) : "/ColorZ/"))">
+                        @if (Compliance)
+                        {
+                            if (innerItem.DnBTelephoneNumber != null && innerItem.DnBTelephoneNumber != "")
+                            {
+                                if (innerItem.DnBMatchGradeText.Substring(6, 1) == "A")
+                                {
+                                    <i class="fa fa-check ColorZ iconSetMatchData"></i>
+                                }
+                                else if (innerItem.DnBMatchGradeText.Substring(6, 1) == "B")
+                                {
+                                    <i class="fa fa-exclamation ColorZ iconSetMatchData"></i>
+                                }
+                                else if (innerItem.DnBMatchGradeText.Substring(6, 1) == "F")
+                                {
+                                    <i class="fa fa-times ColorZ iconSetMatchData"></i>
+                                }
+                            }
+                        }
+                        @innerItem.DnBTelephoneNumber
+                        @if (!string.IsNullOrEmpty(innerItem.DnBTelephoneNumber))
+                        {
+                            if (innerItem.DnBTelephoneNumberUnreachableIndicator)
+                            {
+                                <img class="matchIcon" src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/phone-Unreachable.png"))">
+                            }
+                        }
+                    </td>
+                    <td class="trMatchedItem_td10 matchMatch" id="@(Model.InputId + "-" + innerItem.DnBDisplaySequence + "-" + innerItem.DnBDUNSNumber)">
+                        @if (innerItem.IsSelected == true)
+                        {
+                            <div id="@(innerItem.InputId + "InnerMatch")" class="@innerItem.InputId actionButton btnSelected width70" data-val="@innerItem.DnBDisplaySequence">
+                                <span></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div id="@(innerItem.InputId + "InnerMatch")" class="@innerItem.InputId actionButton btnUnselected width70" data-val="@innerItem.DnBDisplaySequence">
+                                <span></span>
+                            </div>
+                        }
+                    </td>
+                </tr>
+                <tr id="@(innerItem.DnBDUNSNumber)-2-@(Model.InputId)" class="tablerowBorder border-top-none @(intButtonNo % 2 == 0 ? "AlternateRow" : null) @(intButtonNo == 1 ? "current" : null) currentChildRow context-menu-one" data-val="@SerializeHelper.SerializeObject(@innerItem)" data-InputId="@innerItem.InputId" data-SrcId="@innerItem.SrcRecordId" data-Duns="@innerItem.DnBDUNSNumber" data-Tags="@innerItem.Tags">
+                    <td class="matchSqu"></td>
+                    <td class="textBlue matchDuns">
+                        <span class="popuptopcolor">@MatchDataLang.lblCC :</span>
+                        <strong>@innerItem.DnBConfidenceCode</strong>
+                    </td>
+
+                    <td class="textBlue matchcmpny">
+                        <span class="popuptopcolor">@MatchDataLang.lblMatchGrade :</span>
+                        <strong> @innerItem.DnBMatchGradeText</strong>
+                    </td>
+                    <td class="textBlue matchstreet">
+                        <span class="popuptopcolor">@MatchDataLang.lblMDP :</span>
+                        @*<strong> @innerItem.MDPPhysicalAddress @innerItem.MDPPhone</strong>*@
+                        @*<strong> @innerItem.MDP_Name @innerItem.MDPPhysicalAddress @innerItem.MDP_MailAddress @innerItem.MDPPhone</strong>*@
+                        <strong> @innerItem.MDPCompanyName @innerItem.MDP_StreetNo @innerItem.MDP_StreetName @innerItem.MDP_City @innerItem.MDP_State</strong>
+                    </td>
+                    <td class="textBlue matchStreetNameCity" colspan="2">
+                        @if (!string.IsNullOrEmpty(innerItem.DnBMailingAddress))
+                        {
+                            <span class="popuptopcolor">@MatchDataLang.lblMailingAddress :</span>
+                            <strong> @innerItem.DnBMailingAddress</strong>
+                            if (innerItem.DnBMailingAddressUndeliverable)
+                            {
+                                <img class="" src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/mb_slash.png"))">
+                            }
+                        }
+                    </td>
+                    <td class="matchState">
+                        <span class="popuptopcolor">@MatchDataLang.lblStatus :</span>
+                        @if (Compliance)
+                        {
+                            if (innerItem.DnBOperatingStatus.ToLower() == "active")
+                            {
+                                <i class="fa fa-check-circle ColorZ" title="@MatchDataLang.lblActive"></i>
+                            }
+                            if (innerItem.DnBOperatingStatus.ToLower() == "out of business")
+                            {
+                                <i class="fa fa-times-circle ColorZ" title="@MatchDataLang.lblOutofbusiness"></i>
+                            }
+                        }
+                        else
+                        {
+                            <span class="@(innerItem.DnBOperatingStatus.ToLower() == "active" ? "ColorA" : "") @(innerItem.DnBOperatingStatus.ToLower() == "out of business" ? "ColorF" : "")">@innerItem.DnBOperatingStatus</span>
+                        }
+                    </td>
+                    <td colspan="2" class="matchPhnpostal">
+                        <span class="popuptopcolor">@MatchDataLang.lblRole :</span> <strong> @innerItem.DnBFamilyTreeMemberRole</strong>
+                    </td>
+                    <td>
+                        @if (innerItem.DnBMarketabilityIndicator != null)
+                        {
+                            if (Convert.ToBoolean(innerItem.DnBMarketabilityIndicator))
+                            {
+                                <strong>@MatchDataLang.lblMarketable</strong>
+                            }
+                            else
+                            {
+                                <strong>@MatchDataLang.lblNonMarketable</strong>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="12">@MatchDataLang.lblNodataareavailable</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,628 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrBasicInformation" xml:space="preserve">
+    <value>基本信息</value>
+    <comment>Basic Information</comment>
+  </data>
+  <data name="hdrDAndBiResearch" xml:space="preserve">
+    <value>D&amp;B iResearch 调查</value>
+    <comment>D&amp;B iResearch Investigation</comment>
+  </data>
+  <data name="hdrDAndBiResearchMini" xml:space="preserve">
+    <value>D&amp;B iResearch：小型调查</value>
+    <comment>D&amp;B iResearch: Mini Investigation</comment>
+  </data>
+  <data name="hdrDAndBiResearchTargeted" xml:space="preserve">
+    <value>D&amp;B iResearch：针对性调查</value>
+    <comment>D&amp;B iResearch: Targeted Investigation</comment>
+  </data>
+  <data name="hdrDuplicateDUNS" xml:space="preserve">
+    <value>重复 DUNS</value>
+    <comment>Duplicate DUNS</comment>
+  </data>
+  <data name="hdrInvestigationColumnMapping" xml:space="preserve">
+    <value>调查列映射</value>
+    <comment>Investigation Column Mapping</comment>
+  </data>
+  <data name="hdrInvestigationDetails" xml:space="preserve">
+    <value>调查详情</value>
+    <comment>Investigation Details</comment>
+  </data>
+  <data name="hdrInvestigationFileUpload" xml:space="preserve">
+    <value>调查文件上传</value>
+    <comment>Investigation File Upload</comment>
+  </data>
+  <data name="hdrMiniInvestigation" xml:space="preserve">
+    <value>小型调查</value>
+    <comment>Mini Investigation</comment>
+  </data>
+  <data name="hdrRequestDetails" xml:space="preserve">
+    <value>索取详细资料</value>
+    <comment>Request Details</comment>
+  </data>
+  <data name="hdrResponseDetails" xml:space="preserve">
+    <value>回应详情</value>
+    <comment>Response Details</comment>
+  </data>
+  <data name="lblAction" xml:space="preserve">
+    <value>操作</value>
+    <comment>Action</comment>
+  </data>
+  <data name="lblAdditionalActions" xml:space="preserve">
+    <value>其他操作</value>
+    <comment>Additional Actions</comment>
+  </data>
+  <data name="lblAddress" xml:space="preserve">
+    <value>地址</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAvgResolutionTime" xml:space="preserve">
+    <value>平均分析时间（分钟）</value>
+    <comment>Avg. Resolution Time(In days)</comment>
+  </data>
+  <data name="lblBulkInvestigation" xml:space="preserve">
+    <value>大量调查</value>
+    <comment>Bulk Investigation</comment>
+  </data>
+  <data name="lblBulkMiniInvestigation" xml:space="preserve">
+    <value>批量迷你调查</value>
+    <comment>Bulk Mini Investigation</comment>
+  </data>
+  <data name="lblBulkTargetedInvestigation" xml:space="preserve">
+    <value>批量针对性调查</value>
+    <comment>Bulk Targeted Investigation</comment>
+  </data>
+  <data name="lblBusinessName" xml:space="preserve">
+    <value>企业名称</value>
+    <comment>Business Name</comment>
+  </data>
+  <data name="lblCancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="lblCaseId" xml:space="preserve">
+    <value>案例ID</value>
+    <comment>Case Id</comment>
+  </data>
+  <data name="lblCaseResolution" xml:space="preserve">
+    <value>案例分析</value>
+    <comment>Case Resolution</comment>
+  </data>
+  <data name="lblCasestatus" xml:space="preserve">
+    <value>案件状态</value>
+    <comment>Case status</comment>
+  </data>
+  <data name="lblChallenge" xml:space="preserve">
+    <value>挑战</value>
+    <comment>Challenge</comment>
+  </data>
+  <data name="lblChallengeInvestigation" xml:space="preserve">
+    <value>挑战调查</value>
+    <comment>Challenge Investigation</comment>
+  </data>
+  <data name="lblChallengeReason" xml:space="preserve">
+    <value>挑战原因</value>
+    <comment>Challenge Reason</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>市/县</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCloseCases" xml:space="preserve">
+    <value>结案</value>
+    <comment>Close Cases</comment>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>公司</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>国家/地区</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCountryISOCode" xml:space="preserve">
+    <value>国家/地区 ISO 代码</value>
+    <comment>Country ISO Code</comment>
+  </data>
+  <data name="lblCustomerReference" xml:space="preserve">
+    <value>客户参考</value>
+    <comment>Customer Reference</comment>
+  </data>
+  <data name="lblCustomerTransactionID" xml:space="preserve">
+    <value>客户交易 ID</value>
+    <comment>Customer Transaction ID</comment>
+  </data>
+  <data name="lblDate" xml:space="preserve">
+    <value>日期</value>
+    <comment>Date</comment>
+  </data>
+  <data name="lblDetails" xml:space="preserve">
+    <value>细节</value>
+    <comment>Details</comment>
+  </data>
+  <data name="lblDownloadSamplefile" xml:space="preserve">
+    <value>下载范本</value>
+    <comment>Download Template</comment>
+  </data>
+  <data name="lblDUNS" xml:space="preserve">
+    <value>邓斯</value>
+    <comment>DUNS</comment>
+  </data>
+  <data name="lblDUNSNumber" xml:space="preserve">
+    <value>DUNS 编号</value>
+    <comment>DUNS Number</comment>
+  </data>
+  <data name="lblDUNSNumber1" xml:space="preserve">
+    <value>DUNS 编号 1</value>
+    <comment>DUNS Number1</comment>
+  </data>
+  <data name="lblDUNSNumber2" xml:space="preserve">
+    <value>DUNS 编号 2</value>
+    <comment>DUNS Number2</comment>
+  </data>
+  <data name="lblDUNSNumber3" xml:space="preserve">
+    <value>DUNS 编号 3</value>
+    <comment>DUNS Number3</comment>
+  </data>
+  <data name="lblDUNSNumber4" xml:space="preserve">
+    <value>DUNS 编号 4</value>
+    <comment>DUNS Number4</comment>
+  </data>
+  <data name="lblDUNSNumber5" xml:space="preserve">
+    <value>DUNS 编号 5</value>
+    <comment>DUNS Number5</comment>
+  </data>
+  <data name="lblDuplicateDuns" xml:space="preserve">
+    <value>重复的沙丘</value>
+    <comment>Duplicate Duns</comment>
+  </data>
+  <data name="lblEdit" xml:space="preserve">
+    <value>编辑</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="lblErrormessage" xml:space="preserve">
+    <value>错误信息</value>
+    <comment>Error message</comment>
+  </data>
+  <data name="lblExample" xml:space="preserve">
+    <value>例</value>
+    <comment>Example</comment>
+  </data>
+  <data name="lblExportToCSV" xml:space="preserve">
+    <value>导出为CSV</value>
+    <comment>Export to CSV</comment>
+  </data>
+  <data name="lblFailedCases" xml:space="preserve">
+    <value>失败案例</value>
+    <comment>Failed Cases</comment>
+  </data>
+  <data name="lblFileAccepts" xml:space="preserve">
+    <value>文件（仅接受Excel文件）</value>
+    <comment>File (Accepts only Excel files)</comment>
+  </data>
+  <data name="lblGetAllStatus" xml:space="preserve">
+    <value>获取所有项的状态</value>
+    <comment>Get status for all</comment>
+  </data>
+  <data name="lblGetStatus" xml:space="preserve">
+    <value>获取状态</value>
+    <comment>Get Status</comment>
+  </data>
+  <data name="lblHerelink" xml:space="preserve">
+    <value>这里</value>
+    <comment>here</comment>
+  </data>
+  <data name="lblInputHeader" xml:space="preserve">
+    <value>输入标题</value>
+    <comment>Input Header</comment>
+  </data>
+  <data name="lblInvestigationStatus" xml:space="preserve">
+    <value>调查状态</value>
+    <comment>Investigation Status</comment>
+  </data>
+  <data name="lbliResearchNote" xml:space="preserve">
+    <value>注：小型研究的重点是将 DUNS 编号分配给企业实体，来验证基本企业概要详细信息</value>
+    <comment>Note : Mini Research focuses on the assignment of DUNS Numbers to Business Entities validating basic firmographic details.</comment>
+  </data>
+  <data name="lbliResearchTargetedNote" xml:space="preserve">
+    <value>注：针对性调查的重点是使用具体的数据类别（如地址、营业范围等）来更新现有的业务</value>
+    <comment>Note : Targeted Investigation focuses on the updating an existing business using specific data categories such as “Address”, “Line Of Business”, etc.</comment>
+  </data>
+  <data name="lblIsActive" xml:space="preserve">
+    <value>活跃</value>
+    <comment>IsActive</comment>
+  </data>
+  <data name="lblKeyword" xml:space="preserve">
+    <value>关键词</value>
+    <comment>Keyword</comment>
+  </data>
+  <data name="lblMessage" xml:space="preserve">
+    <value>消息</value>
+    <comment>Message</comment>
+  </data>
+  <data name="lblMiniInvestigation" xml:space="preserve">
+    <value>迷你调查</value>
+    <comment>Mini Investigation</comment>
+  </data>
+  <data name="lblNoRecords" xml:space="preserve">
+    <value>未找到记录</value>
+    <comment>No Record(s) found</comment>
+  </data>
+  <data name="lblOpenCases" xml:space="preserve">
+    <value>未结案例</value>
+    <comment>Open Cases</comment>
+  </data>
+  <data name="lblPostalCode" xml:space="preserve">
+    <value>邮编</value>
+    <comment>Postal Code</comment>
+  </data>
+  <data name="lblPrimaryAddress" xml:space="preserve">
+    <value>主地址</value>
+    <comment>Primary Address</comment>
+  </data>
+  <data name="lblPrimaryName" xml:space="preserve">
+    <value>主名称</value>
+    <comment>Primary Name</comment>
+  </data>
+  <data name="lblRefreshStatus" xml:space="preserve">
+    <value>刷新状态</value>
+    <comment>Refresh Status</comment>
+  </data>
+  <data name="lblRequestedDateTime" xml:space="preserve">
+    <value>请求的日期时间</value>
+    <comment>Requested DateTime</comment>
+  </data>
+  <data name="lblRequestorEmail" xml:space="preserve">
+    <value>请求者邮箱地址</value>
+    <comment>Requestor Email</comment>
+  </data>
+  <data name="lblRequestorEmailAddress" xml:space="preserve">
+    <value>请求者电子邮件地址</value>
+    <comment>Requestor Email Address</comment>
+  </data>
+  <data name="lblRequestType" xml:space="preserve">
+    <value>请求类型</value>
+    <comment>Request Type</comment>
+  </data>
+  <data name="lblRequiredBusinessName" xml:space="preserve">
+    <value>必须输入商家名称号码</value>
+    <comment>BusinessName number is required</comment>
+  </data>
+  <data name="lblRequiredCity" xml:space="preserve">
+    <value>必须填写城市</value>
+    <comment>City is required</comment>
+  </data>
+  <data name="lblRequiredComment" xml:space="preserve">
+    <value>需要研究评论</value>
+    <comment>Research Comment is required</comment>
+  </data>
+  <data name="lblRequiredCountryISOCode" xml:space="preserve">
+    <value>必须输入国家/地区ISO代码</value>
+    <comment>Country ISO Code is required</comment>
+  </data>
+  <data name="lblRequiredDUNS" xml:space="preserve">
+    <value>DUNS号为必填项</value>
+    <comment>DUNS number is required</comment>
+  </data>
+  <data name="lblRequiredEmail" xml:space="preserve">
+    <value>请输入有效的RequestorEmail</value>
+    <comment>Please enter valid RequestorEmail</comment>
+  </data>
+  <data name="lblRequiredPostalCode" xml:space="preserve">
+    <value>邮政编码为必填项</value>
+    <comment>PostalCode is required</comment>
+  </data>
+  <data name="lblRequiredResearchComment1" xml:space="preserve">
+    <value>必须提供研究评论（财务数据）</value>
+    <comment>Research Comment (Financial Figures) is required</comment>
+  </data>
+  <data name="lblRequiredResearchComment2" xml:space="preserve">
+    <value>必须提供研究评论（财务比率）</value>
+    <comment>Research Comments (Financial Ratios) is required</comment>
+  </data>
+  <data name="lblRequiredResearchComments" xml:space="preserve">
+    <value>研究注释为必填。</value>
+    <comment>Research Comments is required.</comment>
+  </data>
+  <data name="lblRequiredResearchSubTypes" xml:space="preserve">
+    <value>必须填写研究子类型</value>
+    <comment>Research Sub Types is required</comment>
+  </data>
+  <data name="lblRequiredStreetAdderss" xml:space="preserve">
+    <value>街道地址为必填项</value>
+    <comment>StreetAdderss is required</comment>
+  </data>
+  <data name="lblResearchcomment" xml:space="preserve">
+    <value>研究评论</value>
+    <comment>Research comment</comment>
+  </data>
+  <data name="lblResearchComments" xml:space="preserve">
+    <value>研究注释</value>
+    <comment>Research Comments</comment>
+  </data>
+  <data name="lblResearchComments1" xml:space="preserve">
+    <value>研究评论（财务数据）</value>
+    <comment>Research Comment (Financial Figures)</comment>
+  </data>
+  <data name="lblResearchComments2" xml:space="preserve">
+    <value>研究评论（财务比率）</value>
+    <comment>Research Comments (Financial Ratios)</comment>
+  </data>
+  <data name="lblResearchRequestID" xml:space="preserve">
+    <value>研究请求编号</value>
+    <comment>Research RequestID</comment>
+  </data>
+  <data name="lblResearchSubtype" xml:space="preserve">
+    <value>研究亚型</value>
+    <comment>Research Subtype</comment>
+  </data>
+  <data name="lblResearchSubtypeInformation" xml:space="preserve">
+    <value>研究亚型信息</value>
+    <comment>Research Subtype Information</comment>
+  </data>
+  <data name="lblResearchSubTypes" xml:space="preserve">
+    <value>研究小组类型</value>
+    <comment>Research Sub Types</comment>
+  </data>
+  <data name="lblResolutionDate" xml:space="preserve">
+    <value>解决日期</value>
+    <comment>Resolution Date</comment>
+  </data>
+  <data name="lblResolutionDUNS" xml:space="preserve">
+    <value>分辨率DUNS</value>
+    <comment>Resolution DUNS</comment>
+  </data>
+  <data name="lblSearch" xml:space="preserve">
+    <value>搜索</value>
+    <comment>Search</comment>
+  </data>
+  <data name="lblSrcId" xml:space="preserve">
+    <value>Src Id</value>
+    <comment>Src Id</comment>
+  </data>
+  <data name="lblSrcRecordId" xml:space="preserve">
+    <value>SrcRecordId</value>
+    <comment>SrcRecordId</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>州</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblStatus" xml:space="preserve">
+    <value>状态</value>
+    <comment>Status</comment>
+  </data>
+  <data name="lblStreetAddress" xml:space="preserve">
+    <value>街道地址</value>
+    <comment>Street Address</comment>
+  </data>
+  <data name="lblSubmit" xml:space="preserve">
+    <value>提交</value>
+    <comment>Submit</comment>
+  </data>
+  <data name="lblSubmittedDate" xml:space="preserve">
+    <value>提交日期</value>
+    <comment>Submitted Date</comment>
+  </data>
+  <data name="lblTableColumn" xml:space="preserve">
+    <value>表格栏</value>
+    <comment>Table Column</comment>
+  </data>
+  <data name="lblTargetedInvestigation" xml:space="preserve">
+    <value>针对性调查</value>
+    <comment>Targeted Investigation</comment>
+  </data>
+  <data name="lblTotalCases" xml:space="preserve">
+    <value>案例总计</value>
+    <comment>Total Cases</comment>
+  </data>
+  <data name="lblTradeStyleName" xml:space="preserve">
+    <value>TradeStyle名称</value>
+    <comment>TradeStyle Name</comment>
+  </data>
+  <data name="lblUpdate" xml:space="preserve">
+    <value>更新</value>
+    <comment>Update</comment>
+  </data>
+  <data name="lblUpdateStatus" xml:space="preserve">
+    <value>更新状态</value>
+    <comment>Update Status</comment>
+  </data>
+  <data name="lblZip" xml:space="preserve">
+    <value>邮编</value>
+    <comment>Zip</comment>
+  </data>
+  <data name="msgAlreadyBelongsToFile" xml:space="preserve">
+    <value>已经属于这个档案</value>
+    <comment>already belongs to this file</comment>
+  </data>
+  <data name="msgEnterValidEmail" xml:space="preserve">
+    <value>请输入有效的电子邮件地址。</value>
+    <comment>Please enter valid email address.</comment>
+  </data>
+  <data name="msgError" xml:space="preserve">
+    <value>错误：</value>
+    <comment>Error:</comment>
+  </data>
+  <data name="msgInsertFailInvestigation" xml:space="preserve">
+    <value>调查记录未成功提交。请重试</value>
+    <comment>Investigation record does not submitted successfully. Please try again</comment>
+  </data>
+  <data name="msgInsertInvestigation" xml:space="preserve">
+    <value>调查请求已成功完成。</value>
+    <comment>The investigation request was completed successfully.</comment>
+  </data>
+  <data name="msgInvestigationChallengedFailed" xml:space="preserve">
+    <value>挑战调查时出了点问题。</value>
+    <comment>Something went wrong while challenging the investigation.</comment>
+  </data>
+  <data name="msgInvestigationChallengedSuccess" xml:space="preserve">
+    <value>调查成功完成。</value>
+    <comment>Investigation challenged successfully.</comment>
+  </data>
+  <data name="msgInvestigationFileFormat" xml:space="preserve">
+    <value>允许的格式仅为：txt</value>
+    <comment>Only formats allowed are : txt</comment>
+  </data>
+  <data name="msgInvestigationReceived" xml:space="preserve">
+    <value>调查已成功收到</value>
+    <comment>Investigation received successfully</comment>
+  </data>
+  <data name="msgInvestigationReceivedFail" xml:space="preserve">
+    <value>调查未成功收到</value>
+    <comment>Investigation not received successfully</comment>
+  </data>
+  <data name="msgNoRecordsAvailable" xml:space="preserve">
+    <value>此页面上没有记录。</value>
+    <comment>No records available on this page.</comment>
+  </data>
+  <data name="msgOnlyExcelAllowed" xml:space="preserve">
+    <value>仅允许的格式为.xls和.xlsx</value>
+    <comment>Only formats allowed are.xls and.xlsx</comment>
+  </data>
+  <data name="msgOnlyFormatsAllowed" xml:space="preserve">
+    <value>仅允许的格式为：</value>
+    <comment>Only formats allowed are :</comment>
+  </data>
+  <data name="msgRequiredRequestorEmail" xml:space="preserve">
+    <value>要求者电子邮件为必填项。</value>
+    <comment>Requestor Email is required.</comment>
+  </data>
+  <data name="msgSelectFile" xml:space="preserve">
+    <value>请先选择文件。</value>
+    <comment>Please select file first.</comment>
+  </data>
+  <data name="msgTargetedResearchSubTypeNote" xml:space="preserve">
+    <value>提交“目标调查研究”子类型是必需的。请从以下位置下载研究子类型信息</value>
+    <comment>To submit Targeted Investigaiton Research Subtype is required. Please download Reseach Subtype information from</comment>
+  </data>
+  <data name="msgUnableImportBlankFile" xml:space="preserve">
+    <value>无法导入空白文件</value>
+    <comment>Unable to import blank file</comment>
+  </data>
+  <data name="msgUpdateInvestigation" xml:space="preserve">
+    <value>调查请求已成功更新。</value>
+    <comment>The investigation request was updated successfully.</comment>
+  </data>
+  <data name="titleiResearchInvestigation" xml:space="preserve">
+    <value>艾瑞调查</value>
+    <comment>iResearch Investigation</comment>
+  </data>
+</root>

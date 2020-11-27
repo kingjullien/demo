@@ -1,0 +1,172 @@
+﻿using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.Controllers;
+@model UserSessionFilterEntity
+@{
+    Layout = "~/Views/Shared/_LayoutPopup.cshtml";
+    ViewBag.Title = "Add User session filter";
+    int z = 0;
+}
+
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/bootbox.min.js"></script>
+<link href="~/Content/chosen.css" rel="stylesheet" />
+<link href="~/Content/Custom.css" rel="stylesheet" />
+<style type="text/css">
+    body {
+        overflow: hidden;
+    }
+</style>
+<link href="~/Content/CustomPopUp.css" rel="stylesheet" />
+@using (Html.BeginForm("popupUserFilter", "UserSessionFilter", FormMethod.Post, new { @autocomplete = "off" }))
+{
+    @Html.Hidden("hidenImportProcess", Model.ImportProcess)
+    @Html.AntiForgeryToken()
+    @Html.Raw(ViewBag.CloseAlert)
+    <div id="content" style="opacity: 1;">
+        <section id="widget-grid" class="">
+            <article class="sortable-grid ui-sortable">
+
+
+                @if (@ViewBag.Message != null)
+                {<div class="form-group">
+                        <div class="text-center marginAll_10">
+                            <div class="alert alert-block alert-success" style="display:none">
+                                <a class="close" href="#" data-dismiss="alert" onclick="closemsg()">×</a>
+                                <h4 class="alert-heading">
+                                    <i class="fa fa-check-square-o"></i>
+                                    @ViewBag.Message
+                                </h4>
+                            </div>
+                        </div>
+                    </div>}
+
+
+                <div id="wid-id-1" class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-editbutton="false" role="widget">
+                    <header role="heading">
+                        <h2 class="text-center">
+                            @if (Model.UserId > 0)
+                            {
+                                <strong>Edit Session Filters</strong>
+                            }
+                            else
+                            {
+                                <strong>Add Session Filters</strong>
+                            }
+
+                        </h2>
+                        <ul id="widget-tab-Company" class="nav pull-right nav-pills ">
+
+                            <li>
+
+                            </li>
+                        </ul>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content">
+                                <div id="hr1" class="tab-pane fade active in CustomHidden">
+                                    <div id="popupConfigData">
+                                        <div class="table-bordered match-table">
+                                            <div class="row">
+                                                <label class="control-label col-md-2 text-right lbltop">Src Record Id :</label>
+                                                <div class="col-md-4">
+                                                    @Html.TextBoxFor(model => model.SrcRecordId, new { @class = "form-control", @autocomplete = "off", maxlength = "50" })
+                                                </div>
+                                                <label class="control-label col-md-2 text-right lbltop">Company Name :</label>
+                                                <div class="col-md-4">
+                                                    @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control", @autocomplete = "off", maxlength = "240" })
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <label class="control-label col-md-2 text-right lbltop">City :</label>
+                                                <div class="col-md-4">
+                                                    @Html.TextBoxFor(model => model.City, new { @class = "form-control", @autocomplete = "off", maxlength = "64" })
+                                                </div>
+                                                <label class="control-label col-md-2 text-right lbltop">State :</label>
+                                                <div class="col-md-4">
+                                                    @Html.TextBoxFor(model => model.State, new { @class = "form-control", @autocomplete = "off", maxlength = "64" })
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <label class="control-label col-md-2 text-right lbltop">Country :</label>
+                                                <div class="col-md-4">
+                                                    @Html.DropDownListFor(model => model.CountryISOAlpha2Code, new SelectList(CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text", Model.CountryISOAlpha2Code), "Select Country", new { @class = "form-control selectbox", @autocomplete = "off" })
+                                                </div>
+                                                <label class="control-label col-md-2 text-right lbltop">Import Process :</label>
+                                                <div class="col-md-4 custom-dropdown-search chosenPopup">
+                                                    @Html.DropDownListFor(model => model.ImportProcess, new SelectList(CommonDropdown.StewGetDataImportProcess(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ImportProcess.SessionFilter.ToString(), false), "Value", "Text", Model.ImportProcess), "Select Import Process", new { @class = "form-control selectbox chzn-select", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                            <div class="row paddingto5">
+                                                <label class="control-label col-md-2 text-right lbltop">Country Group :</label>
+                                                <div class="col-md-4">
+                                                    <div class="DisplayFlex AddContrygroupCls">
+                                                        @Html.DropDownListFor(@model => @model.CountryGroupId, new SelectList(new CommonDropdown().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName", Model.CountryGroupId), "Select Country Group", new { @class = "form-control selectbox ", @autocomplete = "off" })
+                                                        @if (Helper.UserType.ToLower() != "steward")
+                                                        {<i class="fa fa-plus CreateCountyGroup"></i>}
+                                                    </div>
+                                                </div>
+                                                <label class="control-label col-md-2 text-right lbltop">Order By Column :</label>
+                                                <div class="col-md-4">
+                                                    @Html.DropDownListFor(model => model.OrderByColumn, new SelectList(SBISCCMWeb.Models.UserSessionFilterModel.GetOrderColumn()), new { @class = "form-control selectbox", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+
+
+                                            @if (Helper.LicenseEnableTags)
+                                            {
+                                                <div class="row paddingto5">
+                                                    <label class="control-label col-md-2 text-right lbltop">Tag :</label>
+                                                    <div class="col-md-4 tagstylebox">
+                                                        @Html.DropDownList("Tag", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, false), "Tag", "TagName"), "Select Tag", new { @class = "form-control selectbox", @autocomplete = "off" })
+                                                    </div>
+                                                </div>
+                                            }
+                                            <div class="form-group popupAACRow">
+                                                <div class="row paddingto5">
+                                                    <div class="col-md-12 text-center">
+                                                        @Html.HiddenFor(model => model.UserId)
+
+                                                        @if (Model.UserId > 0)
+                                                        {
+                                                            <input type="submit" value="Update" id="btnUserSessionFilter" name="btnUserSessionFilter" class="btn btn-primary" />
+                                                            <input type="button" value="Clear" class="btn DeleteFilter">
+                                                        }
+                                                        else
+                                                        {
+                                                            <input type="submit" value="Apply" id="btnUserSessionFilter" name="btnUserSessionFilter" class="btn btn-primary" />
+                                                            <input type="button" value="Clear" class="btn" disabled="disabled">
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </article>
+        </section>
+    </div>
+}
+<script type="text/javascript">
+    function closemsg() {
+        $(".alert-success").hide();
+    }
+
+</script>
+
+@Scripts.Render("~/bundles/common")
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/notification/SmartNotification.min.js"></script>
+<script src="~/Scripts/smartwidgets/jarvis.widget.min.js"></script>
+@*<script src="~/Scripts/plugin/jquery-validate/jquery.validate.min.js"></script>*@
+<script src="~/Scripts/jquery.validate1.19.1.min.js"></script>
+<script src="~/Scripts/plugin/magnific/jquery.magnific-popup.min.js"></script>
+<script src="~/Scripts/chosen.jquery.js"></script>
+<script src="~/Scripts/CustomJS/UserSessionFilter.js"></script>

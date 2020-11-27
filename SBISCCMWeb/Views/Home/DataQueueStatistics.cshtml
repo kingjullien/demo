@@ -1,0 +1,533 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using Newtonsoft.Json
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model DashboardViewModel
+
+@{
+    string ImportProcessChartValue = string.Empty;
+    if (Model.importProcessTrend != null && Model.importProcessTrend.Count > 0)
+    {
+        ImportProcessChartValue = JsonConvert.SerializeObject(Model.importProcessTrend, Formatting.None, new JsonSerializerSettings() { ReferenceLoopHandling = ReferenceLoopHandling.Ignore });
+    }
+
+
+    List<DashboardBackgroundProcessStatsEntity> lstStats = ViewBag.lstStats;
+    DashboardBackgroundProcessStatsEntity clansMatchDetail = lstStats.Where(x => x.ETLType == "CLEANSE_MATCH").FirstOrDefault();
+    DashboardBackgroundProcessStatsEntity EnrichDetail = lstStats.Where(x => x.ETLType == "ENRICHMENT").FirstOrDefault();
+    DashboardBackgroundProcessStatsEntity ImportDetail = lstStats.Where(x => x.ETLType == "IMPORT").FirstOrDefault();
+
+
+    if (ImportDetail == null)
+    {
+        ImportDetail = new DashboardBackgroundProcessStatsEntity();
+    }
+    if (EnrichDetail == null)
+    {
+        EnrichDetail = new DashboardBackgroundProcessStatsEntity();
+    }
+    if (clansMatchDetail == null)
+    {
+        clansMatchDetail = new DashboardBackgroundProcessStatsEntity();
+    }
+
+}
+<article class="">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@HomeLang.hdrIdentityResolution</strong>
+            </h2>
+            <ul class="nav pull-right nav-pills Custom-pill">
+                <li>
+                </li>
+            </ul>
+        </header>
+        <div role="content" class="min-height-125px">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                <div class="tab-pane">
+                    <div class="row">
+                        <article class="col-md-2  sortable-grid ui-sortable width15pt">
+                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                <header role="heading">
+                                    <h2>
+                                        <strong>@HomeLang.hdrImportQueue</strong>
+                                    </h2>
+                                    <ul id="widget-tab-ExportJobListing" class="nav pull-right nav-pills Custom-pill">
+                                        <li>
+                                            <a href="javascript:void(0)" id="lnkBtnUnprocessedInput"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+                                        </li>
+                                    </ul>
+                                </header>
+                                <div role="content" class="min-height-125px">
+                                    <div class="jarviswidget-editbox"></div>
+                                    <div class="widget-body">
+                                        <div class="tab-pane">
+                                            <div class="row">
+                                                <div class="col-md-12 custCenter">
+                                                    <div class="RecordText">
+                                                        <div class="inner_text">
+                                                            <div style="padding-top: 15px;margin-bottom:-7px;"><span class="spanRcrdCnt">@Model.primaryStats.FilesAwaitingImportCount</span></div>
+                                                            <div>
+                                                                <span class="spanRcrdCntTilte">@HomeLang.lblFiles</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="image">
+                                                            <em class="fa fa-file-o fa-7x text-info @(ImportDetail.ShowErrorSymbol ? "customError":"")"></em>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="text-center">
+                                                    <a href="javascript:void(0)" class="fontsize-20"><em class="fa fa-cogs "></em></a>&nbsp;&nbsp;&nbsp;
+                                                    <span class="@(ImportDetail.ShowErrorSymbol?"customError":"")"><strong>@ImportDetail.Message1</strong> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="col-md-1 text-align-center width10pt">
+                            <div class="arrow">
+                                <span class="@(ImportDetail.ShowErrorSymbol?"customError":"")">
+                                    @if (!string.IsNullOrEmpty(ImportDetail.Message2) && ImportDetail.Message2.StartsWith("Next execution"))
+                                    {
+                                        <span>Next execution in @(CommonMethod.SecondToMinuteAccurate(ImportDetail.NextExecutionTimeSeconds))</span>
+                                    }
+                                    else
+                                    {
+                                        <span>@ImportDetail.Message2</span>
+                                    }
+                                </span>
+                            </div>
+
+                        </article>
+                        <article class="col-xs-2  sortable-grid ui-sortable width15pt">
+                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                <header role="heading">
+                                    <h2>
+                                        <strong>@HomeLang.hdrInputQueue</strong>
+                                    </h2>
+                                    <ul id="widget-tab-ExportJobListing" class="nav pull-right nav-pills Custom-pill">
+                                        <li>
+                                        </li>
+                                    </ul>
+                                </header>
+                                <div role="content" class="min-height-125px">
+                                    <div class="jarviswidget-editbox"></div>
+                                    <div class="widget-body">
+                                        <div class="tab-pane">
+                                            @if (Model.primaryStats.InputRecordCount_Total > 0)
+                                            {
+                                                <div class="row">
+                                                    <div>
+                                                        @Html.Hidden("InputRecordCount_Failed", Model.primaryStats.InputRecordCount_Failed)
+                                                        @Html.Hidden("InputRecordCount_AwaitingProcessing", Model.primaryStats.InputRecordCount_AwaitingProcessing)
+                                                        @Html.Hidden("InputRecordCount_Processing", Model.primaryStats.InputRecordCount_Processing)
+                                                        @Html.Hidden("InputRecordCount_Total", Model.primaryStats.InputRecordCount_Total)
+                                                        <div id="RptImportQueueCleanMatch" style="margin-top: -20px;height: 120px;width:100%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row margin-top--23">
+                                                    <div class="text-center">
+                                                        <a href="javascript:void(0)" class="fontsize-20"><em class="fa fa-cogs "></em></a>&nbsp;&nbsp;&nbsp;
+                                                        <span class="@(clansMatchDetail.ShowErrorSymbol?"customError":"")"><strong>@clansMatchDetail.Message1</strong> </span>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="circleDiv circleDivBorder-black"><span class="spanRcrdCnt">0</span></div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="text-center">
+                                                        <a href="javascript:void(0)" class="fontsize-20"><em class="fa fa-cogs "></em></a>&nbsp;&nbsp;&nbsp;
+                                                        <span class="@(clansMatchDetail.ShowErrorSymbol?"customError":"")"><strong>@clansMatchDetail.Message1</strong> </span>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="col-md-1 text-align-center width10pt">
+                            <div class="CenterBlock">
+                                <div class="arrow">
+                                    <span class="@(clansMatchDetail.ShowErrorSymbol?"customError":"")">
+                                        @if (!string.IsNullOrEmpty(clansMatchDetail.Message2) && clansMatchDetail.Message2.StartsWith("Next execution"))
+                                        {
+                                            <span>@HomeLang.lblNextExecution @(CommonMethod.SecondToMinuteAccurate(clansMatchDetail.NextExecutionTimeSeconds))</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@clansMatchDetail.Message2</span>
+                                        }
+                                    </span>
+                                </div>
+                                <div class="margin-top--40">
+                                    <label class="switch">
+                                        <input type="checkbox" name="EnableCLEANSE_MATCHProcess" id="EnableCLEANSE_MATCHProcess" checked="@(Convert.ToBoolean(clansMatchDetail.ProcessPaused))">
+                                        <span class="Toggleslider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+
+                        </article>
+                        <article class="col-xs-3  sortable-grid ui-sortable">
+                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                <header role="heading">
+                                    <h2>
+                                        <strong>@HomeLang.hdrDataStewardshipQueue</strong>
+                                    </h2>
+                                    <ul id="widget-tab-ExportJobListing" class="nav pull-right nav-pills Custom-pill">
+                                        <li>
+                                            <a href="javascript:void(0)" id="rptShowBackgroundProcessList">@HomeLang.lblETLDetails</a>
+                                        </li>
+                                    </ul>
+                                </header>
+                                <div role="content" class="min-height-125px">
+                                    <div class="jarviswidget-editbox"></div>
+                                    <div class="widget-body">
+                                        <div class="tab-pane">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="circleDiv circleDivBorder-blue">
+                                                        <span class="spanRcrdCnt">
+                                                            @Model.primaryStats.LowConfidenceMatchRecordCount
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="circleDiv circleDivBorder-skyblue">
+                                                        <span class="spanRcrdCnt">@Model.primaryStats.NoMatchRecordCount</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-top-5">
+                                                <div class="col-md-6 text-align-center">
+                                                    <span><strong>@HomeLang.lblLowConfidence</strong> </span>
+                                                </div>
+                                                <div class="col-md-6 text-align-center">
+                                                    <span><strong>@HomeLang.lblNoMatch</strong> </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </article>
+                        <article class="col-md-1 text-align-center width10pt">
+                            <div class="arrow">@Model.primaryStats.MatchProcessingRecordCount</div>
+                        </article>
+                        <article class="col-xs-2  sortable-grid ui-sortable width15pt">
+                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                <header role="heading">
+                                    <h2>
+                                        <strong>@HomeLang.hdrExportQueue</strong>
+                                    </h2>
+                                    @*<ul id="widget-tab-ExportJobListing" class="nav pull-right nav-pills Custom-pill">
+                                            <li>
+                                                <a href="javascript:void(0)" id="lnkBtnUnprocessedInput"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+                                            </li>
+                                        </ul>*@
+                                </header>
+                                <div role="content" class="min-height-125px">
+                                    <div class="jarviswidget-editbox"></div>
+                                    <div class="widget-body">
+                                        <div class="tab-pane">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="circleDiv circleDivBorder-green">
+                                                        <span class="spanRcrdCnt">@Model.primaryStats.MatchExportRecordCount</span>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row margin-top-5">
+                                                <div class="col-md-12 text-align-center">
+                                                    <span><strong>@HomeLang.lblMatchOutput</strong> </span>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+<div class="row">
+    <article class="col-md-8">
+        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <strong>@HomeLang.hdrDataEnrichment</strong>
+                </h2>
+                <ul class="nav pull-right nav-pills Custom-pill">
+                    <li>
+                    </li>
+                </ul>
+            </header>
+            <div role="content" class="min-height-125px">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body">
+                    <div class="tab-pane">
+                        <div class="row">
+                            <article class="col-md-3  sortable-grid ui-sortable width22pt">
+                                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                    <header role="heading">
+                                        <h2>
+                                            <strong>@HomeLang.hdrImportQueue</strong>
+                                        </h2>
+                                        <ul id="widget-tab-ExportJobListing" class="nav pull-right nav-pills Custom-pill">
+                                            <li>
+                                                <a href="javascript:void(0)" id="lnkBtnUnprocessedInput"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+                                            </li>
+                                        </ul>
+                                    </header>
+                                    <div role="content" class="min-height-125px">
+                                        <div class="jarviswidget-editbox"></div>
+                                        <div class="widget-body">
+                                            <div class="tab-pane">
+                                                <div class="row">
+                                                    <div class="col-md-12 custCenter">
+                                                        <div class="RecordText">
+                                                            <div class="inner_text">
+                                                                <div style="padding-top: 15px;margin-bottom:-7px;"><span class="spanRcrdCnt">@Model.primaryStats.FilesAwaitingImportCount</span></div>
+                                                                <div>
+                                                                    <span class="spanRcrdCntTilte">@HomeLang.lblFiles</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="image">
+                                                                <em class="fa fa-file-o fa-7x text-info @(ImportDetail.ShowErrorSymbol?"customError":"")"></em>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="text-center">
+                                                        <a href="javascript:void(0)" class="fontsize-20"><em class="fa fa-cogs "></em></a>&nbsp;&nbsp;&nbsp;
+                                                        <span class="@(ImportDetail.ShowErrorSymbol?"customError":"")"><strong>@ImportDetail.Message1</strong> </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="col-md-2 text-align-center ">
+                                <div class="arrow">
+                                    <span class="@(ImportDetail.ShowErrorSymbol?"customError":"")">
+                                        @if (!string.IsNullOrEmpty(ImportDetail.Message2) &&ImportDetail.Message2.StartsWith("Next execution"))
+                                        {
+                                            <span>Next execution in @(CommonMethod.SecondToMinuteAccurate(ImportDetail.NextExecutionTimeSeconds))</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@ImportDetail.Message2</span>
+                                        }
+                                    </span>
+                                </div>
+                            </article>
+                            <article class="col-xs-3  sortable-grid ui-sortable width22pt">
+                                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                    <header role="heading">
+                                        <h2>
+                                            <strong>@HomeLang.hdrEnrichment</strong>
+                                        </h2>
+                                        <ul id="widget-tab-ExportJobListing" class="nav pull-right nav-pills Custom-pill">
+                                            <li>
+                                            </li>
+                                        </ul>
+                                    </header>
+                                    <div role="content" class="min-height-125px">
+                                        <div class="jarviswidget-editbox"></div>
+                                        <div class="widget-body">
+                                            <div class="tab-pane">
+                                                @if (Model.primaryStats.InputRecordCount_Total > 0)
+                                                {
+                                                    <div class="row">
+                                                        <div>
+                                                            @Html.Hidden("InputRecordCount_Failed", Model.primaryStats.InputRecordCount_Failed)
+                                                            @Html.Hidden("InputRecordCount_AwaitingProcessing", Model.primaryStats.InputRecordCount_AwaitingProcessing)
+                                                            @Html.Hidden("InputRecordCount_Processing", Model.primaryStats.InputRecordCount_Processing)
+                                                            @Html.Hidden("InputRecordCount_Total", Model.primaryStats.InputRecordCount_Total)
+                                                            <div id="RptImportQueueEnrich" style="margin-top: -20px;height: 120px;width:100%;"></div>
+
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="row margin-top--23">
+                                                        <div class="text-center">
+                                                            <a href="javascript:void(0)" class="fontsize-20"><em class="fa fa-cogs "></em></a>&nbsp;&nbsp;&nbsp;
+                                                            <span class="@(EnrichDetail.ShowErrorSymbol?"customError":"")"><strong>@EnrichDetail.Message1</strong> </span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-md-12">
+                                                            <div class="circleDiv circleDivBorder-black"><span class="spanRcrdCnt">0</span></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="text-center">
+                                                            <a href="javascript:void(0)" class="fontsize-20"><em class="fa fa-cogs "></em></a>&nbsp;&nbsp;&nbsp;
+                                                            <span class="@(EnrichDetail.ShowErrorSymbol?"customError":"")"><strong>@EnrichDetail.Message1</strong> </span>
+                                                            <div>
+                                                                <label class="switch">
+                                                                    <input type="checkbox" name="EnableENRICHMENTProcess" id="EnableENRICHMENTProcess" checked="@(Convert.ToBoolean(EnrichDetail.ProcessPaused))">
+                                                                    <span class="Toggleslider round"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                            <article class="col-md-2 text-align-center ">
+                                <div class="arrow">
+                                    <span class="@(ImportDetail.ShowErrorSymbol?"customError":"")">
+                                        @if (!string.IsNullOrEmpty(EnrichDetail.Message2) &&EnrichDetail.Message2.StartsWith("Next execution"))
+                                        {
+                                            <span>@HomeLang.lblNextExecution @(CommonMethod.SecondToMinuteAccurate(EnrichDetail.NextExecutionTimeSeconds))</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@EnrichDetail.Message2</span>
+                                        }
+                                    </span>
+                                </div>
+                            </article>
+                            <article class="col-xs-3  sortable-grid ui-sortable width22pt">
+                                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                                    <header role="heading">
+                                        <h2>
+                                            <strong>@HomeLang.hdrExportQueue</strong>
+                                        </h2>
+                                    </header>
+                                    <div role="content" class="min-height-125px">
+                                        <div class="jarviswidget-editbox"></div>
+                                        <div class="widget-body">
+                                            <div class="tab-pane">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="circleDiv circleDivBorder-green">
+                                                            <span class="spanRcrdCnt">@Model.primaryStats.EnrichmentExportDUNSCount</span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row margin-top-5">
+                                                    <div class="col-md-12 text-align-center">
+                                                        <span><strong>@HomeLang.lblEnrichmentOutput</strong> </span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <article class="col-xs-2  sortable-grid ui-sortable ">
+        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <strong>@HomeLang.hdrMonitoringNotification</strong>
+                </h2>
+                @*<ul id="widget-tab-ExportJobListing" class="nav pull-right nav-pills Custom-pill">
+                        <li>
+                            <a href="javascript:void(0)" id="lnkBtnUnprocessedInput"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>*@
+            </header>
+            <div role="content" class="min-height-125px">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body">
+                    <div class="tab-pane">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="circleDiv circleDivBorder-green">
+                                    <table>
+                                        <tr>
+                                            <td class="text-align-center"><span class="spanRcrdCnt">@Model.primaryStats.MonitoringExportDUNSCount</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-align-center"><span>@HomeLang.lblDUNS</span></td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+    <article class="col-xs-2  sortable-grid ui-sortable">
+        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <strong>@HomeLang.hdrInvestigationReport</strong>
+                </h2>
+                @*<ul id="widget-tab-ExportJobListing" class="nav pull-right nav-pills Custom-pill">
+                        <li>
+                            <a href="javascript:void(0)" id="lnkBtnUnprocessedInput"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+                        </li>
+                    </ul>*@
+            </header>
+            <div role="content" class="min-height-125px">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body">
+                    <div class="tab-pane">
+                        <div class="row borderbottom">
+                            <div class="col-md-8">@HomeLang.lblOpenCases</div>
+                            <div class="col-md-4">@Model.dashboardInvestigationStatisticsEntity.NbrOpenedCases Cases</div>
+                        </div>
+                        <div class="row borderbottom">
+                            <div class="col-md-8">@HomeLang.lblClosedCases</div>
+                            <div class="col-md-4">@Model.dashboardInvestigationStatisticsEntity.NbrClosedCases Cases</div>
+                        </div>
+                        <div class="row borderbottom">
+                            <div class="col-md-8">@HomeLang.lblOpenedLastWeek</div>
+                            <div class="col-md-4">@Model.dashboardInvestigationStatisticsEntity.NbrCaseOpenedLastWeek Cases</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">@HomeLang.lblAvgResolutionTime</div>
+                            <div class="col-md-4">@(Model.dashboardInvestigationStatisticsEntity.NbrCaseOpenedLastWeek / 1440) Days</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+
+<div class="row">
+    @Html.Hidden("hdnImportProcessChartValue", ImportProcessChartValue)
+
+</div>

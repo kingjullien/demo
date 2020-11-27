@@ -1,0 +1,36 @@
+﻿@using PagedList.Mvc;
+@using SBISCCMWeb.Utility;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.LanguageResources;
+@model PagedList.IPagedList<InvestigateViewEntity>
+@{
+    ViewBag.Title = OIInvestigateLang.titleOIInvestigate;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<link href="~/Content/Custom.css" rel="stylesheet" />
+<div id="content" style="opacity: 1;">
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-collapsed jarviswidget-color-blueDark" style="position: relative; opacity: 1; left: 0px; top: 0px;" role="widget" data-widget-deletebutton="false" data-widget-colorbutton="false" data-widget-fullscreenbutton="false" data-widget-editbutton="false" data-widget-togglebutton="false">
+                    <header role="heading">
+                        <h2><strong>@OIInvestigateLang.hdrInvestigationReport</strong></h2>
+                    </header>
+                    <div role="content">
+                        <div class="widget-body">
+                            <div id="InvestigateReport" class="table-responsive">
+                                @{Html.RenderPartial("~/Views/OI/OIInvestigateView/_InvestigationReport.cshtml", Model);}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+@section scripts{
+    <script src="~/Scripts/jquery.ui.position.min.js"></script>
+    <script src="~/Scripts/jquery.contextMenu.js"></script>
+}

@@ -1,0 +1,94 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model ThirdPartyAPICredentialsEntity
+@{
+    Layout = null;
+    AjaxOptions MinCCOverrideajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "OnSuccessUpsertMinCCOverride"
+    };
+    string ApplicationDBConnectionString = !string.IsNullOrEmpty(ViewBag.ApplicationDBConnectionString) ? ViewBag.ApplicationDBConnectionString : this.LayoutModel.CurrentClient.ApplicationDBConnectionString;
+}
+<article class="col-md-12 sortable-grid ui-sortable widget-data " id="articleAddUpdateMinCCOverride">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.titleOverrideDetail</strong>
+            </h2>
+            <ul id="widget-tab-Process" class="nav pull-right nav-pills Custom-pill">
+                <li>
+                    <div class="btn btn-sm" id="AddMinCCOverride" title="@DandBSettingLang.titleAddMininumConfidanceCodeOverride">
+                        <span class="fa fa-plus"></span>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn btn-sm" id="EditMinCCOverride" title="@DandBSettingLang.titleEditMininumConfidanceCodeOverride">
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10 ">
+                    @using (Ajax.BeginForm("UpsertMinimumConfidenceCodeOverride", "DNBIdentityResolution", null, MinCCOverrideajaxOptions, new { id = "frm_MinCCfrm", autocomplete = "off" }))
+                    {@Html.Hidden("Tags")
+                    @Html.Hidden("TagList", Model.Tag)
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.Id)
+
+                    <div class="row">
+                        <div class="col-sm-3 ">
+                            <span class="v-align-text"><strong>@DandBSettingLang.lblMinimumConfidenceLevel</strong></span>
+                            @Html.DropDownListFor(@model => Model.MinConfidenceCode, new SelectList(new CommonDropdown().ComboboxItems("AutoSettingConfidenceCode"), "Value", "Text"), new { @class = "form-control selectbox", @autocomplete = "off", disabled = "disabled" })
+                        </div>
+                        <div class="col-sm-3">
+                            <span class="v-align-text"><strong>@DandBSettingLang.lblMaximumCandidateResults<span class="error">*</span></strong></span>
+                            @Html.TextBoxFor(@model => Model.MaxCandidateQty, new { @class = "form-control ", @autocomplete = "off", disabled = "disabled", maxlength = "2    " })
+                            <span>@DandBSettingLang.lblValidCandidate</span>
+                            <div><span id="spnMaxCandidateQty" class="error" style="display:none;">@DandBSettingLang.lblMaxCandidateQty</span></div>
+                        </div>
+                        @if (Helper.LicenseEnableTags)
+                        {
+                            <div class="col-sm-3">
+                                <div>
+                                    <span class="v-align-text"><strong>@DandBSettingLang.lblTags<span class="error">*</span></strong></span>
+                                </div>
+                                <div class="DisplayFlex">
+
+                                    @Html.DropDownListFor(@model => Model.Tag, new SelectList(CommonDropdown.GetAllTagsForUser(ApplicationDBConnectionString, true), "Tag", "Tag").InsertEmptyFirst("--Select--"), new Dictionary<string, Object> { { "class", "form-control  MinCCtags chzn-select" }, { "disabled", "disabled" }, { "autocomplete", "off" } })
+                                    @if (Helper.UserType.ToLower() != "steward")
+                                    {
+                                        <em class="fa fa-plus OpenTags paddingLeft-5" style="display:none;" id="AddMinCCTag" onclick="addNewTagsPopup()"></em>
+                                    }
+                                </div>
+                                <div><span id="spnTags" class="error" style="display:none;">@DandBSettingLang.lblTagRequired</span></div>
+                            </div>
+                        }
+                        <div class="col-sm-3">
+                            <div>
+                                <span class="v-align-text"><strong>@DandBSettingLang.lblCredentialName<span class="error">*</span></strong></span>
+                            </div>
+                            <div>
+                                @Html.HiddenFor(@model => Model.CredentialName)
+                                @Html.DropDownListFor(@model => Model.CredentialId, new SelectList(CommonDropdown.GetThirdPartyAPICredentials(ApplicationDBConnectionString, "DNB"), "Value", "Text").InsertEmptyFirst("--Select--"), new { @class = "form-control", @autocomplete = "off", disabled = "disabled" })
+                            </div>
+                            <div><span id="spnCredNames" class="error" style="display:none;">@DandBSettingLang.lblCredentialNameRequired</span></div>
+                        </div>
+                    </div>
+                    <div class="row form-group text-right">
+                        <div class="col-md-12">
+                            <input type="submit" value="@(Model.Id > 0?DandBSettingLang.lblUpdate:DandBSettingLang.lblAdd)" name="btnMinccoverride" id="btnMinccoverride" class="btn btn-primary" style="display:none" onclick="return ValidationProcess();" />
+                        </div>
+                    </div>
+                }
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

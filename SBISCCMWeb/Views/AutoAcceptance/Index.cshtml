@@ -1,0 +1,158 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.Controllers;
+@model IPagedList<AutoAdditionalAcceptanceCriteriaEntity>
+@{
+    ViewBag.Title = "Auto Acceptance";
+}
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialAutoAcceptance",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "GET",
+        OnSuccess = "OnSuccess"
+    };
+}
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<link href="~/Content/chosen.css" rel="stylesheet" />
+<link href="~/Content/Custom.css" rel="stylesheet" />
+@Html.AntiForgeryToken()
+<div id="content" style="opacity: 1;">
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-lg-12 sortable-grid ui-sortable widget-data">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark AutoacceptFilter" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            <i class="fa fa-asterisk"></i>
+                            <strong>Additional Auto-Accept Filter</strong>
+                        </h2>
+                        <ul id="widget-tab-Additional" class="nav pull-right nav-pills Custom-pill">
+                            <li class="">
+                                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                            </li>
+                        </ul>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content padding-10">
+                                <div class="tab-pane fade active in">
+                                    <div class="form-group ">
+                                        <div class="row ">
+                                            <form id="frmExportToExcel" action="~/AutoAcceptance/ExportToExcel">
+                                                <div class="col-md-3">
+                                                    <span><strong>Confidence Code</strong></span>
+                                                    @Html.DropDownList("ConfidenceCode", new SelectList(new CommonMethod().AddComboboxItems("AutoSettingConfidenceCode")), "Select", new { @class = "form-control" })
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span><strong>Match Grade</strong></span>
+                                                    @Html.DropDownList("MatchGrade", new SelectList(SBISCCMWeb.Controllers.AutoAcceptanceController.GetAutoAcceptanceMatchGrade(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)), "Select Match Grade", new { @class = "form-control chzn-select" })
+                                                    @*@Html.DropDownList("MatchGrade", new SelectList(new CleanseMatchSettingsController().LoadTopMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "DnBConfidenceCode", "DnBMatchGradeText"), new { @class = "form-control " })*@
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <span><strong>Country Group</strong></span>
+                                                    @Html.DropDownList("CountyGroupId", new SelectList(new CleanseMatchSettingsController().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName", ViewBag.CountyGroupId).InsertEmptyFirst("Select Country Group"), new { @class = "form-control selectbox" })
+                                                </div>
+                                                @if (Helper.LicenseEnableTags)
+                                                {
+                                                    <div class="col-md-3">
+                                                        <span><strong>Tags</strong></span>
+                                                        <div class="tagstylebox">
+                                                            @Html.DropDownList("Tags", new SelectList(SBISCCMWeb.Controllers.DataController.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", ViewBag.TagList).InsertEmptyFirst("Select Tag"), new { @class = "form-control selectbox" })
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </form>
+                                        </div>
+                                        <div class="row paddingto5">
+                                            <div class="col-md-3 col-sm-3">
+                                                <input type="button" value="Filter Records" id="btnfrmFilter" class="btn btn-primary" />
+                                                <input type="button" value="Clear Filter" id="btnclearFilter" class="btn btn-primary" />
+                                                <form id="frmfilter" action="~/AutoAcceptance/Index"></form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+        <div class="row">
+
+            <div id="divPartialCleanseMatchSettings">
+                <article class="col-lg-12 sortable-grid ui-sortable widget-data">
+                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <h2>
+                                <i class="fa fa-asterisk"></i>
+                                <strong>Additional Auto-Accept Rules</strong>
+                            </h2>
+                            <ul id="widget-tab-Additional" class="nav pull-right nav-pills Custom-pill">
+                                <li class="">
+                                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                                </li>
+                            </ul>
+                            @if (!Helper.oUser.EnableCreateAutoAcceptRules)
+                            {
+                                <a href="javascript:void(0)" id="ExportToExcel" class="pull-right btn btn-primary marginright-5 Updatesearch" disabled="disabled">Export To Excel</a>
+                                <a href="#" id="btnImportData" class="pull-right btn btn-primary marginright-5 Updatesearch" disabled="disabled">Import Data</a>
+                            }
+                            else
+                            {
+                                <a href="#" id="btnExportToExcel" class="pull-right btn btn-primary marginright-5 Updatesearch">Export To Excel</a>
+                                <a href="#" id="btnImportData" class="pull-right btn btn-primary marginright-5 Updatesearch">Import Data</a>
+                            }
+                            <a href="#" id="btnMultipleDeleteAutoAccept" class="pull-right btn btn-primary marginright-5 Updatesearch">Delete</a>
+                            @*<form id="frmExportToExcel" action="~/AutoAcceptance/ExportToExcel"></form>*@
+
+                        </header>
+                        <div role="content">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body no-padding">
+                                <div class="tab-content padding-10 ">
+                                    <div id="Additional" class="tab-pane fade active in ">
+                                        <div id="divPartialAutoAcceptance">
+                                            @{Html.RenderPartial("_index", Model);}
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12 text-center padding-10">
+                                                <a class="btn btn-primary btnSearchDUNS @(Helper.oUser.EnableCreateAutoAcceptRules == true ? "" : "disabled")" id="btnAddAAC" name="btnAddAAC">Add</a>
+                                                <input value="Run Rules" type="submit" id="btnRunRule" name="btnRunRule" class="btn btn-primary btn-sm pull-right" />
+                                            </div>
+                                        </div>
+
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+</div>
+<div class="loaderMain" id="divProgress">
+    <div class="loaderDiv">
+        <p class="loaderTxt">Please wait while processing...</p>
+    </div>
+</div>
+<script src="/Scripts/jquery.ui.position.min.js"></script>
+<script src="~/Scripts/CustomJS-minified/AutoAcceptance.js?kl=8569"></script>
+@section scripts
+{
+    <script src="~/Scripts/chosen.jquery.js"></script>
+
+    <script type="text/javascript">
+        $("select.chzn-select").chosen({
+            no_results_text: "Oops, nothing found!",
+            width: "100%",
+            search_contains: true
+        });
+    </script>
+}

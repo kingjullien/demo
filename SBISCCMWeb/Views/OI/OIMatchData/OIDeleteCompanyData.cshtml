@@ -1,0 +1,142 @@
+﻿@model SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.OIExportToExcel
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.Controllers;
+@using SBISCCMWeb.LanguageResources;
+@{
+    ViewBag.Title = "Delete Company Data";
+    Layout = null;
+    bool IsMatchData = Convert.ToBoolean(ViewBag.IsMatchData);
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    string UserLOBTag = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.LOBTag) ? "" : Helper.oUser.LOBTag : "";
+    string Message = Convert.ToString(ViewBag.Message);
+
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "SuccessOrbDeleteData"
+    };
+}
+
+<div class="modal" id="OIMatchDeleteCompanyDataModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@OIMatchDataLang.lblDeleteCompanyData</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    @using (Ajax.BeginForm("OIDeleteCompanyData", "OIMatchData", null, ajaxOptions, new { @class = "formContent", @id = "fromDeleteData", @autocomplete = "off" }))
+                    {
+                        @Html.Hidden("UserRole", UserRoles)
+                        @Html.Hidden("UserLOBTag", UserLOBTag)
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.GetCountOnly)
+                        <div class="row margin-top-10">
+                            <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@OIMatchDataLang.lblSrcRecordId:</label>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                @Html.TextBoxFor(model => model.SrcRecordId, new { @class = "form-control", @autocomplete = "off" })
+                            </div>
+                            <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@OIMatchDataLang.lblImportProcess:</label>
+                            <div class="col-md-4 col-sm-4 col-xs-4 custom-dropdown-search chosenPopup">
+                                @Html.DropDownListFor(m => m.ImportProcess, new SelectList(CommonDropdown.GetDataImportProcess(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text", Model.ImportProcess), CommonMessagesLang.lblSelectImportProcess, new { @class = "form-control selectbox chzn-select", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@OIMatchDataLang.lblCity:</label>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                @Html.TextBoxFor(model => model.City, new { @class = "form-control CityName", @autocomplete = "off" })
+                            </div>
+                            <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@OIMatchDataLang.lblState:</label>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                @Html.TextBoxFor(model => model.State, new { @class = "form-control StateName", @autocomplete = "off" })
+                            </div>
+                        </div>
+                        <div class="row margin-top-10">
+                            <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@OIMatchDataLang.lblCountry:</label>
+                            <div class="col-md-4 col-sm-4 col-xs-4">
+                                @Html.DropDownListFor(m => m.CountryCode, new SelectList(CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text"), CommonMessagesLang.lblSelectCountry, new { @class = "form-control selectbox", @autocomplete = "off" })
+                            </div>
+                            <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">@OIMatchDataLang.lblCountryGroup:</label>
+                            <div class="col-md-4 col-sm-4 col-xs-4 AddContrygroupCls">
+                                <div class="DisplayFlex">
+                                    @Html.DropDownListFor(m => m.CountryGroupId, new SelectList(new CommonDropdown().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName"), CommonMessagesLang.lblSelectCountryGroup, new { @class = "form-control selectbox AddableCountryGroup", @autocomplete = "off" })
+                                    <div class="AddContrygroupExportToExcelCls">
+                                        @if (Helper.UserType.ToLower() != "steward")
+                                        {<i class="fa fa-plus CreateCountyGroup DisplayFlex" onclick="addNewCountryGroup()"></i>}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        if (Helper.LicenseEnableTags)
+                        {
+                            <div class="row margin-top-10">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-2 text-right lbltop">
+                                    @OIMatchDataLang.lblTag :
+                                </label>
+                                <div class="col-md-4 col-sm-4 col-xs-4 pull-md-left tagstylebox">
+                                    @Html.DropDownListFor(m => m.Tag, new SelectList(CommonDropdown.GetAllOrbTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text"), CommonMessagesLang.lblSelectTag, new { @class = "form-control selectbox", @autocomplete = "off" })
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6">
+                                    <div class="row">
+                                        <div class="paddingTop-2 col-md-5 col-sm-5 col-xs-5 text-align-right">  <label class="control-label">@OIMatchDataLang.lblWithCandidates : </label> </div>
+                                        <div class="col-md-2 col-sm-2 col-xs-2">
+                                            @Html.CheckBox("ExportWithCandidates", new { @checked = "checked" })
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="paddingTop-2 col-md-5 col-sm-5 col-xs-5 text-align-right">  <label class="control-label">@OIMatchDataLang.lblWithoutCandidates: </label> </div>
+                                        <div class="col-md-2 col-sm-2 col-xs-2">
+                                            @Html.CheckBox("ExportWithoutCandidates", new { @checked = "checked" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row margin-top-10">
+                                <div class="paddingTop-2 col-md-3 col-sm-3 col-xs-3 text-align-right">  <label class="control-label">@OIMatchDataLang.lblWithCandidates :</label> </div>
+                                @Html.CheckBox("ExportWithCandidates", new { @checked = true })
+                            </div>
+                            <div class="row">
+                                <div class="paddingTop-2 col-md-3 col-sm-3 col-xs-3 text-align-right">  <label class="control-label">@OIMatchDataLang.lblWithoutCandidates :</label> </div>
+                                @Html.CheckBox("ExportWithoutCandidates", new { @checked = true })
+                            </div>
+                        }
+                        <div class="row margin-top-10">
+                            <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                                <input type="submit" value="@OIMatchDataLang.lblDeleteCompanyData" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+
+ 
+@if (!string.IsNullOrEmpty(Message))
+{
+    if (Message.Contains("Import Process Completed Successfully"))
+    {
+        <script>
+            parent.ShowMessageNotification("success", '@Message', true);
+        </script>
+    }
+    else
+    {
+        <script>
+            parent.ShowMessageNotification("success", '@Message', true);
+        </script>
+    }
+} 

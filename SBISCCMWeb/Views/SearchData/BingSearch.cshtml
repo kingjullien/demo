@@ -1,0 +1,51 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@model List<SBISCCMWeb.Models.webSearch>
+@{
+    Layout = null;
+    string searchValue = string.IsNullOrEmpty(ViewBag.searchValue) ? "" : ViewBag.searchValue;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialBingSearch",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+}
+<style>
+    .bingSearchContentScroll{
+        height:500px;
+        overflow-y:scroll;
+    }
+</style>
+<div class="modal" id="BingSearchModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" style="width:1000px;">
+        <!-- Modal content-->
+        <div class="modal-content bingSearchContentScroll">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@SearchDataLang.lblBingSearch</h4>
+            </div>
+            <div class="modal-body">
+                @using (Ajax.BeginForm("BingSearch", "SearchData", null, ajaxOptions, new { @class = "padding-import-bottom", role = "form", @autocomplete = "off" }))
+                {
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            @Html.TextBox("searchValue", "", new { @class = "form-control", @placeholder = SearchDataLang.placeholderSearchtheweb, autocomplete = "off", Value = searchValue })
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" value="@SearchDataLang.lblSearch" id="btnBingsearchSubmit" class="btn btn-primary btnBlack" />
+                        </div>
+                    </div>
+                }
+
+                <div id="divPartialBingSearch">
+                    @{Html.RenderPartial("_bingSearch", Model);}
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

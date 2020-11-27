@@ -1,0 +1,85 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@model CompanyEntity
+@{
+    var companyEntity = Model;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divInnertable",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST"
+    };
+
+}
+<table id=@TempData["CollapsName"] class="table table-bordered customTable2 panel-collapse collapse">
+    <thead>
+        <tr>
+            <th>
+                @Ajax.ActionLink("DUNS No", "Index", new { mode = 1, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th>
+                @Ajax.ActionLink("Company", "Index", new { mode = 1, sortby = 2, sortorder = (ViewBag.SortBy == 2 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th>
+                @Ajax.ActionLink("Address", "Index", new { mode = 1, sortby = 3, sortorder = (ViewBag.SortBy == 3 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th>
+                @Ajax.ActionLink("City", "Index", new { mode = 1, sortby = 4, sortorder = (ViewBag.SortBy == 4 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th>
+                @Ajax.ActionLink("State", "Index", new { mode = 1, sortby = 5, sortorder = (ViewBag.SortBy == 5 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th>
+                @Ajax.ActionLink("Postal Code", "Index", new { mode = 1, sortby = 6, sortorder = (ViewBag.SortBy == 6 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th>
+                @Ajax.ActionLink("Operating", "Index", new { mode = 1, sortby = 7, sortorder = (ViewBag.SortBy == 7 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th>
+                @Ajax.ActionLink("Role", "Index", new { mode = 1, sortby = 8, sortorder = (ViewBag.SortBy == 8 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+            </th>
+            <th>
+                @Ajax.ActionLink("Match Grade", "Index", ajaxOptions)
+            </th>
+            <th>
+                @Ajax.ActionLink("Match Data Profile", "Index", ajaxOptions)
+            </th>
+            <th>
+                @Ajax.ActionLink("Display Sequence", "Index", ajaxOptions)
+            </th>
+            <th>
+                @Ajax.ActionLink("Match", "Index", ajaxOptions)
+            </th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var innerItem in companyEntity.Matches)
+        {
+            <tr id="trinnerStewardshipPortal">
+              
+                <td >
+                    <span class="numberPlate">
+                        <a href="#columnPopup" class="clsViewMatchedItem" data-val="@SerializeHelper.SerializeObject(Model)">
+                            @innerItem.DnBDUNSNumber
+                        </a>
+                    </span> 
+                </td>
+                <td> @innerItem.DnBOrganizationName </td>
+                <td> @innerItem.DnBStreetAddressLine </td>
+                <td> @innerItem.DnBPrimaryTownName </td>
+                <td> @innerItem.DnBTerritoryAbbreviatedName </td>
+                <td> @innerItem.DnBPostalCode </td>
+                <td> @innerItem.DnBOperatingStatus </td>
+                <td> @innerItem.DnBFamilyTreeMemberRole </td>
+                <td> @innerItem.ConfidenceCodeAndMatchGrade </td>
+                <td> @innerItem.DnBMatchDataProfileText </td>
+                <td> @innerItem.DnBDisplaySequence </td>
+                <td> @innerItem.IsSelected </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

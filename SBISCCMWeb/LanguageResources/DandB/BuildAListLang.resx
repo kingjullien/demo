@@ -1,0 +1,704 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrCompanyDetailSearch" xml:space="preserve">
+    <value>Company Detail Search</value>
+    <comment>Company Detail Search</comment>
+  </data>
+  <data name="hdrKeywordDUNSTelephoneDomainSearch" xml:space="preserve">
+    <value>Keyword / DUNS / Telephone / Domain Search</value>
+    <comment>Keyword / DUNS / Telephone / Domain Search</comment>
+  </data>
+  <data name="hdrRegistrationDetail" xml:space="preserve">
+    <value>Registration Detail</value>
+    <comment>Registration Detail</comment>
+  </data>
+  <data name="hdrusSicV4Detail" xml:space="preserve">
+    <value>usSicV4 Detail</value>
+    <comment>usSicV4 Detail</comment>
+  </data>
+  <data name="lblAction" xml:space="preserve">
+    <value>Action</value>
+    <comment>Action</comment>
+  </data>
+  <data name="lblAdd" xml:space="preserve">
+    <value>Add</value>
+    <comment>Add</comment>
+  </data>
+  <data name="lblAddress" xml:space="preserve">
+    <value>Address</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAddressInfo" xml:space="preserve">
+    <value>Address Info</value>
+    <comment>Address Info</comment>
+  </data>
+  <data name="lblAddressRequired" xml:space="preserve">
+    <value>Address required atleast three characters</value>
+    <comment>Address required atleast three characters</comment>
+  </data>
+  <data name="lblBulidAListsearchReqire" xml:space="preserve">
+    <value>This indicates standalone parameter; at least one standalone parameter must be included in the request.</value>
+    <comment>This indicates standalone parameter; at least one standalone parameter must be included in the request.</comment>
+  </data>
+  <data name="lblBusinessEntity" xml:space="preserve">
+    <value>Business Entity</value>
+    <comment>Business Entity</comment>
+  </data>
+  <data name="lblCircleRadius" xml:space="preserve">
+    <value>The circle radius in the units specified to be considered along with the latitude and longitude to locate entities.</value>
+    <comment>The circle radius in the units specified to be considered along with the latitude and longitude to locate entities.</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>City</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCityOrTownship" xml:space="preserve">
+    <value>This identifies the city, town, township, village, borough, etc. where the entity is located.</value>
+    <comment>This identifies the city, town, township, village, borough, etc. where the entity is located.</comment>
+  </data>
+  <data name="lblClear" xml:space="preserve">
+    <value>Clear</value>
+    <comment>Clear</comment>
+  </data>
+  <data name="lblCode" xml:space="preserve">
+    <value>A code that represents the scope the requested values are checked against.</value>
+    <comment>A code that represents the scope the requested values are checked against.</comment>
+  </data>
+  <data name="lblCompanyDetails" xml:space="preserve">
+    <value>Company Details</value>
+    <comment>Company Details</comment>
+  </data>
+  <data name="lblCompanyInfo" xml:space="preserve">
+    <value>Company Info</value>
+    <comment>Company Info</comment>
+  </data>
+  <data name="lblCompanyName" xml:space="preserve">
+    <value>Company Name</value>
+    <comment>Company Name</comment>
+  </data>
+  <data name="lblCompName" xml:space="preserve">
+    <value>Company Name used to find entities by the name.</value>
+    <comment>Company Name used to find entities by the name.</comment>
+  </data>
+  <data name="lblConsolidated" xml:space="preserve">
+    <value>Consolidated</value>
+    <comment>Consolidated</comment>
+  </data>
+  <data name="lblCopyJosn" xml:space="preserve">
+    <value>Copy Josn</value>
+    <comment>Copy Josn</comment>
+  </data>
+  <data name="lblCorporateLinkage" xml:space="preserve">
+    <value>Corporate Linkage</value>
+    <comment>Corporate Linkage</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>Country</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCountryCode" xml:space="preserve">
+    <value>The 2-letter country code, defined by the International Organization for Standardization (ISO) ISO 3166-1 scheme identifying the country of the entity.</value>
+    <comment>The 2-letter country code, defined by the International Organization for Standardization (ISO) ISO 3166-1 scheme identifying the country of the entity.</comment>
+  </data>
+  <data name="lblCurrency" xml:space="preserve">
+    <value>Currency</value>
+    <comment>Currency</comment>
+  </data>
+  <data name="lblDelete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="lblDescription" xml:space="preserve">
+    <value>Description</value>
+    <comment>Description</comment>
+  </data>
+  <data name="lblDnbCode" xml:space="preserve">
+    <value>DnbCode</value>
+    <comment>DnbCode</comment>
+  </data>
+  <data name="lblDomain" xml:space="preserve">
+    <value>Domain</value>
+    <comment>Domain</comment>
+  </data>
+  <data name="lblDomainNames" xml:space="preserve">
+    <value>4 to 216 characters used to find entities by their domain names</value>
+    <comment>4 to 216 characters used to find entities by their domain names</comment>
+  </data>
+  <data name="lblDomainRequire" xml:space="preserve">
+    <value>Domain required atleast four characters</value>
+    <comment>Domain required atleast four characters</comment>
+  </data>
+  <data name="lblDUNS" xml:space="preserve">
+    <value>DUNS</value>
+    <comment>DUNS</comment>
+  </data>
+  <data name="lblDunsNo" xml:space="preserve">
+    <value>Numeric string identifying the entity by its D&amp;B assigned D-U-N-S number.</value>
+    <comment>Numeric string identifying the entity by its D&amp;B assigned D-U-N-S number.</comment>
+  </data>
+  <data name="lblDUNSNumber" xml:space="preserve">
+    <value>DUNS Number</value>
+    <comment>DUNS Number</comment>
+  </data>
+  <data name="lblEdit" xml:space="preserve">
+    <value>Edit</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="lblEmployeeInfo" xml:space="preserve">
+    <value>Employee Info</value>
+    <comment>Employee Info</comment>
+  </data>
+  <data name="lblEmployeeInformationScope" xml:space="preserve">
+    <value>Employee Information Scope</value>
+    <comment>Employee Information Scope</comment>
+  </data>
+  <data name="lblEmployeeRequire" xml:space="preserve">
+    <value>Please enter Min or Max Employee</value>
+    <comment>Please enter Min or Max Employee</comment>
+  </data>
+  <data name="lblExcludeDisconnectedTelephone" xml:space="preserve">
+    <value>Exclude Disconnected Telephone</value>
+    <comment>Exclude Disconnected Telephone</comment>
+  </data>
+  <data name="lblExcludeMailUndeliverable" xml:space="preserve">
+    <value>Exclude Mail Undeliverable</value>
+    <comment>Exclude Mail Undeliverable</comment>
+  </data>
+  <data name="lblExcludeNonMarketable" xml:space="preserve">
+    <value>Exclude Non-Marketable</value>
+    <comment>Exclude Non-Marketable</comment>
+  </data>
+  <data name="lblExcludeOutOfBusiness" xml:space="preserve">
+    <value>Exclude Out Of Business</value>
+    <comment>Exclude Out Of Business</comment>
+  </data>
+  <data name="lblExclusionFilters" xml:space="preserve">
+    <value>Exclusion Filters</value>
+    <comment>Exclusion Filters</comment>
+  </data>
+  <data name="lblExportToExcel" xml:space="preserve">
+    <value>Export to Excel</value>
+    <comment>Export to Excel</comment>
+  </data>
+  <data name="lblFamilytreeRoleCode" xml:space="preserve">
+    <value>FamilytreeRole Code</value>
+    <comment>FamilytreeRole Code</comment>
+  </data>
+  <data name="lblFamilytreeRoleDescription" xml:space="preserve">
+    <value>FamilytreeRole Description</value>
+    <comment>FamilytreeRole Description</comment>
+  </data>
+  <data name="lblFeet" xml:space="preserve">
+    <value>Feet</value>
+    <comment>Feet</comment>
+  </data>
+  <data name="lblFinancialInfo" xml:space="preserve">
+    <value>Financial Info</value>
+    <comment>Financial Info</comment>
+  </data>
+  <data name="lblFinancialLinkageInfo" xml:space="preserve">
+    <value>Financial/Linkage Info</value>
+    <comment>Financial/Linkage Info</comment>
+  </data>
+  <data name="lblGlobalUltimateFamilyTreeMembersCount" xml:space="preserve">
+    <value>GlobalUltimateFamilyTreeMembersCount</value>
+    <comment>GlobalUltimateFamilyTreeMembersCount</comment>
+  </data>
+  <data name="lblIndividual" xml:space="preserve">
+    <value>Individual</value>
+    <comment>Individual</comment>
+  </data>
+  <data name="lblInformationScopeDescription" xml:space="preserve">
+    <value>InformationScopeDescription</value>
+    <comment>InformationScopeDescription</comment>
+  </data>
+  <data name="lblInformationScopeDnBCode" xml:space="preserve">
+    <value>InformationScopeDnBCode</value>
+    <comment>InformationScopeDnBCode</comment>
+  </data>
+  <data name="lblIsBranch" xml:space="preserve">
+    <value>IsBranch</value>
+    <comment>IsBranch</comment>
+  </data>
+  <data name="lblKilometers" xml:space="preserve">
+    <value>Kilometers</value>
+    <comment>Kilometers</comment>
+  </data>
+  <data name="lblLatitude" xml:space="preserve">
+    <value>Latitude</value>
+    <comment>Latitude</comment>
+  </data>
+  <data name="lblLatitudeRequire" xml:space="preserve">
+    <value>Please enter latitude</value>
+    <comment>Please enter latitude</comment>
+  </data>
+  <data name="lblLatitudes" xml:space="preserve">
+    <value>The latitude to be used as the center of the radius search.</value>
+    <comment>The latitude to be used as the center of the radius search.</comment>
+  </data>
+  <data name="lblLinkageInfo" xml:space="preserve">
+    <value>Linkage Info</value>
+    <comment>Linkage Info</comment>
+  </data>
+  <data name="lblLocalArea" xml:space="preserve">
+    <value>This identifies the name of the locally governed area that forms part of a centrally governed nation to identify where the address is located.</value>
+    <comment>This identifies the name of the locally governed area that forms part of a centrally governed nation to identify where the address is located.</comment>
+  </data>
+  <data name="lblLocationRadius" xml:space="preserve">
+    <value>Location Radius</value>
+    <comment>Location Radius</comment>
+  </data>
+  <data name="lblLongitude" xml:space="preserve">
+    <value>Longitude</value>
+    <comment>Longitude</comment>
+  </data>
+  <data name="lblLongitudeRequire" xml:space="preserve">
+    <value>Please enter longitude</value>
+    <comment>Please enter longitude</comment>
+  </data>
+  <data name="lblLongitudes" xml:space="preserve">
+    <value>The longitude to be used as the center of the radius search.</value>
+    <comment>The longitude to be used as the center of the radius search.</comment>
+  </data>
+  <data name="lblMaxEmployee" xml:space="preserve">
+    <value>Max# Employee</value>
+    <comment>Max# Employee</comment>
+  </data>
+  <data name="lblMaxEmployees" xml:space="preserve">
+    <value>The maximum number of employees an entity can have and be included in the search results. Valid value : 1 to 999999</value>
+    <comment>The maximum number of employees an entity can have and be included in the search results. Valid value : 1 to 999999</comment>
+  </data>
+  <data name="lblMaxFamilyTree" xml:space="preserve">
+    <value>The maximum family tree members an entity can have and be included in the search results.</value>
+    <comment>The maximum family tree members an entity can have and be included in the search results.</comment>
+  </data>
+  <data name="lblMaximumFamilyTreeMember" xml:space="preserve">
+    <value>Maximum Family Tree Member</value>
+    <comment>Maximum Family Tree Member</comment>
+  </data>
+  <data name="lblMaxYearlyRevenue" xml:space="preserve">
+    <value>The maximum amount of yearly revenue (the monetary value of income received from customers from the sale of the business' goods and/or services) used to limit the search.</value>
+    <comment>The maximum amount of yearly revenue (the monetary value of income received from customers from the sale of the business' goods and/or services) used to limit the search.</comment>
+  </data>
+  <data name="lblMeters" xml:space="preserve">
+    <value>Meters</value>
+    <comment>Meters</comment>
+  </data>
+  <data name="lblMiles" xml:space="preserve">
+    <value>Miles</value>
+    <comment>Miles</comment>
+  </data>
+  <data name="lblMinEmployee" xml:space="preserve">
+    <value>Min# Employee</value>
+    <comment>Min# Employee</comment>
+  </data>
+  <data name="lblMinEmployees" xml:space="preserve">
+    <value>The minimum number of employees an entity can have and be included in the search results. Valid value : 1 to 999999</value>
+    <comment>The minimum number of employees an entity can have and be included in the search results. Valid value : 1 to 999999</comment>
+  </data>
+  <data name="lblMinFamilyTree" xml:space="preserve">
+    <value>The minimum family tree members an entity can have and be included in the search results.</value>
+    <comment>The minimum family tree members an entity can have and be included in the search results.</comment>
+  </data>
+  <data name="lblMinimumFamilyTreeMember" xml:space="preserve">
+    <value>Minimum Family Tree Member</value>
+    <comment>Minimum Family Tree Member</comment>
+  </data>
+  <data name="lblMinMaxEmployee" xml:space="preserve">
+    <value>The field must be in range 1 to 999999.</value>
+    <comment>The field must be in range 1 to 999999.</comment>
+  </data>
+  <data name="lblMinMaxFamilyTree" xml:space="preserve">
+    <value>The field must be in range 1 to 999999.</value>
+    <comment>The field must be in range 1 to 999999.</comment>
+  </data>
+  <data name="lblMinMaxRevenue" xml:space="preserve">
+    <value>The field must be in range 1 to 100000000000000.</value>
+    <comment>The field must be in range 1 to 100000000000000.</comment>
+  </data>
+  <data name="lblMinYearlyRevenue" xml:space="preserve">
+    <value>The minimum amount of yearly revenue (the monetary value of income received from customers from the sale of the business' goods and/or services) used to limit the search.</value>
+    <comment>The minimum amount of yearly revenue (the monetary value of income received from customers from the sale of the business' goods and/or services) used to limit the search.</comment>
+  </data>
+  <data name="lblName" xml:space="preserve">
+    <value>Name</value>
+    <comment>Name</comment>
+  </data>
+  <data name="lblNodataareavailable" xml:space="preserve">
+    <value>No data are available</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNoOfRecordRequire" xml:space="preserve">
+    <value>Please select no of record</value>
+    <comment>Please select no of record</comment>
+  </data>
+  <data name="lblNoOfRecords" xml:space="preserve">
+    <value>No of records</value>
+    <comment>No of records</comment>
+  </data>
+  <data name="lblNumericCoding" xml:space="preserve">
+    <value>The 1987 version of a 4-digit numeric coding system developed by the US Government for the classification of industrial activities to denote the industry in which the business entity does most of it's business.</value>
+    <comment>The 1987 version of a 4-digit numeric coding system developed by the US Government for the classification of industrial activities to denote the industry in which the business entity does most of it's business.</comment>
+  </data>
+  <data name="lblOtherInfo" xml:space="preserve">
+    <value>Other Info</value>
+    <comment>Other Info</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>Page Size</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblPhoneNo" xml:space="preserve">
+    <value>Phone No</value>
+    <comment>Phone No</comment>
+  </data>
+  <data name="lblPOBox" xml:space="preserve">
+    <value>PO Box</value>
+    <comment>PO Box</comment>
+  </data>
+  <data name="lblPopupContent" xml:space="preserve">
+    <value>Popup content</value>
+    <comment>Popup content</comment>
+  </data>
+  <data name="lblPostalCode" xml:space="preserve">
+    <value>Postal Code</value>
+    <comment>Postal Code</comment>
+  </data>
+  <data name="lblPostalCode1" xml:space="preserve">
+    <value>This is entity's postal code (an identifier used by the local country's postal authority to identify where the address is located).</value>
+    <comment>This is entity's postal code (an identifier used by the local country's postal authority to identify where the address is located).</comment>
+  </data>
+  <data name="lblPrimaryAddress" xml:space="preserve">
+    <value>Primary Address</value>
+    <comment>Primary Address</comment>
+  </data>
+  <data name="lblPrimaryIndustryCodes" xml:space="preserve">
+    <value>Primary Industry Codes</value>
+    <comment>Primary Industry Codes</comment>
+  </data>
+  <data name="lblPriority" xml:space="preserve">
+    <value>Priority</value>
+    <comment>Priority</comment>
+  </data>
+  <data name="lblRadius" xml:space="preserve">
+    <value>Radius</value>
+    <comment>Radius</comment>
+  </data>
+  <data name="lblRadiusRequire" xml:space="preserve">
+    <value>Please enter radius</value>
+    <comment>Please enter radius</comment>
+  </data>
+  <data name="lblRegisteredAddress" xml:space="preserve">
+    <value>Registered Address</value>
+    <comment>Registered Address</comment>
+  </data>
+  <data name="lblRegistrationInfo" xml:space="preserve">
+    <value>Registration Info</value>
+    <comment>Registration Info</comment>
+  </data>
+  <data name="lblRegistrationNo" xml:space="preserve">
+    <value>Registration No</value>
+    <comment>Registration No</comment>
+  </data>
+  <data name="lblRegistrationNumber" xml:space="preserve">
+    <value>Registration Number</value>
+    <comment>Registration Number</comment>
+  </data>
+  <data name="lblReliabilityDescription" xml:space="preserve">
+    <value>ReliabilityDescription</value>
+    <comment>ReliabilityDescription</comment>
+  </data>
+  <data name="lblReliabilityDnBCode" xml:space="preserve">
+    <value>ReliabilityDnBCode</value>
+    <comment>ReliabilityDnBCode</comment>
+  </data>
+  <data name="lblRequest" xml:space="preserve">
+    <value>Request</value>
+    <comment>Request</comment>
+  </data>
+  <data name="lblRequestedDate" xml:space="preserve">
+    <value>Requested Date</value>
+    <comment>Requested Date</comment>
+  </data>
+  <data name="lblResponse" xml:space="preserve">
+    <value>Response</value>
+    <comment>Response</comment>
+  </data>
+  <data name="lblSearch" xml:space="preserve">
+    <value>Search</value>
+    <comment>Search</comment>
+  </data>
+  <data name="lblSearchRequire" xml:space="preserve">
+    <value>text required atleast two characters</value>
+    <comment>text required atleast two characters</comment>
+  </data>
+  <data name="lblSearchResults" xml:space="preserve">
+    <value>Search Results</value>
+    <comment>Search Results</comment>
+  </data>
+  <data name="lblSearchTerm" xml:space="preserve">
+    <value>Search Term</value>
+    <comment>Search Term</comment>
+  </data>
+  <data name="lblSearchTerms" xml:space="preserve">
+    <value>Search text used to find entities by their primary or tradestyle names.</value>
+    <comment>Search text used to find entities by their primary or tradestyle names.</comment>
+  </data>
+  <data name="lblSearchText" xml:space="preserve">
+    <value>Search Text</value>
+    <comment>Search Text</comment>
+  </data>
+  <data name="lblSelect" xml:space="preserve">
+    <value>Select</value>
+    <comment>Select</comment>
+  </data>
+  <data name="lblSelectDropdown" xml:space="preserve">
+    <value>--Select--</value>
+    <comment>--Select--</comment>
+  </data>
+  <data name="lblSomeText" xml:space="preserve">
+    <value>Some text here..</value>
+    <comment>Some text here..</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>State</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblStockExchange" xml:space="preserve">
+    <value>1 to 6 characters that identifies the entity for share trading purposes at the primary Stock Exchange where the business entity does most of the trading.</value>
+    <comment>1 to 6 characters that identifies the entity for share trading purposes at the primary Stock Exchange where the business entity does most of the trading.</comment>
+  </data>
+  <data name="lblStreetAddress" xml:space="preserve">
+    <value>First line of the entity's street address.</value>
+    <comment>First line of the entity's street address.</comment>
+  </data>
+  <data name="lblTelephoneNumber" xml:space="preserve">
+    <value>Telephone Number</value>
+    <comment>Telephone Number</comment>
+  </data>
+  <data name="lblTelephoneRequire" xml:space="preserve">
+    <value>Telephone Number required atleast five characters</value>
+    <comment>Telephone Number required atleast five characters</comment>
+  </data>
+  <data name="lblTelNo" xml:space="preserve">
+    <value>5 to 20 characters of the telephone number used for voice communication with the entity.</value>
+    <comment>5 to 20 characters of the telephone number used for voice communication with the entity.</comment>
+  </data>
+  <data name="lblTickerSymbol" xml:space="preserve">
+    <value>Ticker Symbol</value>
+    <comment>Ticker Symbol</comment>
+  </data>
+  <data name="lblTradestyle" xml:space="preserve">
+    <value>2 to 30 characters used to find entities by one of its tradestyle names.</value>
+    <comment>2 to 30 characters used to find entities by one of its tradestyle names.</comment>
+  </data>
+  <data name="lblTradestyleName" xml:space="preserve">
+    <value>Tradestyle Name</value>
+    <comment>Tradestyle Name</comment>
+  </data>
+  <data name="lblTradestyleNameRequire" xml:space="preserve">
+    <value>Trade Style required atleast two characters</value>
+    <comment>Trade Style required atleast two characters</comment>
+  </data>
+  <data name="lblTradeStyleNames" xml:space="preserve">
+    <value>Trade Style Names</value>
+    <comment>Trade Style Names</comment>
+  </data>
+  <data name="lblUniqueNo" xml:space="preserve">
+    <value>The number assigned by an external body or by D&amp;B that either uniquely identifies or helps to identify an organization.</value>
+    <comment>The number assigned by an external body or by D&amp;B that either uniquely identifies or helps to identify an organization.</comment>
+  </data>
+  <data name="lblUnit" xml:space="preserve">
+    <value>Unit</value>
+    <comment>Unit</comment>
+  </data>
+  <data name="lblUnitOfMeasure" xml:space="preserve">
+    <value>The unit of measure for the specified radius.</value>
+    <comment>The unit of measure for the specified radius.</comment>
+  </data>
+  <data name="lblUnitRequire" xml:space="preserve">
+    <value>Please enter unit</value>
+    <comment>Please enter unit</comment>
+  </data>
+  <data name="lblusSicV4" xml:space="preserve">
+    <value>usSicV4</value>
+    <comment>usSicV4</comment>
+  </data>
+  <data name="lblusSicV4Description" xml:space="preserve">
+    <value>usSicV4Description</value>
+    <comment>usSicV4Description</comment>
+  </data>
+  <data name="lblValue" xml:space="preserve">
+    <value>Value</value>
+    <comment>Value</comment>
+  </data>
+  <data name="lblViewHistory" xml:space="preserve">
+    <value>View History</value>
+    <comment>View History</comment>
+  </data>
+  <data name="lblYards" xml:space="preserve">
+    <value>Yards</value>
+    <comment>Yards</comment>
+  </data>
+  <data name="lblYearlyMaximumRevenue" xml:space="preserve">
+    <value>Yearly Maximum Revenue</value>
+    <comment>Yearly Maximum Revenue</comment>
+  </data>
+  <data name="lblYearlyMinimumRevenue" xml:space="preserve">
+    <value>Yearly Minimum Revenue</value>
+    <comment>Yearly Minimum Revenue</comment>
+  </data>
+  <data name="msgAllowOnlyNumbers" xml:space="preserve">
+    <value>Only numeric values accepted.</value>
+    <comment>Only numeric values accepted.</comment>
+  </data>
+  <data name="msgDelete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="msgEdit" xml:space="preserve">
+    <value>Edit</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="msgNoDataAreAvailable" xml:space="preserve">
+    <value>No data are available</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="msgNoDataFound" xml:space="preserve">
+    <value>No data found.</value>
+    <comment>No data found.</comment>
+  </data>
+  <data name="msgStandaloneParameter1" xml:space="preserve">
+    <value>At least one standalone parameter</value>
+    <comment>At least one standalone parameter</comment>
+  </data>
+  <data name="msgStandaloneParameter2" xml:space="preserve">
+    <value>(Search term, DUNs, TradeStyle Name, Ticker Symbol, Telephone Number, Domain, Address, Company Name, Location Radius,usSicV4,registration no)</value>
+    <comment>(Search term, DUNs, TradeStyle Name, Ticker Symbol, Telephone Number, Domain, Address, Company Name, Location Radius,usSicV4,registration no)</comment>
+  </data>
+  <data name="msgStandaloneParameter3" xml:space="preserve">
+    <value>required to submit request.</value>
+    <comment>required to submit request.</comment>
+  </data>
+  <data name="titleBuildList" xml:space="preserve">
+    <value>Build List</value>
+    <comment>Build List</comment>
+  </data>
+</root>

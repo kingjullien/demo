@@ -1,0 +1,617 @@
+﻿@using SBISCCMWeb.Models
+@using SBISCCMWeb.Utility
+@using System.Data;
+@using SBISCompanyCleanseMatchFacade.Objects;
+@using SBISCompanyCleanseMatchBusiness.Objects;
+@using Microsoft.AspNet.Identity;
+@using System.Configuration;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using Resources = ViewResources.BrandingTypes;
+@using SBISCCMWeb.LanguageResources;
+@{
+    var profileImg = "/Images/ClientLogos/" + Helper.ClientLogo;
+    var absolutePath = HttpContext.Current.Server.MapPath(profileImg);
+    string APItype = CommonMethod.GetThirdPartyProperty(ThirdPartyCode.DNB_TYPEAHEAD_SEARCH.ToString(), ThirdPartyProperties.APIType.ToString());
+    string FeedbackPath = Helper.FeedbackPath;
+}
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title </title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <!-- #CSS Links -->
+    <!-- Basic Styles -->
+
+
+    <link href="~/Content/Bootstrap/bootstrap.min.css" rel="stylesheet" />
+
+    @*<link href="~/Content/Bootstrap/bootstrap.css" rel="stylesheet" />*@
+    <link rel="stylesheet" type="text/css" media="screen" href="~/Content/Template/css/font-awesome.min.css">
+    @if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        <link href="~/Content/Matchbook.css" rel="stylesheet" />
+    }
+    @if (Helper.Branding == Branding.DandB.ToString())
+    {
+        <link href="~/Content/DandB.css" rel="stylesheet" />
+    }
+
+    <!-- SmartAdmin Styles : Please note (smartadmin-production.css) was created using LESS variables -->
+    <!-- #FAVICONS -->
+    @if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        <!-- FAVICONS when Branding type is Matchbook-->
+        <link rel="shortcut icon" href="~/Content/Template/img/favicon/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="~/Content/Template/img/favicon/favicon.ico" type="image/x-icon">
+
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        <!-- FAVICONS when Branding type is DandB-->
+        <link rel="shortcut icon" href="~/Content/Template/img/favicon/favicon-icon-DandB" type="image/x-icon">
+        <link rel="icon" href="~/Content/Template/img/favicon/favicon-icon-DandB.png" type="imZage/x-icon">
+    }
+
+    <!-- #GOOGLE FONT -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,300,400,700">
+
+    <!-- iOS web-app metas : hides Safari UI Components and Changes Status Bar Appearance -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <!-- Startup image for web apps -->
+    @Styles.Render("~/Content/layoutcss")
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/app.js"></script>
+    <script>
+        (function (apiKey) {
+            (function (p, e, n, d, o) {
+                var v, w, x, y, z; o = p[d] = p[d] || {}; o._q = [];
+                v = ['initialize', 'identify', 'updateOptions', 'pageLoad']; for (w = 0, x = v.length; w < x; ++w)(function (m) {
+                    o[m] = o[m] || function () { o._q[m === v[0] ? 'unshift' : 'push']([m].concat([].slice.call(arguments, 0))); };
+                })(v[w]);
+                y = e.createElement(n); y.async = !0; y.src = 'https://cdn.pendo.io/agent/static/' + apiKey + '/pendo.js';
+                z = e.getElementsByTagName(n)[0]; z.parentNode.insertBefore(y, z);
+            })(window, document, 'script', 'pendo');
+
+            // Call this whenever information about your visitors becomes available
+            // Please use Strings, Numbers, or Bools for value types.
+            pendo.initialize({
+                visitor: {
+                    id: '@System.Web.HttpContext.Current.Request.Url.Authority @(Helper.oUser != null && Helper.oUser.EmailAddress != null ? Helper.oUser.EmailAddress : null)',   // Required if user is logged in
+                    email: '@(Helper.oUser !=null && Helper.oUser.EmailAddress != null ? Helper.oUser.EmailAddress : null)',
+                    role: '@(Helper.oUser!= null && Helper.oUser.UserRole != null ? Helper.oUser.UserRole : null)',
+                    LOB: '@(Helper.oUser !=null && Helper.oUser.UserRole != null ? (Helper.oUser.UserRole == "GLOBAL" ? "GLOBAL" : Helper.oUser.LOBTag) : null)'
+                    // You can add any additional visitor level key-values here,
+                    // as long as it's not one of the above reserved names.
+                },
+
+                account: {
+                    id: '@System.Web.HttpContext.Current.Request.Url.Authority', // Highly recommended
+                    name: '@Helper.ApplicationData.ClientName',
+                    env:'@Convert.ToString(ConfigurationManager.AppSettings["Environment"])'
+                    // You can add any additional account level key-values here,
+                    // as long as it's not one of the above reserved names.
+                }
+            });
+        })('7faa1697-daec-4f29-40f3-bc7aaf230508');
+    </script>
+</head>
+@{
+    BaseModel _oBaseModel = new BaseModel();
+    if (this.LayoutModel == null)
+    {
+        MasterClientApplicationFacade fac = new MasterClientApplicationFacade(Helper.GetMasterConnctionstring());
+        if (Helper.ApplicationData == null)
+        {
+            Helper.ApplicationData = fac.GetClientApplicationData(Request.Url.Authority);
+        }
+        ClientApplicationData oClientApplicationData = new ClientApplicationData();
+        if (Helper.ApplicationData != null)
+        {
+            oClientApplicationData.ApplicationDBConnectionStringHash = Helper.ApplicationData.ApplicationDBConnectionStringHash;
+            oClientApplicationData.ClientName = Helper.ApplicationData.ClientName;
+            oClientApplicationData.ClientLogo = Helper.ApplicationData.ClientLogo;
+            oClientApplicationData.ApplicationId = Helper.ApplicationData.ApplicationId;
+        }
+
+        SessionHelper.GetConnctionstring = oClientApplicationData.ApplicationDBConnectionStringHash;
+        oClientApplicationData.ApplicationDBConnectionString = StringCipher.Decrypt(oClientApplicationData.ApplicationDBConnectionStringHash, General.passPhrase);
+        if (oClientApplicationData.ApplicationDBConnectionStringHash != null)
+        {
+            _oBaseModel.CurrentClient = oClientApplicationData;
+        }
+    }
+    string HelpContent = string.Empty;
+    string HelpDataPage = string.Empty;
+    var currentNode = MvcSiteMapProvider.SiteMaps.Current.CurrentNode;
+    string currentLanguage = HttpContext.Current.Request.Cookies["Language"].Value;
+
+    //Moved this call from BaseController to reduce DB calls
+    //For Updating UserLastActivity
+    SettingFacade sfac = new SettingFacade(this.LayoutModel == null ? _oBaseModel.CurrentClient.ApplicationDBConnectionString : this.LayoutModel.CurrentClient.ApplicationDBConnectionString);
+    sfac.StewUserActivityHeartbeat(Convert.ToInt32(User.Identity.GetUserId()));
+
+    if (Helper.oUser == null)
+    {
+        Helper.oUser = sfac.GetUserDetailsById(Convert.ToInt32(User.Identity.GetUserId()));
+    }
+    if (currentNode != null)
+    {
+        Helper.FeedbackPath = (Helper.CurrentProvider == ProviderType.OI.ToString() ? "OI " : "") + currentNode.Title;
+        FeedbackPath = Helper.FeedbackPath;
+    }
+
+    var ExportNotificationTimeInterval = Convert.ToInt32(ConfigurationManager.AppSettings["ExportNotificationTimeInterval"]);
+
+    SystemNotificationFacade NFacade = new SystemNotificationFacade(Helper.GetMasterConnctionstring());
+    List<SystemNotificationEntity> lstNotification = NFacade.GetActiveNotification(true);
+    NFacade = new SystemNotificationFacade(this.LayoutModel == null ? _oBaseModel.CurrentClient.ApplicationDBConnectionString : this.LayoutModel.CurrentClient.ApplicationDBConnectionString);
+    //DataTable dtNotificatin = NFacade.GetDismissNotificationByUser(Helper.oUser.UserId);
+    int NotificationCnt = lstNotification.Count;
+    List<string> msgIDToRemove = new List<string>();
+    //if (lstNotification != null && lstNotification.Count > 0)
+    //{
+    //    if (dtNotificatin != null && dtNotificatin.Rows.Count != 0)
+    //    {
+    //        foreach (var itemNotification in lstNotification)
+    //        {
+    //            foreach (DataRow row in dtNotificatin.Rows)
+    //            {
+    //                if (itemNotification.MessageId == Convert.ToInt32(row["NotificationId"]))
+    //                {
+    //                    itemNotification.isRead = true;
+    //                    if (Convert.ToBoolean(row["IsDismiss"]))
+    //                    {
+    //                        itemNotification.isDismiss = true;
+    //                        msgIDToRemove.Add(itemNotification.MessageId.ToString());
+    //                    }
+    //                    NotificationCnt--;
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+    if (msgIDToRemove.Count > 0)
+    {
+        foreach (var deleteItem in msgIDToRemove)
+        {
+            lstNotification.RemoveAll(c => c.MessageId == Convert.ToInt32(deleteItem));
+        }
+    }
+
+    //popup size with tag enable disabled
+    bool LicenseEnableTags = Helper.LicenseEnableTags;
+    bool LicenseEnabledDNB = Helper.LicenseEnabledDNB;
+    bool LicenseEnabledOrb = Helper.LicenseEnabledOrb;
+    string BrandingString = Helper.Branding;
+}
+<!--
+
+TABLE OF CONTENTS.
+
+Use search to find needed section.
+
+===================================================================
+
+|  01. #CSS Links                |  all CSS links and file paths  |
+|  02. #FAVICONS                 |  Favicon links and file paths  |
+|  03. #GOOGLE FONT              |  Google font link              |
+|  04. #APP SCREEN / ICONS       |  app icons, screen backdrops   |
+|  05. #BODY                     |  body tag                      |
+|  06. #HEADER                   |  header tag                    |
+|  07. #PROJECTS                 |  project lists                 |
+|  08. #TOGGLE LAYOUT BUTTONS    |  layout buttons and actions    |
+|  09. #MOBILE                   |  mobile view dropdown          |
+|  10. #SEARCH                   |  search field                  |
+|  11. #NAVIGATION               |  left panel & navigation       |
+|  12. #MAIN PANEL               |  main panel                    |
+|  13. #MAIN CONTENT             |  content holder                |
+|  14. #PAGE FOOTER              |  page footer                   |
+|  15. #SHORTCUT AREA            |  dropdown shortcuts area       |
+|  16. #PLUGINS                  |  all scripts and plugins       |
+
+===================================================================
+
+-->
+<!-- #BODY -->
+<!-- Possible Classes
+
+    * 'smart-style-{SKIN#}'
+    * 'smart-rtl'         - Switch theme mode to RTL
+    * 'menu-on-top'       - Switch to top navigation (no DOM change required)
+    * 'hidden-menu'       - Hides the main menu but still accessable by hovering over left edge
+    * 'fixed-header'      - Fixes the header
+    * 'fixed-navigation'  - Fixes the main menu
+    * 'fixed-ribbon'      - Fixes breadcrumb
+    * 'fixed-footer'      - Fixes footer
+    * 'container'         - boxed layout mode (non-responsive: will not work with fixed-navigation & fixed-ribbon)
+-->
+@Html.Hidden("IsTagsLicenseAllow", LicenseEnableTags)
+@Html.Hidden("ExportNotificationTimeInterval", ExportNotificationTimeInterval)
+@Html.Hidden("UserType", Helper.UserType)
+@Html.Hidden("APItype", APItype)
+@Html.Hidden("CurrentProvider", Helper.CurrentProvider)
+@Html.Hidden("FeedbackPath", FeedbackPath)
+@Html.Hidden("FeedbackTypes")
+
+@Html.Hidden("LicenseEnabledDNB", LicenseEnabledDNB)
+@Html.Hidden("LicenseEnabledOrb", LicenseEnabledOrb)
+@Html.Hidden("BrandingString", BrandingString)
+
+
+<body class="fixed-header fixed-navigation fixed-ribbon ">
+    @*User java script for release the cleans match data and stewardship data locked by user when changes the page*@
+    @if (Helper.CurrentProvider == ProviderType.DandB.ToString())
+    {
+        <script type="text/javascript">
+            -1 == document.URL.toLowerCase().indexOf("/stewardshipportal") && -1 == document.URL.toLowerCase().indexOf("/badinputdata") && (document.referrer.toLowerCase().indexOf("/stewardshipportal") > -1 || document.referrer.toLowerCase().indexOf("/badinputdata") > -1) && $.ajax({ type: "POST", contentType: "application/json; charset=utf-8", url: "/StewardshipPortal/StewUserActivityCloseWindow", data: "", dataType: "HTML", async: !1, beforeSend: function () { }, success: function (e) { } });
+        </script>
+    }
+    else if (Helper.CurrentProvider == ProviderType.OI.ToString())
+    {
+        <script type="text/javascript">
+            -1 == document.URL.toLowerCase().indexOf("/oi/matchdata") && (document.referrer.toLowerCase().indexOf("/oi/matchdata") >= -1) && $.ajax({ type: "POST", contentType: "application/json; charset=utf-8", url: "/OIMatchData/StewUserActivityCloseWindowOI", data: "", dataType: "HTML", async: !1, beforeSend: function () { }, success: function (e) { } });
+        </script>
+    }
+    <!-- HEADER -->
+    <header id="header">
+        @if (Helper.Branding == Branding.Matchbook.ToString())
+        {
+            <div id="logo-group">
+                <span id="logo">
+                    <a href="@Url.Action("Index", "Home")">
+                        @{
+                            var imagepath = Resources.Resource_Matchbook.LogoImage;
+                        }
+                        <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(imagepath))" alt="logo" class="imglogo">
+                    </a>
+                </span>
+            </div>
+        }
+        else if (Helper.Branding == Branding.DandB.ToString())
+        {
+            <div id="logo-group">
+                <span id="logo">
+                    <a href="@Url.Action("Index", "Home")">
+                        @{
+                            var imagepath = Resources.Resource_DandB.LoginImage;
+                        }
+                        <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(imagepath))" alt="logo" @*class="imglogo"*@ style="width:150px;">
+                    </a>
+                </span>
+            </div>
+        }
+
+            <div class="header-content">
+                <div class="project-context hidden-xs left-content">
+                    <span class="label">@LayoutLang.lblUserRole:</span>
+                    <span class="project-selector dropdown-toggle userRoleVal" aria-expanded="false">@(Helper.oUser != null ? Helper.oUser.UserRole.ToLower() + " " + Helper.oUser.UserType.ToLower() : "")  @(Helper.oUser != null ? !string.IsNullOrEmpty(Helper.oUser.LOBTag.ToLower()) ? Helper.oUser.LOBTag : "" : "") @(Helper.oUser != null ? !string.IsNullOrEmpty(Helper.oUser.Tags.ToLower()) ? Helper.oUser.Tags : "" : "")</span>
+                </div>
+
+                <!-- pulled right: nav area -->
+                <div id="MySmallBox"></div>
+
+                <div class="right-content">
+                    <div id="logout" class="btn-header transparent">
+
+                        @if (!Helper.SAMLSSO)
+                        {
+                            <span class="icon"><a href="@Url.Action("LogOff", "Account")" title="@LayoutLang.titleSignOut" data-action="userLogout" data-logout-msg="@AccountLang.lblLogout"><i class="fa fa-sign-out"></i></a></span>
+                        }
+                        else
+                        {
+                            <span class="icon"><a href="@Url.Action("SAMLLogOff", "Account")" title="@LayoutLang.titleSignOut" data-action="userLogout" data-logout-msg="@AccountLang.lblLogout"><i class="fa fa-sign-out"></i></a></span>
+                        }
+                        @Html.Hidden("SAMLSSOLogout", Helper.SAMLSSO)
+
+                    </div>
+
+                    <div id="logo-Notification" class="btn-header pull-right">
+                        @if (Helper.LicenseEnableDataStewardship)
+                        {
+                        <span class="Notification-dropdown icon" id="NotifyNotification" style="margin-right:6px;">
+                            <i class="fa fa-bell"></i>
+                            @if (NotificationCnt > 0)
+                            {
+                                <b class="badge  bounceIn animated">@NotificationCnt</b>
+                            }
+                        </span>
+                        }
+                        else
+                        {
+                        <span class="Notification-dropdown icon" id="NotifyNotification" style="display: none;">
+                            <i class="fa fa-bell"></i>
+                            @if (NotificationCnt > 0)
+                            {
+                                <b class="badge  bounceIn animated">@NotificationCnt</b>
+                            }
+                        </span>
+                        }
+
+
+                        <div class="ajax-dropdown notification-box" id="NotificationDiv">
+                            <div class="">
+                                <label>
+                                    <strong> @LayoutLang.lblNotifications @*(@lstNotification.Count())*@</strong>
+                                </label>
+                                <div class="Notification-Containt">
+                                    @if (lstNotification != null && lstNotification.Count > 0)
+                                    {
+                                        <ul>
+                                            @foreach (var item in lstNotification)
+                                            {
+                                                <li data-notificationId="@item.MessageId" data-isRead="@item.isRead">
+                                                    <div class="row alert @item.FontColor">
+                                                        <div class="col-xs-10">
+                                                            <span>@Html.Raw(item.Message)</span>
+                                                            <br />
+                                                            <span class="pull-right"><i><b>@item.StartDateTime.Month/@item.StartDateTime.Day/@item.StartDateTime.Date.Year</b></i></span>
+                                                            @*<span class="pull-right"><i><b>@oldtime</b></i></span>*@
+                                                        </div>
+                                                        <div class="col-xs-1 iconcls">
+                                                            <a class="DismissNotification" id="@item.MessageId"><i class="fa fa-bell-slash" title="@LayoutLang.titleDismissNotification"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            }
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                        <div class="margin-left-10">
+                                            <span> @LayoutLang.lblNoNotificationsMessage </span>
+                                        </div>
+                                    }
+                                    <div class="footer-Notification">
+                                        <span><a href="/Notification"><b>@LayoutLang.lblSeeAll</b></a></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    @if (System.IO.File.Exists(absolutePath))
+                    {
+                        <div class="image">
+                            <img alt="image" class="MainClientLogo" src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(profileImg))" />
+                        </div>
+                    }
+
+                    else if (!string.IsNullOrEmpty(Helper.ClientLogo))
+                    {
+                        <div class="image">
+                            <img src="/Image/GetBlobImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(ImageHelper.GetImageThumbURL(ImageHelper.PictureType.clientlogo, @Helper.ClientLogo)))" class="MainClientLogo" />
+                        </div>
+                    }
+                </div>
+            </div>
+       
+        <!-- end pulled right: nav area -->
+
+    </header>
+    <!-- END HEADER -->
+    <!-- Left panel : Navigation area -->
+    <!-- Note: This width of the aside area can be adjusted through LESS variables -->
+    <aside id="left-panel">
+
+        <!-- User info -->
+        <div class="login-info">
+            <span>
+                <!-- User image size is adjusted inside CSS, it should stay as it -->
+
+                <a href="@Url.Action("ProfileDetails", "Home")" class="ClientName">
+                    @*<img src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Home/getProfileImage"))" alt='Image' class="propic" />*@
+                    <img src='@Url.Action("getProfileImage", "Home")' alt='Image' class="propic" />
+                    <span>
+                        <span class="lblUserName">@(Helper.oUser != null ? Helper.oUser.UserName : "")</span>
+                        @if (Helper.CurrentProvider == Convert.ToString(ProviderType.DandB))
+                        {
+                            <span class="lblUserRole paddingTop-4">@LayoutLang.lblDAndB</span>
+                        }
+                        else if (Helper.CurrentProvider == Convert.ToString(ProviderType.OI))
+                        {
+                            <span class="lblUserRole paddingTop-4">@LayoutLang.lblOrbIntelligence</span>
+                        }
+                    </span>
+                </a>
+            </span>
+            @if (Helper.LicenseEnabledDNB && Helper.LicenseEnabledOrb && Helper.Branding == Branding.Matchbook.ToString())
+            {
+                <div class="dropdown divCustomeProviderSubmenu">
+                    <span class="mainspan">
+                        <i class="fa fa-angle-down" data-toggle="dropdown"></i>
+                        <ul class="dropdown-menu">
+                            <li class="@(Helper.CurrentProvider==ProviderType.DandB.ToString()?"active":"")">
+                                <a href="/Home/">
+                                    <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/d&b-50px.png"))">
+                                    <span>@LayoutLang.lblDAndB</span>
+                                </a>
+                            </li>
+                            <li class="@(Helper.CurrentProvider==ProviderType.OI.ToString()?"active":"")">
+                                <a href="/OI/Home">
+                                    <img src="/Image/GetAnonymousImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/orb-50px.png"))">
+                                    <span>@LayoutLang.lblOrb</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </span>
+                </div>
+            }
+        </div>
+        <!-- end user info -->
+        <!-- NAVIGATION : This navigation is also responsive
+
+        To make this navigation dynamic please make sure to link the node
+        (the reference to the nav > ul) after page load. Or the navigation
+        will not initialize.
+        -->
+        @if (Helper.CurrentProvider == Convert.ToString(ProviderType.DandB) && Helper.LicenseEnabledDNB)
+        {
+            Html.RenderPartial("~/Views/Shared/MenuProvider/DnBMenu.cshtml");
+        }
+        else if (Helper.CurrentProvider == Convert.ToString(ProviderType.OI) && Helper.LicenseEnabledOrb && Helper.Branding == Branding.Matchbook.ToString())
+        {
+            Html.RenderPartial("~/Views/Shared/MenuProvider/OrbMenu.cshtml");
+        }
+    </aside>
+    <!-- END NAVIGATION -->
+    <!-- MAIN PANEL -->
+    <div id="main" role="main">
+        <!-- RIBBON -->
+        <div id="ribbon">
+            <!-- breadcrumb -->
+            @Html.MvcSiteMap().SiteMapPath()
+            @if (currentNode != null && currentNode.Title == "Dashboard" && Helper.CurrentProvider == Convert.ToString(ProviderType.DandB))
+            {
+                if (Helper.Branding == Branding.Matchbook.ToString())
+                {
+                    <div class="btn-header pull-left">
+                        <span title="@LayoutLang.titleRefreshDashboard">
+                            <img src="~/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/reload.png"))" class="btnRefresh btnRefreshDashboard" />
+                        </span>
+                    </div>
+                }
+                else if (Helper.Branding == Branding.DandB.ToString())
+                {
+                    <div class="btn-header pull-left">
+                        <span title="@LayoutLang.titleRefreshDashboard">
+                            <img src="~/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/reload_DandB.png"))" class="btnRefresh btnRefreshDashboard" />
+                        </span>
+                    </div>
+                }
+                @*<button class="btn btn-xs btn-success marginright-5 margintop10" id="ActiveStatisticsFilter" rel="popover-hover" data-placement="top" data-html="true">Filter <i class="fa fa-caret-down"></i></button>*@
+            }
+            else if (currentNode != null && currentNode.Title == "Dashboard" && Helper.CurrentProvider == Convert.ToString(ProviderType.OI))
+            {
+                if (Helper.Branding == Branding.Matchbook.ToString())
+                {
+                    <div class="btn-header pull-left">
+                        <span title="@LayoutLang.titleRefreshDashboard">
+                            <img src="~/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/reload.png"))" class="btnOIDashboardRefresh btnRefreshDashboard" />
+                        </span>
+                    </div>
+                }
+                else if (Helper.Branding == Branding.DandB.ToString())
+                {
+                    <div class="btn-header pull-left">
+                        <span title="@LayoutLang.titleRefreshDashboard">
+                            <img src="~/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString("~/Images/reload_DandB.png"))" class="btnOIDashboardRefresh btnRefreshDashboard" />
+                        </span>
+                    </div>
+                }
+
+            }
+
+            <!-- end breadcrumb -->
+        </div>
+        <!-- END RIBBON -->
+        <!-- MAIN CONTENT -->
+        <div id="content">
+            @RenderBody()
+        </div>
+
+        <div id="AddTagsModalMain"></div>
+        <div id="PortalCountryGroupModalMain"></div>
+        @if (Helper.Branding == Branding.Matchbook.ToString())
+        {
+            <div class="loaderMain" id="divProgress">
+                <div class="loaderDiv">
+                    @*<p class="loaderTxt">@LayoutLang.lblProcessing</p>*@
+                    <p class="loaderTxt"><img src="~/Images/matchbookloading.gif" width="100" /></p>
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div class="loaderMain" id="divProgress">
+                <div class="loaderDivdnb">
+                    <p class="loaderTxtdnb">@LayoutLang.lblProcessing</p>
+                </div>
+            </div>
+        }
+
+        <!-- END MAIN CONTENT -->
+    </div>
+    <!-- END MAIN PANEL -->
+    <!-- PAGE FOOTER -->
+    <div class="page-footer layout_footer">
+        <div class="row">
+            @if (Helper.Branding == Branding.Matchbook.ToString())
+            {
+                <div class="col-md-10">
+                    <span class="txt-color-white">
+                        @Resources.Resource_Matchbook.LicenseAgreement @DateTime.Now.Year @LayoutLang.lblPortalMatchbook <a onclick="window.open('https://www.matchbookservices.com/license')" href="javascript:void(false)" style="color:#ffffff; text-decoration:underline;"> @LayoutLang.lblLicensingAgreement</a>
+                    </span>
+                </div>
+
+            }
+            @if (Helper.Branding == Branding.DandB.ToString())
+            {
+                <div class="col-md-10">
+                    <span class="txt-color-white">@Resources.Resource_DandB.LicenseAgreement @DateTime.Now.Year @LayoutLang.lblPortalDunAndBradstreet</span>
+                </div>
+            }
+            <div class="col-md-2">
+                <div id="languageDD" class="pull-right lenguage_select">
+                    @using (Html.BeginForm("ChangeLanguage", "Home", FormMethod.Post, new { id = "form_Language", @autocomplete = "off" }))
+                    {
+                        <select class="selectpicker" name="language" data-width="fit" id="languageDD" onchange="$(this).parent('form').submit();">
+                            <option value="en-US" @(currentLanguage.Contains("en") ? "selected" : "") data-content='<span class="flag-icon flag-icon-us"></span> English'>English(en-US)</option>
+                            <option value="zh-CN" @(currentLanguage.Contains("zh") ? "selected" : "") data-content='<span class="flag-icon flag-icon-mx"></span> Chinese'>Chinese(zh-CH)</option>
+                            <option value="es-ES" @(currentLanguage.Contains("es") ? "selected" : "") data-content='<span class="flag-icon flag-icon-ad "></span> Spanish'>Spanish(es-ES)</option>
+
+                        </select>
+                    }
+                </div>
+            </div>
+
+            @*<div class="col-xs-6 col-sm-6 text-right hidden-xs">
+                    <div class="txt-color-white inline-block">
+                    </div>
+                </div>*@
+        </div>
+    </div>
+    @if (Helper.IsEableChat != null && Helper.IsEableChat.ToLower() == "true")
+    {
+        string url = Request.Url.Scheme + "://" + Request.Url.Authority + Url.Action("Login", "Account");
+        string[] hostParts = new System.Uri(url).Host.Split('.');
+        string domain = hostParts[0];
+        <script type="text/javascript">var iframe = document.createElement("iframe"); iframe.setAttribute("id", "glib_widget"); var cssId = "glibChatCSS"; if (!document.getElementById(cssId)) { var head = document.getElementsByTagName("head")[0], link = document.createElement("link"); link.id = cssId, link.rel = "stylesheet", link.type = "text/css", link.href = "https://glib-widget.firebaseapp.com/assets/glib-widget.css", link.media = "all", head.appendChild(link) } "Microsoft Internet Explorer" == navigator.appName || navigator.userAgent.match(/Trident/) || navigator.userAgent.match(/rv 11/) ? window.attachEvent("message", function (e) { handleEvent() }) : window.addEventListener("message", function (e) { handleEvent(e.data) }, !1); var handleEvent = function (e) { if ("open" == e) { if (document.getElementById("glib_widget").classList.remove("glib-w-default"), document.getElementById("glib_widget").classList.add("glib-w-open"), navigator.userAgent.match(/Android/i)) { Math.max(document.documentElement.clientHeight, window.innerHeight || 0); iframe.style.height = "92vh" } } else if ("extra_open" == e) document.getElementById("glib_widget").classList.add("glib-w-extra"); else if ("extra_close" == e) document.getElementById("glib_widget").classList.remove("glib-w-extra"); else if ("chat_ready" == e) { var t = new CustomEvent("chat_ready", {}); document.dispatchEvent(t) } else navigator.userAgent.match(/Android/i) && (iframe.style.height = "64px"), document.getElementById("glib_widget").classList.remove("glib-w-open"), document.getElementById("glib_widget").classList.remove("glib-w-extra"), document.getElementById("glib_widget").classList.add("glib-w-default") }; authUser = function (e, t, i) { var a = { name: e, email: t, uid: i }; document.getElementById("glib_widget").contentWindow.postMessage(a, "*") }, iframe.setAttribute("src", "https://glib-widget.firebaseapp.com/chat/-KhzwE_X1jNyx6lBEzyR"), iframe.setAttribute("class", "glib-w-default"), iframe.setAttribute("scrolling", "no"), document.body.appendChild(iframe);</script>
+        <script>
+            document.addEventListener("chat_ready", function (event) { authUser("@Helper.oUser.UserName", "@domain", "@Helper.oUser.UserId"); })
+        </script>
+    }
+
+    <script>
+    var success = '@CommonMessagesLang.msgSuccess';
+    var notificationDismissed = '@CommonMessagesLang.msgNotificationDismissed';
+    var noDataAvailable = '@CommonMessagesLang.msgNoDataAvailable';
+    var pageSize = '@CommonMessagesLang.msgPageSize';
+    var previous = '@CommonMessagesLang.msgPrevious';
+    var next = '@CommonMessagesLang.msgNext';
+    var activeUsers = '@CommonMessagesLang.msgActiveUsers';
+    var addFilter = '@CommonMessagesLang.msgAddFilter';
+    var message = '@LayoutLang.lblMessage';
+    var addTag = '@CommonMessagesLang.msgAddTag';
+    var noResultsMatch = '@CommonMessagesLang.msgNoResultsMatch';
+    </script>
+    @Scripts.Render("~/bundles/layoutjs")
+    <script src="~/Scripts/jquery.contextMenu.js"></script>
+    @RenderSection("scripts", required: false)
+    @RenderSection("PageScripts", false)
+</body>
+</html>
+
+<script>
+
+    $(function () {
+        $('.selectpicker').selectpicker();
+    });
+</script>

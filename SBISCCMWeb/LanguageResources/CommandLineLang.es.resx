@@ -1,0 +1,384 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrColumnMapping" xml:space="preserve">
+    <value>Mapeo de columnas</value>
+    <comment>Column Mapping</comment>
+  </data>
+  <data name="hdrCommandLineEXEDownload" xml:space="preserve">
+    <value>Línea de comando EXE Descargar</value>
+    <comment>Command Line EXE Download</comment>
+  </data>
+  <data name="hdrDownloadConfiguration" xml:space="preserve">
+    <value>Descargar configuración</value>
+    <comment>Download Configuration</comment>
+  </data>
+  <data name="hdrDownloadConfigurationList" xml:space="preserve">
+    <value>Descargar la lista de configuración</value>
+    <comment>Download Configuration List</comment>
+  </data>
+  <data name="hdrLinuxSetup" xml:space="preserve">
+    <value>Configuración de Linux</value>
+    <comment>Linux Setup</comment>
+  </data>
+  <data name="hdrUploadConfigurationList" xml:space="preserve">
+    <value>Subir lista de configuración</value>
+    <comment>Upload Configuration List</comment>
+  </data>
+  <data name="hdrUploadConfigurationMapping" xml:space="preserve">
+    <value>Cargar mapeo de configuración</value>
+    <comment>Upload Configuration Mapping</comment>
+  </data>
+  <data name="hdrWindowsSetup" xml:space="preserve">
+    <value>Configuración de Windows</value>
+    <comment>Windows Setup</comment>
+  </data>
+  <data name="lbEdit" xml:space="preserve">
+    <value>Editar</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="lblAdd" xml:space="preserve">
+    <value>Agregar</value>
+    <comment>Add</comment>
+  </data>
+  <data name="lblAddDateTimeasFileprefix" xml:space="preserve">
+    <value>Agregar fecha y hora como prefijo de archivo</value>
+    <comment>Add DateTime as File prefix</comment>
+  </data>
+  <data name="lblAdditionalColumn" xml:space="preserve">
+    <value>Columna adicional</value>
+    <comment>Additional Column</comment>
+  </data>
+  <data name="lblAdditionalFields" xml:space="preserve">
+    <value>Campos Adicionales</value>
+    <comment>Additional Fields</comment>
+  </data>
+  <data name="lblAddoptionalFilePrefix" xml:space="preserve">
+    <value>Agregar prefijo de archivo opcional</value>
+    <comment>Add optional File Prefix</comment>
+  </data>
+  <data name="lblAllowedFormats" xml:space="preserve">
+    <value>.xls,.xlsx</value>
+    <comment>.xls,.xlsx</comment>
+  </data>
+  <data name="lblAppendDateTimetofilename" xml:space="preserve">
+    <value>Agregar fecha y hora al nombre del archivo</value>
+    <comment>Append DateTime to file name</comment>
+  </data>
+  <data name="lblApplyTextQualifierToAll" xml:space="preserve">
+    <value>Aplicar texto calificador a todos</value>
+    <comment>Apply Text Qualifier To All</comment>
+  </data>
+  <data name="lblConfigurationName" xml:space="preserve">
+    <value>ConfigurationName</value>
+    <comment>ConfigurationName</comment>
+  </data>
+  <data name="lblCSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>CSV</comment>
+  </data>
+  <data name="lblCustomDelimiter" xml:space="preserve">
+    <value>Delimitador personalizado</value>
+    <comment>Custom Delimiter</comment>
+  </data>
+  <data name="lblDelete" xml:space="preserve">
+    <value>Eliminar</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="lblDownloadFormat" xml:space="preserve">
+    <value>Formato de descarga</value>
+    <comment>DownloadFormat</comment>
+  </data>
+  <data name="lblExample" xml:space="preserve">
+    <value>p.ej.</value>
+    <comment>e.g.</comment>
+  </data>
+  <data name="lblExcel" xml:space="preserve">
+    <value>Sobresalir</value>
+    <comment>Excel</comment>
+  </data>
+  <data name="lblFileFormat" xml:space="preserve">
+    <value>Formato de archivo</value>
+    <comment>FileFormat</comment>
+  </data>
+  <data name="lblFormatValue" xml:space="preserve">
+    <value>Formato de valor</value>
+    <comment>Format Value</comment>
+  </data>
+  <data name="lblImportData" xml:space="preserve">
+    <value>Datos de importacion</value>
+    <comment>Import Data</comment>
+  </data>
+  <data name="lblImportType" xml:space="preserve">
+    <value>Tipo de importación</value>
+    <comment>ImportType</comment>
+  </data>
+  <data name="lblInputHeader" xml:space="preserve">
+    <value>Encabezado de entrada</value>
+    <comment>Input Header</comment>
+  </data>
+  <data name="lblIsDefault" xml:space="preserve">
+    <value>Es predeterminado</value>
+    <comment>Is Default</comment>
+  </data>
+  <data name="lblLOBTag" xml:space="preserve">
+    <value>LOBTag</value>
+    <comment>LOBTag</comment>
+  </data>
+  <data name="lblMarkAsExported" xml:space="preserve">
+    <value>Marcar como exportada</value>
+    <comment>Mark As Exported</comment>
+  </data>
+  <data name="lblMatchOutPut" xml:space="preserve">
+    <value>Ma tcho t put</value>
+    <comment>MatchOutPut</comment>
+  </data>
+  <data name="lblNext" xml:space="preserve">
+    <value>Próxima</value>
+    <comment>Next</comment>
+  </data>
+  <data name="lblOutputformat" xml:space="preserve">
+    <value>Formato de salida</value>
+    <comment>Output format</comment>
+  </data>
+  <data name="lblPrevious" xml:space="preserve">
+    <value>Previa</value>
+    <comment>Previous</comment>
+  </data>
+  <data name="lblRequiredAPILayer" xml:space="preserve">
+    <value>Por favor seleccione API Layer.</value>
+    <comment>Please select API Layer.</comment>
+  </data>
+  <data name="lblRequiredConfigurationName" xml:space="preserve">
+    <value>Por favor complete el nombre de la configuración.</value>
+    <comment>Please fill Configuration Name.</comment>
+  </data>
+  <data name="lblRequiredFile" xml:space="preserve">
+    <value>Por favor seleccione el archivo.</value>
+    <comment>Please select file.</comment>
+  </data>
+  <data name="lblRequiredOutputType" xml:space="preserve">
+    <value>Por favor, seleccione el tipo de salida.</value>
+    <comment>Please Select Output Type.</comment>
+  </data>
+  <data name="lblRequiredProviderType" xml:space="preserve">
+    <value>Por favor, seleccione el tipo de proveedor.</value>
+    <comment>Please select Provider Type.</comment>
+  </data>
+  <data name="lblRHEL6" xml:space="preserve">
+    <value>RHEL 6</value>
+    <comment>RHEL 6</comment>
+  </data>
+  <data name="lblRHEL7" xml:space="preserve">
+    <value>RHEL 7</value>
+    <comment>RHEL 7</comment>
+  </data>
+  <data name="lblSelectConfigurationName" xml:space="preserve">
+    <value>Seleccionar nombre de configuración</value>
+    <comment>Select Configuration Name</comment>
+  </data>
+  <data name="lblSelectFile" xml:space="preserve">
+    <value>Seleccione Archivo</value>
+    <comment>Select File</comment>
+  </data>
+  <data name="lblSelectFileFormat" xml:space="preserve">
+    <value>Seleccionar formato de archivo</value>
+    <comment>Select File Format</comment>
+  </data>
+  <data name="lblSelectFilters" xml:space="preserve">
+    <value>Seleccionar filtros</value>
+    <comment>Select Filters</comment>
+  </data>
+  <data name="lblSelectImportType" xml:space="preserve">
+    <value>Select Import Type</value>
+    <comment>Select Import Type</comment>
+  </data>
+  <data name="lblSelectLanguage" xml:space="preserve">
+    <value>Seleccione el idioma</value>
+    <comment>Select Language</comment>
+  </data>
+  <data name="lblSelectProvider" xml:space="preserve">
+    <value>Seleccionar proveedor</value>
+    <comment>Select Provider</comment>
+  </data>
+  <data name="lblSubmit" xml:space="preserve">
+    <value>Enviar</value>
+    <comment>Submit</comment>
+  </data>
+  <data name="lblTableColumn" xml:space="preserve">
+    <value>Columna de tabla</value>
+    <comment>Table Column</comment>
+  </data>
+  <data name="lblTabSeparated" xml:space="preserve">
+    <value>Separador separado</value>
+    <comment>Tab Separated</comment>
+  </data>
+  <data name="lblTag" xml:space="preserve">
+    <value>Etiqueta</value>
+    <comment>Tag</comment>
+  </data>
+  <data name="lblUpdate" xml:space="preserve">
+    <value>Actualizar</value>
+    <comment>Update</comment>
+  </data>
+  <data name="lblUploadFile" xml:space="preserve">
+    <value>Subir archivo</value>
+    <comment>Upload File</comment>
+  </data>
+  <data name="lblwin32" xml:space="preserve">
+    <value>Y graznando</value>
+    <comment>win32</comment>
+  </data>
+  <data name="lblwin64" xml:space="preserve">
+    <value>win64</value>
+    <comment>win64</comment>
+  </data>
+  <data name="msgFileFormatsAllowed" xml:space="preserve">
+    <value>Solo los formatos permitidos son:</value>
+    <comment>Only formats allowed are :</comment>
+  </data>
+  <data name="placeholderConfName" xml:space="preserve">
+    <value>Nombre de configuracion</value>
+    <comment>Configuration Name</comment>
+  </data>
+  <data name="titleAddCommandDownloadMapping" xml:space="preserve">
+    <value>Agregar asignación de descarga de comandos</value>
+    <comment>Add Command Download Mapping</comment>
+  </data>
+  <data name="titleAddCommandMapping" xml:space="preserve">
+    <value>Agregar asignación de comando</value>
+    <comment>Add Command Mapping</comment>
+  </data>
+  <data name="titleCSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>CSV</comment>
+  </data>
+  <data name="titleCustomDelimiter" xml:space="preserve">
+    <value>Delimitador personalizado</value>
+    <comment>Custom Delimiter</comment>
+  </data>
+  <data name="titleExcel" xml:space="preserve">
+    <value>Sobresalir</value>
+    <comment>Excel</comment>
+  </data>
+  <data name="titleTabSeparated" xml:space="preserve">
+    <value>Separador separado</value>
+    <comment>Tab Separated</comment>
+  </data>
+</root>

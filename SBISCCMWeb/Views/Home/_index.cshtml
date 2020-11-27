@@ -1,0 +1,371 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility;
+@model SBISCCMWeb.Models.Dashboard
+@{
+    string ProcessingQueueCnt = Model.ProcessingQueueCnt;
+    string EnrichmentQueueCount = Model.EnrichmentQueueCount;
+    string i = "0";
+}
+<style type="text/css">
+    .popover.top {
+        z-index: 99999 !important;
+    }
+
+    .rightborder {
+        border-right: 2px solid #ccc;
+        min-height: 250px;
+    }
+
+    .activeDataQueueFonts {
+        color: #1c3f9b !important;
+    }
+
+    .well {
+        background: none !important;
+        background-size: cover;
+        padding: 10px !important;
+        margin: -20px 0 0 0;
+    }
+</style>
+<div id="content" style="opacity: 1;overflow-x:hidden;">
+    <section id="widget-grid" class="">
+        <div class="row">
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row borderbottom divDataQueueStatistics active_data_queue">
+                            <div class="col-md-6 rightborder mobileborder ">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <span><strong class="fontsize-20">@HomeLang.titleActiveDataQueueStatistics</strong> </span>
+                                        &nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="fontsize-20" id="btnActiveDataRefresh" title="@HomeLang.titleRefreshActiveDataQueueStatistics"><em class="fa fa-refresh "></em></a>
+                                        &nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="report" id="lnkBtnUnprocessedInput" title="@HomeLang.titleActiveDataQueueDetailReport"><em class="fa fa-table fa-2x"></em></a>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="row divActiveDataQueueStatus">
+                                    <div class="col-md-6">
+                                        @{
+                                            string activeStatusColor = "";
+                                            if (!string.IsNullOrEmpty(Model.ActiveQueueStatus) && Model.ActiveQueueStatus.ToLower() == "processed")
+                                            { activeStatusColor = "peru"; }
+                                            else if (!string.IsNullOrEmpty(Model.ActiveQueueStatus) && Model.ActiveQueueStatus.ToLower() == "processing")
+                                            { activeStatusColor = "green"; }
+                                            else
+                                            { activeStatusColor = "red"; }
+                                        }
+                                        <strong><span class="activeDataQueueFonts">@HomeLang.lblProcessStatus : </span><span class="spnActiveStatus" style="color:@activeStatusColor">@Model.ActiveQueueStatus</span></strong>
+                                    </div>
+                                </div>
+                                <div class="recordbox ">
+                                    <div class="row paddingto5 divDataQueueStatistics">
+                                        <div class="col-md-2 text-center">
+                                            <div class="text-center minhightbox">@HomeLang.lblFileImport</div>
+                                            <div class="circleText" id="TitleActualMatchCnt" data-toggle="tooltip" title="@Model.ActualFilesAwaitingImportCount">
+                                                <div class="input-record-count">
+                                                    <span class="recordtext" id="SpnActualMatchCntImport"><a href="/ImportData/Index"><strong> @Model.FilesAwaitingImportCount</strong> </a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <div class="text-center minhightbox">@HomeLang.lblInput</div>
+                                            <div class="circleText" id="TitleActualMatchCnt" data-toggle="tooltip" title="@Model.ActualInputRecordCount_Total">
+                                                <div class="input-record-count">
+                                                    <span class="recordtext" id="SpnActualMatchCnt"><a href="/UnprocessedInput/Index"><strong> @Model.InputRecordCount_Total</strong> </a></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-2 text-center">
+                                            <div class="text-center minhightbox">@HomeLang.lblLowConfidence</div>
+                                            <div class="circleText" id="TitleLCMCnt" data-toggle="tooltip" title="@Model.ActualLCMCount">
+                                                <div class="exported-record-count">
+                                                    <span class="recordtext" id="SpnLCMCnt">
+                                                        @if (Helper.LicenseEnableDataStewardship)
+                                                        {
+                                                            <a href="/StewardshipPortal/Index"><strong> @Model.LCMCount </strong></a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a><strong> @Model.LCMCount </strong></a>
+                                                        }
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <div class="text-center minhightbox">@HomeLang.lblNoMatch</div>
+                                            <div class="circleText" id="TitleBIDCnt" data-toggle="tooltip" title="@Model.ActualBadInputRecordCount">
+                                                <div class="bad-Input-count">
+                                                    <span class="recordtext" id="SpnBIDCnt">
+                                                        @if (Helper.LicenseEnableDataStewardship)
+                                                        {
+                                                            <a href="/BadInputData/Index"><strong>@Model.BadInputRecordCount</strong></a>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a><strong>@Model.BadInputRecordCount</strong></a>
+                                                        }
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*<div class="col-md-2 text-center">
+                            <div class="text-center minhightbox">Processing Queue</div>
+                            <div class="circleText" id="TitleProcessingProcessCnt" data-toggle="tooltip" title="@Model.ProcessingQueueCnt">
+                                <div class="exported-record-count">
+                                    <span class="recordtext" id="SpnProcessingProcessCnt"><a><strong> @Model.ProcessingQueueCnt </strong></a></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <div class="text-center minhightbox">Enrichment Queue</div>
+                            <div class="circleText" id="TitleEnrichCnt" data-toggle="tooltip" title="@Model.EnrichmentQueueCount">
+                                <div class="exported-record-count">
+                                    <span class="recordtext" id="SpnEnrichCnt"><a><strong> @Model.EnrichmentQueueCount </strong></a></span>
+                                </div>
+                            </div>
+                        </div>*@
+                                        <div class="col-md-2 text-center">
+                                            <div class="text-center minhightbox">@HomeLang.lblMatchOutput</div>
+                                            <div class="circleText" id="TitleExportCntMatch" data-toggle="tooltip" title="@Model.ActualMatchExportRecordCount">
+                                                <div class="exported-record-count matchOutput">
+                                                    <span class="recordtext" id="SpnExportCntMatch"><a href="/Export/CompanyData"><strong> @Model.MatchExportRecordCount </strong></a></span>
+                                                </div>
+                                                @if (string.Compare(ProcessingQueueCnt, i) > 0)
+                                                {
+                                                    <div class="displayValue" id="ProcessingQueueCnt" title="@HomeLang.titleProcessingQueue">@ProcessingQueueCnt</div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <div class="text-center minhightbox">@HomeLang.lblEnrichmentOutput</div>
+                                            <div class="circleText" id="TitleExportCntEnrichment" data-toggle="tooltip" title="@Model.ActualEnrichmentExportRecordCount">
+                                                <div class="exported-record-count enrichmentOutput">
+                                                    <span class="recordtext" id="SpnExportCntEnrichment"><a href="/Export/CompanyData"><strong> @Model.EnrichmentExportRecordCount </strong></a></span>
+                                                </div>
+                                                @if (string.Compare(EnrichmentQueueCount, i) > 0)
+                                                {
+                                                    <div class="displayValue" id="EnrichmentQueueCount" title="@HomeLang.titleProcessingQueue">@EnrichmentQueueCount</div>
+                                                }
+                                            </div>
+                                        </div>
+                                        <lable class="btn-xs btn-success marginright-5 btnFiltered" style="FLOAT: RIGHT;BACKGROUND-COLOR: #7cb5ec;" hidden="hidden">@HomeLang.lblFiltered</lable>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 rightborder processbox backgroundProcessBox  border-0">
+                                <div class="mobileborder usage-statistics-box mobilevsprocess">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="text-center">
+                                                <span><strong class="fontsize-20">@HomeLang.titleBackgroundProcessStatistics</strong> </span>
+                                                &nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="fontsize-20" id="btnBackgroundtatisticsRefresh" title="@HomeLang.titleRefreshBackgroundProcessStatistics"><em class="fa fa-refresh "></em></a>
+                                                &nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="fontsize-20" id="rptShowBackgroundProcessList" title="@HomeLang.titleProcessDetails"><em class="fa fa-bar-chart" aria-hidden="true"></em></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="LoadBackgroundProcessStatisticsReport">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-5 rightborder1">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <span><strong class="fontsize-20">@HomeLang.titleLCMCandidateStatistics</strong> </span>
+                                        &nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="fontsize-20" id="btnLCMStatisticsRefresh" title="@HomeLang.titleRefreshLowConfidenceMatchCandidateStatistics"><em class="fa fa-refresh "></em></a>
+                                    </div>
+                                </div>
+                                <div class="row paddingto5 divLCMCandidateStatistics">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-4 lblTopLCMCandidate rightborder">
+                                        <label>@HomeLang.lblTopCandidates</label>
+                                        <div>
+                                            <p class="txtlblLCM"><span>@HomeLang.lblTotalRecords</span></p>
+                                            <span id="TCTotal"></span>
+                                        </div>
+                                        <div>
+                                            <p class="txtlblLCM"><span>@HomeLang.lblActiveRecords</span></p>
+                                            <span id="TCActive"></span>
+                                        </div>
+                                        <div>
+                                            <p class="txtlblLCM"><span>@HomeLang.lblHQSLRecords</span></p>
+                                            <span id="TCHQSL"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 lblAllLCMCandidate">
+                                        <label class="">@HomeLang.lblAllCandidates</label>
+                                        <div>
+                                            <p class="txtlblLCM"><span>@HomeLang.lblTotalRecords</span></p>
+                                            <span id="ACTotal"></span>
+                                        </div>
+                                        <div>
+                                            <p class="txtlblLCM"><span>@HomeLang.lblActiveRecords</span></p>
+                                            <span id="ACActive"></span>
+                                        </div>
+                                        <div>
+                                            <p class="txtlblLCM"><span>@HomeLang.lblHQSLRecords</span></p>
+                                            <span id="ACHQSL"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-10">
+                                        <div id="divLCMCandidateStatisticsReport" style="height: 300px; margin-top:-40px;margin-bottom: -20px;">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1"></div>
+                                </div>
+                                <lable class="btn-xs btn-success marginright-5 btnFiltered" style="FLOAT: RIGHT;BACKGROUND-COLOR: #7cb5ec;" hidden="hidden">Filtered</lable>
+                            </div>
+                            <div class="col-sm-5 rightborder1">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <span><strong class="fontsize-20">@HomeLang.titleDataStewardshipStatistics</strong> </span>
+                                        &nbsp;&nbsp;&nbsp;<a href="javascript:void(0)" class="fontsize-20" id="btnDataStewardStatisticsRefresh" title="@HomeLang.titleRefreshDataStewardshipStatistics"><em class="fa fa-refresh "></em></a>
+                                    </div>
+                                </div>
+                                <div class="row paddingto5">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-4 mobileborder">
+                                        <div id="chtMatchUser" style="min-width: 310px; height: 340px; max-width: 600px; margin: 0 auto"></div>
+                                    </div>
+                                    <div class="col-md-6 mobileborder">
+                                        <div id="chtMatchConfidenceCode" style="height:340px;min-width: 350px;margin-left: 70px;"></div>
+                                    </div>
+                                </div>
+                                <div class="row divDataStewardStatistics">
+                                    <div class="col-md-4">
+                                        <p class="txtlblDataSteward"><span>@HomeLang.lblTotalMatched</span></p>
+                                        <span id="spnTotalMatch"></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="txtlblDataSteward">
+                                            <span>@HomeLang.lblNameAddressLookup</span>
+                                        </p>
+                                        <span id="spnNameAddressLkupCnt"></span>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="txtlblDataSteward">
+                                            <span>@HomeLang.lblAltLookup</span>
+                                        </p>
+                                        <span id="spnAlterLkupCnt"></span>
+                                    </div>
+                                </div>
+                                <lable class="btn-xs btn-success marginright-5 btnFiltered" style="FLOAT: RIGHT;BACKGROUND-COLOR: #7cb5ec;" hidden="hidden">Filtered</lable>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="mobileborder usage-statistics-box apibox">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-12 text-center">
+                                                <span>
+                                                    <strong class="fontsize-16">
+                                                        @HomeLang.titleAPIUsageStatistics
+                                                    </strong>
+                                                    &nbsp;<a href="javascript:void(0)" class="fontsize-16" id="btnAPIUsagestatisticsRefresh" title="@HomeLang.titleRefreshDataStewardshipStatistics"><em class="fa fa-refresh "></em></a>
+                                                    &nbsp;&nbsp;<a href="javascript:void(0)" id="ShowAPIUsageReport" title="@HomeLang.titleDetailStatisticsReport" class="fontsize-16"><em class="fa fa-bar-chart" aria-hidden="true"></em></a>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row paddingto5 mobilebox">
+                                            <div class="col-md-12 text-center">
+                                                <div class="col-md-12 text-center minhightbox">@HomeLang.lblCurrentMonth</div>
+                                                <div class="circleTextAPI tooltip_change" data-toggle="tooltip" id="titleApiCount" title="@Model.ActualApiCount">
+                                                    <div class="current-month">
+                                                        <span class="recordtext" id="spnApiCount"><a>@Model.ApiCount</a></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 text-center">
+                                                <div class="col-md-12 text-center minhightbox">@HomeLang.lblYTD</div>
+                                                <div class="circleTextAPI tooltip_change" data-toggle="tooltip" id="titleYTD" title="@Model.ActualYTD">
+                                                    <div class="ytd">
+                                                        <span class="recordtext" id="spnYTD"><a>@Model.YTD</a></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 text-center">
+                                                <div class="col-md-12 text-center minhightbox">@HomeLang.lblAll</div>
+                                                <div class="circleTextAPI tooltip_change" data-toggle="tooltip" id="titleAllCount" title="@Model.ActualAllCount">
+                                                    <div class="all">
+                                                        <span class="recordtext" id="spnAllCount"><a> @Model.AllCount</a></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+    </section>
+</div>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+
+
+
+
+@*New Dashboard Layout*@
+@*<div id="content" style="opacity: 1;overflow-x:hidden;">
+        <section id="widget-grid" class="">
+            <div id="divPartialDataQueueStatistics"></div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <br />
+                        <div class="col-md-12 text-center">
+                            <span>
+                                <strong class="fontsize-16">
+                                    API Usage Statistics
+                                </strong>
+                                &nbsp;<a href="javascript:void(0)" class="fontsize-16" id="btnAPIUsagestatisticsRefresh" title="Refresh Data Stewardship Statistics"><i class="fa fa-refresh "></i></a>
+                                &nbsp;&nbsp;<a href="javascript:void(0)" id="ShowAPIUsageReport" title="Detail Statistics Report" class="fontsize-16"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <div class="circleTextAPI" data-toggle="tooltip" id="titleApiCount" title="@Model.ActualApiCount">
+                                <div class="current-month">
+                                    <span class="recordtext" id="spnApiCount"><a>@Model.ApiCount</a></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center">Current Month</div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="circleTextAPI" data-toggle="tooltip" id="titleYTD" title="@Model.ActualYTD">
+                                <div class="ytd">
+                                    <span class="recordtext" id="spnYTD"><a>@Model.YTD</a></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center">YTD</div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="circleTextAPI" data-toggle="tooltip" id="titleAllCount" title="@Model.ActualAllCount">
+                                <div class="all">
+                                    <span class="recordtext" id="spnAllCount"><a> @Model.AllCount</a></span>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center">All</div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-md-8">  <div id="divRptImportProcess" style="height:250px;"></div></div>
+            </div>
+        </section>
+    </div>*@

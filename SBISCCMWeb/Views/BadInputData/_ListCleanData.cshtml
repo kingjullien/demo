@@ -1,0 +1,200 @@
+﻿@using PagedList.Mvc;
+@using SBISCCMWeb.Utility;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.LanguageResources;
+@model PagedList.IPagedList<CompanyEntity>
+
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + CleanDataLang.titleCleanData;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + CleanDataLang.titleCleanData;
+    }
+}
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divBadinputData",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess",
+    };
+    string sortorderno = Convert.ToString(ViewBag.SortOrder);
+    string pageNo = Convert.ToString(ViewBag.Page);
+    string pageValue = Convert.ToString(ViewBag.pageno);
+    string sortBy = Convert.ToString(ViewBag.SortBy);
+    bool LicenseEnableInvestigations = Helper.LicenseEnableInvestigations;
+    if (LicenseEnableInvestigations)
+    {
+        LicenseEnableInvestigations = Helper.oUser.EnableInvestigations;
+    }
+    string APITypeForInvestigation = Helper.lstThirdPartyAPIs.Where(x => x.Code == "DNB_INVESTIGATIONS").Select(x => x.APIType).FirstOrDefault();
+}
+@Html.AntiForgeryToken()
+@Html.Raw(ViewBag.CloseAlert)
+<div class="table-responsive">
+    @if (Model.Count > 0)
+    {
+        @Html.Hidden("SortBy", sortBy)
+        @Html.Hidden("SortOrderNo", sortorderno);
+        @Html.Hidden("pageNo", pageNo);
+        @Html.Hidden("pageValue", pageValue);
+        @Html.Hidden("LicenseEnableInvestigations", LicenseEnableInvestigations)
+        @Html.Hidden("APITypeForInvestigation", APITypeForInvestigation)
+        <table id="dgBanInputData" class="display projects-table table table-striped table-bordered table-hover dataTable no-footer customTable cleandatabox" data-swhgajax="true" data-swhgcontainer="dgBanInputData" data-swhgcallback="">
+            <thead>
+                <tr>
+                    <th class="sort-header">
+                        @Ajax.ActionLink(CleanDataLang.lblSrcId, "GetFilteredCompanyList", new { CompanyMatch = ViewBag.CompanyMatch, CityName = ViewBag.CityName, StreetNo = ViewBag.StreetNo, StateName = ViewBag.StateName, StreetName = ViewBag.StreetName, PostalCode = ViewBag.PostalCode, Telephone = ViewBag.Telephone, MatchGrade = ViewBag.MatchGrade, minConfidentCode = ViewBag.minConfidentCode, SelectTopMatch = ViewBag.SelectTopMatch, MatchItemID = ViewBag.MatchItemID, mode = 1, page = Model.PageNumber, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1), pageValue = ViewBag.pageno }, ajaxOptions)
+                    </th>
+                    <th class="sort-header">
+                        @Ajax.ActionLink(CleanDataLang.lblCompanyHeader, "GetFilteredCompanyList", new { CompanyMatch = ViewBag.CompanyMatch, CityName = ViewBag.CityName, StreetNo = ViewBag.StreetNo, StateName = ViewBag.StateName, StreetName = ViewBag.StreetName, PostalCode = ViewBag.PostalCode, Telephone = ViewBag.Telephone, MatchGrade = ViewBag.MatchGrade, minConfidentCode = ViewBag.minConfidentCode, SelectTopMatch = ViewBag.SelectTopMatch, MatchItemID = ViewBag.MatchItemID, mode = 1, page = Model.PageNumber, sortby = 2, sortorder = (ViewBag.SortBy == 2 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1), pageValue = ViewBag.pageno }, ajaxOptions)
+                    </th>
+                    <th class="sort-header">
+                        @Ajax.ActionLink(CleanDataLang.lblAddress, "GetFilteredCompanyList", new { CompanyMatch = ViewBag.CompanyMatch, CityName = ViewBag.CityName, StreetNo = ViewBag.StreetNo, StateName = ViewBag.StateName, StreetName = ViewBag.StreetName, PostalCode = ViewBag.PostalCode, Telephone = ViewBag.Telephone, MatchGrade = ViewBag.MatchGrade, minConfidentCode = ViewBag.minConfidentCode, SelectTopMatch = ViewBag.SelectTopMatch, MatchItemID = ViewBag.MatchItemID, mode = 1, page = Model.PageNumber, sortby = 3, sortorder = (ViewBag.SortBy == 3 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1), pageValue = ViewBag.pageno }, ajaxOptions)
+
+                    </th>
+                    <th class="sort-header">
+                        @Ajax.ActionLink(CleanDataLang.lblCity, "GetFilteredCompanyList", new { CompanyMatch = ViewBag.CompanyMatch, CityName = ViewBag.CityName, StreetNo = ViewBag.StreetNo, StateName = ViewBag.StateName, StreetName = ViewBag.StreetName, PostalCode = ViewBag.PostalCode, Telephone = ViewBag.Telephone, MatchGrade = ViewBag.MatchGrade, minConfidentCode = ViewBag.minConfidentCode, SelectTopMatch = ViewBag.SelectTopMatch, MatchItemID = ViewBag.MatchItemID, mode = 1, page = Model.PageNumber, sortby = 4, sortorder = (ViewBag.SortBy == 4 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1), pageValue = ViewBag.pageno }, ajaxOptions)
+                    </th>
+                    <th class="sort-header">
+                        @Ajax.ActionLink(CleanDataLang.lblState, "GetFilteredCompanyList", new { CompanyMatch = ViewBag.CompanyMatch, CityName = ViewBag.CityName, StreetNo = ViewBag.StreetNo, StateName = ViewBag.StateName, StreetName = ViewBag.StreetName, PostalCode = ViewBag.PostalCode, Telephone = ViewBag.Telephone, MatchGrade = ViewBag.MatchGrade, minConfidentCode = ViewBag.minConfidentCode, SelectTopMatch = ViewBag.SelectTopMatch, MatchItemID = ViewBag.MatchItemID, mode = 1, page = Model.PageNumber, sortby = 5, sortorder = (ViewBag.SortBy == 5 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1), pageValue = ViewBag.pageno }, ajaxOptions)
+                    </th>
+                    <th class="sort-header">
+                        @Ajax.ActionLink(CleanDataLang.lblZip, "GetFilteredCompanyList", new { CompanyMatch = ViewBag.CompanyMatch, CityName = ViewBag.CityName, StreetNo = ViewBag.StreetNo, StateName = ViewBag.StateName, StreetName = ViewBag.StreetName, PostalCode = ViewBag.PostalCode, Telephone = ViewBag.Telephone, MatchGrade = ViewBag.MatchGrade, minConfidentCode = ViewBag.minConfidentCode, SelectTopMatch = ViewBag.SelectTopMatch, MatchItemID = ViewBag.MatchItemID, mode = 1, page = Model.PageNumber, sortby = 6, sortorder = (ViewBag.SortBy == 6 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1), pageValue = ViewBag.pageno }, ajaxOptions)
+                    </th>
+                    <th class="sort-header">
+                        @Ajax.ActionLink(CleanDataLang.lblCountry, "GetFilteredCompanyList", new { CompanyMatch = ViewBag.CompanyMatch, CityName = ViewBag.CityName, StreetNo = ViewBag.StreetNo, StateName = ViewBag.StateName, StreetName = ViewBag.StreetName, PostalCode = ViewBag.PostalCode, Telephone = ViewBag.Telephone, MatchGrade = ViewBag.MatchGrade, minConfidentCode = ViewBag.minConfidentCode, SelectTopMatch = ViewBag.SelectTopMatch, MatchItemID = ViewBag.MatchItemID, mode = 1, page = Model.PageNumber, sortby = 7, sortorder = (ViewBag.SortBy == 7 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1), pageValue = ViewBag.pageno }, ajaxOptions)
+                    </th>
+                    <th class="sort-header">
+                        @Ajax.ActionLink(CleanDataLang.lblPhone, "GetFilteredCompanyList", new { CompanyMatch = ViewBag.CompanyMatch, CityName = ViewBag.CityName, StreetNo = ViewBag.StreetNo, StateName = ViewBag.StateName, StreetName = ViewBag.StreetName, PostalCode = ViewBag.PostalCode, Telephone = ViewBag.Telephone, MatchGrade = ViewBag.MatchGrade, minConfidentCode = ViewBag.minConfidentCode, SelectTopMatch = ViewBag.SelectTopMatch, MatchItemID = ViewBag.MatchItemID, mode = 1, page = Model.PageNumber, sortby = 8, sortorder = (ViewBag.SortBy == 8 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1), pageValue = ViewBag.pageno }, ajaxOptions)
+                    </th>
+                    @if (CommonMethod.IsLanguageAllow())
+                    {
+                        <th class="sort-header">
+                            @Ajax.ActionLink(CleanDataLang.lblLanguage, "GetFilteredCompanyList", new { CompanyMatch = ViewBag.CompanyMatch, CityName = ViewBag.CityName, StreetNo = ViewBag.StreetNo, StateName = ViewBag.StateName, StreetName = ViewBag.StreetName, PostalCode = ViewBag.PostalCode, Telephone = ViewBag.Telephone, MatchGrade = ViewBag.MatchGrade, minConfidentCode = ViewBag.minConfidentCode, SelectTopMatch = ViewBag.SelectTopMatch, MatchItemID = ViewBag.MatchItemID, mode = 1, page = Model.PageNumber, sortby = 11, sortorder = (ViewBag.SortBy == 11 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1), pageValue = ViewBag.pageno }, ajaxOptions)
+                        </th>
+                    }
+                    <th class="sort-header">
+                        @Ajax.ActionLink(CleanDataLang.lblErrorCode, "GetFilteredCompanyList", new { CompanyMatch = ViewBag.CompanyMatch, CityName = ViewBag.CityName, StreetNo = ViewBag.StreetNo, StateName = ViewBag.StateName, StreetName = ViewBag.StreetName, PostalCode = ViewBag.PostalCode, Telephone = ViewBag.Telephone, MatchGrade = ViewBag.MatchGrade, minConfidentCode = ViewBag.minConfidentCode, SelectTopMatch = ViewBag.SelectTopMatch, MatchItemID = ViewBag.MatchItemID, mode = 1, page = Model.PageNumber, sortby = 9, sortorder = (ViewBag.SortBy == 9 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1), pageValue = ViewBag.pageno }, ajaxOptions)
+                    </th>
+                    <th class="sort-header">
+                        @Ajax.ActionLink(CleanDataLang.lblErrorDescription, "GetFilteredCompanyList", new { CompanyMatch = ViewBag.CompanyMatch, CityName = ViewBag.CityName, StreetNo = ViewBag.StreetNo, StateName = ViewBag.StateName, StreetName = ViewBag.StreetName, PostalCode = ViewBag.PostalCode, Telephone = ViewBag.Telephone, MatchGrade = ViewBag.MatchGrade, minConfidentCode = ViewBag.minConfidentCode, SelectTopMatch = ViewBag.SelectTopMatch, MatchItemID = ViewBag.MatchItemID, mode = 1, page = Model.PageNumber, sortby = 10, sortorder = (ViewBag.SortBy == 10 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1), pageValue = ViewBag.pageno }, ajaxOptions)
+                    </th>
+                    @*<th class="sort-header">
+                            Fix In Source
+                        </th>*@
+                    <th class="sort-header text-align-center">
+                        @CleanDataLang.lblSelectAll<input type="checkbox" id="MultipleSelect" class="MultipleSelect MultiDeleteWith text-align-center marginright-5" />
+                    </th>
+                    <th class="sort-header">
+                        @CleanDataLang.lblSearch
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="panel-default context-menu-one-purge " data-val="@SerializeHelper.SerializeObject(@item)" data-errorCode="@item.ErrorCode" id="@item.InputId">
+                        <td class="trStewardshipPortal_td2 cursor-pointer">
+                            <span>
+                                <span>
+                                    @item.SrcRecordId
+                                    <input type="hidden" class="hidenInputId" id="@item.InputId">
+                                    <input type="hidden" class="hidenSrcRecordId" id="@item.SrcRecordId">
+                                </span>
+                            </span>
+                        </td>
+                        <td class="trStewardshipPortal_td3 cursor-pointer">
+                            <span>
+                                <span id="spanCompany_@item.InputId" class="spncompany" data-title="@(Helper.LicenseEnableTags == true ? item.Tags : "")">@item.CompanyName</span>
+                            </span>
+                        </td>
+                        <td class="trStewardshipPortal_td4 cursor-pointer">
+                            <span>
+                                <span id="spanAddress_@item.InputId">@item.Address</span>
+                            </span>
+                        </td>
+                        <td class="trStewardshipPortal_td5 cursor-pointer">
+                            <span>
+                                <span id="spanCity_@item.InputId">@item.City</span>
+                            </span>
+                        </td>
+                        <td class="trStewardshipPortal_td6 cursor-pointer">
+                            <span>
+                                <span id="spanState_@item.InputId">@item.State</span>
+                            </span>
+                        </td>
+                        <td class="trStewardshipPortal_td7 cursor-pointer">
+                            <span>
+                                <span id="spanPostalCode_@item.InputId">@item.PostalCode</span>
+                            </span>
+                        </td>
+                        <td class="trStewardshipPortal_td8 cursor-pointer">
+                            <span>
+                                <span id="spanCountryISOAlpha2Code_@item.InputId">@item.CountryISOAlpha2Code</span>
+                            </span>
+                        </td>
+                        <td class="trStewardshipPortal_td9 cursor-pointer">
+                            <span>
+                                <span id="spanPhoneNbr_@item.InputId">@item.PhoneNbr</span>
+                            </span>
+                        </td>
+                        @if (CommonMethod.IsLanguageAllow())
+                        {
+                            <td class="trStewardshipPortal_td11 cursor-pointer">
+                                <span>
+                                    <span id="spaninLanguage_@item.InputId">@item.inLanguage</span>
+                                    <input type="hidden" value="@item.inLanguage" id="hiddenInLang_@item.InputId" />
+                                    @Html.DropDownList("inLanguage", (CommonDropdown.GetLanguageCodes(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectLanguage), new { @style = "display:none", @class = "panel panel-default", @id = "inLanguage_" + item.InputId, @value = item.inLanguage })
+                                </span>
+                            </td>
+                        }
+                        <td class="trStewardshipPortal_td10 cursor-pointer">
+                            <span>
+                                <span id="spanErrorCode_@item.InputId">@item.ErrorCode</span>
+                                @Html.Display("ErrorCode_" + (string)item.SrcRecordId.Replace(" ", ""), (string)item.ErrorCode, new { @style = "display:none", @class = "panel panel-default" })
+                            </span>
+                        </td>
+                        <td class="cursor-pointer">
+                            <span>
+                                <span id="spanErrorDescription_@item.InputId">@item.ErrorDescription</span>
+                                @*@Html.Display("ErrorDescription_" + ((CompanyEntity)((System.Web.Helpers.WebGridRow)item).Value).InputId.ToString(), (string)item.ErrorDescription, new { @style = "display:none", @class = "panel panel-default" })*@
+                            </span>
+                        </td>
+                        @*<td class="trStewardshipPortal_td9 cursor-pointer"><input class="FixInSource" data-val="@item.InputId" type="checkbox"></td>*@
+                        <td class="trStewardshipPortal_td9 cursor-pointer text-align-center"><input class="PurgeMultipleRecords" data-InputId="@item.InputId" data-SrcRecordId="@item.SrcRecordId" type="checkbox"></td>
+                        <td class="trStewardshipPortal_td9 cursor-pointer" title="">
+                            <a href="javascript:void(0);" id="Reject_@item.InputId" class="rejectSearch" data-val="@SerializeHelper.SerializeObject(item)">@CleanDataLang.lblSearch</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <span> @CleanDataLang.lblNodataavailable</span>
+    }
+    <div class="dt-toolbar-footer">
+        <div class="col-sm-6 col-xs-12 hidden-xs MainPagginationArea">
+            <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                <a id="pagingFormAction" href="@Url.Action("Index", "BadInputData", new { pagevalue =ViewBag.pageno,keyword = ViewBag.Keyword, page = 1, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder })" style="display:none"></a>
+                @Html.PagedListPager(Model, page => Url.Action("Index", "BadInputData", new { pagevalue = ViewBag.pageno, keyword = ViewBag.keyword, page = page, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder, ViewBag.includeDeleted }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divBadinputData", LoadingElementId = "divProgress", OnSuccess = "OnSuccess()" }))
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".trStewardshipPortal_td3").each(function () {
+            var title = $(this).find('.spncompany').attr('data-title');
+            if (title != "") {
+                $(this).parent().attr('title', "Tags : " + title);
+            }
+        })
+    });
+</script>

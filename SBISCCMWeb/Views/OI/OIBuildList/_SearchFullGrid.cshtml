@@ -1,0 +1,585 @@
+﻿@model IPagedList<SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.OI.Result>
+@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchFacade.Objects;
+@using SBISCCMWeb.LanguageResources;
+
+<style>
+    .bottomPad_10 {
+        padding-bottom: 10px;
+    }
+    .vl {
+        border-left: 3px solid #f3f3f3;
+        position: absolute;
+        left: 50%;
+        margin-left: -3px;
+        top: 0;
+        height: 100%;
+    }
+</style>
+
+
+<div class="table-responsive">
+
+    <div id="divBuildList">
+        <label class="select pull-right">
+            @OIBuildListLang.lblPageSize :  @Html.DropDownList("pagevalue", new SelectList(SBISCCMWeb.Utility.CommonDropdown.GetOIBuildListPageSize(), ViewBag.pageno), new { id = "pagevalue", @class = "pagevalueChange", @autocomplete = "off" })<i></i>
+        </label>
+        <table id="accordion" class="table table-bordered panel-group customTable divOIBuildSearch" role="grid">
+            <thead>
+                <tr>
+                    <th class="tdlength"></th>
+                    <th>
+                        @OIBuildListLang.lblOrbNumber
+                    </th>
+                    <th>
+                        @OIBuildListLang.lblCompanyName
+                    </th>
+                    <th>
+                        @OIBuildListLang.lblEntityType
+                    </th>
+                    <th>
+                        @OIBuildListLang.lblCompanyStatus
+                    </th>
+                    <th>
+                        @OIBuildListLang.lblAddress
+                    </th>
+                    <th>
+                        @OIBuildListLang.lblIsStandAlone
+                    </th>
+                    <th>
+                        @OIBuildListLang.lblBranchCount
+                    </th>
+                </tr>
+            </thead>
+            @{
+                var i = 0;
+                if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        string CollapsName = "Collaps" + i;
+                        i++;
+                        <tr class="panel panel-default tdlength partialrow">
+                            <td class="panel-heading tdlength">
+                                <a class="collapsed" href="#@CollapsName" data-parent="#accordion" data-toggle="collapse" aria-expanded="false"></a>
+                            </td>
+                            <td>@item.orb_num</td>
+                            <td>@item.name</td>
+                            <td>@item.entity_type</td>
+                            <td>@item.company_status</td>
+                            <td>
+                                @{
+                                    string AddressDetails = item.address1;
+                                    if (!string.IsNullOrEmpty(item.city))
+                                    {
+                                        AddressDetails += "," + item.city;
+                                    }
+                                    if (!string.IsNullOrEmpty(item.state))
+                                    {
+                                        AddressDetails += "," + item.state;
+                                    }
+                                    if (!string.IsNullOrEmpty(item.country))
+                                    {
+                                        AddressDetails += "," + item.country;
+                                    }
+                                    if (!string.IsNullOrEmpty(item.zip))
+                                    {
+                                        AddressDetails += "," + item.zip;
+                                    }
+                                }
+                                @(string.IsNullOrEmpty(AddressDetails) ? "" : AddressDetails.TrimStart(','))
+                            </td>
+                            <td>@item.is_standalone_company</td>
+                            <td>@item.branches_count</td>
+                        </tr>
+
+                        <tr class="trMatchedItemView" style="display: none ">
+                            <td class="panel-heading border-right-none"></td>
+                            <td colspan="7">
+                                <div>
+                                    <div id="@CollapsName" class="panel-collapse collapsed">
+                                        <div id="tabs" class="tabs">
+                                            <ul>
+                                                <li>
+                                                    <a href="#tabs-RecordDetails">@OIBuildListLang.lblRecordDetails</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tabs-CategoriesInfo">@OIBuildListLang.lblCategories</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tabs-IndustryInfo">@OIBuildListLang.lblIndustryCodes</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tabs-TechnologyInfo">@OIBuildListLang.lblTechnologies</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tabs-WebDomainsInfo">@OIBuildListLang.lblWebdomains</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#tabs-StockExchangeInfo">@OIBuildListLang.lblStockExchange</a>
+                                                </li>
+                                            </ul>
+                                            <div id="tabs-RecordDetails">
+                                                <div class="row">
+                                                    <article class="col-xs-6 sortable-grid ui-sortable keyword">
+                                                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                            <header role="heading">
+                                                                <h2>
+                                                                    <strong> @OIBuildListLang.hdrKeyInformation</strong>
+                                                                </h2>
+                                                            </header>
+                                                            <div style="padding:10px">
+                                                                <div class="vl"></div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="">
+                                                                        <div class="jarviswidget-editbox">
+                                                                            <input class="form-control" type="text">
+                                                                        </div>
+                                                                        <div class="">
+                                                                            <fieldset>
+                                                                                <div class="form-group padding10px">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span><strong>@OIBuildListLang.lblStartDate : </strong>@item.full_profile.year_founded</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span><strong><i class="fa fa-globe"></i> : </strong>@item.full_profile.website</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span><strong><i class="fa fa-phone-square"></i> : </strong>@item.full_profile.phone</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span><strong>@OIBuildListLang.lblmployeeRange : </strong>@item.full_profile.employees_range</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span><strong>@OIBuildListLang.lblSubsidiariesCount : </strong>@item.full_profile.subsidiaries_count</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span><strong>@OIBuildListLang.lblTotalFunding : </strong>@item.full_profile.total_funding</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span><strong>@OIBuildListLang.lblRevenueRange : </strong>@item.full_profile.revenue_range</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span>
+                                                                                                <strong>
+                                                                                                    @OIBuildListLang.lblRankings :
+                                                                                                </strong>
+                                                                                                @if (item.full_profile.ranking_positions != null && item.full_profile.ranking_positions.Any())
+                                                                                                {
+                                                                                                    foreach (var rankings in item.full_profile.ranking_positions)
+                                                                                                    {
+
+
+                                                                                                        @rankings.ranking
+                                                                                                        @rankings.position
+                                                                                                    }
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <span></span>
+                                                                                                }
+                                                                                            </span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span>
+                                                                                                <strong>
+                                                                                                    @OIBuildListLang.lblEIN :
+                                                                                                </strong>
+                                                                                                @if (item.full_profile.eins != null && item.full_profile.eins.Any())
+                                                                                                {
+                                                                                                    foreach (var eins in item.full_profile.eins)
+                                                                                                    {
+
+                                                                                                        @item.full_profile.eins
+                                                                                                    }
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <span></span>
+                                                                                                }
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                        <!-- end widget content -->
+                                                                    </div>
+                                                                    <!-- end widget div -->
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="">
+                                                                        <div class="jarviswidget-editbox">
+                                                                            <input class="form-control" type="text">
+                                                                        </div>
+                                                                        <div class="">
+                                                                            <fieldset>
+                                                                                <div class="form-group padding10px">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span><strong>@OIBuildListLang.lblAltOrganization : </strong>@item.full_profile.name</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span><strong>@OIBuildListLang.lblEmail : </strong>@item.full_profile.email</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span><strong>@OIBuildListLang.lblFax : </strong>@item.full_profile.fax</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span><strong>@OIBuildListLang.lblIndividualEmployeeCount : </strong>@item.full_profile.employees</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span><strong>@OIBuildListLang.lblBranchesCount : </strong>@item.full_profile.branches_count</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span><strong>@OIBuildListLang.lblLastFundingAmount : </strong>@item.full_profile.last_funding_round_amount</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span>
+                                                                                                <strong>
+                                                                                                    @OIBuildListLang.lblTicker :
+                                                                                                </strong>
+                                                                                                @if (item.full_profile.tickers != null && item.full_profile.tickers.Any())
+                                                                                                {
+                                                                                                    foreach (var ticker in item.full_profile.tickers)
+                                                                                                    {
+
+                                                                                                        @ticker.ticker
+                                                                                                    }
+                                                                                                }
+                                                                                                else
+                                                                                                {
+                                                                                                    <span></span>
+                                                                                                }
+                                                                                            </span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12 borderbottomBuildAList">
+                                                                                            <span><strong>@OIBuildListLang.lblWebdomain : </strong>@item.full_profile.webdomain</span>
+                                                                                        </div>
+                                                                                        <br /><br />
+                                                                                    </div>
+                                                                                </div>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                        <!-- end widget content -->
+                                                                    </div>
+                                                                    <!-- end widget div -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                    <article class="col-xs-6 sortable-grid ui-sortable keyword">
+                                                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                            <header role="heading">
+                                                                <h2>
+                                                                    <strong> @OIBuildListLang.hdrClassification</strong>
+                                                                </h2>
+                                                            </header>
+                                                            <div style="padding:5px">
+                                                                <table class="table table-bordered panel-group">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th></th>
+                                                                            <th>@OIBuildListLang.lblDescription</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <th>
+                                                                                Primary Industry
+                                                                            </th>
+                                                                            <td>@item.full_profile.industry</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>@OIBuildListLang.lblPrimarySIC</th>
+                                                                            <td>@item.full_profile.sic_code</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>@OIBuildListLang.lblPrimaryNAICS</th>
+                                                                            <td>@item.full_profile.naics_code @item.full_profile.naics_description</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                    <article class="col-xs-12 sortable-grid ui-sortable keyword">
+                                                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                            <header role="heading">
+                                                                <h2>
+                                                                    <strong> @OIBuildListLang.hdrSocialPlatformDetails</strong>
+                                                                </h2>
+                                                            </header>
+                                                            <div style="padding:5px">
+                                                                <table class="table table-bordered panel-group">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th></th>
+                                                                            <th>@OIBuildListLang.lblFacebook</th>
+                                                                            <th>@OIBuildListLang.lblTwitter</th>
+                                                                            <th>@OIBuildListLang.lblYoutube</th>
+                                                                            <th>@OIBuildListLang.lblLinkedin</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <th>
+                                                                                @OIBuildListLang.lblURL
+                                                                            </th>
+                                                                            <td>@item.full_profile.facebook_account.url</td>
+                                                                            <td>@item.full_profile.twitter_account.url</td>
+                                                                            <td>@item.full_profile.youtube_account.url</td>
+                                                                            <td>@item.full_profile.linkedin_account.url</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>@OIBuildListLang.lblLikes</th>
+                                                                            <td>@item.full_profile.facebook_account.likes</td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>@OIBuildListLang.lblFollowers</th>
+                                                                            <td></td>
+                                                                            <td>@item.full_profile.twitter_account.followers</td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                            <div id="tabs-CategoriesInfo">
+                                                <div class="row">
+                                                    <article class="col-xs-12 sortable-grid ui-sortable keyword">
+                                                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                            <div style="padding:5px">
+                                                                <table class="table table-bordered panel-group">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>@OIBuildListLang.lblCategoryName</th>
+                                                                                <th>@OIBuildListLang.lblCategoryWeight</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @if (item.full_profile.categories != null && item.full_profile.categories.Any())
+                                                                            {
+                                                                                foreach (var category in item.full_profile.categories)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>@category.name</td>
+                                                                                        <td>@category.weight</td>
+                                                                                    </tr>
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                    <tr>
+                                                                                        <td colspan="2">@OIBuildListLang.lblNorecordsfound</td>
+                                                                                    </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                            <div id="tabs-IndustryInfo">
+                                                <div class="row">
+                                                    <article class="col-xs-6 sortable-grid ui-sortable keyword">
+                                                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                            <header role="heading">
+                                                                <h2>
+                                                                    <strong> @OIBuildListLang.lblNAICSCode</strong>
+                                                                </h2>
+                                                            </header>
+                                                            <div style="padding:5px">
+                                                                <table class="table table-bordered panel-group">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>@OIBuildListLang.lblIndustryClassificationCode</th>
+                                                                            <th>@OIBuildListLang.lblIndustryclassification</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>@item.full_profile.naics_code</td>
+                                                                            <td>@item.full_profile.naics_description</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                    <article class="col-xs-6 sortable-grid ui-sortable keyword">
+                                                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                            <header role="heading">
+                                                                <h2>
+                                                                    <strong> SIC Code</strong>
+                                                                </h2>
+                                                            </header>
+                                                            <div style="padding:5px">
+                                                                <table class="table table-bordered panel-group">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>@OIBuildListLang.lblIndustryClassificationCode</th>
+                                                                            <th>@OIBuildListLang.lblIndustryclassification</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>@item.full_profile.sic_code</td>
+                                                                            <td>@item.full_profile.sic_description</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                            <div id="tabs-TechnologyInfo">
+                                                <div class="row">
+                                                    <article class="col-xs-12 sortable-grid ui-sortable keyword">
+                                                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                            <div style="padding:5px">
+                                                                <table class="table table-bordered panel-group">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>@OIBuildListLang.lblName</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @if (item.full_profile.technologies != null && item.full_profile.technologies.Any())
+                                                                        {
+                                                                            foreach (var technologies in item.full_profile.technologies)
+                                                                            {
+                                                                                <tr>
+                                                                                    <td>@technologies.name</td>
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <tr>
+                                                                                <td>@OIBuildListLang.lblNorecordsfound</td>
+                                                                            </tr>
+                                                                        }
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                            <div id="tabs-WebDomainsInfo">
+                                                <div class="row">
+                                                    <article class="col-xs-12 sortable-grid ui-sortable keyword">
+                                                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                            <div style="padding:5px">
+                                                                <table class="table table-bordered panel-group">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>@OIBuildListLang.lblWebDomain2</th>
+                                                                                <th>@OIBuildListLang.lblORBWebRank</th>
+                                                                                <th>@OIBuildListLang.lblHasEmail</th>
+                                                                                <th>@OIBuildListLang.lblHasWebsite</th>
+                                                                                <th>@OIBuildListLang.lblEmailHosting</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @if (item.full_profile.webdomains_info != null && item.full_profile.webdomains_info.Any())
+                                                                            {
+                                                                                foreach (var webDomain in item.full_profile.webdomains_info)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>@webDomain.webdomain</td>
+                                                                                        <td>@webDomain.orb_web_rank</td>
+                                                                                        <td>@webDomain.domain_has_email</td>
+                                                                                        <td>@webDomain.domain_has_website</td>
+                                                                                        <td>@webDomain.domain_is_email_hosting</td>
+                                                                                    </tr>
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <tr>
+                                                                                    <td colspan="5">@OIBuildListLang.lblNorecordsfound</td>
+                                                                                </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </article>
+                                                </div>
+                                            </div>
+                                            <div id="tabs-StockExchangeInfo">
+                                                <div class="row">
+                                                    <article class="col-xs-12 sortable-grid ui-sortable keyword">
+                                                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark">
+                                                            <div style="padding:5px">
+                                                                <table class="table table-bordered panel-group">
+                                                                    <tbody>
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>@OIBuildListLang.lblTicker</th>
+                                                                                <th>@OIBuildListLang.lblExchange</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @if (item.full_profile.tickers != null && item.full_profile.tickers.Any())
+                                                                            {
+                                                                                foreach (var ticker in item.full_profile.tickers)
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td>@ticker.ticker</td>
+                                                                                        <td>@ticker.exchange</td>
+                                                                                    </tr>
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <tr>
+                                                                                    <td colspan="2">@OIBuildListLang.lblNorecordsfound</td>
+                                                                                </tr>
+                                                                            }
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </article>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="8">@OIBuildListLang.lblNorecordsfound</td>
+                        </tr>
+                    }
+            }
+        </table>
+        <div class="dt-toolbar-footer">
+            <div class="col-sm-6 col-xs-12 hidden-xs MainPagginationArea">
+                <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                    @Html.PagedListPager(Model, page => Url.Action("Index", "OIBuildList", new { page = page, pagevalue = ViewBag.pagevalue }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", OnSuccess = "OnSearch" }))
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+

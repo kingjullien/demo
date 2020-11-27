@@ -1,0 +1,68 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model SBISCCMWeb.Models.EmailVerification
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + AccountLang.titleEmailVerification;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + AccountLang.titleEmailVerification;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .checkbox, .radio {
+        min-height: 18px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        padding-left: 20px;
+    }
+</style>
+<div class="row">
+    <div class="col-xs-12 paddingto5 margin-5">
+        <div class="CenterUserSecurity wellEmailVerification">
+            @using (Html.BeginForm("EmailVerification", "Account", FormMethod.Post, new { @class = "form", autocomplete = "off" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "error text-danger" })
+                <header>
+                    @AccountLang.hdrEmailVerification
+                </header>
+                <fieldset>
+                    <section>
+                        @Html.HiddenFor(m => m.UserId)
+                        @Html.LabelFor(m => m.VerificationCode)
+                        <label class="input">
+
+                            @Html.TextBoxFor(m => m.VerificationCode, new { autocomplete = "off" })
+                            <strong class="tooltip tooltip-top-right"><em class="fa fa-user txt-color-teal"></em> @AccountLang.lblRequireVerificationCode</strong>
+                        </label>
+                        <label> @Html.ValidationMessageFor(m => m.VerificationCode, "", new { @class = "error text-danger" })</label>
+                    </section>
+                    <section class="clear">
+                        <label class="checkbox ">
+                            @Html.CheckBoxFor(m => m.RememberMachine)
+                            <em></em>@Html.LabelFor(m => m.RememberMachine)
+                        </label>
+                    </section>
+                    <section>
+                        <button type="submit" class="btn btn-primary pull-left">
+                            @AccountLang.lblVerifyCode
+                        </button>
+                        <label class="margin-left-top-label">@AccountLang.lblDidnotgettheverificationemail <a class="sendEmail" href="javascript:void(0);" onclick="sendEmail();">@AccountLang.lblClickheretoresend</a></label>
+                    </section>
+                </fieldset>
+            }
+        </div>
+    </div>
+</div>
+<div class="loaderMain" id="divProgress">
+    <div class="loaderDiv">
+        <p class="loaderTxt"><img src="~/Images/matchbookloading.gif" width="150" /></p>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/emailverification")
+}

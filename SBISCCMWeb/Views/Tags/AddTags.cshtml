@@ -1,0 +1,87 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources
+@{
+    Layout = null;
+    ViewBag.Title = "AddTags";
+    string UserRole = Helper.oUser.UserRole;
+    string UserLOBTag = Helper.oUser.LOBTag;
+    bool isAllowLOBTag = ViewBag.isAllowLOBTag == null ? true : Convert.ToBoolean(ViewBag.isAllowLOBTag);
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccessAddTags"
+    };
+}
+<div class="modal" id="AddTagsModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@TagLang.hdrAddTag</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Hidden("UserRole", UserRole)
+                @Html.Hidden("UserLOBTag", UserLOBTag)
+                @Html.Hidden("isAllowLOBTag", isAllowLOBTag)
+                @using (Ajax.BeginForm("AddTags", "Tags", ajaxOptions, new { @class = "formContent", @autocomplete = "off" }))
+                {
+                    @Html.Hidden("TagId", "0")
+                    @Html.AntiForgeryToken()
+                    <div class="row paddingto5">
+                        <div class="col-xs-3 no-padding">
+                            <span class="pull-right"><strong>@TagLang.lblTagType :</strong></span>
+                        </div>
+                        <div class="col-xs-9 ">
+                            @Html.DropDownList("TagTypeCode", (CommonDropdown.GetTagTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)), CommonMessagesLang.lblSelectTagtype, new { @class = "form-control", @autocomplete = "off" })
+                            <span id="spnTag" class="error pull-left" style="display:none;">@TagLang.lblRequiredTagType</span>
+                        </div>
+                    </div>
+                    <div class="row paddingto5 clsLobtag">
+                        <div class="col-xs-3 no-padding">
+                            <span class="pull-right"><strong>@TagLang.lblLOBTag :</strong></span>
+                        </div>
+                        <div class="col-xs-9">
+                            @Html.DropDownList("LOBTag", new SelectList(CommonDropdown.GetTagByTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag"), CommonMessagesLang.lblSelectLOBTag, new { @class = "form-control", @autocomplete = "off" })
+                        </div>
+                    </div>
+                    <div class="row paddingto5">
+                        <div class="col-xs-3 no-padding">
+                            <span class="pull-right"><strong>@TagLang.lblTagValue :</strong></span>
+                        </div>
+                        <div class="col-xs-9 ">
+                            <input type="text" id="txtTags" name="Tag" autocomplete="off" class="form-control" maxlength="23" />
+                            <span id="spnSearchText" class="error pull-left" style="display:none;">@TagLang.lblRequiredTagValue</span>
+                            <span id="spnIsValidTag" class="error pull-left" style="display:none;">@TagLang.lblRequiredSpecialCharacters</span>
+                        </div>
+                    </div>
+
+                    <div class="row paddingto5">
+                        <div class="col-xs-3 no-padding">
+                            <span class="pull-right" style="display:none"><strong>@TagLang.lblTag:</strong></span>
+                        </div>
+                        <div class="col-xs-9">
+                            <strong class="label-text-style">
+                                <label class="lbltag text-left font-weight-bold pull-left" id="txttag" style="padding-top:7px!important"></label>
+                            </strong>
+
+                        </div>
+                    </div>
+                    <div class="row paddingto5">
+                        <div class="col-xs-12 custom-text-align-center">
+                            <input type="submit" onclick="return SaveTags()" value="@TagLang.lblSave" class="btn btn-primary" />
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+    <script src="~/Scripts/CustomJS/AddTags.js"></script>
+</div>
+<script>
+    var tagAlreadyExists = '@TagLang.msgTagAlreadyExists';
+    var validCharacters = '@CommonMessagesLang.msgValidCharacters';
+</script>

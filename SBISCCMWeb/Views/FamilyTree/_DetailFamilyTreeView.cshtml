@@ -1,0 +1,205 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model SBISCCMWeb.Models.FamilyTreeParentModel
+    @{ 
+        var ActivateFeature = "";
+        if(Helper.Branding == Branding.Matchbook.ToString())
+        {
+            ActivateFeature = BrandingLang.msgMBFeature;
+        }
+        if (Helper.Branding == Branding.DandB.ToString())
+        {
+            ActivateFeature = BrandingLang.msgDNBFeature;
+        }
+    }
+@Html.Hidden("ActivateFeature", ActivateFeature)
+<div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+    <header role="heading">
+        <h2>
+            <strong>@FamilyTreeLang.hdrFamilyTree</strong>
+        </h2>
+        <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+            <li>
+                <div class="clsAdditionActionFilter btn">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn dropdown-toggle btn-Secondary" data-toggle="dropdown" tabindex="-1">
+                            @FamilyTreeLang.lblAdditionalActions <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="javascript:void(0);" id="btnAcceptRejectAll" onclick="CreateNewFamilyTree()">@FamilyTreeLang.lblCreateNewFamilyTree</a></li>
+                            <li><a href="javascript:void(0);" id="btnAcceptRejectAllFromFile" onclick="DuplicateFamilyTree()">@FamilyTreeLang.lblDuplicateFamilyTree</a></li>
+                            <li><a href="javascript:void(0);" id="btnAcceptRejectAllFromFile" onclick="DeleteFamilyTree()">@FamilyTreeLang.lblDeleteFamilyTree</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </header>
+    <div class="jarviswidget-editbox"></div>
+    <div class="widget-body">
+        <div class="tab-content">
+            <div class="tab-pane fade active in">
+                <div class="row">
+
+                    <div class="col-md-4">
+                            <div class="familytree_data">
+                                <span><strong>@FamilyTreeLang.lblFamilyTreeType</strong></span>
+                                @if (Model.lstFamilyTreeType == null)
+                                {
+                                    <select id="FamilyTreeType" name="FamilyTreeType" class="form-control selectbox" onchange="ChangeView()" autocomplete="off">
+                                        <option value="">@FamilyTreeLang.lblSelect</option>
+                                    </select>
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(m => m.FamilyTreeType, Model.lstFamilyTreeType, "--Select--", new { @class = "form-control selectbox", @onchange = "BindFamilyTree('SinglePanel',$(this).val())", autocomplete = "off" })
+                                }
+                            </div>
+                        <div class="paddingto5">
+                            <div class="familytree_data">
+                                <span><strong>@FamilyTreeLang.lblFamilyTree</strong></span>
+                                @if (Model.lstFamilyTree == null)
+                                {
+                                    <select id="FamilyTreeId" name="FamilyTreeId" class="form-control selectbox" onchange="ChangeView()" autocomplete="off">
+                                        <option value="">@FamilyTreeLang.lblSelect</option>
+                                    </select>
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(m => m.FamilyTreeId, Model.lstFamilyTree, "--Select--", new { @class = "form-control selectbox", @onchange = "ChangeView()", autocomplete = "off" })
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-6 FamilyTreeDetailscls">
+                        @{
+                            if (Model.FamilyTreeDetails != null)
+                            {
+                                <div class="row">
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span><strong>@FamilyTreeLang.lblFamilyTreeName :</strong> @Model.FamilyTreeDetails.FamilyTreeName</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        @{
+                                            if (Model.FamilyTreeDetails.Editable)
+                                            {
+                                                <input type="hidden" id="hdnIsEditable" value="1" />
+                                            }
+                                            else
+                                            {
+                                                <input type="hidden" id="hdnIsEditable" value="0" />
+                                            }
+                                        }
+
+                                        <span><strong>@FamilyTreeLang.lblEditable :</strong> @Model.FamilyTreeDetails.Editable</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span><strong>@FamilyTreeLang.lblLastRefreshedDate :</strong> @Model.FamilyTreeDetails.LastRefreshedDate.ToDatetimeFull()</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span><strong>@FamilyTreeLang.lblType :</strong> @Model.FamilyTreeDetails.FamilyTreeType</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <span><strong>@FamilyTreeLang.lblLastModiifiedBy :</strong> @Model.FamilyTreeDetails.LastModifiedUserName</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        @{
+                                            if (Model.FamilyTreeDetails.LockForEdit)
+                                            {
+                                                <input type="hidden" id="hdnIsLockForEdit" value="1" />
+                                            }
+                                            else
+                                            {
+                                                <input type="hidden" id="hdnIsLockForEdit" value="0" />
+                                            }
+                                        }
+                                        <span><strong>@FamilyTreeLang.lblLockedforEdit :</strong> @Model.FamilyTreeDetails.LockForEdit</span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+    <header role="heading">
+        <h2>
+            <strong>@FamilyTreeLang.hdrFamilyTreeDetail</strong>
+        </h2>
+
+    </header>
+    <div class="widget-body">
+        <div class="tree">
+            @{
+                if (Model.lstMenu != null && Model.lstMenu.Count() == 0)
+                {
+                    <div class="col-lg-12">
+                        <button onclick="AddNode()" class="btn btn-Secondary">@FamilyTreeLang.lblAddNode</button>
+                    </div>
+                }
+            }
+
+
+            <ul id="dragRoot">
+                @{
+                    if (Model.lstMenu != null && Model.lstMenu.Any())
+                    {
+                        var firstTreeDetailId = Model.lstMenu.FirstOrDefault().FamilyTreeDetailId;
+                        <text>
+                            <li data-val="@firstTreeDetailId">
+                        </text>
+                    }
+                }
+
+                @{
+                    int i = 0;
+                    if (Model.lstMenu != null)
+                    {
+                        foreach (var item in Model.lstMenu)
+                        {
+                            if (i == 0)
+                            {
+                                if (item.cntChildren > 0)
+                                {
+                                    <span class="node-cpe context-menu-one" data-val="@item.FamilyTreeDetailId" onclick="GetData(@item.FamilyTreeDetailId,this)" IsLoad="False">
+                                        <em class="fa fa-lg fa-plus-circle"></em> @item.DetailId - @item.NodeName (<strong>@item.NodeType</strong>)
+                                        <div style="padding-left:20px;padding-top:2px"> <strong>@FamilyTreeLang.lblAddress :</strong>  @item.NodeDisplayDetail </div>
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="node-cpe context-menu-one" data-val="@item.FamilyTreeDetailId">
+                                        <em class="fa fa-lg fa-plus-circle"></em> @item.DetailId - @item.NodeName (<strong>@item.NodeType</strong>)
+                                        <div style="padding-left:20px;padding-top:2px"> <strong>@FamilyTreeLang.lblAddress :</strong>  @item.NodeDisplayDetail </div>
+                                    </span>
+                                }
+                            }
+                            <ul></ul>
+                        }
+                    }
+                }
+            </li>
+        </ul>
+    </div>
+</div>
+</div>
+

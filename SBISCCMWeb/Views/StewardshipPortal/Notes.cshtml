@@ -1,0 +1,42 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@{
+    string SrcRecordId = ViewBag.SrcRecordId;
+    int count = Convert.ToInt32(ViewBag.MatchCount);
+    Layout = null;
+}
+<link href="~/Content/Template/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Scripts/plugin/magnific/magnific-popup.css" rel="stylesheet" />
+@*<script src="/Scripts/modernizr-2.6.2.js"></script>*@
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<link href="~/Content/Custom.css" rel="stylesheet" />
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+<script src="~/Scripts/jquery-2.2.4.min.js"></script>
+@using (Html.BeginForm("OpenSearchData", "StewardshipPortal", FormMethod.Post))
+{
+    @Html.Hidden("SrcRecordId", SrcRecordId)
+    @Html.Hidden("Count", count)
+    @Html.Raw(ViewBag.CloseAlert)
+    <div id="StewardshipNotes" class="marginAll_10">
+        <div class="well col-md-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <span>@MatchDataLang.lblStewardshipNotes</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <textarea id="txtStewardshipNote" name="StewardshipNotes" class="form-control" autocomplete = "off" cols="40" rows="5" readonly="@(Helper.IsApprovalScreen==true? true :false)">@ViewBag.StewardShipNote</textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 paddingto5">
+                    <input id="btnStewardshipNote" class="btn btn-primary btnBlack pull-right" type="submit" autocomplete = "off" name="btnStewardshipNote" title="@MatchDataLang.titleClearCompanyFilter" value="Ok" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<link href="~/Content/Custom.css" rel="stylesheet" />

@@ -1,0 +1,76 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model UserPreferenceEntity
+@{
+    AjaxOptions UserPreferenceajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "OnSuccessUserPreference"
+    };
+}
+<article class="col-lg-12 sortable-grid ui-sortable widget-data " id="articleAddUpdateUserPreference">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrUserPreference</strong>
+            </h2>
+            <ul id="widget-tab-Process" class="nav pull-right nav-pills Custom-pill">
+                <li>
+                    <div class="btn btn-sm" id="AddUserPreference" title="@DandBSettingLang.titleAddUserPreference">
+                        <span class="fa fa-plus"></span>
+                    </div>
+                </li>
+                <li>
+                    <div class="btn btn-sm" id="EditUserPrefrence" title="@DandBSettingLang.titleEditUserPreference">
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10 ">
+                    @using (Ajax.BeginForm("AddUpdateUserPreference", "DNBMonitoring", null, UserPreferenceajaxOptions, new { id = "frmUserPreference", @autocomplete = "off" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(m => m.PreferenceID)
+                        @Html.HiddenFor(m => m.PreferenceOldName)
+                        <div class="row form-group">
+                            <div class="col-xs-4">
+                                <span class=""><strong>@DandBSettingLang.lblPreferenceName</strong></span>
+                                @Html.TextBoxFor(m => m.PreferenceName, new { @class = "form-control", @placeholder = DandBSettingLang.lblPreferenceName, autocomplete = "off", maxlength = "64", disabled = "disabled" })
+                                <span id="spnPreferenceName" class="error" style="display:none;">@DandBSettingLang.lblPreferenceNameRequired</span>
+                            </div>
+
+                            <div class="col-xs-4">
+                                <span class=""><strong>@DandBSettingLang.lblPreferenceDescription</strong></span>
+                                @Html.TextBoxFor(m => m.PreferenceDescription, new { @class = "form-control", @placeholder = DandBSettingLang.lblPreferenceDescription, autocomplete = "off", maxlength = "256", disabled = "disabled" })
+                                <span id="spnDesc" class="error" style="display:none;">@DandBSettingLang.lblPreferenceDescriptionRequired</span>
+                            </div>
+                            <div class="col-xs-4">
+                                <span class=""><strong>@DandBSettingLang.lblPreferenceValue</strong></span>
+                                @Html.TextBoxFor(m => m.PreferenceValue, new { @class = "form-control", @placeholder = DandBSettingLang.lblPreferenceValue, autocomplete = "off", disabled = "disabled" })
+                                <span id="spnEmailRequired" class="error" style="display:none;">@DandBSettingLang.lblEmailRequired</span>
+                                <span id="spnEmail" class="error" style="display:none;">@DandBSettingLang.lblValidEmail</span>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                @Html.CheckBoxFor(m => m.DefaultPreference, new { disabled = "disabled" })
+                                <label>@DandBSettingLang.lblDefaultPreference</label>
+                            </div>
+                        </div>
+                        <div class="row form-group text-right">
+                            <div class="col-md-12">
+                                <input type="submit" value="@(Model.PreferenceID > 0?DandBSettingLang.lblUpdateUserPreference:DandBSettingLang.lblCreateUserPreference)" name="btnUserPreference" id="btnUserPreference" class="btn btn-primary" style="display:none" />
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

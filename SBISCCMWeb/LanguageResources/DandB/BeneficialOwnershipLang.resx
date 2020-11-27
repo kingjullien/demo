@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnSearch" xml:space="preserve">
+    <value>Search</value>
+    <comment>Search</comment>
+  </data>
+  <data name="hdrBeneficialOwnershipData" xml:space="preserve">
+    <value>Beneficial Ownership Data</value>
+    <comment>Beneficial Ownership Data</comment>
+  </data>
+  <data name="hdrBenificiaryGraphView" xml:space="preserve">
+    <value>Beneficiary Graph View</value>
+    <comment>Benificiary Graph View</comment>
+  </data>
+  <data name="hdrOwnershipsRelationships" xml:space="preserve">
+    <value>Beneficial Ownerships and Relationships</value>
+    <comment>Beneficial Ownerships and Relationships</comment>
+  </data>
+  <data name="hdrScreeningDetails" xml:space="preserve">
+    <value>Screening Details</value>
+    <comment>Screening Details</comment>
+  </data>
+  <data name="lblAlertType" xml:space="preserve">
+    <value>Alert Type</value>
+    <comment>Alert Type</comment>
+  </data>
+  <data name="lblBack" xml:space="preserve">
+    <value>Back</value>
+    <comment>Back</comment>
+  </data>
+  <data name="lblBenificiary" xml:space="preserve">
+    <value>Beneficial</value>
+    <comment>Beneficial</comment>
+  </data>
+  <data name="lblCategory" xml:space="preserve">
+    <value>Category</value>
+    <comment>Category</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>Country</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblDate" xml:space="preserve">
+    <value>Date</value>
+    <comment>Date</comment>
+  </data>
+  <data name="lblisBenificiary" xml:space="preserve">
+    <value>IsBeneficiary</value>
+    <comment>IsBeneficiary</comment>
+  </data>
+  <data name="lblLastUpdated" xml:space="preserve">
+    <value>Last Updated</value>
+    <comment>Last Updated</comment>
+  </data>
+  <data name="lblList" xml:space="preserve">
+    <value>List</value>
+    <comment>List</comment>
+  </data>
+  <data name="lblNotes" xml:space="preserve">
+    <value>Notes</value>
+    <comment>Notes</comment>
+  </data>
+  <data name="lblRefresh" xml:space="preserve">
+    <value>Refresh</value>
+    <comment>Refresh</comment>
+  </data>
+  <data name="lblScreenedAlert_Code" xml:space="preserve">
+    <value>Screened Alert - Code</value>
+    <comment>Screened Alert - Code</comment>
+  </data>
+  <data name="lblScreenedDate" xml:space="preserve">
+    <value>Screened Date</value>
+    <comment>Screened Date</comment>
+  </data>
+  <data name="lblScreenedResult" xml:space="preserve">
+    <value>Screened Result</value>
+    <comment>Screened Result</comment>
+  </data>
+  <data name="lblScreeningResult" xml:space="preserve">
+    <value>Screening Result</value>
+    <comment>Screening Result</comment>
+  </data>
+  <data name="lblScreenOwnership" xml:space="preserve">
+    <value>Screen Ownership</value>
+    <comment>Screen Ownership</comment>
+  </data>
+  <data name="lblScreenownershiplist" xml:space="preserve">
+    <value>Screen ownership list</value>
+    <comment>Screen ownership list</comment>
+  </data>
+  <data name="spnAddress" xml:space="preserve">
+    <value>Address</value>
+    <comment>Address</comment>
+  </data>
+  <data name="spnControlOwnershipType" xml:space="preserve">
+    <value>Control Ownership Type</value>
+    <comment>Control Ownership Type</comment>
+  </data>
+  <data name="spnCorporateBenificiaries" xml:space="preserve">
+    <value>Corporate Beneficiaries</value>
+    <comment>Corporate Benificiaries</comment>
+  </data>
+  <data name="spnDegreeOfSepration" xml:space="preserve">
+    <value>Degree Of Sepration</value>
+    <comment>Degree Of Sepration</comment>
+  </data>
+  <data name="spnDirect" xml:space="preserve">
+    <value>Direct</value>
+    <comment>Direct</comment>
+  </data>
+  <data name="spnDUNS" xml:space="preserve">
+    <value>DUNS</value>
+    <comment>DUNS</comment>
+  </data>
+  <data name="spnEntity" xml:space="preserve">
+    <value>Entity</value>
+    <comment>Entity</comment>
+  </data>
+  <data name="spnErrDUNS" xml:space="preserve">
+    <value>Either Company or DUNS Number is required.</value>
+    <comment>Either Company or DUNS Number is required.</comment>
+  </data>
+  <data name="spnExporttoExcel" xml:space="preserve">
+    <value>Export to Excel</value>
+    <comment>Export to Excel</comment>
+  </data>
+  <data name="spnExporttoPDF" xml:space="preserve">
+    <value>Export to PDF</value>
+    <comment>Export to PDF</comment>
+  </data>
+  <data name="spnGovernmentOrgs" xml:space="preserve">
+    <value>Government Orgs</value>
+    <comment>Government Orgs</comment>
+  </data>
+  <data name="spnGraphView" xml:space="preserve">
+    <value>Graph View</value>
+    <comment>Graph View</comment>
+  </data>
+  <data name="spnIndirect" xml:space="preserve">
+    <value>Indirect</value>
+    <comment>Indirect</comment>
+  </data>
+  <data name="spnIndividual" xml:space="preserve">
+    <value>Individual</value>
+    <comment>Individual</comment>
+  </data>
+  <data name="spnLegalForm" xml:space="preserve">
+    <value>Legal Form</value>
+    <comment>Legal Form</comment>
+  </data>
+  <data name="spnLevel" xml:space="preserve">
+    <value>Level</value>
+    <comment>Level</comment>
+  </data>
+  <data name="spnName" xml:space="preserve">
+    <value>Name</value>
+    <comment>Name</comment>
+  </data>
+  <data name="spnOperating" xml:space="preserve">
+    <value>Operating</value>
+    <comment>Operating</comment>
+  </data>
+  <data name="spnOthers" xml:space="preserve">
+    <value>Others</value>
+    <comment>Others</comment>
+  </data>
+  <data name="spnOwnership" xml:space="preserve">
+    <value>Ownership</value>
+    <comment>Ownership</comment>
+  </data>
+  <data name="spnOwnershipIndividuals" xml:space="preserve">
+    <value>Ownership Individuals</value>
+    <comment>Ownership Individuals</comment>
+  </data>
+  <data name="spnOwnershipOrganizations" xml:space="preserve">
+    <value>Ownership Organizations</value>
+    <comment>Ownership Organizations</comment>
+  </data>
+  <data name="spnOwnerships" xml:space="preserve">
+    <value>Ownerships</value>
+    <comment>Ownerships</comment>
+  </data>
+  <data name="spnPrivatelyOwned" xml:space="preserve">
+    <value>Privately Owned</value>
+    <comment>Privately Owned</comment>
+  </data>
+  <data name="spnPrivateOrgs" xml:space="preserve">
+    <value>Private Orgs</value>
+    <comment>Private Orgs</comment>
+  </data>
+  <data name="spnPubliclyOwnedTradedCompanies" xml:space="preserve">
+    <value>Publicly Owned/Traded Companies</value>
+    <comment>Publicly Owned/Traded Companies</comment>
+  </data>
+  <data name="spnPubliclyTradingOrgs" xml:space="preserve">
+    <value>PubliclyTrading Orgs</value>
+    <comment>PubliclyTrading Orgs</comment>
+  </data>
+  <data name="spnRelationships" xml:space="preserve">
+    <value>Relationships</value>
+    <comment>Relationships</comment>
+  </data>
+  <data name="spnRole" xml:space="preserve">
+    <value>Role</value>
+    <comment>Role</comment>
+  </data>
+  <data name="spnShowInFullScreen" xml:space="preserve">
+    <value>Show in full Screen</value>
+    <comment>Show in full Screen</comment>
+  </data>
+  <data name="spnStateOwned" xml:space="preserve">
+    <value>State Owned</value>
+    <comment>State Owned</comment>
+  </data>
+  <data name="spnStateOwnedOrgs" xml:space="preserve">
+    <value>State Owned Orgs</value>
+    <comment>State Owned Orgs</comment>
+  </data>
+  <data name="spnTabularView" xml:space="preserve">
+    <value>Tabular View</value>
+    <comment>Tabular View</comment>
+  </data>
+  <data name="spnTargetCompany" xml:space="preserve">
+    <value>Target Company</value>
+    <comment>Target Company</comment>
+  </data>
+  <data name="spnType" xml:space="preserve">
+    <value>Type</value>
+    <comment>Type</comment>
+  </data>
+  <data name="titleSearchBeneficialOwnershipData" xml:space="preserve">
+    <value>Search Beneficial OwnershipData</value>
+    <comment>Search Beneficial OwnershipData</comment>
+  </data>
+  <data name="titleViewBenificiaryDetails" xml:space="preserve">
+    <value>View Beneficiary Details</value>
+    <comment>View Benificiary Details</comment>
+  </data>
+</root>

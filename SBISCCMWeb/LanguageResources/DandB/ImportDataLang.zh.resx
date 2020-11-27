@@ -1,0 +1,892 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrUploadFile" xml:space="preserve">
+    <value>上传文件</value>
+    <comment>Upload File</comment>
+  </data>
+  <data name="lblAcceptCSVFiles" xml:space="preserve">
+    <value>（仅接受CSV文件）</value>
+    <comment>(Accepts only CSV files)</comment>
+  </data>
+  <data name="lblAcceptExcelFiles" xml:space="preserve">
+    <value>（仅接受Excel文件）</value>
+    <comment>(Accepts only Excel files)</comment>
+  </data>
+  <data name="lblAcceptTextFiles" xml:space="preserve">
+    <value>（仅接受文本文件）</value>
+    <comment>(Accepts only Text files)</comment>
+  </data>
+  <data name="lblActions" xml:space="preserve">
+    <value>动作</value>
+    <comment>Actions</comment>
+  </data>
+  <data name="lblAdditionalColumn" xml:space="preserve">
+    <value>其他列</value>
+    <comment>Additional Column</comment>
+  </data>
+  <data name="lblAdditionalFields" xml:space="preserve">
+    <value>其他字段</value>
+    <comment>Additional Fields</comment>
+  </data>
+  <data name="lblAdditonalActions" xml:space="preserve">
+    <value>附加动作</value>
+    <comment>Additonal Actions</comment>
+  </data>
+  <data name="lblAddRow" xml:space="preserve">
+    <value>添加行</value>
+    <comment>Add Row</comment>
+  </data>
+  <data name="lblAddTag" xml:space="preserve">
+    <value>添加标签</value>
+    <comment>Add Tag</comment>
+  </data>
+  <data name="lblAltCity" xml:space="preserve">
+    <value>替换市/县</value>
+    <comment>Alt. City</comment>
+  </data>
+  <data name="lblAltCompanyName" xml:space="preserve">
+    <value>替换公司名称</value>
+    <comment>Alt. Company Name</comment>
+  </data>
+  <data name="lblAltCountry" xml:space="preserve">
+    <value>替换国家/地区</value>
+    <comment>Alt. Country</comment>
+  </data>
+  <data name="lblAltLookup" xml:space="preserve">
+    <value>Alt。抬头</value>
+    <comment>Alt. Lookup</comment>
+  </data>
+  <data name="lblAltPostalCode" xml:space="preserve">
+    <value>替换PostalCode</value>
+    <comment>Alt. PostalCode</comment>
+  </data>
+  <data name="lblAltState" xml:space="preserve">
+    <value>替换州</value>
+    <comment>Alt. State</comment>
+  </data>
+  <data name="lblAwaitingDataArchivalQueue" xml:space="preserve">
+    <value>等待数据清除：存档</value>
+    <comment>Awaiting data purge : Archival</comment>
+  </data>
+  <data name="lblCancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="lblCEOName" xml:space="preserve">
+    <value>首席执行官姓名</value>
+    <comment>CEO Name</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>市/县</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCleanseMatchEnrichment" xml:space="preserve">
+    <value>清理、匹配和扩充</value>
+    <comment>Cleanse, Match &amp; Enrichment</comment>
+  </data>
+  <data name="lblColumnName" xml:space="preserve">
+    <value>列名称</value>
+    <comment>Column Name</comment>
+  </data>
+  <data name="lblCompanyName" xml:space="preserve">
+    <value>公司名称</value>
+    <comment>Company Name</comment>
+  </data>
+  <data name="lblConfigureImportSource" xml:space="preserve">
+    <value>配置导入源</value>
+    <comment>Configure Import Source</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>国家/地区</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCountryNameRequired" xml:space="preserve">
+    <value>国家/地区名称字段为必填……</value>
+    <comment>The country name field is required..</comment>
+  </data>
+  <data name="lblCSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>CSV</comment>
+  </data>
+  <data name="lblCustomDelimiter" xml:space="preserve">
+    <value>自定义分隔符</value>
+    <comment>Custom Delimiter</comment>
+  </data>
+  <data name="lblDataStewardship" xml:space="preserve">
+    <value>数据托管</value>
+    <comment>Data Stewardship</comment>
+  </data>
+  <data name="lblDataStewMatchData" xml:space="preserve">
+    <value>数据托管队列：匹配队列</value>
+    <comment>Match Data</comment>
+  </data>
+  <data name="lblDataStewNoMatch" xml:space="preserve">
+    <value>数据托管队列：  无匹配队列</value>
+    <comment>Data Stew Queue :  No Match Queue</comment>
+  </data>
+  <data name="lblDelete" xml:space="preserve">
+    <value>删除</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="lblDelimiter" xml:space="preserve">
+    <value>分隔符</value>
+    <comment>Delimiter</comment>
+  </data>
+  <data name="lblDetails" xml:space="preserve">
+    <value>细节</value>
+    <comment>Details</comment>
+  </data>
+  <data name="lblDUNSNumber" xml:space="preserve">
+    <value>DUNSNumber</value>
+    <comment>DUNSNumber</comment>
+  </data>
+  <data name="lblDUNSNumberRequired" xml:space="preserve">
+    <value>DUNSNumber 字段为必填……</value>
+    <comment>The DUNSNumber field is required..</comment>
+  </data>
+  <data name="lblEIN" xml:space="preserve">
+    <value>一个</value>
+    <comment>EIN</comment>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>电子邮件</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblEnrichment" xml:space="preserve">
+    <value>扩充</value>
+    <comment>Enrichment</comment>
+  </data>
+  <data name="lblEnrichmentOnly" xml:space="preserve">
+    <value>仅扩充</value>
+    <comment>Enrichment Only</comment>
+  </data>
+  <data name="lblEnrichmentProcessing" xml:space="preserve">
+    <value>扩充处理</value>
+    <comment>Enrichment Processing</comment>
+  </data>
+  <data name="lblEnterTemplateName" xml:space="preserve">
+    <value>输入模板名称</value>
+    <comment>Enter Template Name</comment>
+  </data>
+  <data name="lblErrorMessage" xml:space="preserve">
+    <value>错误消息</value>
+    <comment>Error Message</comment>
+  </data>
+  <data name="lblExample" xml:space="preserve">
+    <value>范例</value>
+    <comment>Example</comment>
+  </data>
+  <data name="lblExcel" xml:space="preserve">
+    <value>Excel</value>
+    <comment>Excel</comment>
+  </data>
+  <data name="lblExportQueueEnrichmentOutput" xml:space="preserve">
+    <value>导出队列：扩充输出</value>
+    <comment>Export Queue : Enrichment output</comment>
+  </data>
+  <data name="lblExportQueueMatchOutput" xml:space="preserve">
+    <value>导出队列：匹配输出</value>
+    <comment>Export Queue : Match output</comment>
+  </data>
+  <data name="lblFile" xml:space="preserve">
+    <value>文件</value>
+    <comment>File</comment>
+  </data>
+  <data name="lblFileColumn" xml:space="preserve">
+    <value>文件列</value>
+    <comment>File Column</comment>
+  </data>
+  <data name="lblFileName" xml:space="preserve">
+    <value>文件名称</value>
+    <comment>File Name</comment>
+  </data>
+  <data name="lblFileType" xml:space="preserve">
+    <value>文件类型</value>
+    <comment>File Type</comment>
+  </data>
+  <data name="lblFinish" xml:space="preserve">
+    <value>完</value>
+    <comment>Finish</comment>
+  </data>
+  <data name="lblFixedWidth" xml:space="preserve">
+    <value>固定宽度</value>
+    <comment>Fixed Width</comment>
+  </data>
+  <data name="lblFormat" xml:space="preserve">
+    <value>格式</value>
+    <comment>Format</comment>
+  </data>
+  <data name="lblHasHeader" xml:space="preserve">
+    <value>有标题</value>
+    <comment>Has Header</comment>
+  </data>
+  <data name="lblHasHeaderRow" xml:space="preserve">
+    <value>有标题行</value>
+    <comment>Has Header Row</comment>
+  </data>
+  <data name="lblImportData" xml:space="preserve">
+    <value>固定宽度</value>
+    <comment>Import Data</comment>
+  </data>
+  <data name="lblImportDataStatus" xml:space="preserve">
+    <value>导入文件状态</value>
+    <comment>Import Data Status</comment>
+  </data>
+  <data name="lblImportFile" xml:space="preserve">
+    <value>导入文件</value>
+    <comment>Import File</comment>
+  </data>
+  <data name="lblImportFileStats" xml:space="preserve">
+    <value>导入文件状态</value>
+    <comment>Import File Stats</comment>
+  </data>
+  <data name="lblImportFileTemplate" xml:space="preserve">
+    <value>导入文件模板列表</value>
+    <comment>Import File Templates List</comment>
+  </data>
+  <data name="lblImportType" xml:space="preserve">
+    <value>导入文件统计</value>
+    <comment>Import Type</comment>
+  </data>
+  <data name="lblinLanguage" xml:space="preserve">
+    <value>所用语言</value>
+    <comment>inLanguage</comment>
+  </data>
+  <data name="lblInput" xml:space="preserve">
+    <value>输入</value>
+    <comment>Input</comment>
+  </data>
+  <data name="lblInputData" xml:space="preserve">
+    <value>输入数据</value>
+    <comment>Input Data</comment>
+  </data>
+  <data name="lblInputHeader" xml:space="preserve">
+    <value>输入标头</value>
+    <comment>Input Header</comment>
+  </data>
+  <data name="lblLanguage" xml:space="preserve">
+    <value>语言</value>
+    <comment>Language</comment>
+  </data>
+  <data name="lblLength" xml:space="preserve">
+    <value>长度</value>
+    <comment>Length</comment>
+  </data>
+  <data name="lblLOBTag" xml:space="preserve">
+    <value>LOB 标签</value>
+    <comment>LOB Tag</comment>
+  </data>
+  <data name="lblMapping" xml:space="preserve">
+    <value>映射</value>
+    <comment>Mapping</comment>
+  </data>
+  <data name="lblMappingFile" xml:space="preserve">
+    <value>请将文件列映射到相应的表列</value>
+    <comment>Please map your file columns to the corresponding table columns</comment>
+  </data>
+  <data name="lblMatch" xml:space="preserve">
+    <value>匹配</value>
+    <comment>Match</comment>
+  </data>
+  <data name="lblMatchProcessing" xml:space="preserve">
+    <value>匹配处理</value>
+    <comment>Match Processing</comment>
+  </data>
+  <data name="lblMessage" xml:space="preserve">
+    <value>消息</value>
+    <comment>Message</comment>
+  </data>
+  <data name="lblNameAddressLookup" xml:space="preserve">
+    <value>名称地址查询</value>
+    <comment>Name Address Lookup</comment>
+  </data>
+  <data name="lblNext" xml:space="preserve">
+    <value>下一个</value>
+    <comment>Next</comment>
+  </data>
+  <data name="lblNoMatch" xml:space="preserve">
+    <value>没有比赛</value>
+    <comment>No Match</comment>
+  </data>
+  <data name="lblNoRecordfound" xml:space="preserve">
+    <value>未找到记录</value>
+    <comment>No Record(s) found</comment>
+  </data>
+  <data name="lblOrbNum" xml:space="preserve">
+    <value>球体数字</value>
+    <comment>OrbNum</comment>
+  </data>
+  <data name="lblOrbNumber" xml:space="preserve">
+    <value>球数</value>
+    <comment>Orb Number</comment>
+  </data>
+  <data name="lblOutput" xml:space="preserve">
+    <value>输出</value>
+    <comment>Output</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>页面大小</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblPhoneNbr" xml:space="preserve">
+    <value>电话号码</value>
+    <comment>PhoneNbr</comment>
+  </data>
+  <data name="lblPostalCode" xml:space="preserve">
+    <value>PostalCode</value>
+    <comment>PostalCode</comment>
+  </data>
+  <data name="lblPrev" xml:space="preserve">
+    <value>上一个</value>
+    <comment>Prev</comment>
+  </data>
+  <data name="lblPreview" xml:space="preserve">
+    <value>预习</value>
+    <comment>Preview</comment>
+  </data>
+  <data name="lblProcessing" xml:space="preserve">
+    <value>处理中</value>
+    <comment>Processing</comment>
+  </data>
+  <data name="lblProcessStatus" xml:space="preserve">
+    <value>流程状态</value>
+    <comment>Process Status</comment>
+  </data>
+  <data name="lblQueue" xml:space="preserve">
+    <value>队列</value>
+    <comment>Queue</comment>
+  </data>
+  <data name="lblRecords" xml:space="preserve">
+    <value>记录</value>
+    <comment>Records</comment>
+  </data>
+  <data name="lblRegistrationNumber" xml:space="preserve">
+    <value>注册编号</value>
+    <comment>Registration Number</comment>
+  </data>
+  <data name="lblRegistrationType" xml:space="preserve">
+    <value>注册类型</value>
+    <comment>Registration Type</comment>
+  </data>
+  <data name="lblRequestedDate" xml:space="preserve">
+    <value>请求日期</value>
+    <comment>Requested Date</comment>
+  </data>
+  <data name="lblRequiredCountryName" xml:space="preserve">
+    <value>国家名称字段为必填。</value>
+    <comment>The country name field is required..</comment>
+  </data>
+  <data name="lblRequiredTag" xml:space="preserve">
+    <value>标签为必填项。</value>
+    <comment>Tag is required.</comment>
+  </data>
+  <data name="lblRequiredTemplateName" xml:space="preserve">
+    <value>模板名称为必填项</value>
+    <comment>Template Name is required</comment>
+  </data>
+  <data name="lblSave" xml:space="preserve">
+    <value>保存</value>
+    <comment>Save</comment>
+  </data>
+  <data name="lblSaveasTemplate" xml:space="preserve">
+    <value>另存为模板</value>
+    <comment>Save as Template</comment>
+  </data>
+  <data name="lblSaveAsTemplateImport" xml:space="preserve">
+    <value>另存为模板</value>
+    <comment>save as template</comment>
+  </data>
+  <data name="lblSaveData" xml:space="preserve">
+    <value>保存数据</value>
+    <comment>Save Data</comment>
+  </data>
+  <data name="lblSelectFileTemplate" xml:space="preserve">
+    <value>选择文件模板（可选）</value>
+    <comment>Select File Template(optional)</comment>
+  </data>
+  <data name="lblSelectFileTemplateImport" xml:space="preserve">
+    <value>选择文件模板</value>
+    <comment>Select File Template</comment>
+  </data>
+  <data name="lblSelectFileType" xml:space="preserve">
+    <value>选择文件类型</value>
+    <comment>Select File Type</comment>
+  </data>
+  <data name="lblSetcolumnwidth" xml:space="preserve">
+    <value>设置列宽度</value>
+    <comment>Set column width</comment>
+  </data>
+  <data name="lblSheetName" xml:space="preserve">
+    <value>工作表名称</value>
+    <comment>Sheet Name</comment>
+  </data>
+  <data name="lblSingleEntryForm" xml:space="preserve">
+    <value>单一输入表单</value>
+    <comment>Single Entry Form</comment>
+  </data>
+  <data name="lblSingleEntryImport" xml:space="preserve">
+    <value>单一输入导入</value>
+    <comment>Single Entry Import</comment>
+  </data>
+  <data name="lblSourceColumn" xml:space="preserve">
+    <value>源列</value>
+    <comment>Source Column</comment>
+  </data>
+  <data name="lblSrcRecordId" xml:space="preserve">
+    <value>SrcRecordId</value>
+    <comment>SrcRecordId</comment>
+  </data>
+  <data name="lblSrcRecordIdrequired" xml:space="preserve">
+    <value>SrcRecordId 字段为必填……</value>
+    <comment>The SrcRecordId field is required..</comment>
+  </data>
+  <data name="lblStartPosition" xml:space="preserve">
+    <value>开始位置</value>
+    <comment>Start Position</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>州</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblStatus" xml:space="preserve">
+    <value>状态</value>
+    <comment>Status</comment>
+  </data>
+  <data name="lblStreetLineAddress" xml:space="preserve">
+    <value>街道行地址</value>
+    <comment>Street Line Address</comment>
+  </data>
+  <data name="lblStreetLineAddress1" xml:space="preserve">
+    <value>街道行地址 1</value>
+    <comment>Street Line Address1</comment>
+  </data>
+  <data name="lblStreetLineAddress2" xml:space="preserve">
+    <value>街道线地址2</value>
+    <comment>Street Line Address2</comment>
+  </data>
+  <data name="lblStreetLineAltAddress1" xml:space="preserve">
+    <value>街道行替换地址 1</value>
+    <comment>Street Line Alt. Address1</comment>
+  </data>
+  <data name="lblStreetLineAltAddress2" xml:space="preserve">
+    <value>街道行替换地址 2</value>
+    <comment>Street Line Alt. Address2</comment>
+  </data>
+  <data name="lblTableColumn" xml:space="preserve">
+    <value>表列</value>
+    <comment>Table Column</comment>
+  </data>
+  <data name="lblTag" xml:space="preserve">
+    <value>标签</value>
+    <comment>Tag</comment>
+  </data>
+  <data name="lblTagRequire" xml:space="preserve">
+    <value>请输入标签值。</value>
+    <comment>Please enter tag value.</comment>
+  </data>
+  <data name="lblTagrequired" xml:space="preserve">
+    <value>标签为必填。</value>
+    <comment>Tag is required.</comment>
+  </data>
+  <data name="lblTags" xml:space="preserve">
+    <value>标签</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="lblTagType" xml:space="preserve">
+    <value>标签类型</value>
+    <comment>Tag Type</comment>
+  </data>
+  <data name="lblTagTypeRequire" xml:space="preserve">
+    <value>请选择标签类型。</value>
+    <comment>Please select tag type.</comment>
+  </data>
+  <data name="lblTagValue" xml:space="preserve">
+    <value>标签值</value>
+    <comment>Tag Value</comment>
+  </data>
+  <data name="lblTemplateList" xml:space="preserve">
+    <value>模板清单</value>
+    <comment>Template List</comment>
+  </data>
+  <data name="lblTemplateName" xml:space="preserve">
+    <value>模板名称</value>
+    <comment>Template Name</comment>
+  </data>
+  <data name="lblTotalImported" xml:space="preserve">
+    <value>已导入总计</value>
+    <comment>Total Imported</comment>
+  </data>
+  <data name="lblTSV" xml:space="preserve">
+    <value>TSV</value>
+    <comment>TSV</comment>
+  </data>
+  <data name="lblUpdateTemplate" xml:space="preserve">
+    <value>更新模板</value>
+    <comment>Update Template</comment>
+  </data>
+  <data name="lblValidTagRequire" xml:space="preserve">
+    <value>请仅输入字母数字、连字符或下划线</value>
+    <comment>Please enter only alphanumeric,hyphen or underscore</comment>
+  </data>
+  <data name="lblWebsite" xml:space="preserve">
+    <value>网站</value>
+    <comment>Website</comment>
+  </data>
+  <data name="msgAlreadyBelongsToFile" xml:space="preserve">
+    <value>已经属于这个档案</value>
+    <comment>already belongs to this file</comment>
+  </data>
+  <data name="msgColumnalreadyexists" xml:space="preserve">
+    <value>已经存在。</value>
+    <comment>already exists.</comment>
+  </data>
+  <data name="msgColumnMapping" xml:space="preserve">
+    <value>列对应</value>
+    <comment>Column Mapping</comment>
+  </data>
+  <data name="msgColumnname" xml:space="preserve">
+    <value>栏名</value>
+    <comment>Column name</comment>
+  </data>
+  <data name="msgConflictColumnImportProcessId" xml:space="preserve">
+    <value>文件 ImportProcessId 中的列名称冲突导致上传失败。请重命名列。</value>
+    <comment>Upload failed due to conflicting column name in file - ImportProcessId. Please rename column.</comment>
+  </data>
+  <data name="msgDataImport" xml:space="preserve">
+    <value>资料汇入</value>
+    <comment>Data Import</comment>
+  </data>
+  <data name="msgDataImportSuccessfully" xml:space="preserve">
+    <value>数据已成功导入到数据库</value>
+    <comment>Data successfully imported to Database</comment>
+  </data>
+  <data name="msgDataNotImportedToDatabase" xml:space="preserve">
+    <value>数据未导入数据库。请再试一遍。</value>
+    <comment>Data does not imported to Database. Please try again.</comment>
+  </data>
+  <data name="msgDelimiter" xml:space="preserve">
+    <value>定界符</value>
+    <comment>Delimiter</comment>
+  </data>
+  <data name="msgEnterTemplateName" xml:space="preserve">
+    <value>请输入模板名称</value>
+    <comment>Please Enter Template Name</comment>
+  </data>
+  <data name="msgError" xml:space="preserve">
+    <value>错误</value>
+    <comment>Error</comment>
+  </data>
+  <data name="msgErrorOccurred" xml:space="preserve">
+    <value>模板不匹配。</value>
+    <comment>Error occurred.</comment>
+  </data>
+  <data name="msgFileColumnMetadata" xml:space="preserve">
+    <value>文件列元数据</value>
+    <comment>File Column Metadata</comment>
+  </data>
+  <data name="msgFileFormat" xml:space="preserve">
+    <value>文件格式</value>
+    <comment>File Format</comment>
+  </data>
+  <data name="msgFileFormateSupported" xml:space="preserve">
+    <value>允许的格式仅为：xls、xlsx、csv、tsv、txt</value>
+    <comment>Only formats allowed are :xls,xlsx,csv,tsv,txt</comment>
+  </data>
+  <data name="msgFormatsAllowed" xml:space="preserve">
+    <value>仅允许的格式为：</value>
+    <comment>Only formats allowed are :</comment>
+  </data>
+  <data name="msgHasHeader" xml:space="preserve">
+    <value>有标题</value>
+    <comment>Has Header</comment>
+  </data>
+  <data name="msgImportData" xml:space="preserve">
+    <value>汇入资料</value>
+    <comment>Import data</comment>
+  </data>
+  <data name="msgImportDataError" xml:space="preserve">
+    <value>数据未导入数据库。请重试。</value>
+    <comment>Data does not imported to Database. Please try again.</comment>
+  </data>
+  <data name="msgImportDataSuccessfully" xml:space="preserve">
+    <value>你的数据导入请求已成功保存。</value>
+    <comment>Your data import request has been saved successfully.</comment>
+  </data>
+  <data name="msgImportType" xml:space="preserve">
+    <value>导入类型</value>
+    <comment>Import Type</comment>
+  </data>
+  <data name="msgInLanguage" xml:space="preserve">
+    <value>语言方面</value>
+    <comment>In Language</comment>
+  </data>
+  <data name="msgInputHeader" xml:space="preserve">
+    <value>输入标题</value>
+    <comment>Input Header</comment>
+  </data>
+  <data name="msgInsertDelimiter" xml:space="preserve">
+    <value>请选择有效的分隔符或上传有效文件</value>
+    <comment>Please select valid delimiter or upload a valid file</comment>
+  </data>
+  <data name="msgInvalidFieldMapping" xml:space="preserve">
+    <value>为此文件选择了无效的字段映射。</value>
+    <comment>Invalid field mapping selected for this file.</comment>
+  </data>
+  <data name="msgInvalidTempate" xml:space="preserve">
+    <value>所选文件的模板无效。</value>
+    <comment>Invalid template for the selected file.</comment>
+  </data>
+  <data name="msgIsUnicode" xml:space="preserve">
+    <value>IsUnicode</value>
+    <comment>IsUnicode</comment>
+  </data>
+  <data name="msgMatches" xml:space="preserve">
+    <value>火柴</value>
+    <comment>Matches</comment>
+  </data>
+  <data name="msgMatchesbyUser" xml:space="preserve">
+    <value>用户匹配</value>
+    <comment>Matches by User</comment>
+  </data>
+  <data name="msgNoRows" xml:space="preserve">
+    <value>文件无行。</value>
+    <comment>File has no rows.</comment>
+  </data>
+  <data name="msgRecords" xml:space="preserve">
+    <value>记录</value>
+    <comment>Records</comment>
+  </data>
+  <data name="msgRemoveTemplate" xml:space="preserve">
+    <value>您确定要从文件中删除此模板吗？</value>
+    <comment>Are you sure you want to remove this template from file ?</comment>
+  </data>
+  <data name="msgRequiredDelimiter" xml:space="preserve">
+    <value>请输入定界符</value>
+    <comment>Please enter delimiter</comment>
+  </data>
+  <data name="msgRequiredFile" xml:space="preserve">
+    <value>请先选择文件。</value>
+    <comment>Please select file first.</comment>
+  </data>
+  <data name="msgRequiredSheetName" xml:space="preserve">
+    <value>请选择工作表名称。</value>
+    <comment>Please select sheet name.</comment>
+  </data>
+  <data name="msgSelectValidDelimiter" xml:space="preserve">
+    <value>请选择有效的定界符或上传有效文件</value>
+    <comment>Please select valid delimiter or upload a valid file</comment>
+  </data>
+  <data name="msgSheetName" xml:space="preserve">
+    <value>工作表名称</value>
+    <comment>Sheet Name</comment>
+  </data>
+  <data name="msgSomeFormatsAllowed" xml:space="preserve">
+    <value>仅允许的格式为：</value>
+    <comment>Only formats allowed are :</comment>
+  </data>
+  <data name="msgSomeFormatsAreAllowed" xml:space="preserve">
+    <value>仅允许的格式为：xls，xlsx，csv，tsv，txt</value>
+    <comment>Only formats allowed are :xls,xlsx,csv,tsv,txt</comment>
+  </data>
+  <data name="msgSpecialCharError" xml:space="preserve">
+    <value>列名称中不允许使用特殊字符。</value>
+    <comment>Special characters are not allowed in column names.</comment>
+  </data>
+  <data name="msgTableColumn" xml:space="preserve">
+    <value>表格栏</value>
+    <comment>Table Column</comment>
+  </data>
+  <data name="msgTags" xml:space="preserve">
+    <value>标签</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="msgTemplateDetails" xml:space="preserve">
+    <value>模板详细信息</value>
+    <comment>Template Details</comment>
+  </data>
+  <data name="msgTemplateName" xml:space="preserve">
+    <value>模板名称</value>
+    <comment>Template Name</comment>
+  </data>
+  <data name="msgTrue" xml:space="preserve">
+    <value>真正</value>
+    <comment>true</comment>
+  </data>
+  <data name="msgUnableBlankFileImport" xml:space="preserve">
+    <value>无法导入空白文件</value>
+    <comment>Unable to import blank file</comment>
+  </data>
+  <data name="msgUnableImportBlankFile" xml:space="preserve">
+    <value>无法导入空白文件</value>
+    <comment>Unable to import blank file</comment>
+  </data>
+  <data name="msgUnableImportData" xml:space="preserve">
+    <value>无法将数据导入数据库。请重试，如果问题仍然存在，请联系 Matchbook Services 支持中心。</value>
+    <comment>Unable to import the data into the database. Please try again or contact Matchbook Services support if the issue continues.</comment>
+  </data>
+  <data name="msgUnableImportFileWithNoRows" xml:space="preserve">
+    <value>文件没有行。</value>
+    <comment>File has no rows.</comment>
+  </data>
+  <data name="msgUnicodeFormatNotValid" xml:space="preserve">
+    <value>Unicode格式对于带有模板的所选文件无效。</value>
+    <comment>Unicode format is not valid for selected file with template.</comment>
+  </data>
+  <data name="msgUnMappedColumns" xml:space="preserve">
+    <value>未映射的列</value>
+    <comment>UnMapped Columns</comment>
+  </data>
+  <data name="msgUpdatedDate" xml:space="preserve">
+    <value>更新日期</value>
+    <comment>Updated Date</comment>
+  </data>
+  <data name="msgUploadData" xml:space="preserve">
+    <value>请先上传数据。</value>
+    <comment>Please Upload Data first.</comment>
+  </data>
+  <data name="msgUploadFailed" xml:space="preserve">
+    <value>由于文件-ImportProcessId中的列名称冲突，上传失败。请重命名列。</value>
+    <comment>Upload failed due to conflicting column name in file - ImportProcessId. Please rename column.</comment>
+  </data>
+  <data name="msgUserId" xml:space="preserve">
+    <value>用户身份</value>
+    <comment>UserId</comment>
+  </data>
+  <data name="titleData" xml:space="preserve">
+    <value>数据</value>
+    <comment>Data</comment>
+  </data>
+  <data name="titleOrbData" xml:space="preserve">
+    <value>火柴盒球体数据</value>
+    <comment>Matchbook | Orb Data</comment>
+  </data>
+  <data name="titleProcessDetails" xml:space="preserve">
+    <value>工艺细节</value>
+    <comment>Process Details</comment>
+  </data>
+  <data name="titleSaveData" xml:space="preserve">
+    <value>保存数据</value>
+    <comment>Save Data</comment>
+  </data>
+  <data name="titleTemplateDetail" xml:space="preserve">
+    <value>模板细节</value>
+    <comment>Template detail</comment>
+  </data>
+</root>

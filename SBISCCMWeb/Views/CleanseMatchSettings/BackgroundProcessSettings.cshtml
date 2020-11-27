@@ -1,0 +1,133 @@
+﻿@using SBISCCMWeb.Models;
+@using SBISCCMWeb.Controllers;
+@using SBISCCMWeb.Utility
+@model CleanseMatchSettingsModel
+@{
+    Layout = null;
+}
+@*@using (Html.BeginForm("BackgroundProcessSettings", "CleanseMatchSettings", FormMethod.Post, new { id = "form_BackgroundProcessSettings" }))
+{*@
+<form id="form_BackgroundProcessSettings">
+    @*@Html.HiddenFor(@model => Model.Settings[Model.APPLY_MATCH_GRADE_TO_LCM].ProcessSettingsID)
+        @Html.HiddenFor(@model => Model.Settings[Model.MAX_CANDIDATE_QTY].ProcessSettingsID)
+        @Html.HiddenFor(@model => Model.Settings[Model.MIN_CONFIDENCE_CODE].ProcessSettingsID)
+        @Html.Hidden("MIN_CONFIDENCE_CODENew", Model.Settings[Model.MIN_CONFIDENCE_CODE].SettingValue)
+        @Html.Hidden("MIN_CONFIDENCE_CODEActual", Model.MIN_CONFIDENCE_CODE)*@
+
+
+
+    @Html.Hidden("AUTO_CORRECTION_THRESHOLDNew", Html.Raw(Json.Encode(Model.Settings[Model.AUTO_CORRECTION_THRESHOLD].SettingValue)))
+    @Html.Hidden("AUTO_CORRECTION_THRESHOLDNew", Model.Settings[Model.AUTO_CORRECTION_THRESHOLD].SettingValue)
+    @Html.Hidden("AUTO_CORRECTION_THRESHOLDActual", Model.AUTO_CORRECTION_THRESHOLD)
+    @Html.Hidden("MIN_CONFIDENCE_CODENew", Model.Settings[Model.MIN_CONFIDENCE_CODE].SettingValue)
+    @Html.Hidden("MIN_CONFIDENCE_CODEActual", Model.MIN_CONFIDENCE_CODE)
+    @Html.HiddenFor(@model => Model.Settings[Model.DNB_USERNAME].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.DNB_PASSWORD].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.MIN_CONFIDENCE_CODE].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.AUTO_CORRECTION_THRESHOLD].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.MAX_CANDIDATE_QTY].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.MAX_PARALLEL_THREAD].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.MATCH_GRADE_NAME_THRESHOLD].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.MATCH_GRADE_STREET_NO_THRESHOLD].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.MATCH_GRADE_STREET_NAME_THRESHOLD].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.MATCH_GRADE_CITY_THRESHOLD].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.MATCH_GRADE_STATE_THRESHOLD].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.MATCH_GRADE_TELEPHONE_THRESHOLD].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.MATCH_GRADE_ZIPCODE_THRESHOLD].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.APPLY_MATCH_GRADE_TO_LCM].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.PROXY_SERVER].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.PROXY_USERNAME].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.PROXY_PASSWORD].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.PROXY_DOMAIN].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.BATCH_SIZE].ProcessSettingsID)
+    @Html.HiddenFor(@model => Model.Settings[Model.WAIT_TIME_BETWEEN_BATCHES_SECS].ProcessSettingsID)
+
+    <table data-swhgcallback="" data-swhgcontainer="dgBanInputData" data-swhgajax="true" class="table table-bordered panel-group customTable">
+        <tbody>
+            <tr>
+                <td>
+
+                    <h4>
+                        Minimum Match Criteria
+                    </h4>
+                    <div class="form-group">
+                        <table data-swhgcallback="" data-swhgcontainer="dgBanInputData" data-swhgajax="true" class="table table-bordered panel-group customTable">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="control-label col-md-5">Minimum Confidence Level</label>
+                                                <input type="hidden" id="minConfidencelevel" name="minConfidencelevel">
+                                                <div class="col-sm-2 col-xs-4">
+                                                    <div id="divMinimumConfidenceLevel">
+                                                    </div>
+                                                </div>
+                                                <div id="divminConfidencelevel">
+                                                </div>
+                                                @Html.TextBoxFor(@model => Model.Settings[Model.MIN_CONFIDENCE_CODE].SettingValue, new { @class = "form-control sideTextboxes", style = "display: none;" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="control-label col-md-5">Maximum Candidate Results</label>
+                                                <div class="col-md-2 col-sm-2 col-xs-4">
+                                                    @Html.HiddenFor(@model => Model.MAX_CANDIDATE_QTY)
+                                                    @Html.DropDownListFor(@model => Model.Settings[Model.MAX_CANDIDATE_QTY].SettingValue, new SelectList(new CommonMethod().AddComboboxItems("MaximumCandidateResults"), Model.Settings[Model.MAX_CANDIDATE_QTY].SettingValue), new { @class = "form-control selectbox" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="control-label col-md-5">Maximum Parallel Thread</label>
+                                                <div class="col-md-2 col-sm-2 col-xs-4">
+                                                    @Html.HiddenFor(@model => Model.MAX_PARALLEL_THREAD)
+                                                    @Html.DropDownListFor(@model => Model.Settings[Model.MAX_PARALLEL_THREAD].SettingValue, new SelectList(new CommonMethod().AddComboboxItems("MaximumParallelThread"), Model.Settings[Model.MAX_PARALLEL_THREAD].SettingValue), new { @class = "form-control selectbox" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*<div class="form-group" style="display:none;">
+
+                                                <div>
+                                                    @Html.CheckBoxFor(@model => Model.boolApplyMatchGradeLCM)
+                                                    @Html.LabelFor(@model => Model.boolApplyMatchGradeLCM)
+                                                    @Html.HiddenFor(@model => Model.APPLY_MATCH_GRADE_TO_LCM)
+                                                </div>
+                                            </div>*@
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="control-label col-md-5">Cleanse Match Batch Size</label>
+                            <div class="col-sm-2 col-xs-4">
+                                @Html.HiddenFor(@model => Model.BATCH_SIZE)
+                                @Html.TextBoxFor(@model => Model.Settings[Model.BATCH_SIZE].SettingValue, Model.Settings[Model.BATCH_SIZE].SettingValue, new { @class = "form-control sideTextboxes", @placeholder = "Batch Size", onkeypress = "return isNumber(event)" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <label class="control-label col-md-5">Wait Time Between Batches (secs)</label>
+                            <div class="col-sm-2 col-xs-4">
+                                @Html.HiddenFor(@model => Model.WAIT_TIME_BETWEEN_BATCHES_SECS)
+                                @Html.TextBoxFor(@model => Model.Settings[Model.WAIT_TIME_BETWEEN_BATCHES_SECS].SettingValue, Model.Settings[Model.WAIT_TIME_BETWEEN_BATCHES_SECS].SettingValue, new { @class = "form-control sideTextboxes", @placeholder = "Wait Time", onkeypress = "return isNumber(event)" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <input type="button" value="Update" name="btnSubmit" id="btnSubmit" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    @* } *@
+</form>
+<script src="~/Scripts/CustomJS-minified/Common.js"></script>

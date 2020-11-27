@@ -1,0 +1,56 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Models;
+@using SBISCCMWeb.Utility;
+@model List<DownloadCacheDataModel>
+@{
+    Layout = null;
+    ViewBag.Title = DandBSettingLang.hdrDownloadCacheData;
+    string ClientCode = ViewBag.ClientCode; 
+}
+<div class="modal" id="myModalDownloadCache">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="height:100%;">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@ViewBag.Title</h4>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div>
+                    <div class="widget-body">
+                        <form id="frmExportToExcelCacheData" method="post" action="~/DNBFeature/CacheDataPopup">
+                            @Html.AntiForgeryToken()
+                            <div class="row">
+                                @Html.Hidden("ClientCode", ClientCode)
+                                <div class="col-md-6" style="padding:0">
+                                    <div class="form-group">
+                                        <div class="col-xs-12">
+                                            @Html.Label(DandBSettingLang.lblCountryCode)
+                                            @Html.DropDownList("CountryISOAlpha2Code", new SelectList(CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text").InsertEmptyFirst(DandBSettingLang.lblSelectCountryCode), new { @class = "form-control", @autocomplete = "off" })
+                                            @Html.Hidden("CountryISOAlpha2Code")
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-xs-12">
+                                            <br />
+                                            <input type="submit" value="@DandBSettingLang.lblExportToExcel" class="btn btn-primary" id="btnDownload" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $('body').on('click', '#btnDownload', function (data) {
+        $("#frmExportToExcelCacheData").submit();
+        $("#CachedDataModal").modal("hide");
+        $("#myModalDownloadCache").modal("hide");
+    });
+</script>

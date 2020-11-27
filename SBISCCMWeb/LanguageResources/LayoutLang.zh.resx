@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="lblAddress1" xml:space="preserve">
+    <value>地址 1</value>
+    <comment>Address1</comment>
+  </data>
+  <data name="lblAddress2" xml:space="preserve">
+    <value>地址 2</value>
+    <comment>Address2</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>市/县</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>国家/地区</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>国家</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblDAndB" xml:space="preserve">
+    <value>D&amp;B</value>
+    <comment>D&amp;B</comment>
+  </data>
+  <data name="lblFeedback" xml:space="preserve">
+    <value>发送反馈意见</value>
+    <comment>Send us feedback</comment>
+  </data>
+  <data name="lblFeedbackExperience" xml:space="preserve">
+    <value>你对使用体验是否满意？</value>
+    <comment>Are you satisfied with your experience?</comment>
+  </data>
+  <data name="lblLanguage" xml:space="preserve">
+    <value>语言</value>
+    <comment>Language</comment>
+  </data>
+  <data name="lblLicensingAgreement" xml:space="preserve">
+    <value>许可协议</value>
+    <comment>licensing agreement</comment>
+  </data>
+  <data name="lblLogOff" xml:space="preserve">
+    <value>注销</value>
+    <comment>Log off</comment>
+  </data>
+  <data name="lblMessage1" xml:space="preserve">
+    <value>信息</value>
+    <comment>Message</comment>
+  </data>
+  <data name="lblNoNotificationsMessage" xml:space="preserve">
+    <value>无可用通知</value>
+    <comment>No notifications are available</comment>
+  </data>
+  <data name="lblNotifications" xml:space="preserve">
+    <value>通知 </value>
+    <comment>Notifications</comment>
+  </data>
+  <data name="lblOrb" xml:space="preserve">
+    <value>Orb</value>
+    <comment>Orb</comment>
+  </data>
+  <data name="lblOrbIntelligence" xml:space="preserve">
+    <value>Orb Intelligence</value>
+    <comment>Orb Intelligence</comment>
+  </data>
+  <data name="lblPhone" xml:space="preserve">
+    <value>电话</value>
+    <comment>Phone</comment>
+  </data>
+  <data name="lblPortalDunAndBradstreet" xml:space="preserve">
+    <value>使用此门户受 Dun &amp; Bradstreet 使用条款的约束</value>
+    <comment>Use of this portal is governed by the terms of Dun &amp; Bradstreet</comment>
+  </data>
+  <data name="lblPortalMatchbook" xml:space="preserve">
+    <value>使用此门户受……使用条款的约束</value>
+    <comment>Use of this portal is governed by the terms of the</comment>
+  </data>
+  <data name="lblPostalCode" xml:space="preserve">
+    <value>邮编</value>
+    <comment>Postal Code</comment>
+  </data>
+  <data name="lblProcessing" xml:space="preserve">
+    <value>正在处理中，请稍候...</value>
+    <comment>Please wait while processing...</comment>
+  </data>
+  <data name="lblQuickSearch" xml:space="preserve">
+    <value>快速搜索</value>
+    <comment>Quick Search</comment>
+  </data>
+  <data name="lblRequiredCompany" xml:space="preserve">
+    <value>请填充公司</value>
+    <comment>Please fill Company</comment>
+  </data>
+  <data name="lblRequiredCountry" xml:space="preserve">
+    <value>请选择国家/地区</value>
+    <comment>Please Select Country</comment>
+  </data>
+  <data name="lblRequiredFeedbackMessage" xml:space="preserve">
+    <value>反馈意见字段为必填。</value>
+    <comment>The Feedback message is required.</comment>
+  </data>
+  <data name="lblRequiredFeedbackType" xml:space="preserve">
+    <value>反馈意见类型为必填。</value>
+    <comment>The Feedback type is required.</comment>
+  </data>
+  <data name="lblSearchData" xml:space="preserve">
+    <value>搜索数据</value>
+    <comment>Search Data</comment>
+  </data>
+  <data name="lblSeeAll" xml:space="preserve">
+    <value>查看全部</value>
+    <comment>See All</comment>
+  </data>
+  <data name="lblStateTerritory" xml:space="preserve">
+    <value>州/地区</value>
+    <comment>State/Territory</comment>
+  </data>
+  <data name="lblSubmitfeedback" xml:space="preserve">
+    <value>提交反馈</value>
+    <comment>Submit feedback</comment>
+  </data>
+  <data name="lblUserRole" xml:space="preserve">
+    <value>用户角色</value>
+    <comment>User Role</comment>
+  </data>
+  <data name="placeholderFeedbackExperience" xml:space="preserve">
+    <value>告诉我们你的经历...</value>
+    <comment>Tell us about your experience...</comment>
+  </data>
+  <data name="titleCollapseMenu" xml:space="preserve">
+    <value>折叠菜单</value>
+    <comment>Collapse Menu</comment>
+  </data>
+  <data name="titleDismissNotification" xml:space="preserve">
+    <value>清除通知</value>
+    <comment>Dismiss Notification</comment>
+  </data>
+  <data name="titleFeedback" xml:space="preserve">
+    <value>反馈意见</value>
+    <comment>Feedback</comment>
+  </data>
+  <data name="titleHelpDesk" xml:space="preserve">
+    <value>咨询台</value>
+    <comment>Help Desk</comment>
+  </data>
+  <data name="titleManage" xml:space="preserve">
+    <value>管理</value>
+    <comment>Manage</comment>
+  </data>
+  <data name="titleNegative" xml:space="preserve">
+    <value>否定</value>
+    <comment>Negative</comment>
+  </data>
+  <data name="titlePositive" xml:space="preserve">
+    <value>肯定</value>
+    <comment>Positive</comment>
+  </data>
+  <data name="titleQuickSearch" xml:space="preserve">
+    <value>快速搜索</value>
+    <comment>Quick Search</comment>
+  </data>
+  <data name="titleRefreshDashboard" xml:space="preserve">
+    <value>刷新仪表板</value>
+    <comment>Refresh Dashboard</comment>
+  </data>
+  <data name="titleSignOut" xml:space="preserve">
+    <value>退出</value>
+    <comment>Sign Out</comment>
+  </data>
+</root>

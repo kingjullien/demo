@@ -1,0 +1,38 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@{
+
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divChart",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST"
+    };
+
+}
+<article class="col-xs-12 col-sm-7 col-md-7 col-lg-7 sortable-grid ui-sortable">
+    <div class="jarviswidget" data-widget-sortable="false" data-widget-editbutton="false" data-widget-fullscreenbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <div class="jarviswidget-ctrls" role="menu">
+                <a class="button-icon jarviswidget-toggle-btn" data-placement="bottom" title="" rel="tooltip" href="javascript:void(0);" data-original-title="Collapse">
+                    <i class="fa fa-minus"></i>
+                </a>
+                <a class="button-icon jarviswidget-delete-btn" data-placement="bottom" title="" rel="tooltip" href="javascript:void(0);" data-original-title="Delete">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+            <h2>@ReviewMatchLang.hdrBarChart </h2>
+            <span class="jarviswidget-loader" style="display: none;">
+                <i class="fa fa-refresh fa-spin"></i>
+            </span>
+        </header>
+        <div role="content" style="display: block;">
+            <div class="jarviswidget-editbox">
+                <input class="form-control" autocomplete="off" type="text">
+            </div>
+            <div class="widget-body">
+                <canvas id="barChart" height="204" style="width: 510px; height: 204px;" width="510" class="barchart"></canvas>
+                @*<div id="barChart" height="204" style="width: 510px; height: 204px;" width="510" class="barchart"></div>*@
+            </div>
+        </div>
+    </div>
+</article>

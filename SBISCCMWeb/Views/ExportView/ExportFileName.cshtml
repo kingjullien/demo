@@ -1,0 +1,92 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + ExportLang.titleDataMatch;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + ExportLang.titleDataMatch;
+    }
+    Layout = null;
+    string fileName = string.IsNullOrEmpty(Convert.ToString(ViewBag.filename)) ? "" : ViewBag.filename;
+    // Download Export Data- SrcRecordId is throwing an error (MP-736)
+    if (fileName.Contains(":"))
+    {
+        fileName = fileName.Replace(":", "");
+    }
+    string domain = string.IsNullOrEmpty(Convert.ToString(ViewBag.domain)) ? "" : ViewBag.domain + "_";
+    string SrcRecID = string.IsNullOrEmpty(Convert.ToString(ViewBag.SrcRecID)) ? "" : ViewBag.SrcRecID + "_";
+    string SpanTime = string.IsNullOrEmpty(Convert.ToString(ViewBag.SpanTime)) ? "" : ViewBag.SpanTime + "_";
+
+}
+
+<div class="modal" id="ExportFileNameModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@ExportLang.lblOutputfileName</h4>
+            </div>
+            <div class="modal-body">
+                @Html.Hidden("tempfileName", fileName)
+                @Html.Hidden("tempdomain", domain)
+                @Html.Hidden("tempSrcRecID", SrcRecID)
+                @Html.Hidden("tempSpanTime", SpanTime)
+                @Html.AntiForgeryToken()
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="checkbox" style="padding-left:20px">
+                            <input type="checkbox" value="true" name="IsIncludeSubdomain" id="IsIncludeSubdomain" class="filenameCheck" checked="checked"><input type="hidden" value="false" name="IsIncludeSubdomain">
+                            <div class="paddingTop-4"> <span> <strong>@ExportLang.lblIncludeSubdomain</strong> </span></div>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="checkbox " style="padding-left:20px">
+                            <input type="checkbox" value="true" name="IsIncludeDateTime" id="IsIncludeDateTime" class="filenameCheck" checked="checked"><input type="hidden" value="false" name="IsIncludeDateTime">
+                            <div class="paddingTop-4"> <span> <strong>@ExportLang.lblIncludeExportDateAndTime</strong> </span></div>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label class="checkbox " style="padding-left:20px">
+                            <input type="checkbox" value="true" name="isIncludeSecRecordId" id="isIncludeSecRecordId" class="filenameCheck" @(string.IsNullOrEmpty(SrcRecID) ? " disabled='disabled'" : "checked='checked'")> <input type="hidden" value="false" name="isIncludeSecRecordId">
+                            <div class="paddingTop-4"> <span class="@(string.IsNullOrEmpty(SrcRecID)?" txt-color-gray":"")"> <strong>@ExportLang.lblIncludeSrcRecordID</strong> </span></div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-xs-9">
+                                <input type="text" value="@fileName" name="zipFileName" id="zipFileName" class="form-control" maxlength="80">
+                                <span class="error" style="display: none;" id="spnzipfilename">@ExportLang.lblFileNameRequire</span>
+                                <span class="error" style="display: none;" id="spnzipvalidfilename">@ExportLang.lblValidFileName</span>
+                            </div>
+                            <div class="col-xs-3 margin-top--5"><span class="txt-color-gray"> <strong style="line-height:4;">@ExportLang.lblZip</strong></span></div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 zipfilebtnsubmit">
+                        <input type="button" id="btnSubmitExportName" value="@ExportLang.lblSubmit" class="btn btn-primary btnAddTags" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script>
+    var fileExists = '@ExportLang.msgFileExists';
+</script>

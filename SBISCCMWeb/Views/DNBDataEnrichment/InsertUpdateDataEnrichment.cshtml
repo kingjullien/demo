@@ -1,0 +1,174 @@
+﻿
+@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model  DnBAPIGroupEntity
+@using SBISCCMWeb.Utility
+
+
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + DandBSettingLang.titleAddAPI;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + DandBSettingLang.titleAddAPI;
+    }
+    int z = 0;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "UpdateDnbGroupAPI"
+    };
+    string UserRoles = Helper.oUser.UserRole;
+    string UserLOBTag = Helper.oUser.LOBTag;
+}
+<link href="~/Content/chosen.css" rel="stylesheet" />
+<article class="sortable-grid ui-sortable col-md-12" id="articleAddupdateDnbGroupAPI">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrDnBApiGroup</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                @if (Helper.UserType.ToLower() != "steward")
+                {
+                    <li>
+                        <div class="btn btn-sm" id="AddAPIEnrichment" title="@DandBSettingLang.titleAddDnBApiGroup">
+                            <span class="fa fa-plus"></span>
+                        </div>
+                    </li>
+                }
+                <li>
+                    <div class="btn btn-sm " id="editAPIEnrichment" title="@DandBSettingLang.titleEditDnBApiGroup">
+                        <span class="fa fa-pencil"></span>
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content">
+                    <div id="hr1" class="tab-pane fade active in CustomHidden">
+                        @using (Ajax.BeginForm("InsertUpdateDataEnrichment", "DNBDataEnrichment", null, ajaxOptions, new { @class = "formContent", id = "frm_DnBEnrichment", @autocomplete = "off" }))
+                        {
+                            @Html.Hidden("Tags", z)
+                            @Html.Hidden("TagList", Model.Tags)
+                            @Html.AntiForgeryToken()
+                            <div id="popupConfigData">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="control-label">@DandBSettingLang.lblAPIType :</label>
+                                            @Html.DropDownListFor(@model => model.APIType, new SelectList(CommonDropdown.GetLicensedAPIType(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Value", "Text"), new { @class = "form-control", @autocomplete = "off", disabled = "disabled" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label">@DandBSettingLang.lblCredentialName :</label>
+                                            @Html.DropDownListFor(@model => model.CredentialId, new SelectList(CommonDropdown.GetCredentials(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, ThirdPartyProvider.DNB.ToString(), Model.APIType), "CredentialId", "CredentialName"), new { @class = "form-control", @autocomplete = "off", disabled = "disabled" })
+                                            <span id="spnCredName" class="error" style="display:none;">@DandBSettingLang.lblCredentialNameRequire</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label class="control-label text-right">@DandBSettingLang.lblGroupName :</label>
+                                            @Html.TextBoxFor(@model => @model.APIGroupName, new { @class = "form-control", disabled = "disabled", @autocomplete = "off" })
+                                            <span id="spnGroupName" class="error" style="display:none;">@DandBSettingLang.lblGroupNameRequire</span>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label class="control-label">@DandBSettingLang.lblCountryGroup :</label>
+                                            @Html.DropDownListFor(model => model.CountryGroupId, new SelectList(new CommonDropdown().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName").InsertEmptyFirst(CommonMessagesLang.lblSelectCountryGroup, "-1"), new { @class = "form-control selectbox", disabled = "disabled", @autocomplete = "off" })
+                                        </div>
+                                        <div class="col-md-4">
+                                            @if (Helper.LicenseEnableTags)
+                                            {<label class="control-label text-right">
+                                                    @DandBSettingLang.lblTags
+                                                    @if (UserRoles == UserRole.LOB.ToString())
+                                                    {<span class="error">*</span>}
+                                                    :
+                                                </label>
+                                                <div class="tagstylebox" style="display:flex">
+                                                    @Html.DropDownList("TagsValueEnrichment", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag"), new { @class = "form-control chzn-select  DnBApiGroupTag", multiple = "true", disabled = "disabled", @autocomplete = "off" })
+                                                    <em class="fa fa-plus OpenTags" style="display:none;" onclick="addNewTagsPopup()"></em>
+                                                </div>
+                                                <div class="enrichmentTags"><span id="spnTags" class="error" style="display:none;">@DandBSettingLang.lblTagRequired</span></div>
+
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            @Html.ListBoxFor(@model => @model.APIIds, new SelectList(Model.lstDnbAPIs, "DnBAPIId", "APIName"), new { @class = "form-control selectbox height250px", @size = 19, disabled = "disabled" })
+                                            <br /><span id="spnOptionValue" class="error" style="display:none;">@DandBSettingLang.lblAtleastOneproduct</span>
+                                        </div>
+                                        <div class="col-md-2 text-center">
+                                            <br />
+                                            <br />
+                                            <br />
+                                            <div>
+                                                <input value=">" id="btnDnBApiGrpRight" name="btnDnBApiGrp" type="submit" class="btn btnSaveSetting" disabled="disabled" />
+                                            </div>
+                                            <div>
+                                                <input value=">>" id="btnDnBApiGrpAllRight" name="btnDnBApiGrp" type="submit" class="btn btnSaveSetting" disabled="disabled" />
+                                            </div>
+                                            <div>
+                                                <input value="<" id="btnDnBApiGrpLeft" name="btnDnBApiGrp" type="submit" class="btn btnSaveSetting" disabled="disabled" />
+                                            </div>
+                                            <div>
+                                                <input value="<<" id="btnDnBApiGrpAllLeft" name="btnDnBApiGrp" type="submit" class="btn btnSaveSetting" disabled="disabled" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            @Html.HiddenFor(@model => @model.DnbAPIIds)
+
+                                            @Html.ListBoxFor(@model => @model.RemoveAPIIds, Model.lstDnBApiGrp != null ? new SelectList(Model.lstDnBApiGrp, "DnBAPIId", "APIName") : new MultiSelectList(""), new { @class = "form-control selectbox height250px", @size = 19, disabled = "disabled" })
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="textBlue borderNone table table-bordered panel-group customTable2  match-table">
+                                    <tbody>
+                                        <tr>
+                                            <td class="tableBorder-none">
+
+                                                <div class="form-group popupAACRow">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4 col-sm-4 col-md-offset-1"></div>
+                                                        <div class="col-md-2 col-sm-2 custom-text-align-center"></div>
+                                                        <div class="col-md-4 col-sm-4"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group popupAACRow addbuttondivider">
+                                                    <div class="row">
+                                                        <div class="col-md-12 text-center">
+                                                            <br />
+                                                            @Html.HiddenFor(@model => @model.APIGroupId)
+                                                            @Html.HiddenFor(@model => @model.tmpName)
+                                                            @if (Model.APIGroupId > 0)
+                                                            {
+                                                                <input type="submit" value="@DandBSettingLang.lblUpdate" id="btnDnBApiGrp" name="btnDnBApiGrp" class="btn btn-primary btnDnBApiGrp" style="display:none" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <input type="submit" value="@DandBSettingLang.lblAdd" id="btnDnBApiGrp" name="btnDnBApiGrp" class="btn btn-primary btnDnBApiGrp" style="display:none;" />
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

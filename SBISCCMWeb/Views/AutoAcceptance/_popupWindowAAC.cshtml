@@ -1,0 +1,358 @@
+﻿@model  SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.AutoAdditionalAcceptanceCriteriaEntity
+@using SBISCCMWeb.Controllers;
+@using SBISCCMWeb.Utility
+@using System.Data;
+@{
+    string message = !string.IsNullOrEmpty(Convert.ToString(ViewBag.Message)) ? Convert.ToString(ViewBag.Message) : "";
+    int z = 0;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        UpdateTargetId = "divPartialWindowAAC",
+        LoadingElementId = "divProgress",
+        OnSuccess = "WindowAACsuccess"
+    };
+    //if (Model != null && Model.ConfidenceCode==0)
+    if (Model != null && Model.ConfidenceCode == "")
+    {
+        Model.ConfidenceCode = "4";
+    }
+
+
+}
+@Scripts.Render("~/bundles/popupjs")
+
+@Styles.Render("~/Content/popupcss")
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<link href="~/Content/filterTable/bootstrap-filterable.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+<link href="~/Content/chosen.css" rel="stylesheet" />
+@Html.Hidden("isAutoAcceptance", true)
+
+@Html.Hidden("AdditionalAcceptMessage", (string)ViewBag.MessageAAC)
+
+@Html.Hidden("TagsList", Model.Tags)
+@Html.Hidden("CompanyGradeList", Model.CompanyGrade)
+@Html.Hidden("StreetGradeList", Model.StreetGrade)
+@Html.Hidden("StreetNameGradeList", Model.StreetNameGrade)
+@Html.Hidden("CityGradeList", Model.CityGrade)
+@Html.Hidden("StateGradeList", Model.StateGrade)
+@Html.Hidden("AddressGradeList", Model.AddressGrade)
+@Html.Hidden("PhoneGradeList", Model.PhoneGrade)
+@Html.Hidden("ZipGradeList", Model.ZipGrade)
+@Html.Hidden("DensityList", Model.Density)
+@Html.Hidden("UniquenessList", Model.Uniqueness)
+@Html.Hidden("SICList", Model.SIC)
+@Html.Hidden("CompanyCodeList", Model.CompanyCode)
+@Html.Hidden("StreetCodeList", Model.StreetCode)
+@Html.Hidden("StreetNameCodeList", Model.StreetNameCode)
+@Html.Hidden("CityCodeList", Model.CityCode)
+@Html.Hidden("StateCodeList", Model.StateCode)
+@Html.Hidden("AddressCodeList", Model.AddressCode)
+@Html.Hidden("PhoneCodeList", Model.PhoneCode)
+@Html.Hidden("ConfidenceCodeList", Model.ConfidenceCode)
+
+
+@using (Ajax.BeginForm("popupWindowAAC", "AutoAcceptance", null, ajaxOptions, new { @class = "formContent", id = "form_windowAAC" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("Tags", z);
+    @Html.Hidden("ConfidenceCode", z, new { @class = "customValidation" });
+    @Html.Hidden("CompanyGrade", z, new { @class = "customValidation" });
+    @Html.Hidden("StreetGrade", z, new { @class = "customValidation" });
+    @Html.Hidden("StreetNameGrade", z, new { @class = "customValidation" });
+    @Html.Hidden("CityGrade", z, new { @class = "customValidation" });
+    @Html.Hidden("StateGrade", z, new { @class = "customValidation" });
+    @Html.Hidden("AddressGrade", z, new { @class = "customValidation" });
+    @Html.Hidden("PhoneGrade", z, new { @class = "customValidation" });
+    @Html.Hidden("ZipGrade", z, new { @class = "customValidation" });
+    @Html.Hidden("Density", z, new { @class = "customValidation" });
+    @Html.Hidden("Uniqueness", z, new { @class = "customValidation" });
+    @Html.Hidden("SIC", z, new { @class = "customValidation" });
+
+
+    @Html.Hidden("CompanyCode", z, new { @class="customValidation"});
+    @Html.Hidden("StreetCode", z, new { @class = "customValidation" });
+    @Html.Hidden("StreetNameCode", z, new { @class = "customValidation" });
+    @Html.Hidden("CityCode", z, new { @class = "customValidation" });
+    @Html.Hidden("StateCode", z, new { @class = "customValidation" });
+    @Html.Hidden("AddressCode", z, new { @class = "customValidation" });
+    @Html.Hidden("PhoneCode", z, new { @class = "customValidation" });
+
+    @Html.HiddenFor(m => m.CriteriaGroupId)
+
+    @Html.Hidden("IsReview", (bool)ViewBag.IsReview)
+    @Html.Hidden("IsReviewConfirm", ViewBag.IsReviewConfirm == null ? false : (bool)ViewBag.IsReviewConfirm)
+    <div id="content" style="opacity: 1;">
+        <section id="widget-grid" class="match-setting-box">
+            <article class="sortable-grid ui-sortable col-md-12">
+                <div class="form-group">
+                    <div class="text-center margin-10">
+                        @if (ViewBag.MessageAAC != null)
+                        {
+                            <div class="alert alert-block alert-success" style="display:none;">
+                                <a class="close" href="#" data-dismiss="alert" onclick="closemsg(this)">×</a>
+                                <h4 class="alert-heading">
+                                    <i class="fa fa-check-square-o"></i>
+                                    @ViewBag.MessageAAC
+                                </h4>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div id="wid-id-1" class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            @if (Model.CriteriaGroupId > 0)
+                            {
+                                <strong>Edit Additional Auto Acceptance Rules</strong>
+                            }
+                            else
+                            {
+                                <strong>Add Additional Auto Acceptance Rules</strong>
+                            }
+
+                        </h2>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content">
+                                <div id="hr1" class="tab-pane fade active in CustomHidden">
+                                    <div id="popWindowAAC">
+                                        <table class="textBlue borderNone table table-bordered panel-group customTable2 overflow-hidden match-table">
+                                            <tbody>
+                                                <tr>
+                                                    <td class="tableBorder-none">
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <label class="control-label col-md-3 text-right">Top Match Grade:</label>
+                                                                <div class="col-md-3 col-sm-3">
+                                                                    @Html.DropDownListFor(@model => @model.MatchGrade, new SelectList(new CleanseMatchSettingsController().LoadTopMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "DnBConfidenceCode", "DnBMatchGradeText"), new { @class = "form-control selectbox", @onchange = "MatchGradeValueChnage()" })
+                                                                </div>
+
+                                                                <label class="control-label col-md-3 text-right ExcludedLable @(Model.ExcludeFromAutoAccept==true?"Excluded":null)">Exclude From Auto Accept:</label>
+                                                                <div class="col-md-3 col-sm-3">
+
+                                                                    <input type="checkbox" id="ExcludeFromAutoAccept" name="ExcludeFromAutoAccept" checked="@Model.ExcludeFromAutoAccept">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <label class="control-label col-md-3 text-right">Confidence Code :</label>
+                                                                <div class="col-md-3 col-sm-3 AutoAcceptanceMatchGrade">
+                                                                    @Html.DropDownList("ConfidenceCodeValue", new SelectList(new CommonMethod().ComboboxItems("AutoSettingConfidenceCode"), "Value", "Text", Model.ConfidenceCode), new { @class = "form-control selectbox", multiple = "true" })
+                                                                </div>
+
+                                                                <div class="col-md-6 col-sm-3">
+                                                                    <label class="control-label col-md-4 text-right">Country Group :</label>
+                                                                    <div class="col-md-6 col-sm-6 paddingright5">
+                                                                        @Html.DropDownListFor(@model => @model.GroupId, new SelectList(new CleanseMatchSettingsController().LoadCountryGroupEntity(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "GroupId", "GroupName", Model.GroupId), new { @class = "form-control selectbox" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @if (Helper.LicenseEnableTags)
+                                                        {
+                                                            <div class="form-group">
+                                                                <div class="row">
+                                                                    <label class="control-label col-md-3 text-right">Tags :</label>
+                                                                    <div class="col-md-3 col-sm-3 tagstylebox">
+                                                                        @Html.DropDownList("TagsValue", new SelectList(SBISCCMWeb.Controllers.DataController.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", Model.Tags), new { @class = "form-control chzn-select", multiple = "true" })
+                                                                        <i class="fa fa-plus OpenTags"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <label class="control-label col-md-3 text-right"></label>
+                                                                <div class="col-md-4 col-sm-4">
+                                                                    Match Grade
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-3">
+                                                                    MDP Value
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <label class="control-label col-md-3 text-right">Company :</label>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade">
+                                                                    @Html.DropDownList("CompanyGradeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.CompanyGrade), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                    
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-3 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                                                    @Html.DropDownList("CompanyCodeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGradesEntities("Company", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.CompanyCode), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <label class="control-label col-md-3 text-right">Street # :</label>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade">
+                                                                    @Html.DropDownList("StreetGradeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.StreetGrade), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                                                    @Html.DropDownList("StreetCodeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGradesEntities("StreetNo", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.StreetCode), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <label class="control-label col-md-3 text-right">Street Name :</label>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade">
+                                                                    @Html.DropDownList("StreetNameGradeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.StreetNameGrade), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                                                    @Html.DropDownList("StreetNameCodeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGradesEntities("StreetName", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.StreetNameCode), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <label class="control-label col-md-3 text-right">City :</label>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade">
+                                                                    @Html.DropDownList("CityGradeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.CityGrade), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                                                    @Html.DropDownList("CityCodeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGradesEntities("City", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.CityCode), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <label class="control-label col-md-3 text-right">State :</label>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade">
+                                                                    @Html.DropDownList("StateGradeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.StateGrade), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                                                    @Html.DropDownList("StateCodeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGradesEntities("State", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.StateCode), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <label class="control-label col-md-3 text-right">Mailing Address :</label>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade">
+                                                                    @Html.DropDownList("AddressGradeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.AddressGrade), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                                                    @Html.DropDownList("AddressCodeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGradesEntities("MailingAddress", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.AddressCode), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <label class="control-label col-md-3 text-right">Phone Number :</label>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade">
+                                                                    @Html.DropDownList("PhoneGradeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.PhoneGrade), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade clsAutoAcceptanceMDP">
+                                                                    @Html.DropDownList("PhoneCodeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGradesEntities("Phone", this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MDPCode", "MDPValue", Model.PhoneCode), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <label class="control-label col-md-3 text-right">Zip Code :</label>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade">
+                                                                    @Html.DropDownList("ZipGradeValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.ZipGrade), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <label class="control-label col-md-3 text-right">Density :</label>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade">
+                                                                    @Html.DropDownList("DensityValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.Density), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <label class="control-label col-md-3 text-right">Uniqueness :</label>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade">
+                                                                    @Html.DropDownList("UniquenessValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.Uniqueness), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <label class="control-label col-md-3 text-right">SIC :</label>
+                                                                <div class="col-md-4 col-sm-4 AutoAcceptanceMatchGrade">
+                                                                    @Html.DropDownList("SICValue", new SelectList(new CleanseMatchSettingsController().LoadMatchGrades(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "MatchGradeCode", "MatchGradeValue", Model.SIC), new { @class = "form-control selectbox", multiple = "multiple" })
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group ">
+                                                            <div class="row">
+                                                                <div class="col-md-12 text-center">
+                                                                    @Html.HiddenFor(@model => @model.CriteriaGroupId)
+                                                                    @if (Model.CriteriaGroupId > 0)
+                                                                    {
+                                                                        <input type="submit" value="Update" id="btnAutoAcceptanceSubmit" class="btn btn-primary " />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <input type="submit" value="Add" id="btnAutoAcceptanceSubmit" class="btn btn-primary " />
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </section>
+    </div>
+    <div class="loaderMain" id="divProgress">
+        <div class="loaderDiv">
+            <p class="loaderTxt">Please wait while processing...</p>
+        </div>
+    </div>
+}
+
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/plugin/magnific/jquery.magnific-popup.min.js"></script>
+<script src="~/Scripts/filterTable/bootstrap-editable.min.js"></script>
+<script src="~/Scripts/bootstrap3.0.3Multiselected.min.js"></script>
+<script src="~/Scripts/bootstrap-multiselect.js"></script>
+<script src="~/Scripts/bootbox.min.js"></script>
+<script src="~/Scripts/chosen.jquery.js"></script>
+<script src="~/Scripts/CustomJS/CleanseMatchSettings.js"></script>
+@if (!string.IsNullOrEmpty(message))
+{
+    if (message.Contains("added successfully"))
+    {
+        <script type="text/javascript">
+            bootbox.alert({
+                title: "<i class='fa fa-info-circle' aria-hidden='true'></i> Message",
+                message: '@message', callback: function () {
+                    MatchGradeValueChnage();
+                }
+            });
+        </script>
+    }
+    else
+    {
+        <script type="text/javascript">
+            bootbox.alert({
+                title: "<i class='fa fa-info-circle' aria-hidden='true'></i> Message",
+                message: '@message', callback: function () {
+                }
+            });
+        </script>
+    }
+} 

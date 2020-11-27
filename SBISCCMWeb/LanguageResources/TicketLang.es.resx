@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrCreateTicket" xml:space="preserve">
+    <value>Crear Ticket</value>
+    <comment>Create Ticket</comment>
+  </data>
+  <data name="hdrEditTicket" xml:space="preserve">
+    <value>Editar ticket</value>
+    <comment>Edit Ticket</comment>
+  </data>
+  <data name="hdrMyTickets" xml:space="preserve">
+    <value>Mis tickets</value>
+    <comment>My Tickets</comment>
+  </data>
+  <data name="hdrTicketHistory" xml:space="preserve">
+    <value>Historial de tickets</value>
+    <comment>Ticket History</comment>
+  </data>
+  <data name="lblAddTicket" xml:space="preserve">
+    <value>Agregar ticket</value>
+    <comment>Add Ticket</comment>
+  </data>
+  <data name="lblApplicationUser" xml:space="preserve">
+    <value>Usuario de aplicación</value>
+    <comment>Application User</comment>
+  </data>
+  <data name="lblAssigned" xml:space="preserve">
+    <value>asignado</value>
+    <comment>Assigned</comment>
+  </data>
+  <data name="lblAssignedTo" xml:space="preserve">
+    <value>Asignado a</value>
+    <comment>Assigned To</comment>
+  </data>
+  <data name="lblBacktoList" xml:space="preserve">
+    <value>Volver a la lista</value>
+    <comment>Back to List</comment>
+  </data>
+  <data name="lblchangedfrom" xml:space="preserve">
+    <value>modificado desde</value>
+    <comment>changed from</comment>
+  </data>
+  <data name="lblClientInformation" xml:space="preserve">
+    <value>Información del cliente</value>
+    <comment>Client Information</comment>
+  </data>
+  <data name="lblClose" xml:space="preserve">
+    <value>Cerrar</value>
+    <comment>Close</comment>
+  </data>
+  <data name="lblContactNumber" xml:space="preserve">
+    <value>Número de contacto</value>
+    <comment>Contact Number</comment>
+  </data>
+  <data name="lblCreate" xml:space="preserve">
+    <value>Crear</value>
+    <comment>Create</comment>
+  </data>
+  <data name="lblCreateDate" xml:space="preserve">
+    <value>Crear fecha</value>
+    <comment>Create Date</comment>
+  </data>
+  <data name="lblDescription" xml:space="preserve">
+    <value>Descripción</value>
+    <comment>Description</comment>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>Correo electrónico</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblEnterBy" xml:space="preserve">
+    <value>Ingresar por</value>
+    <comment>Enter By</comment>
+  </data>
+  <data name="lblEnteredBy" xml:space="preserve">
+    <value>Ingresado por</value>
+    <comment>Entered By</comment>
+  </data>
+  <data name="lblFile" xml:space="preserve">
+    <value>Expediente</value>
+    <comment>File</comment>
+  </data>
+  <data name="lblId" xml:space="preserve">
+    <value>Id</value>
+    <comment>Id</comment>
+  </data>
+  <data name="lblNorecordsfound" xml:space="preserve">
+    <value>No se encontraron registros</value>
+    <comment>No records found</comment>
+  </data>
+  <data name="lblNote" xml:space="preserve">
+    <value>Nota</value>
+    <comment>Note</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>Tamaño de página</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblPriority" xml:space="preserve">
+    <value>Prioridad</value>
+    <comment>Priority</comment>
+  </data>
+  <data name="lblProcessing" xml:space="preserve">
+    <value>Por favor espere mientras procesa ...</value>
+    <comment>Please wait while processing...</comment>
+  </data>
+  <data name="lblResolutionDescription" xml:space="preserve">
+    <value>Descripción de la resolución</value>
+    <comment>Resolution Description</comment>
+  </data>
+  <data name="lblStatus" xml:space="preserve">
+    <value>Estado</value>
+    <comment>Status</comment>
+  </data>
+  <data name="lblTicketSource" xml:space="preserve">
+    <value>Fuente del ticket</value>
+    <comment>Ticket Source</comment>
+  </data>
+  <data name="lblTicketType" xml:space="preserve">
+    <value>Tipo de ticket</value>
+    <comment>Ticket Type</comment>
+  </data>
+  <data name="lblTitle" xml:space="preserve">
+    <value>Título</value>
+    <comment>Title</comment>
+  </data>
+  <data name="lblto" xml:space="preserve">
+    <value>a</value>
+    <comment>to</comment>
+  </data>
+  <data name="lblUpdate" xml:space="preserve">
+    <value>Actualizar</value>
+    <comment>Update</comment>
+  </data>
+  <data name="msgCloseTicket" xml:space="preserve">
+    <value>¿Estás seguro de cerrar este boleto?</value>
+    <comment>Are you sure to Close this ticket ?</comment>
+  </data>
+  <data name="msgFeedbackMessage" xml:space="preserve">
+    <value>Sus comentarios han sido enviados y recibidos con éxito por nuestro equipo. Valoramos enormemente su opinión, y apreciamos que se tome el tiempo de compartirla con nosotros.</value>
+    <comment>Your feedback has been successfully sent and received by our team. We greatly value your input, and we appreciate you taking the time to share with us!</comment>
+  </data>
+  <data name="msgFormatsAllowed" xml:space="preserve">
+    <value>Los únicos formatos permitidos son: jpg, jpeg, png, txt, docx, doc, xlsx, xls, pdf</value>
+    <comment>Only formats allowed are :jpg, jpeg, png, txt, docx, doc, xlsx, xls, pdf</comment>
+  </data>
+  <data name="msgRemoveImageFile" xml:space="preserve">
+    <value>¿Seguro que quieres eliminar este archivo?</value>
+    <comment>Are you sure want to remove this file ?</comment>
+  </data>
+  <data name="msgTicketAllowFileFormat" xml:space="preserve">
+    <value>Solo los formatos permitidos son: jpg, jpeg, png, txt, docx, doc, xlsx, xls, pdf</value>
+    <comment>Only formats allowed are :jpg, jpeg, png, txt, docx, doc, xlsx, xls, pdf</comment>
+  </data>
+  <data name="titleclickherefordownloadthisfile" xml:space="preserve">
+    <value>haga clic aquí para descargar este archivo</value>
+    <comment>click here for download this file</comment>
+  </data>
+  <data name="titleclickhereforremovethisfile" xml:space="preserve">
+    <value>haga clic aquí para eliminar este archivo</value>
+    <comment>click here for remove this file</comment>
+  </data>
+  <data name="titleTicketDesk" xml:space="preserve">
+    <value>Taquilla</value>
+    <comment>Ticket Desk</comment>
+  </data>
+</root>

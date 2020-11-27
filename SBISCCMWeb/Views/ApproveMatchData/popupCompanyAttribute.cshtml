@@ -1,0 +1,75 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility
+@model  PagedList.IPagedList<dynamic>
+@using SBISCCMWeb.Controllers;
+
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.DandB) + " | Custom Attribute";
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.DandB) + " | Custom Attribute";
+    }
+    Layout = null;
+}
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST"
+    };
+    string SrcRecordId = ViewBag.SrcRecordId != null ? " - " + Convert.ToString(ViewBag.SrcRecordId) : "";
+}
+<link href="~/Content/Template/css/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Scripts/plugin/magnific/magnific-popup.css" rel="stylesheet" />
+<script src="/Scripts/modernizr-2.6.2.js"></script>
+<link href="~/Content/Custom.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+
+<div id="CompanyAttribute" class="dataimportbox">
+    <header role="heading">
+        <h2 class="text-center ">
+            Company Attributes @SrcRecordId
+        </h2>
+    </header>
+    <div>
+        <table class="table table-bordered ">
+            <thead>
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Value
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tbdataMatch">
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.AttributeName</td>
+                            <td>@item.AttributeValue</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="2">No records found</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+
+
+

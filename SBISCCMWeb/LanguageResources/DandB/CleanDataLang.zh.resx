@@ -1,0 +1,604 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="btnAddCompany" xml:space="preserve">
+    <value>新增公司</value>
+    <comment>Add Company</comment>
+  </data>
+  <data name="hdrAddnewcompany" xml:space="preserve">
+    <value>添加新公司</value>
+    <comment>Add new company</comment>
+  </data>
+  <data name="hdrCleanData" xml:space="preserve">
+    <value>清理数据</value>
+    <comment>Clean Data</comment>
+  </data>
+  <data name="hdrCompanyFilter" xml:space="preserve">
+    <value>公司筛选条件</value>
+    <comment>Company Filter</comment>
+  </data>
+  <data name="hdrReMatchRecords" xml:space="preserve">
+    <value>重新匹配记录</value>
+    <comment>Re-Match Records</comment>
+  </data>
+  <data name="hdrSearchData" xml:space="preserve">
+    <value>搜索数据</value>
+    <comment>Search Data</comment>
+  </data>
+  <data name="lblActive" xml:space="preserve">
+    <value>活动</value>
+    <comment>Active</comment>
+  </data>
+  <data name="lblAddCompany" xml:space="preserve">
+    <value>新增公司</value>
+    <comment>Add Company</comment>
+  </data>
+  <data name="lblAdditionalActions" xml:space="preserve">
+    <value>其他动作</value>
+    <comment>Additional Actions</comment>
+  </data>
+  <data name="lblAdditionalFields" xml:space="preserve">
+    <value>其他字段</value>
+    <comment>Additional Fields</comment>
+  </data>
+  <data name="lblAddress" xml:space="preserve">
+    <value>地址</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAddress1" xml:space="preserve">
+    <value>地址 1</value>
+    <comment>Address1</comment>
+  </data>
+  <data name="lblAddress2" xml:space="preserve">
+    <value>地址 2</value>
+    <comment>Address2</comment>
+  </data>
+  <data name="lblAltAddress" xml:space="preserve">
+    <value>替换地址</value>
+    <comment>Alt. Address</comment>
+  </data>
+  <data name="lblAltAddress2" xml:space="preserve">
+    <value>替换地址 2</value>
+    <comment>Alt. Address2</comment>
+  </data>
+  <data name="lblAltCity" xml:space="preserve">
+    <value>替换市/县</value>
+    <comment>Alt City</comment>
+  </data>
+  <data name="lblAltCompanyName" xml:space="preserve">
+    <value>替换公司名称</value>
+    <comment>Alt. Company Name</comment>
+  </data>
+  <data name="lblAltCountry" xml:space="preserve">
+    <value>替换国家/地区</value>
+    <comment>Alt Country</comment>
+  </data>
+  <data name="lblAltPostalCode" xml:space="preserve">
+    <value>替换PostalCode</value>
+    <comment>Alt. PostalCode</comment>
+  </data>
+  <data name="lblAltState" xml:space="preserve">
+    <value>替换州</value>
+    <comment>Alt. State</comment>
+  </data>
+  <data name="lblAssignDUNS" xml:space="preserve">
+    <value>分配 DUNS</value>
+    <comment>Assign DUNS</comment>
+  </data>
+  <data name="lblBingSearch" xml:space="preserve">
+    <value>Bing 搜索</value>
+    <comment>Bing Search</comment>
+  </data>
+  <data name="lblBingsearches" xml:space="preserve">
+    <value>Bing 搜索</value>
+    <comment>Bing search</comment>
+  </data>
+  <data name="lblCC" xml:space="preserve">
+    <value>CC</value>
+    <comment>CC</comment>
+  </data>
+  <data name="lblCEOName" xml:space="preserve">
+    <value>首席执行官姓名</value>
+    <comment>CEO Name</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>市/县</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCityExactMatch" xml:space="preserve">
+    <value>城市精确匹配</value>
+    <comment>City Exact Match</comment>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>公司</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCompanyHeader" xml:space="preserve">
+    <value>公司/国家ID / URL /电子邮件/ DUNS</value>
+    <comment>Header Company name</comment>
+  </data>
+  <data name="lblCopy" xml:space="preserve">
+    <value>复制</value>
+    <comment>Copy</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>国家/地区</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCountryGroup" xml:space="preserve">
+    <value>国家/地区组</value>
+    <comment>Country Group</comment>
+  </data>
+  <data name="lblDUNSNO" xml:space="preserve">
+    <value>邓斯</value>
+    <comment>DUNS NO</comment>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>电子邮件</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblErrorCode" xml:space="preserve">
+    <value>错误代码</value>
+    <comment>Error Code</comment>
+  </data>
+  <data name="lblErrorDescription" xml:space="preserve">
+    <value>错误描述</value>
+    <comment>Error Description</comment>
+  </data>
+  <data name="lblExcludeNonHeadQuarters" xml:space="preserve">
+    <value>非总部除外</value>
+    <comment>Exclude Non HeadQuarters</comment>
+  </data>
+  <data name="lblExcludeNonMarketable" xml:space="preserve">
+    <value>无法营销除外</value>
+    <comment>Exclude Non Marketable</comment>
+  </data>
+  <data name="lblExcludeOutofBusiness" xml:space="preserve">
+    <value>停止营业除外</value>
+    <comment>Exclude Out of Business</comment>
+  </data>
+  <data name="lblExcludeUndeliverable" xml:space="preserve">
+    <value>无法投递除外</value>
+    <comment>Exclude Undeliverable</comment>
+  </data>
+  <data name="lblExcludeUnreachable" xml:space="preserve">
+    <value>无法联系除外</value>
+    <comment>Exclude Unreachable</comment>
+  </data>
+  <data name="lblGoogleSearch" xml:space="preserve">
+    <value>谷歌搜索</value>
+    <comment>Google Search</comment>
+  </data>
+  <data name="lblImportProcess" xml:space="preserve">
+    <value>导入流程</value>
+    <comment>Import Process</comment>
+  </data>
+  <data name="lblInpDUNSNO" xml:space="preserve">
+    <value>INP DUNS否</value>
+    <comment>Inp DUNS NO</comment>
+  </data>
+  <data name="lblInvestigate" xml:space="preserve">
+    <value>调查</value>
+    <comment>Investigate</comment>
+  </data>
+  <data name="lblInvestigateSelectedRecords" xml:space="preserve">
+    <value>调查所选记录</value>
+    <comment>Investigate Selected Records</comment>
+  </data>
+  <data name="lblLanguage" xml:space="preserve">
+    <value>语言</value>
+    <comment>Language</comment>
+  </data>
+  <data name="lblMailingAddress" xml:space="preserve">
+    <value>通讯地址</value>
+    <comment>Mailing Address</comment>
+  </data>
+  <data name="lblMarketable" xml:space="preserve">
+    <value>可营销</value>
+    <comment>Marketable</comment>
+  </data>
+  <data name="lblMatchGrade" xml:space="preserve">
+    <value>匹配等级</value>
+    <comment>Match Grade</comment>
+  </data>
+  <data name="lblMDP" xml:space="preserve">
+    <value>MDP</value>
+    <comment>MDP</comment>
+  </data>
+  <data name="lblNoDataAreAvailable" xml:space="preserve">
+    <value>无可用数据。</value>
+    <comment>No data are available.</comment>
+  </data>
+  <data name="lblNodataavailable" xml:space="preserve">
+    <value>无可用数据。</value>
+    <comment>No data available.</comment>
+  </data>
+  <data name="lblNonMarketable" xml:space="preserve">
+    <value>不可营销</value>
+    <comment>Non Marketable</comment>
+  </data>
+  <data name="lblOperating" xml:space="preserve">
+    <value>操作</value>
+    <comment>Operating</comment>
+  </data>
+  <data name="lblOutofbusiness" xml:space="preserve">
+    <value>停止营业</value>
+    <comment>Out of business</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>页面大小</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblPhone" xml:space="preserve">
+    <value>电话</value>
+    <comment>Phone</comment>
+  </data>
+  <data name="lblPleaseselectalltags" xml:space="preserve">
+    <value>请选择所有标签。</value>
+    <comment>Please select all tags.</comment>
+  </data>
+  <data name="lblPleaseSelectCountry" xml:space="preserve">
+    <value>请选择国家/地区</value>
+    <comment>Please Select Country</comment>
+  </data>
+  <data name="lblPleaseSelectLanguage" xml:space="preserve">
+    <value>请选择语言</value>
+    <comment>Please Select Language</comment>
+  </data>
+  <data name="lblPostal" xml:space="preserve">
+    <value>邮政</value>
+    <comment>Postal</comment>
+  </data>
+  <data name="lblPurge" xml:space="preserve">
+    <value>清除</value>
+    <comment>Purge</comment>
+  </data>
+  <data name="lblPurgeFromFile" xml:space="preserve">
+    <value>从文件中清除</value>
+    <comment>Purge From File</comment>
+  </data>
+  <data name="lblPurgeRecord" xml:space="preserve">
+    <value>清除记录</value>
+    <comment>Purge Record</comment>
+  </data>
+  <data name="lblPurgeRecords" xml:space="preserve">
+    <value>清除记录</value>
+    <comment>Purge Records</comment>
+  </data>
+  <data name="lblPurgeSelectedRecords" xml:space="preserve">
+    <value>清除所选记录</value>
+    <comment>Purge Selected Records</comment>
+  </data>
+  <data name="lblRegistrationNumber" xml:space="preserve">
+    <value>注册编号</value>
+    <comment>Registration Number</comment>
+  </data>
+  <data name="lblRegistrationType" xml:space="preserve">
+    <value>注册类型</value>
+    <comment>Registration Type</comment>
+  </data>
+  <data name="lblRematch" xml:space="preserve">
+    <value>重新匹配</value>
+    <comment>Re-Match</comment>
+  </data>
+  <data name="lblReMatchRecords" xml:space="preserve">
+    <value>重新匹配记录</value>
+    <comment>Re-Match Records</comment>
+  </data>
+  <data name="lblReMatchSelectedRecords" xml:space="preserve">
+    <value>重新匹配所选记录</value>
+    <comment>Re-Match Selected Records</comment>
+  </data>
+  <data name="lblRequiredCountry" xml:space="preserve">
+    <value>请选择国家/地区</value>
+    <comment>Please Select Country</comment>
+  </data>
+  <data name="lblRequiredSrcRecordId" xml:space="preserve">
+    <value>请填写SrcRecordId</value>
+    <comment>Please fill SrcRecordId</comment>
+  </data>
+  <data name="lblSearch" xml:space="preserve">
+    <value>搜索</value>
+    <comment>Search</comment>
+  </data>
+  <data name="lblSearchByAddress" xml:space="preserve">
+    <value>按地址搜索</value>
+    <comment>Search By Address</comment>
+  </data>
+  <data name="lblSearchByAltFields" xml:space="preserve">
+    <value>按替换搜索字段</value>
+    <comment>Search By Alt. Fields</comment>
+  </data>
+  <data name="lblSearchByCompany" xml:space="preserve">
+    <value>按公司搜索</value>
+    <comment>Search By Company</comment>
+  </data>
+  <data name="lblSelectAll" xml:space="preserve">
+    <value>全选</value>
+    <comment>Select All</comment>
+  </data>
+  <data name="lblSrcId" xml:space="preserve">
+    <value>Src Id</value>
+    <comment>Src Id</comment>
+  </data>
+  <data name="lblSrcRecID" xml:space="preserve">
+    <value>SrcRec ID</value>
+    <comment>SrcRec ID</comment>
+  </data>
+  <data name="lblSrcRecordId" xml:space="preserve">
+    <value>SrcRecordId</value>
+    <comment>SrcRecordId</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>州</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblStateExactMatch" xml:space="preserve">
+    <value>州精确匹配</value>
+    <comment>State Exact Match</comment>
+  </data>
+  <data name="lblStreet" xml:space="preserve">
+    <value>街道编号</value>
+    <comment>Street#</comment>
+  </data>
+  <data name="lblStreetName" xml:space="preserve">
+    <value>街道名称</value>
+    <comment>Street Name</comment>
+  </data>
+  <data name="lblTag" xml:space="preserve">
+    <value>标签</value>
+    <comment>Tag</comment>
+  </data>
+  <data name="lblTagisrequired" xml:space="preserve">
+    <value>标签为必填。</value>
+    <comment>Tag is required.</comment>
+  </data>
+  <data name="lblTags" xml:space="preserve">
+    <value>标签</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="lblUpdateRecord" xml:space="preserve">
+    <value>更新记录</value>
+    <comment>Update Record</comment>
+  </data>
+  <data name="lblValidateInputAddress" xml:space="preserve">
+    <value>验证输入地址</value>
+    <comment>Validate Input Address</comment>
+  </data>
+  <data name="lblViewCandidatesonMap" xml:space="preserve">
+    <value>在地图上查看候选人</value>
+    <comment>View Candidates on Map</comment>
+  </data>
+  <data name="lblWebsite" xml:space="preserve">
+    <value>网站</value>
+    <comment>Website</comment>
+  </data>
+  <data name="lblZip" xml:space="preserve">
+    <value>邮编</value>
+    <comment>Zip</comment>
+  </data>
+  <data name="msgAddNewCompany" xml:space="preserve">
+    <value>新公司成功添加</value>
+    <comment>New company added successfully</comment>
+  </data>
+  <data name="msgAssignDUNS" xml:space="preserve">
+    <value>您确定要将此DUNS编号分配给此输入记录吗？</value>
+    <comment>Are you sure you want to assign this DUNS Number to this Input record?</comment>
+  </data>
+  <data name="msgCleanSearchPurgeRecord" xml:space="preserve">
+    <value>您确定要清除此记录吗？</value>
+    <comment>Are you sure, you want to purge this record ?</comment>
+  </data>
+  <data name="msgDataRejected" xml:space="preserve">
+    <value>数据成功拒绝</value>
+    <comment>Data rejected successfully</comment>
+  </data>
+  <data name="msgFilterByErrorCode" xml:space="preserve">
+    <value>按错误代码过滤</value>
+    <comment>Filter by Error Code</comment>
+  </data>
+  <data name="msgFormatsAllowed" xml:space="preserve">
+    <value>仅允许的格式为：</value>
+    <comment>Only formats allowed are :</comment>
+  </data>
+  <data name="msgNoRecords" xml:space="preserve">
+    <value>没有找到记录</value>
+    <comment>No record(s) found</comment>
+  </data>
+  <data name="msgNoRecordsAffected" xml:space="preserve">
+    <value>共有0条记录受到影响，您确定要继续吗？</value>
+    <comment>Total 0 records are affected, are you sure you want to continue ?</comment>
+  </data>
+  <data name="msgOnlyNumbersAllowed" xml:space="preserve">
+    <value>仅接受数值。</value>
+    <comment>Only numeric values accepted.</comment>
+  </data>
+  <data name="msgPurgeRecord" xml:space="preserve">
+    <value>您确定要清除此记录吗？</value>
+    <comment>Are you sure you want to Purge this record ?</comment>
+  </data>
+  <data name="msgPurgeRecords" xml:space="preserve">
+    <value>您确定要清除记录吗？</value>
+    <comment>Are you sure you want to purge records ?</comment>
+  </data>
+  <data name="msgRematchRecord" xml:space="preserve">
+    <value>您确定要重新匹配该记录吗？</value>
+    <comment>Are you sure you want to re-match this record ?</comment>
+  </data>
+  <data name="msgRematchRecords" xml:space="preserve">
+    <value>记录受到影响，您确定要继续吗？</value>
+    <comment>records are affected, are you sure you want to continue ?</comment>
+  </data>
+  <data name="msgReMatchRequestCompleted" xml:space="preserve">
+    <value>数据重新匹配请求已成功完成。</value>
+    <comment>Data ReMatch Request Completed Successfully.</comment>
+  </data>
+  <data name="msgRowsSentForReMatch" xml:space="preserve">
+    <value>发送给ReMatch的行。</value>
+    <comment>rows sent for ReMatch.</comment>
+  </data>
+  <data name="msgSelectRecordToPurge" xml:space="preserve">
+    <value>请选择至少一条记录进行清除</value>
+    <comment>Please select at least one record to purge</comment>
+  </data>
+  <data name="msgSelectRecordToRematch" xml:space="preserve">
+    <value>请选择至少一条记录以重新匹配</value>
+    <comment>Please select at least one record to re-match</comment>
+  </data>
+  <data name="msgSelectRecotdToInvestigate" xml:space="preserve">
+    <value>请选择至少一条记录进行调查</value>
+    <comment>Please select at least one record to investigate</comment>
+  </data>
+  <data name="msgTotal" xml:space="preserve">
+    <value>总</value>
+    <comment>Total</comment>
+  </data>
+  <data name="msgUpdateSettings" xml:space="preserve">
+    <value>设置已成功更新。</value>
+    <comment>Settings updated successfully.</comment>
+  </data>
+  <data name="titleCleanData" xml:space="preserve">
+    <value>清理数据</value>
+    <comment>Clean Data</comment>
+  </data>
+  <data name="titleCleanseMatch" xml:space="preserve">
+    <value>净化比赛</value>
+    <comment>Cleanse Match</comment>
+  </data>
+  <data name="titleClearCompanyFilter" xml:space="preserve">
+    <value>清除公司筛选条件</value>
+    <comment>Clear Company Filter</comment>
+  </data>
+  <data name="titleEnrichmentdetail" xml:space="preserve">
+    <value>扩充详细信息</value>
+    <comment>Enrichment detail</comment>
+  </data>
+  <data name="titleReMatchRecords" xml:space="preserve">
+    <value>重新匹配记录</value>
+    <comment>Re-Match Records</comment>
+  </data>
+  <data name="titleSearchData" xml:space="preserve">
+    <value>搜索数据</value>
+    <comment>Search Data</comment>
+  </data>
+  <data name="titleSetDefaultPageSize" xml:space="preserve">
+    <value>设置默认页面大小</value>
+    <comment>Set Default Page Size</comment>
+  </data>
+</root>

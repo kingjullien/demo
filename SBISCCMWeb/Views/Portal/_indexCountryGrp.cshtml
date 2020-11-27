@@ -1,0 +1,81 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@model List<CountryGroupEntity>
+@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchFacade.Objects;
+<article class="col-md-12 sortable-grid ui-sortable" id="ArticleCountryGrp">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@PortalSettingLang.hdrCountryGroupList</strong>
+            </h2>
+            @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+            {
+                <a href="#" id="btnExportToExcel" class="pull-right btn btn-Secondary Updatesearch">@PortalSettingLang.lblExportToExcel</a>
+                <a href="#" id="btnImportData" class="pull-right btn btn-Secondary Updatesearch">@PortalSettingLang.lblImportData</a>
+            }
+            else
+            {
+                <a href="#" class="pull-right btn btn-Secondary disabled Updatesearch ">@PortalSettingLang.lblExportToExcel</a>
+                <a href="#" class="pull-right btn btn-Secondary disabled Updatesearch ">@PortalSettingLang.lblImportData</a>
+            }
+
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div class="table-responsive">
+                        <table class="table table-bordered CntryGrp">
+                            <thead>
+                                <tr>
+                                    <th>@PortalSettingLang.lblGroupName</th>
+                                    @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                    {
+                                        if (Helper.UserType.ToLower() != "steward")
+                                        {
+                                            <th class="nosort">@PortalSettingLang.lblDelete </th>
+                                        }
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        var GroupId = Utility.GetEncryptedString(Convert.ToString(item.GroupId)).Replace("+", Utility.urlseparator);
+                                        <tr data-CntryGroupId="@GroupId">
+                                            <td>@item.GroupName</td>
+                                            @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                            {
+                                                if (Helper.UserType.ToLower() != "steward")
+                                                {
+                                                    <td>
+                                                        <a href="javascript:void(0)" id="@GroupId" class="deleteCountryGroup">@PortalSettingLang.lblDelete</a>
+                                                    </td>
+                                                }
+                                            }
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "Country Groups")
+{
+    <script>
+        $(document).ready(function () {
+         InitPortalCountryGroupDataTable();
+         $('table.CntryGrp tbody tr:first').addClass('current');
+         OnSuccessCountryGrp();
+    });
+    </script>
+}

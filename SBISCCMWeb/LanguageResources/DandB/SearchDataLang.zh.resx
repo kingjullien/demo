@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="lblAdditionalActions" xml:space="preserve">
+    <value>其他操作</value>
+    <comment>Additional Actions</comment>
+  </data>
+  <data name="lblAddress1" xml:space="preserve">
+    <value>地址 1</value>
+    <comment>Address1</comment>
+  </data>
+  <data name="lblAddress2" xml:space="preserve">
+    <value>地址 2</value>
+    <comment>Address2</comment>
+  </data>
+  <data name="lblBingSearch" xml:space="preserve">
+    <value>Bing 搜索</value>
+    <comment>Bing Search</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>市/县</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>公司</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCompanyName" xml:space="preserve">
+    <value>公司名称</value>
+    <comment>Company Name</comment>
+  </data>
+  <data name="lblCompanyRequire" xml:space="preserve">
+    <value>请填充公司</value>
+    <comment>Please fill Company</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>国家/地区</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCountryRequire" xml:space="preserve">
+    <value>请选择国家/地区</value>
+    <comment>Please Select Country</comment>
+  </data>
+  <data name="lblDetailRequire" xml:space="preserve">
+    <value>请填充详细信息</value>
+    <comment>Please fill Detail</comment>
+  </data>
+  <data name="lblDomain" xml:space="preserve">
+    <value>域名</value>
+    <comment>Domain</comment>
+  </data>
+  <data name="lblDUNS" xml:space="preserve">
+    <value>邓斯</value>
+    <comment>DUNS</comment>
+  </data>
+  <data name="lblDUNSNo" xml:space="preserve">
+    <value>邓恩斯</value>
+    <comment>DUNS No</comment>
+  </data>
+  <data name="lblDUNSRequire" xml:space="preserve">
+    <value>请填充 DUNS 编号</value>
+    <comment>Please fill DUNS Number</comment>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>电子邮件</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblExcludeNonHeadQuarters" xml:space="preserve">
+    <value>非总部除外</value>
+    <comment>Exclude Non HeadQuarters</comment>
+  </data>
+  <data name="lblExcludeNonMarketable" xml:space="preserve">
+    <value>无法营销除外</value>
+    <comment>Exclude Non-Marketable</comment>
+  </data>
+  <data name="lblExcludeOutofBusiness" xml:space="preserve">
+    <value>停止营业除外</value>
+    <comment>Exclude Out of Business</comment>
+  </data>
+  <data name="lblExcludeUndeliverable" xml:space="preserve">
+    <value>无法投递除外</value>
+    <comment>Exclude Undeliverable</comment>
+  </data>
+  <data name="lblExcludeUnreachable" xml:space="preserve">
+    <value>无法联系除外</value>
+    <comment>Exclude Unreachable</comment>
+  </data>
+  <data name="lblGoogleMap" xml:space="preserve">
+    <value>谷歌地图</value>
+    <comment>Google Map</comment>
+  </data>
+  <data name="lblGoogleSearch" xml:space="preserve">
+    <value>谷歌搜索</value>
+    <comment>Google Search</comment>
+  </data>
+  <data name="lblLanguage" xml:space="preserve">
+    <value>语言</value>
+    <comment>Language</comment>
+  </data>
+  <data name="lblLanguageReqire" xml:space="preserve">
+    <value>请选择语言</value>
+    <comment>Please Select Language</comment>
+  </data>
+  <data name="lblNodataareavailable" xml:space="preserve">
+    <value>无可用数据</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblPhone" xml:space="preserve">
+    <value>电话</value>
+    <comment>Phone</comment>
+  </data>
+  <data name="lblPostalCode" xml:space="preserve">
+    <value>邮编</value>
+    <comment>Postal Code</comment>
+  </data>
+  <data name="lblProcessing" xml:space="preserve">
+    <value>正在处理中，请稍候...</value>
+    <comment>Please wait while processing...</comment>
+  </data>
+  <data name="lblRegistrationNumber" xml:space="preserve">
+    <value>注册编号</value>
+    <comment>Registration Number</comment>
+  </data>
+  <data name="lblRegistrationNumberRequire" xml:space="preserve">
+    <value>请填充注册编号</value>
+    <comment>Please fill Registration Number</comment>
+  </data>
+  <data name="lblSearch" xml:space="preserve">
+    <value>搜索</value>
+    <comment>Search</comment>
+  </data>
+  <data name="lblSearchByAddress" xml:space="preserve">
+    <value>按地址搜索</value>
+    <comment>Search By Address</comment>
+  </data>
+  <data name="lblSearchByAltFields" xml:space="preserve">
+    <value>按替换搜索字段</value>
+    <comment>Search By Alt. Fields</comment>
+  </data>
+  <data name="lblSearchByCompany" xml:space="preserve">
+    <value>按公司搜索</value>
+    <comment>Search By Company</comment>
+  </data>
+  <data name="lblSearchData" xml:space="preserve">
+    <value>搜索数据</value>
+    <comment>Search Data</comment>
+  </data>
+  <data name="lblSearchMatch" xml:space="preserve">
+    <value>搜索比赛</value>
+    <comment>Search Match</comment>
+  </data>
+  <data name="lblSelectCountry" xml:space="preserve">
+    <value>选择国家</value>
+    <comment>Select Country</comment>
+  </data>
+  <data name="lblSeq" xml:space="preserve">
+    <value>顺序编号</value>
+    <comment>Seq#</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>州/地区</value>
+    <comment>State/Territory</comment>
+  </data>
+  <data name="lblStateRequire" xml:space="preserve">
+    <value>请填充州/地区</value>
+    <comment>Please fill State/Territory</comment>
+  </data>
+  <data name="lblStatus" xml:space="preserve">
+    <value>状态</value>
+    <comment>Status</comment>
+  </data>
+  <data name="lblStreet" xml:space="preserve">
+    <value>街道编号</value>
+    <comment>Street#</comment>
+  </data>
+  <data name="lblStreetName" xml:space="preserve">
+    <value>街道名称</value>
+    <comment>Street Name</comment>
+  </data>
+  <data name="lblValidateInputAddress" xml:space="preserve">
+    <value>验证输入地址</value>
+    <comment>Validate Input Address</comment>
+  </data>
+  <data name="lblViewCandidatesonMap" xml:space="preserve">
+    <value>在地图上查看候选项</value>
+    <comment>View Candidates on Map</comment>
+  </data>
+  <data name="msgAddNewCompany" xml:space="preserve">
+    <value>新公司成功添加</value>
+    <comment>New company added successfully</comment>
+  </data>
+  <data name="msgOnlyNumbersAllowed" xml:space="preserve">
+    <value>仅接受数值。</value>
+    <comment>Only numeric values accepted.</comment>
+  </data>
+  <data name="msgRequestError" xml:space="preserve">
+    <value>（该请求没有遇到任何错误）。</value>
+    <comment>(The request did not encounter any errors).</comment>
+  </data>
+  <data name="msgRequestErrorButNoResults" xml:space="preserve">
+    <value>（该请求未遇到任何错误，但未返回任何结果）。</value>
+    <comment>(The request did not encounter any errors, but returned no results).</comment>
+  </data>
+  <data name="msgSearchByDomain" xml:space="preserve">
+    <value>按域名搜索</value>
+    <comment>Search by domain</comment>
+  </data>
+  <data name="msgSearchByEmail" xml:space="preserve">
+    <value>通过电子邮件搜索</value>
+    <comment>Search by email</comment>
+  </data>
+  <data name="placeholderRegistrationNumber" xml:space="preserve">
+    <value>注册号码</value>
+    <comment>Registration Number</comment>
+  </data>
+  <data name="placeholderSearchtheweb" xml:space="preserve">
+    <value>搜索网页</value>
+    <comment>Search the web</comment>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="titleActive" xml:space="preserve">
+    <value>活性</value>
+    <comment>Active</comment>
+  </data>
+  <data name="titleCleanseMatch" xml:space="preserve">
+    <value>净化比赛</value>
+    <comment>Cleanse Match</comment>
+  </data>
+  <data name="titleEnrichmentdetail" xml:space="preserve">
+    <value>浓缩细节</value>
+    <comment>Enrichment detail</comment>
+  </data>
+  <data name="titleHomePage" xml:space="preserve">
+    <value>主页</value>
+    <comment>Home Page</comment>
+  </data>
+  <data name="titleMarketable" xml:space="preserve">
+    <value>适销对路</value>
+    <comment>Marketable</comment>
+  </data>
+  <data name="titleNonMarketable" xml:space="preserve">
+    <value>不可销售</value>
+    <comment>Non Marketable</comment>
+  </data>
+  <data name="titleOutofbusiness" xml:space="preserve">
+    <value>停业</value>
+    <comment>Out of business</comment>
+  </data>
+  <data name="titleSearchData" xml:space="preserve">
+    <value>搜索数据</value>
+    <comment>Search Data</comment>
+  </data>
+</root>

@@ -1,0 +1,33 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model OIInpCompanyEntityMatchRefresh
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@{
+    string Message = Convert.ToString(ViewBag.Message);
+}
+<div class="tab-content">
+    <div class="tab-pane fade active in">
+        @using (Ajax.BeginForm("OISingleEntryMatchRefresh", "OIData", new AjaxOptions { HttpMethod = "POST", OnSuccess = "OIMatchRefreshSuccess" }, new { role = "form", @autocomplete = "off" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="widget-body">
+                <div class="tab-pane fade active in" id="ImportData">
+                    <div class="row">
+                        <div class="col-xs-4 margin-top-3 text-align-right"><span><strong>@ImportDataLang.lblOrbNumber<span class="error">*</span></strong></span></div>
+                        <div class="col-xs-7">
+                            @Html.TextBoxFor(m => m.OrbNumber, new { @class = "form-control OnlyDigit" })
+                            @Html.ValidationMessageFor(model => model.OrbNumber, "", new { @class = "text-danger", @autocomplete = "off", @id = "MatchRefreshOrbnumber" })
+                        </div>
+                    </div>
+                    <div class="margintop15 row">
+                        <div class="col-md-12 custom-text-align-center">
+                            <input type="submit" id="btnOISingleEntryMatchRefresh" class="btn btn-primary" value="@ImportDataLang.lblSaveData" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<script src="~/Scripts/CustomJS/OI/OrbSingleEntryFormMatchRefresh.js"></script>

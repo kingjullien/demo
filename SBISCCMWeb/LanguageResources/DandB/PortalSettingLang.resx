@@ -1,0 +1,1155 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrAddExternalDataSource" xml:space="preserve">
+    <value>Add External Data Source Configuration</value>
+    <comment>Add External Data Source Configuration</comment>
+  </data>
+  <data name="hdrAPIDetails" xml:space="preserve">
+    <value>API Details</value>
+    <comment>API Details</comment>
+  </data>
+  <data name="hdrCommandLineAPICredential" xml:space="preserve">
+    <value>Command Line API Credential</value>
+    <comment>Command Line API Credential</comment>
+  </data>
+  <data name="hdrCompanyAttribute" xml:space="preserve">
+    <value>Company Attribute</value>
+    <comment>Company Attribute</comment>
+  </data>
+  <data name="hdrCompanyAttributeList" xml:space="preserve">
+    <value>Company Attribute List</value>
+    <comment>Company Attribute List</comment>
+  </data>
+  <data name="hdrConfigureImportProcess" xml:space="preserve">
+    <value>Configure Import Process</value>
+    <comment>Configure Import Process</comment>
+  </data>
+  <data name="hdrConfigureImportsList" xml:space="preserve">
+    <value>Configure Import List</value>
+    <comment>Configure Imports List</comment>
+  </data>
+  <data name="hdrCountryGroup" xml:space="preserve">
+    <value>Country Group</value>
+    <comment>Country Group</comment>
+  </data>
+  <data name="hdrCountryGroupList" xml:space="preserve">
+    <value>Country Group List</value>
+    <comment>Country Group List</comment>
+  </data>
+  <data name="hdrDeleteUser" xml:space="preserve">
+    <value>Delete User</value>
+    <comment>Delete User</comment>
+  </data>
+  <data name="hdrDPMFTPConfigration" xml:space="preserve">
+    <value>Direct+ Monitoring FTP Configuration</value>
+    <comment>Direct+ Monitoring FTP Configuration</comment>
+  </data>
+  <data name="hdrDPMFTPConfigurationList" xml:space="preserve">
+    <value>Direct+ Monitoring FTP Configuration List</value>
+    <comment>Direct+ Monitoring FTP Configuration List</comment>
+  </data>
+  <data name="hdrEditExternalDataSource" xml:space="preserve">
+    <value>Edit External Data Source Configuration</value>
+    <comment>Edit External Data Source Configuration</comment>
+  </data>
+  <data name="hdrEntity" xml:space="preserve">
+    <value>Entity</value>
+    <comment>Entity</comment>
+  </data>
+  <data name="hdrExportPageSettings" xml:space="preserve">
+    <value>Export Page Settings</value>
+    <comment>Export Page Settings</comment>
+  </data>
+  <data name="hdrExternalDataSource" xml:space="preserve">
+    <value>External Data Source Configuration List</value>
+    <comment>External Data Source Configuration List</comment>
+  </data>
+  <data name="hdrGoogleAPI" xml:space="preserve">
+    <value>Google API</value>
+    <comment>Google API</comment>
+  </data>
+  <data name="hdrImportData" xml:space="preserve">
+    <value>Import Data</value>
+    <comment>Import Data</comment>
+  </data>
+  <data name="hdrProcessSetting" xml:space="preserve">
+    <value>Process Setting</value>
+    <comment>Process Setting</comment>
+  </data>
+  <data name="hdrSalesForceConfigurationList" xml:space="preserve">
+    <value>SalesForce Configuration List</value>
+    <comment>SalesForce Configuration List</comment>
+  </data>
+  <data name="hdrTags" xml:space="preserve">
+    <value>Tags</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="hdrTagsList" xml:space="preserve">
+    <value>Tags List</value>
+    <comment>Tags List</comment>
+  </data>
+  <data name="hdrUser" xml:space="preserve">
+    <value>User</value>
+    <comment>User</comment>
+  </data>
+  <data name="hdrUserComments" xml:space="preserve">
+    <value>User Comments</value>
+    <comment>User Comments</comment>
+  </data>
+  <data name="hdrUserCommentsList" xml:space="preserve">
+    <value>User Comments List</value>
+    <comment>User Comments List</comment>
+  </data>
+  <data name="hdrUsersList" xml:space="preserve">
+    <value>Users List</value>
+    <comment>Users List</comment>
+  </data>
+  <data name="lblAboutUs" xml:space="preserve">
+    <value>About Us</value>
+    <comment>About Us</comment>
+  </data>
+  <data name="lblAcceptPEMFiles" xml:space="preserve">
+    <value>(Accept only .pem files)</value>
+    <comment>(Accept only .pem files)</comment>
+  </data>
+  <data name="lblAcceptsExcelFiles" xml:space="preserve">
+    <value>(Accepts only Excel files)</value>
+    <comment>(Accepts only Excel files)</comment>
+  </data>
+  <data name="lblAccessKey" xml:space="preserve">
+    <value>Access Key</value>
+    <comment>Access Key</comment>
+  </data>
+  <data name="lblAccountKey" xml:space="preserve">
+    <value>Account Key</value>
+    <comment>Account Key</comment>
+  </data>
+  <data name="lblAccountName" xml:space="preserve">
+    <value>Account Name</value>
+    <comment>Account Name</comment>
+  </data>
+  <data name="lblActivate" xml:space="preserve">
+    <value>Activate</value>
+    <comment>Activate</comment>
+  </data>
+  <data name="lblActivateUser" xml:space="preserve">
+    <value>Activate User</value>
+    <comment>Activate User</comment>
+  </data>
+  <data name="lblAdd" xml:space="preserve">
+    <value>Add</value>
+    <comment>Add</comment>
+  </data>
+  <data name="lblAddExternalSource" xml:space="preserve">
+    <value>Add External Source</value>
+    <comment>Add External Source</comment>
+  </data>
+  <data name="lblAddTagOptional" xml:space="preserve">
+    <value>Add Tags (Optional)</value>
+    <comment>Add Tags (Optional)</comment>
+  </data>
+  <data name="lblAmazon" xml:space="preserve">
+    <value>Amazon S3</value>
+    <comment>Amazon S3</comment>
+  </data>
+  <data name="lblAmazonConnectionNotDone" xml:space="preserve">
+    <value>Connection is not Established with Amazon</value>
+    <comment>Connection is not Established with Amazon</comment>
+  </data>
+  <data name="lblAPICredential" xml:space="preserve">
+    <value>API Credential</value>
+    <comment>API Credential</comment>
+  </data>
+  <data name="lblAPIDocumentation" xml:space="preserve">
+    <value>API Documentation</value>
+    <comment>API Documentation</comment>
+  </data>
+  <data name="lblAPIKey" xml:space="preserve">
+    <value>API Key</value>
+    <comment>API Key</comment>
+  </data>
+  <data name="lblAPIKeyRequire" xml:space="preserve">
+    <value>Please fill API Key.</value>
+    <comment>Please fill API Key.</comment>
+  </data>
+  <data name="lblAPISecret" xml:space="preserve">
+    <value>API Secret</value>
+    <comment>API Secret</comment>
+  </data>
+  <data name="lblArchivePeriodDaysNote" xml:space="preserve">
+    <value>Note: Defines the number of days that data is retained by the system after export</value>
+    <comment>Note: Defines the number of days that data is retained by the system after export</comment>
+  </data>
+  <data name="lblAssignUsers" xml:space="preserve">
+    <value>Assign Users</value>
+    <comment>Assign Users</comment>
+  </data>
+  <data name="lblAttributeDataType" xml:space="preserve">
+    <value>Attribute DataType</value>
+    <comment>Attribute DataType</comment>
+  </data>
+  <data name="lblAttributeName" xml:space="preserve">
+    <value>Attribute Name</value>
+    <comment>Attribute Name</comment>
+  </data>
+  <data name="lblAttributeNameRequire" xml:space="preserve">
+    <value>Please fill Attribute Name.</value>
+    <comment>Please fill Attribute Name.</comment>
+  </data>
+  <data name="lblAttributeTypeCode" xml:space="preserve">
+    <value>Attribute Type Code</value>
+    <comment>Attribute Type Code</comment>
+  </data>
+  <data name="lblAzureConnectionNotDone" xml:space="preserve">
+    <value>Connection is not Established with Azure</value>
+    <comment>Connection is not Established with Azure</comment>
+  </data>
+  <data name="lblAzureStorage" xml:space="preserve">
+    <value>Azure Storage</value>
+    <comment>Azure Storage</comment>
+  </data>
+  <data name="lblBuildNumber" xml:space="preserve">
+    <value>Build Number</value>
+    <comment>Build Number</comment>
+  </data>
+  <data name="lblClientName" xml:space="preserve">
+    <value>Client Name</value>
+    <comment>Client Name</comment>
+  </data>
+  <data name="lblComment" xml:space="preserve">
+    <value>Comment</value>
+    <comment>Comment</comment>
+  </data>
+  <data name="lblCommentRequire" xml:space="preserve">
+    <value>Please fill Comment</value>
+    <comment>Please fill Comment</comment>
+  </data>
+  <data name="lblCommentType" xml:space="preserve">
+    <value>Comment Type</value>
+    <comment>Comment Type</comment>
+  </data>
+  <data name="lblCommon" xml:space="preserve">
+    <value>Common</value>
+    <comment>Common</comment>
+  </data>
+  <data name="lblCompanyAttribute" xml:space="preserve">
+    <value>Company Attribute</value>
+    <comment>Company Attribute</comment>
+  </data>
+  <data name="lblCompanyAttributes" xml:space="preserve">
+    <value>Company Attributes</value>
+    <comment>Company Attributes</comment>
+  </data>
+  <data name="lblExternalDataSource" xml:space="preserve">
+    <value>External Data Source</value>
+    <comment>External Data Source</comment>
+  </data>
+  <data name="lblConfigurationName" xml:space="preserve">
+    <value>Configuration Name</value>
+    <comment>Configuration Name</comment>
+  </data>
+  <data name="lblConfigureImports" xml:space="preserve">
+    <value>Configure Imports</value>
+    <comment>Configure Imports</comment>
+  </data>
+  <data name="lblCountryGroups" xml:space="preserve">
+    <value>Country Groups</value>
+    <comment>Country Groups</comment>
+  </data>
+  <data name="lblCountryRequire" xml:space="preserve">
+    <value>Please select atleast one country.</value>
+    <comment>Please select atleast one country.</comment>
+  </data>
+  <data name="lblCreate" xml:space="preserve">
+    <value>Create</value>
+    <comment>Create</comment>
+  </data>
+  <data name="lblDataBaseName" xml:space="preserve">
+    <value>DataBase Name</value>
+    <comment>DataBase Name</comment>
+  </data>
+  <data name="lblDataGovernance" xml:space="preserve">
+    <value>Data Governance</value>
+    <comment>Data Governance</comment>
+  </data>
+  <data name="lblDelete" xml:space="preserve">
+    <value>Delete</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="lblDescription" xml:space="preserve">
+    <value>Description</value>
+    <comment>Description</comment>
+  </data>
+  <data name="lblDirect20Monitoring" xml:space="preserve">
+    <value>Direct2.0 Monitoring</value>
+    <comment>Direct2.0 Monitoring</comment>
+  </data>
+  <data name="lblDirectPlusMonitoring" xml:space="preserve">
+    <value>Direct+ Monitoring</value>
+    <comment>Direct+ Monitoring</comment>
+  </data>
+  <data name="lblDisablePurgeProcess" xml:space="preserve">
+    <value>Disable Purge Process</value>
+    <comment>Disable Purge Process</comment>
+  </data>
+  <data name="lblDownloadConfiguration" xml:space="preserve">
+    <value>Download Configuration</value>
+    <comment>Download Configuration</comment>
+  </data>
+  <data name="lblDuplicateInformationEntered" xml:space="preserve">
+    <value>Duplicate information cannot be entered for</value>
+    <comment>Duplicate information cannot be entered for</comment>
+  </data>
+  <data name="lblEdit" xml:space="preserve">
+    <value>Edit</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="lblEditExternalDataSource" xml:space="preserve">
+    <value>Edit External Data Source Configuration</value>
+    <comment>Edit External Data Source Configuration</comment>
+  </data>
+  <data name="lblEdition" xml:space="preserve">
+    <value>Edition</value>
+    <comment>Edition</comment>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>Email</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblEmailRequire" xml:space="preserve">
+    <value>Please fill email address.</value>
+    <comment>Please fill email address.</comment>
+  </data>
+  <data name="lblEnableCompliance" xml:space="preserve">
+    <value>Enable Compliance</value>
+    <comment>Enable Compliance</comment>
+  </data>
+  <data name="lblEnableCreateAutoAcceptRules" xml:space="preserve">
+    <value>Enable Create Auto Accept Rules</value>
+    <comment>Enable Create Auto Accept Rules</comment>
+  </data>
+  <data name="lblEnableDataReset" xml:space="preserve">
+    <value>Enable Data Reset</value>
+    <comment>Enable Data Reset</comment>
+  </data>
+  <data name="lblEnableEnrichmentinUI" xml:space="preserve">
+    <value>Enable Enrichment in UI</value>
+    <comment>Enable Enrichment in UI</comment>
+  </data>
+  <data name="lblEnableExportdata" xml:space="preserve">
+    <value>Export data</value>
+    <comment>Export data</comment>
+  </data>
+  <data name="lblEnableImportdata" xml:space="preserve">
+    <value>Import data</value>
+    <comment>Import data</comment>
+  </data>
+  <data name="lblEnableInvestigations" xml:space="preserve">
+    <value>Enable Investigations</value>
+    <comment>Enable Investigations</comment>
+  </data>
+  <data name="lblEnablePreviewMatchRules" xml:space="preserve">
+    <value>Enable Preview Match Rules</value>
+    <comment>Enable Preview Match Rules</comment>
+  </data>
+  <data name="lblEnableRejectdata" xml:space="preserve">
+    <value>Enable Reject/Purge data</value>
+    <comment>Enable Reject/Purge data</comment>
+  </data>
+  <data name="lblEnableSearchByDUNS" xml:space="preserve">
+    <value>Enable Search By DUNS</value>
+    <comment>Enable Search By DUNS</comment>
+  </data>
+  <data name="lblEndpointSuffix" xml:space="preserve">
+    <value>Endpoint Suffix</value>
+    <comment>Endpoint Suffix</comment>
+  </data>
+  <data name="lblEnterSFTPDetails" xml:space="preserve">
+    <value>Please enter valid SFTP information</value>
+    <comment>Please enter valid SFTP information</comment>
+  </data>
+  <data name="lblEnterValidAmazonDetails" xml:space="preserve">
+    <value>Please enter valid Amazon information</value>
+    <comment>Please enter valid Amazon information</comment>
+  </data>
+  <data name="lblEnterValidAzureDetails" xml:space="preserve">
+    <value>Please enter valid Azure information</value>
+    <comment>Please enter valid Azure information</comment>
+  </data>
+  <data name="lblEnterValidFTPDetails" xml:space="preserve">
+    <value>Please enter valid FTP information</value>
+    <comment>Please enter valid FTP information</comment>
+  </data>
+  <data name="lblEntity" xml:space="preserve">
+    <value>Entity</value>
+    <comment>Entity</comment>
+  </data>
+  <data name="lblEntityList" xml:space="preserve">
+    <value>Entity List</value>
+    <comment>Entity List</comment>
+  </data>
+  <data name="lblEntityValue" xml:space="preserve">
+    <value>Entity Value</value>
+    <comment>Entity Value</comment>
+  </data>
+  <data name="lblEntityValueRequire" xml:space="preserve">
+    <value>Please enter Entity value.</value>
+    <comment>Please enter Entity value.</comment>
+  </data>
+  <data name="lblExample" xml:space="preserve">
+    <value>Example</value>
+    <comment>Example</comment>
+  </data>
+  <data name="lblEXESetup" xml:space="preserve">
+    <value>EXE Setup</value>
+    <comment>EXE Setup</comment>
+  </data>
+  <data name="lblExportPageSettings" xml:space="preserve">
+    <value>Export Page Settings</value>
+    <comment>Export Page Settings</comment>
+  </data>
+  <data name="lblExportToExcel" xml:space="preserve">
+    <value>Export To Excel</value>
+    <comment>Export To Excel</comment>
+  </data>
+  <data name="lblExternalDataStoreName" xml:space="preserve">
+    <value>External Data Source Name</value>
+    <comment>ExternalDataStoreName</comment>
+  </data>
+  <data name="lblFeature" xml:space="preserve">
+    <value>Feature</value>
+    <comment>Feature</comment>
+  </data>
+  <data name="lblFileNamePattern" xml:space="preserve">
+    <value>File Name Pattern</value>
+    <comment>File Name Pattern</comment>
+  </data>
+  <data name="lblFirstRowFileHeader" xml:space="preserve">
+    <value>First row is a file header</value>
+    <comment>First row is a file header</comment>
+  </data>
+  <data name="lblFTP" xml:space="preserve">
+    <value>FTP</value>
+    <comment>FTP</comment>
+  </data>
+  <data name="lblFTPConfiguration" xml:space="preserve">
+    <value>FTP Configuration</value>
+    <comment>FTP Configuration</comment>
+  </data>
+  <data name="lblFTPConnectionNotDone" xml:space="preserve">
+    <value>Connection is not Established with FTP</value>
+    <comment>Connection is not Established with FTP</comment>
+  </data>
+  <data name="lblGoogleAPI" xml:space="preserve">
+    <value>Google API</value>
+    <comment>Google API</comment>
+  </data>
+  <data name="lblGroupName" xml:space="preserve">
+    <value>Group Name</value>
+    <comment>Group Name</comment>
+  </data>
+  <data name="lblGroupNameRequire" xml:space="preserve">
+    <value>Please fill Group Name.</value>
+    <comment>Please fill Group Name.</comment>
+  </data>
+  <data name="lblHost" xml:space="preserve">
+    <value>Host</value>
+    <comment>Host</comment>
+  </data>
+  <data name="lblImportData" xml:space="preserve">
+    <value>Import Data</value>
+    <comment>Import Data</comment>
+  </data>
+  <data name="lblImportdataintodatabase" xml:space="preserve">
+    <value>Import data into database</value>
+    <comment>Import data into database</comment>
+  </data>
+  <data name="lblInactiveDays" xml:space="preserve">
+    <value>Days inactive before locking users out</value>
+    <comment>Days inactive before locking users out</comment>
+  </data>
+  <data name="lblInclusiveTags" xml:space="preserve">
+    <value>Inclusive Tags</value>
+    <comment>Inclusive Tags</comment>
+  </data>
+  <data name="lblInputHeader" xml:space="preserve">
+    <value>Input Header</value>
+    <comment>Input Header</comment>
+  </data>
+  <data name="lblIntegrationGateway" xml:space="preserve">
+    <value>Integration Gateway</value>
+    <comment>Integration Gateway</comment>
+  </data>
+  <data name="lblInvestigation" xml:space="preserve">
+    <value>Investigation</value>
+    <comment>Investigation</comment>
+  </data>
+  <data name="lblIPAddress" xml:space="preserve">
+    <value>IP Address</value>
+    <comment>IP Address</comment>
+  </data>
+  <data name="lblLicenseExpirationDate" xml:space="preserve">
+    <value>License expiration date</value>
+    <comment>License expiration date</comment>
+  </data>
+  <data name="lblLiveAPI" xml:space="preserve">
+    <value>Live API</value>
+    <comment>Live API</comment>
+  </data>
+  <data name="lblLOBTag" xml:space="preserve">
+    <value>LOB Tag</value>
+    <comment>LOB Tag</comment>
+  </data>
+  <data name="lblMappingCoulmn" xml:space="preserve">
+    <value>Please map your file columns to the corresponding table columns</value>
+    <comment>Please map your file columns to the corresponding table columns</comment>
+  </data>
+  <data name="lblName" xml:space="preserve">
+    <value>Name</value>
+    <comment>Name</comment>
+  </data>
+  <data name="lblNext" xml:space="preserve">
+    <value>Next</value>
+    <comment>Next</comment>
+  </data>
+  <data name="lblNoRecordsFound" xml:space="preserve">
+    <value>No Records Found</value>
+    <comment>No Records Found</comment>
+  </data>
+  <data name="lblNotApplicable" xml:space="preserve">
+    <value>Not Applicable</value>
+    <comment>Not Applicable</comment>
+  </data>
+  <data name="lblNumberofTransactionsperYear" xml:space="preserve">
+    <value>Number of Transactions per Year</value>
+    <comment>Number of Transactions per Year</comment>
+  </data>
+  <data name="lblNumberOfUsersLicensed" xml:space="preserve">
+    <value>Number of Users Licensed</value>
+    <comment>Number of Users Licensed</comment>
+  </data>
+  <data name="lblOrganizationName" xml:space="preserve">
+    <value>OrganizationName</value>
+    <comment>OrganizationName</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>Page Size</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblPAGESIZEACTIVEDATAQUEUEOUTPUT" xml:space="preserve">
+    <value>PAGE SIZE ACTIVE DATA QUEUE OUTPUT</value>
+    <comment>PAGE SIZE ACTIVE DATA QUEUE OUTPUT</comment>
+  </data>
+  <data name="lblPAGESIZEACTIVEDATAQUEUEOUTPUTRequre" xml:space="preserve">
+    <value>Please fill page size active data queue output.</value>
+    <comment>Please fill page size active data queue output.</comment>
+  </data>
+  <data name="lblPAGESIZEENRICHMENTOUTPUT" xml:space="preserve">
+    <value>PAGE SIZE ENRICHMENT OUTPUT</value>
+    <comment>PAGE SIZE ENRICHMENT OUTPUT</comment>
+  </data>
+  <data name="lblPAGESIZEENRICHMENTOUTPUTRequire" xml:space="preserve">
+    <value>Please fill  page size enrichment output.</value>
+    <comment>Please fill  page size enrichment output.</comment>
+  </data>
+  <data name="lblPAGESIZEMATCHOUTPUT" xml:space="preserve">
+    <value>PAGE SIZE MATCH OUTPUT</value>
+    <comment>PAGE SIZE MATCH OUTPUT</comment>
+  </data>
+  <data name="lblPAGESIZEMATCHOUTPUTRequire" xml:space="preserve">
+    <value>Please fill page size match output.</value>
+    <comment>Please fill page size match output.</comment>
+  </data>
+  <data name="lblPAGESIZEMONITORINGOUTPUT" xml:space="preserve">
+    <value>PAGE SIZE MONITORING OUTPUT</value>
+    <comment>PAGE SIZE MONITORING OUTPUT</comment>
+  </data>
+  <data name="lblPAGESIZEMONITORINGOUTPUTRequire" xml:space="preserve">
+    <value>Please fill page size monitoring output.</value>
+    <comment>Please fill page size monitoring output.</comment>
+  </data>
+  <data name="lblPassword" xml:space="preserve">
+    <value>Password</value>
+    <comment>Password</comment>
+  </data>
+  <data name="lblPEMFormatAllowed" xml:space="preserve">
+    <value>Only formats are allowed : pem</value>
+    <comment>Only formats are allowed : pem</comment>
+  </data>
+  <data name="lblPermissions" xml:space="preserve">
+    <value>Permissions</value>
+    <comment>Permissions</comment>
+  </data>
+  <data name="lblPleaseRequiredPostLoadActionParameters" xml:space="preserve">
+    <value>Please select Post Load Action Parameters</value>
+    <comment>Please select Post Load Action Parameters</comment>
+  </data>
+  <data name="lblPort" xml:space="preserve">
+    <value>Port</value>
+    <comment>Port</comment>
+  </data>
+  <data name="lblPostLoadAction" xml:space="preserve">
+    <value>Post Load Action</value>
+    <comment>Post Load Action</comment>
+  </data>
+  <data name="lblProcessing" xml:space="preserve">
+    <value>Please wait while processing...</value>
+    <comment>Please wait while processing...</comment>
+  </data>
+  <data name="lblReassignReqiure" xml:space="preserve">
+    <value>Please select User to reassign</value>
+    <comment>Please select User to reassign</comment>
+  </data>
+  <data name="lblRequiredAccessKey" xml:space="preserve">
+    <value>Access Key is required</value>
+    <comment>Access Key is required</comment>
+  </data>
+  <data name="lblRequiredAccountKey" xml:space="preserve">
+    <value>Account Key is required</value>
+    <comment>Account Key is required</comment>
+  </data>
+  <data name="lblRequiredAccountName" xml:space="preserve">
+    <value>Account Name is required</value>
+    <comment>Account Name is required</comment>
+  </data>
+  <data name="lblRequiredConfigurationName" xml:space="preserve">
+    <value>Please select Configuration Name</value>
+    <comment>Please select Configuration Name</comment>
+  </data>
+  <data name="lblRequiredCountry" xml:space="preserve">
+    <value>Please select atleast one country.</value>
+    <comment>Please select atleast one country.</comment>
+  </data>
+  <data name="lblRequiredEndpointSuffix" xml:space="preserve">
+    <value>Endpoint Suffix is required</value>
+    <comment>Endpoint Suffix is required</comment>
+  </data>
+  <data name="lblRequiredExternalDataSource" xml:space="preserve">
+    <value>Please select External Data Source</value>
+    <comment>Please select External Data Source</comment>
+  </data>
+  <data name="lblRequiredFilePatternToMatch" xml:space="preserve">
+    <value>Please select File Pattern To Match</value>
+    <comment>Please select File Pattern To Match</comment>
+  </data>
+  <data name="lblRequiredGroupName" xml:space="preserve">
+    <value>Please fill Group Name.</value>
+    <comment>Please fill Group Name.</comment>
+  </data>
+  <data name="lblRequiredHost" xml:space="preserve">
+    <value>Host is required</value>
+    <comment>Host is required</comment>
+  </data>
+  <data name="lblRequiredPassword" xml:space="preserve">
+    <value>Password is required</value>
+    <comment>Password is required</comment>
+  </data>
+  <data name="lblRequiredSecurityKey" xml:space="preserve">
+    <value>Security Key is required</value>
+    <comment>Security Key is required</comment>
+  </data>
+  <data name="lblRequiredServiceURL" xml:space="preserve">
+    <value>Service URL is required</value>
+    <comment>Service URL is required</comment>
+  </data>
+  <data name="lblRequiredSFTPHost" xml:space="preserve">
+    <value>SFTP Host is required</value>
+    <comment>SFTP Host is required</comment>
+  </data>
+  <data name="lblRequiredSFTPUserName" xml:space="preserve">
+    <value>SFTP User Name is required</value>
+    <comment>SFTP User Name is required</comment>
+  </data>
+  <data name="lblRequiredUserName" xml:space="preserve">
+    <value>User Name is required</value>
+    <comment>User Name is required</comment>
+  </data>
+  <data name="lblRequiredSourceFolderPath" xml:space="preserve">
+    <value>Please select Source Folder Path</value>
+    <comment>Please select Source Folder Path</comment>
+  </data>
+  <data name="lblRequiredTemplateName" xml:space="preserve">
+    <value>Please select Template</value>
+    <comment>Please select Template</comment>
+  </data>
+  <data name="lblSAMLUser" xml:space="preserve">
+    <value>SAML User</value>
+    <comment>SAML User</comment>
+  </data>
+  <data name="lblSave" xml:space="preserve">
+    <value>Save</value>
+    <comment>Save</comment>
+  </data>
+  <data name="lblSecurityKey" xml:space="preserve">
+    <value>Security Key</value>
+    <comment>Security Key</comment>
+  </data>
+  <data name="lblSecurityTags" xml:space="preserve">
+    <value>Security Tags</value>
+    <comment>Security Tags</comment>
+  </data>
+  <data name="lblSelectConfigurationName" xml:space="preserve">
+    <value>Configuration Name</value>
+    <comment>Configuration Name</comment>
+  </data>
+  <data name="lblSelectExternalDataSource" xml:space="preserve">
+    <value>External Data Source</value>
+    <comment>External Data Source</comment>
+  </data>
+  <data name="lblSelectFilePatternToMatch" xml:space="preserve">
+    <value>File Pattern To Match</value>
+    <comment>File Pattern To Match</comment>
+  </data>
+  <data name="lblSelectFileTemplate" xml:space="preserve">
+    <value>File Template</value>
+    <comment>File Template</comment>
+  </data>
+  <data name="lblSelectPostLoadAction" xml:space="preserve">
+    <value>Post Load Action</value>
+    <comment>Post Load Action</comment>
+  </data>
+  <data name="lblSelectPostLoadActionParameters" xml:space="preserve">
+    <value>Post Load Action Parameters</value>
+    <comment>Post Load Action Parameters</comment>
+  </data>
+  <data name="lblSelectSourceFolderPath" xml:space="preserve">
+    <value>Source Folder Path</value>
+    <comment>Source Folder Path</comment>
+  </data>
+  <data name="lblServerName" xml:space="preserve">
+    <value>Server Name</value>
+    <comment>Server Name</comment>
+  </data>
+  <data name="lblServiceURL" xml:space="preserve">
+    <value>Service URL</value>
+    <comment>Service URL</comment>
+  </data>
+  <data name="lblSFOrganizationId" xml:space="preserve">
+    <value>SFOrganizationId</value>
+    <comment>SFOrganizationId</comment>
+  </data>
+  <data name="lblSFTP" xml:space="preserve">
+    <value>SFTP</value>
+    <comment>SFTP</comment>
+  </data>
+  <data name="lblSFTPConnectionNotDone" xml:space="preserve">
+    <value>Connection is not Established with SFTP</value>
+    <comment>Connection is not Established with SFTP</comment>
+  </data>
+  <data name="lblSSHKey" xml:space="preserve">
+    <value>SSH Key</value>
+    <comment>SSH Key</comment>
+  </data>
+  <data name="lblSourceFolderPath" xml:space="preserve">
+    <value>Source Folder Path</value>
+    <comment>Source Folder Path</comment>
+  </data>
+  <data name="lblSSOUserRequire" xml:space="preserve">
+    <value>Please fill SSOUser.</value>
+    <comment>Please fill SSOUser.</comment>
+  </data>
+  <data name="lblStatus" xml:space="preserve">
+    <value>Status</value>
+    <comment>Status</comment>
+  </data>
+  <data name="lblSubDomain" xml:space="preserve">
+    <value>Sub Domain</value>
+    <comment>Sub Domain</comment>
+  </data>
+  <data name="lblSubmit" xml:space="preserve">
+    <value>Submit</value>
+    <comment>Submit</comment>
+  </data>
+  <data name="lblTableColumn" xml:space="preserve">
+    <value>Table Column</value>
+    <comment>Table Column</comment>
+  </data>
+  <data name="lblTag" xml:space="preserve">
+    <value>Tag</value>
+    <comment>Tag</comment>
+  </data>
+  <data name="lblTagbasedRules" xml:space="preserve">
+    <value>Tag based Rules</value>
+    <comment>Tag based Rules</comment>
+  </data>
+  <data name="lblTagRequire" xml:space="preserve">
+    <value>Please enter tag value.</value>
+    <comment>Please enter tag value.</comment>
+  </data>
+  <data name="lblTags" xml:space="preserve">
+    <value>Tags</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="lblTagType" xml:space="preserve">
+    <value>Tag Type</value>
+    <comment>Tag Type</comment>
+  </data>
+  <data name="lblTagValue" xml:space="preserve">
+    <value>Tag Value</value>
+    <comment>Tag Value</comment>
+  </data>
+  <data name="lblType" xml:space="preserve">
+    <value>Type</value>
+    <comment>Type</comment>
+  </data>
+  <data name="lblUpdate" xml:space="preserve">
+    <value>Update</value>
+    <comment>Update</comment>
+  </data>
+  <data name="lblUploadConfiguration" xml:space="preserve">
+    <value>Upload Configuration</value>
+    <comment>Upload Configuration</comment>
+  </data>
+  <data name="lblUser" xml:space="preserve">
+    <value>User</value>
+    <comment>User</comment>
+  </data>
+  <data name="lblUserComments" xml:space="preserve">
+    <value>User Comments</value>
+    <comment>User Comments</comment>
+  </data>
+  <data name="lblUserName" xml:space="preserve">
+    <value>User Name</value>
+    <comment>User Name</comment>
+  </data>
+  <data name="lblUserNameRequire" xml:space="preserve">
+    <value>Please fill User Name.</value>
+    <comment>Please fill User Name.</comment>
+  </data>
+  <data name="lblUsers" xml:space="preserve">
+    <value>Users</value>
+    <comment>Users</comment>
+  </data>
+  <data name="lblUserStatusCode" xml:space="preserve">
+    <value>User Status Code</value>
+    <comment>User Status Code</comment>
+  </data>
+  <data name="lblUserTypeCode" xml:space="preserve">
+    <value>User Type Code</value>
+    <comment>User Type Code</comment>
+  </data>
+  <data name="lblValidInactiveDays" xml:space="preserve">
+    <value>Please enter valid value between 30 and 365.</value>
+    <comment>Please enter valid value between 30 and 365.</comment>
+  </data>
+  <data name="lblValidTag" xml:space="preserve">
+    <value>Please enter only alphanumeric,hyphen or underscore</value>
+    <comment>Please enter only alphanumeric,hyphen or underscore</comment>
+  </data>
+  <data name="lblVersion" xml:space="preserve">
+    <value>Version</value>
+    <comment>Version</comment>
+  </data>
+  <data name="lblYourAPIKEY" xml:space="preserve">
+    <value>Your API KEY</value>
+    <comment>Your API KEY</comment>
+  </data>
+  <data name="msgAllowedFormats" xml:space="preserve">
+    <value>Only formats allowed are :</value>
+    <comment>Only formats allowed are :</comment>
+  </data>
+  <data name="msgAllowOnlyNumbers" xml:space="preserve">
+    <value>Only numeric values accepted.</value>
+    <comment>Only numeric values accepted.</comment>
+  </data>
+  <data name="msgDataCreated" xml:space="preserve">
+    <value>Data created successfully.</value>
+    <comment>Data created successfully.</comment>
+  </data>
+  <data name="msgDataDeleted" xml:space="preserve">
+    <value>Data deleted successfully</value>
+    <comment>Data deleted successfully</comment>
+  </data>
+  <data name="msgDeleteRecord" xml:space="preserve">
+    <value>Are you sure you want to delete record ?</value>
+    <comment>Are you sure you want to delete record ?</comment>
+  </data>
+  <data name="msgDeleteUser" xml:space="preserve">
+    <value>Are you sure you want to delete this user ?</value>
+    <comment>Are you sure you want to delete this user ?</comment>
+  </data>
+  <data name="msgExistsFail" xml:space="preserve">
+    <value>ExistsFail</value>
+    <comment>ExistsFail</comment>
+  </data>
+  <data name="msgNothingToMove" xml:space="preserve">
+    <value>Nothing to move.</value>
+    <comment>Nothing to move.</comment>
+  </data>
+  <data name="msgOverwrite" xml:space="preserve">
+    <value>Do you want to overwrite ?</value>
+    <comment>Do you want to overwrite ?</comment>
+  </data>
+  <data name="msgSelectFile" xml:space="preserve">
+    <value>Please select file first.</value>
+    <comment>Please select file first.</comment>
+  </data>
+  <data name="msgTagExists" xml:space="preserve">
+    <value>This tag is already exists. Please enter other tag value.</value>
+    <comment>This tag is already exists. Please enter other tag value.</comment>
+  </data>
+  <data name="msgUpdatedSuccessfully" xml:space="preserve">
+    <value>updated successfully</value>
+    <comment>updated successfully</comment>
+  </data>
+  <data name="msgUploadData" xml:space="preserve">
+    <value>Please Upload Data first.</value>
+    <comment>Please Upload Data first.</comment>
+  </data>
+  <data name="msgUserDeleted" xml:space="preserve">
+    <value>User deleted successfully.</value>
+    <comment>User deleted successfully.</comment>
+  </data>
+  <data name="msgValidTag" xml:space="preserve">
+    <value>Please enter only alphanumeric,hyphen or underscore</value>
+    <comment>Please enter only alphanumeric,hyphen or underscore</comment>
+  </data>
+  <data name="placeholderConfigurationName" xml:space="preserve">
+    <value>Configuration Name</value>
+    <comment>Configuration Name</comment>
+  </data>
+  <data name="placeholderFilePattern" xml:space="preserve">
+    <value>File Pattern</value>
+    <comment>File Pattern</comment>
+  </data>
+  <data name="placeholderPostLoadActionParameters" xml:space="preserve">
+    <value>Post Load Action Parameters</value>
+    <comment>Post Load Action Parameters</comment>
+  </data>
+  <data name="placeholderSourceFolderPath" xml:space="preserve">
+    <value>Source Folder Path</value>
+    <comment>Source Folder Path</comment>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tilteAddCountryGroup" xml:space="preserve">
+    <value>Add New Country Group</value>
+    <comment>Add New Country Group</comment>
+  </data>
+  <data name="titleAddCompanyAttribute" xml:space="preserve">
+    <value>Add New Company Attribute</value>
+    <comment>Add New Company Attribute</comment>
+  </data>
+  <data name="titleAddConfigureImports" xml:space="preserve">
+    <value>Add Configure Imports</value>
+    <comment>Add Configure Imports</comment>
+  </data>
+  <data name="titleAddDPMFTP" xml:space="preserve">
+    <value>Add DPM FTP Configuration</value>
+    <comment>Add DPM FTP Configuration</comment>
+  </data>
+  <data name="titleAddEntity" xml:space="preserve">
+    <value>Add Entity</value>
+    <comment>Add Entity</comment>
+  </data>
+  <data name="titleAddNewTemplate" xml:space="preserve">
+    <value>Add New Template</value>
+    <comment>Add New Template</comment>
+  </data>
+  <data name="titleAddTag" xml:space="preserve">
+    <value>Add Tag</value>
+    <comment>Add Tag</comment>
+  </data>
+  <data name="titleAddUser" xml:space="preserve">
+    <value>Add New User</value>
+    <comment>Add New User</comment>
+  </data>
+  <data name="titleAddUsercomment" xml:space="preserve">
+    <value>Add User comment</value>
+    <comment>Add User comment</comment>
+  </data>
+  <data name="titleAPICredential" xml:space="preserve">
+    <value>API Credential</value>
+    <comment>API Credential</comment>
+  </data>
+  <data name="titleCountryGroupDataMatch" xml:space="preserve">
+    <value>Country Group | Data Match</value>
+    <comment>Country Group | Data Match</comment>
+  </data>
+  <data name="titleEditCompanyAttribute" xml:space="preserve">
+    <value>Edit Company Attribute</value>
+    <comment>Edit Company Attribute</comment>
+  </data>
+  <data name="titleEditCountryGroup" xml:space="preserve">
+    <value>Edit Country Group</value>
+    <comment>Edit Country Group</comment>
+  </data>
+  <data name="titleEditDPMFTP" xml:space="preserve">
+    <value>Edit DPM FTP Configuration</value>
+    <comment>Edit DPM FTP Configuration</comment>
+  </data>
+  <data name="titleEditTag" xml:space="preserve">
+    <value>Edit Tag</value>
+    <comment>Edit Tag</comment>
+  </data>
+  <data name="titleEditUser" xml:space="preserve">
+    <value>Edit User</value>
+    <comment>Edit User</comment>
+  </data>
+  <data name="titleEditUsercomment" xml:space="preserve">
+    <value>Edit User comment</value>
+    <comment>Edit User comment</comment>
+  </data>
+  <data name="titleImportData" xml:space="preserve">
+    <value>Import Data</value>
+    <comment>Import Data</comment>
+  </data>
+  <data name="titleImportdataintodatabase" xml:space="preserve">
+    <value>Import data into database</value>
+    <comment>Import data into database</comment>
+  </data>
+  <data name="titlePortal" xml:space="preserve">
+    <value>Portal</value>
+    <comment>Portal</comment>
+  </data>
+  <data name="titlePreviewTemplateDetail" xml:space="preserve">
+    <value>Preview Template Detail</value>
+    <comment>Preview Template Detail</comment>
+  </data>
+  <data name="lblRequiredFile" xml:space="preserve">
+    <value>Please select a file</value>
+    <comment>Please select a file</comment>
+  </data>
+  <data name="lblExternalDataSourceName" xml:space="preserve">
+    <value>External Data Source Name</value>
+    <comment>External Data Source Name</comment>
+  </data>
+  <data name="lblRequiredExternalDataSourceName" xml:space="preserve">
+    <value>External Data Source Name is required</value>
+    <comment>External Data Source Name is required</comment>
+  </data>
+  <data name="lblRequiredSFTPPort" xml:space="preserve">
+    <value>SFTP Port is required</value>
+    <comment>SFTP Port is required</comment>
+  </data>
+  <data name="lblAppendUTCTime" xml:space="preserve">
+    <value>Append UTC Time</value>
+    <comment>Append UTC Time</comment>
+  </data>
+  <data name="placeholderArchivePath" xml:space="preserve">
+    <value>Archive Path</value>
+    <comment>Archive Path</comment>
+  </data>
+  <data name="placeholderNewFileExtension" xml:space="preserve">
+    <value>New File Extension</value>
+    <comment>New File Extension</comment>
+  </data>
+</root>

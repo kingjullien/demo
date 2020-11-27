@@ -1,0 +1,255 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility
+@model  UsersEntity
+@using SBISCCMWeb.Controllers;
+
+@{
+    ViewBag.Title = "Matchbook | Add User detail";
+    int z = 0;
+}
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        OnSuccess = "UserUpdateSuccess",
+        UpdateTargetId = "replaceid"
+    };
+    string Messgae = Convert.ToString(ViewBag.Message);
+
+}
+@Scripts.Render("~/bundles/popupjs")
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+@Styles.Render("~/Content/popupcss")
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/bootbox.min.js"></script>
+<link href="~/Content/chosen.css" rel="stylesheet" />
+<div id="replaceid">
+    @Html.Hidden("Messgae", Messgae)
+</div>
+@Html.Hidden("TagList", Model.Tags)
+@using (Ajax.BeginForm("popupConfigData", "ConfigurationData", null, ajaxOptions, new { @class = "formContent", autocomplete = "off", id = "form_ConfigData" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("Tags", z)
+    <div id="content" style="opacity: 1;">
+        <section id="widget-grid" class="">
+            <article class="sortable-grid ui-sortable col-md-12">
+                <div class="form-group">
+                    <div class="text-center margin-10">
+                        @if (@ViewBag.Message != null)
+                        {
+                            <div class="alert alert-block alert-success" style="display:none;">
+                                <a class="close" href="#" data-dismiss="alert" onclick="closemsg()">×</a>
+                                <h4 class="alert-heading">
+                                    <i class="fa fa-check-square-o"></i>
+                                    @ViewBag.Message
+                                </h4>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div id="wid-id-1" class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            @if (Model.UserId > 0)
+                            {
+                                <strong>Edit User detail</strong>
+                            }
+                            else
+                            {
+                                <strong>Add User detail</strong>
+                            }
+
+                        </h2>
+                        @*<ul id="widget-tab-Company" class="nav pull-right nav-pills ">
+                                <li>
+                                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                                </li>
+                            </ul>*@
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content">
+                                <div id="hr1" class="tab-pane fade active in CustomHidden">
+                                    <div id="popupConfigData">
+                                        <div class="table-bordered match-table">
+                                            <div class="newautodiv">
+                                                <table class="textBlue borderNone table panel-group customTable2">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="tableBorder-none">
+                                                                <div class="form-group popupAACRow">
+                                                                    <div class="row">
+                                                                        <label class="control-label col-md-3 text-right lbltop">Name :</label>
+                                                                        <div class="col-md-8 col-sm-8">
+                                                                            @Html.TextBoxFor(@model => @model.UserName, new { @class = "form-control" })
+                                                                            <span id="spnUserName" class="error" style="display:none;">Please fill User Name.</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                @*<div class="form-group popupAACRow">
+                                                                        <div class="row">
+                                                                            <label class="control-label col-md-3 text-right lbltop">Login Id :</label>
+                                                                            <div class="col-md-8 col-sm-8">
+                                                                                @Html.TextBoxFor(@model => @model.LoginId, new { @class = "form-control" })
+                                                                                <span id="spnLoginId" class="error" style="display:none;">Please fill Login Id.</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>*@
+                                                                <div class="form-group popupAACRow">
+                                                                    <div class="row">
+                                                                        <label class="control-label col-md-3 text-right lbltop">Email :</label>
+                                                                        <div class="col-md-8 col-sm-8">
+                                                                            @Html.TextBoxFor(@model => @model.EmailAddress, new { onfocus = "this.removeAttribute('readonly');", @readonly = true, @class = "form-control nonReadOnly", autocomplete = "off" })
+                                                                            <span id="spnEmail" class="error" style="display:none;">Please fill email address.</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                @if (Model.UserId == 0)
+                                                                {
+                                                                    @*<div class="form-group popupAACRow">
+                                                                            <div class="row">
+                                                                                <label class="control-label col-md-3 text-right lbltop">Password :</label>
+                                                                                <div class="col-md-8 col-sm-8">
+
+                                                                                    @Html.TextBoxFor(@model => @model.PasswordHash, new { onfocus = "this.removeAttribute('readonly');", @readonly = true, @class = "form-control nonReadOnly", Type = "password", autocomplete = "off" })
+                                                                                    <span id="spnpassword" class="error" style="display:none;">Please fill Password.</span>
+                                                                                    <span id="spnpasswordLength" class="error" style="display:none;">The Password must be at least 8 characters long, contain alpha numeric characters and atleast one special character.</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>*@
+                                                                }
+                                                                <div class="form-group popupAACRow">
+                                                                    <div class="row">
+                                                                        <label class="control-label col-md-3 text-right lbltop">User Status Code :</label>
+                                                                        <div class="col-md-8 col-sm-8">
+                                                                            @Html.DropDownListFor(@model => @model.UserStatusCode, new SelectList(new ConfigurationDataController().LoadUserStatus(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Code", "Value"), new { @class = "form-control selectbox" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group popupAACRow">
+                                                                    <div class="row">
+                                                                        <label class="control-label col-md-3 text-right lbltop">User Type Code :</label>
+                                                                        <div class="col-md-8 col-sm-8">
+                                                                            @Html.DropDownListFor(@model => @model.UserTypeCode, new SelectList(new ConfigurationDataController().LoadUserTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Code", "Value", "-1"), new { @class = "form-control selectbox" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                @if (Helper.LicenseEnableTags)
+                                                                { <div class="form-group popupAACRow">
+                                                                    <div class="row">
+                                                                        <label class="control-label col-md-3 text-right lbltop">LOB Tag :</label>
+                                                                        <div class="col-md-8 col-sm-8 pull-md-left tagstylebox">
+                                                                            @Html.DropDownList("LOBTag", new SelectList(SBISCCMWeb.Controllers.DataController.GetTagByTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag"), "Select LOG Tag", new { @class = "form-control" })
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group popupAACRow">
+                                                                    <div class="row">
+                                                                        <label class="control-label col-md-3 text-right lbltop">Security Tags :</label>
+                                                                        <div class="col-md-5 col-sm-5 pull-md-left tagstylebox">
+                                                                            @Html.DropDownList("TagsValue", new SelectList(SBISCCMWeb.Controllers.DataController.GetAllTags(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag"), new { @class = "form-control chzn-select", multiple = "true" })
+                                                                            <i class="fa fa-plus OpenTags"></i>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                }
+
+                                                                <div class="form-group popupAACRow">
+                                                                    <div class="row">
+                                                                        <div class="col-md-2">
+                                                                        </div>
+                                                                        <div class="col-md-3 text-align-right ">
+                                                                            <label class="control-label text-right lbltop checkboxalign">Is Approver :</label>
+                                                                            @Html.CheckBoxFor(@model => @model.IsApprover, new { @class = "" })
+                                                                        </div>
+                                                                        @if (Helper.LicenseEnableInvestigations)
+                                                                        {
+                                                                            <div class="col-md-3 text-align-right">
+                                                                                <label class="control-label text-right lbltop checkboxalign">Enable Investigations:</label>
+                                                                                @Html.CheckBoxFor(@model => @model.EnableInvestigations, new { @class = "pull-lg-left" })
+                                                                            </div>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <div class="col-md-3 text-align-right">
+                                                                                <label class="control-label text-right lbltop checkboxalign">Enable Investigations:</label>
+                                                                                @Html.CheckBoxFor(@model => @model.EnableInvestigations, new { @class = "pull-lg-left", disabled = "disabled" })
+                                                                            </div>
+                                                                        }
+                                                                        <div class="col-md-4 text-align-left">
+                                                                            <label class="control-label text-right lbltop checkboxalign">Enable Reject/Purge data:</label>
+                                                                            @Html.CheckBoxFor(@model => @model.EnablePurgeData, new { @class = "pull-lg-left" })
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group popupAACRow">
+                                                                    <div class="row">
+                                                                        <div class="col-md-2">
+                                                                        </div>
+                                                                        <div class="col-md-4 text-align-right margin-left-13">
+                                                                            <label class="control-label text-right lbltop checkboxalign">Enable Search By DUNS:</label>
+                                                                            @Html.CheckBoxFor(@model => @model.EnableSearchByDUNS, new { @class = "pull-lg-left" })
+                                                                        </div>
+                                                                        <div class="col-md-5 text-align-left">
+                                                                            <label class="control-label text-right lbltop checkboxalign">Enable Create Auto Accept Rules:</label>
+                                                                            @Html.CheckBoxFor(@model => @model.EnableCreateAutoAcceptRules, new { @class = "pull-lg-left" })
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group popupAACRow">
+                                                                    <div class="row">
+                                                                        <div class="col-md-12 text-center">
+                                                                            @Html.HiddenFor(@model => @model.UserId)
+                                                                            @Html.HiddenFor(@model => @model.tmpName)
+                                                                            @Html.HiddenFor(@model => @model.SecurityStamp)
+
+                                                                            @if (Model.UserId > 0)
+                                                                            {
+                                                                                <input type="submit" value="Update" id="btnConfigDataUser" name="btnConfigDataUser" class="btn btn-primary btnConfigDataUser" />
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <input type="submit" value="Add" id="btnConfigDataUser" name="btnConfigDataUser" class="btn btn-primary btnConfigDataUser" />
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </article>
+        </section>
+    </div>
+    <div class="loaderMain" id="divProgress">
+        <div class="loaderDiv">
+            <p class="loaderTxt">Please wait while processing...</p>
+        </div>
+    </div>
+}
+<script src="~/Scripts/CustomJS-minified/ConfigurationData.js"></script>
+<script src="~/Scripts/CustomJS-minified/AddUser.js"></script>
+<script src="~/Scripts/CustomJS-minified/Common.js"></script>
+<script src="~/Scripts/chosen.jquery.js"></script>
+
+
+

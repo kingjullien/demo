@@ -1,0 +1,985 @@
+﻿@using SBISCCMWeb.Utility
+@model SBISCCMWeb.Models.PreviewMatchData.Main.DunsInfo
+
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.Matchbook) + " | MatchBookData";
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.DandB) + " | MatchBookData";
+    }
+
+    Layout = null;
+}
+
+
+<link rel="stylesheet" type="text/css" media="all" href="@Server.MapPath("~/Content/Template/css/bootstrap.min.css")">
+<link rel="stylesheet" type="text/css" media="all" href="@Server.MapPath("~/Content/Template/css/font-awesome.min.css")">
+<link rel="stylesheet" type="text/css" media="screen" href="@Server.MapPath("~/Content/Template/css/smartadmin-production.min.css")">
+<link rel="stylesheet" type="text/css" media="screen" href="@Server.MapPath("~/Content/Template/css/smartadmin-skins.min.css")">
+<link href="@Server.MapPath("~/Content/Custom.css")" rel="stylesheet" />
+
+
+
+@*<link rel="stylesheet" type="text/css" media="all" href="~/Content/Template/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" media="all" href="~/Content/Template/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="~/Content/Template/css/smartadmin-production.min.css">
+    <link rel="stylesheet" type="text/css" media="screen" href="~/Content/Template/css/smartadmin-skins.min.css">
+    <link href="~/Content/Custom.css" rel="stylesheet" />*@
+
+
+<div id="content" style="opacity: 1;">
+    <style>
+        .padding-5 {
+            padding: 5px;
+        }
+
+        .padding-bottom-5 {
+            padding-bottom: 5px;
+        }
+
+        .breakhere {
+            display: block;
+            clear: both;
+            page-break-after: always;
+        }
+
+        .customBorder {
+            /*box-shadow: 2px 2px 5px #ccc !important;*/
+            border: 1px solid #ddd;
+        }
+    </style>
+
+    <section id="widget-grid" class="">
+        @if (Model.lstCurrentPrincipals.Count == 0 && Model.lstIndustryCodes.Count == 0 && Model.lstRegistrationNumbers.Count == 0 && Model.lstStockExchanges.Count == 0)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <span>No data available.</span>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="">
+                <div class="">
+                    <article class="customBorder">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading" style="text-align:center">
+                                <h2 style="float:none;font-size:20px!important">
+                                    <strong>@Model.Base.DnBDUNSNumber  - @Model.Base.primaryName</strong>
+                                </h2>
+                            </header>
+                            <div role="content">
+                                <div class="container breakhere">
+                                    <div class="row">
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="row">
+                                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5">
+                                                    <strong> Business Entity : </strong>
+                                                </div>
+                                                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5">
+                                                    @Model.Base.businessEntityTypeDescription
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5">
+                                                    <strong>Operating : </strong>
+                                                </div>
+                                                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5">
+                                                    @Model.Base.operatingStatus
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5">
+                                                    <strong>Primary Address :</strong>
+                                                </div>
+                                                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5">
+                                                    @{
+                                                        string MainPrimaryAddress = string.Empty;
+                                                        if (!string.IsNullOrEmpty(Model.Base.primaryAddressStreetLine1))
+                                                        {
+                                                            MainPrimaryAddress = Model.Base.primaryAddressStreetLine1;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(Model.Base.primaryAddressCity))
+                                                        {
+                                                            MainPrimaryAddress = MainPrimaryAddress + " , " + Model.Base.primaryAddressCity;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(Model.Base.primaryAddressState))
+                                                        {
+                                                            MainPrimaryAddress = MainPrimaryAddress + " , " + Model.Base.primaryAddressState;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(Model.Base.primaryAddressPostalCode))
+                                                        {
+                                                            MainPrimaryAddress = MainPrimaryAddress + " , " + Model.Base.primaryAddressPostalCode;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(Model.Base.primaryAddressCountryIsoAlpha2Code))
+                                                        {
+                                                            MainPrimaryAddress = MainPrimaryAddress + " , " + Model.Base.primaryAddressCountryIsoAlpha2Code;
+                                                        }
+                                                    }
+                                                    @MainPrimaryAddress
+
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 padding-5">
+                                                    <strong>Standalone : </strong>
+                                                </div>
+                                                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5">
+                                                    @Model.Base.isStandalone
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6">
+                                            <div class="row">
+                                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                    <strong>FamilyTree Roles Played : </strong>
+                                                    @*</div>
+                                                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 padding-5">*@
+
+                                                </div>
+                                                <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                    <span>@Model.Base.corporateLinkageFamilytreeRolesPlayedDescription1</span>
+                                                    <span>@(string.IsNullOrEmpty(Model.Base.corporateLinkageFamilytreeRolesPlayedDescription2) ? "" : " , " + Model.Base.corporateLinkageFamilytreeRolesPlayedDescription2 ) </span>
+                                                    <span>@(string.IsNullOrEmpty(Model.Base.corporateLinkageFamilytreeRolesPlayedDescription3) ? "" : " , " + Model.Base.corporateLinkageFamilytreeRolesPlayedDescription3 ) </span>
+                                                </div>
+                                                @*<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                        <span> @Model.Base.corporateLinkageFamilytreeRolesPlayedDescription2 </span>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                        <span>@Model.Base.corporateLinkageFamilytreeRolesPlayedDescription3</span>
+                                                    </div>*@
+                                            </div>
+                                            @{
+                                                string GlobalUltimateAdd = (string.IsNullOrEmpty(Model.Base.corporateLinkageGlobalUltimateStreetAddressLine1) ? "" : Model.Base.corporateLinkageGlobalUltimateStreetAddressLine1) +
+                                                                                            (string.IsNullOrEmpty(Model.Base.corporateLinkageGlobalUltimateState) ? "" : " , " + Model.Base.corporateLinkageGlobalUltimateState) +
+                                                                                            (string.IsNullOrEmpty(Model.Base.corporateLinkageGlobalUltimateStateAbbreviatedName) ? "" : " , " + Model.Base.corporateLinkageGlobalUltimateStateAbbreviatedName) +
+                                                                                            (string.IsNullOrEmpty(Model.Base.corporateLinkageGlobalUltimatePostalCode) ? "" : " , " + Model.Base.corporateLinkageGlobalUltimatePostalCode) +
+                                                                                            (string.IsNullOrEmpty(Model.Base.corporateLinkageGlobalUltimateCountryIsoAlpha2Code) ? "" : " , " + Model.Base.corporateLinkageGlobalUltimateCountryIsoAlpha2Code);
+
+                                                string DomesticUltimateAdd = (string.IsNullOrEmpty(Model.Base.corporateLinkageDomesticUltimateStreetAddressLine1) ? "" : Model.Base.corporateLinkageDomesticUltimateStreetAddressLine1) +
+                                                                                             (string.IsNullOrEmpty(Model.Base.corporateLinkageDomesticUltimateState) ? "" : " , " + Model.Base.corporateLinkageDomesticUltimateState) +
+                                                                                             (string.IsNullOrEmpty(Model.Base.corporateLinkageDomesticUltimateStateAbbreviatedName) ? "" : " , " + Model.Base.corporateLinkageDomesticUltimateStateAbbreviatedName) +
+                                                                                             (string.IsNullOrEmpty(Model.Base.corporateLinkageDomesticUltimatePostalCode) ? "" : " , " + Model.Base.corporateLinkageDomesticUltimatePostalCode) +
+                                                                                             (string.IsNullOrEmpty(Model.Base.corporateLinkageDomesticUltimateIsoAlpha2Code) ? "" : " , " + Model.Base.corporateLinkageDomesticUltimateIsoAlpha2Code);
+
+                                                string ParentAdd = (string.IsNullOrEmpty(Model.Base.corporateLinkageParentStreetAddressLine1) ? "" : Model.Base.corporateLinkageParentStreetAddressLine1) +
+                                                                                            (string.IsNullOrEmpty(Model.Base.corporateLinkageParentState) ? "" : " , " + Model.Base.corporateLinkageParentState) +
+                                                                                            (string.IsNullOrEmpty(Model.Base.corporateLinkageParentStateAbbreviatedName) ? "" : " , " + Model.Base.corporateLinkageParentStateAbbreviatedName) +
+                                                                                            (string.IsNullOrEmpty(Model.Base.corporateLinkageParentPostalCode) ? "" : " , " + Model.Base.corporateLinkageParentPostalCode) +
+                                                                                            (string.IsNullOrEmpty(Model.Base.corporateLinkageParentIsoAlpha2Code) ? "" : " , " + Model.Base.corporateLinkageParentIsoAlpha2Code);
+                                            }
+
+
+                                            @if (Model.Base.corporateLinkageGlobalUltimateDuns == Model.Base.corporateLinkageDomesticUltimateDuns && Model.Base.corporateLinkageGlobalUltimateDuns == Model.Base.corporateLinkageParentDuns)
+                                            {
+                                                if (!string.IsNullOrEmpty(GlobalUltimateAdd))
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                            <strong>Global Ultimate /<br /> Domestic Ultimate /<br /> Parent : </strong>
+                                                        </div>
+                                                        <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                            <span>@Model.Base.corporateLinkageGlobalUltimateDuns @Model.Base.corporateLinkageGlobalUltimatePrimaryName</span>
+                                                            <br />
+                                                            <span>@GlobalUltimateAdd</span>
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                            }
+                                            else if (Model.Base.corporateLinkageGlobalUltimateDuns == Model.Base.corporateLinkageDomesticUltimateDuns)
+                                            {
+                                                if (!string.IsNullOrEmpty(GlobalUltimateAdd))
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                            <strong>Global Ultimate / <br />Domestic Ultimate : </strong>
+                                                        </div>
+                                                        <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                            <span>@Model.Base.corporateLinkageGlobalUltimateDuns @Model.Base.corporateLinkageGlobalUltimatePrimaryName</span><br />
+                                                            <span>@GlobalUltimateAdd</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                if (!string.IsNullOrEmpty(ParentAdd))
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                            <strong>Parent : </strong>
+                                                        </div>
+                                                        <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+
+                                                            <span>@Model.Base.corporateLinkageParentDuns @Model.Base.corporateLinkageParentName</span>
+                                                            <br />
+                                                            <span>@ParentAdd</span>
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                            }
+                                            else if (Model.Base.corporateLinkageGlobalUltimateDuns == Model.Base.corporateLinkageParentDuns)
+                                            {
+                                                if (!string.IsNullOrEmpty(GlobalUltimateAdd))
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                            <strong>Global Ultimate /<br /> Parent : </strong>
+                                                        </div>
+                                                        <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+
+                                                            <span>@Model.Base.corporateLinkageGlobalUltimateDuns @Model.Base.corporateLinkageGlobalUltimatePrimaryName</span>
+                                                            <br />
+                                                            <span>@GlobalUltimateAdd</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                if (!string.IsNullOrEmpty(DomesticUltimateAdd))
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                            <strong>Domestic Ultimate :  </strong>
+                                                        </div>
+                                                        <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+
+                                                            <span>@Model.Base.corporateLinkageDomesticUltimateDuns @Model.Base.corporateLinkageDomesticUltimatePrimaryName</span>
+                                                            <br />
+                                                            <span>@DomesticUltimateAdd</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                            else if (Model.Base.corporateLinkageDomesticUltimateDuns == Model.Base.corporateLinkageParentDuns)
+                                            {
+                                                if (!string.IsNullOrEmpty(GlobalUltimateAdd))
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                            <strong>Global Ultimate : </strong>
+                                                        </div>
+                                                        <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+
+                                                            <span>@Model.Base.corporateLinkageGlobalUltimateDuns @Model.Base.corporateLinkageGlobalUltimatePrimaryName</span>
+                                                            <br />
+                                                            <span>@GlobalUltimateAdd</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                if (!string.IsNullOrEmpty(DomesticUltimateAdd))
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                            <strong>Domestic Ultimate /<br /> Parent :  </strong>
+                                                        </div>
+                                                        <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+
+                                                            <span>@Model.Base.corporateLinkageDomesticUltimateDuns @Model.Base.corporateLinkageDomesticUltimatePrimaryName</span>
+                                                            <br />
+                                                            <span>@DomesticUltimateAdd</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (!string.IsNullOrEmpty(GlobalUltimateAdd))
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                            <strong>Global Ultimate : </strong>
+                                                        </div>
+                                                        <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+
+                                                            <span>@Model.Base.corporateLinkageGlobalUltimateDuns @Model.Base.corporateLinkageGlobalUltimatePrimaryName</span>
+                                                            <br />
+                                                            <span>@GlobalUltimateAdd</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                if (!string.IsNullOrEmpty(DomesticUltimateAdd))
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                            <strong>Domestic Ultimate : </strong>
+                                                        </div>
+                                                        <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                            <span>@Model.Base.corporateLinkageDomesticUltimateDuns @Model.Base.corporateLinkageDomesticUltimatePrimaryName</span>
+                                                            <br />
+                                                            <span>@DomesticUltimateAdd</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                                if (!string.IsNullOrEmpty(ParentAdd))
+                                                {
+                                                    <div class="row">
+                                                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 paddingRightLeftNone">
+                                                            <strong>Parent : </strong>
+                                                        </div>
+                                                        <div class="col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                            <span>@Model.Base.corporateLinkageParentDuns @Model.Base.corporateLinkageParentName</span><br />
+                                                            <span>@ParentAdd</span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+                <br />
+                <div id="Base" class="breakhere">
+                    <article class="sortable-grid ui-sortable keyword customBorder">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading">
+                                <h2>
+                                    <strong>Base</strong>
+                                </h2>
+                            </header>
+                            <div class="col-xs-12">
+
+                                <article class="sortable-grid ui-sortable keyword customBorder">
+                                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                                        <header role="heading">
+                                            <h2>
+                                                <strong>KEY INFORMATION</strong>
+                                            </h2>
+                                        </header>
+                                        <div class="col-xs-12">
+                                            <div class="col-xs-6">
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>Start Date : </strong>
+                                                    @Model.Base.startDate
+                                                    @if (Model != null && Model.Base != null & !string.IsNullOrEmpty(Model.Base.startDate))
+                                                    {
+                                                        <span>(Since @(Convert.ToInt32(DateTime.Now.Year) - Convert.ToInt32(Model.Base.startDate.Split('-').First())) years)</span>
+                                                    }
+
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <i class="fa fa-internet-explorer"></i> @Model.Base.websiteAddressUrl0
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <i class="fa fa-phone"></i> @Model.Base.telephoneNumber
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>Agent : </strong>
+                                                    @if (Model.Base.isAgent)
+                                                    {
+                                                        <text>Yes</text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>No</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>Marketable : </strong>
+                                                    @if (Model.Base.isMarketable)
+                                                    {
+                                                        <text>True</text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>False</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>Exporter : </strong>
+                                                    @if (Model.Base.isExporter)
+                                                    {
+                                                        <text>True</text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>False</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>Importer : </strong>
+                                                    @if (Model.Base.isImporter)
+                                                    {
+                                                        <text>True</text>
+                                                    }
+                                                    else
+                                                    {
+                                                        <text>False</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>US Tax ID : </strong>
+                                                    @Model.Base.UsTaxId
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>Sr. Principal : </strong>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.mostSeniorPrincipalFullName))
+                                                    {
+                                                        @Model.Base.mostSeniorPrincipalFullName
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription0))
+                                                    {
+                                                        @Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription0
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>Sr. Principal Responsibilities : </strong>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription0))
+                                                    {
+                                                        <text> @Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription0</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription1))
+                                                    {
+                                                        <text> @Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription1</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription2))
+                                                    {
+                                                        <text> @Model.Base.mostSeniorPrincipalManagementResponsibilitiesDescription2</text>
+                                                    }
+
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>TradeStyle Name : </strong>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.tradeStyleName0))
+                                                    {
+                                                        <text> @Model.Base.tradeStyleName0 </text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.tradeStyleName1))
+                                                    {
+                                                        <text> @Model.Base.tradeStyleName1</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.tradeStyleName2))
+                                                    {
+                                                        <text> @Model.Base.tradeStyleName2</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.tradeStyleName3))
+                                                    {
+                                                        <text> @Model.Base.tradeStyleName3</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.tradeStyleName4))
+                                                    {
+                                                        <text> @Model.Base.tradeStyleName4</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>Consolidate Employee Count : </strong>
+                                                    @Model.Base.ConsolidatedNumberOfEmployees
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.ConsolidatedReliabilityDescription))
+                                                    {
+                                                        <text>(</text>@Model.Base.ConsolidatedReliabilityDescription<text>)</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>Individual Employee Count : </strong>
+                                                    @Model.Base.IndividualNumberOfEmployees
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.IndividualReliabilityDescription))
+                                                    {
+                                                        <text>(</text>@Model.Base.IndividualReliabilityDescription<text>)</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>Revenue : </strong>
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.financialsYearlyRevenueCurrency1))
+                                                    {
+                                                        <text>@Model.Base.financialsYearlyRevenueCurrency1</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.financialsYearlyRevenueValue1))
+                                                    {
+                                                        <text>@Model.Base.financialsYearlyRevenueValue1</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.financialsReliabilityDescription))
+                                                    {
+                                                        <text>@Model.Base.financialsReliabilityDescription</text>
+                                                    }
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.financialsUnitCode))
+                                                    {
+                                                        <text>(</text>@Model.Base.financialsUnitCode<text>)</text>
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>MailUndeliverable : </strong>
+                                                    @Model.Base.isMailUndeliverable
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        Fax :
+                                                    </strong>
+                                                    @Model.Base.faxNumber
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        Delisted :
+                                                    </strong>
+                                                    @Model.Base.isDelisted
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>Control Ownership Date : </strong>
+                                                    @Model.Base.controlOwnershipDate
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>Primary Stock : </strong>
+                                                    @Model.Base.primaryStockSymbol
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <br />
+                                <article class="sortable-grid ui-sortable keyword customBorder">
+                                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                                        <header role="heading">
+                                            <h2>
+                                                <strong>CLASSIFICATION</strong>
+                                            </h2>
+                                        </header>
+                                        <div class="col-xs-12">
+                                            <div class="col-xs-6">
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        Primary SIC :
+                                                    </strong>
+                                                    @Model.Base.PrimarySic
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.PrimarySic))
+                                                    {
+                                                        <text>-</text> @Model.Base.PrimarySicDesc
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        Primary NAICS :
+                                                    </strong>
+                                                    @Model.Base.PrimaryNaics
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.PrimaryNaicsDesc))
+                                                    {
+                                                        <text>-</text> @Model.Base.PrimaryNaicsDesc
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        Primary SIC8 :
+                                                    </strong>
+                                                    @Model.Base.PrimarySic8
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.PrimarySic8Desc))
+                                                    {
+                                                        <text>-</text> @Model.Base.PrimarySic8Desc
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 padding-bottom-5">
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        Secondary SIC :
+                                                    </strong>
+                                                    @Model.Base.SecondSic
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.SecondSicDesc))
+                                                    {
+                                                        <text>-</text> @Model.Base.SecondSicDesc
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        Secondary NAICS :
+                                                    </strong>
+                                                    @Model.Base.SecondNaics
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.SecondNaicsDesc))
+                                                    {
+                                                        <text>-</text> @Model.Base.SecondNaicsDesc
+                                                    }
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        Secondary SIC8 :
+                                                    </strong>
+                                                    @Model.Base.SecondSic8
+                                                    @if (!string.IsNullOrWhiteSpace(Model.Base.SecondSic8Desc))
+                                                    {
+                                                        <text>-</text> @Model.Base.SecondSic8Desc
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+                                <br />
+                                <article class="sortable-grid ui-sortable keyword customBorder">
+                                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                                        <header role="heading">
+                                            <h2>
+                                                <strong>LOCATION</strong>
+                                            </h2>
+                                        </header>
+
+                                        <div class="">
+                                            <div class="col-xs-6">
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-5">
+                                                        <strong>
+                                                            Primary Address :
+                                                        </strong>
+                                                        @{
+                                                            string PrimaryAddress = string.Empty;
+                                                            if (!string.IsNullOrEmpty(Model.Base.primaryAddressStreetLine1))
+                                                            {
+                                                                PrimaryAddress = Model.Base.primaryAddressStreetLine1;
+                                                            }
+                                                            if (!string.IsNullOrEmpty(Model.Base.primaryAddressCity))
+                                                            {
+                                                                PrimaryAddress = PrimaryAddress + " , " + Model.Base.primaryAddressCity;
+                                                            }
+                                                            if (!string.IsNullOrEmpty(Model.Base.primaryAddressState))
+                                                            {
+                                                                PrimaryAddress = PrimaryAddress + " , " + Model.Base.primaryAddressState;
+                                                            }
+                                                            if (!string.IsNullOrEmpty(Model.Base.primaryAddressPostalCode))
+                                                            {
+                                                                PrimaryAddress = PrimaryAddress + " , " + Model.Base.primaryAddressPostalCode;
+                                                            }
+                                                            if (!string.IsNullOrEmpty(Model.Base.primaryAddressCountryIsoAlpha2Code))
+                                                            {
+                                                                PrimaryAddress = PrimaryAddress + " , " + Model.Base.primaryAddressCountryIsoAlpha2Code;
+                                                            }
+                                                        }
+                                                        @PrimaryAddress
+
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-5">
+                                                        <strong>Premises Area Measurement : </strong>
+
+                                                        @if (!string.IsNullOrEmpty(Model.Base.primaryAddressPremisesAreaMeasurement))
+                                                        {
+                                                            @Model.Base.primaryAddressPremisesAreaMeasurement
+                                                        }
+                                                        @if (!string.IsNullOrEmpty(Model.Base.primaryAddressPremisesAreaUnitDescription))
+                                                        {
+                                                            <text>,</text> @Model.Base.primaryAddressPremisesAreaUnitDescription
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 padding-5">
+                                                        <strong>Lat :</strong>
+                                                        @if (!string.IsNullOrEmpty(Model.Base.primaryAddressLatitude))
+                                                        {
+                                                            @Model.Base.primaryAddressLatitude <text>,</text>
+                                                        }
+                                                        <strong>&nbsp; Long : </strong>
+
+                                                        @if (!string.IsNullOrEmpty(Model.Base.primaryAddressLongitude))
+                                                        {
+                                                            @Model.Base.primaryAddressLongitude
+                                                        }
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 padding-5">
+                                                        <strong>Area Population Rank : </strong>
+                                                        @if (!string.IsNullOrEmpty(Model.Base.primaryAddressStatisticalAreaPopulationRank))
+                                                        {
+                                                            @Model.Base.primaryAddressLongitude
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>
+                                                        Registered Address :
+                                                    </strong>
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    @{
+                                                        string RegisteredAddress = string.Empty;
+
+                                                        if (!string.IsNullOrEmpty(Model.Base.registeredAddressStreetLine1))
+                                                        {
+                                                            RegisteredAddress = Model.Base.registeredAddressStreetLine1;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(Model.Base.registeredAddressCity))
+                                                        {
+                                                            RegisteredAddress = RegisteredAddress + " , " + Model.Base.registeredAddressCity;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(Model.Base.registeredAddressState))
+                                                        {
+                                                            RegisteredAddress = RegisteredAddress + " , " + Model.Base.registeredAddressState;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(Model.Base.registeredAddressPostalCode))
+                                                        {
+                                                            RegisteredAddress = RegisteredAddress + " , " + Model.Base.registeredAddressPostalCode;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(Model.Base.registeredAddressCountry))
+                                                        {
+                                                            RegisteredAddress = RegisteredAddress + " , " + Model.Base.registeredAddressCountry;
+                                                        }
+                                                    }
+                                                    @RegisteredAddress
+
+                                                </div>
+                                                <div class="col-12 padding-bottom-5">
+                                                    <strong>Mailing Address : </strong>
+                                                    @{
+                                                        string MailingAddress = string.Empty;
+                                                        if (!string.IsNullOrEmpty(Model.Base.mailingAddressStreetAddressLine1))
+                                                        {
+                                                            MailingAddress = @Model.Base.mailingAddressStreetAddressLine1;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(Model.Base.mailingAddressCity))
+                                                        {
+                                                            MailingAddress = MailingAddress + " , " + Model.Base.mailingAddressCity;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(Model.Base.mailingAddressState))
+                                                        {
+                                                            MailingAddress = MailingAddress + " , " + Model.Base.mailingAddressState;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(Model.Base.mailingAddressPostalCode))
+                                                        {
+                                                            MailingAddress = MailingAddress + " , " + Model.Base.mailingAddressPostalCode;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(Model.Base.mailingAddressCountryIsoAlpha2Code))
+                                                        {
+                                                            MailingAddress = MailingAddress + " , " + Model.Base.mailingAddressCountryIsoAlpha2Code;
+                                                        }
+                                                    }
+                                                    @MailingAddress
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="CompanyClassification" class="breakhere">
+                    <article class="sortable-grid ui-sortable keyword customBorder">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading">
+                                <h2>
+                                    <strong>Company Classification</strong>
+                                </h2>
+                            </header>
+                            <div class="col-xs-12">
+                                <div class="table-responsive wrap">
+                                    <table id="accordion" class="table table-bordered panel-group customTable" role="grid">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Classification Type
+                                                </th>
+                                                <th>
+                                                    Industry Classification Code
+                                                </th>
+                                                <th>
+                                                    Industry classification
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.lstIndustryCodes.Count > 0)
+                                            {
+                                                foreach (var item in Model.lstIndustryCodes)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @item.typeDescription
+                                                        </td>
+                                                        <td>
+                                                            @item.typeCode
+                                                        </td>
+                                                        <td>
+                                                            @item.industryDescription
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="3">No data available.</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="RegistrationNumbers" class="breakhere">
+                    <article class="sortable-grid ui-sortable keyword customBorder">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading">
+                                <h2>
+                                    <strong>Registration Numbers</strong>
+                                </h2>
+                            </header>
+                            <div class="col-xs-12">
+                                <div class="table-responsive wrap">
+                                    <table id="tblRegistration" class="table table-bordered panel-group customTable" role="grid">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Registration Number Type
+                                                </th>
+                                                <th>
+                                                    Registration Number
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.lstRegistrationNumbers.Count > 0)
+                                            {
+                                                foreach (var item in Model.lstRegistrationNumbers)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @item.registrationNumbersTypeDescription
+                                                        </td>
+                                                        <td>
+                                                            @item.registrationNumber
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="2">
+                                                        No data available.
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div id="SeniorManagement" class="breakhere">
+                    <article class="sortable-grid ui-sortable keyword customBorder">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading">
+                                <h2>
+                                    <strong>Senior Management</strong>
+                                </h2>
+                            </header>
+                            <div class="col-xs-12">
+                                <div class="table-responsive wrap">
+                                    <table id="tblSeniorManagement" class="table table-bordered panel-group customTable" role="grid">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Name
+                                                </th>
+                                                <th>
+                                                    Job Title
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.lstCurrentPrincipals.Count > 0)
+                                            {
+                                                foreach (var item in Model.lstCurrentPrincipals)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @item.fullName
+                                                        </td>
+                                                        <td>
+                                                            @item.jobTitle
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="2">
+                                                        No data available.
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </article>
+                </div>
+                <div id="StockExchanges" class="">
+                    <article class="sortable-grid ui-sortable keyword customBorder">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading">
+                                <h2>
+                                    <strong>Stock Details</strong>
+                                </h2>
+                            </header> <div class="col-xs-12">
+                                <div class="table-responsive wrap">
+                                    <table id="tblStockExchange" class="table table-bordered panel-group customTable" role="grid">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Stock Symbol
+                                                </th>
+                                                <th>
+                                                    Description
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.lstStockExchanges.Count > 0)
+                                            {
+                                                foreach (var item in Model.lstStockExchanges)
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            @item.tickerName
+                                                        </td>
+                                                        <td>
+                                                            @item.description
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="2">
+                                                        No data available.
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </article>
+                </div>
+
+
+
+            </div>
+        }
+    </section>
+</div>

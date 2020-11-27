@@ -1,0 +1,2344 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrAddAdditionalAutoAcceptanceRules" xml:space="preserve">
+    <value>Añadir reglas adicionales de autoaceptación</value>
+    <comment>Add Additional Auto Acceptance Rules</comment>
+  </data>
+  <data name="hdrAddBusinessElements" xml:space="preserve">
+    <value>Agregar elementos del negocio</value>
+    <comment>Add Business Elements</comment>
+  </data>
+  <data name="hdrAddDUNStoregistration" xml:space="preserve">
+    <value>Agregar DUNS al registro</value>
+    <comment>Add DUNS to registration</comment>
+  </data>
+  <data name="hdrAddElementConditions" xml:space="preserve">
+    <value>Agregar condiciones de elementos</value>
+    <comment>Add Element Conditions</comment>
+  </data>
+  <data name="hdrAdditionalAutoAcceptFilter" xml:space="preserve">
+    <value>Filtro adicional de autoaceptación</value>
+    <comment>Additional Auto-Accept Filter</comment>
+  </data>
+  <data name="hdrAdditionalAutoAcceptRules" xml:space="preserve">
+    <value>Reglas adicionales de autoaceptación</value>
+    <comment>Additional Auto-Accept Rules</comment>
+  </data>
+  <data name="hdrAutoAcceptanceFilter" xml:space="preserve">
+    <value>Filtro de autoaceptación</value>
+    <comment>Auto Acceptance Filter</comment>
+  </data>
+  <data name="hdrAutoRefreshEnrichmentSettings" xml:space="preserve">
+    <value>Actualizar ajustes de enriquecimiento automáticamente</value>
+    <comment>Auto Refresh Enrichment Settings</comment>
+  </data>
+  <data name="hdrBackgroundProcessSettings" xml:space="preserve">
+    <value>Ajustes del proceso de fondo</value>
+    <comment>Background Process Settings</comment>
+  </data>
+  <data name="hdrCachedDataSettings" xml:space="preserve">
+    <value>Ajustes de datos en caché</value>
+    <comment>Cached Data Settings</comment>
+  </data>
+  <data name="hdrDandBLicenseKeys" xml:space="preserve">
+    <value>Claves de licencia de D&amp;B</value>
+    <comment>D&amp;B License Keys</comment>
+  </data>
+  <data name="hdrDataBlockGroup" xml:space="preserve">
+    <value>Grupo de bloque de datos</value>
+    <comment>Data Block Group</comment>
+  </data>
+  <data name="hdrDataEnrichmentList" xml:space="preserve">
+    <value>Lista de Enriquecimiento de datos</value>
+    <comment>Data Enrichment List</comment>
+  </data>
+  <data name="hdrDeDuplicateData" xml:space="preserve">
+    <value>Borrar datos duplicados</value>
+    <comment>De-Duplicate Data</comment>
+  </data>
+  <data name="hdrDefaultKeysForUI" xml:space="preserve">
+    <value>Teclas predeterminadas para la IU</value>
+    <comment>Default Keys For UI</comment>
+  </data>
+  <data name="hdrDefineBusinessElements" xml:space="preserve">
+    <value>Definir elementos del negocio</value>
+    <comment>Define Business Elements</comment>
+  </data>
+  <data name="hdrDeleteCleanseMatchData" xml:space="preserve">
+    <value>Eliminar depuración de datos coincidentes</value>
+    <comment>Delete Cleanse Match Data</comment>
+  </data>
+  <data name="hdrDeleteEnrichmentData" xml:space="preserve">
+    <value>Eliminar datos de enriquecimiento</value>
+    <comment>Delete Enrichment Data</comment>
+  </data>
+  <data name="hdrDnBApiGroup" xml:space="preserve">
+    <value>Grupo DnBApi</value>
+    <comment>DnBApi Group</comment>
+  </data>
+  <data name="hdrDownloadCacheData" xml:space="preserve">
+    <value>Descargar datos de la caché</value>
+    <comment>Download Cache Data</comment>
+  </data>
+  <data name="hdrDUNSRegistrationSetup" xml:space="preserve">
+    <value>Configuración del registro DUNS</value>
+    <comment>DUNS Registration Setup</comment>
+  </data>
+  <data name="hdrDUNSRegistrationSetupList" xml:space="preserve">
+    <value>Lista de configuración del registro DUNS</value>
+    <comment>DUNS Registration Setup List</comment>
+  </data>
+  <data name="hdrEditAdditionalAutoAcceptanceRules" xml:space="preserve">
+    <value>Editar reglas adicionales de autoaceptación</value>
+    <comment>Edit Additional Auto Acceptance Rules</comment>
+  </data>
+  <data name="hdrEditBusinessElements" xml:space="preserve">
+    <value>Editar elementos del negocio</value>
+    <comment>Edit Business Elements</comment>
+  </data>
+  <data name="hdrExactMatchRequired" xml:space="preserve">
+    <value>Se requiere una coincidencia exacta</value>
+    <comment>Exact Match Required</comment>
+  </data>
+  <data name="hdrExclusionsforCleanseMatchAPICalls" xml:space="preserve">
+    <value>Exclusiones para la depuración de llamadas API coincidentes</value>
+    <comment>Exclusions for Cleanse Match API Calls</comment>
+  </data>
+  <data name="hdrGlobal MatchAutoAcceptanceSettings" xml:space="preserve">
+    <value>Ajustes de autoaceptación de coincidencias globales</value>
+    <comment>Global Match Auto-Acceptance Settings</comment>
+  </data>
+  <data name="hdrGlobalMatchAutoAcceptanceSettings" xml:space="preserve">
+    <value>Ajustes de autoaceptación de coincidencias globales</value>
+    <comment>Global Match Auto-Acceptance Settings</comment>
+  </data>
+  <data name="hdrGlobalMinimumMatchCriteria" xml:space="preserve">
+    <value>Criterios de coincidencia global mínima</value>
+    <comment>Global Minimum Match Criteria</comment>
+  </data>
+  <data name="hdrLicenseSettings" xml:space="preserve">
+    <value>Ajustes de la licencia</value>
+    <comment>License Settings</comment>
+  </data>
+  <data name="hdrMatchCandidates" xml:space="preserve">
+    <value>Emparejar candidatos</value>
+    <comment>Match Candidates</comment>
+  </data>
+  <data name="hdrMatchGrade" xml:space="preserve">
+    <value>Grado de coincidencia</value>
+    <comment>Match Grade</comment>
+  </data>
+  <data name="hdrMinimumMatchCriteriaOverride" xml:space="preserve">
+    <value>Anulación del criterio de coincidencia mínima</value>
+    <comment>Minimum Match Criteria Override</comment>
+  </data>
+  <data name="hdrMonitoringDirectPlus" xml:space="preserve">
+    <value>Monitoreo Direct+</value>
+    <comment>Monitoring Direct +</comment>
+  </data>
+  <data name="hdrMonitoringDUNSDetails" xml:space="preserve">
+    <value>Monitorear detalles del DUNS</value>
+    <comment>Monitoring DUNS Details</comment>
+  </data>
+  <data name="hdrMonitorProfile" xml:space="preserve">
+    <value>Perfil de monitoreo</value>
+    <comment>Monitor Profile</comment>
+  </data>
+  <data name="hdrMonitorProfileList" xml:space="preserve">
+    <value>Lista del perfil de monitoreo</value>
+    <comment>Monitor Profile List</comment>
+  </data>
+  <data name="hdrMultiPassConfiguration" xml:space="preserve">
+    <value>Configuración de múltiples pasadas</value>
+    <comment>Multi-Pass Configuration</comment>
+  </data>
+  <data name="hdrMultiPassPrecedence" xml:space="preserve">
+    <value>Prioridad de múltiples pasadas</value>
+    <comment>Multi-Pass Precedence</comment>
+  </data>
+  <data name="hdrMultiPassTagSelection" xml:space="preserve">
+    <value>Selección de etiquetas de varias pasadas</value>
+    <comment>Multi-Pass Tag Selection</comment>
+  </data>
+  <data name="hdrNotificationProfile" xml:space="preserve">
+    <value>Perfil de notificación</value>
+    <comment>Notification Profile</comment>
+  </data>
+  <data name="hdrNotificationProfileList" xml:space="preserve">
+    <value>Lista del perfil de notificación</value>
+    <comment>Notification Profile List</comment>
+  </data>
+  <data name="hdrOverrideDandBAPICredentials" xml:space="preserve">
+    <value>Anular las credenciales de la API de D&amp;B</value>
+    <comment>Override D&amp;B API Credentials</comment>
+  </data>
+  <data name="hdrOverrideList" xml:space="preserve">
+    <value>Anular lista</value>
+    <comment>Override List</comment>
+  </data>
+  <data name="hdrProcessSetting" xml:space="preserve">
+    <value>Ajuste del proceso</value>
+    <comment>Process Setting</comment>
+  </data>
+  <data name="hdrRegistrationDetails" xml:space="preserve">
+    <value>Datos de registro</value>
+    <comment>Registration Details</comment>
+  </data>
+  <data name="hdrRemoveDUNSregistration" xml:space="preserve">
+    <value>Eliminar DUNS del registro</value>
+    <comment>Remove DUNS from registration</comment>
+  </data>
+  <data name="hdrThirdPartyEnrichment" xml:space="preserve">
+    <value>Enriquecimiento de terceros</value>
+    <comment>ThirdParty Enrichment</comment>
+  </data>
+  <data name="hdrTM" xml:space="preserve">
+    <value>TM</value>
+    <comment>TM</comment>
+  </data>
+  <data name="hdrUserComment" xml:space="preserve">
+    <value>Comentario del usuario</value>
+    <comment>User Comment</comment>
+  </data>
+  <data name="hdrUserPreference" xml:space="preserve">
+    <value>Preferencia del usuario</value>
+    <comment>User Preference</comment>
+  </data>
+  <data name="hdrUserPreferenceList" xml:space="preserve">
+    <value>Lista de preferencias del usuario</value>
+    <comment>User Preference List</comment>
+  </data>
+  <data name="hdrVerificationGroup" xml:space="preserve">
+    <value>Grupos de verificación</value>
+    <comment>Verification Groups</comment>
+  </data>
+  <data name="lblA" xml:space="preserve">
+    <value>A</value>
+    <comment>A</comment>
+  </data>
+  <data name="lblAcceptActiveOnly" xml:space="preserve">
+    <value>Aceptar solo registros activos</value>
+    <comment>Accept Active Records Only</comment>
+  </data>
+  <data name="lblAcceptHQOnly" xml:space="preserve">
+    <value>Aceptar registro de la sede únicamente</value>
+    <comment>Accept Headquarters Record Only</comment>
+  </data>
+  <data name="lblAcceptLinkedOnly" xml:space="preserve">
+    <value>Aceptar solo registros vinculados</value>
+    <comment>Accept Linked Records Only</comment>
+  </data>
+  <data name="lblAcceptsExcelFiles" xml:space="preserve">
+    <value>(Solo acepta archivos de Excel)</value>
+    <comment>(Accepts only Excel files)</comment>
+  </data>
+  <data name="lblAcceptSingleOnly" xml:space="preserve">
+    <value>Aceptar solo registros de candidatos individuales</value>
+    <comment>Accept Single Candidate Records Only</comment>
+  </data>
+  <data name="lblActivationDateTime" xml:space="preserve">
+    <value>Activación Fecha Hora</value>
+    <comment>Activation Date Time</comment>
+  </data>
+  <data name="lblActiveRulesOnly" xml:space="preserve">
+    <value>Reglas activas</value>
+    <comment>Active Rules only</comment>
+  </data>
+  <data name="lblAdd" xml:space="preserve">
+    <value>Agregar</value>
+    <comment>Add</comment>
+  </data>
+  <data name="lblAddDandBLicenseKey" xml:space="preserve">
+    <value>Agregar claves de licencia de D&amp;B</value>
+    <comment>Add D&amp;B License Key</comment>
+  </data>
+  <data name="lblAddDUNSRegistration" xml:space="preserve">
+    <value>Agregar DUNS al registro</value>
+    <comment>Add DUNS to registration</comment>
+  </data>
+  <data name="lblAddElements" xml:space="preserve">
+    <value>Agregar elementos</value>
+    <comment>Add Elements</comment>
+  </data>
+  <data name="lblAdditionalActions" xml:space="preserve">
+    <value>acciones adicionales</value>
+    <comment>Additional Actions</comment>
+  </data>
+  <data name="lblAddNotification" xml:space="preserve">
+    <value>Crear perfil de notificación</value>
+    <comment>Create Notification Profile</comment>
+  </data>
+  <data name="lblAddress" xml:space="preserve">
+    <value>Dirección</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblAlwaysRefresh" xml:space="preserve">
+    <value>Actualizar siempre</value>
+    <comment>Always Refresh</comment>
+  </data>
+  <data name="lblAnd" xml:space="preserve">
+    <value>Y</value>
+    <comment>And</comment>
+  </data>
+  <data name="lblAPIFamily" xml:space="preserve">
+    <value>APIFamily</value>
+    <comment>APIFamily</comment>
+  </data>
+  <data name="lblAPIKey" xml:space="preserve">
+    <value>Clave API</value>
+    <comment>API Key</comment>
+  </data>
+  <data name="lblAPIKeyRequired" xml:space="preserve">
+    <value>Se requiere una clave API.</value>
+    <comment>API Key is required.</comment>
+  </data>
+  <data name="lblAPIPassword" xml:space="preserve">
+    <value>Contraseña de la API</value>
+    <comment>API Password</comment>
+  </data>
+  <data name="lblAPISecret" xml:space="preserve">
+    <value>Secreto de la API</value>
+    <comment>API Secret</comment>
+  </data>
+  <data name="lblAPISecretRequired" xml:space="preserve">
+    <value>Se requiere el secreto de la API.</value>
+    <comment>API Secret is required.</comment>
+  </data>
+  <data name="lblAPIType" xml:space="preserve">
+    <value>Tipo de API</value>
+    <comment>API Type</comment>
+  </data>
+  <data name="lblAPITypeRequire" xml:space="preserve">
+    <value>Seleccione el tipo de API.</value>
+    <comment>Please select API Type.</comment>
+  </data>
+  <data name="lblAPIUrl" xml:space="preserve">
+    <value>API de URL</value>
+    <comment>API Url</comment>
+  </data>
+  <data name="lblApply" xml:space="preserve">
+    <value>Aplicar</value>
+    <comment>Apply</comment>
+  </data>
+  <data name="lblAtleastOneproduct" xml:space="preserve">
+    <value>Por favor, seleccione al menos un producto.</value>
+    <comment>Please select atleast one product.</comment>
+  </data>
+  <data name="lblAutoAcceptance" xml:space="preserve">
+    <value>Autoaceptación</value>
+    <comment>Auto Acceptance</comment>
+  </data>
+  <data name="lblAutoAcceptanceCriteria" xml:space="preserve">
+    <value>Criterios de autoaceptación (buena coincidencia)</value>
+    <comment>Auto-Acceptance Criteria (Good Match)</comment>
+  </data>
+  <data name="lblAutoAcceptDirectives" xml:space="preserve">
+    <value>Directivas de autoaceptación</value>
+    <comment>Auto-Accept Directives</comment>
+  </data>
+  <data name="lblAutoRefreshEnrichmentSettings" xml:space="preserve">
+    <value>Actualizar ajustes de enriquecimiento automáticamente</value>
+    <comment>Auto Refresh Enrichment Settings</comment>
+  </data>
+  <data name="lblAutoRenew" xml:space="preserve">
+    <value>Renovación automática</value>
+    <comment>Auto Renew</comment>
+  </data>
+  <data name="lblAutoTransferDUNS" xml:space="preserve">
+    <value>Transferencia automática de DUNS</value>
+    <comment>Auto Transfer DUNS</comment>
+  </data>
+  <data name="lblAvailablePrecedence" xml:space="preserve">
+    <value>Prioridad disponible</value>
+    <comment>Available Precedence</comment>
+  </data>
+  <data name="lblB" xml:space="preserve">
+    <value>B</value>
+    <comment>B</comment>
+  </data>
+  <data name="lblBackToMonitoringProfile" xml:space="preserve">
+    <value>Volver al perfil de monitoreo</value>
+    <comment>Back To Monitoring Profile</comment>
+  </data>
+  <data name="lblBatchSize" xml:space="preserve">
+    <value>Tamaño del lote</value>
+    <comment>Batch Size</comment>
+  </data>
+  <data name="lblBatchSizeRequired" xml:space="preserve">
+    <value>Se requiere un tamaño de lote de depuración de coincidencias.</value>
+    <comment>Cleanse Match Batch Size is required.</comment>
+  </data>
+  <data name="lblBeginDate" xml:space="preserve">
+    <value>Fecha de inicio</value>
+    <comment>Begin Date</comment>
+  </data>
+  <data name="lblBillingEndorsementText" xml:space="preserve">
+    <value>Texto de aprobación de la facturación</value>
+    <comment>Billing Endorsement Text</comment>
+  </data>
+  <data name="lblBusinessName" xml:space="preserve">
+    <value>Nombre comercial</value>
+    <comment>Business Name</comment>
+  </data>
+  <data name="lblBusinessType" xml:space="preserve">
+    <value>Tipo de negocio</value>
+    <comment>Business Type</comment>
+  </data>
+  <data name="lblCacheDataDanBNote" xml:space="preserve">
+    <value>Por favor, póngase en contacto con el equipo de soporte de Dun &amp; Bradstreet para activar el almacenamiento de datos e introducir su código de cliente único.</value>
+    <comment>Please contact Dun &amp; Bradstreet Support team to enable data caching and enter your unique client code.</comment>
+  </data>
+  <data name="lblCacheDataMatchbookNote" xml:space="preserve">
+    <value>Por favor, póngase en contacto con el equipo de soporte de Matchbook Support para activar el almacenamiento de datos e introducir su código de cliente único.</value>
+    <comment>Please contact Matchbook Support team to enable data caching and enter your unique client code.</comment>
+  </data>
+  <data name="lblCancel" xml:space="preserve">
+    <value>Cancelar</value>
+    <comment>Cancel</comment>
+  </data>
+  <data name="lblCandidateRange" xml:space="preserve">
+    <value>El rango de resultados de los candidatos debe ser de 1 a 50</value>
+    <comment>Candidate Result range should 1 to 50</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>Ciudad</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCleanseMatchBatchSize" xml:space="preserve">
+    <value>Tamaño de lote de depuración de coincidencias</value>
+    <comment>Cleanse Match Batch Size</comment>
+  </data>
+  <data name="lblCleanseMatchBatchSizeRequired" xml:space="preserve">
+    <value>Se requiere un tamaño de lote de depuración de coincidencias.</value>
+    <comment>Cleanse Match Batch Size is required.</comment>
+  </data>
+  <data name="lblClearFilter" xml:space="preserve">
+    <value>Filtro claro</value>
+    <comment>Clear Filter</comment>
+  </data>
+  <data name="lblclickhere" xml:space="preserve">
+    <value>haga clic aquí</value>
+    <comment>click here</comment>
+  </data>
+  <data name="lblClientCode" xml:space="preserve">
+    <value>Código de cliente</value>
+    <comment>Client Code</comment>
+  </data>
+  <data name="lblComment" xml:space="preserve">
+    <value>Comentario</value>
+    <comment>Comment</comment>
+  </data>
+  <data name="lblCommentRequire" xml:space="preserve">
+    <value>Por favor, seleccione el comentario</value>
+    <comment>Please select comment</comment>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>Compañía</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCompanyName" xml:space="preserve">
+    <value>CompanyName</value>
+    <comment>CompanyName</comment>
+  </data>
+  <data name="lblCompanyScore" xml:space="preserve">
+    <value>Puntuación de la compañía</value>
+    <comment>Company Score</comment>
+  </data>
+  <data name="lblCompliance" xml:space="preserve">
+    <value>Conformidad</value>
+    <comment>Compliance</comment>
+  </data>
+  <data name="lblCompressedProductIndicator" xml:space="preserve">
+    <value>Indicador de productos comprimidos</value>
+    <comment>Compressed Product Indicator</comment>
+  </data>
+  <data name="lblCondition" xml:space="preserve">
+    <value>Condición</value>
+    <comment>Condition</comment>
+  </data>
+  <data name="lblConditions" xml:space="preserve">
+    <value>condiciones</value>
+    <comment>Conditions</comment>
+  </data>
+  <data name="lblConditionsRequired" xml:space="preserve">
+    <value>Se requieren condiciones.</value>
+    <comment>Conditions is required.</comment>
+  </data>
+  <data name="lblConfidenceCode" xml:space="preserve">
+    <value>Código de confianza</value>
+    <comment>Confidence Code</comment>
+  </data>
+  <data name="lblCountry" xml:space="preserve">
+    <value>País</value>
+    <comment>Country</comment>
+  </data>
+  <data name="lblCountryCode" xml:space="preserve">
+    <value>Código de país</value>
+    <comment>Country Code</comment>
+  </data>
+  <data name="lblCountryGroup" xml:space="preserve">
+    <value>Grupo de países</value>
+    <comment>Country Group</comment>
+  </data>
+  <data name="lblCountryGroupName" xml:space="preserve">
+    <value>Nombre del grupo de países</value>
+    <comment>Country Group Name</comment>
+  </data>
+  <data name="lblCreateConditions" xml:space="preserve">
+    <value>Crear condiciones</value>
+    <comment>Create Conditions</comment>
+  </data>
+  <data name="lblCreateDUNSRegistration" xml:space="preserve">
+    <value>Crear registro DUNS</value>
+    <comment>Create DUNS Registration</comment>
+  </data>
+  <data name="lblCreateMonitoringProfile" xml:space="preserve">
+    <value>Crear Perfil de monitoreo</value>
+    <comment>Create Monitoring Profile</comment>
+  </data>
+  <data name="lblCreateUserPreference" xml:space="preserve">
+    <value>Crear preferencia de usuario</value>
+    <comment>Create User Preference</comment>
+  </data>
+  <data name="lblCredential" xml:space="preserve">
+    <value>Credencial</value>
+    <comment>Credential</comment>
+  </data>
+  <data name="lblCredentialName" xml:space="preserve">
+    <value>Nombre de la credencial</value>
+    <comment>Credential Name</comment>
+  </data>
+  <data name="lblCredentialNameRequire" xml:space="preserve">
+    <value>Por favor, seleccione el nombre de la credencial.</value>
+    <comment>Please select Credential Name.</comment>
+  </data>
+  <data name="lblCredentialNameRequired" xml:space="preserve">
+    <value>Se requiere el nombre de la credencial</value>
+    <comment>Credential Name is required</comment>
+  </data>
+  <data name="lblCustomerReference" xml:space="preserve">
+    <value>Referencia de cliente</value>
+    <comment>Customer Reference</comment>
+  </data>
+  <data name="lblCustomerReferenceText" xml:space="preserve">
+    <value>Texto de referencia del cliente</value>
+    <comment>Customer Reference Text</comment>
+  </data>
+  <data name="lblDataBlockGroups" xml:space="preserve">
+    <value>Grupos de bloque de datos</value>
+    <comment>Data Block Groups</comment>
+  </data>
+  <data name="lblDataBlocks" xml:space="preserve">
+    <value>Bloques de datos</value>
+    <comment>Data Blocks</comment>
+  </data>
+  <data name="lblDataEnrichment" xml:space="preserve">
+    <value>Enriquecimiento de datos</value>
+    <comment>Data Enrichment</comment>
+  </data>
+  <data name="lblDataImportDuplicateHandling" xml:space="preserve">
+    <value>Manejo de duplicados de importación de datos</value>
+    <comment>Data Import Duplicate Handling</comment>
+  </data>
+  <data name="lblDataImportErrorResolution" xml:space="preserve">
+    <value>Resolución de errores en la importación de datos</value>
+    <comment>Data Import Error Resolution</comment>
+  </data>
+  <data name="lblDeDuplicateData" xml:space="preserve">
+    <value>Desduplicar datos</value>
+    <comment>De-Duplicate Data</comment>
+  </data>
+  <data name="lblDefaultPreference" xml:space="preserve">
+    <value>Preferencia por defecto</value>
+    <comment>Default Preference</comment>
+  </data>
+  <data name="lblDelete" xml:space="preserve">
+    <value>Eliminar</value>
+    <comment>Delete</comment>
+  </data>
+  <data name="lblDeleteAll" xml:space="preserve">
+    <value>Eliminar todos</value>
+    <comment>Delete All</comment>
+  </data>
+  <data name="lblDeleteCleanseMatchData" xml:space="preserve">
+    <value>Eliminar depuración de datos coincidentes</value>
+    <comment>Delete Cleanse Match Data</comment>
+  </data>
+  <data name="lblDeleteEnrichmentData" xml:space="preserve">
+    <value>Eliminar datos de enriquecimiento</value>
+    <comment>Delete Enrichment Data</comment>
+  </data>
+  <data name="lblDeliveryFrequency" xml:space="preserve">
+    <value>Frecuencia de entrega</value>
+    <comment>Delivery Frequency</comment>
+  </data>
+  <data name="lblDeliveryFrequencyRequired" xml:space="preserve">
+    <value>Se requiere una frecuencia de entrega.</value>
+    <comment>Delivery Frequency is required.</comment>
+  </data>
+  <data name="lblDeliveryTrigger" xml:space="preserve">
+    <value>Disparador de entrega</value>
+    <comment>Delivery Trigger</comment>
+  </data>
+  <data name="lblDensity" xml:space="preserve">
+    <value>Densidad</value>
+    <comment>Density</comment>
+  </data>
+  <data name="lblDescription" xml:space="preserve">
+    <value>Descripción</value>
+    <comment>Description</comment>
+  </data>
+  <data name="lblDescriptionRequired" xml:space="preserve">
+    <value>Se requiere el nombre de la descripción.</value>
+    <comment>Description Name is required.</comment>
+  </data>
+  <data name="lblDnBAddressUndeliverable" xml:space="preserve">
+    <value>DnBAddressUndeliverable</value>
+    <comment>DnBAddressUndeliverable</comment>
+  </data>
+  <data name="lblDnBConfidenceCode" xml:space="preserve">
+    <value>DnBConfidenceCode</value>
+    <comment>DnBConfidenceCode</comment>
+  </data>
+  <data name="lblDnBCountryCode" xml:space="preserve">
+    <value>Código de país DnB</value>
+    <comment>DnB Country Code</comment>
+  </data>
+  <data name="lblDnBDisplaySequence" xml:space="preserve">
+    <value>DnBDisplaySequence</value>
+    <comment>DnBDisplaySequence</comment>
+  </data>
+  <data name="lblDnBDUNSNumber" xml:space="preserve">
+    <value>DnBDUNSNumber</value>
+    <comment>DnBDUNSNumber</comment>
+  </data>
+  <data name="lblDnBFamilyTreeMemberRole" xml:space="preserve">
+    <value>DnBFamilyTreeMemberRole</value>
+    <comment>DnBFamilyTreeMemberRole</comment>
+  </data>
+  <data name="lblDnBMatchDataProfileText" xml:space="preserve">
+    <value>DnBMatchDataProfileText</value>
+    <comment>DnBMatchDataProfileText</comment>
+  </data>
+  <data name="lblDnBMatchGradeText" xml:space="preserve">
+    <value>DnBMatchGradeText</value>
+    <comment>DnBMatchGradeText</comment>
+  </data>
+  <data name="lblDnBMDPCount" xml:space="preserve">
+    <value>Conteo del MDP de DnB</value>
+    <comment>DnB MDP Count</comment>
+  </data>
+  <data name="lblDnBOperatingStatus" xml:space="preserve">
+    <value>DnBOperatingStatus</value>
+    <comment>DnBOperatingStatus</comment>
+  </data>
+  <data name="lblDnBOrganizationName" xml:space="preserve">
+    <value>DnBOrganizationName</value>
+    <comment>DnBOrganizationName</comment>
+  </data>
+  <data name="lblDnBPostalCode" xml:space="preserve">
+    <value>DnBPostalCode</value>
+    <comment>DnBPostalCode</comment>
+  </data>
+  <data name="lblDnBPostalCodeExtensionCode" xml:space="preserve">
+    <value>DnBPostalCodeExtensionCode</value>
+    <comment>DnBPostalCodeExtensionCode</comment>
+  </data>
+  <data name="lblDnBPrimaryTownName" xml:space="preserve">
+    <value>DnBPrimaryTownName</value>
+    <comment>DnBPrimaryTownName</comment>
+  </data>
+  <data name="lblDnBSeniorPrincipalName" xml:space="preserve">
+    <value>DnBSeniorPrincipalName</value>
+    <comment>DnBSeniorPrincipalName</comment>
+  </data>
+  <data name="lblDnBStandaloneOrganization" xml:space="preserve">
+    <value>DnBStandaloneOrganization</value>
+    <comment>DnBStandaloneOrganization</comment>
+  </data>
+  <data name="lblDnBStreetAddressLine" xml:space="preserve">
+    <value>DnBStreetAddressLine</value>
+    <comment>DnBStreetAddressLine</comment>
+  </data>
+  <data name="lblDnBTelephoneNumber" xml:space="preserve">
+    <value>DnBTelephoneNumber</value>
+    <comment>DnBTelephoneNumber</comment>
+  </data>
+  <data name="lblDnBTerritoryAbbreviatedName" xml:space="preserve">
+    <value>DnBTerritoryAbbreviatedName</value>
+    <comment>DnBTerritoryAbbreviatedName</comment>
+  </data>
+  <data name="lblDnBTradeStyleName" xml:space="preserve">
+    <value>DnBTradeStyleName</value>
+    <comment>DnBTradeStyleName</comment>
+  </data>
+  <data name="lblDontImportDataAlreadyMatchbookQueues" xml:space="preserve">
+    <value>No importar los datos que ya están en las colas de Matchbook</value>
+    <comment>Don't import data already in Matchbook Queues</comment>
+  </data>
+  <data name="lblDontimportdataSlreadyDunBradstreetQueues" xml:space="preserve">
+    <value>No importar los datos que ya están en las colas de Dun &amp; Bradstreet</value>
+    <comment>Don't import data already in Dun &amp; Bradstreet Queues</comment>
+  </data>
+  <data name="lblDOS1" xml:space="preserve">
+    <value>Grados de separación 1</value>
+    <comment>Degrees Of Separation 1</comment>
+  </data>
+  <data name="lblDOS2" xml:space="preserve">
+    <value>Grados de separación 2</value>
+    <comment>Degrees Of Separation 2</comment>
+  </data>
+  <data name="lblDOS3" xml:space="preserve">
+    <value>Grados de separación 3</value>
+    <comment>Degrees Of Separation 3</comment>
+  </data>
+  <data name="lblDOS4" xml:space="preserve">
+    <value>Grados de separación 4</value>
+    <comment>Degrees Of Separation 4</comment>
+  </data>
+  <data name="lblDOS5" xml:space="preserve">
+    <value>Grados de separación 5</value>
+    <comment>Degrees Of Separation 5</comment>
+  </data>
+  <data name="lblDOS6" xml:space="preserve">
+    <value>Grados de separación 6</value>
+    <comment>Degrees Of Separation 6</comment>
+  </data>
+  <data name="lblDOS7" xml:space="preserve">
+    <value>Grados de separación 7</value>
+    <comment>Degrees Of Separation 7</comment>
+  </data>
+  <data name="lblDownloadCacheData" xml:space="preserve">
+    <value>Descargar datos de la caché</value>
+    <comment>Download Cache Data</comment>
+  </data>
+  <data name="lblDownloadSamplefile" xml:space="preserve">
+    <value>Descargar archivo de muestra</value>
+    <comment>Download Sample file</comment>
+  </data>
+  <data name="lblDUNS" xml:space="preserve">
+    <value>DUNS</value>
+    <comment>DUNS</comment>
+  </data>
+  <data name="lblDunsCount" xml:space="preserve">
+    <value>Conteo de Duns</value>
+    <comment>Duns Count</comment>
+  </data>
+  <data name="lblDUNSDetail" xml:space="preserve">
+    <value>Detalle de DUNS</value>
+    <comment>DUNS Detail</comment>
+  </data>
+  <data name="lblDUNSNumber" xml:space="preserve">
+    <value>DUNSNumber</value>
+    <comment>DUNSNumber</comment>
+  </data>
+  <data name="lblDUNSRegistration" xml:space="preserve">
+    <value>En el caso de las listas de 100.000 o menos, se pueden presentar múltiples solicitudes por día, pero deben limitarse a 2 o 3</value>
+    <comment>For lists 100,000 or fewer, multiple requests per day can be submitted, but should be limited to 2 or 3</comment>
+  </data>
+  <data name="lblDUNSRegistrationSetup" xml:space="preserve">
+    <value>Configuración del registro DUNS</value>
+    <comment>DUNS Registration Setup</comment>
+  </data>
+  <data name="lblEdit" xml:space="preserve">
+    <value>Editar</value>
+    <comment>Edit</comment>
+  </data>
+  <data name="lblEditElements" xml:space="preserve">
+    <value>Editar elementos</value>
+    <comment>Edit Elements</comment>
+  </data>
+  <data name="lblElement" xml:space="preserve">
+    <value>Elemento</value>
+    <comment>Element</comment>
+  </data>
+  <data name="lblElementRequired" xml:space="preserve">
+    <value>Se requiere un elemento.</value>
+    <comment>Element is required.</comment>
+  </data>
+  <data name="lblEmail" xml:space="preserve">
+    <value>Correo electrónico</value>
+    <comment>Email</comment>
+  </data>
+  <data name="lblEmailRequired" xml:space="preserve">
+    <value>Se requiere un correo electrónico.</value>
+    <comment>Email is required.</comment>
+  </data>
+  <data name="lblEnable" xml:space="preserve">
+    <value>Habilitar</value>
+    <comment>Enable</comment>
+  </data>
+  <data name="lblEnableDataCacheCleanseMatch" xml:space="preserve">
+    <value>Habilitar la caché de datos para depuración de coincidencias</value>
+    <comment>Enable data cache for Cleanse Match</comment>
+  </data>
+  <data name="lblEnableDataCacheEnrichment" xml:space="preserve">
+    <value>Habilitar la caché de datos para el enriquecimiento</value>
+    <comment>Enable data cache for Enrichment</comment>
+  </data>
+  <data name="lblEnableInvestigation" xml:space="preserve">
+    <value>Habilitar la investigación</value>
+    <comment>Enable Investigation</comment>
+  </data>
+  <data name="lblEnableMissingDataFromProvider" xml:space="preserve">
+    <value>Habilitar los datos faltantes del proveedor</value>
+    <comment>Enable Missing Data From Provider</comment>
+  </data>
+  <data name="lblEnableMonitoring" xml:space="preserve">
+    <value>Habilitar el monitoreo</value>
+    <comment>Enable Monitoring</comment>
+  </data>
+  <data name="lblEnablePeriodicRefresh" xml:space="preserve">
+    <value>Habilitar actualización periódica</value>
+    <comment>Enable Periodic Refresh</comment>
+  </data>
+  <data name="lblEndDate" xml:space="preserve">
+    <value>Fecha de finalización</value>
+    <comment>End Date</comment>
+  </data>
+  <data name="lblEnrichmentGroupName" xml:space="preserve">
+    <value>Nombre del grupo de enriquecimiento</value>
+    <comment>Enrichment Group Name</comment>
+  </data>
+  <data name="lblEnrichmentSettingsforUIFirmographics" xml:space="preserve">
+    <value>Ajustes de enriquecimiento para la firmografía de la IU</value>
+    <comment>Enrichment Settings for UI Firmographics</comment>
+  </data>
+  <data name="lblEntitlements" xml:space="preserve">
+    <value>Derechos</value>
+    <comment>Entitlements</comment>
+  </data>
+  <data name="lblError" xml:space="preserve">
+    <value>Error</value>
+    <comment>Error</comment>
+  </data>
+  <data name="lblExample" xml:space="preserve">
+    <value>Ejemplo</value>
+    <comment>Example</comment>
+  </data>
+  <data name="lblExcludedCandidate" xml:space="preserve">
+    <value>ExcludedCandidate</value>
+    <comment>ExcludedCandidate</comment>
+  </data>
+  <data name="lblExcludeFromAutoAccept" xml:space="preserve">
+    <value>Excluir de la autoaceptación</value>
+    <comment>Exclude From Auto Accept</comment>
+  </data>
+  <data name="lblExclusionsforCleanseMatchAPI" xml:space="preserve">
+    <value>Exclusiones para la depuración de API coincidentes</value>
+    <comment>Exclusions for Cleanse Match API</comment>
+  </data>
+  <data name="lblExport" xml:space="preserve">
+    <value>Exportar</value>
+    <comment>Export</comment>
+  </data>
+  <data name="lblExportCSV" xml:space="preserve">
+    <value>Exportar a CSV</value>
+    <comment>Export to CSV</comment>
+  </data>
+  <data name="lblExportToExcel" xml:space="preserve">
+    <value>Exportar a Excel</value>
+    <comment>Export To Excel</comment>
+  </data>
+  <data name="lblF" xml:space="preserve">
+    <value>F</value>
+    <comment>F</comment>
+  </data>
+  <data name="lblFailImportOnError" xml:space="preserve">
+    <value>Error de importación en caso de error</value>
+    <comment>Fail Import On Error</comment>
+  </data>
+  <data name="lblFalse" xml:space="preserve">
+    <value>Falso</value>
+    <comment>False</comment>
+  </data>
+  <data name="lblFeature" xml:space="preserve">
+    <value>Función</value>
+    <comment>Feature</comment>
+  </data>
+  <data name="lblFieldRequired" xml:space="preserve">
+    <value>Se requiere campo</value>
+    <comment>Field is required</comment>
+  </data>
+  <data name="lblFields" xml:space="preserve">
+    <value>Campos</value>
+    <comment>Fields</comment>
+  </data>
+  <data name="lblFileTransferProfile" xml:space="preserve">
+    <value>Perfil de transferencia de archivos</value>
+    <comment>File Transfer Profile</comment>
+  </data>
+  <data name="lblFilterRecords" xml:space="preserve">
+    <value>Filtrar registros</value>
+    <comment>Filter Records</comment>
+  </data>
+  <data name="lblFirmographicAPI" xml:space="preserve">
+    <value>API firmográfica</value>
+    <comment>Firmographic API</comment>
+  </data>
+  <data name="lblFirstRowFileheader" xml:space="preserve">
+    <value>La primera fila es un encabezado de archivo</value>
+    <comment>First row is a file header</comment>
+  </data>
+  <data name="lblGlobalMatchAutoAcceptance" xml:space="preserve">
+    <value>Autoaceptación de coincidencias globales</value>
+    <comment>Global Match Auto-Acceptance</comment>
+  </data>
+  <data name="lblGoogle" xml:space="preserve">
+    <value>Google</value>
+    <comment>Google</comment>
+  </data>
+  <data name="lblGroupIdRequired" xml:space="preserve">
+    <value>El campo "groupId" es obligatorio.</value>
+    <comment>The groupId field is required.</comment>
+  </data>
+  <data name="lblGroupName" xml:space="preserve">
+    <value>Nombre del grupo</value>
+    <comment>Group Name</comment>
+  </data>
+  <data name="lblGroupNameRequire" xml:space="preserve">
+    <value>Por favor, ingrese el nombre del grupo.</value>
+    <comment>Please enter group name.</comment>
+  </data>
+  <data name="lblIdentityResolution" xml:space="preserve">
+    <value>Resolución de identidad</value>
+    <comment>Identity Resolution</comment>
+  </data>
+  <data name="lblImportData" xml:space="preserve">
+    <value>Importar datos</value>
+    <comment>Import Data</comment>
+  </data>
+  <data name="lblImportDatatoDB" xml:space="preserve">
+    <value>Importar datos a la base de datos</value>
+    <comment>Import data into database</comment>
+  </data>
+  <data name="lblInactiveRulesOnly" xml:space="preserve">
+    <value>Reglas inactivas</value>
+    <comment>Inactive Rules</comment>
+  </data>
+  <data name="lblInputHeader" xml:space="preserve">
+    <value>Ingresar encabezado</value>
+    <comment>Input Header</comment>
+  </data>
+  <data name="lblInquiryReferenceText" xml:space="preserve">
+    <value>Texto de referencia de la consulta</value>
+    <comment>Inquiry Reference Text</comment>
+  </data>
+  <data name="lblInquiryReferenceTextRequired" xml:space="preserve">
+    <value>Se requiere un texto de referencia de la consulta.</value>
+    <comment>Inquiry Reference Text is required.</comment>
+  </data>
+  <data name="lblInvestigations" xml:space="preserve">
+    <value>investigaciones</value>
+    <comment>Investigations</comment>
+  </data>
+  <data name="lblLevel" xml:space="preserve">
+    <value>Nivel</value>
+    <comment>Level</comment>
+  </data>
+  <data name="lblLicense" xml:space="preserve">
+    <value>Licencia</value>
+    <comment>License</comment>
+  </data>
+  <data name="lblLimitDOS" xml:space="preserve">
+    <value>Limitar registros basados ​​en grados de separación</value>
+    <comment>Limit Records Based on Degrees of Separation</comment>
+  </data>
+  <data name="lblManageCacheDataSettings" xml:space="preserve">
+    <value>Gestionar ajustes de datos en caché</value>
+    <comment>Manage Cache Data Settings</comment>
+  </data>
+  <data name="lblMappingColumns" xml:space="preserve">
+    <value>Por favor, mapee las columnas de su archivo a las columnas de la tabla correspondiente</value>
+    <comment>Please map your file columns to the corresponding table columns</comment>
+  </data>
+  <data name="lblMatchDataCriteria" xml:space="preserve">
+    <value>Criterios de coincidencia</value>
+    <comment>Match Data Criteria</comment>
+  </data>
+  <data name="lblMatchGrade" xml:space="preserve">
+    <value>Grado de coincidencia</value>
+    <comment>Match Grade</comment>
+  </data>
+  <data name="lblMatchGradeComponent" xml:space="preserve">
+    <value>Match Engine</value>
+    <comment>Match Grade Component</comment>
+  </data>
+  <data name="lblMatchGradeComponentCount" xml:space="preserve">
+    <value>Conteo del componente del grado de coincidencia</value>
+    <comment>Match Grade Component Count</comment>
+  </data>
+  <data name="lblMaxCandidateQty" xml:space="preserve">
+    <value>El campo debe estar en el rango de 1 a 50.</value>
+    <comment>The field must be in range 1 to 50.</comment>
+  </data>
+  <data name="lblMaxCandidateResults" xml:space="preserve">
+    <value>Resultados del candidato máximo</value>
+    <comment>Max Candidate Results</comment>
+  </data>
+  <data name="lblMaximumCandidateResults" xml:space="preserve">
+    <value>Resultados del candidato máximo</value>
+    <comment>Maximum Candidate Results</comment>
+  </data>
+  <data name="lblMaximumParallelThread" xml:space="preserve">
+    <value>Hilo paralelo máximo</value>
+    <comment>Maximum Parallel Thread</comment>
+  </data>
+  <data name="lblMDPCode" xml:space="preserve">
+    <value>MDPCode</value>
+    <comment>MDPCode</comment>
+  </data>
+  <data name="lblMDPValue" xml:space="preserve">
+    <value>Valor de MDP</value>
+    <comment>MDP Value</comment>
+  </data>
+  <data name="lblMinConfidenceCode" xml:space="preserve">
+    <value>Código de confianza mín.</value>
+    <comment>Min Confidence Code</comment>
+  </data>
+  <data name="lblMinimumConfidenceLevel" xml:space="preserve">
+    <value>Nivel mínimo de confianza</value>
+    <comment>Minimum Confidence Level</comment>
+  </data>
+  <data name="lblMinimumMatchCriteria" xml:space="preserve">
+    <value>Criterio de coincidencia mínima</value>
+    <comment>Minimum Match Criteria</comment>
+  </data>
+  <data name="lblMinimumMatchCriteriaOverride" xml:space="preserve">
+    <value>Anulación del criterio de coincidencia mínima</value>
+    <comment>Minimum Match Criteria Override</comment>
+  </data>
+  <data name="lblMinMatchScore" xml:space="preserve">
+    <value>Puntuación mín. de coincidencia</value>
+    <comment>Min.Match Score</comment>
+  </data>
+  <data name="lblMinMaxConfidanceLevel" xml:space="preserve">
+    <value>El campo debe estar en el rango de 1 a 50.</value>
+    <comment>The field must be in range 1 to 50.</comment>
+  </data>
+  <data name="lblMonitorEntireProductLayer" xml:space="preserve">
+    <value>Monitorear toda la capa de producto para ver si hay cambios</value>
+    <comment>Monitor entire Product Layer for changes</comment>
+  </data>
+  <data name="lblMonitoring" xml:space="preserve">
+    <value>Monitorear</value>
+    <comment>Monitoring</comment>
+  </data>
+  <data name="lblMonitoringDirect20" xml:space="preserve">
+    <value>Monitorear Direct 2.0</value>
+    <comment>Monitoring Direct 2.0</comment>
+  </data>
+  <data name="lblMonitoringDirectPlus" xml:space="preserve">
+    <value>Monitoreo Direct+</value>
+    <comment>Monitoring Direct +</comment>
+  </data>
+  <data name="lblMonitoringProfile" xml:space="preserve">
+    <value>Perfil de monitoreo</value>
+    <comment>Monitoring Profile</comment>
+  </data>
+  <data name="lblMonitoringProfileRequired" xml:space="preserve">
+    <value>Se requiere un nombre para perfil de monitoreo</value>
+    <comment>Monitoring Profile Name is required</comment>
+  </data>
+  <data name="lblNationalID" xml:space="preserve">
+    <value>Identificación nacional</value>
+    <comment>National ID</comment>
+  </data>
+  <data name="lblNo" xml:space="preserve">
+    <value>No</value>
+    <comment>No</comment>
+  </data>
+  <data name="lblNoDataAreAvailable" xml:space="preserve">
+    <value>No hay datos disponibles</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNoDUNSfound" xml:space="preserve">
+    <value>No se encontró el DUNS.</value>
+    <comment>No DUNS found.</comment>
+  </data>
+  <data name="lblNoduplicatecheckforimport" xml:space="preserve">
+    <value>No hay verificación de duplicados para importar</value>
+    <comment>No duplicate check for import</comment>
+  </data>
+  <data name="lblNote" xml:space="preserve">
+    <value>Nota</value>
+    <comment>Note</comment>
+  </data>
+  <data name="lblNoteDeDuplicate" xml:space="preserve">
+    <value>Este proceso elimina los registros duplicados de todas las colas, incluyendo la de emparejar datos, eliminar datos y salida</value>
+    <comment>This process removes duplicate records across all queues, including the Match Data, Clean Data and Output Queue</comment>
+  </data>
+  <data name="lblNoteFeatures" xml:space="preserve">
+    <value>Si está activada, la verificación de duplicados utiliza una combinación de etiquetas de SrcRecorId y de la Fuente en los datos importados para identificar los posibles duplicados</value>
+    <comment>if enabled, duplicate check uses a combination of SrcRecordId and the Source tags in the imported data to identity potential duplicates</comment>
+  </data>
+  <data name="lblNoteInformationAboutAttributes" xml:space="preserve">
+    <value>Nota: Para obtener más información sobre los atributos, por favor</value>
+    <comment>Note : For more information about attributes please</comment>
+  </data>
+  <data name="lblNotePreviewAutoAcceptance" xml:space="preserve">
+    <value>Nota: solo se muestran los 100 mejores registros para la vista previa, descargue el archivo usando la exportación para la vista previa de todos los datos</value>
+    <comment>Note : we are showing only top 100 records for preview, please download file using export for preview all data</comment>
+  </data>
+  <data name="lblNotificationProfile" xml:space="preserve">
+    <value>perfil de notificación</value>
+    <comment>Notification Profile</comment>
+  </data>
+  <data name="lblNotificationProfileDescription" xml:space="preserve">
+    <value>Descripción del perfil de notificación</value>
+    <comment>Notification Profile Description</comment>
+  </data>
+  <data name="lblNotificationProfileDescriptionRequired" xml:space="preserve">
+    <value>Se requiere una descripción del perfil de notificación.</value>
+    <comment>Notification Profile Description is required.</comment>
+  </data>
+  <data name="lblNotificationProfileName" xml:space="preserve">
+    <value>Nombre del perfil de notificación</value>
+    <comment>Notification Profile Name</comment>
+  </data>
+  <data name="lblNotificationProfileNameRequired" xml:space="preserve">
+    <value>Se requiere un nombre del perfil de notificación.</value>
+    <comment>Notification Profile Name is required.</comment>
+  </data>
+  <data name="lblNotificationProfileRequired" xml:space="preserve">
+    <value>Se requiere un nombre del perfil de notificación.</value>
+    <comment>Notification Profile Name is required.</comment>
+  </data>
+  <data name="lblNotificationsSuppressed" xml:space="preserve">
+    <value>Notificaciones suprimidas</value>
+    <comment>Notifications Suppressed</comment>
+  </data>
+  <data name="lblNumberofDays" xml:space="preserve">
+    <value>Cantidad de días</value>
+    <comment>Number of Days</comment>
+  </data>
+  <data name="lblOperatingStatus" xml:space="preserve">
+    <value>Estado de funcionamiento</value>
+    <comment>Operating Status</comment>
+  </data>
+  <data name="lblPageSize" xml:space="preserve">
+    <value>Tamaño de página</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="lblPauseCleanseMatch" xml:space="preserve">
+    <value>Pausar la depuración de coincidencias</value>
+    <comment>Pause Cleanse Match</comment>
+  </data>
+  <data name="lblPauseDataEnrichment" xml:space="preserve">
+    <value>Pausar enriquecimiento de datos</value>
+    <comment>Pause Data Enrichment</comment>
+  </data>
+  <data name="lblPeriodicRefreshIntervalDays" xml:space="preserve">
+    <value>Intervalo de actualización periódica Días</value>
+    <comment>Periodic Refresh IntervalDays</comment>
+  </data>
+  <data name="lblPhone" xml:space="preserve">
+    <value>Teléfono</value>
+    <comment>Phone</comment>
+  </data>
+  <data name="lblPhoneNbr" xml:space="preserve">
+    <value>PhoneNbr</value>
+    <comment>PhoneNbr</comment>
+  </data>
+  <data name="lblPhoneNumber" xml:space="preserve">
+    <value>Número de teléfono</value>
+    <comment>Phone Number</comment>
+  </data>
+  <data name="lblPOBox" xml:space="preserve">
+    <value>PO Box</value>
+    <comment>PO Box</comment>
+  </data>
+  <data name="lblPostalCode" xml:space="preserve">
+    <value>Código postal</value>
+    <comment>Postal Code</comment>
+  </data>
+  <data name="lblPrecedenceSteps" xml:space="preserve">
+    <value>Pasos de precedencia</value>
+    <comment>Precedence Steps</comment>
+  </data>
+  <data name="lblPreferenceDescription" xml:space="preserve">
+    <value>Descripción de la preferencia</value>
+    <comment>Preference Description</comment>
+  </data>
+  <data name="lblPreferenceDescriptionRequired" xml:space="preserve">
+    <value>Se requiere la descripción de la preferencia.</value>
+    <comment>Preference Description is required.</comment>
+  </data>
+  <data name="lblPreferenceName" xml:space="preserve">
+    <value>Nombre de la preferencia</value>
+    <comment>Preference Name</comment>
+  </data>
+  <data name="lblPreferenceNameRequired" xml:space="preserve">
+    <value>Se requiere el nombre de la preferencia.</value>
+    <comment>Preference name is required.</comment>
+  </data>
+  <data name="lblPreferenceType" xml:space="preserve">
+    <value>Tipo de la preferencia</value>
+    <comment>Preference Type</comment>
+  </data>
+  <data name="lblPreferenceValue" xml:space="preserve">
+    <value>Valor de preferencia (correo electrónico)</value>
+    <comment>Preference Value (Email)</comment>
+  </data>
+  <data name="lblPreferHQ" xml:space="preserve">
+    <value>Preferir registro de la sede</value>
+    <comment>Prefer Headquarters Record</comment>
+  </data>
+  <data name="lblPreferLniked" xml:space="preserve">
+    <value>Preferir registros vinculados</value>
+    <comment>Prefer Linked Records</comment>
+  </data>
+  <data name="lblPreview" xml:space="preserve">
+    <value>Avance</value>
+    <comment>Preview</comment>
+  </data>
+  <data name="lblProcessing" xml:space="preserve">
+    <value>Por favor espere mientras procesa ...</value>
+    <comment>Please wait while processing...</comment>
+  </data>
+  <data name="lblProduct" xml:space="preserve">
+    <value>Producto</value>
+    <comment>Product</comment>
+  </data>
+  <data name="lblProductLayer" xml:space="preserve">
+    <value>Capa del producto</value>
+    <comment>Product Layer</comment>
+  </data>
+  <data name="lblProductRequired" xml:space="preserve">
+    <value>Se requiere un producto.</value>
+    <comment>Product is required.</comment>
+  </data>
+  <data name="lblProfileName" xml:space="preserve">
+    <value>Nombre del perfil</value>
+    <comment>Profile Name</comment>
+  </data>
+  <data name="lblProfileNameRequired" xml:space="preserve">
+    <value>Se requiere un nombre del perfil.</value>
+    <comment>Profile Name is required.</comment>
+  </data>
+  <data name="lblProspectingBuildalist" xml:space="preserve">
+    <value>Prospección/Construcción de una lista</value>
+    <comment>Prospecting / Build-a-list</comment>
+  </data>
+  <data name="lblProvider" xml:space="preserve">
+    <value>Proveedor</value>
+    <comment>Provider</comment>
+  </data>
+  <data name="lblRegistartionStatus" xml:space="preserve">
+    <value>Estado del registro</value>
+    <comment>Registartion Status</comment>
+  </data>
+  <data name="lblRegistration" xml:space="preserve">
+    <value>Registro</value>
+    <comment>Registration</comment>
+  </data>
+  <data name="lblRegistrationDunsNote" xml:space="preserve">
+    <value>En el caso de las listas de 100.000 o menos, se pueden presentar múltiples solicitudes por día, pero deben limitarse a 2 o 3</value>
+    <comment>For lists 100,000 or fewer, multiple requests per day can be submitted, but should be limited to 2 or 3</comment>
+  </data>
+  <data name="lblRegistrationName" xml:space="preserve">
+    <value>Nombre del registro</value>
+    <comment>Registration Name</comment>
+  </data>
+  <data name="lblRegistrations" xml:space="preserve">
+    <value>Registros</value>
+    <comment>Registrations</comment>
+  </data>
+  <data name="lblRegistrationType" xml:space="preserve">
+    <value>Tipo de registro</value>
+    <comment>Registration Type</comment>
+  </data>
+  <data name="lblRejectErrorRows" xml:space="preserve">
+    <value>Rechazar filas de error</value>
+    <comment>Reject Error Rows</comment>
+  </data>
+  <data name="lblRemoveDUNSregistration" xml:space="preserve">
+    <value>Eliminar DUNS del registro</value>
+    <comment>Remove DUNS from registration</comment>
+  </data>
+  <data name="lblRemoveDuplicaterecordsActiveAndOutputQueues" xml:space="preserve">
+    <value>Eliminar registros duplicados de las colas activas y de salida</value>
+    <comment>Remove duplicate records from Active and Output Queues</comment>
+  </data>
+  <data name="lblRemoveDuplicateRecordsActiveOutputQueues" xml:space="preserve">
+    <value>Eliminar registros duplicados de las colas activas y de salida</value>
+    <comment>Remove duplicate records from Active and Output Queues</comment>
+  </data>
+  <data name="lblRemoveDuplicateRecordsActiveQueues" xml:space="preserve">
+    <value>Eliminar registros duplicados de las colas activas</value>
+    <comment>Remove duplicate records from the Active Queues</comment>
+  </data>
+  <data name="lblRequiredAPICred" xml:space="preserve">
+    <value>El campo APICredential es obligatorio.</value>
+    <comment>The APICredential field is required.</comment>
+  </data>
+  <data name="lblRequiredAPIPassword" xml:space="preserve">
+    <value>El campo APIPassword es obligatorio.</value>
+    <comment>The APIPassword field is required.</comment>
+  </data>
+  <data name="lblRequiredCredential" xml:space="preserve">
+    <value>por favor seleccione Credencial</value>
+    <comment>please select Credential</comment>
+  </data>
+  <data name="lblRequiredCredName" xml:space="preserve">
+    <value>El campo CredentialName es obligatorio.</value>
+    <comment>The CredentialName field is required.</comment>
+  </data>
+  <data name="lblRequiredDataBlockGroupName" xml:space="preserve">
+    <value>Se requiere el nombre del grupo de bloque de datos.</value>
+    <comment>Data Block Group name is required.</comment>
+  </data>
+  <data name="lblRequiredOneDataBlock" xml:space="preserve">
+    <value>seleccione al menos un bloque de datos.</value>
+    <comment>select at least one data block.</comment>
+  </data>
+  <data name="lblResertTypeYes" xml:space="preserve">
+    <value>Por favor, escriba "SÍ" para restablecer los datos.</value>
+    <comment>Please type 'YES' to reset data.</comment>
+  </data>
+  <data name="lblReset" xml:space="preserve">
+    <value>Reiniciar</value>
+    <comment>Reset</comment>
+  </data>
+  <data name="lblResetData" xml:space="preserve">
+    <value>Restablecer datos</value>
+    <comment>Reset Data</comment>
+  </data>
+  <data name="lblResetDataConfiguration" xml:space="preserve">
+    <value>Restablecer datos y configuración</value>
+    <comment>Reset Data and Configuration</comment>
+  </data>
+  <data name="lblRetrievechangesonly" xml:space="preserve">
+    <value>Recuperar solo cambios</value>
+    <comment>Retrieve changes only</comment>
+  </data>
+  <data name="lblRetrievecompleterecord" xml:space="preserve">
+    <value>Recuperar registro completo</value>
+    <comment>Retrieve complete record</comment>
+  </data>
+  <data name="lblRunRules" xml:space="preserve">
+    <value>Ejecutar reglas</value>
+    <comment>Run Rules</comment>
+  </data>
+  <data name="lblSave" xml:space="preserve">
+    <value>Guardar</value>
+    <comment>Save</comment>
+  </data>
+  <data name="lblScoreRange" xml:space="preserve">
+    <value>Rango de puntuación</value>
+    <comment>Score Range</comment>
+  </data>
+  <data name="lblseedData" xml:space="preserve">
+    <value>seedData</value>
+    <comment>seedData</comment>
+  </data>
+  <data name="lblSelect" xml:space="preserve">
+    <value>Seleccionar todo</value>
+    <comment>--Select--</comment>
+  </data>
+  <data name="lblSelectAddressCode" xml:space="preserve">
+    <value>Seleccionar código de dirección</value>
+    <comment>Select Address Code</comment>
+  </data>
+  <data name="lblSelectAddressGrade" xml:space="preserve">
+    <value>Seleccionar grado de dirección</value>
+    <comment>Select Address Grade</comment>
+  </data>
+  <data name="lblSelectAll" xml:space="preserve">
+    <value>Seleccionar todos</value>
+    <comment>Select All</comment>
+  </data>
+  <data name="lblSelectCityCode" xml:space="preserve">
+    <value>Seleccionar código de ciudad</value>
+    <comment>Select City Code</comment>
+  </data>
+  <data name="lblSelectCityGrade" xml:space="preserve">
+    <value>Seleccione ciudad grado</value>
+    <comment>Select City Grade</comment>
+  </data>
+  <data name="lblSelectCompanyCode" xml:space="preserve">
+    <value>Seleccione el código de la compañía</value>
+    <comment>Select Company Code</comment>
+  </data>
+  <data name="lblSelectCompanyGrade" xml:space="preserve">
+    <value>Seleccionar grado de empresa</value>
+    <comment>Select Company Grade</comment>
+  </data>
+  <data name="lblSelectConfidenceCode" xml:space="preserve">
+    <value>Select Confidence Code</value>
+    <comment>Select Confidence Code</comment>
+  </data>
+  <data name="lblSelectCountry" xml:space="preserve">
+    <value>Seleccionar país</value>
+    <comment>Select Country</comment>
+  </data>
+  <data name="lblSelectCountryCode" xml:space="preserve">
+    <value>Seleccionar código de país</value>
+    <comment>Select Country Code</comment>
+  </data>
+  <data name="lblSelectCountryGroup" xml:space="preserve">
+    <value>Seleccionar grupo de países</value>
+    <comment>Select Country Group</comment>
+  </data>
+  <data name="lblSelectDensity" xml:space="preserve">
+    <value>Seleccionar densidad</value>
+    <comment>Select Density</comment>
+  </data>
+  <data name="lblSelectedPrecedence" xml:space="preserve">
+    <value>Prioridad seleccionada</value>
+    <comment>Selected Precedence</comment>
+  </data>
+  <data name="lblSelectLookups" xml:space="preserve">
+    <value>Seleccionar búsquedas</value>
+    <comment>Select Lookups</comment>
+  </data>
+  <data name="lblSelectPhoneCode" xml:space="preserve">
+    <value>Seleccionar código de teléfono</value>
+    <comment>Select Phone Code</comment>
+  </data>
+  <data name="lblSelectPhoneGrade" xml:space="preserve">
+    <value>Seleccionar grado de teléfono</value>
+    <comment>Select Phone Grade</comment>
+  </data>
+  <data name="lblSelectSIC" xml:space="preserve">
+    <value>Seleccione SIC</value>
+    <comment>Select SIC</comment>
+  </data>
+  <data name="lblSelectStateCode" xml:space="preserve">
+    <value>Seleccionar código de estado</value>
+    <comment>Select State Code</comment>
+  </data>
+  <data name="lblSelectStateGrade" xml:space="preserve">
+    <value>Seleccionar grado estatal</value>
+    <comment>Select State Grade</comment>
+  </data>
+  <data name="lblSelectStreetCode" xml:space="preserve">
+    <value>Seleccionar código de calle</value>
+    <comment>Select Street Code</comment>
+  </data>
+  <data name="lblSelectStreetGrade" xml:space="preserve">
+    <value>Seleccionar grado de calle</value>
+    <comment>Select Street Grade</comment>
+  </data>
+  <data name="lblSelectStreetNameCode" xml:space="preserve">
+    <value>Seleccionar código de nombre de calle</value>
+    <comment>Select Street Name Code</comment>
+  </data>
+  <data name="lblSelectStreetNameGrade" xml:space="preserve">
+    <value>Seleccione el nombre de la calle Grado</value>
+    <comment>Select Street Name Grade</comment>
+  </data>
+  <data name="lblSelectUniqueness" xml:space="preserve">
+    <value>Seleccionar singularidad</value>
+    <comment>Select Uniqueness</comment>
+  </data>
+  <data name="lblSelectZipGrade" xml:space="preserve">
+    <value>Seleccione Zip Grade</value>
+    <comment>Select Zip Grade</comment>
+  </data>
+  <data name="lblSetEntitlements" xml:space="preserve">
+    <value>Establecer derechos</value>
+    <comment>Set Entitlements</comment>
+  </data>
+  <data name="lblSIC" xml:space="preserve">
+    <value>SIC</value>
+    <comment>SIC</comment>
+  </data>
+  <data name="lblSingleCandidateMatch" xml:space="preserve">
+    <value>Coincidir solo con el registro de candidato unico</value>
+    <comment>Match Single Candidate Record Only</comment>
+  </data>
+  <data name="lblSingleentitysearch" xml:space="preserve">
+    <value>Búsqueda de una sola entidad</value>
+    <comment>Single entity search</comment>
+  </data>
+  <data name="lblSrcRecordId" xml:space="preserve">
+    <value>SrcRecordId</value>
+    <comment>SrcRecordId</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>Estado</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblStopDeliveryIndicator" xml:space="preserve">
+    <value>Indicador de detener entrega</value>
+    <comment>Stop Delivery Indicator</comment>
+  </data>
+  <data name="lblStreet" xml:space="preserve">
+    <value>Nro. de calle</value>
+    <comment>Street#</comment>
+  </data>
+  <data name="lblStreetName" xml:space="preserve">
+    <value>Nombre de la calle</value>
+    <comment>Street Name</comment>
+  </data>
+  <data name="lblStreetNo" xml:space="preserve">
+    <value>StreetNo</value>
+    <comment>StreetNo</comment>
+  </data>
+  <data name="lblSubjectCategory" xml:space="preserve">
+    <value>Categoría de asunto</value>
+    <comment>Subject Category</comment>
+  </data>
+  <data name="lblSubmit" xml:space="preserve">
+    <value>Enviar</value>
+    <comment>Submit</comment>
+  </data>
+  <data name="lblSuccess" xml:space="preserve">
+    <value>Éxito</value>
+    <comment>Success</comment>
+  </data>
+  <data name="lblSuppressNotifications" xml:space="preserve">
+    <value>Suprimir notificaciones</value>
+    <comment>Suppress Notifications</comment>
+  </data>
+  <data name="lblSyncMonitoringData" xml:space="preserve">
+    <value>Sincronizar datos de monitoreo</value>
+    <comment>Sync Monitoring Data</comment>
+  </data>
+  <data name="lblSyncNotificationData" xml:space="preserve">
+    <value>Sincronizar datos de notificación</value>
+    <comment>Sync Notification Data</comment>
+  </data>
+  <data name="lblSyncRegistration" xml:space="preserve">
+    <value>Sincronizar registro</value>
+    <comment>Sync Registration</comment>
+  </data>
+  <data name="lblSyncUserPrefrenceData" xml:space="preserve">
+    <value>Sincronizar datos de preferencia del usuario</value>
+    <comment>Sync User Prefrence Data</comment>
+  </data>
+  <data name="lblTableColumn" xml:space="preserve">
+    <value>Columna de la tabla</value>
+    <comment>Table Column</comment>
+  </data>
+  <data name="lblTag" xml:space="preserve">
+    <value>Etiqueta</value>
+    <comment>Tag</comment>
+  </data>
+  <data name="lblTagRequired" xml:space="preserve">
+    <value>Se requiere una etiqueta.</value>
+    <comment>Tag is required.</comment>
+  </data>
+  <data name="lblTags" xml:space="preserve">
+    <value>Etiquetas</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="lblTelephone" xml:space="preserve">
+    <value>Teléfono</value>
+    <comment>Telephone</comment>
+  </data>
+  <data name="lblTextForA" xml:space="preserve">
+    <value>81-100</value>
+    <comment>81-100</comment>
+  </data>
+  <data name="lblTextForB" xml:space="preserve">
+    <value>37-80</value>
+    <comment>37-80</comment>
+  </data>
+  <data name="lblTextForF" xml:space="preserve">
+    <value>Por debajo de 36</value>
+    <comment>Below 36</comment>
+  </data>
+  <data name="lblTextForZ" xml:space="preserve">
+    <value>0</value>
+    <comment>0</comment>
+  </data>
+  <data name="lblThirdPartyEnrichment" xml:space="preserve">
+    <value>Enriquecimiento de terceros</value>
+    <comment>ThirdParty Enrichment</comment>
+  </data>
+  <data name="lblThirdPartyProvider" xml:space="preserve">
+    <value>Proveedor de terceros</value>
+    <comment>ThirdParty Provider</comment>
+  </data>
+  <data name="lblThirdPartyProviderRequired" xml:space="preserve">
+    <value>Se requiere un proveedor externo</value>
+    <comment>Third party provider is required</comment>
+  </data>
+  <data name="lblTradeUp" xml:space="preserve">
+    <value>Permutar por algo de mayor valor</value>
+    <comment>Trade Up</comment>
+  </data>
+  <data name="lblTransactionTimestamp" xml:space="preserve">
+    <value>TransactionTimestamp</value>
+    <comment>TransactionTimestamp</comment>
+  </data>
+  <data name="lblTransferDunsAutoEnrich" xml:space="preserve">
+    <value>Transferir Duns Auto Enrich</value>
+    <comment>Transfer Duns Auto Enrich</comment>
+  </data>
+  <data name="lblTransferDunsAutoEnrichTag" xml:space="preserve">
+    <value>Transferir etiqueta de autoenriquecimiento de Duns</value>
+    <comment>Transfer Duns Auto Enrich Tag</comment>
+  </data>
+  <data name="lblTrue" xml:space="preserve">
+    <value>Cierto</value>
+    <comment>True</comment>
+  </data>
+  <data name="lblTypeAheadSearch" xml:space="preserve">
+    <value>Búsqueda avanzada</value>
+    <comment>Type Ahead Search</comment>
+  </data>
+  <data name="lblUniqueness" xml:space="preserve">
+    <value>Singularidad</value>
+    <comment>Uniqueness</comment>
+  </data>
+  <data name="lblUnsuppressNotifications" xml:space="preserve">
+    <value>Deshabilitar notificaciones</value>
+    <comment>Un-suppress Notifications</comment>
+  </data>
+  <data name="lblUpdate" xml:space="preserve">
+    <value>Actualizar</value>
+    <comment>Update</comment>
+  </data>
+  <data name="lblUpdateDandBLicenseKey" xml:space="preserve">
+    <value>Actualizar claves de licencia de D&amp;B</value>
+    <comment>Update D&amp;B License Key</comment>
+  </data>
+  <data name="lblUpdateDUNSRegistration" xml:space="preserve">
+    <value>Actualizar registro DUNS</value>
+    <comment>Update DUNS Registration</comment>
+  </data>
+  <data name="lblUpdateMonitoringProfile" xml:space="preserve">
+    <value>Actualizar perfil de monitoreo</value>
+    <comment>Update Monitoring Profile</comment>
+  </data>
+  <data name="lblUpdateMonitoringRegistration" xml:space="preserve">
+    <value>Actualizar registro de monitoreo</value>
+    <comment>Update Monitoring Registration</comment>
+  </data>
+  <data name="lblUpdateNotification" xml:space="preserve">
+    <value>Update Notification Profile</value>
+    <comment>Update Notification Profile</comment>
+  </data>
+  <data name="lblUpdateUserPreference" xml:space="preserve">
+    <value>Actualizar preferencias de usuario</value>
+    <comment>Update User Preference</comment>
+  </data>
+  <data name="lblURL" xml:space="preserve">
+    <value>URL</value>
+    <comment>URL</comment>
+  </data>
+  <data name="lblUseForCleanseMatch" xml:space="preserve">
+    <value>Usar para depuración de coincidencias</value>
+    <comment>Use For Cleanse Match</comment>
+  </data>
+  <data name="lblUseForEnrichOverride" xml:space="preserve">
+    <value>Usar para anular el enriquecimiento</value>
+    <comment>Use For Enrich Override</comment>
+  </data>
+  <data name="lblUserPreference" xml:space="preserve">
+    <value>UserPreference</value>
+    <comment>UserPreference</comment>
+  </data>
+  <data name="lblUserPreferenceName" xml:space="preserve">
+    <value>Nombre de la preferencia del usuario</value>
+    <comment>User Preference Name</comment>
+  </data>
+  <data name="lblUserPreferencesRequired" xml:space="preserve">
+    <value>Se requieren preferencias del usuario.</value>
+    <comment>User Preferences is required.</comment>
+  </data>
+  <data name="lblValidCandidate" xml:space="preserve">
+    <value>El rango de resultados de los candidatos debe ser de 1 a 50</value>
+    <comment>Candidate Result range should 1 to 50</comment>
+  </data>
+  <data name="lblValidEmail" xml:space="preserve">
+    <value>El correo electrónico no es válido.</value>
+    <comment>Email is not valid.</comment>
+  </data>
+  <data name="lblValidNumberDays" xml:space="preserve">
+    <value>Por favor, ingrese un valor válido entre 1 y 30.</value>
+    <comment>Please enter valid value between 1 and 30.</comment>
+  </data>
+  <data name="lblValue" xml:space="preserve">
+    <value>Valor</value>
+    <comment>Value</comment>
+  </data>
+  <data name="lblVerificationGroupName" xml:space="preserve">
+    <value>Nombre del grupo de verificación</value>
+    <comment>Verification Group Name</comment>
+  </data>
+  <data name="lblVersion" xml:space="preserve">
+    <value>Versión</value>
+    <comment>Version</comment>
+  </data>
+  <data name="lblWaitTimeBetweenBatches" xml:space="preserve">
+    <value>WaitTimeBetweenBatches</value>
+    <comment>WaitTimeBetweenBatches</comment>
+  </data>
+  <data name="lblWaitTimeBetweenBatchesRequired" xml:space="preserve">
+    <value>Se requiere un tiempo de espera entre lotes.</value>
+    <comment>Wait Time Between Batches is required.</comment>
+  </data>
+  <data name="lblYes" xml:space="preserve">
+    <value>si</value>
+    <comment>Yes</comment>
+  </data>
+  <data name="lblZ" xml:space="preserve">
+    <value>Z</value>
+    <comment>Z</comment>
+  </data>
+  <data name="lblZipCode" xml:space="preserve">
+    <value>Código postal</value>
+    <comment>Zip Code</comment>
+  </data>
+  <data name="lbMatchGrade" xml:space="preserve">
+    <value>Grado de coincidencia</value>
+    <comment>Match Grade</comment>
+  </data>
+  <data name="msgAllowNumbers" xml:space="preserve">
+    <value>Solo se aceptan valores numéricos.</value>
+    <comment>Only numeric values accepted.</comment>
+  </data>
+  <data name="msgAME" xml:space="preserve">
+    <value>madre</value>
+    <comment>AME</comment>
+  </data>
+  <data name="msgClientCodeNotFound" xml:space="preserve">
+    <value>Código de cliente no encontrado</value>
+    <comment>Client code not found</comment>
+  </data>
+  <data name="msgCommanPurgeMessage" xml:space="preserve">
+    <value>Los datos se han depurado con éxito</value>
+    <comment>Data purged successfully</comment>
+  </data>
+  <data name="msgCommanRejectMessage" xml:space="preserve">
+    <value>Los datos se han rechazado con éxito</value>
+    <comment>Data rejected successfully</comment>
+  </data>
+  <data name="msgCommonDeleteMessage" xml:space="preserve">
+    <value>Los datos se han eliminado con éxito</value>
+    <comment>Data Deleted Successfully</comment>
+  </data>
+  <data name="msgCommonMovedMessage" xml:space="preserve">
+    <value>Los datos se han desplazado con éxito</value>
+    <comment>Data Moved Successfully</comment>
+  </data>
+  <data name="msgCountryGroupDelete" xml:space="preserve">
+    <value>Los datos se han eliminado con éxito.</value>
+    <comment>Data deleted successfully.</comment>
+  </data>
+  <data name="msgCreateDUNSRegistration" xml:space="preserve">
+    <value>Crear registro DUNS</value>
+    <comment>Create DUNS Registration</comment>
+  </data>
+  <data name="msgCreateMonitoringProfile" xml:space="preserve">
+    <value>Crear perfil de monitoreo</value>
+    <comment>Create Monitoring Profile</comment>
+  </data>
+  <data name="msgCreateNotificationProfile" xml:space="preserve">
+    <value>Crear perfil de notificación</value>
+    <comment>Create Notification Profile</comment>
+  </data>
+  <data name="msgCreateUserPreference" xml:space="preserve">
+    <value>Crear preferencia de usuario</value>
+    <comment>Create User Preference</comment>
+  </data>
+  <data name="msgDataUpdated" xml:space="preserve">
+    <value>Datos actualizados con éxito.</value>
+    <comment>Data updated successfully.</comment>
+  </data>
+  <data name="msgDeleteAutoAcceptance" xml:space="preserve">
+    <value>¿Estás segura de que quieres eliminar el registro?</value>
+    <comment>Are you sure you want to delete record ?</comment>
+  </data>
+  <data name="msgDeleteDataBlockRecord" xml:space="preserve">
+    <value>¿Estás segura de que quieres eliminar el registro?</value>
+    <comment>Are you sure you want to delete record ?</comment>
+  </data>
+  <data name="msgDeleteElements" xml:space="preserve">
+    <value>¿Estás seguro de que quieres eliminar elementos?</value>
+    <comment>Are you sure you want to delete Elements?</comment>
+  </data>
+  <data name="msgDeleteMinCCOverride" xml:space="preserve">
+    <value>¿Seguro que quieres eliminar este registro?</value>
+    <comment>Are you sure you want to delete this record?</comment>
+  </data>
+  <data name="msgDeleteMonitoringProfile" xml:space="preserve">
+    <value>El perfil de monitoreo se ha eliminado con éxito.</value>
+    <comment>Monitoring profile deleted successfully.</comment>
+  </data>
+  <data name="msgDeleteMonitorProfile" xml:space="preserve">
+    <value>¿Está seguro de que desea eliminar Monitor Profile?</value>
+    <comment>Are you sure you want to delete Monitor Profile?</comment>
+  </data>
+  <data name="msgDeleteNotification" xml:space="preserve">
+    <value>La notificación se ha eliminado con éxito.</value>
+    <comment>Notification deleted successfully.</comment>
+  </data>
+  <data name="msgDeleteRecord" xml:space="preserve">
+    <value>¿Seguro que quieres eliminar este registro?</value>
+    <comment>Are you sure you want to delete this record?</comment>
+  </data>
+  <data name="msgDeleteThirdPartyAPICred" xml:space="preserve">
+    <value>¿Estás segura de que quieres eliminar el registro?</value>
+    <comment>Are you sure you want to delete record?</comment>
+  </data>
+  <data name="msgDeleteUser" xml:space="preserve">
+    <value>Los usuarios se han eliminado con éxito.</value>
+    <comment>User deleted successfully.</comment>
+  </data>
+  <data name="msgDeleteUserPreference" xml:space="preserve">
+    <value>La preferencia del usuario se ha eliminado con éxito.</value>
+    <comment>User preference deleted successfully.</comment>
+  </data>
+  <data name="msgDisableRule" xml:space="preserve">
+    <value>Deshabilitar regla</value>
+    <comment>Disable Rule</comment>
+  </data>
+  <data name="msgDuplicateConditionMonitoringProfile" xml:space="preserve">
+    <value>El elemento o condición ya existe. Por favor, pruebe con uno diferente.</value>
+    <comment>Element or Condition is already exist. please try with different Elements or Condition.</comment>
+  </data>
+  <data name="msgDuplicateElementsMonitoringProfile" xml:space="preserve">
+    <value>El perfil ya existe con el mismo producto, elemento y condición.</value>
+    <comment>Profile already exists with same product, elements and condition.</comment>
+  </data>
+  <data name="msgDuplicateEmail" xml:space="preserve">
+    <value>Esta dirección de correo electrónico ya existe. Por favor, ingrese otra dirección de correo electrónico.</value>
+    <comment>This Email address is already exist. Please enter another Email address.</comment>
+  </data>
+  <data name="msgDuplicateNameMonitoringProfile" xml:space="preserve">
+    <value>Este nombre de perfil ya existe. Por favor, ingrese otro nombre de perfil.</value>
+    <comment>This Profile Name is already exist. Please enter another Profile Name.</comment>
+  </data>
+  <data name="msgDuplicateNameUserPreference" xml:space="preserve">
+    <value>Ya existe la preferencia de usuario con el mismo nombre. Por favor, cambie el nombre de la preferencia de usuario.</value>
+    <comment>User Preference is already exist with same name. Please change user preference name.</comment>
+  </data>
+  <data name="msgDuplicateNotification" xml:space="preserve">
+    <value>Ya existe el perfil de notificación con el mismo nombre. Por favor, use un nombre diferente.</value>
+    <comment>Notification profile is already exist with same name. Please use different name.</comment>
+  </data>
+  <data name="msgDuplicateProductMonitoringProfile" xml:space="preserve">
+    <value>El perfil ya existe con el mismo producto y nivel de monitoreo.</value>
+    <comment>Profile already exists with same product and monitoring level.</comment>
+  </data>
+  <data name="msgDuplicateSAMLuser" xml:space="preserve">
+    <value>Este usuario SAML ya existe. Por favor, ingrese otro usuario SAML.</value>
+    <comment>This SAML user is already exist. Please enter another SAML user.</comment>
+  </data>
+  <data name="msgEmailValidation" xml:space="preserve">
+    <value>Por favor, ingrese la dirección de correo electrónico.</value>
+    <comment>Please insert email address.</comment>
+  </data>
+  <data name="msgEmailValidation1" xml:space="preserve">
+    <value>Por favor, ingrese primero la dirección de correo electrónico.</value>
+    <comment>Please enter email address first.</comment>
+  </data>
+  <data name="msgEntitlementsReq" xml:space="preserve">
+    <value>Se requieren derechos.</value>
+    <comment>Entitlements are required.</comment>
+  </data>
+  <data name="msgErrorInsertMonitoringProfile" xml:space="preserve">
+    <value>Por favor, inténtelo de nuevo. El perfil de monitoreo no se ha creado con éxito.</value>
+    <comment>Please try again Monitoring profile is not created successfully.</comment>
+  </data>
+  <data name="msgGroupConfigurationValidation" xml:space="preserve">
+    <value>Every group configurations should be unique.</value>
+    <comment>Every group configurations should be unique.</comment>
+  </data>
+  <data name="msgGroupNameExist" xml:space="preserve">
+    <value>Este nombre de grupo ya existe. Por favor, ingrese otro nombre de grupo.</value>
+    <comment>This Group Name already exist. Please enter another Group Name.</comment>
+  </data>
+  <data name="msgGroupNameValidation" xml:space="preserve">
+    <value>Cada nombre de grupo debe ser único.</value>
+    <comment>Every group name should be unique.</comment>
+  </data>
+  <data name="msgInertUserPreference" xml:space="preserve">
+    <value>La preferencia del usuario se ha creado con éxito.</value>
+    <comment>User preference created successfully.</comment>
+  </data>
+  <data name="msgInsertAutoAcceptance" xml:space="preserve">
+    <value>La regla de autoaceptación se ha agregado con éxito.</value>
+    <comment>Auto Acceptance rule added successfully.</comment>
+  </data>
+  <data name="msgInsertDUNSRegistration" xml:space="preserve">
+    <value>Registro DUNS creado con éxito.</value>
+    <comment>DUNS Registration created successfully.</comment>
+  </data>
+  <data name="msgInsertMonitoringProfile" xml:space="preserve">
+    <value>El perfil de monitoreo se ha creado con éxito.</value>
+    <comment>Monitoring profile created successfully.</comment>
+  </data>
+  <data name="msgInsertNotification" xml:space="preserve">
+    <value>El perfil de notificación se ha creado con éxito.</value>
+    <comment>Notification profile created successfully.</comment>
+  </data>
+  <data name="msgInsertUser" xml:space="preserve">
+    <value>Los datos se han insertado con éxito.</value>
+    <comment>Data inserted successfully.</comment>
+  </data>
+  <data name="msgInvadilState" xml:space="preserve">
+    <value>Por favor, complete la información adecuada.</value>
+    <comment>Please fill proper information.</comment>
+  </data>
+  <data name="msgInvalidCredential" xml:space="preserve">
+    <value>Las credenciales no son válidas</value>
+    <comment>credential are not valid</comment>
+  </data>
+  <data name="msgInvalidTemplate" xml:space="preserve">
+    <value>Plantilla no valida para el archivo seleccionado.</value>
+    <comment>Invalid template for the selected file.</comment>
+  </data>
+  <data name="msgLookUpValidation" xml:space="preserve">
+    <value>Seleccione más de 1 búsquedas</value>
+    <comment>Please select more than 1 Lookups</comment>
+  </data>
+  <data name="msgMatchEngineGolfGmc" xml:space="preserve">
+    <value>Golf/GMC</value>
+    <comment>Golf/GMC</comment>
+  </data>
+  <data name="msgMatchEngineNextGen" xml:space="preserve">
+    <value>Próxima generación</value>
+    <comment>NextGen</comment>
+  </data>
+  <data name="msgMonitoringRegistration" xml:space="preserve">
+    <value>Monitoreo de sincronización de registro con D&amp;B</value>
+    <comment>Monitoring Registration sync with D&amp;B</comment>
+  </data>
+  <data name="msgMultiPassGroupValidation" xml:space="preserve">
+    <value>Agregue al menos una configuración de grupo.</value>
+    <comment>Please add atlease one group configuration.</comment>
+  </data>
+  <data name="msgMultipleDeleteAutoAccept" xml:space="preserve">
+    <value>¿Estás segura de que quieres eliminar registros?</value>
+    <comment>Are you sure you want to delete records ?</comment>
+  </data>
+  <data name="msgNoRecordsFound" xml:space="preserve">
+    <value>No se encontraron registros</value>
+    <comment>No record(s) found</comment>
+  </data>
+  <data name="msgNothingToMove" xml:space="preserve">
+    <value>Nada que mover.</value>
+    <comment>Nothing to move.</comment>
+  </data>
+  <data name="msgOverwrite" xml:space="preserve">
+    <value>¿Quieres sobrescribir?</value>
+    <comment>Do you want to overwrite?</comment>
+  </data>
+  <data name="msgOverwriteRulesConfirmMessage" xml:space="preserve">
+    <value>¿Está seguro de que desea sobrescribir las reglas, eliminará todas sus reglas existentes?</value>
+    <comment>Are you sure you want to overwrite rules, it will remove all your existing rules?</comment>
+  </data>
+  <data name="msgProcessSettingUpdate" xml:space="preserve">
+    <value>Los ajustes del proceso se actualizaron con éxito. Tenga en cuenta que los usuarios deberán cerrar sesión y volver a entrar en la aplicación antes de que se puedan aplicar estos cambios</value>
+    <comment>Process Settings updated successfully. Please note that users will need to log out and log back into the application before these changes can be applied</comment>
+  </data>
+  <data name="msgPurgeDuplicateRecords" xml:space="preserve">
+    <value>¿Está seguro de que desea purgar registros duplicados?</value>
+    <comment>Are you sure you want to purge duplicate records ?</comment>
+  </data>
+  <data name="msgResetData" xml:space="preserve">
+    <value>¿Estás segura de que quieres restablecer datos?</value>
+    <comment>Are you sure you want to Reset Data ?</comment>
+  </data>
+  <data name="msgResetDataSuccessfully" xml:space="preserve">
+    <value>Los datos se restablecieron con éxito.</value>
+    <comment>Reset Data successfully.</comment>
+  </data>
+  <data name="msgResetDataUnsuccessfully" xml:space="preserve">
+    <value>No se completó el restablecimiento de datos. Por favor, inténtelo de nuevo.</value>
+    <comment>Reset Data not complete. Please try again.</comment>
+  </data>
+  <data name="msgRuleDisabled" xml:space="preserve">
+    <value>La regla se deshabilitó con éxito</value>
+    <comment>Rule disabled successfully</comment>
+  </data>
+  <data name="msgRuleEnabled" xml:space="preserve">
+    <value>Regla habilitada con éxito</value>
+    <comment>Rule enabled successfully</comment>
+  </data>
+  <data name="msgRunRule" xml:space="preserve">
+    <value>Esto aceptará automáticamente las coincidencias actualmente en la Cola de datos de coincidencias según estos criterios de coincidencia.</value>
+    <comment>This will auto-accept matches currently in the Match Data Queue based on these match criteria.</comment>
+  </data>
+  <data name="msgRunRules" xml:space="preserve">
+    <value>Coincidencias aceptadas en base a los criterios de coincidencia</value>
+    <comment>Matches accepted based on match criteria</comment>
+  </data>
+  <data name="msgSelectDensityCode" xml:space="preserve">
+    <value>Seleccione el código de densidad</value>
+    <comment>Select Density Code</comment>
+  </data>
+  <data name="msgSelectPrecedence" xml:space="preserve">
+    <value>Seleccione Precedencia.</value>
+    <comment>Please Select Precedence.</comment>
+  </data>
+  <data name="msgSelectRecordtoDelete" xml:space="preserve">
+    <value>Seleccione al menos un registro para eliminar.</value>
+    <comment>Please select at least one record to delete.</comment>
+  </data>
+  <data name="msgSelectSICCode" xml:space="preserve">
+    <value>Seleccionar código SIC</value>
+    <comment>Select SIC Code</comment>
+  </data>
+  <data name="msgSelectUniquenessCode" xml:space="preserve">
+    <value>Seleccionar código de unicidad</value>
+    <comment>Select Uniqueness Code</comment>
+  </data>
+  <data name="msgSelectZipCode" xml:space="preserve">
+    <value>Seleccionar código postal</value>
+    <comment>Select Zip Code</comment>
+  </data>
+  <data name="msgSettingNotUpdate" xml:space="preserve">
+    <value>Los ajustes no se actualizaron con éxito.</value>
+    <comment>Settings are not updated successfully.</comment>
+  </data>
+  <data name="msgSettingUpdate" xml:space="preserve">
+    <value>Los ajustes se actualizaron con éxito.</value>
+    <comment>Settings updated successfully.</comment>
+  </data>
+  <data name="msgSuccessApplyAutoAcceptance" xml:space="preserve">
+    <value>Los datos se aceptan en base a las reglas aplicadas</value>
+    <comment>Data are accepted based on Rules applied</comment>
+  </data>
+  <data name="msgSuppDUNS" xml:space="preserve">
+    <value>SuppDUNS.</value>
+    <comment>SuppDUNS.</comment>
+  </data>
+  <data name="msgSyncMonirotingRegistration" xml:space="preserve">
+    <value>Supervisión de la sincronización del registro con D&amp;B</value>
+    <comment>Monitoring Registration sync with D&amp;B</comment>
+  </data>
+  <data name="msgThirdPartyProviderNotFound1" xml:space="preserve">
+    <value>No se encontró ningún proveedor de terceros. Póngase en contacto con el equipo de servicios de Matchbook</value>
+    <comment>No Third Party provider found. ﻿Please contact the Matchbook Services team</comment>
+  </data>
+  <data name="msgThirdPartyProviderNotFound2" xml:space="preserve">
+    <value>para licenciar los datos.</value>
+    <comment>to license the data.</comment>
+  </data>
+  <data name="msgUnicodeFormat" xml:space="preserve">
+    <value>El formato Unicode no es válido para el archivo seleccionado con plantilla.</value>
+    <comment>Unicode format is not valid for selected file with template.</comment>
+  </data>
+  <data name="msgUnsuppDUNS" xml:space="preserve">
+    <value>UnsuppDUNS.</value>
+    <comment>UnsuppDUNS.</comment>
+  </data>
+  <data name="msgUpdateAutoAcceptance" xml:space="preserve">
+    <value>La regla de autoaceptación se ha actualizado con éxito.</value>
+    <comment>Auto Acceptance rule updated successfully.</comment>
+  </data>
+  <data name="msgUpdateDUNSRegistration" xml:space="preserve">
+    <value>El Registro DUNS se ha actualizado con éxito.</value>
+    <comment>DUNS Registration updated successfully.</comment>
+  </data>
+  <data name="msgUpdateMonitoringProfile" xml:space="preserve">
+    <value>El perfil de monitoreo se ha actualizado con éxito.</value>
+    <comment>Monitoring profile updated successfully.</comment>
+  </data>
+  <data name="msgUpdateNotification" xml:space="preserve">
+    <value>El perfil de notificación se ha actualizado con éxito.</value>
+    <comment>Notification profile updated successfully.</comment>
+  </data>
+  <data name="msgUpdateUser" xml:space="preserve">
+    <value>Perfil de usuario actualizado. Tenga en cuenta que los usuarios deberán cerrar sesión y volver a entrar en la aplicación antes de que se puedan aplicar estos cambios</value>
+    <comment>User profile updated. Please note that users will need to log out and log back into the application before these changes can be applied</comment>
+  </data>
+  <data name="msgUpdateUserPreference" xml:space="preserve">
+    <value>La preferencia del usuario se ha actualizado con éxito.</value>
+    <comment>User preference updated successfully.</comment>
+  </data>
+  <data name="msgUsedMonitoringProfile" xml:space="preserve">
+    <value>El perfil de monitoreo se utiliza en el registro DUNS, por favor intente eliminar primero el registro DUNS.</value>
+    <comment>Monitor profile is used in DUNS Registration, please try delete first DUNS Registration.</comment>
+  </data>
+  <data name="msgUsedNotification" xml:space="preserve">
+    <value>La notificación se utiliza en el registro DUNS, por favor intente eliminar primero el registro DUNS.</value>
+    <comment>Notification is used in DUNS Registration, please try delete first DUNS Registration.</comment>
+  </data>
+  <data name="msgUsedUserPreference" xml:space="preserve">
+    <value>La preferencia de usuario se utiliza en la notificación, por favor intente eliminar la primera notificación.</value>
+    <comment>User preference is used in notification, please try delete first notification.</comment>
+  </data>
+  <data name="msgUserActivate" xml:space="preserve">
+    <value>El usuario se ha activado con éxito.</value>
+    <comment>User activated successfully.</comment>
+  </data>
+  <data name="msgUserLimit" xml:space="preserve">
+    <value>No se puede crear ningún otro usuario. Límite excedido.</value>
+    <comment>No more user can be created. Limit exceeded.</comment>
+  </data>
+  <data name="msgValidateMultipleMatchCriteria" xml:space="preserve">
+    <value>¿Necesita que el candidato de coincidencia final sea validado con varios criterios de coincidencia?</value>
+    <comment>Do you need final match candidate to be validated against multiple match criteria?</comment>
+  </data>
+  <data name="msgValidCredential" xml:space="preserve">
+    <value>Las credenciales son válidas.</value>
+    <comment>credential are valid.</comment>
+  </data>
+  <data name="Notification Profile Name" xml:space="preserve">
+    <value>Nombre del perfil de notificación</value>
+    <comment>Notification Profile Name</comment>
+  </data>
+  <data name="placeholderBatchSize" xml:space="preserve">
+    <value>Tamaño del lote</value>
+    <comment>Batch Size</comment>
+  </data>
+  <data name="placeholderCustRef" xml:space="preserve">
+    <value>Texto de referencia del cliente</value>
+    <comment>Customer Reference Text</comment>
+  </data>
+  <data name="placeholderEnterValue" xml:space="preserve">
+    <value>Ingrese valor</value>
+    <comment>Enter Value</comment>
+  </data>
+  <data name="placeholderWaitTime" xml:space="preserve">
+    <value>Tiempo de espera</value>
+    <comment>Wait Time</comment>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>Group Name</value>
+    <comment>Group Name</comment>
+  </data>
+  <data name="String3" xml:space="preserve">
+    <value>Settings added successfully.</value>
+    <comment>Settings added successfully.</comment>
+  </data>
+  <data name="String4" xml:space="preserve">
+    <value>¿Estás seguro de que deseas eliminar este registro?</value>
+    <comment>Are you sure you want to delete this record?</comment>
+  </data>
+  <data name="titleAddAPI" xml:space="preserve">
+    <value>Agregar API</value>
+    <comment>Add API</comment>
+  </data>
+  <data name="titleAddDataBlockGroup" xml:space="preserve">
+    <value>Agregar grupo de bloque de datos</value>
+    <comment>Add Data Block Group</comment>
+  </data>
+  <data name="titleAddDnBApiGroup" xml:space="preserve">
+    <value>Agregar un nuevo grupo DnBApi</value>
+    <comment>Add New DnBApi Group</comment>
+  </data>
+  <data name="titleAddDUNSRegistration" xml:space="preserve">
+    <value>Agregar un nuevo registro DUNS</value>
+    <comment>Add New DUNS Registration</comment>
+  </data>
+  <data name="titleAddMininumConfidanceCodeOverride" xml:space="preserve">
+    <value>Agregar una nueva anulación de código de confianza mínima</value>
+    <comment>Add New Mininum confidance code Override</comment>
+  </data>
+  <data name="titleAddMonitorProfile" xml:space="preserve">
+    <value>Agregar un nuevo perfil de monitoreo</value>
+    <comment>Add New Monitor Profile</comment>
+  </data>
+  <data name="titleAddNewCredentials" xml:space="preserve">
+    <value>Agregar nuevas credenciales de API de terceros</value>
+    <comment>Add New Third Party API Credentials</comment>
+  </data>
+  <data name="titleAddNotificationProfile" xml:space="preserve">
+    <value>Agregar un nuevo perfil de notificación</value>
+    <comment>Add New Notification Profile</comment>
+  </data>
+  <data name="titleAddThrirdPartyEnrichment" xml:space="preserve">
+    <value>Agregar enriquecimiento de terceros</value>
+    <comment>Add Third Party Enrichment</comment>
+  </data>
+  <data name="titleAddUserPreference" xml:space="preserve">
+    <value>Agregar una nueva preferencia del usuario</value>
+    <comment>Add New User Preference</comment>
+  </data>
+  <data name="titleAutoAcceptance" xml:space="preserve">
+    <value>Aceptación automática</value>
+    <comment>Auto Acceptance</comment>
+  </data>
+  <data name="titleCleanseMatchDataMatch" xml:space="preserve">
+    <value>Partido de limpieza | Coincidencia de datos</value>
+    <comment>Cleanse Match| Data Match</comment>
+  </data>
+  <data name="titleConfidenceCode" xml:space="preserve">
+    <value>Código de confianza</value>
+    <comment>Confidence Code</comment>
+  </data>
+  <data name="titleDAndB" xml:space="preserve">
+    <value>D y B</value>
+    <comment>D &amp; B</comment>
+  </data>
+  <data name="titleDuplicateData" xml:space="preserve">
+    <value>DuplicateData</value>
+    <comment>DuplicateData</comment>
+  </data>
+  <data name="titleEditDataBlockGroup" xml:space="preserve">
+    <value>Editar grupo de bloque de datos</value>
+    <comment>Edit Data Block Group</comment>
+  </data>
+  <data name="titleEditDnBApiGroup" xml:space="preserve">
+    <value>Editar grupo DnBApi</value>
+    <comment>Edit DnBApi Group</comment>
+  </data>
+  <data name="titleEditDUNSRegistration" xml:space="preserve">
+    <value>Editar registro DUNS</value>
+    <comment>Edit DUNS Registration</comment>
+  </data>
+  <data name="titleEditMininumConfidanceCodeOverride" xml:space="preserve">
+    <value>Editar anulación de código de confianza mínima</value>
+    <comment>Edit Mininum confidance code Override</comment>
+  </data>
+  <data name="titleEditMonitoringRegistration" xml:space="preserve">
+    <value>Editar registro de monitoreo</value>
+    <comment>Edit Monitoring Registration</comment>
+  </data>
+  <data name="titleEditMonitorProfile" xml:space="preserve">
+    <value>Editar monitorear perfil</value>
+    <comment>Edit Monitor Profile</comment>
+  </data>
+  <data name="titleEditNotificationProfile" xml:space="preserve">
+    <value>Editar perfil de notificación</value>
+    <comment>Edit Notification Profile</comment>
+  </data>
+  <data name="titleEditThrirdPartyEnrichment" xml:space="preserve">
+    <value>Editar enriquecimiento de terceros</value>
+    <comment>Edit ThirdParty Enrichment</comment>
+  </data>
+  <data name="titleEditUserPreference" xml:space="preserve">
+    <value>Editar preferencia del usuario</value>
+    <comment>Edit User Preference</comment>
+  </data>
+  <data name="titleImportData" xml:space="preserve">
+    <value>Importar datos a la base de datos</value>
+    <comment>Import data into database</comment>
+  </data>
+  <data name="titleMatchData" xml:space="preserve">
+    <value>Datos del partido</value>
+    <comment>Match Data</comment>
+  </data>
+  <data name="titleMonitorProfile" xml:space="preserve">
+    <value>Perfil de monitor</value>
+    <comment>Monitor Profile</comment>
+  </data>
+  <data name="titleOverrideDetail" xml:space="preserve">
+    <value>Detalle de la anulación</value>
+    <comment>Override Detail</comment>
+  </data>
+  <data name="titleResetData" xml:space="preserve">
+    <value>Restablecer datos D&amp;B</value>
+    <comment>Reset D&amp;B Data</comment>
+  </data>
+  <data name="ttlAddMultiPassConfiguration" xml:space="preserve">
+    <value>Agregar configuración de MultiPass</value>
+    <comment>Add MultiPass Configuration</comment>
+  </data>
+</root>

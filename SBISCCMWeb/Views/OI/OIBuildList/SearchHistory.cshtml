@@ -1,0 +1,95 @@
+﻿@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchFacade.Objects;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+@using SBISCCMWeb.LanguageResources;
+
+@model List<SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.OI.OIBuildListSearchModelEntity>
+@{
+    Layout = null;
+}
+<div class="modal" id="GetOISearchHistoryModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@OIBuildListLang.hdrViewHistory</h4>
+            </div>
+            <div class="modal-body">
+                <div id="">
+                    <div class="tasble-responsive container tablewidth ">
+                        <table class="textBlue table-bordered table popuptopcolor MatchedItems">
+                            <thead>
+                                <tr>
+                                    <th>@OIBuildListLang.lblOrbNumber</th>
+                                    <th>@OIBuildListLang.lblIndustry</th>
+                                    <th>@OIBuildListLang.lblEntityType</th>
+                                    <th>@OIBuildListLang.lblAddress</th>
+                                    <th>@OIBuildListLang.lblRequestedDate</th>
+                                    <th>@OIBuildListLang.lblAction</th>
+                                    <th class="nosort">@OIBuildListLang.lblFullProfile</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        if (item.request_fields != null)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @item.request_fields.orb_num
+                                                </td>
+                                                <td>
+                                                    @item.request_fields.industry
+                                                </td>
+                                                <td>
+                                                    @item.request_fields.entity_type
+                                                </td>
+                                                <td>
+                                                    @{
+                                                        string AddressDetails = item.request_fields.address1;
+                                                        if (!string.IsNullOrEmpty(item.request_fields.city))
+                                                        {
+                                                            AddressDetails += "," + item.request_fields.city;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(item.request_fields.state))
+                                                        {
+                                                            AddressDetails += "," + item.request_fields.state;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(item.request_fields.country))
+                                                        {
+                                                            AddressDetails += "," + item.request_fields.country;
+                                                        }
+                                                    }
+                                                    @(string.IsNullOrEmpty(AddressDetails) ? "" : AddressDetails.TrimStart(','))
+                                                </td>
+                                                <td>
+                                                    @item.RequestedDateTime
+                                                </td>
+                                                <td>
+                                                    <a class="btnViewHistory" style="cursor:pointer" onclick="window.parent.ClosePopup(@item.SearchResultsId)">@OIBuildListLang.lblSelect</a>
+                                                </td>
+                                                <td>
+                                                    @item.request_fields.show_full_profile
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <input type="hidden" name="name" value="" id="hdnSearchResultsId" />
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+
+
+

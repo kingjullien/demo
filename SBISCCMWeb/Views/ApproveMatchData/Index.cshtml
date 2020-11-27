@@ -1,0 +1,231 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model PagedList.IPagedList<CompanyEntity>
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.LanguageResources;
+@{
+    if (!Helper.IsApprovalScreen)
+    {
+        if (Helper.Branding == Branding.Matchbook.ToString())
+        {
+            ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.Matchbook) + " | Match Data";
+        }
+        else if (Helper.Branding == Branding.DandB.ToString())
+        {
+            ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.DandB) + " | Match Data";
+        }
+    }
+    else
+    {
+        ViewBag.Title = "Approve Match Data";
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@{
+
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divStewardshipPortal",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+
+    };
+    var UserView = "GRID";
+    var ActivateFeature = "";
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ActivateFeature = BrandingLang.msgMBFeature;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ActivateFeature = BrandingLang.msgDNBFeature;
+    }
+
+    if (!string.IsNullOrEmpty(Convert.ToString(Session["DefaultView"])))
+    {
+        UserView = Convert.ToString(Session["DefaultView"]);
+    }
+}
+
+@using (Ajax.BeginForm("GetFilteredCompanyList", "ApproveMatchData", null, ajaxOptions, new { id = "form_StewardshipPortal" }))
+{
+    if (UserView == "PANEL")
+    {
+        <div class="set-panel ">
+            <a class="panelview">Set Grid View as Default View.</a>
+        </div>
+    }
+    <div class="btn-header ViewChange SwappingView" rel="tooltip" data-original-title="Panel View">
+        <span>
+            <a href="@Url.Action("ChangeView","ApproveMatchData")">
+                <i class="fa fa-windows"></i>
+            </a>
+        </span>
+    </div>
+    @Html.Hidden("Enable2StepUpdate", Helper.Enable2StepUpdate)
+    @Html.Hidden("IsApprover", Helper.IsApprover)
+    @Html.Hidden("IsApprovalScreen", Helper.IsApprovalScreen)
+    @Html.Hidden("Approve", Helper.Approve)
+    @Html.Hidden("ActivateFeature", ActivateFeature)
+    @Html.AntiForgeryToken()
+    <div id="content" style="opacity: 1;">
+        <section id="widget-grid" class="">
+            <div class="row">
+                <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6 sortable-grid ui-sortable" style="display:none">
+                    <div id="wid-id-Company" class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <h2>
+                                <i class="fa fa-filter"></i>
+                                <strong>Company Filter</strong>
+                            </h2>
+                            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                                <li>
+                                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                                </li>
+                            </ul>
+
+                        </header>
+                        <div role="content">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body no-padding">
+                                <div class="tab-content padding-10">
+                                    <div id="hr1" class="tab-pane fade active in">
+                                        <div class="form-group">
+                                            <span><strong>Src Id</strong></span>
+                                            <input id="txtScrRecId" type="text" name="SrcRecId" class="form-control sideTextboxes" onkeyup="$(this).parents('form').submit();" />
+                                        </div>
+                                        <div class="form-group">
+                                            <span><strong>Company</strong></span>
+                                            <input id="txtCompany" type="text" name="Company" class="form-control sideTextboxes" onkeyup="$(this).parents('form').submit();" />
+                                        </div>
+                                        <div class="form-group">
+                                            <span><strong>City</strong></span>
+                                            <input id="txtCity" type="text" name="City" class="form-control sideTextboxes" onkeyup="$(this).parents('form').submit();" />
+                                        </div>
+                                        <div class="form-group selectPadding">
+
+                                            <span><strong>State</strong></span>
+                                            @Html.DropDownList("State", new SelectList(SBISCCMWeb.Models.StewardshipPortalModel.GetStates(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)), "Select State", new { @class = "form-control", @onchange = "$(this).parents('form').submit();" })
+                                        </div>
+                                        <div class="form-group selectPadding">
+                                            <span><strong>Country</strong></span>
+                                            @Html.DropDownList("Country", new SelectList(SBISCCMWeb.Models.StewardshipPortalModel.GetStatecountries(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)), "Select Country", new { @class = "form-control", @onchange = "$(this).parents('form').submit();" })
+                                        </div>
+                                        <div class="form-group text-right">
+                                            <input id="btnClearCompanyData" class="btn btn-primary btnBlack " type="submit" name="btnClearCompanyData" title="Clear Company Filter" value="Clear Company Filter" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+                    <div id="wid-id-Match" class="jarviswidget jarviswidget-sortable jarviswidget-collapsed jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <h2>
+                                <i class="fa fa-filter"></i>
+                                <strong>Match Filter</strong>
+                            </h2>
+                            <ul class="nav pull-right nav-pills Custom-pill">
+                                <li>
+                                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-plus "></i></a>
+                                </li>
+                            </ul>
+                        </header>
+                        <div role="content" style="display:none;">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body no-padding">
+                                <div class="tab-content padding-10">
+                                    <div id="hr2" class="tab-pane fade fade active in">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <span><strong>Company </strong></span>
+                                                    @Html.DropDownList("CompanyMatch", (SBISCCMWeb.Models.StewardshipPortalModel.GetAllFilter()), new { @class = "form-control", @onchange = "$(this).parents('form').submit();" })
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <span><strong>Street No</strong></span>
+                                                    @Html.DropDownList("StreetNo", (SBISCCMWeb.Models.StewardshipPortalModel.GetAllFilter()), new { @class = "form-control", @onchange = "$(this).parents('form').submit();" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <span><strong>Street Name</strong></span>
+                                                    @Html.DropDownList("StreetName", (SBISCCMWeb.Models.StewardshipPortalModel.GetAllFilter()), new { @class = "form-control", @onchange = "$(this).parents('form').submit();" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <span><strong>City</strong></span>
+                                                    @Html.DropDownList("CityName", (SBISCCMWeb.Models.StewardshipPortalModel.GetAllFilter()), new { @class = "form-control", @onchange = "$(this).parents('form').submit();" })
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="matchFilter">
+                                                        <div class="row ">
+                                                            <div class="title col-xs-4">Match Filter</div>
+                                                            <div class="col-xs-7"><span class="pull-right">Minimum Confidence Code</span></div>
+                                                            <div class="col-xs-1"><span id="divMinConfidentCode" class="pull-right"></span></div>
+                                                        </div>
+                                                        <div class="row grey14 padding-5">
+                                                            <div class="col-md-10">
+                                                                <input type="hidden" id="minConfidentCode" name="minConfidentCode">
+                                                            </div>
+
+                                                        </div>
+                                                        <div id="slider-range" class="grey14">
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <span><strong>State</strong></span>
+                                                    @Html.DropDownList("StateName", (SBISCCMWeb.Models.StewardshipPortalModel.GetAllFilter()), new { @class = "form-control", @onchange = "$(this).parents('form').submit();" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <span><strong>Postal Code</strong></span>
+                                                    @Html.DropDownList("PostalCode", (SBISCCMWeb.Models.StewardshipPortalModel.GetAllFilter()), new { @class = "form-control", @onchange = "$(this).parents('form').submit();" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <span><strong>Telephone</strong></span>
+                                                    @Html.DropDownList("Telephone", (SBISCCMWeb.Models.StewardshipPortalModel.GetAllFilter()), new { @class = "form-control", @onchange = "$(this).parents('form').submit();" })
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="checkbox padding-10 paddingLeft-15">
+                                                        <label>
+                                                            <input type="checkbox" id="SelectTopMatch" name="SelectTopMatch" value="true" onchange="$(this).parents('form').submit();">
+                                                            <strong>Select Top 1 Match</strong>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 paddingto5">
+                                                    <input id="btnClearMatchFilter" class="btn btn-primary btnBlack" type="submit" name="btnClearMatchFilter" title="Clear Match Filter" value="Clear Match Filter" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <div id="divStewardshipPortal">
+                    @{Html.RenderPartial("_Index", Model);}
+                </div>
+            </div>
+        </section>
+    </div>
+}
+
+@section scripts{
+    <script src="~/Scripts/jquery.ui.position.min.js"></script>
+    <script src="~/Scripts/jquery.contextMenu.js"></script>
+    <script src="~/Scripts/CustomJS-minified/ApproveMatchData.js?jh=234"></script>
+}

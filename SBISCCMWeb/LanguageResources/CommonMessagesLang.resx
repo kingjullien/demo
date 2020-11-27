@@ -1,0 +1,648 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="lblActiveDataQueue" xml:space="preserve">
+    <value>Active Data Queue</value>
+    <comment>Active Data Queue</comment>
+  </data>
+  <data name="lblAllFiles" xml:space="preserve">
+    <value>All Files</value>
+    <comment>All Files</comment>
+  </data>
+  <data name="lblAny" xml:space="preserve">
+    <value>Any</value>
+    <comment>Any</comment>
+  </data>
+  <data name="lblBenificiaryDetails" xml:space="preserve">
+    <value>View Beneficiary Details</value>
+    <comment>Benificiary Details</comment>
+  </data>
+  <data name="lblBrowse" xml:space="preserve">
+    <value>Browse</value>
+    <comment>Browse</comment>
+  </data>
+  <data name="lblBusinessName" xml:space="preserve">
+    <value>00: Business Name</value>
+    <comment>00: Business Name</comment>
+  </data>
+  <data name="lblCleanseMatch" xml:space="preserve">
+    <value>Cleanse, Match &amp; Enrichment</value>
+    <comment>Cleanse, Match &amp; Enrichment</comment>
+  </data>
+  <data name="lblCompany" xml:space="preserve">
+    <value>Company</value>
+    <comment>Company</comment>
+  </data>
+  <data name="lblCompanyTree" xml:space="preserve">
+    <value>CompanyTree</value>
+    <comment>CompanyTree</comment>
+  </data>
+  <data name="lblConfirm" xml:space="preserve">
+    <value>Confirm</value>
+    <comment>Confirm</comment>
+  </data>
+  <data name="lblDAndB" xml:space="preserve">
+    <value>D&amp;B</value>
+    <comment>D&amp;B</comment>
+  </data>
+  <data name="lblDifferent" xml:space="preserve">
+    <value>F: Different</value>
+    <comment>F: Different</comment>
+  </data>
+  <data name="lblDunBradstreet" xml:space="preserve">
+    <value>Dun &amp; Bradstreet</value>
+    <comment>Dun &amp; Bradstreet</comment>
+  </data>
+  <data name="lblEnrichment" xml:space="preserve">
+    <value>Enrichment Only</value>
+    <comment>Enrichment Only</comment>
+  </data>
+  <data name="lblFalse" xml:space="preserve">
+    <value>False</value>
+    <comment>False</comment>
+  </data>
+  <data name="lblFirmographics" xml:space="preserve">
+    <value>Firmographics</value>
+    <comment>Firmographics</comment>
+  </data>
+  <data name="lblMatchbook" xml:space="preserve">
+    <value>Matchbook</value>
+    <comment>Matchbook</comment>
+  </data>
+  <data name="lblMatchOutput" xml:space="preserve">
+    <value>Match Output</value>
+    <comment>Match Output</comment>
+  </data>
+  <data name="lblMissingInput" xml:space="preserve">
+    <value>Z: Missing Input</value>
+    <comment>Z: Missing Input</comment>
+  </data>
+  <data name="lblMyFiles" xml:space="preserve">
+    <value>My Files</value>
+    <comment>My Files</comment>
+  </data>
+  <data name="lblNoData" xml:space="preserve">
+    <value>X: No Data</value>
+    <comment>X: No Data</comment>
+  </data>
+  <data name="lblNone" xml:space="preserve">
+    <value>None</value>
+    <comment>None</comment>
+  </data>
+  <data name="lblOrbCleanseMatch" xml:space="preserve">
+    <value>Orb Cleanse, Match &amp; Enrichment</value>
+    <comment>Orb Cleanse, Match &amp; Enrichment</comment>
+  </data>
+  <data name="lblOrbEnrichment" xml:space="preserve">
+    <value>Orb Enrichment Only</value>
+    <comment>Orb Enrichment Only</comment>
+  </data>
+  <data name="lblOrbIntelligence" xml:space="preserve">
+    <value>Orb Intelligence</value>
+    <comment>Orb Intelligence</comment>
+  </data>
+  <data name="lblOtherName" xml:space="preserve">
+    <value>01: Other Name</value>
+    <comment>01: Other Name</comment>
+  </data>
+  <data name="lblSame" xml:space="preserve">
+    <value>A: Same</value>
+    <comment>A: Same</comment>
+  </data>
+  <data name="lblSelectAcceptedBy" xml:space="preserve">
+    <value>Select AcceptedBy</value>
+    <comment>Select AcceptedBy</comment>
+  </data>
+  <data name="lblSelectApiLayer" xml:space="preserve">
+    <value>Select Api Layer</value>
+    <comment>Select Api Layer</comment>
+  </data>
+  <data name="lblSelectConfidenceCode" xml:space="preserve">
+    <value>Select Confidence Code</value>
+    <comment>Select Confidence Code</comment>
+  </data>
+  <data name="lblSelectCountry" xml:space="preserve">
+    <value>Select Country</value>
+    <comment>Select Country</comment>
+  </data>
+  <data name="lblSelectCountryGroup" xml:space="preserve">
+    <value>Select Country Group</value>
+    <comment>Select Country Group</comment>
+  </data>
+  <data name="lblSelectImportProcess" xml:space="preserve">
+    <value>Select Import Process</value>
+    <comment>Select Import Process</comment>
+  </data>
+  <data name="lblSelectImportProcessOptional" xml:space="preserve">
+    <value>Select Import Process (Optional)</value>
+    <comment>Select Import Process (Optional)</comment>
+  </data>
+  <data name="lblSelectIndustry" xml:space="preserve">
+    <value>Select Industry</value>
+    <comment>Select Industry</comment>
+  </data>
+  <data name="lblSelectLanguage" xml:space="preserve">
+    <value>Select Language</value>
+    <comment>Select Language</comment>
+  </data>
+  <data name="lblSelectLOBTag" xml:space="preserve">
+    <value>Select LOB Tag</value>
+    <comment>Select LOB Tag</comment>
+  </data>
+  <data name="lblSelectLOBTagOptional" xml:space="preserve">
+    <value>Select LOB Tag (Optional)</value>
+    <comment>Select LOB Tag (Optional)</comment>
+  </data>
+  <data name="lblSelectNAICSCode" xml:space="preserve">
+    <value>Select NAICS Code</value>
+    <comment>Select NAICS Code</comment>
+  </data>
+  <data name="lblSelectPriority" xml:space="preserve">
+    <value>Select Priority</value>
+    <comment>Select Priority</comment>
+  </data>
+  <data name="lblSelectProductLayer" xml:space="preserve">
+    <value>Select Product Layer</value>
+    <comment>Select Product Layer</comment>
+  </data>
+  <data name="lblSelectRanking" xml:space="preserve">
+    <value>Select Ranking</value>
+    <comment>Select Ranking</comment>
+  </data>
+  <data name="lblSelectSecurityQuestion" xml:space="preserve">
+    <value>Select Security Question</value>
+    <comment>Select Security Question</comment>
+  </data>
+  <data name="lblSelectSICCode" xml:space="preserve">
+    <value>Select SIC Code</value>
+    <comment>Select SIC Code</comment>
+  </data>
+  <data name="lblSelectState" xml:space="preserve">
+    <value>Select State</value>
+    <comment>Select State</comment>
+  </data>
+  <data name="lblSelectTag" xml:space="preserve">
+    <value>Select Tag</value>
+    <comment>Select Tag</comment>
+  </data>
+  <data name="lblSelectTagsOptional" xml:space="preserve">
+    <value>Select Tags (Optional)</value>
+    <comment>Select Tags (Optional)</comment>
+  </data>
+  <data name="lblSelectTagtype" xml:space="preserve">
+    <value>Select Tag type</value>
+    <comment>Select Tag type</comment>
+  </data>
+  <data name="lblSelectTechnologies" xml:space="preserve">
+    <value>Select Technologies</value>
+    <comment>Select Technologies</comment>
+  </data>
+  <data name="lblSelectTechnologiesCategories" xml:space="preserve">
+    <value>Select Technologies Categories</value>
+    <comment>Select Technologies Categories</comment>
+  </data>
+  <data name="lblSelectTicker" xml:space="preserve">
+    <value>Select Ticker</value>
+    <comment>Select Ticker</comment>
+  </data>
+  <data name="lblSelectType" xml:space="preserve">
+    <value>Select Type</value>
+    <comment>Select Type</comment>
+  </data>
+  <data name="lblSimilar" xml:space="preserve">
+    <value>B: Similar</value>
+    <comment>B: Similar</comment>
+  </data>
+  <data name="lblSrcRecordId" xml:space="preserve">
+    <value>SrcRecordId</value>
+    <comment>SrcRecordId</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>State</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblTrue" xml:space="preserve">
+    <value>True</value>
+    <comment>True</comment>
+  </data>
+  <data name="lblTypeAhead" xml:space="preserve">
+    <value>Type Ahead</value>
+    <comment>Type Ahead</comment>
+  </data>
+  <data name="msgAccountSuspended" xml:space="preserve">
+    <value>Your account is temporarily suspended.</value>
+    <comment>Your account is temporarily suspended.</comment>
+  </data>
+  <data name="msgAccountSuspendedTemporarily" xml:space="preserve">
+    <value>Your account is temporarily suspended. Please contact administrator to active account.</value>
+    <comment>Your account is temporarily suspended. Please contact administrator to active account.</comment>
+  </data>
+  <data name="msgAccountTemporarilySuspended" xml:space="preserve">
+    <value>Your account is temporarily suspended</value>
+    <comment>Your account is temporarily suspended</comment>
+  </data>
+  <data name="msgActiveUsers" xml:space="preserve">
+    <value>Active Users</value>
+    <comment>Active Users</comment>
+  </data>
+  <data name="msgAddFilter" xml:space="preserve">
+    <value>Add filter</value>
+    <comment>Add filter</comment>
+  </data>
+  <data name="msgaddMatchAsCompany" xml:space="preserve">
+    <value>Add match as a new company</value>
+    <comment>Add match as a new company</comment>
+  </data>
+  <data name="msgAddTag" xml:space="preserve">
+    <value>Add Tags (Optional)</value>
+    <comment>Add Tags (Optional)</comment>
+  </data>
+  <data name="msgAllowedFormats" xml:space="preserve">
+    <value>Only formats allowed are :jpeg, jpg, png, gif, bmp</value>
+    <comment>Only formats allowed are :jpeg, jpg, png, gif, bmp</comment>
+  </data>
+  <data name="msgAllowedOnlyExcel" xml:space="preserve">
+    <value>Only formats allowed are .xls and .xlsx</value>
+    <comment>Only formats allowed are .xls and .xlsx</comment>
+  </data>
+  <data name="msgAuthError" xml:space="preserve">
+    <value>User is not authorized to make this change.</value>
+    <comment>User is not authorized to make this change.</comment>
+  </data>
+  <data name="msgCommanChechExcelFile" xml:space="preserve">
+    <value>Only formats allowed are :xls,xlsx</value>
+    <comment>Only formats allowed are :xls,xlsx</comment>
+  </data>
+  <data name="msgCommanDeleteMessage" xml:space="preserve">
+    <value>Data deleted successfully</value>
+    <comment>Data deleted successfully</comment>
+  </data>
+  <data name="msgCommanEnableFileImport" xml:space="preserve">
+    <value>Unable to import the data into the database. Please try again or contact Matchbook Services support.</value>
+    <comment>Unable to import the data into the database. Please try again or contact Matchbook Services support.</comment>
+  </data>
+  <data name="msgCommanErrorMessage" xml:space="preserve">
+    <value>Error occurred. Please try again</value>
+    <comment>Error occurred. Please try again</comment>
+  </data>
+  <data name="msgCommanFileEmpty" xml:space="preserve">
+    <value>File is Empty.</value>
+    <comment>File is Empty.</comment>
+  </data>
+  <data name="msgCommanInsertMessage" xml:space="preserve">
+    <value>Data created successfully</value>
+    <comment>Data created successfully</comment>
+  </data>
+  <data name="msgCommanUpdateMessage" xml:space="preserve">
+    <value>Data updated successfully</value>
+    <comment>Data updated successfully</comment>
+  </data>
+  <data name="msgDataRejected" xml:space="preserve">
+    <value>Data rejected successfully</value>
+    <comment>Data rejected successfully</comment>
+  </data>
+  <data name="msgDeleteSessionFilter" xml:space="preserve">
+    <value>Are you sure you want to delete session filter?</value>
+    <comment>Are you sure you want to delete session filter?</comment>
+  </data>
+  <data name="msgEnterValidName" xml:space="preserve">
+    <value>Please enter valid file name.</value>
+    <comment>Please enter valid file name.</comment>
+  </data>
+  <data name="msgErrorOccurred" xml:space="preserve">
+    <value>Error occurred.</value>
+    <comment>Error occurred.</comment>
+  </data>
+  <data name="msgExist" xml:space="preserve">
+    <value>Exist</value>
+    <comment>Exist</comment>
+  </data>
+  <data name="msgExistsFail" xml:space="preserve">
+    <value>ExistsFail</value>
+    <comment>ExistsFail</comment>
+  </data>
+  <data name="msgFail" xml:space="preserve">
+    <value>fail</value>
+    <comment>fail</comment>
+  </data>
+  <data name="msgFailer" xml:space="preserve">
+    <value>Failer</value>
+    <comment>Failer</comment>
+  </data>
+  <data name="msgFileNotSpecified" xml:space="preserve">
+    <value>You have not specified a file.</value>
+    <comment>You have not specified a file.</comment>
+  </data>
+  <data name="msgFiles" xml:space="preserve">
+    <value>Your file(s)</value>
+    <comment>Your file(s)</comment>
+  </data>
+  <data name="msgFilesReadyToDownload" xml:space="preserve">
+    <value>are ready for the download.</value>
+    <comment>are ready for the download.</comment>
+  </data>
+  <data name="msgFileUploaded" xml:space="preserve">
+    <value>File uploaded successfully</value>
+    <comment>File uploaded successfully</comment>
+  </data>
+  <data name="msgInvadilState" xml:space="preserve">
+    <value>Please fill proper information.</value>
+    <comment>Please fill proper information.</comment>
+  </data>
+  <data name="msgInvalidEmail" xml:space="preserve">
+    <value>Email is not valid.</value>
+    <comment>Email is not valid.</comment>
+  </data>
+  <data name="msgInvalidFile" xml:space="preserve">
+    <value>Please select proper file.</value>
+    <comment>Please select proper file.</comment>
+  </data>
+  <data name="msgInvalidTemplate" xml:space="preserve">
+    <value>Invalid template for the selected file.</value>
+    <comment>Invalid template for the selected file.</comment>
+  </data>
+  <data name="msgInvalidUnicodeFormat" xml:space="preserve">
+    <value>Unicode format is not valid for selected file with template.</value>
+    <comment>Unicode format is not valid for selected file with template.</comment>
+  </data>
+  <data name="msgInvalidUser" xml:space="preserve">
+    <value>Invalid user.</value>
+    <comment>Invalid user.</comment>
+  </data>
+  <data name="msgInvalidUsernamePassword" xml:space="preserve">
+    <value>Invalid username or password.</value>
+    <comment>Invalid username or password.</comment>
+  </data>
+  <data name="msgInvestigateRecord" xml:space="preserve">
+    <value>Investigate Record</value>
+    <comment>Investigate Record</comment>
+  </data>
+  <data name="msgMultipleInvestigationSubmit" xml:space="preserve">
+    <value>Your requests are in queue, it will take a while to submit all selected Investigation. Please check Investigation reports for status of all requests in few minutes.</value>
+    <comment>Your requests are in queue, it will take a while to submit all selected Investigation. Please check Investigation reports for status of all requests in few minutes.</comment>
+  </data>
+  <data name="msgNext" xml:space="preserve">
+    <value>Next</value>
+    <comment>Next</comment>
+  </data>
+  <data name="msgNoDataAvailable" xml:space="preserve">
+    <value>No data available.</value>
+    <comment>No data available.</comment>
+  </data>
+  <data name="msgNoDataInSystem" xml:space="preserve">
+    <value>There is no data available in system for file.</value>
+    <comment>There is no data available in system for file.</comment>
+  </data>
+  <data name="msgNoDefaultKeyForBuildList" xml:space="preserve">
+    <value>There is no default key set for build a list.</value>
+    <comment>There is no default key set for build a list.</comment>
+  </data>
+  <data name="msgNoDefaultKeyForSearch" xml:space="preserve">
+    <value>There is no default key set for single entity search.</value>
+    <comment>There is no default key set for single entity search.</comment>
+  </data>
+  <data name="msgNoRecords" xml:space="preserve">
+    <value>Total 0 records are affected, are you sure you want to continue ?</value>
+    <comment>Total 0 records are affected, are you sure you want to continue ?</comment>
+  </data>
+  <data name="msgNoResultsMatch" xml:space="preserve">
+    <value>No results match</value>
+    <comment>No results match</comment>
+  </data>
+  <data name="msgNotExist" xml:space="preserve">
+    <value>NotExist</value>
+    <comment>NotExist</comment>
+  </data>
+  <data name="msgNothingFound" xml:space="preserve">
+    <value>Oops, nothing found!</value>
+    <comment>Oops, nothing found!</comment>
+  </data>
+  <data name="msgNothingToMove" xml:space="preserve">
+    <value>Nothing to move.</value>
+    <comment>Nothing to move.</comment>
+  </data>
+  <data name="msgNotificationDismissed" xml:space="preserve">
+    <value>Notification Dismiss successfully.</value>
+    <comment>Notification Dismiss successfully.</comment>
+  </data>
+  <data name="msgPageSize" xml:space="preserve">
+    <value>Page Size</value>
+    <comment>Page Size</comment>
+  </data>
+  <data name="msgPasswordReset" xml:space="preserve">
+    <value>Password Reset Successfully.</value>
+    <comment>Password Reset Successfully.</comment>
+  </data>
+  <data name="msgPrevious" xml:space="preserve">
+    <value>Previous</value>
+    <comment>Previous</comment>
+  </data>
+  <data name="msgPurgeRecord" xml:space="preserve">
+    <value>Purge Record</value>
+    <comment>Purge Record</comment>
+  </data>
+  <data name="msgRecordsAffected" xml:space="preserve">
+    <value>records are affected, are you sure you want to continue ?</value>
+    <comment>records are affected, are you sure you want to continue ?</comment>
+  </data>
+  <data name="msgReMatchRecord" xml:space="preserve">
+    <value>Re-Match Record</value>
+    <comment>Re-Match Record</comment>
+  </data>
+  <data name="msgRequestSubmitted" xml:space="preserve">
+    <value>Requests submitted successfully.</value>
+    <comment>Requests submitted successfully.</comment>
+  </data>
+  <data name="msgRequiredEmail" xml:space="preserve">
+    <value>Please enter email address and set valid password.</value>
+    <comment>Please enter email address and set valid password.</comment>
+  </data>
+  <data name="msgRequiredFileName" xml:space="preserve">
+    <value>Please enter file name.</value>
+    <comment>Please enter file name.</comment>
+  </data>
+  <data name="msgResetSuccessfully" xml:space="preserve">
+    <value>Resert successfully</value>
+    <comment>Resert successfully</comment>
+  </data>
+  <data name="msgResponseErroeMessage" xml:space="preserve">
+    <value>Error Occurred. Please contact matchbookservices or create helpdesk ticket.</value>
+    <comment>Error Occurred. Please contact matchbookservices or create helpdesk ticket.</comment>
+  </data>
+  <data name="msgSetDefaultCredentialForMonitoring" xml:space="preserve">
+    <value>Default Credential not set for monitoring</value>
+    <comment>Default Credential not set for monitoring</comment>
+  </data>
+  <data name="msgSomethingWentWrong" xml:space="preserve">
+    <value>Something went wrong! Error Occured.</value>
+    <comment>Something went wrong! Error Occured.</comment>
+  </data>
+  <data name="msgSomethingWrong" xml:space="preserve">
+    <value>Something wrong! Please try again later.</value>
+    <comment>Something wrong! Please try again later.</comment>
+  </data>
+  <data name="msgSuccess" xml:space="preserve">
+    <value>Success</value>
+    <comment>Success</comment>
+  </data>
+  <data name="msgSureWantToContinue" xml:space="preserve">
+    <value>are you sure you want to continue ?</value>
+    <comment>are you sure you want to continue ?</comment>
+  </data>
+  <data name="msgTemplateSaved" xml:space="preserve">
+    <value>Template saved successfully.</value>
+    <comment>Template saved successfully.</comment>
+  </data>
+  <data name="msgTemplateUpdated" xml:space="preserve">
+    <value>Template updated successfully.</value>
+    <comment>Template updated successfully.</comment>
+  </data>
+  <data name="msgTotal" xml:space="preserve">
+    <value>Total</value>
+    <comment>Total</comment>
+  </data>
+  <data name="msgUpdateLicance" xml:space="preserve">
+    <value>License updated. Please note that users will need to log out and log back into the application before these changes can be applied</value>
+    <comment>License updated. Please note that users will need to log out and log back into the application before these changes can be applied</comment>
+  </data>
+  <data name="msgUserAlreadyLoggedIn" xml:space="preserve">
+    <value>User is already logged in at another browser.</value>
+    <comment>User is already logged in at another browser.</comment>
+  </data>
+  <data name="msgUserAlreadyLoggedInAnotherLocation" xml:space="preserve">
+    <value>User is already logged in at another location.</value>
+    <comment>User is already logged in at another location.</comment>
+  </data>
+  <data name="msgValidCharacters" xml:space="preserve">
+    <value>Please enter only alphanumeric,hyphen or underscore</value>
+    <comment>Please enter only alphanumeric,hyphen or underscore</comment>
+  </data>
+  <data name="msgWantToContiune" xml:space="preserve">
+    <value>, are you sure you want to continue ?</value>
+    <comment>, are you sure you want to continue ?</comment>
+  </data>
+  <data name="msgWrongFormat" xml:space="preserve">
+    <value>wrongFormat</value>
+    <comment>wrongFormat</comment>
+  </data>
+  <data name="msgZeroDeleted" xml:space="preserve">
+    <value>Total 0 will be deleted, are you sure you want to continue ?</value>
+    <comment>Total 0 will be deleted, are you sure you want to continue ?</comment>
+  </data>
+</root>

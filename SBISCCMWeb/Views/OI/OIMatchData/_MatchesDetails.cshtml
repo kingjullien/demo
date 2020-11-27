@@ -1,0 +1,130 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model OIlstMatchDetails
+@{
+    var i = 0;
+    Layout = null;
+}
+@Html.AntiForgeryToken()
+<article class="col-xs-10 col-sm-10 col-md-10 col-lg-10 sortable-grid ui-sortable" style="padding-right:0">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <div role="content" style="height: 470px;">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div class="tab-pane fade active in">
+                        <div id="LeftContentTable" style="height:450px;overflow-y:auto;">
+                            <table id="tbOIMetaSearchData" class="table table-bordered" role="grid">
+                                <thead>
+                                    <tr class="">
+                                        <th style="width:20px;padding:10px 0px 0 4px;">
+                                        </th>
+                                        <th>
+                                            <span>@OIMatchDataLang.lblRank</span>
+                                        </th>
+                                        <th>
+                                            <span>@OIMatchDataLang.lblORB</span>
+                                        </th>
+                                        <th>
+                                            <span>@OIMatchDataLang.lblCompany</span>
+                                        </th>
+                                        <th>
+                                            <span>@OIMatchDataLang.lblAddress</span>
+                                        </th>
+                                        <th style="width:12%">
+                                            <span>
+                                                @OIMatchDataLang.lblCC : @OIMatchDataLang.lblTotAvgMaxMin
+                                            </span>
+                                        </th>
+                                        <th>
+                                            <span>@OIMatchDataLang.lblOperating</span>
+                                        </th>
+                                        <th style="width:10%">@OIMatchDataLang.lblAssignOrb</th>
+
+                                        @*MP-770 Add reject data in Match data (ORB)*@
+                                        <th style="width:10%">@OIMatchDataLang.lblRejectCandidate</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="cursor-pointer">
+                                    @if (Model.lstOIMatchDetail != null)
+                                    {
+                                        foreach (var item in Model.lstOIMatchDetail)
+                                        {
+                                            i++;
+                                            <tr id="@item.orb_num" data-MatchInput="@Model.lstOICompanyInput.InputId" class="@(i % 2 == 0 ? "AlternateRow" : null)  @(i == 1 ? "current" : null) context-menu-one">
+                                                <td style="width:10px;padding:20px 0px 0 4px;background-color:@(item.Color);color:@(item.Color!=null? item.Color.ToLower()=="black"?"white":"black":"")">
+                                                    @if (item.NbrInstances > 1)
+                                                    {
+                                                        <i><span>@item.NbrInstances </span></i>
+                                                    }
+                                                </td>
+                                                <td class="RankId">@item.MatchbookRank</td>
+                                                <td>
+                                                    <a href="javascript:void(0)" class="btnOpenMatchMetadata"
+                                                       data-InputId="@Model.lstOICompanyInput.InputId"
+                                                       data-orb_num="@item.orb_num"
+                                                       data-prev="@(i > 1 ? Model.lstOIMatchDetail[i - 2].orb_num : null)"
+                                                       data-next="@(Model.lstOIMatchDetail.Count > i ? Model.lstOIMatchDetail[i].orb_num : null)"
+                                                       data-val="@SerializeHelper.SerializeObject(item)">
+
+                                                        @item.orb_num
+                                                    </a>
+                                                </td>
+                                                <td>@item.name</td>
+                                                <td>
+                                                    @{
+                                                        string AddressDetails = item.address1;
+                                                        if (!string.IsNullOrEmpty(item.city))
+                                                        {
+                                                            AddressDetails += "," + item.city;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(item.state))
+                                                        {
+                                                            AddressDetails += "," + item.state;
+                                                        }
+                                                        if (!string.IsNullOrEmpty(item.zip))
+                                                        {
+                                                            AddressDetails += "," + item.zip;
+                                                        }
+                                                    }
+                                                    @(string.IsNullOrEmpty(AddressDetails) ? "" : AddressDetails.TrimStart(','))
+                                                </td>
+
+                                                <td>@item.TotalCC/@item.AvgCC/@item.MaxCC/@item.MinCC</td>
+                                                <td>@item.company_status</td>
+                                                <td>
+                                                    <div class="btnUnselected btnAssignOrb" data-OrbNum="@item.orb_num">
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+
+                                                @*MP-770 Add reject data in Match data (ORB)*@
+                                                <td>
+                                                    <div class="btnOIRejectCandidateRecord" data-OrbNum="@item.orb_num">
+                                                        <a href="javascript:void(0)">
+                                                            <i>
+                                                                <i class="fa fa-ban marginleft-25" aria-hidden="true"></i> @OIMatchDataLang.lblReject
+                                                            </i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="9">@OIMatchDataLang.lblNorecordsfound</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+ 

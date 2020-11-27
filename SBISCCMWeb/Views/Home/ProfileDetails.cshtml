@@ -1,0 +1,149 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model  UsersEntity
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + HomeLang.titleProfile;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + HomeLang.titleProfile;
+    }
+    string noImagePath = "../Images/no-image.jpg";
+}
+@Html.Hidden("Imagepath", Model.Imagepath)
+@*@Html.Hidden("LoginId", Model.LoginId)*@
+@Html.Hidden("UserId", Model.UserId)
+@Html.Hidden("EmailAddress", Model.EmailAddress)
+@Html.AntiForgeryToken()
+<style>
+    .new-profiledata .control-label {
+        width: 175px;
+        display: inline-block;
+        float: left;
+    }
+</style>
+<div id="content" style="opacity: 1;" class="ProfileMainContent">
+    <section id="widget-grid" class="">
+        <article class="col-md-12 sortable-grid ui-sortable">
+            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                <header role="heading">
+                    <h2>
+                        <strong>@HomeLang.hdrProfileDetails</strong>
+                    </h2>
+                </header>
+
+                <div role="content">
+                    <div class="jarviswidget-editbox"></div>
+                    <div class="widget-body no-padding">
+                        <div class="tab-content padding-5 col-md-12">
+                            <div id="hr1" class="tab-pane fade active in">
+                                @if (Model != null)
+                                {
+                                    <div class="form-group popupAACRow">
+                                        <div class="row">
+                                            <div class="col-md-3 mobiledivider width280">
+                                                @if (Model.Imagepath == "")
+                                                {
+                                                    <img id="img" src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(noImagePath))" alt="IMAGES" class="browserimg" onerror="this.src=/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(noImagePath))" /><br>
+                                                    <div id="dvfl" class="browseProfileImage">
+                                                        <label class="custom-file-input margin-bottom-10">
+                                                            <input type="file" name="file" id="file" class="browserFile" accept=".jpg,.jpeg,.png,.gif,.bmp" />
+                                                        </label><br />
+                                                        <button id="btnSubmit" type="button" class="btn btn-primary">@HomeLang.lblUploadImage</button>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <img id="img" src="/Image/GetImage?imagepath=@HttpUtility.UrlEncode(Utility.GetEncryptedString(Model.Imagepath))" alt="IMAGES" class="browserimg" onerror="this.src=@Url.Content(HttpUtility.UrlEncode(Utility.GetEncryptedString("../Images/no-image.jpg")))" /><br>
+
+                                                    <input id="btRemoveImage" type="button" class="btn btn-primary btn-sm" value="@HomeLang.lblRemoveImage" />
+                                                    <br /><br />
+                                                    <div id="dvfl" class="browseProfileImage">
+                                                        <label class="custom-file-input margin-bottom-10">
+                                                            <input type="file" name="file" id="file" class="browserFile" />
+                                                        </label><br />
+                                                        <button id="btnSubmit" type="button" class="btn btn-primary">@HomeLang.lblChangeImage</button>
+                                                    </div>
+
+                                                }
+                                            </div>
+                                            <div class="col-md-7 mobiledivider">
+                                                @using (Html.BeginForm("UpdateSecurityQue", "Home", null, FormMethod.Post, new { id = "form_ReviewData", @autocomplete = "off" }))
+                                                {
+                                                    @Html.AntiForgeryToken()
+                                                    @Html.HiddenFor(@model => @model.UserId)
+                                                    <div class="col-md-12">
+                                                        <div id="hr1" class="tab-pane fade active in new-profiledata ">
+                                                            @if (Model != null)
+                                                            {
+                                                                <div class="popupAACRow">
+                                                                    <label class="control-label text-left ">@HomeLang.lblUserName :</label>
+                                                                    <div class="profiledata">
+                                                                        @Html.DisplayFor(@model => @model.UserFullName, new { @class = "form-control", @autocomplete = "off" })
+                                                                    </div>
+                                                                </div>
+                                                                <div class="popupAACRow">
+                                                                    <label class="control-label text-left ">@HomeLang.lblEmailAddress :</label>
+                                                                    <div class="profiledata">
+                                                                        @Html.DisplayFor(@model => @model.EmailAddress, new { @class = "form-control", @autocomplete = "off" })
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    @{Html.RenderPartial("_SecurityAnswer");}
+                                                                </div>
+                                                                <div class="popupAACRow">
+                                                                    <label class="control-label text-left mobilespace">&nbsp</label>
+                                                                    @*<label class="control-label col-md-3 text-right "></label>*@
+                                                                    @*@Html.ActionLink("Save", "UpdateSecurityQue",new { UserId = Model.UserId, securityqueId= Model.securityqueId, securityans=Model.securityans } , new { @class = "btn btn-primary" })*@
+                                                                    <input type="submit" value="@HomeLang.lblUpdateSecurityAnswer" formaction="UpdateSecurityQue" class="btn btn-primary updateSecurityAnswer" />
+                                                                    <div class="fullwidthdivider">
+                                                                        <label class="control-label text-left mobilespace">&nbsp;</label>
+                                                                        @*@Html.ActionLink("Reset Password", "ResetPassword", new { UserId = Model.UserId, EmailAddress = Model.EmailAddress }, new { @class = "ResetPassword btn btn-primary btn-sm profile-ResetPassword" })*@
+                                                                        <input type="button" value="@HomeLang.lblResetPassword" class="ResetPassword btn btn-primary btn-sm profile-ResetPassword" id="btnResetPassword" data-UserId="@Model.UserId" data-EmailAddress="@Model.EmailAddress" />
+                                                                    </div>
+                                                                </div>
+
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+</div>
+<div id="ResetPasswordModalMain"></div>
+@section scripts{
+    <script>
+        var specifyFile = '@HomeLang.msgSpecifyFile';
+        var removeImage = '@HomeLang.msgRemoveImage';
+        var uploadFile = '@HomeLang.msgUploadFile';
+        var allowedFormats = '@HomeLang.msgAllowedFormats';
+        var failer = '@CommonMessagesLang.msgFailer';
+        var wrongFormat = '@CommonMessagesLang.msgWrongFormat';
+        var confirmBox = '@CommonMessagesLang.lblConfirm';
+    </script>
+    @Scripts.Render("~/bundles/home_profiledetails")
+
+    @if (ViewBag.Message != null)
+    {
+        <script type="text/javascript">
+            //show notification message instade of Bootbox Message...if you pass "success" than show Notification message and if you pass "error" than show bootbox message.
+            $(document).ready(function () {
+                ShowMessageNotification("success",'@ViewBag.Message', false);
+            });
+        </script>
+    }
+}

@@ -1,0 +1,60 @@
+﻿@using SBISCCMWeb.Utility;
+@model IPagedList<dynamic>
+
+@{
+    AjaxOptions ajaxOptionsForUserPaging = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialCDSEntity",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+    string sortorder = Convert.ToString(ViewBag.sortorder);
+    string SortBy = Convert.ToString(ViewBag.SortBy);
+}
+@Html.Hidden("CDSEntityPageValue", Convert.ToInt32(TempData["CDSEntityPageValue"]))
+@Html.Hidden("CDSEntitySortOrder", sortorder)
+@Html.Hidden("CDSEntitySortBy", SortBy)
+
+<div class="table-responsive">
+    <label class="select pull-right" style="padding-right:10px;">
+        Page Size :  @Html.DropDownList("CDSEntityPageValue", new SelectList(SBISCCMWeb.Utility.CommonMethod.GetPageSize(), Convert.ToInt32(TempData["CDSEntityPageValue"])), new { id = "CDSEntityPageValue", @class = "CDSEntityPageValueChange", @autocomplete = "off" })<i></i>
+    </label>
+    <table class="table table-bordered ">
+        <thead>
+            <tr>
+                <th> @Ajax.ActionLink("Entity", "indexEntity", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptionsForUserPaging)</th>
+                <th>Delete </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>@item.Entity</td>
+                    <td>
+                        <a href="javascript:void(0)" id="@item.Entity" class="deleteCDSEntity">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="dt-toolbar-footer pull-right">
+        <div class="hidden-xs New-Paging">
+            <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                <a id="pagingFormAction" href="@Url.Action("indexEntity", "ConfigurationData", new {  page = 1, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder })" style="display:block"></a>
+                @Html.PagedListPager(Model, page => Url.Action("indexEntity", "ConfigurationData", new { page = page, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divPartialCDSEntity", LoadingElementId = "divProgress", OnSuccess = "OnSuccess()" }))
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 text-center padding-10">
+        <input type="button" value="Add" id="btnAddEntity" name="btnAddEntity" class="btn btn-primary" />
+    </div>
+</div>
+
+
+
+

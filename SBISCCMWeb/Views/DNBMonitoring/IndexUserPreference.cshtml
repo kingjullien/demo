@@ -1,0 +1,61 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model List<UserPreferenceEntity>
+@{
+    Layout = null;
+}
+<article class="col-md-12 sortable-grid ui-sortable custom-height " id="articleUserPreference">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrUserPreferenceList</strong>
+            </h2>
+            <ul class="nav pull-right nav-pills custom-pill topbuttonstyle">
+                <li class="">
+                    <a class="SyncSetting syncUserPrefrence btn btn-Secondary">
+                        @DandBSettingLang.lblSyncUserPrefrenceData
+                    </a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div class="table-responsive">
+                        @Html.AntiForgeryToken()
+                        <table class="table table-bordered table-fixed-user UserPreferenceTb">
+                            <thead>
+                                <tr>
+                                    <th>@DandBSettingLang.lblPreferenceName</th>
+                                    <th>@DandBSettingLang.lblPreferenceValue</th>
+                                    <th>@DandBSettingLang.lblPreferenceType</th>
+                                    <th>@DandBSettingLang.lblDelete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model != null && Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        <tr data-PreferenceID="@item.PreferenceID">
+                                            <td>@item.PreferenceName</td>
+                                            <td>@item.PreferenceValue</td>
+                                            <td>@item.PreferenceType</td>
+                                            <td>@Html.ActionLink(@DandBSettingLang.lblDelete, "", "", new { @id = item.PreferenceID, @href = "javascript:void(0)", @class = "DeleteUserPrefrence" })</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr><td colspan="4">@DandBSettingLang.lblNoDataAreAvailable</td></tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>

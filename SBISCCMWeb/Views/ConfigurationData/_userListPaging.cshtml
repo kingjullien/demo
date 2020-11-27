@@ -1,0 +1,99 @@
+﻿@model IPagedList<SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.UsersEntity>
+@using SBISCCMWeb.Utility
+@using SBISCompanyCleanseMatchFacade.Objects;
+@{
+    SettingFacade fac = new SettingFacade(this.LayoutModel.CurrentClient.ApplicationDBConnectionString);
+    string DeleteUserCode = Convert.ToString(fac.GetUserStatus().Where(x => x.Value == "Account Deleted").Select(x => x.Code).FirstOrDefault());
+    AjaxOptions ajaxOptionsForUserPaging = new AjaxOptions
+    {
+        UpdateTargetId = "divUser",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+    string UserSortOrder = Convert.ToString(ViewBag.SortOrder);
+    string UserSortBy = Convert.ToString(ViewBag.SortBy);
+}
+@Html.Hidden("pagevalue", Convert.ToInt32(TempData["pagevalue"]))
+@Html.Hidden("UserSortOrder", UserSortOrder)
+@Html.Hidden("UserSortBy", UserSortBy)
+<div class="table-responsive" style="overflow-x:visible!important">
+    <label class="select pull-right">
+        Page Size :  @Html.DropDownList("pagevalue", new SelectList(SBISCCMWeb.Utility.CommonMethod.GetPageSize(), Convert.ToInt32(TempData["pageno"])), new { id = "pagevalue", @class = "pagevalueChange" , @autocomplete = "off" })<i></i>
+    </label>
+    <table class="table table-bordered wordwrap">
+        <thead>
+            <tr>
+                <th> @Ajax.ActionLink("Email", "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptionsForUserPaging)</th>
+                <th> @Ajax.ActionLink("Name", "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 2, sortorder = (ViewBag.SortBy == 2 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptionsForUserPaging)</th>
+                <th> @Ajax.ActionLink("Status", "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 3, sortorder = (ViewBag.SortBy == 3 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptionsForUserPaging)</th>
+                <th> @Ajax.ActionLink("Type", "Index", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 4, sortorder = (ViewBag.SortBy == 4 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptionsForUserPaging)</th>
+                @if (Helper.UserType.ToLower() != "steward")
+                {
+                    @*<th>Reset Password</th>*@
+                    <th>Edit </th>
+                    <th>Delete </th>
+                    <th>Activate User</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var UserId = Utility.GetEncryptedString(Convert.ToString(item.UserId)).Replace("+", Utility.urlseparator);
+                <tr>
+                    <td>@item.EmailAddress</td>
+                    <td>@item.UserName</td>
+                    <td>@item.StatusDescription</td>
+                    <td>@item.TypeDescription</td>
+                    @if (Helper.UserType.ToLower() != "steward")
+                    {
+
+                        @*<td> <a data-id="@item.UserId" data-email="@item.EmailAddress" class="ResetPassword">Reset Password</a></td>*@
+                        <td>
+                            @if (item.UserId != Helper.oUser.UserId &&  item.UserStatusCode != DeleteUserCode)
+                            {
+                                <a href="#" id="@UserId" class="editUser">Edit</a>
+                            }
+                        </td>
+                        <td>
+                            @if (item.UserId != Helper.oUser.UserId && item.UserStatusCode != DeleteUserCode)
+                            {
+                                using (Html.BeginForm("DeleteUser", "ConfigurationData", FormMethod.Post, new { id = "form_deleteuser" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("Parameters", @UserId)
+                                    <a href="javascript:void(0)" id="@UserId" class="deleteuser">Delete</a>
+                                }
+                            }
+                        </td>
+                    }
+
+                    <td>
+                        @if (item.UserStatusCode == DeleteUserCode)
+                        {
+                            <a href="javascript:void(0);" data-userid="@UserId" id="ActivateUser" class="Activateuser">Activate</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="dt-toolbar-footer pull-right">
+        <div class="hidden-xs New-Paging">
+            <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                <a id="pagingFormAction" href="@Url.Action("Index", "ConfigurationData", new {  page = 1, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder })" style="display:block"></a>
+                @Html.PagedListPager(Model, page => Url.Action("Index", "ConfigurationData", new { page = page, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divUser", LoadingElementId = "divProgress", OnSuccess = "OnSuccess()" }))
+            </div>
+        </div>
+    </div>
+</div>
+@*@if (Helper.UserType.ToLower() != "steward")
+{
+    <div class="row">
+        <div class="col-md-12 text-center padding-10">
+            <input type="submit" value="Add" id="btnAddUsers" name="btnAddUsers" class="btn btn-primary" @(ViewBag.ValidCreateUser == true ? "disabled" : "") />
+        </div>
+    </div>
+}*@
+<br>

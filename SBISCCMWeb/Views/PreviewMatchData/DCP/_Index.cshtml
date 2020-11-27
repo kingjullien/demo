@@ -1,0 +1,202 @@
+﻿@model Tuple<string, SBISCCMWeb.Models.PreviewMatchData.DCP.DCP_MainModel>
+
+@{
+
+}
+
+<style>
+    .InnerTabHeight {
+        max-height: 250px;
+    }
+</style>
+
+
+<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable paddingtop8 divDcpIndex">
+    <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark" data-widget-custombutton="true" data-widget-fullscreenbutton="true" data-widget-deletebutton="true" data-widget-togglebutton="true" data-widget-editbutton="true" data-widget-colorbutton="true" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>DCP - Direct Company Profile</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                <li>
+                    @{
+
+                        var tabMenuId = "tabMenu" + Model.Item1;
+                    }
+                    <a style="cursor:pointer" onclick="HideShowMenu(this,'@tabMenuId')"><i class="fa fa-plus"></i></a>
+                </li>
+            </ul>
+        </header>
+        <div class="row">
+            <div class="widget-body dandbackground" id="@tabMenuId" style="display:none">
+                <ul class="nav nav-tabs bordered" id="myTab1">
+                    <li class="active">
+                        @{
+                            var baseId = "Base" + Model.Item1;
+                            <a class="nav-link active" data-toggle="tab" href=#@baseId>Base</a>
+                        }
+                    </li>
+                     <li class="nav-item">
+                        @{
+                            var ConsolidatedEmpId = "ConsolidatedEmp" + Model.Item1;
+                            <a class="nav-link" data-toggle="tab" href=#@ConsolidatedEmpId> ConsolidatedEmp </a>
+                        }
+
+                    </li>
+                     <li class="nav-item">
+                        @{
+                            var CurrentPrincipalsId = "CurrentPrincipals" + Model.Item1;
+                            <a class="nav-link" data-toggle="tab" href=#@CurrentPrincipalsId> CurrentPrincipals </a>
+                        }
+
+                    </li>
+                     <li class="nav-item">
+                        @{
+                            var FamilyTreeMembersId = "FamilyTreeMembers" + Model.Item1;
+                            <a class="nav-link" data-toggle="tab" href=#@FamilyTreeMembersId>FamilyTreeMembers</a>
+                        }
+
+                    </li>
+                     <li class="nav-item">
+                        @{
+                            var FinancialStatementsId = "FinancialStatements" + Model.Item1;
+                            <a class="nav-link" data-toggle="tab" href=#@FinancialStatementsId>FinancialStatements</a>
+                        }
+
+                    </li>
+                     <li class="nav-item">
+                        @{
+                            var IndustryCodesId = "IndustryCodes" + Model.Item1;
+                            <a class="nav-link" data-toggle="tab" href=#@IndustryCodesId>IndustryCodes</a>
+                        }
+
+                    </li>
+                     <li class="nav-item">
+                        @{
+                            var KeyFinancialFiguresId = "KeyFinancialFigures" + Model.Item1;
+                            <a class="nav-link" data-toggle="tab" href=#@KeyFinancialFiguresId>KeyFinancialFigures</a>
+                        }
+
+                    </li>
+                     <li class="nav-item">
+                        @{
+                            var NonMarketableReasonsId = "NonMarketableReasons" + Model.Item1;
+                            <a class="nav-link" data-toggle="tab" href=#@NonMarketableReasonsId>NonMarketableReasons</a>
+                        }
+
+                    </li>
+                     <li class="nav-item">
+                        @{
+                            var OrgIDNumbersId = "OrgIDNumbers" + Model.Item1;
+                            <a data-toggle="tab" href=#@OrgIDNumbersId>OrgIDNumbers</a>
+                        }
+
+                    </li>
+                     <li class="nav-item">
+                        @{
+                            var StockExchangeId = "StockExchange" + Model.Item1;
+                            <a class="nav-link" data-toggle="tab" href=#@StockExchangeId>StockExchange</a>
+                        }
+
+                    </li>
+                </ul>
+
+                <div class="tab-content padding-10 righttabportal position-relative " id="">
+                    <div id=@baseId class="tab-pane fade commontabstyle active in" style="padding:10px 0px">
+                        @{
+                            var itemBase = Model.Item2.lstBase.Where(m => m.DnBDUNSNumber.Equals(Model.Item1)).ToList();
+                            var itemCompetitors1 = Model.Item2.lstCompetitors.Where(m => m.DnBDUNSNumber.Equals(Model.Item1)).ToList();
+                            if (itemBase != null)
+                            {
+                                @Html.Partial("~/Views/PreviewMatchData/DCP/_DCPBase.cshtml", Tuple.Create(itemBase.AsEnumerable(), itemCompetitors1.AsEnumerable()))
+                            }
+                        }
+                    </div>
+                    <div id=@ConsolidatedEmpId class="tab-pane fade commontabstyle">
+                        @{
+                            var itemConsolidatedEmp = Model.Item2.lstConsolidatedEmployees.Where(m => m.DnBDUNSNumber.Equals(Model.Item1)).ToList();
+                            if (itemConsolidatedEmp != null)
+                            {
+                                @Html.Partial("~/Views/PreviewMatchData/DCP/_DCPConsolidatedEmp.cshtml", itemConsolidatedEmp)
+                            }
+                        }
+                    </div>
+                    <div id=@CurrentPrincipalsId class="tab-pane fade commontabstyle">
+                        @{
+                            var itemCurrentPrincipals = Model.Item2.lstCurrentPrincipals.Where(m => m.DnbDUNSNumber.Equals(Model.Item1)).ToList();
+                            if (itemCurrentPrincipals != null)
+                            {
+                                @Html.Partial("~/Views/PreviewMatchData/DCP/_DCPCurrentPrincipals .cshtml", itemCurrentPrincipals)
+                            }
+                        }
+                    </div>
+                    <div id=@FamilyTreeMembersId class="tab-pane fade  commontabstyle">
+                        @{
+                            var itemFamilyTreeMembers = Model.Item2.lstBase.Where(m => m.DnBDUNSNumber.Equals(Model.Item1)).ToList();
+                            if (itemFamilyTreeMembers != null)
+                            {
+                                @Html.Partial("~/Views/PreviewMatchData/DCP/_DCPFamilyTreeMembers.cshtml", itemFamilyTreeMembers)
+                            }
+                        }
+                    </div>
+                    <div id=@FinancialStatementsId class="tab-pane fade commontabstyle">
+                        @{
+                            var itemFinancialStatements = Model.Item2.lstFinancialStatements.Where(m => m.DnbDUNSNumber.Equals(Model.Item1)).ToList();
+                            if (itemFinancialStatements != null)
+                            {
+                                @Html.Partial("~/Views/PreviewMatchData/DCP/_DCP_FinancialStatements.cshtml", itemFinancialStatements)
+                            }
+                        }
+                    </div>
+                    <div id=@IndustryCodesId class="tab-pane fade commontabstyle">
+                        @{
+                            var itemIndustryCodes = Model.Item2.lstIndustryCodes.Where(m => m.DnbDUNSNumber.Equals(Model.Item1)).ToList();
+                            if (itemIndustryCodes != null)
+                            {
+                                @Html.Partial("~/Views/PreviewMatchData/DCP/_DCPIndustryCodes.cshtml", itemIndustryCodes)
+                            }
+                        }
+                    </div>
+                    <div id=@KeyFinancialFiguresId class="tab-pane fade  commontabstyle">
+                        @{
+                            var itemKeyFinancialFigures = Model.Item2.lstKeyFinancialFigures.Where(m => m.DnbDUNSNumber.Equals(Model.Item1)).ToList();
+                            if (itemKeyFinancialFigures != null)
+                            {
+                                @Html.Partial("~/Views/PreviewMatchData/DCP/_DCPKeyFinancialFigures.cshtml", itemKeyFinancialFigures)
+                            }
+                        }
+                    </div>
+                    <div id=@NonMarketableReasonsId class="tab-pane fade  commontabstyle">
+                        @{
+                            var itemNonMarketableReasons = Model.Item2.lstNonMarketableReasons.Where(m => m.DnbDUNSNumber.Equals(Model.Item1)).ToList();
+                            if (itemNonMarketableReasons != null)
+                            {
+                                @Html.Partial("~/Views/PreviewMatchData/DCP/_DCPNonMarketableReasons.cshtml", itemNonMarketableReasons)
+                            }
+                        }
+                    </div>
+                    <div id=@OrgIDNumbersId class="tab-pane fade  commontabstyle">
+                        @{
+                            var itemOrgIDNumbers = Model.Item2.lstOrganizationIDNumbers.Where(m => m.DnbDUNSNumber.Equals(Model.Item1)).ToList();
+                            if (itemOrgIDNumbers != null)
+                            {
+                                @Html.Partial("~/Views/PreviewMatchData/DCP/_DCPOrgIDNumbers.cshtml", itemOrgIDNumbers)
+                            }
+                        }
+                    </div>
+                    <div id=@StockExchangeId class="tab-pane fade commontabstyle">
+                        @{
+                            var itemStockExchange = Model.Item2.lstStockExchange.Where(m => m.DnbDUNSNumber.Equals(Model.Item1)).ToList();
+                            if (itemStockExchange != null)
+                            {
+                                @Html.Partial("~/Views/PreviewMatchData/DCP/_DCPStockExchange.cshtml", itemStockExchange)
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</article>
+

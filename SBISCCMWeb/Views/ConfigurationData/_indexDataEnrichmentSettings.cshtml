@@ -1,0 +1,55 @@
+﻿@using SBISCCMWeb.Utility;
+<div class="table-responsive">
+    <table class="table table-bordered ">
+        <thead>
+            <tr>
+                @*<th>Group ID</th>*@
+                <th>Enrichment Group Name </th>
+                @if (Helper.LicenseEnableTags)
+                {
+                    <th>Tags</th>
+                }
+                @if (Helper.UserType.ToLower() != "steward")
+                {
+                    <th>Edit </th>
+                    <th>Delete </th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.dnbAPIGroups != null)
+            {
+                foreach (var item in Model.dnbAPIGroups)
+                {
+                    <tr>
+                        @*<td>@item.APIGroupId</td>*@
+                        <td>@item.APIGroupName</td>
+                        @if (Helper.LicenseEnableTags)
+                        {
+                            <td>@item.Tags</td>
+                        }
+                        @if (Helper.UserType.ToLower() != "steward")
+                        {
+                            var APIGroupId = @Utility.GetEncryptedString(Convert.ToString(item.APIGroupId)).Replace("+", Utility.urlseparator);
+                            <td>
+                                <a href="#" id="@APIGroupId" class="editApi">Edit</a>
+                            </td>
+                            <td>
+                                @*<a href="@Url.Action("DeleteAPIGroup", "ConfigurationData", new { Parameters = APIGroupId }, null)" id="@APIGroupId" class="delete">Delete</a>*@
+                                <a href="javascript:void(0)" id="@APIGroupId" class="deleteEnrichment">Delete</a>
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+@if (Helper.UserType.ToLower() != "steward")
+{
+    <div class="row">
+        <div class="col-md-12 text-center padding-10">
+            <input type="submit" value="Add" id="btnAddAPI" name="btnAddAPI" class="btn btn-primary" />
+        </div>
+    </div>
+}

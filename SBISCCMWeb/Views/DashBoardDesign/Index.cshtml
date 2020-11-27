@@ -1,0 +1,409 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+<link href="~/Content/newDashboard/css/style.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+<div class="main-block" style="margin-top:20px">
+    <div class="row">
+        <div class="col-md-12 col-xl-10">
+            <div class="identify-resolution-section">
+                <div class="title-block d-flex justify-content-between align-items-center mb-3 mb-lg-4">
+                    <span class="title-heading">Identify Resolution</span>
+                    <span class="title-icon">
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-33.5 -35.5 189 236.25">
+                                <path d="M111.518 91.271l10.945 7.094c-13.432 20.724-36.174 33.093-60.833 33.093-38.686 0-70.385-30.472-72.358-68.677l-6.938 7.642-9.658-8.768 22.369-24.637L19.682 59.39l-8.769 9.658-8.641-7.846c1.164 31.742 27.334 57.21 59.357 57.21 20.222 0 38.872-10.144 49.889-27.141zm27.237-55.632l-6.191 8.563c-6.852-32.881-36.053-57.66-70.934-57.66-22.184 0-42.847 9.959-56.692 27.325l10.201 8.132C26.493 7.755 43.439-.413 61.63-.413c28.613 0 52.566 20.334 58.171 47.312l-9.296-6.723-7.643 10.572 26.967 19.497 19.496-26.965-10.57-7.641z"></path>
+                            </svg>
+                        </a>
+                    </span>
+                </div>
+
+                <div class="section-main-row">
+                    <div class="row">
+                        <div class="col-lg-2 col-xl-2 col-custom-2">
+                            <div class="block-main-box file-import-section position-relative">
+                                <div class="block-main-heading d-flex justify-content-between align-items-center">
+                                    <span class="heading-text">File Import</span>
+                                    <span class="heading-icon">
+                                        <a href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" viewBox="0 0 100 125">
+                                                <path d="M82.5 5h-65c-6.6 0-12 5.4-12 12v66c0 6.6 5.4 12 12 12h65c6.6 0 12-5.4 12-12V17c0-6.6-5.4-12-12-12zm6 12v6h-23V11h17c3.3 0 6 2.7 6 6zm-50 6V11h23v12h-23zm23 4v62h-23V27h23zm-44-16h17v12h-23v-6c0-3.3 2.7-6 6-6zm-6 72V27h23v62h-17c-3.3 0-6-2.7-6-6zm71 6h-17V27h23v56c0 3.3-2.7 6-6 6zm-67-49c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm15 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm12-36c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm0 12c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm0 12c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm15 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm27-36c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2z"></path>
+                                            </svg>
+                                        </a>
+                                    </span>
+                                </div>
+
+                                <div class="block-box-content position-relative">
+                                    <span class="input-file-text mt-3 mt-lg-4 mb-3 mb-lg-3"><strong>2</strong><span>Files</span></span>
+                                    <a href="#" class="block-box-content-icon position-absolute">
+                                        <img src="/Content/newDashboard/images/noun-files.png">
+                                    </a>
+                                </div>
+
+                                <div class="block-box-bottom-msg">
+                                    <span class="executed-content">
+                                        <a href="#"><img src="/Content/newDashboard/images/executed-icon.png"></a>
+                                        <span>Executed <strong class="execution-time">2 min ago</strong></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 col-xl-1 col-custom-1">
+                            <div class="arrow-box arrow-box1 position-relative text-center">
+                                <img src="/Content/newDashboard/images/triangle.png">
+                                <span class="d-block">Next Execution: <strong>00:70:45 sec</strong></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-xl-2 col-custom-2">
+                            <div class="block-main-box input-queue-section position-relative">
+                                <div class="block-main-heading d-flex justify-content-between align-items-center">
+                                    <span class="heading-text">Input Queue</span>
+                                </div>
+
+                                <div class="block-box-content position-relative">
+                                    <div class="circle-color-box">
+                                        <span class="circle-count-text">11</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="block-box-bottom-msg">
+                                    <span class="executed-content">
+                                        <a href="#"><img src="/Content/newDashboard/images/executed-icon.png"></a>
+                                        <span>Executed <strong class="execution-time">0 min ago</strong></span>
+                                    </span>
+                                </div>
+                                <div class="custome-switch input-queue-switch">
+                                    <div class="onoffswitch">
+                                        <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked="">
+                                        <label class="onoffswitch-label" for="myonoffswitch">
+                                            <span class="onoffswitch-inner"></span>
+                                            <span class="onoffswitch-switch"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 col-xl-1 col-custom-1">
+                            <div class="arrow-box arrow-box2 position-relative text-center">
+                                <img src="/Content/newDashboard/images/triangle.png">
+                                <span class="d-block">Next Execution: <strong>00:70:45 sec</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-xl-3 col-custom-3">
+                            <div class="block-main-box data-steward-queue-box position-relative">
+                                <div class="block-main-heading d-flex justify-content-between align-items-center">
+                                    <span class="heading-text">Data Steward Queue</span>
+                                    <span class="heading-icon">
+                                        <a href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 75">
+                                                <path d="M25.17 34.83c.6.599.6 1.57 0 2.17l-6.932 6.931h5.501c.848 0 1.534.688 1.534 1.535S24.587 47 23.74 47h-9.205C13.687 47 13 46.313 13 45.466V36.26c0-.848.687-1.534 1.534-1.534s1.534.686 1.534 1.534v5.5l6.933-6.932c.6-.599 1.57-.599 2.17 0zM45.467 13c.847 0 1.534.687 1.534 1.534v9.205c0 .848-.687 1.534-1.534 1.534s-1.534-.686-1.534-1.534l-.001-5.502-6.932 6.934c-.6.599-1.57.599-2.17 0-.599-.6-.599-1.57 0-2.17l6.933-6.933h-5.501c-.848 0-1.534-.687-1.534-1.534S35.413 13 36.26 13h9.205z"></path>
+                                            </svg>
+                                        </a>
+                                        <a href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" viewBox="0 0 100 125">
+                                                <path d="M82.5 5h-65c-6.6 0-12 5.4-12 12v66c0 6.6 5.4 12 12 12h65c6.6 0 12-5.4 12-12V17c0-6.6-5.4-12-12-12zm6 12v6h-23V11h17c3.3 0 6 2.7 6 6zm-50 6V11h23v12h-23zm23 4v62h-23V27h23zm-44-16h17v12h-23v-6c0-3.3 2.7-6 6-6zm-6 72V27h23v62h-17c-3.3 0-6-2.7-6-6zm71 6h-17V27h23v56c0 3.3-2.7 6-6 6zm-67-49c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm15 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm12-36c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm0 12c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm0 12c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm15 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm27-36c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2z"></path>
+                                            </svg>
+                                        </a>
+                                    </span>
+                                </div>
+
+                                <div class="block-box-content  justify-content-between d-flex position-relative">
+                                    <div class="data-circle-box">
+                                        <div class="circle-color-box data-circle low-confidence">
+                                            <span class="circle-count-text">74k</span>
+                                        </div>
+                                        <div class="circle-bottom-text">
+                                            Low Confidence
+                                        </div>
+                                    </div>
+                                    <div class="data-circle-box">
+                                        <div class="circle-color-box data-circle no-match">
+                                            <span class="circle-count-text">12k</span>
+                                        </div>
+                                        <div class="circle-bottom-text">
+                                            No Match
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1 col-xl-1 col-custom-1">
+                            <div class="arrow-box arrow-box3 position-relative text-center">
+                                <img src="/Content/newDashboard/images/executed-icon.png">
+                                <span class="d-block">Executed <strong class="d-block">0 min. ago</strong></span>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-xl-2 col-custom-2">
+                            <div class="block-main-box export-queue-box position-relative">
+                                <div class="block-main-heading d-flex justify-content-between align-items-center">
+                                    <span class="heading-text">Export Queue</span>
+                                    <span class="heading-icon">
+                                        <a href="#">
+                                            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" viewBox="0 0 100 125">
+                                                <path d="M82.5 5h-65c-6.6 0-12 5.4-12 12v66c0 6.6 5.4 12 12 12h65c6.6 0 12-5.4 12-12V17c0-6.6-5.4-12-12-12zm6 12v6h-23V11h17c3.3 0 6 2.7 6 6zm-50 6V11h23v12h-23zm23 4v62h-23V27h23zm-44-16h17v12h-23v-6c0-3.3 2.7-6 6-6zm-6 72V27h23v62h-17c-3.3 0-6-2.7-6-6zm71 6h-17V27h23v56c0 3.3-2.7 6-6 6zm-67-49c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm15 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm12-36c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm0 12c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm0 12c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm15 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm27-36c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2z"></path>
+                                            </svg>
+                                        </a>
+                                    </span>
+                                </div>
+
+                                <div class="block-box-content  justify-content-between d-flex position-relative">
+                                    <div class="export-circle-box">
+                                        <div class="circle-color-box export-circle export-queue">
+                                            <span class="circle-count-text">326</span>
+                                        </div>
+                                        <div class="circle-bottom-text">
+                                            <span class="executed-content text-center d-block">
+                                                <img src="/Content/newDashboard/images/triangle.png">
+                                                <span class="d-block">Next Execution: <span class="execution-time">00:70:45 sec</span></span>
+                                                <span class="d-block">Match Output</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row2">
+                <div class="row">
+                    <div class="col-lg-9 col-xl-9 col-custom--8">
+                        <div class="data-enrichment-section main-box-section">
+                            <div class="title-block d-flex justify-content-between align-items-center mb-3 mb-lg-4">
+                                <span class="title-heading">Data Enrichment</span>
+                                <span class="title-icon">
+                                    <a href="#">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-33.5 -35.5 189 236.25">
+                                            <path d="M111.518 91.271l10.945 7.094c-13.432 20.724-36.174 33.093-60.833 33.093-38.686 0-70.385-30.472-72.358-68.677l-6.938 7.642-9.658-8.768 22.369-24.637L19.682 59.39l-8.769 9.658-8.641-7.846c1.164 31.742 27.334 57.21 59.357 57.21 20.222 0 38.872-10.144 49.889-27.141zm27.237-55.632l-6.191 8.563c-6.852-32.881-36.053-57.66-70.934-57.66-22.184 0-42.847 9.959-56.692 27.325l10.201 8.132C26.493 7.755 43.439-.413 61.63-.413c28.613 0 52.566 20.334 58.171 47.312l-9.296-6.723-7.643 10.572 26.967 19.497 19.496-26.965-10.57-7.641z"></path>
+                                        </svg>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="section-main-row">
+                                <div class="row">
+                                    <div class="col-lg-3 col-xl-3 col-custom-3">
+                                        <div class="block-main-box file-import-section position-relative">
+                                            <div class="block-main-heading d-flex justify-content-between align-items-center">
+                                                <span class="heading-text">File Import</span>
+                                                <span class="heading-icon">
+                                                    <a href="#">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" viewBox="0 0 100 125">
+                                                            <path d="M82.5 5h-65c-6.6 0-12 5.4-12 12v66c0 6.6 5.4 12 12 12h65c6.6 0 12-5.4 12-12V17c0-6.6-5.4-12-12-12zm6 12v6h-23V11h17c3.3 0 6 2.7 6 6zm-50 6V11h23v12h-23zm23 4v62h-23V27h23zm-44-16h17v12h-23v-6c0-3.3 2.7-6 6-6zm-6 72V27h23v62h-17c-3.3 0-6-2.7-6-6zm71 6h-17V27h23v56c0 3.3-2.7 6-6 6zm-67-49c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm15 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm12-36c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm0 12c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm0 12c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm15 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm27-36c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2z"></path>
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <div class="block-box-content position-relative">
+                                                <span class="input-file-text mt-3 mt-lg-4 mb-3 mb-lg-3"><strong>2</strong><span>Files</span></span>
+                                                <a href="#" class="block-box-content-icon position-absolute">
+                                                    <img src="/Content/newDashboard/images/noun-files.png">
+                                                </a>
+                                            </div>
+                                            <div class="block-box-bottom-msg">
+                                                <span class="executed-content">
+                                                    <a href="#"><img src="/Content/newDashboard/images/executed-icon.png"></a>
+                                                    <span>Executed <strong class="execution-time">2 min ago</strong></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1 col-xl-1 col-custom-1">
+                                        <div class="arrow-box arrow-box4 position-relative text-center">
+                                            <img src="/Content/newDashboard/images/triangle.png">
+                                            <span class="d-block">Next Execution: <strong>00:70:45 sec</strong></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-xl-3 col-custom-3">
+                                        <div class="block-main-box enrichment-section position-relative">
+                                            <div class="block-main-heading d-flex justify-content-between align-items-center">
+                                                <span class="heading-text">Enrichment</span>
+                                            </div>
+                                            <div class="block-box-content position-relative">
+                                                <div class="circle-color-box">
+                                                    <span class="circle-count-text">11</span>
+                                                </div>
+                                            </div>
+                                            <div class="block-box-bottom-msg">
+                                                <span class="executed-content">
+                                                    <a href="#"><img src="/Content/newDashboard/images/executed-icon.png"></a>
+                                                    <span>Executed <strong class="execution-time">0 min ago</strong></span>
+                                                </span>
+                                            </div>
+                                            <div class="custome-switch input-queue-switch">
+                                                <div class="onoffswitch">
+                                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked="">
+                                                    <label class="onoffswitch-label" for="myonoffswitch">
+                                                        <span class="onoffswitch-inner"></span>
+                                                        <span class="onoffswitch-switch"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-1 col-xl-1 col-custom-1">
+                                        <div class="arrow-box arrow-box5 position-relative text-center">
+                                            <img src="/Content/newDashboard/images/triangle.png">
+                                            <span class="d-block">Next Execution: <strong>00:70:45 sec</strong></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-xl-3 col-custom-3 data-export-section">
+                                        <div class="block-main-box export-queue-box position-relative">
+                                            <div class="block-main-heading d-flex justify-content-between align-items-center">
+                                                <span class="heading-text">Export Queue</span>
+                                                <span class="heading-icon">
+                                                    <a href="#">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" viewBox="0 0 100 125">
+                                                            <path d="M82.5 5h-65c-6.6 0-12 5.4-12 12v66c0 6.6 5.4 12 12 12h65c6.6 0 12-5.4 12-12V17c0-6.6-5.4-12-12-12zm6 12v6h-23V11h17c3.3 0 6 2.7 6 6zm-50 6V11h23v12h-23zm23 4v62h-23V27h23zm-44-16h17v12h-23v-6c0-3.3 2.7-6 6-6zm-6 72V27h23v62h-17c-3.3 0-6-2.7-6-6zm71 6h-17V27h23v56c0 3.3-2.7 6-6 6zm-67-49c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm15 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm12-36c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm0 12c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm0 12c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm15 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm27-36c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2z"></path>
+                                                        </svg>
+                                                    </a>
+                                                </span>
+                                            </div>
+                                            <div class="block-box-content justify-content-center d-flex position-relative">
+                                                <div class="export-circle-box">
+                                                    <div class="circle-color-box export-circle export-queue">
+                                                        <span class="circle-count-text">326</span>
+                                                    </div>
+                                                    <div class="circle-bottom-text">
+                                                        <span class="executed-content text-center d-block">
+                                                            <img src="/Content/newDashboard/images/triangle.png">
+                                                            <span class="d-block">Next Execution: <span class="execution-time">00:70:45 sec</span></span>
+                                                            <span class="d-block">Match Output</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-xl-3 col-custom--4">
+                        <div class="monitoring-notification-section main-box-section">
+                            <div class="title-block d-flex justify-content-between align-items-center mb-3 mb-lg-4">
+                                <span class="title-heading">Monitoring Notification</span>
+                                <span class="title-icon">
+                                    <a href="#">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-33.5 -35.5 189 236.25">
+                                            <path d="M111.518 91.271l10.945 7.094c-13.432 20.724-36.174 33.093-60.833 33.093-38.686 0-70.385-30.472-72.358-68.677l-6.938 7.642-9.658-8.768 22.369-24.637L19.682 59.39l-8.769 9.658-8.641-7.846c1.164 31.742 27.334 57.21 59.357 57.21 20.222 0 38.872-10.144 49.889-27.141zm27.237-55.632l-6.191 8.563c-6.852-32.881-36.053-57.66-70.934-57.66-22.184 0-42.847 9.959-56.692 27.325l10.201 8.132C26.493 7.755 43.439-.413 61.63-.413c28.613 0 52.566 20.334 58.171 47.312l-9.296-6.723-7.643 10.572 26.967 19.497 19.496-26.965-10.57-7.641z"></path>
+                                        </svg>
+                                    </a>
+                                    <a href="#">
+                                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" viewBox="0 0 100 125">
+                                            <path d="M82.5 5h-65c-6.6 0-12 5.4-12 12v66c0 6.6 5.4 12 12 12h65c6.6 0 12-5.4 12-12V17c0-6.6-5.4-12-12-12zm6 12v6h-23V11h17c3.3 0 6 2.7 6 6zm-50 6V11h23v12h-23zm23 4v62h-23V27h23zm-44-16h17v12h-23v-6c0-3.3 2.7-6 6-6zm-6 72V27h23v62h-17c-3.3 0-6-2.7-6-6zm71 6h-17V27h23v56c0 3.3-2.7 6-6 6zm-67-49c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm15 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm12-36c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm0 12c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm0 12c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm15 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm27-36c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2z"></path>
+                                        </svg>
+                                    </a>
+                                </span>
+                            </div>
+                            <div class="section-main-row">
+                                <div class="row">
+                                    <div class="col-lg-12 col-xl-12 col-custom-12">
+                                        <div class="block-main-box monitoring-notification-box position-relative">
+                                            <div class="block-box-content justify-content-center flex-column d-flex position-relative">
+                                                <div class="export-circle-box">
+                                                    <div class="circle-color-box export-circle export-queue flex-column">
+                                                        <span class="circle-count-text">324</span>
+                                                        <span class="circle-count-bottom-text">Duns</span>
+                                                    </div>
+                                                    <div class="circle-bottom-text">
+                                                        <span class="executed-content text-center d-block">
+                                                            <span class="d-block">Last change datetime: 2020-03-05 07:40 AM</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-xl-2">
+            <div class="api-usage-section main-box-section">
+                <div class="title-block d-flex justify-content-between align-items-center mb-3 mb-lg-4">
+                    <span class="title-heading">API Usage Statistics</span>
+                    <span class="title-icon">
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-33.5 -35.5 189 236.25">
+                                <path d="M111.518 91.271l10.945 7.094c-13.432 20.724-36.174 33.093-60.833 33.093-38.686 0-70.385-30.472-72.358-68.677l-6.938 7.642-9.658-8.768 22.369-24.637L19.682 59.39l-8.769 9.658-8.641-7.846c1.164 31.742 27.334 57.21 59.357 57.21 20.222 0 38.872-10.144 49.889-27.141zm27.237-55.632l-6.191 8.563c-6.852-32.881-36.053-57.66-70.934-57.66-22.184 0-42.847 9.959-56.692 27.325l10.201 8.132C26.493 7.755 43.439-.413 61.63-.413c28.613 0 52.566 20.334 58.171 47.312l-9.296-6.723-7.643 10.572 26.967 19.497 19.496-26.965-10.57-7.641z"></path>
+                            </svg>
+                        </a>
+                        <a href="#">
+                            <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" viewBox="0 0 100 125">
+                                <path d="M82.5 5h-65c-6.6 0-12 5.4-12 12v66c0 6.6 5.4 12 12 12h65c6.6 0 12-5.4 12-12V17c0-6.6-5.4-12-12-12zm6 12v6h-23V11h17c3.3 0 6 2.7 6 6zm-50 6V11h23v12h-23zm23 4v62h-23V27h23zm-44-16h17v12h-23v-6c0-3.3 2.7-6 6-6zm-6 72V27h23v62h-17c-3.3 0-6-2.7-6-6zm71 6h-17V27h23v56c0 3.3-2.7 6-6 6zm-67-49c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm15 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm12-36c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm0 12c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm0 12c0-1.1.9-2 2-2h11c1.1 0 2 .9 2 2s-.9 2-2 2h-11c-1.1 0-2-.9-2-2zm15 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm27-36c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2zm0 12c0 1.1-.9 2-2 2h-11c-1.1 0-2-.9-2-2s.9-2 2-2h11c1.1 0 2 .9 2 2z"></path>
+                            </svg>
+                        </a>
+                    </span>
+                </div>
+                <div class="section-main-row">
+                    <div class="row">
+                        <div class="col-md-4 col-xl-12 col-custom-12">
+                            <div class="block-main-box api-usage-box position-relative">
+                                <div class="block-box-content justify-content-center flex-column d-flex position-relative">
+                                    <div class="api-circle-box api-box1">
+                                        <div class="heading-text circle-top-text">
+                                            <span class="text-center d-block">
+                                                <span class="d-block">Current Month</span>
+                                            </span>
+                                        </div><div class="circle-color-box api-circle export-queue flex-column">
+                                            <span class="circle-count-text">324</span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-12 col-custom-12">
+                            <div class="block-main-box api-usage-box position-relative">
+                                <div class="block-box-content justify-content-center flex-column d-flex position-relative">
+                                    <div class="api-circle-box api-box1">
+                                        <div class="heading-text circle-top-text">
+                                            <span class="text-center d-block">
+                                                <span class="d-block">YTD</span>
+                                            </span>
+                                        </div><div class="circle-color-box api-circle export-queue flex-column">
+                                            <span class="circle-count-text">4.8K</span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-12 col-custom-12">
+                            <div class="block-main-box api-usage-box position-relative">
+                                <div class="block-box-content justify-content-center flex-column d-flex position-relative">
+                                    <div class="api-circle-box api-box1">
+                                        <div class="heading-text circle-top-text">
+                                            <span class="text-center d-block">
+                                                <span class="d-block">All</span>
+                                            </span>
+                                        </div><div class="circle-color-box api-circle export-queue flex-column">
+                                            <span class="circle-count-text">47.5K</span>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

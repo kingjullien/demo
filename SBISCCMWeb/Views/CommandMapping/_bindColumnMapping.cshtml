@@ -1,0 +1,176 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model PagedList.IPagedList<dynamic>
+
+@{
+    int z = 0;
+    string ImportMode = (string)ViewBag.ImportMode;
+    List<string> listColumn = ViewBag.ColumnList != null ? ViewBag.ColumnList : new List<string>();
+    bool IsTag = Convert.ToBoolean(ViewBag.IsContainsTags);
+    string UserRoles = Helper.oUser != null ? string.IsNullOrEmpty(Helper.oUser.UserRole) ? "" : Helper.oUser.UserRole : "";
+    bool IsInLanguage = SessionHelper.CommandMapping_IsInLanguage;
+    List<SelectListItem> lstAllFilter = ViewBag.ExternalColumn != null ? ViewBag.ExternalColumn : new List<SelectListItem>();
+}
+@Html.Hidden("LicenseEnableTags", Helper.LicenseEnableTags)
+@Html.Hidden("IsTag", IsTag)
+@Html.Hidden("IsInLanguage", IsInLanguage)
+@Html.Hidden("Tags", z)
+@Html.Hidden("InLanguage")
+<style>
+    .SelectBoxCommandLine {
+        height: 23px;
+        padding: 3px 6px;
+    }
+
+    .table {
+        margin-bottom: 0 !important;
+    }
+</style>
+@if (listColumn.Count > 0)
+{
+    <div class="widget-body" id="MappingDiv">
+        <ul id="myTab1" class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#ImportData" data-toggle="tab" aria-expanded="false">@CommandLineLang.lblImportData</a>
+            </li>
+            @if (ImportMode.ToLower() == "data import")
+            {
+                <li class="nav-item">
+                    <a class="nav-link"  href="#AdditionalFields" data-toggle="tab" aria-expanded="true">@CommandLineLang.lblAdditionalFields</a>
+                </li>
+            }
+
+        </ul>
+        <div id="myTabContent1" class="tab-content padding-10 border">
+            <div class="tab-pane fade active in" id="ImportData" style="height: 553px;">
+                <table class="table table-bordered" id="TbColumnMapping">
+                    <thead>
+                       <tr class="row" style="margin-left:0;margin-right:0">
+                            <th class="col-md-6">@CommandLineLang.lblTableColumn</th>
+                            <th class="col-md-6">@CommandLineLang.lblInputHeader</th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbdataMatch">
+                        @foreach (var columnName in listColumn.Take(11))
+                        {
+                            string ErrorMessage = "ErrorMessage-" + z;
+                            if (columnName.ToLower() == "tags")
+                            {
+                                if (Helper.LicenseEnableTags)
+                                {
+                                    if (IsTag)
+                                    {
+                                       <tr class="row" style="margin-left:0;margin-right:0">
+                                            <td class="col-md-6">
+                                                <span class="spnExcelColumn" data-val="@(columnName)">
+                                                    @(columnName)
+                                                    @if (UserRoles == UserRole.LOB.ToString())
+                                                    {<span class="error">*</span>}
+                                                </span>
+                                            </td>
+                                            <td class="col-md-6">@Html.DropDownList("DataColumn-" + z, new SelectList(lstAllFilter, "Value", "Text"), new { @class = "form-control SelectBoxCommandLine", autocomplete = "off" })</td>
+                                        </tr>
+                                        z++;
+                                    }
+                                    else
+                                    {
+                                       <tr class="row" style="margin-left:0;margin-right:0">
+                                            <td class="col-md-6">
+                                                <span class="spnExcelColumn" data-val="@(columnName)">
+                                                    @(columnName)
+                                                    @if (UserRoles == UserRole.LOB.ToString())
+                                                    {<span class="error">*</span>}
+                                                </span>
+                                            </td>
+                                            <td class="col-md-6 ColumnsMappingTag">
+                                                <div class="DisplayFlex">
+                                                    @*GetAllTags - Remove LOB Tags (MP-376)*@
+                                                    @Html.DropDownList("DataColumn", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag"), new { @class = "SelectBoxCommandLine form-control chzn-select", multiple = "true", autocomplete = "off" })
+                                                    <em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        z++;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (columnName.ToLower() == "inlanguage")
+                                {
+                                    if (IsInLanguage)
+                                    {
+                                       <tr class="row" style="margin-left:0;margin-right:0">
+                                            <td class="col-md-6"><span class="spnExcelColumn" data-val="@(columnName)">@(columnName)</span></td>
+                                            <td class="col-md-6">@Html.DropDownList("DataColumn-" + z, new SelectList(lstAllFilter, "Value", "Text"), new { @class = "form-control SelectBoxCommandLine", autocomplete = "off" })</td>
+                                        </tr>
+                                        z++;
+                                    }
+                                    else
+                                    {
+                                       <tr class="row" style="margin-left:0;margin-right:0">
+                                            <td class="col-md-6"><span class="spnExcelColumn" data-val="@(columnName)">@(columnName)</span></td>
+                                            <td class="col-md-6">@Html.DropDownList("DataColumn-" + z, (CommonDropdown.GetLanguageCodes(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommandLineLang.lblSelectLanguage), new { @class = "form-control Language SelectBoxCommandLine", autocomplete = "off" })</td>
+                                        </tr>
+                                        z++;
+                                    }
+                                }
+                                else
+                                {
+                                   <tr class="row" style="margin-left:0;margin-right:0">
+                                        <td class="col-md-6">
+                                            <span class="spnExcelColumn" data-val="@(columnName)">@(columnName)</span>
+                                            @if (ImportMode == "Data Import")
+                                            {
+                                                if (z == 0 || z == 1 || z == 7)
+                                                {
+                                                    <span class="error">*</span>
+                                                }
+                                            }
+                                            @if (ImportMode == "Match Refresh")
+                                            {
+                                                if (z == 0 || z == 1 || z == 2)
+                                                {
+                                                    <span class="error">*</span>
+                                                }
+                                            }
+                                        </td>
+                                        <td class="col-md-6">@Html.DropDownList("DataColumn-" + z, new SelectList(lstAllFilter, "Value", "Text"), new { @class = "form-control SelectBoxCommandLine", autocomplete = "off" })</td>
+                                    </tr>
+                                    z++;
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            @if (ImportMode.ToLower() == "data import")
+            {
+                <div class="tab-pane fade" id="AdditionalFields">
+                    <table class="table table-bordered">
+                        <thead>
+                           <tr class="row" style="margin-left:0;margin-right:0">
+                                <th class="col-md-6">@CommandLineLang.lblAdditionalColumn</th>
+                                <th class="col-md-6">@CommandLineLang.lblInputHeader</th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="tbdataMatch">
+
+                            @foreach (var columnName in listColumn.Skip(11))
+                            {
+                                string ErrorMessage = "ErrorMessage-" + z;
+                               <tr class="row" style="margin-left:0;margin-right:0">
+                                    <td class="col-md-6"><span class="spnExcelColumn" data-val="@(columnName)">@(columnName)</span></td>
+                                    <td class="col-md-6">@Html.DropDownList("DataColumn-" + z, new SelectList(lstAllFilter, "Value", "Text"), new { @class = "form-control SelectBoxCommandLine", autocomplete = "off" })</td>
+
+                                </tr>
+                                z++;
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+}

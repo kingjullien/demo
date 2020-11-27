@@ -1,0 +1,151 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@model PagedList.IPagedList<dynamic>
+@using SBISCCMWeb.Utility;
+@{
+    ViewBag.Title = DandBSettingLang.titleCleanseMatchDataMatch;
+    Layout = null;
+}
+@{
+    List<string> listColumn = ViewBag.ColumnList != null ? ViewBag.ColumnList : new List<string>();
+    List<SelectListItem> lstAllFilter = ViewBag.ExternalColumn != null ? ViewBag.ExternalColumn : new List<SelectListItem>();
+    int z = 0;
+    bool IsTag = Convert.ToBoolean(ViewBag.IsContainsTags);
+    bool IsCompanyScore = Convert.ToBoolean(ViewBag.IsCompanyScore);
+}
+<style>
+    .contentScroll {
+        height: auto;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+    .row {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    margin-right: 0;
+    margin-left: 0;
+}
+</style>
+@Html.AntiForgeryToken()
+@Html.Hidden("Tags", z)
+@Html.Hidden("IsTag", IsTag)
+@Html.Hidden("IsCompanyScore", IsCompanyScore)
+@Html.Hidden("LicenseEnableTags", Helper.LicenseEnableTags)
+<div class="modal fade" id="DAndBAutoAcceptImportModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@DandBSettingLang.lblMappingColumns</h4>
+            </div>
+            <div class="modal-body">
+                <div class="dataimportbox contentScroll">
+                    <table class="table table-bordered paddingtop7">
+                        <thead>
+                            <tr class="row">
+                                <th class="col-md-4">@DandBSettingLang.lblTableColumn</th>
+                                <th class="col-md-4">@DandBSettingLang.lblInputHeader</th>
+                                <th class="col-md-4">@DandBSettingLang.lblExample</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbdataMatch">
+                            @if (Model != null)
+                            {
+                                if (Model.Count > 0)
+                                {
+                                    foreach (var columnName in listColumn)
+                                    {
+                                        string ErrorMessage = "ErrorMessage-" + z;
+                                        if (columnName.ToLower() == "tags")
+                                        {
+                                            if (Helper.LicenseEnableTags)
+                                            {
+                                                if (IsTag)
+                                                {
+                                                    <tr class="row">
+                                                        <td class="col-md-4"><span class="spnExcelColumn" data-val="@(columnName)">@(columnName.ToLower() == "groupname" ? "Country Group Name" : columnName)</span></td>
+                                                        <td class="col-md-4">@Html.DropDownList("DataColumn-" + z, new SelectList(lstAllFilter, "Value", "Text"), new { @class = "form-control SelectBox", @autocomplete = "off" })</td>
+                                                        <td class="col-md-4"></td>
+                                                    </tr>
+
+                                                }
+                                                else
+                                                {
+                                                    <tr class="row">
+                                                        <td class="col-md-4"><span class="spnExcelColumn" data-val="@(columnName)">@(columnName.ToLower() == "groupname" ? "Country Group Name" : columnName)</span></td>
+                                                        <td class="col-md-4">
+                                                            <div class="DisplayFlex">
+                                                                @Html.DropDownList("DataColumn", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag"), new { @class = "form-control chzn-select SelectBox", multiple = "true", @autocomplete = "off" })
+                                                                <em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                                            </div>
+                                                        </td>
+                                                        <td class="col-md-4"></td>
+                                                    </tr>
+                                                }
+                                            }
+                                        }
+                                        else if (!IsCompanyScore && columnName.ToLower() == "companyscore")
+                                        {
+                                            <tr class="row">
+                                                <td class="col-md-4"><span class="spnExcelColumn" data-val="@(columnName)">@(columnName.ToLower() == "groupname" ? "Country Group Name" : columnName)</span></td>
+                                                <td class="col-md-4">
+                                                    <input type="text" value="0" autocomplete="off" name="txtCmpnyScore" id="txtCmpnyScore" class="form-control OnlyDigit" maxlength="3" onkeypress="return isNumber(event)" />
+                                                </td>
+                                                <td class="col-md-4"></td>
+                                            </tr>
+
+                                        }
+                                        else
+                                        {
+                                            <tr class="row">
+                                                <td class="col-md-4">
+                                                    <span class="spnExcelColumn" data-val="@(columnName)">@(columnName.ToLower() == "groupname" ? "Country Group Name" : columnName)</span>
+                                                    @if (z != 19 && z != 22 && z != 23)
+                                                    {
+                                                        <span class="error">*</span>
+                                                    }
+                                                </td>
+
+                                                @*Match Grade component based on licensing(MP-379)*@
+                                                @if (z == 22 && !Helper.LicenseEnableAdvancedMatch)
+                                                {
+                                                    if (Helper.Branding == Branding.Matchbook.ToString())
+                                                    {
+                                                        <td class="col-md-4"><div title="@BrandingLang.msgMBFeature">@Html.DropDownList("DataColumn-" + z, new SelectList(lstAllFilter, "Value", "Text"), new { @class = "form-control SelectBox", disabled = "disabled", @autocomplete = "off" })</div></td>
+                                                    }
+                                                    else if (Helper.Branding == Branding.DandB.ToString())
+                                                    {
+                                                        <td class="col-md-4"><div title="@BrandingLang.msgDNBFeature">@Html.DropDownList("DataColumn-" + z, new SelectList(lstAllFilter, "Value", "Text"), new { @class = "form-control SelectBox", disabled = "disabled", @autocomplete = "off" })</div></td>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <td class="col-md-4">@Html.DropDownList("DataColumn-" + z, new SelectList(lstAllFilter, "Value", "Text"), new { @class = "form-control SelectBox", @autocomplete = "off" })</td>
+                                                }
+
+                                                <td class="col-md-4"></td>
+                                            </tr>
+                                        }
+                                        z++;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="3"></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="importbuttondiv">
+                    <input id="btnInsertData" class="btn btn-primary btnBlack  InsertData" type="submit" name="btnInsertData" title="@DandBSettingLang.titleImportData" value="@DandBSettingLang.lblImportDatatoDB" disabled="disabled" />
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

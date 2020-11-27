@@ -1,0 +1,752 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrAPIUsageStatistics" xml:space="preserve">
+    <value>Estadísticas de uso de la API</value>
+    <comment>API Usage Statistics</comment>
+  </data>
+  <data name="hdrBackgroundProcessLogs" xml:space="preserve">
+    <value>Registros del proceso de fondo</value>
+    <comment>Background Process Logs</comment>
+  </data>
+  <data name="hdrDataEnrichment" xml:space="preserve">
+    <value>Enriquecimiento de datos</value>
+    <comment>Data Enrichment</comment>
+  </data>
+  <data name="hdrDataQueueStatistics" xml:space="preserve">
+    <value>Estadísticas de la cola de datos</value>
+    <comment>Data Queue Statistics</comment>
+  </data>
+  <data name="hdrDataStewardshipQueue" xml:space="preserve">
+    <value>Cola de administración de datos</value>
+    <comment>Data Stewardship Queue</comment>
+  </data>
+  <data name="hdrEnrichment" xml:space="preserve">
+    <value>Enriquecimiento</value>
+    <comment>Enrichment</comment>
+  </data>
+  <data name="hdrExportQueue" xml:space="preserve">
+    <value>cola de exportación</value>
+    <comment>Export Queue</comment>
+  </data>
+  <data name="hdrIdentityResolution" xml:space="preserve">
+    <value>Resolución de identidad</value>
+    <comment>Identity Resolution</comment>
+  </data>
+  <data name="hdrImportProcessQueue" xml:space="preserve">
+    <value>Cola del proceso de importación</value>
+    <comment>Import Process Queue</comment>
+  </data>
+  <data name="hdrImportQueue" xml:space="preserve">
+    <value>Cola de importación</value>
+    <comment>Import Queue</comment>
+  </data>
+  <data name="hdrInputQueue" xml:space="preserve">
+    <value>cola de entrada</value>
+    <comment>Input Queue</comment>
+  </data>
+  <data name="hdrInvestigationReport" xml:space="preserve">
+    <value>Informe de investigación</value>
+    <comment>Investigation Report</comment>
+  </data>
+  <data name="hdrMonitoringNotification" xml:space="preserve">
+    <value>Notificación de monitoreo</value>
+    <comment>Monitoring Notification</comment>
+  </data>
+  <data name="hdrProfileDetails" xml:space="preserve">
+    <value>Detalles del perfil</value>
+    <comment>Profile Details</comment>
+  </data>
+  <data name="hdrResetPassword" xml:space="preserve">
+    <value>Restablecer la contraseña</value>
+    <comment>Reset Password</comment>
+  </data>
+  <data name="hdrSecurityQuestionandAnswer" xml:space="preserve">
+    <value>Pregunta y respuesta de seguridad</value>
+    <comment>Security Question and Answer</comment>
+  </data>
+  <data name="lblAbout" xml:space="preserve">
+    <value>Acerca de</value>
+    <comment>About</comment>
+  </data>
+  <data name="lblActiveRecords" xml:space="preserve">
+    <value>Registros activos</value>
+    <comment>Active Records</comment>
+  </data>
+  <data name="lblAdditionalInformation" xml:space="preserve">
+    <value>Use esta área para proporcionar información adicional.</value>
+    <comment>Use this area to provide additional information.</comment>
+  </data>
+  <data name="lblAll" xml:space="preserve">
+    <value>Todos</value>
+    <comment>All</comment>
+  </data>
+  <data name="lblAllCandidates" xml:space="preserve">
+    <value>todos los candidatos</value>
+    <comment>All Candidates</comment>
+  </data>
+  <data name="lblAltLookup" xml:space="preserve">
+    <value>Alt. Búsqueda</value>
+    <comment>Alt. Lookup</comment>
+  </data>
+  <data name="lblApply" xml:space="preserve">
+    <value>Aplicar</value>
+    <comment>Apply</comment>
+  </data>
+  <data name="lblArchival" xml:space="preserve">
+    <value>Archivo</value>
+    <comment>Archival</comment>
+  </data>
+  <data name="lblArchivalQueueCount" xml:space="preserve">
+    <value>Cuenta de la cola de archivo</value>
+    <comment>Archival Queue Count</comment>
+  </data>
+  <data name="lblAvgResolutionTime" xml:space="preserve">
+    <value>Tiempo de resolución promedio</value>
+    <comment>Avg Resolution Time</comment>
+  </data>
+  <data name="lblAvgTime" xml:space="preserve">
+    <value>Tiempo medio</value>
+    <comment>Avg-time</comment>
+  </data>
+  <data name="lblBackgroundStatsNote" xml:space="preserve">
+    <value>Nota: estadísticas basadas en las últimas 48 horas de datos</value>
+    <comment>Note : Statistics based on last 48 hours of data</comment>
+  </data>
+  <data name="lblChangeImage" xml:space="preserve">
+    <value>Cambiar imagen</value>
+    <comment>Change Image</comment>
+  </data>
+  <data name="lblCleanseMatch" xml:space="preserve">
+    <value>Depuración de coincidencias</value>
+    <comment>Cleanse Match</comment>
+  </data>
+  <data name="lblClear" xml:space="preserve">
+    <value>Borrar</value>
+    <comment>Clear</comment>
+  </data>
+  <data name="lblClosedCases" xml:space="preserve">
+    <value>Casos cerrados</value>
+    <comment>Closed Cases</comment>
+  </data>
+  <data name="lblConfirmPassword" xml:space="preserve">
+    <value>Confirmar contraseña</value>
+    <comment>Confirm Password</comment>
+  </data>
+  <data name="lblContinue" xml:space="preserve">
+    <value>Seguir</value>
+    <comment>Continue</comment>
+  </data>
+  <data name="lblCurrentMonth" xml:space="preserve">
+    <value>Mes actual</value>
+    <comment>Current Month</comment>
+  </data>
+  <data name="lblCurrentUTCTime" xml:space="preserve">
+    <value>Hora UTC actual</value>
+    <comment>Current UTC Time</comment>
+  </data>
+  <data name="lblDataEnrichment" xml:space="preserve">
+    <value>Enriquecimiento de datos</value>
+    <comment>Data Enrichment</comment>
+  </data>
+  <data name="lblDateTime" xml:space="preserve">
+    <value>Fecha Hora</value>
+    <comment>Date Time</comment>
+  </data>
+  <data name="lblDUNS" xml:space="preserve">
+    <value>DUNS</value>
+    <comment>DUNS</comment>
+  </data>
+  <data name="lblDuration" xml:space="preserve">
+    <value>Duración</value>
+    <comment>Duration</comment>
+  </data>
+  <data name="lblDurationHours" xml:space="preserve">
+    <value>Horas de duración</value>
+    <comment>Duration Hours</comment>
+  </data>
+  <data name="lblEmailAddress" xml:space="preserve">
+    <value>Dirección de correo electrónico</value>
+    <comment>Email Address</comment>
+  </data>
+  <data name="lblEnrichmentOutput" xml:space="preserve">
+    <value>Salida de enriquecimiento</value>
+    <comment>Enrichment   Output</comment>
+  </data>
+  <data name="lblEnrichmentProcessing" xml:space="preserve">
+    <value>Procesamiento de enriquecimiento</value>
+    <comment>Enrichment Processing</comment>
+  </data>
+  <data name="lblEnrichmentQueueCount" xml:space="preserve">
+    <value>Cuenta de la cola de enriquecimiento</value>
+    <comment>Enrichment Queue Count</comment>
+  </data>
+  <data name="lblEnrichment_output" xml:space="preserve">
+    <value>Salida de enriquecimiento</value>
+    <comment>Enrichment output</comment>
+  </data>
+  <data name="lblETLDetails" xml:space="preserve">
+    <value>Detalle de ETL</value>
+    <comment>ETL Details</comment>
+  </data>
+  <data name="lblETLType" xml:space="preserve">
+    <value>Tipo de ETL</value>
+    <comment>ETL Type</comment>
+  </data>
+  <data name="lblExecutionId" xml:space="preserve">
+    <value>Id de ejecución</value>
+    <comment>Execution Id</comment>
+  </data>
+  <data name="lblFailed" xml:space="preserve">
+    <value>Falló</value>
+    <comment>Failed</comment>
+  </data>
+  <data name="lblFileImport" xml:space="preserve">
+    <value>Importación de archivo</value>
+    <comment>File Import</comment>
+  </data>
+  <data name="lblFiles" xml:space="preserve">
+    <value>archivos</value>
+    <comment>Files</comment>
+  </data>
+  <data name="lblFiltered" xml:space="preserve">
+    <value>Filtrada</value>
+    <comment>Filtered</comment>
+  </data>
+  <data name="lblGetVerificationCode" xml:space="preserve">
+    <value>Obtenga un código de verificación por correo electrónico.</value>
+    <comment>Get a verification code via email.</comment>
+  </data>
+  <data name="lblHQSLRecords" xml:space="preserve">
+    <value>Registros HQ/SL</value>
+    <comment>HQ/SL Records</comment>
+  </data>
+  <data name="lblIAccept" xml:space="preserve">
+    <value>acepto</value>
+    <comment>I accept</comment>
+  </data>
+  <data name="lblImport" xml:space="preserve">
+    <value>Importar</value>
+    <comment>Import</comment>
+  </data>
+  <data name="lblImportDate" xml:space="preserve">
+    <value>Importar fecha</value>
+    <comment>Import Date</comment>
+  </data>
+  <data name="lblImportedRow" xml:space="preserve">
+    <value>Fila importada</value>
+    <comment>Imported Row</comment>
+  </data>
+  <data name="lblImportProcess" xml:space="preserve">
+    <value>Proceso de importación</value>
+    <comment>Import Process</comment>
+  </data>
+  <data name="lblIncludeThreeRules" xml:space="preserve">
+    <value>Asegúrese de incluir al menos 3 reglas.</value>
+    <comment>Make sure to include at least 3 rules.</comment>
+  </data>
+  <data name="lblInput" xml:space="preserve">
+    <value>Ingresar</value>
+    <comment>Input</comment>
+  </data>
+  <data name="lblInputQueueCount" xml:space="preserve">
+    <value>Ingresar cuenta de la cola</value>
+    <comment>Input Queue Count</comment>
+  </data>
+  <data name="lblInputRecord" xml:space="preserve">
+    <value>Ingresar registro</value>
+    <comment>Input Record</comment>
+  </data>
+  <data name="lblInvestigation" xml:space="preserve">
+    <value>Investigación</value>
+    <comment>Investigation</comment>
+  </data>
+  <data name="lblLOBTag" xml:space="preserve">
+    <value>Etiqueta LOB</value>
+    <comment>LOB Tag</comment>
+  </data>
+  <data name="lblLowConfidence" xml:space="preserve">
+    <value>Confianza baja</value>
+    <comment>Low Confidence</comment>
+  </data>
+  <data name="lblLowConfidenceQueueCount" xml:space="preserve">
+    <value>Conteo de cola de confianza baja</value>
+    <comment>Low Confidence Queue Count</comment>
+  </data>
+  <data name="lblLowercase" xml:space="preserve">
+    <value>En minúsculas</value>
+    <comment>Lowercase</comment>
+  </data>
+  <data name="lblMatchOutput" xml:space="preserve">
+    <value>Salida de coincidencia</value>
+    <comment>Match Output</comment>
+  </data>
+  <data name="lblMatchProcessing" xml:space="preserve">
+    <value>Procesamiento de coincidencia</value>
+    <comment>Match Processing</comment>
+  </data>
+  <data name="lblMatch_output" xml:space="preserve">
+    <value>Salida de coincidencia</value>
+    <comment>Match output</comment>
+  </data>
+  <data name="lblMaxTime" xml:space="preserve">
+    <value>Tiempo máximo</value>
+    <comment>Max-time</comment>
+  </data>
+  <data name="lblMesage" xml:space="preserve">
+    <value>Mensaje</value>
+    <comment>Message</comment>
+  </data>
+  <data name="lblMinimumPasswordLength" xml:space="preserve">
+    <value>La contraseña debe tener 8 caracteres como mínimo</value>
+    <comment>The password should be a minimum of 8 characters long</comment>
+  </data>
+  <data name="lblMinTime" xml:space="preserve">
+    <value>Min-hora</value>
+    <comment>Min-time</comment>
+  </data>
+  <data name="lblNameAddressLookup" xml:space="preserve">
+    <value>Búsqueda de nombre y dirección</value>
+    <comment>Name Address Lookup</comment>
+  </data>
+  <data name="lblNextExecution" xml:space="preserve">
+    <value>próxima ejecución</value>
+    <comment>Next Execution</comment>
+  </data>
+  <data name="lblNoDataAreAvailable" xml:space="preserve">
+    <value>No hay datos disponibles</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNodataareavailableMessage" xml:space="preserve">
+    <value>No hay datos disponibles</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNoDataAvailable" xml:space="preserve">
+    <value>No hay datos disponibles</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNoDatasAvailable" xml:space="preserve">
+    <value>No hay datos disponibles</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNoMatch" xml:space="preserve">
+    <value>Sin coincidencias</value>
+    <comment>No Match</comment>
+  </data>
+  <data name="lblNoMatchQueueCount" xml:space="preserve">
+    <value>Conteo de la cola de no coincidencias</value>
+    <comment>NoMatch Queue Count</comment>
+  </data>
+  <data name="lblNumber" xml:space="preserve">
+    <value>Conde NoMatch cola</value>
+    <comment>Number</comment>
+  </data>
+  <data name="lblOpenCases" xml:space="preserve">
+    <value>Casos abiertos</value>
+    <comment>Open Cases</comment>
+  </data>
+  <data name="lblOpenedLastWeek" xml:space="preserve">
+    <value>Abierto la semana pasada</value>
+    <comment>Opened Last Week</comment>
+  </data>
+  <data name="lblOutputQueueCount" xml:space="preserve">
+    <value>Conteo de la cola de salida</value>
+    <comment>Output Queue Count</comment>
+  </data>
+  <data name="lblPasswordLimit" xml:space="preserve">
+    <value>La contraseña debe tener al menos 8 caracteres, contener caracteres alfanuméricos y al menos un carácter especial.</value>
+    <comment>The Password must be at least 8 characters long, contain alpha numeric characters and atleast one special character.</comment>
+  </data>
+  <data name="lblPendingProcessRecordCount" xml:space="preserve">
+    <value>Conteo de registros Proceso pendiente</value>
+    <comment>Pending Process Record Count</comment>
+  </data>
+  <data name="lblProcessComplete" xml:space="preserve">
+    <value>proceso completo</value>
+    <comment>Process Complete</comment>
+  </data>
+  <data name="lblProcessedRecordCount" xml:space="preserve">
+    <value>Conteo de registros procesados</value>
+    <comment>Processed Record Count</comment>
+  </data>
+  <data name="lblProcessing" xml:space="preserve">
+    <value>Por favor espere mientras procesa ...</value>
+    <comment>Please wait while processing...</comment>
+  </data>
+  <data name="lblProcessingQueueCount" xml:space="preserve">
+    <value>Conteo de cola de procesamiento</value>
+    <comment>Processing Queue Count</comment>
+  </data>
+  <data name="lblProcessStatus" xml:space="preserve">
+    <value>Estado del proceso</value>
+    <comment>Process Status</comment>
+  </data>
+  <data name="lblProcessType" xml:space="preserve">
+    <value>Tipo de proceso</value>
+    <comment>Lable for ETL Type</comment>
+  </data>
+  <data name="lblRememberOnMachine" xml:space="preserve">
+    <value>Recordarme en esta máquina (no seleccione esta opción si está iniciando sesión desde una máquina pública)</value>
+    <comment>Remember me on this machine(Do not select this option if you are logging in from a public machine)</comment>
+  </data>
+  <data name="lblRememberSecurityQuestion" xml:space="preserve">
+    <value>¿No recuerdas tu pregunta de seguridad?</value>
+    <comment>Do not remember your security question?</comment>
+  </data>
+  <data name="lblRemoveImage" xml:space="preserve">
+    <value>Quita la imagen</value>
+    <comment>Remove Image</comment>
+  </data>
+  <data name="lblResetPassword" xml:space="preserve">
+    <value>Restablecer la contraseña</value>
+    <comment>Reset Password</comment>
+  </data>
+  <data name="lblSearch" xml:space="preserve">
+    <value>Buscar</value>
+    <comment>Search</comment>
+  </data>
+  <data name="lblSecurityAnswer" xml:space="preserve">
+    <value>Respuesta de seguridad</value>
+    <comment>Security Answer</comment>
+  </data>
+  <data name="lblSecurityQuestion" xml:space="preserve">
+    <value>Pregunta de Seguridad</value>
+    <comment>Security Question</comment>
+  </data>
+  <data name="lblSpecialCharacter" xml:space="preserve">
+    <value>Carácter especial</value>
+    <comment>Special Character</comment>
+  </data>
+  <data name="lblStatusType" xml:space="preserve">
+    <value>Tipo de estado</value>
+    <comment>Status Type</comment>
+  </data>
+  <data name="lblSubmit" xml:space="preserve">
+    <value>Enviar</value>
+    <comment>Submit</comment>
+  </data>
+  <data name="lblTag" xml:space="preserve">
+    <value>etiqueta</value>
+    <comment>Tag</comment>
+  </data>
+  <data name="lblTags" xml:space="preserve">
+    <value>Etiquetas</value>
+    <comment>Tags</comment>
+  </data>
+  <data name="lblTopCandidates" xml:space="preserve">
+    <value>Candidatos principales</value>
+    <comment>Top Candidates</comment>
+  </data>
+  <data name="lblTotal" xml:space="preserve">
+    <value>Total</value>
+    <comment>Total</comment>
+  </data>
+  <data name="lblTotalMatched" xml:space="preserve">
+    <value>Coincidencias totales</value>
+    <comment>Total Matched</comment>
+  </data>
+  <data name="lblTotalRecords" xml:space="preserve">
+    <value>Total de registros</value>
+    <comment>Total Records</comment>
+  </data>
+  <data name="lblUnderInvestigation" xml:space="preserve">
+    <value>Bajo investigación</value>
+    <comment>Under Investigation</comment>
+  </data>
+  <data name="lblUpdateSecurityAnswer" xml:space="preserve">
+    <value>Actualizar respuesta de seguridad</value>
+    <comment>Update Security Answer</comment>
+  </data>
+  <data name="lblUploadImage" xml:space="preserve">
+    <value>Subir imagen</value>
+    <comment>Upload Image</comment>
+  </data>
+  <data name="lblUppercase" xml:space="preserve">
+    <value>Mayúsculas</value>
+    <comment>Uppercase</comment>
+  </data>
+  <data name="lblUserName" xml:space="preserve">
+    <value>Nombre de usuario</value>
+    <comment>User Name</comment>
+  </data>
+  <data name="lblYTD" xml:space="preserve">
+    <value>YTD</value>
+    <comment>YTD</comment>
+  </data>
+  <data name="lbPassword" xml:space="preserve">
+    <value>Contraseña</value>
+    <comment>Password</comment>
+  </data>
+  <data name="msgAllowedFormats" xml:space="preserve">
+    <value>Solo los formatos permitidos son: jpeg, jpg, png, gif, bmp</value>
+    <comment>Only formats allowed are :jpeg, jpg, png, gif, bmp</comment>
+  </data>
+  <data name="msgAllowedFormatsOnly" xml:space="preserve">
+    <value>Solo los formatos permitidos son:</value>
+    <comment>Only formats allowed are :</comment>
+  </data>
+  <data name="msgDurationInSeconds" xml:space="preserve">
+    <value>Duración (en segundos)</value>
+    <comment>Duration(In seconds)</comment>
+  </data>
+  <data name="msgMatches" xml:space="preserve">
+    <value>Partidos</value>
+    <comment>Matches</comment>
+  </data>
+  <data name="msgMatchesByConfidenceCode" xml:space="preserve">
+    <value>Coincidencias por código de confianza</value>
+    <comment>Matches by Confidence Code</comment>
+  </data>
+  <data name="msgMatchesByUsers" xml:space="preserve">
+    <value>Partidos por usuarios</value>
+    <comment>Matches by Users</comment>
+  </data>
+  <data name="msgPauseSetting" xml:space="preserve">
+    <value>¿Estás seguro de que quieres pausar la configuración?</value>
+    <comment>Are you sure, you want to pause setting ?</comment>
+  </data>
+  <data name="msgProcessStats" xml:space="preserve">
+    <value>Estadísticas de proceso</value>
+    <comment>Process Stats</comment>
+  </data>
+  <data name="msgRecords" xml:space="preserve">
+    <value>Registros</value>
+    <comment>Records</comment>
+  </data>
+  <data name="msgRemoveDataFromFile" xml:space="preserve">
+    <value>¿Seguro que quieres eliminar los datos del archivo?</value>
+    <comment>Are you sure you want to remove data from file ?</comment>
+  </data>
+  <data name="msgRemoveImage" xml:space="preserve">
+    <value>¿Estás segura de que quieres eliminar esta imagen?</value>
+    <comment>Are you sure you want to remove this image?</comment>
+  </data>
+  <data name="msgSpecifyFile" xml:space="preserve">
+    <value>No ha especificado un archivo.</value>
+    <comment>You have not specified a file.</comment>
+  </data>
+  <data name="msgUnpauseSetting" xml:space="preserve">
+    <value>¿Estás seguro de que quieres desactivar la configuración?</value>
+    <comment>Are you sure, you want to un-pause setting ?</comment>
+  </data>
+  <data name="msgUploadFile" xml:space="preserve">
+    <value>Documento cargado exitosamente.</value>
+    <comment>File uploaded successfully.</comment>
+  </data>
+  <data name="placeholderSecurityanswer" xml:space="preserve">
+    <value>Respuesta de seguridad</value>
+    <comment>Security answer</comment>
+  </data>
+  <data name="spnByImportProcess" xml:space="preserve">
+    <value>Por ImportProcess</value>
+    <comment>By ImportProcess</comment>
+  </data>
+  <data name="spnByTags" xml:space="preserve">
+    <value>Por etiquetas</value>
+    <comment>By Tags</comment>
+  </data>
+  <data name="String12" xml:space="preserve">
+    <value>Estado del proceso</value>
+    <comment>Process Status</comment>
+  </data>
+  <data name="String2" xml:space="preserve">
+    <value>Total de registros</value>
+    <comment>Total Records</comment>
+  </data>
+  <data name="String3" xml:space="preserve">
+    <value>Fecha Hora</value>
+    <comment>Date Time</comment>
+  </data>
+  <data name="titleAbout" xml:space="preserve">
+    <value>Matchbook | Acerca de</value>
+    <comment>Matchbook | About</comment>
+  </data>
+  <data name="titleActiveDataQueueDetailReport" xml:space="preserve">
+    <value>Informe detallado de la cola de datos activos</value>
+    <comment>Active Data Queue Detail Report</comment>
+  </data>
+  <data name="titleActiveDataQueueStatistics" xml:space="preserve">
+    <value>Estadísticas de la cola de datos activos</value>
+    <comment>Active Data Queue Statistics</comment>
+  </data>
+  <data name="titleAPIUsageStatistics" xml:space="preserve">
+    <value>Estadísticas de uso de la API</value>
+    <comment>API Usage Statistics</comment>
+  </data>
+  <data name="titleBackgroundProcessStatistics" xml:space="preserve">
+    <value>Estadísticas del proceso de fondo</value>
+    <comment>Background Process Statistics</comment>
+  </data>
+  <data name="titleDashboard" xml:space="preserve">
+    <value>Dashboard</value>
+    <comment>Dashboard</comment>
+  </data>
+  <data name="titleDataStewardshipStatistics" xml:space="preserve">
+    <value>Estadísticas de administración de datos</value>
+    <comment>Data Stewardship Statistics</comment>
+  </data>
+  <data name="titleDetailStatisticsReport" xml:space="preserve">
+    <value>Informe detallado de estadísticas</value>
+    <comment>Detail Statistics Report</comment>
+  </data>
+  <data name="titleDownloadDataQueueStatistics" xml:space="preserve">
+    <value>Descargar estadísticas de la cola de datos</value>
+    <comment>Download Data Queue Statistics</comment>
+  </data>
+  <data name="titleLCMCandidateStatistics" xml:space="preserve">
+    <value>Estadísticas de candidatos de coincidencia de confianza baja</value>
+    <comment>Low Confidence Match Candidate Statistics</comment>
+  </data>
+  <data name="titleProcessDetails" xml:space="preserve">
+    <value>Detalles del proceso</value>
+    <comment>Process Details</comment>
+  </data>
+  <data name="titleProcessingQueue" xml:space="preserve">
+    <value>Cola de procesamiento</value>
+    <comment>Processing Queue</comment>
+  </data>
+  <data name="titleProfile" xml:space="preserve">
+    <value>Perfil</value>
+    <comment>Profile</comment>
+  </data>
+  <data name="titleRefreshActiveDataQueueStatistics" xml:space="preserve">
+    <value>Actualizar estadísticas de la cola de datos activos</value>
+    <comment>Refresh Active Data Queue Statistics</comment>
+  </data>
+  <data name="titleRefreshBackgroundProcessStatistics" xml:space="preserve">
+    <value>Actualizar estadísticas del proceso de fondo</value>
+    <comment>Refresh Background Process Statistics</comment>
+  </data>
+  <data name="titleRefreshDataStewardshipStatistics" xml:space="preserve">
+    <value>Actualizar estadísticas de administración de datos</value>
+    <comment>Refresh Data Stewardship Statistics</comment>
+  </data>
+  <data name="titleRefreshLowConfidenceMatchCandidateStatistics" xml:space="preserve">
+    <value>Actualizar estadísticas de candidatos de coincidencia de confianza baja</value>
+    <comment>Refresh Low Confidence Match Candidate Statistics</comment>
+  </data>
+  <data name="titleResetPassword" xml:space="preserve">
+    <value>Restablecer la contraseña</value>
+    <comment>Reset Password</comment>
+  </data>
+  <data name="titleUserLicenseAgreement" xml:space="preserve">
+    <value>Acuerdo de licencia de usuario</value>
+    <comment>User License Agreement</comment>
+  </data>
+</root>

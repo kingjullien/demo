@@ -1,0 +1,113 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model UserPreferenceEntity
+@{
+    Layout = null;
+}
+<script type="text/javascript" src="~/Scripts/CustomJS-minified/UserPrefrence.js"></script>
+@Scripts.Render("~/bundles/popupjs")
+@Styles.Render("~/Content/popupcss")
+<div id="content" style="opacity: 1;">
+    <section id="widget-grid" class="">
+        <article class="col-lg-12 sortable-grid ui-sortable widget-data">
+            <div id="wid-id-Process" class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                <header role="heading">
+                    <h2>
+                        @if (Model.PreferenceID > 0)
+                        {
+                            <strong>Edit User Preference</strong>
+                        }
+                        else
+                        {
+                            <strong>Create User Preference</strong>
+                        }
+                    </h2>
+                    <ul id="widget-tab-Process" class="nav pull-right nav-pills Custom-pill">
+                        <li class="">
+                        </li>
+                    </ul>
+                </header>
+                <div role="content">
+                    <div class="jarviswidget-editbox"></div>
+                    <div class="widget-body no-padding">
+                        <div class="tab-content padding-10 ">
+                            @using (Html.BeginForm("CreateUserPrefrence", "MonitorProfile", FormMethod.Post, new { id = "frmUserPreference", onsubmit = "LoaderProgress()" }))
+                            {
+                                @Html.HiddenFor(m => m.PreferenceOldName)
+                                <div class="row form-group">
+                                    <div class="col-xs-4 text-right">
+                                        <label class="pull-right" for="PreferenceName">Preference Name :</label>
+                                    </div>
+                                    <div class="col-xs-6 text-left">
+                                        @Html.TextBoxFor(m => m.PreferenceName, new { @class = "form-control", @placeholder = "Preference Name", autocomplete = "off" , maxlength = "64"})
+                                        <span id="spnName" class="error" style="display:none;">Preference name is required.</span>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-xs-4 text-right">
+                                        <label class="pull-right" for="PreferenceDescription">Preference Description :</label>
+                                    </div>
+                                    <div class="col-xs-6 text-left">
+                                        @Html.TextBoxFor(m => m.PreferenceDescription, new { @class = "form-control", @placeholder = "Preference Description", autocomplete = "off", maxlength="256" })
+                                        <span id="spnDesc" class="error" style="display:none;">Preference Description is required.</span>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-xs-4 text-right">
+                                        <label class="pull-right" for="PreferenceValue">Preference Value (Email) :</label>
+                                    </div>
+                                    <div class="col-xs-6 text-left">
+                                        @Html.TextBoxFor(m => m.PreferenceValue, new { @class = "form-control", @placeholder = "Preference Value", autocomplete = "off" })
+                                        <span id="spnEmailRequired" class="error" style="display:none;">Email is required.</span>
+                                        <span id="spnEmail" class="error" style="display:none;">Email is not valid.</span>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-xs-offset-4 col-md-6">
+                                        @Html.CheckBoxFor(m => m.DefaultPreference)
+                                        <label for="DefaultPreference">Default Preference </label>
+                                    </div>
+                                </div>
+                                <div class="row form-group">
+                                    <div class="col-xs-offset-4 col-md-6">
+                                        @if (Model.PreferenceID > 0)
+                                        {
+                                            @Html.HiddenFor(m => m.PreferenceID)
+                                            <input type="submit" value="Update User Preference" name="btnUserPreference" id="btnUserPreference" class="btn btn-primary" />
+                                        }
+                                        else
+                                        {
+                                            <input type="submit" value="Create User Preference" name="btnUserPreference" id="btnUserPreference" class="btn btn-primary" />
+                                        }
+
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+</div>
+<div class="loaderMain" id="divProgress">
+    <div class="loaderDiv">
+        <p class="loaderTxt">Please wait while processing...</p>
+    </div>
+</div>
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/CustomJS-minified/Common.js"></script>
+<script src="~/Scripts/CustomJS-minified/UserPrefrence.js"></script>
+<script src="~/Scripts/bootbox.min.js"></script>
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+        bootbox.alert({
+            title: "<i class='fa fa-info-circle' aria-hidden='true'></i> Message",
+            message: '@ViewBag.Message', callback: function () {
+                if ('@ViewBag.Message' == "User preference created successfully." || '@ViewBag.Message' == "User preference updated successfully.") {
+                    window.parent.$.magnificPopup.close();
+                }
+            }
+        });
+    </script>
+}

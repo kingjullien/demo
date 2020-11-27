@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Import Data";
+    Layout = null;
+}
+@Scripts.Render("~/bundles/popupjs")
+@Styles.Render("~/Content/popupcss")
+@Html.AntiForgeryToken()
+<div id="content" style="opacity: 1;padding:0;" class="DUNSPW">
+    <section id="widget-grid">
+        <div class="row">
+            <article class="col-md-12  sortable-grid ui-sortable" id="articleCleansMatchImportData">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark importData-margin" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            <strong>Import Data</strong>
+                        </h2>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content padding-10 padding-bottom-import">
+                                <div class="tab-pane fade active in">
+                                    <div class="form-group container">
+                                        <input type="file" name="file" id="file" class="browserFile" accept=".xls,.xlsx" /><br />
+                                        <label>(Accepts only Excel files)</label><br />
+                                        <label>
+                                            <input type="checkbox" id="WithHeader" value="true" name="WithHeader">
+                                            <strong>First row is a file header</strong>
+                                        </label>
+                                        <br />
+                                        <button id="btnSubmitImportData" type="button" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+<div class="loaderMain" id="divProgress">
+    <div class="loaderDiv">
+        <p class="loaderTxt">Please wait while processing...</p>
+    </div>
+</div>
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/CustomJS-minified/CleanseMatchImportData.js?gh=3698520147"></script>
+<script src="~/Scripts/bootbox.min.js"></script>
+

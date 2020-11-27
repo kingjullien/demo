@@ -1,0 +1,20 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + AccountLang.titleLicenceExpire;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + AccountLang.titleLicenceExpire;
+    }
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+<div class="row">
+    <div class="col-xs-12 paddingto5 margin-5">
+        <h3>@AccountLang.hdrLicenseExpired</h3>
+    </div>
+</div>
+ 
+

@@ -1,0 +1,406 @@
+﻿.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    /*padding: 6px 12px;*/
+    font-size: 13px;
+    line-height: 1.42857143;
+    border-radius: 2px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.btn-primary {
+    color: #fff !important;
+    background-color: #3095b4 !important;
+    border-color: #3095b4 !important;
+}
+
+    .btn-primary.active, .btn-primary:active, .btn-primary:focus, .btn-primary:hover, .open .dropdown-toggle.btn-primary {
+        color: #fff;
+        background-color: #296191;
+        border-color: #1f496d;
+    }
+
+    .btn-primary.active, .btn-primary:active, .open .dropdown-toggle.btn-primary {
+        background-image: none;
+    }
+
+    .btn-primary.disabled, .btn-primary.disabled.active, .btn-primary.disabled:active, .btn-primary.disabled:focus, .btn-primary.disabled:hover, .btn-primary[disabled], .btn-primary[disabled].active, .btn-primary[disabled]:active, .btn-primary[disabled]:focus, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary.active, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary:hover {
+        background-color: #3095b4 !important;
+        border-color: #3095b4 !important;
+    }
+
+    .btn-primary .badge {
+        color: #3095b4;
+        background-color: #fff;
+    }
+
+/*For D&B Export Data button*/
+#btnExportData.btn-primary, #btnMonitoringNotificationsExportData.btn-primary {
+    background-color: #3095b4 !important;
+    border-color: #3095b4 !important;
+    color: #fff;
+}
+
+/*For pagination*/
+.pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: #3095b4;
+    border-color: #3095b4;
+    cursor: default;
+}
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    aside {
+        background: #005172 !important;
+    }
+
+    .sortable-grid .jarviswidget-sortable header .btn {
+        float: left;
+        margin-right: 3px;
+    }
+
+    .animated.fadeInDown {
+        -webkit-animation-name: none;
+    }
+}
+
+#ribbon {
+    background: #026D99 !important;
+}
+
+/*User security page layout*/
+.page-footer {
+    /*background: #005172 none repeat scroll 0 0;*/
+    background: #2C9FCE !important;
+}
+
+.login-info {
+    border-color: transparent transparent #026D99;
+    box-shadow: 1px 1px 0 rgba(25, 150, 250, 0.1) inset, 0 -1px 0 rgba(25, 150, 250, 0.07) inset;
+}
+
+    .login-info > span {
+        border-bottom: 1px solid #01415C;
+    }
+
+#header {
+    background-color: #2C9FCE !important;
+    background-image: none;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#14508e+0,15487f+44,164070+100 */
+    /*background: #14508e; /* Old browsers 
+    background: -moz-linear-gradient(top, #14508e 0%, #15487f 44%, #164070 100%);  FF3.6-15 
+    background: -webkit-linear-gradient(top, #14508e 0%,#15487f 44%,#164070 100%); Chrome10-25,Safari5.1-6 
+    background: linear-gradient(to bottom, #14508e 0%,#15487f 44%,#164070 100%);  W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#14508e', endColorstr='#164070',GradientType=0 ); /* IE6-9 */
+}
+
+/*For apply match rules in match data-D&B*/
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+/*For all headers used as a link*/
+a {
+    color: #3095b4;
+    text-decoration: none;
+}
+/*For Build A List D&b*/
+.MatchedItem a{
+    color: #3095b4 !important;
+    text-decoration: none;
+}
+
+/*For D&b menu selection*/
+nav ul li a {
+    color: lightgray;
+    font-size: 12px !important; /*Side menu font size*/
+}
+nav ul ul li.active a {
+    background-color: #349EC6 !important;
+    color: #fff;
+}
+nav ul ul li > a:hover {
+    background-color: #349EC6 !important;
+    color: #fff;
+}
+nav ul ul {
+    background: #2d819a none repeat scroll 0 0;
+}
+
+/*For changing the headers color*/
+.dataimportbox th {
+    background: #3095b4 none repeat scroll 0 0 !important;
+    border-bottom: medium none !important;
+    color: #fff;
+    font-size: 24px !important;
+    text-transform: uppercase;
+}
+
+/*For UI slider*/
+.noUi-handle.noUi-handle-lower, .noUi-handle.noUi-handle-upper {
+    margin: 0 !important;
+    background: #3095b4 none repeat scroll 0 0 !important;
+    box-shadow: none;
+    border: none;
+    border-radius: 5px;
+    width: 20px !important;
+    height: 25px !important;
+    left: -10px !important;
+}
+
+/*For view history in build a list-D&B*/
+.MatchedItem th {
+    background: #3095b4 none repeat scroll 0 0;
+    color: #666;
+    padding: 4px 8px !important;
+    vertical-align: middle !important;
+    color: #fff;
+}
+
+/*For toggle slider*/
+input:checked + .Toggleslider {
+    background-color: #3095b4 !important
+}
+
+/*For font awesome icons color change*/
+/*a.btn.btn-Secondary, div.btn.btn-sm, button.btn.btn-Secondary, input[type=button].btn.btn-Secondary, input[type=submit].btn.btn-Secondary {
+    color: #3095b4 !important;
+    background-color: lightgray !important;
+}*/
+
+/*Menu Separator when menu is minified*/
+.minified nav > ul > li > ul {
+    min-height: auto;
+    left: 45px;
+    background: #3095b4;
+    padding-bottom: 0;
+}
+
+.minified nav > ul > li a {
+    text-align: left;
+    border-bottom: 1px solid #01415C !important;
+}
+
+/*When side menu is minified*/
+.minified nav > ul > li > ul > li > a:hover {
+    background-color: transparent;
+    color: lightgreen !important;
+}
+/*Circle showing number of users*/
+.liCircleUserText .minifyme {
+    margin-top: 0;
+    padding-top: 4px;
+    background: #4EB3D1 !important;
+    color: #ffffff;
+}
+
+#ribbon .breadcrumb, #ribbon .breadcrumb a {
+    color: lightgray !important;
+}
+
+
+.background-blue {
+    background-color: #3095b4 !important;
+    color: #fff;
+    margin: 10px;
+    padding: 4px;
+}
+
+/*D&B logo alignment on login page*/
+.logo_sec img {
+    /* width: 250px; */
+    width: 80%;
+    height: auto;
+    float: none;
+    margin: 85px auto !important;
+}
+
+/*Popup for preview match data-D&B*/
+.preview-matchtab .nav-tabs.bordered {
+    background: #3095b4 !important;
+    border: 1px solid #3095b4 !important;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+a.btn.btn-Secondary, div.btn.btn-sm, button.btn.btn-Secondary, input[type=button].btn.btn-Secondary, input[type=submit].btn.btn-Secondary {
+    color: #3095b4 !important;
+    background-color: lightgray !important;
+}
+
+.smart-form footer .btn {
+    color: #fff;
+    background: #3095b4 !important;
+    float: none;
+    margin: 20px auto 0px auto;
+    width: 170px;
+    height: 40px;
+    font-weight: 600;
+    font-size: 13px !important;
+    border: 0px;
+    -moz-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+/*Dropdown menu selection*/
+.dropdown-menu > li > a:focus, .dropdown-menu > li > a:hover {
+    text-decoration: none;
+    color: #fff;
+    background-color: #3095b4 !important;
+}
+
+/*Icons*/
+.btn-header > *:first-child > a, #logo-Notification span#NotifyNotification {
+    background-color: #fff;
+    background-image: -moz-linear-gradient(center top, #fff, #f1f1f1);
+    border: 1px solid transparent;
+    color: #088BC0;
+    line-height: 24px;
+}
+
+.btn-header > *:first-child > a, #logo-group span#activity {
+    background-color: #fff;
+    background-image: -moz-linear-gradient(center top, #fff, #f1f1f1);
+    border: 1px solid transparent;
+    border-radius: none;
+    color: #088BC0;
+    line-height: 24px;
+}
+/*Sign in text*/
+.sigin_cus .input input, .sigin_cus .select select, .sigin_cus .textarea textarea {
+    background: transparent !important;
+    border: 0px;
+    border-bottom: 2px solid #3095b4 !important;
+    padding: 4px 10px;
+}
+.sigin_cus .note a {
+    color: #3095b4;
+    font-size: 13px;
+    font-weight: 500;
+}
+.sigin_cus header:after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    background: #3095b4;
+    left: 0;
+    top: 0;
+}
+.pagination > li > a, .pagination > li > span {
+    position: relative;
+    float: left;
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    color: #3095b4;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-left: -1px;
+}
+
+.jarviswidget-ctrls .widget-toolbar .pagination > li > a {
+    color: #3095b4 !important;
+}
+.nav-tabs > li.active > a {
+    box-shadow: 0 -2px 0 #3095b4;
+    border-top-width: 0 !important;
+    margin-top: 1px !important;
+    font-weight: 700;
+}
+
+.panel-headingDandB > a.collapsed::before {
+    background: rgba(0, 0, 0, 0) url("../Images/toggleIconDandB.png") no-repeat scroll left top;
+    content: "";
+    display: block;
+    height: 16px;
+    padding-right: 5px;
+    width: 16px;
+}
+.panel-headingDandB > a {
+    font-size: 1px;
+    padding-bottom: 10px;
+    display: table;
+}
+    .panel-headingDandB > a::before {
+        background: rgba(0, 0, 0, 0) url("../Images/toggleopenDandB.png") no-repeat scroll left top;
+        content: "";
+        display: block;
+        height: 16px;
+        padding-right: 5px;
+        width: 16px;
+    }
+.SwappingView {
+    position: fixed;
+    right: 85px;
+    top: 50px;
+}
+.set-panel {
+    display: inline-block;
+    margin-bottom: 20px;
+    position: fixed;
+    right: 122px;
+    text-align: right;
+    top: 71px;
+    width: 80%;
+    z-index: 1012;
+}
+/*Implementataion of typeahead functionality in Search Data*/
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover {
+    border: 1px solid #3276b1 !important;
+    background: #3276b1 !important;
+    font-weight: normal;
+    color: #ffffff;
+}
+.inputfile-6 + label strong {
+    height: 100%;
+    color: #f1e5e6;
+    background-color: #3095b4 !important;
+    display: inline-block;
+}
+
+.jarviswidget > header h2 {
+    font-size: 13px;
+    color: #3095b4;
+}
+.thColor {
+    color: #3095b4;
+}
+.FilterContainer .filtergroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 33px;
+    padding: 5px 7px;
+    margin: 5px 0px 5px 10px;
+    border: 1px solid #3095b4;
+}
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
+    color: #fff;
+    text-decoration: none;
+    outline: 0;
+    background-color: #3095b4;
+}
+/*Added color on hover of the dropdown menus*/
+.context-menu-item:hover {
+    color: white !important;
+    background-color: #3095b4;
+}
+.context-menu-disabled:hover {
+    opacity: 0.5;
+}

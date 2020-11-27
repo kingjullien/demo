@@ -1,0 +1,79 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@model List<MonitoringProfileEntity>
+@{
+    Layout = null;
+
+}
+<article class="col-md-12 sortable-grid ui-sortable custom-height " id="articleMonitoring">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrMonitorProfileList</strong>
+            </h2>
+            <ul class="nav pull-right nav-pills custom-pill topbuttonstyle">
+                <li class="">
+
+                    <a class="SyncSetting syncProfileList btn btn-Secondary">
+                        @DandBSettingLang.lblSyncMonitoringData
+                    </a>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div class="tab-pane fade active in ">
+                        <div class="table-responsive">
+                            @Html.AntiForgeryToken()
+                            <table class="table table-bordered table-fixed-user MonitoringTb">
+                                <thead>
+                                    <tr>
+                                        <th>@DandBSettingLang.lblProfileName</th>
+                                        <th>@DandBSettingLang.lblDescription</th>
+                                        <th>@DandBSettingLang.lblProduct</th>
+                                        <th>@DandBSettingLang.lblLevel</th>
+                                        <th>@DandBSettingLang.lblDelete</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Count > 0)
+                                    {
+                                        foreach (var item in Model)
+                                        {
+                                            var SingleCondition = item.SingleCondition == false ? "Multiple" : "Single";
+                                            <tr data-MonitoringProfileID="@item.MonitoringProfileID">
+                                                <td>@item.ProfileName</td>
+                                                <td>@item.ProfileDescription</td>
+                                                <td>@item.ProductCode</td>
+                                                <td>@item.MonitoringLevel</td>
+                                                <td>@Html.ActionLink(@DandBSettingLang.lblDelete, "", "", new { @id = item.MonitoringProfileID, href = "#", @class = "DeleteMonitorProfile" })</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td colspan="5">@DandBSettingLang.lblNoDataAreAvailable</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (!string.IsNullOrEmpty(SessionHelper.DandB_ResponseErroeMessage))
+{
+    <script type="text/javascript">
+        bootbox.alert({
+            title: "<i class='fa fa-info-circle' aria-hidden='true'></i> Message",
+            message: '@SessionHelper.DandB_ResponseErroeMessage'
+        });
+    </script>
+    SessionHelper.DandB_ResponseErroeMessage = string.Empty;
+}

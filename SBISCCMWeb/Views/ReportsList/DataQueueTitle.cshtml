@@ -1,0 +1,41 @@
+﻿@using SBISCCMWeb.LanguageResources
+@model System.Data.DataTable
+<div class="dataquetitles">
+    <div>
+        <div class="col-md-4">
+            <span><u>@ReportsListLang.lblinput</u></span>
+            <div class="inputnumber">
+                <span>@Model.Rows[0]["Number of Records"].ToString() </span>
+                <span>@ReportsListLang.lblUnprocessedInput</span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <span><u>@ReportsListLang.lblQueue</u></span>
+            <div>
+                <div class="col-md-6">
+                    <div>
+                        <div class="inputnumber">
+                            <span>@Model.Rows[1]["Number of Records"].ToString()</span>
+                            <span>@ReportsListLang.lblLowConfidenceCandidates</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <div class="inputnumber">
+                            <span>@Model.Rows[2]["Number of Records"].ToString()</span>
+                            <span>@ReportsListLang.lblUnmatchedRecords</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <span><u>@ReportsListLang.lblOutput</u></span>
+            <div class="inputnumber">
+                <span>@Model.Rows[3]["Number of Records"].ToString()</span>
+                <span>@ReportsListLang.lblMatchedOutput</span>
+            </div>
+        </div>
+    </div>
+</div>

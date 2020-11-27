@@ -1,0 +1,165 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + ImportDataLang.titleData;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + ImportDataLang.titleData;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    bool ShowErrorSymbol = ViewBag.ShowErrorSymbol;
+    bool EnableImportData = Helper.oUser.EnableImportData;
+
+}
+
+<div id="content" class="padding-top-20" style="opacity: 1;">
+    <section id="widget-grid" class="">
+        <div>
+            <div class="row">
+                <div class="col-md-8 input-group-prepend segmented">
+                    @if (Helper.oUser.UserType.ToLower() != "steward")
+                    {
+                        <button tabindex="-1" class="btn btn-primary" id="btnImportFile" type="button">@ImportDataLang.lblImportData</button>
+                        <div class="buttonSeparator"></div>
+                        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button"></button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="javascript:void(0)" id="btnImportFile">@ImportDataLang.lblImportFile</a></li>
+                            <li><a class="dropdown-item" href="javascript:void(0)" id="singleForm">@ImportDataLang.lblSingleEntryForm</a></li>
+                            @*<li><a class="dropdown-item" href="javascript:void(0)" id="btnImportFile">Bulk Entry</a></li>*@
+                        </ul>
+                    }
+                    else
+                    {
+                        if (EnableImportData)
+                        {
+                            <button tabindex="-1" class="btn btn-primary" id="btnImportFile" type="button">@ImportDataLang.lblImportData</button>
+                            <div class="buttonSeparator"></div>
+                            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button"></button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="javascript:void(0)" id="btnImportFile">@ImportDataLang.lblImportFile</a></li>
+                                <li><a class="dropdown-item" href="javascript:void(0)" id="singleForm">@ImportDataLang.lblSingleEntryForm</a></li>
+                                @*<li><a class="dropdown-item" href="javascript:void(0)" id="btnImportFile">Bulk Entry</a></li>*@
+                            </ul>
+                        }
+                        else
+                        {
+                            <button tabindex="-1" class="btn btn-primary" type="button" id="btnImportFile" disabled="disabled" title="@(Helper.Branding == Branding.DandB.ToString() ? BrandingLang.msgDNBFeature : BrandingLang.msgMBFeature )">@ImportDataLang.lblImportData</button>
+                            <div class="buttonSeparator"></div>
+                            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button" disabled="disabled"></button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="javascript:void(0)">@ImportDataLang.lblSingleEntryForm</a></li>
+                                @*<li><a class="dropdown-item" href="javascript:void(0)">Bulk Entry</a></li>*@
+                            </ul>
+                        }
+                    }
+                </div>
+                <div class="col-md-4">
+
+                    <label class="setMessage">
+                        <strong class="ColorZ">@ImportDataLang.lblProcessStatus : </strong>
+                        <span class="@(ShowErrorSymbol?"customError":"ColorA")"><strong>@ViewBag.Message</strong></span>&nbsp;
+                        <a href="javascript:void(0)" class="fontsize-20" id="rptShowBackgroundProcessList" title="@ImportDataLang.titleProcessDetails"><i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+                    </label>
+                </div>
+                <div class="widget-body import-data-status">
+                    <article class="col-md-12 col-xs-12  sortable-grid ui-sortable margintop10">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark margin-top-10" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading">
+                                <h2>
+                                    <strong>@ImportDataLang.lblImportDataStatus</strong>
+                                </h2>
+                                <ul class="nav pull-right nav-pills Custom-pill">
+                                    <li>
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn dropdown-toggle btn-Secondary" data-toggle="dropdown" tabindex="-1">
+                                                @MatchDataLang.lblAdditionalActions <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu pull-right" role="menu">
+                                                <li><a class="dropdown-item" href="javascript:void(0)" id="btnGetImportTemplatesList">@ImportDataLang.lblTemplateList</a></li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </header>
+                            <div role="content"  class="import_data_sec">
+                                <div class="jarviswidget-editbox"></div>
+                                <div class="widget-body no-padding">
+                                    <div class="tab-pane padding-10 padding-Bottom-0">
+                                        <div class="form-group">
+                                            <div class="padding-10 padding-Bottom-0">
+                                                <div class="row">
+                                                    <div id="ImportDataFilterMain">
+                                                        @Html.Partial("~/Views/Shared/FilterPartial.cshtml")
+                                                    </div>
+                                                    <div id="ImportFileListing">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<div id="BackgroundProcessListModalMain"></div>
+<div id="SingleEntryFormModalMain"></div>
+<div id="ImportFileStatsDetailsMain"></div>
+<div id="ImportFileTemplatesModalMain"></div>
+<div id="ImportFileIndexModalMain"></div>
+<div id="TemplateDetailsModalMain"></div>
+<div id="AddTagsModalMain"></div>
+<div id="ConfigureImportsModalMain"></div>
+@section scripts{
+    <script>
+    var durtationInSeconds = '@HomeLang.msgDurationInSeconds';
+    var processStats = '@HomeLang.msgProcessStats';
+    var formatsAllowed = '@ImportDataLang.msgFormatsAllowed';
+    var columnname = '@ImportDataLang.msgColumnname';
+    var columnalreadyexists = '@ImportDataLang.msgColumnalreadyexists';
+    var uploadData = '@ImportDataLang.msgUploadData';
+    var removeTemplate = '@ImportDataLang.msgRemoveTemplate';
+    var currentUTCTime = '@HomeLang.lblCurrentUTCTime';
+    var confirmBox = '@CommonMessagesLang.lblConfirm';
+    var requiredDelimiter = '@ImportDataLang.msgRequiredDelimiter';
+    var someFormatsAllowed = '@ImportDataLang.msgSomeFormatsAllowed';
+    var uploadFailed = '@ImportDataLang.msgUploadFailed';
+    var errorOccurred = '@ImportDataLang.msgErrorOccurred';
+    var error = '@ImportDataLang.msgError';
+    var unableImportBlankFile = '@ImportDataLang.msgUnableImportBlankFile';
+    var noRows = '@ImportDataLang.msgNoRows';
+    var invalidTempate = '@ImportDataLang.msgInvalidTempate';
+    var unicodeFormatNotValid = '@ImportDataLang.msgUnicodeFormatNotValid';
+    var dataImport = '@ImportDataLang.msgDataImport';
+    var selectValidDelimiter = '@ImportDataLang.msgSelectValidDelimiter';
+    var someFormatsAreAllowed = '@ImportDataLang.msgSomeFormatsAreAllowed';
+    var alreadyBelongsToFile = '@ImportDataLang.msgAlreadyBelongsToFile';
+    var isTrue = '@ImportDataLang.msgTrue';
+    var requiredFile = '@ImportDataLang.msgRequiredFile';
+    var dataNotImportedToDatabase = '@ImportDataLang.msgDataNotImportedToDatabase';
+    var invalidFieldMapping = '@ImportDataLang.msgInvalidFieldMapping';
+    var enterTemplateName = '@ImportDataLang.msgEnterTemplateName';
+    var message = '@LayoutLang.lblMessage';
+    var requiredSheetName = '@ImportDataLang.msgRequiredSheetName';
+    var saveAsTemplateImport = '@ImportDataLang.lblSaveAsTemplateImport';
+    var enterTemplateName = '@ImportDataLang.lblEnterTemplateName';
+    var save = '@ImportDataLang.lblSave';
+    var cancel = '@ImportDataLang.lblCancel';
+    var matchesbyUser = '@ImportDataLang.msgMatchesbyUser';
+    var matches = '@ImportDataLang.msgMatches';
+    var records = '@ImportDataLang.msgRecords';
+    var PostLoadActionParameters = '@PortalSettingLang.placeholderPostLoadActionParameters';
+    var ArchivePath = '@PortalSettingLang.placeholderArchivePath';
+    var NewFileExtension = '@PortalSettingLang.placeholderNewFileExtension';
+    </script>
+
+    @Scripts.Render("~/bundles/importdata")
+}
+

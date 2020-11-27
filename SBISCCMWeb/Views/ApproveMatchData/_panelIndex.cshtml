@@ -1,0 +1,273 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model PagedList.IPagedList<CompanyEntity>
+@using SBISCCMWeb.Utility;
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.Matchbook) + " | Match Data";
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = EnumDropDown.GetEnumDescription<Branding>(Branding.DandB) + " | Match Data";
+    }
+}
+@{
+
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divStewardshipPortal",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "replace",
+        LoadingElementId = "divProgress",
+        OnSuccess = "LoadChildandDetail"
+
+    };
+    var i = 0;
+    bool EnableInvestigations = Helper.oUser.EnableInvestigations;
+    bool LicenseEnableInvestigations = Helper.LicenseEnableInvestigations;
+    if (!EnableInvestigations)
+    {
+        LicenseEnableInvestigations = false;
+    }
+}
+@Html.Hidden("LicenseEnableInvestigations", LicenseEnableInvestigations) 
+<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable widget-data">
+    <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" data-widget-editbutton="false" role="widget">
+        <header role="heading">
+            <div class="jarviswidget-ctrls" role="menu">
+
+                <input type="submit" id="btnRejectSelectedMatches" class="btn btn-danger btn-sm " name="Command" title="Reject Unmatched Companies" value="Reject Unmatched Companies" style="display:none;">
+                <input type="submit" id="btnAcceptSelectedMatches" class="btn btn-primary btn-sm" name="Command" title="Update" value="Update">
+                <a class="button-icon pull-right jarviswidget-fullscreen-btn" data-placement="bottom" title="" href="javascript:void(0);" data-original-title="Fullscreen">
+                    <i class="fa fa-expand "></i>
+                </a>
+                <a class="button-icon pull-right jarviswidget-toggle-btn" data-placement="bottom" title="" rel="tooltip" href="javascript:void(0);" data-original-title="Collapse">
+                    <i class="fa fa-minus "></i>
+                </a>
+            </div>
+            <span class="widget-icon"><i class="fa fa-table"></i></span>
+            <h2><strong>Input</strong> </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                <div id="example_wrapper" class="dataTables_wrapper form-inline no-footer">
+                    <div class="page_size">
+                        <strong class="pull-left error">@Convert.ToString(TempData["ApproveQueueMessage"])</strong>
+                        <label class="select pull-right">
+                            Page Size : @Html.DropDownList("pagevalue", new SelectList(CommonDropdown.GetPageSize(), Convert.ToInt32(TempData["pageno"])), new { id = "pagevalue", @class = "pagevalueChange", @autocomplete = "off" })<i></i>
+                        </label>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="accordion" class="table table-bordered panel-group customTable divStewardshipPortal" role="grid">
+                            <thead>
+                                <tr>
+                                    <th class="sort-header">
+                                        @Ajax.ActionLink("Src Id", "GetFilteredCompanyList", new { mode = 1, page = Model.PageNumber, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                                    </th>
+                                    <th class="sort-header companyWidth">
+                                        @Ajax.ActionLink("Company", "GetFilteredCompanyList", new { mode = 1, page = Model.PageNumber, sortby = 2, sortorder = (ViewBag.SortBy == 2 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                                    </th>
+                                    <th class="sort-header">
+                                        @Ajax.ActionLink("Address", "GetFilteredCompanyList", new { mode = 1, page = Model.PageNumber, sortby = 3, sortorder = (ViewBag.SortBy == 3 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                                    </th>
+                                    <th class="sort-header">
+                                        @Ajax.ActionLink("City", "GetFilteredCompanyList", new { mode = 1, page = Model.PageNumber, sortby = 4, sortorder = (ViewBag.SortBy == 4 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                                    </th>
+                                    <th class="sort-header">
+                                        @Ajax.ActionLink("State", "GetFilteredCompanyList", new { mode = 1, page = Model.PageNumber, sortby = 5, sortorder = (ViewBag.SortBy == 5 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                                    </th>
+                                    <th class="sort-header">
+                                        @Ajax.ActionLink("Zip", "GetFilteredCompanyList", new { mode = 1, page = Model.PageNumber, sortby = 6, sortorder = (ViewBag.SortBy == 6 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                                    </th>
+                                    <th class="sort-header">
+                                        @Ajax.ActionLink("Country", "GetFilteredCompanyList", new { mode = 1, page = Model.PageNumber, sortby = 7, sortorder = (ViewBag.SortBy == 7 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                                    </th>
+                                    <th class="sort-header">
+                                        @Ajax.ActionLink("Phone", "GetFilteredCompanyList", new { mode = 1, page = Model.PageNumber, sortby = 8, sortorder = (ViewBag.SortBy == 8 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                                    </th>
+                                    <th class="sort-header">
+                                        @Ajax.ActionLink("Matches", "GetFilteredCompanyList", new { mode = 1, page = Model.PageNumber, sortby = 9, sortorder = (ViewBag.SortBy == 9 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)
+                                    </th>
+                                    <th class="selectedWidth">
+                                        Selected Match
+                                    </th>
+                                    <th class="selectedWidth">
+                                        Reject All Match
+                                    </th>
+                                    @if (Helper.IsApprovalScreen)
+                                    {
+                                        <th>
+                                            Note
+                                        </th>
+                                    }
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Count > 0)
+                                {
+                                    foreach (var item in Model)
+                                    {
+                                        string newSrcId = @item.SrcRecordId.Replace(" ", "");
+                                        TempData["CollapsName"] = "Collaps" + i;
+                                        i++;
+
+                                        <tr class="@(i==1?"current":"") @(i%2==0?"panelviewRow detailOpen AlternateRow":"panelviewRow detailOpen")" data-val="@SerializeHelper.SerializeObject(@item.SrcRecordId)" data-inputId="@item.InputId" title="@(Helper.LicenseEnableTags==true?item.Tags!=""?"Tags :"+item.Tags:"":"")">
+
+                                            <td class="trStewardshipPortal_td2 pointer" id="@item.EncryptedSrcRecordId">@item.SrcRecordId </td>
+                                            <td class="trStewardshipPortal_td3 ">@item.CompanyName </td>
+                                            <td class="trStewardshipPortal_td4">
+                                                @(item.Address)
+                                                @if (Helper.LicenseEnableGoogleMap)
+                                                {
+                                                    <i class="fa fa-map-marker GoogleMapPopUp" data-val="@item.SrcRecordId"></i>
+                                                }
+                                            </td>
+                                            <td class="trStewardshipPortal_td5">
+                                                @(item.City)
+                                            </td>
+                                            <td class="trStewardshipPortal_td6">
+                                                @(item.State)
+                                            </td>
+                                            <td class="trStewardshipPortal_td7">
+                                                @(item.PostalCode)
+                                            </td>
+                                            <td class="trStewardshipPortal_td8">
+                                                @(item.CountryISOAlpha2Code)
+                                            </td>
+                                            <td class="trStewardshipPortal_td9">@item.PhoneNbr </td>
+                                            <td class="trStewardshipPortal_td10 context-menu-one-match" data-val="@SerializeHelper.SerializeObject(@item)">Matches: @item.OriginalMatchCount  (@item.Matches.Count())</td>
+                                            <td class="trStewardshipPortal_td11 @(item.SelectedMatchCount==0?"NotSelected":"SelectMathced")" id="@(item.InputId+"NotSelected")"></td>
+                                            @if (!Helper.IsApprovalScreen)
+                                            {
+                                                <td class="trStewardshipPortal_td12">
+                                                    <div id="@(item.InputId + "RejectAll")" class="@item.SrcRecordId.Replace(" ", "") actionButton parentbtnIdel">
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="trStewardshipPortal_td12">
+                                                    <div id="@(item.InputId + "RejectAll")" class="@newSrcId actionButton @(item.RejectAllMatches==true?" parentbtnMatchRejected":"parentbtnIdel")">
+                                                        <span></span>
+                                                    </div>
+                                                </td>
+                                            }
+                                            @if (Helper.IsApprovalScreen)
+                                            {
+                                                <td class="trStewardshipPortal_td13">
+                                                    <i class="fa fa-table StewardNote" data-Note="@item.StewardshipNotes" data-id="@item.SrcRecordId" data-count="-1"></i>
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td class="noContain" colspan="10">No data are available</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="dt-toolbar-footer">
+
+                        <div class="col-sm-7 col-xs-12 hidden-xs MainPagginationArea">
+                            <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                                <a id="pagingFormAction" href="@Url.Action(" Index", "StewardshipPortal" , new { page=1, sortby=ViewBag.SortBy, sortorder=ViewBag.SortOrder })" style="display:block"></a>
+                                @Html.PagedListPager(Model, page => Url.Action("Index", "StewardshipPortal", new { page = page, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder, ViewBag.includeDeleted }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divStewardshipPortal", LoadingElementId = "divProgress", OnSuccess = "pagination()" }))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="matchmainbox">
+                <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6 sortable-grid ui-sortable MatchesItem widget-data leftspace">
+                    <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable " data-widget-editbutton="false" role="widget">
+                        <header role="heading">
+                            <div class="jarviswidget-ctrls" role="menu"></div>
+                            <span class="widget-icon"><i class="fa fa-table"></i></span>
+                            <h2><strong>Matches</strong></h2>
+                        </header>
+                        <div role="content" class="PanelMatchesShadow">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body matchscroll">
+                                <div id="example_wrapper" class="dataTables_wrapper form-inline no-footer" style="float: left;">
+                                    <div class="table-responsive scrollnone">
+                                        @if (Model.Count > 0)
+                                        {
+                                            foreach (var item in Model)
+                                            {
+                                                Html.RenderPartial("~/Views/StewardshipPortal/_panelMatchedItemView.cshtml", item);
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <table><tr><td>No data are available</td></tr></table>
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="col-xs-12 col-sm-6 col-md-6 col-lg-6 sortable-grid ui-sortable MatchDetails widget-data rightspace">
+                    <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable " data-widget-editbutton="false" role="widget">
+                        <header role="heading">
+                            <div class="jarviswidget-ctrls" role="menu">
+                                <div class="row paddinnoneright float-left">
+                                    <div class="widget-toolbar marginright-5" role="menu">
+                                        <ul class="pagination pagination-xs">
+                                            <li class="disabled">
+                                                <a href="javascript:void(0);" class="detail-Prev">Prev</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" class="detail-Next">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="float-left"></div>
+                            </div>
+                            <span class="widget-icon"><i class="fa fa-table"></i></span>
+                            <h2><strong>Matched Item Detail</strong></h2>
+                        </header>
+                        <div role="content" class="PanelMatchesShadow">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body">
+                                <div id="example_wrapper_Detail" class="dataTables_wrapper form-inline no-footer">
+                                    <div class="table-responsive">
+                                        @if (Model.Count > 0)
+                                        {
+                                            foreach (var item in Model)
+                                            {
+                                                foreach (var detail in item.Matches)
+                                                {
+                                                    Html.RenderPartial("~/Views/StewardshipPortal/_panelMatchedItemDetailView.cshtml", detail);
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <table><tr><td>No data are available</td></tr></table>
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</article>

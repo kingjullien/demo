@@ -1,0 +1,132 @@
+﻿@model SBISCCMWeb.Models.SystemSettingsModel
+
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divSystemSettings",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST"
+    };
+}
+<table id="dgSystemSettings" class="table table-bordered panel-group customTable">
+
+    @Html.HiddenFor(@model => @model.RETAIN_GOOD_MATCH_ARCHIVE)
+    @Html.HiddenFor(@model => @model.RETAIN_LOW_CONFIDENCE_MATCH_ARCHIVE)
+    @Html.HiddenFor(@model => @model.RETAIN_AUDIT_ARCHIVE)
+    @Html.HiddenFor(@model => @model.RETAIN_STEWARDSHIP_AUDIT_ARCHIVE)
+    @Html.HiddenFor(@model => @model.RETAIN_SRC_COMPANY_INFO)
+    @Html.HiddenFor(@model => @model.RETAIN_OUTPUT_DATA)
+    @Html.HiddenFor(@model => @model.ENCRYPT_ALL_DATA)
+    @Html.HiddenFor(@model => @model.AUDIT_RETENTION_PERIOD_DAYS)
+    @Html.HiddenFor(@model => @model.CUSTOM_SETTINGS)
+    @Html.HiddenFor(@model => @model.PRE_SET_VALUE)
+    @Html.HiddenFor(@model => @model.isCustomSettings)
+    @Html.HiddenFor(@model => @model.sldPresets)
+    @if (Model.isCustomSettings)
+    {
+        <tbody>
+            <tr>
+                <td>
+                    <div>
+                        @Html.CheckBoxFor(@model => @model.isRetainGMArchive)
+                        <label for="isRetainGMArchive">
+                            Retain Good Match Archive
+                        </label>
+                    </div>
+                    <div>
+                        @Html.CheckBoxFor(@model => @model.isRetainLCMArchive)
+                        <label for="isRetainLCMArchive">
+                            Retain Low Confidence Match Archive
+                        </label>
+                    </div>
+                    <div>
+                        @Html.CheckBoxFor(@model => @model.isRetainAuditArchive)
+                        <label for="isRetainAuditArchive">Retain Audit Archive</label>
+                    </div>
+                    <div>
+                        @Html.CheckBoxFor(@model => @model.isRetainStewAuditArchive)
+                        <label for="isRetainStewAuditArchive">Retain Stewardship Audit Archive</label>
+                    </div>
+                    <div>
+                        @Html.CheckBoxFor(@model => @model.isRetainSrcCompanyInfo)
+                        <label for="isRetainSrcCompanyInfo">Retain Source Company Information</label>
+                    </div>
+                    <div>
+                        @Html.CheckBoxFor(@model => @model.isRetainOutputData)
+                        <label for="isRetainOutputData">Retain Output Data</label>
+                    </div>
+                    <div>
+                        @Html.CheckBoxFor(@model => @model.isEncryptAll)
+                        <label for="isEncryptAll">Encrypt All Data</label>
+                    </div>
+                    <div>
+                        <label for="ArchiveDurationDays">Archive Storage Duration (Days)</label>
+                        @Html.TextBoxFor(@model => @model.ArchiveDurationDays, new { @class = "form-control customSmall", @autocomplete = "off", placeholder = "-1" })
+                    </div>
+                    <hr>
+                    <input type="submit" class="btn btn-primary" value="Save" id="btnSave" name="btnSave" />
+                    <input type="submit" class="btn btn-primary" value="Cancel" id="btnCancel" name="btnCancel" />
+                </td>
+            </tr>
+        </tbody>
+    }
+
+    else
+    {
+        <tbody>
+            <tr>
+                <td>
+                    @*<div class="checkbox">*@
+                    <div>
+                        @Html.HiddenFor(@model => @model.isRetainGMArchive)
+                        @Html.CheckBoxFor(@model => @model.isRetainGMArchive, new { disabled = "disable" })
+                        <label for="isRetainGMArchive">
+                            Retain Good Match Archive
+                        </label>
+                    </div>
+                    <div>
+                        @*<div class="checkbox">*@
+                        @Html.HiddenFor(@model => @model.isRetainLCMArchive)
+                        @Html.CheckBoxFor(@model => @model.isRetainLCMArchive, new { disabled = "disable" })
+                        <label for="isRetainLCMArchive">
+                            Retain Low Confidence Match Archive
+                        </label>
+                    </div>
+                    <div>
+                        @Html.HiddenFor(@model => @model.isRetainAuditArchive)
+                        @Html.CheckBoxFor(@model => @model.isRetainAuditArchive, new { disabled = "disable" })
+                        <label for="isRetainAuditArchive">Retain Audit Archive</label>
+                    </div>
+                    <div>
+                        @Html.HiddenFor(@model => @model.isRetainStewAuditArchive)
+                        @Html.CheckBoxFor(@model => @model.isRetainStewAuditArchive, new { disabled = "disable" })
+                        <label for="isRetainStewAuditArchive">Retain Stewardship Audit Archive</label>
+                    </div>
+                    <div>
+                        @Html.HiddenFor(@model => @model.isRetainSrcCompanyInfo)
+                        @Html.CheckBoxFor(@model => @model.isRetainSrcCompanyInfo, new { disabled = "disable" })
+                        <label for="isRetainSrcCompanyInfo">Retain Source Company Information</label>
+                    </div>
+                    <div>
+                        @Html.HiddenFor(@model => @model.isRetainOutputData)
+                        @Html.CheckBoxFor(@model => @model.isRetainOutputData, new { disabled = "disable" })
+                        <label for="isRetainOutputData">Retain Output Data</label>
+                    </div>
+                    <div>
+                        @Html.HiddenFor(@model => @model.isEncryptAll)
+                        @Html.CheckBoxFor(@model => @model.isEncryptAll, new { disabled = "disable" })
+                        <label for="isEncryptAll">Encrypt All Data</label>
+                    </div>
+                    <div>
+                        <label for="ArchiveDurationDays">Archive Storage Duration (Days)</label>
+                        @Html.TextBoxFor(@model => @model.ArchiveDurationDays, new { @class = "form-control customSmall", @autocomplete = "off", placeholder = "-1", @readonly = "readonly" })
+                    </div>
+                    <hr>
+                    <input type="submit" class="btn btn-primary" value="Save" id="btnSave" name="btnSave" />
+                    <input type="submit" class="btn btn-primary" value="Cancel" id="btnCancel" name="btnCancel" />
+                </td>
+            </tr>
+        </tbody>
+    }
+</table>
+

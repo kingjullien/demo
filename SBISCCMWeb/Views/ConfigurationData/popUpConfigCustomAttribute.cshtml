@@ -1,0 +1,135 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model  CustomAttributeEntity
+@using SBISCCMWeb.Controllers;
+
+@{
+    ViewBag.Title = "Custom Attribute";
+    Layout = null;
+}
+@{
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        UpdateTargetId = "replaceid",
+        OnSuccess = "UpdateAttributeSuccess"
+    };
+}
+
+@Scripts.Render("~/bundles/popupjs")
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+@Styles.Render("~/Content/popupcss")
+<link href="~/Content/Custom.css" rel="stylesheet" />
+<div id="replaceid">
+    @Html.Hidden("Messgae", (string)ViewBag.Message)
+</div>
+<div style="overflow:hidden">
+    @*@using (Html.BeginForm("popupConfigCustomAttribute", "ConfigurationData", FormMethod.Post, new { @class = "formCustomeAttribute m-style" }))*@
+    @using (Ajax.BeginForm("popupConfigCustomAttribute", "ConfigurationData", null, ajaxOptions, new { @class = "formCustomeAttribute m-style" }))
+    {
+        @Html.AntiForgeryToken()
+        <div id="content" style="opacity: 1;">
+            <section id="widget-grid" class="">
+                <article class="sortable-grid ui-sortable">
+                    <div class="form-group">
+                        <div class="text-center margin-10">
+                            @if (@ViewBag.Message != null)
+                            {
+                                <div class="alert alert-block alert-success" style="display:none;">
+                                    <a class="close" href="#" data-dismiss="alert" onclick="closemsg()">×</a>
+                                    <h4 class="alert-heading">
+                                        <i class="fa fa-check-square-o"></i>
+                                        @ViewBag.Message
+                                    </h4>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div id="wid-id-1" class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <h2>
+                                @if (Model.AttributeId > 0)
+                                {
+                                    <strong>Edit Company Attribute</strong>
+                                }
+                                else
+                                {
+                                    <strong>Add Company Attribute</strong>
+                                }
+
+                            </h2>
+                            @*<ul id="widget-tab-Company" class="nav pull-right nav-pills ">
+
+                                    <li>
+                                        <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                                    </li>
+                                </ul>*@
+                        </header>
+                        <div class="dataimportbox">
+
+                            <table class="table ">
+                                <tbody>
+                                    <tr>
+                                        <td class="fontstyle tableBorder-none" align="right">Attribute Name : </td>
+                                        <td class="tableBorder-none">
+                                            @Html.TextBoxFor(@model => @model.AttributeName, new { @class = "form-control" })
+                                            <span id="spnAttributeName" class="error" style="display:none;">Please fill Attribute Name.</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fontstyle tableBorder-none" align="right">Attribute Type Code:</td>
+                                        <td class="tableBorder-none">
+                                            @Html.DropDownList("AttributeDataTypeCode", new SelectList(SBISCCMWeb.Controllers.ConfigurationDataController.GetAttributeType(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Code", "Value", Model.AttributeDataTypeCode), new { id = "AttributeDataTypeCode", @class = "AttributeDataTypeCode" })
+                                            <span id="spnAttributeDataTypeCode" class="error" style="display:none;">Please fill Login Id.</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right tableBorder-none"></td>
+                                        <td class="text-left tableBorder-none">
+                                            @Html.HiddenFor(@model => @model.AttributeId)
+                                            @if (Model.AttributeId > 0)
+                                            {
+                                                <input type="submit" value="Update" id="btnConfigCustomAttribute" name="btnConfigCustomAttribute" class="btn btn-primary btnConfigCustomAttribute" />
+                                            }
+                                            else
+                                            {
+                                                <input type="submit" value="Add" id="btnConfigCustomAttribute" name="btnConfigCustomAttribute" class="btn btn-primary btnConfigCustomAttribute" />
+                                            }
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </div>
+        <div class="loaderMain" id="divProgress">
+            <div class="loaderDiv">
+                <p class="loaderTxt">Please wait while processing...</p>
+            </div>
+        </div>
+    }
+</div>
+<script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
+<script src="~/Scripts/CustomJS-minified/ConfigurationData.js"></script>
+<script src="~/Scripts/CustomJS-minified/Common.js"></script>
+<script src="~/Scripts/CustomJS-minified/CustomAttribute.js"></script>
+<script src="~/Scripts/bootbox.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

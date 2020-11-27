@@ -1,0 +1,66 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model List<MPMSummary>
+@using SBISCCMWeb.LanguageResources
+<article class="sortable-grid ui-sortable col-md-12" id="articleAddupdateDnbGroupAPI">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrMultiPassConfiguration</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                <li>
+                    <div class="btn btn-sm" id="btnAddMultiPassConfig" title="@DandBSettingLang.ttlAddMultiPassConfiguration">
+                        <span class="fa fa-plus"></span>
+                    </div>
+                </li>
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="tblMPMConfiguration">
+                        <thead>
+                            <tr>
+                                <th width="10%">@DandBSettingLang.lblTag</th>
+                                <th width="40%" class="WordBreak">@DandBSettingLang.hdrVerificationGroup</th>
+                                <th width="40%" class="WordBreak">@DandBSettingLang.lblPrecedenceSteps</th>
+                                <th width="5%" class="nosort"></th>
+                                <th width="5%" class="nosort"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Tag</td>
+                                        <td>@item.VerificationGroups</td>
+                                        <td>@item.PrecedenceSteps</td>
+                                        <td><a href="javascript:void(0)" class="editMPMConfiguration" data-tag="@item.Tag" data-provider="106001">@DandBSettingLang.lblEdit</a></td>
+                                        <td><a href="javascript:void(0)" class="deleteMPMConfiguration" data-tag="@item.Tag" data-provider="106001">@DandBSettingLang.lblDelete</a></td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</article>
+
+<div id="AddMultiPassConfigModalMain"></div>
+
+
+@if (ViewBag.SelectedIndividualTab == "Multi-Pass Configuration")
+{
+    <script>
+        $(document).ready(function () {
+            InitMPMConfigurationDataTable();
+        })
+    </script>
+}
+

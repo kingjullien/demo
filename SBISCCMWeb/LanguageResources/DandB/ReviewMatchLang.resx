@@ -1,0 +1,500 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="hdrBarChart" xml:space="preserve">
+    <value>Bar Chart</value>
+    <comment>Bar Chart</comment>
+  </data>
+  <data name="hdrMatchRecordDetailView" xml:space="preserve">
+    <value>Match Record Detail View</value>
+    <comment>Match Record Detail View</comment>
+  </data>
+  <data name="hdrReviewData" xml:space="preserve">
+    <value>Review Data</value>
+    <comment>Review Data</comment>
+  </data>
+  <data name="hdrReviewMatches" xml:space="preserve">
+    <value>Review Matches</value>
+    <comment>Review Matches</comment>
+  </data>
+  <data name="lblAdditionalActions" xml:space="preserve">
+    <value>Additional Actions</value>
+    <comment>Additional Actions</comment>
+  </data>
+  <data name="lblAddress" xml:space="preserve">
+    <value>Address</value>
+    <comment>Address</comment>
+  </data>
+  <data name="lblApply" xml:space="preserve">
+    <value>Apply</value>
+    <comment>Apply</comment>
+  </data>
+  <data name="lblCity" xml:space="preserve">
+    <value>City</value>
+    <comment>City</comment>
+  </data>
+  <data name="lblCityTown" xml:space="preserve">
+    <value>City/Town</value>
+    <comment>City/Town</comment>
+  </data>
+  <data name="lblClear" xml:space="preserve">
+    <value>Clear</value>
+    <comment>Clear</comment>
+  </data>
+  <data name="lblCompanyName" xml:space="preserve">
+    <value>CompanyName</value>
+    <comment>CompanyName</comment>
+  </data>
+  <data name="lblConfidenceCode" xml:space="preserve">
+    <value>Confidence Code</value>
+    <comment>Confidence Code</comment>
+  </data>
+  <data name="lblConfidenceCodes" xml:space="preserve">
+    <value>Confidence Code(s)</value>
+    <comment>Confidence Code(s)</comment>
+  </data>
+  <data name="lblCountryGroup" xml:space="preserve">
+    <value>Country Group</value>
+    <comment>Country Group</comment>
+  </data>
+  <data name="lblDandBData" xml:space="preserve">
+    <value>D&amp;B Data</value>
+    <comment>D&amp;B Data</comment>
+  </data>
+  <data name="lblDensity" xml:space="preserve">
+    <value>Density</value>
+    <comment>Density</comment>
+  </data>
+  <data name="lblDnBAddressUndeliverable" xml:space="preserve">
+    <value>DnBAddressUndeliverable</value>
+    <comment>DnBAddressUndeliverable</comment>
+  </data>
+  <data name="lblDnBConfidenceCode" xml:space="preserve">
+    <value>DnBConfidenceCode</value>
+    <comment>DnBConfidenceCode</comment>
+  </data>
+  <data name="lblDnBCountryISOAlpha2Code" xml:space="preserve">
+    <value>DnBCountryISOAlpha2Code</value>
+    <comment>DnBCountryISOAlpha2Code</comment>
+  </data>
+  <data name="lblDnBDisplaySequence" xml:space="preserve">
+    <value>DnBDisplaySequence</value>
+    <comment>DnBDisplaySequence</comment>
+  </data>
+  <data name="lblDnBDUNSNumber" xml:space="preserve">
+    <value>DnBDUNSNumber</value>
+    <comment>DnBDUNSNumber</comment>
+  </data>
+  <data name="lblDnBFamilyTreeMemberRole" xml:space="preserve">
+    <value>DnBFamilyTreeMemberRole</value>
+    <comment>DnBFamilyTreeMemberRole</comment>
+  </data>
+  <data name="lblDnBMatchDataProfileText" xml:space="preserve">
+    <value>DnBMatchDataProfileText</value>
+    <comment>DnBMatchDataProfileText</comment>
+  </data>
+  <data name="lblDnBMatchGradeText" xml:space="preserve">
+    <value>DnBMatchGradeText</value>
+    <comment>DnBMatchGradeText</comment>
+  </data>
+  <data name="lblDnBOperatingStatus" xml:space="preserve">
+    <value>DnBOperatingStatus</value>
+    <comment>DnBOperatingStatus</comment>
+  </data>
+  <data name="lblDnBOrganizationName" xml:space="preserve">
+    <value>DnBOrganizationName</value>
+    <comment>DnBOrganizationName</comment>
+  </data>
+  <data name="lblDnBPostalCode" xml:space="preserve">
+    <value>DnBPostalCode</value>
+    <comment>DnBPostalCode</comment>
+  </data>
+  <data name="lblDnBPostalCodeExtensionCode" xml:space="preserve">
+    <value>DnBPostalCodeExtensionCode</value>
+    <comment>DnBPostalCodeExtensionCode</comment>
+  </data>
+  <data name="lblDnBPrimaryTownName" xml:space="preserve">
+    <value>DnBPrimaryTownName</value>
+    <comment>DnBPrimaryTownName</comment>
+  </data>
+  <data name="lblDnBSeniorPrincipalName" xml:space="preserve">
+    <value>DnBSeniorPrincipalName</value>
+    <comment>DnBSeniorPrincipalName</comment>
+  </data>
+  <data name="lblDnBStandaloneOrganization" xml:space="preserve">
+    <value>DnBStandaloneOrganization</value>
+    <comment>DnBStandaloneOrganization</comment>
+  </data>
+  <data name="lblDnBStreetAddressLine" xml:space="preserve">
+    <value>DnBStreetAddressLine</value>
+    <comment>DnBStreetAddressLine</comment>
+  </data>
+  <data name="lblDnBTelephoneNumber" xml:space="preserve">
+    <value>DnBTelephoneNumber</value>
+    <comment>DnBTelephoneNumber</comment>
+  </data>
+  <data name="lblDnBTerritoryAbbreviatedName" xml:space="preserve">
+    <value>DnBTerritoryAbbreviatedName</value>
+    <comment>DnBTerritoryAbbreviatedName</comment>
+  </data>
+  <data name="lblDnBTradeStyleName" xml:space="preserve">
+    <value>DnBTradeStyleName</value>
+    <comment>DnBTradeStyleName</comment>
+  </data>
+  <data name="lblDUNSNO" xml:space="preserve">
+    <value>DUNS NO</value>
+    <comment>DUNS NO</comment>
+  </data>
+  <data name="lblExporttoExcel" xml:space="preserve">
+    <value>Export to Excel</value>
+    <comment>Export to Excel</comment>
+  </data>
+  <data name="lblGroupIdRequired" xml:space="preserve">
+    <value>The groupId field is required.</value>
+    <comment>The groupId field is required.</comment>
+  </data>
+  <data name="lblInput" xml:space="preserve">
+    <value>Input</value>
+    <comment>Input</comment>
+  </data>
+  <data name="lblInputId" xml:space="preserve">
+    <value>InputId</value>
+    <comment>InputId</comment>
+  </data>
+  <data name="lblMatchData" xml:space="preserve">
+    <value>Match Data</value>
+    <comment>Match Data</comment>
+  </data>
+  <data name="lblMatchGrade" xml:space="preserve">
+    <value>Match Grade</value>
+    <comment>Match Grade</comment>
+  </data>
+  <data name="lblMDP" xml:space="preserve">
+    <value>MDP</value>
+    <comment>MDP</comment>
+  </data>
+  <data name="lblMDPVCity" xml:space="preserve">
+    <value>MDPVCity</value>
+    <comment>MDPVCity</comment>
+  </data>
+  <data name="lblMDPVCompanyName" xml:space="preserve">
+    <value>MDPVCompanyName</value>
+    <comment>MDPVCompanyName</comment>
+  </data>
+  <data name="lblMDPVMailingAddress" xml:space="preserve">
+    <value>MDPVMailingAddress</value>
+    <comment>MDPVMailingAddress</comment>
+  </data>
+  <data name="lblMDPVState" xml:space="preserve">
+    <value>MDPVState</value>
+    <comment>MDPVState</comment>
+  </data>
+  <data name="lblMDPVStreetName" xml:space="preserve">
+    <value>MDPVStreetName</value>
+    <comment>MDPVStreetName</comment>
+  </data>
+  <data name="lblMDPVStreetNo" xml:space="preserve">
+    <value>MDPVStreetNo</value>
+    <comment>MDPVStreetNo</comment>
+  </data>
+  <data name="lblMDPVTelephone" xml:space="preserve">
+    <value>MDPVTelephone</value>
+    <comment>MDPVTelephone</comment>
+  </data>
+  <data name="lblMGVCity" xml:space="preserve">
+    <value>MGVCity</value>
+    <comment>MGVCity</comment>
+  </data>
+  <data name="lblMGVCompanyName" xml:space="preserve">
+    <value>MGVCompanyName</value>
+    <comment>MGVCompanyName</comment>
+  </data>
+  <data name="lblMGVDensity" xml:space="preserve">
+    <value>MGVDensity</value>
+    <comment>MGVDensity</comment>
+  </data>
+  <data name="lblMGVMailingAddress" xml:space="preserve">
+    <value>MGVMailingAddress</value>
+    <comment>MGVMailingAddress</comment>
+  </data>
+  <data name="lblMGVSIC" xml:space="preserve">
+    <value>MGVSIC</value>
+    <comment>MGVSIC</comment>
+  </data>
+  <data name="lblMGVState" xml:space="preserve">
+    <value>MGVState</value>
+    <comment>MGVState</comment>
+  </data>
+  <data name="lblMGVStreetName" xml:space="preserve">
+    <value>MGVStreetName</value>
+    <comment>MGVStreetName</comment>
+  </data>
+  <data name="lblMGVStreetNo" xml:space="preserve">
+    <value>MGVStreetNo</value>
+    <comment>MGVStreetNo</comment>
+  </data>
+  <data name="lblMGVTelephone" xml:space="preserve">
+    <value>MGVTelephone</value>
+    <comment>MGVTelephone</comment>
+  </data>
+  <data name="lblMGVUniqueness" xml:space="preserve">
+    <value>MGVUniqueness</value>
+    <comment>MGVUniqueness</comment>
+  </data>
+  <data name="lblMGVZipCode" xml:space="preserve">
+    <value>MGVZipCode</value>
+    <comment>MGVZipCode</comment>
+  </data>
+  <data name="lblNext" xml:space="preserve">
+    <value>Next</value>
+    <comment>Next</comment>
+  </data>
+  <data name="lblNoDataAreAvailable" xml:space="preserve">
+    <value>No data are available</value>
+    <comment>No data are available</comment>
+  </data>
+  <data name="lblNumberofRecordsPerPage" xml:space="preserve">
+    <value>Number of Records Per Page</value>
+    <comment>Number of Records Per Page</comment>
+  </data>
+  <data name="lblOperating" xml:space="preserve">
+    <value>Operating</value>
+    <comment>Operating</comment>
+  </data>
+  <data name="lblOrderBy" xml:space="preserve">
+    <value>OrderBy</value>
+    <comment>OrderBy</comment>
+  </data>
+  <data name="lblPhoneNbr" xml:space="preserve">
+    <value>PhoneNbr</value>
+    <comment>PhoneNbr</comment>
+  </data>
+  <data name="lblPhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+    <comment>Phone Number</comment>
+  </data>
+  <data name="lblPOBox" xml:space="preserve">
+    <value>PO Box</value>
+    <comment>PO Box</comment>
+  </data>
+  <data name="lblPostalCode" xml:space="preserve">
+    <value>PostalCode</value>
+    <comment>PostalCode</comment>
+  </data>
+  <data name="lblPrev" xml:space="preserve">
+    <value>Prev</value>
+    <comment>Prev</comment>
+  </data>
+  <data name="lblRole" xml:space="preserve">
+    <value>Role</value>
+    <comment>Role</comment>
+  </data>
+  <data name="lblSelect" xml:space="preserve">
+    <value>Select</value>
+    <comment>Select</comment>
+  </data>
+  <data name="lblSelected" xml:space="preserve">
+    <value>Selected</value>
+    <comment>Selected</comment>
+  </data>
+  <data name="lblSIC" xml:space="preserve">
+    <value>SIC</value>
+    <comment>SIC</comment>
+  </data>
+  <data name="lblSrcId" xml:space="preserve">
+    <value>SrcId</value>
+    <comment>SrcId</comment>
+  </data>
+  <data name="lblSrPrincipalName" xml:space="preserve">
+    <value>Sr. Principal Name</value>
+    <comment>Sr. Principal Name</comment>
+  </data>
+  <data name="lblState" xml:space="preserve">
+    <value>State</value>
+    <comment>State</comment>
+  </data>
+  <data name="lblStreet" xml:space="preserve">
+    <value>Street#</value>
+    <comment>Street#</comment>
+  </data>
+  <data name="lblStreetName" xml:space="preserve">
+    <value>Street Name</value>
+    <comment>Street Name</comment>
+  </data>
+  <data name="lblTag" xml:space="preserve">
+    <value>Tag</value>
+    <comment>Tag</comment>
+  </data>
+  <data name="lblTopMatchCandidate" xml:space="preserve">
+    <value>Top Match Candidate</value>
+    <comment>Top Match Candidate</comment>
+  </data>
+  <data name="lblTradeStyleName" xml:space="preserve">
+    <value>TradeStyleName</value>
+    <comment>TradeStyleName</comment>
+  </data>
+  <data name="lblType" xml:space="preserve">
+    <value>Type</value>
+    <comment>Type</comment>
+  </data>
+  <data name="lblUniqueness" xml:space="preserve">
+    <value>Uniqueness</value>
+    <comment>Uniqueness</comment>
+  </data>
+  <data name="msgAcceptSelectedMatches" xml:space="preserve">
+    <value>Accept Selected Matches</value>
+    <comment>Accept Selected Matches</comment>
+  </data>
+  <data name="msgAddCC" xml:space="preserve">
+    <value>Add CC for Auto-acceptance</value>
+    <comment>Add CC for Auto-acceptance</comment>
+  </data>
+  <data name="msgAddCCandMG" xml:space="preserve">
+    <value>Add CC and MG for Auto-acceptance</value>
+    <comment>Add CC and MG for Auto-acceptance</comment>
+  </data>
+  <data name="msgAddCCandMGandMDP" xml:space="preserve">
+    <value>Add CC, MG and MDP for Auto-acceptance</value>
+    <comment>Add CC, MG and MDP for Auto-acceptance</comment>
+  </data>
+  <data name="msgExcludeCCandMG" xml:space="preserve">
+    <value>Exclude CC, MG from Auto-acceptance</value>
+    <comment>Exclude CC, MG from Auto-acceptance</comment>
+  </data>
+  <data name="msgExcludeCCandMGandMDP" xml:space="preserve">
+    <value>Exclude CC, MG and MDP from Auto-acceptance</value>
+    <comment>Exclude CC, MG and MDP from Auto-acceptance</comment>
+  </data>
+  <data name="msgShowMatchDetail" xml:space="preserve">
+    <value>Show Match Detail</value>
+    <comment>Show Match Detail</comment>
+  </data>
+  <data name="titleAddmatchasanewcompany" xml:space="preserve">
+    <value>Add match as a new company</value>
+    <comment>Add match as a new company</comment>
+  </data>
+  <data name="titleMatchRecordsDetailsView" xml:space="preserve">
+    <value>Match Records Details View</value>
+    <comment>Match Records Details View</comment>
+  </data>
+  <data name="titleReviewData" xml:space="preserve">
+    <value>Review Data</value>
+    <comment>Review Data</comment>
+  </data>
+</root>

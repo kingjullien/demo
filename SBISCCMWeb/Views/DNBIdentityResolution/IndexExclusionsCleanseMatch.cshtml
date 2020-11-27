@@ -1,0 +1,158 @@
+﻿
+@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@model SBISCCMWeb.Models.CleanseMatchSettingsModel
+@{
+    AjaxOptions ajaxOptionsForAAC = new AjaxOptions { InsertionMode = InsertionMode.Replace, HttpMethod = "GET" };
+    int z_Exclusion = 0;
+    string TagHide = !Helper.LicenseEnableTags ? "TagHide" : "";
+
+}
+<article class="col-md-12 sortable-grid ui-sortable widget-data">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@DandBSettingLang.hdrExclusionsforCleanseMatchAPICalls</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+
+
+                <div class="tab-content padding-10 " id="CleanseMatchExclusion">
+                    <form id="frmCleanseExclusion">
+
+                        @Html.Hidden("TagList1", Model.oCleanseMatchExclusionsEntity.Tags1)
+                        @Html.Hidden("TagList2", Model.oCleanseMatchExclusionsEntity.Tags2)
+                        @Html.Hidden("TagList3", Model.oCleanseMatchExclusionsEntity.Tags3)
+                        @Html.Hidden("TagList4", Model.oCleanseMatchExclusionsEntity.Tags4)
+                        @Html.Hidden("TagList5", Model.oCleanseMatchExclusionsEntity.Tags5)
+
+
+                        @Html.Hidden("Tags1", z_Exclusion)
+                        @Html.Hidden("Tags2", z_Exclusion)
+                        @Html.Hidden("Tags3", z_Exclusion)
+                        @Html.Hidden("Tags4", z_Exclusion)
+                        @Html.Hidden("Tags5", z_Exclusion)
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <label><strong>@DandBSettingLang.lblEnable</strong></label>
+                            </div>
+                            <div class="col-sm-7"></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-5 ExclusionGroup">
+                                @Html.CheckBoxFor(m => m.oCleanseMatchExclusionsEntity.Active1, new { autocomplete = "off" })
+                                <label for="oCleanseMatchExclusionsEntity_Active1" class="labelspace">@Model.oCleanseMatchExclusionsEntity.Exclusion1</label>
+                            </div>
+                            @if (Helper.LicenseEnableTags)
+                            {
+                                <div class="col-sm-7 @TagHide clsExcluede" style="display:flex">
+                                    @Html.DropDownList("TagsValue1", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oCleanseMatchExclusionsEntity.Tags1), new { @class = "form-control chzn-select clstag1 Exclusion", multiple = "true", autocomplete = "off" })
+                                    @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                    {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                    }
+                                </div>
+                            }
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-5 ExclusionGroup">
+                                @Html.CheckBoxFor(m => m.oCleanseMatchExclusionsEntity.Active2, new { autocomplete = "off" })
+                                <label for="oCleanseMatchExclusionsEntity_Active2" class="labelspace">@Model.oCleanseMatchExclusionsEntity.Exclusion2</label>
+                            </div>
+                            @if (Helper.LicenseEnableTags)
+                            {
+                                <div class="col-sm-7 @TagHide clsExcluede" style="display:flex">
+                                    @Html.DropDownList("TagsValue2", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oCleanseMatchExclusionsEntity.Tags2), new { @class = "form-control chzn-select clstag2 Exclusion", multiple = "true", autocomplete = "off" })
+                                    @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                    {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                    }
+                                </div>
+                            }
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-5 ExclusionGroup">
+                                @Html.CheckBoxFor(m => m.oCleanseMatchExclusionsEntity.Active3, new { autocomplete = "off" })
+                                <label for="oCleanseMatchExclusionsEntity_Active3" class="labelspace">@Model.oCleanseMatchExclusionsEntity.Exclusion3</label>
+                            </div>
+                            @if (Helper.LicenseEnableTags)
+                            {
+                                <div class="col-sm-7 @TagHide clsExcluede" style="display:flex">
+                                    @Html.DropDownList("TagsValue3", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oCleanseMatchExclusionsEntity.Tags3), new { @class = "form-control chzn-select clstag3 Exclusion", multiple = "true", autocomplete = "off" })
+                                    @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                    {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                    }
+                                </div>
+                            }
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-5 ExclusionGroup">
+                                @Html.CheckBoxFor(m => m.oCleanseMatchExclusionsEntity.Active4, new { autocomplete = "off" })
+                                <label for="oCleanseMatchExclusionsEntity_Active4" class="labelspace">@Model.oCleanseMatchExclusionsEntity.Exclusion4</label>
+                            </div>
+                            @if (Helper.LicenseEnableTags)
+                            {
+                                <div class="col-sm-7 @TagHide clsExcluede" style="display:flex">
+                                    @Html.DropDownList("TagsValue4", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oCleanseMatchExclusionsEntity.Tags4), new { @class = "form-control chzn-select clstag4 Exclusion", multiple = "true", autocomplete = "off", @placeholder = "Add" })
+                                    @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                    {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                    }
+                                </div>
+                            }
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-5 ExclusionGroup">
+                                @Html.CheckBoxFor(m => m.oCleanseMatchExclusionsEntity.Active5, new { autocomplete = "off" })
+                                <label for="oCleanseMatchExclusionsEntity_Active5" class="labelspace">@Model.oCleanseMatchExclusionsEntity.Exclusion5</label>
+                            </div>
+                            @if (Helper.LicenseEnableTags)
+                            {
+                                <div class="col-sm-7 @TagHide clsExcluede" style="display:flex">
+                                    @Html.DropDownList("TagsValue5", new SelectList(CommonDropdown.GetAllTagsForUser(this.LayoutModel.CurrentClient.ApplicationDBConnectionString, true), "Tag", "Tag", Model.oCleanseMatchExclusionsEntity.Tags5), new { @class = "form-control chzn-select clstag5 Exclusion", multiple = "true", @autocomplete = "off" })
+                                    @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                    {<em class="fa fa-plus OpenTags" onclick="addNewTagsPopup()"></em>
+                                    }
+                                </div>
+                            }
+                        </div>
+                        @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                        {
+                            <input type="button" value="@DandBSettingLang.lblUpdate" name="btnSubmitExclusion" id="btnSubmitExclusion" class="btn btn-primary" />
+                        }
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "Exclusions Cleanse Match")
+{
+    <script>
+        $(document).ready(function () {
+            if ($.UserRole.toLowerCase() == "lob") {
+            $("#frmCleanseExclusion .chzn-select").each(function () {
+                $(this).attr("disabled", true);
+            });
+            $("#frmCleanseExclusion input[type=checkbox]").each(function () {
+                $(this).attr("disabled", true);
+            });
+            $("#frmCleanseExclusion .OpenTags").each(function () {
+                $(this).remove();
+            });
+        }
+        ExclusionLoadTags();
+        if ($.UserRole.toLowerCase() == "global") {
+            oCleanseMatchExclusionsChanges("input#oCleanseMatchExclusionsEntity_Active1", "#TagsValue1", "#Tags1", "#TagList1");
+            oCleanseMatchExclusionsChanges("input#oCleanseMatchExclusionsEntity_Active2", "#TagsValue2", "#Tags1", "#TagList2");
+            oCleanseMatchExclusionsChanges("input#oCleanseMatchExclusionsEntity_Active3", "#TagsValue3", "#Tags1", "#TagList3");
+            oCleanseMatchExclusionsChanges("input#oCleanseMatchExclusionsEntity_Active4", "#TagsValue4", "#Tags1", "#TagList4");
+            oCleanseMatchExclusionsChanges("input#oCleanseMatchExclusionsEntity_Active5", "#TagsValue5", "#Tags1", "#TagList5");
+        }
+        });
+    </script>
+}

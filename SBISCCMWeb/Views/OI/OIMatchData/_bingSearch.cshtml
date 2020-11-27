@@ -1,0 +1,27 @@
+﻿@using SBISCCMWeb.LanguageResources
+<div>
+    @if (Model.Count > 0)
+    {
+        foreach (var item in Model)
+        {
+            string WSerUel = item.WSer.Url.Contains("http") ? item.WSer.Url : "http://" + item.WSer.Url;
+            <div style="padding:10px;">
+                <div>
+                    <h3 class="paddinnoneright"><a onclick="window.open('@WSerUel')" href="javascript:void(false)">@item.WSer.Name</a></h3>
+                </div>
+                <div>
+                    <h6 class="paddinnoneright">@item.WSer.DisplayUrl</h6>
+                </div>
+                <div>
+                    @item.WSer.Snippet
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <span>@OIMatchDataLang.lblNodataareavailable</span>
+    }
+</div>
+
+

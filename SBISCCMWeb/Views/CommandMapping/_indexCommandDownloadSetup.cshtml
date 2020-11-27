@@ -1,0 +1,126 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+<article class="col-md-12 sortable-grid ui-sortable">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+
+                <strong>@CommandLineLang.hdrCommandLineEXEDownload</strong>
+            </h2>
+
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    @Html.AntiForgeryToken()
+
+
+
+
+                    <article class="col-md-12 sortable-grid ui-sortable">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading">
+                                <h2>
+                                    <strong>@CommandLineLang.hdrWindowsSetup</strong>
+                                </h2>
+                            </header>
+                            <div role="content">
+                                <div class="jarviswidget-editbox"></div>
+                                <div class="widget-body no-padding">
+                                    <div class="tab-content padding-10">
+                                        <div class="table-responsive" style="overflow-x:visible!important">
+                                            <table class="table wordwrap" id="tbCmndDownloadSetup">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+
+                                                            <span>@CommandLineLang.lblwin32&nbsp;&nbsp;&nbsp;</span><a href="javascript:void(0)" data-val="@Utility.GetEncryptedString(Convert.ToString("win32")).Replace("+", Utility.urlseparator)" class="DownloadExeSetup"><i class="fa fa-download fa-lg " aria-hidden="true"></i></a>
+                                                            @*<span>win32&nbsp;&nbsp;&nbsp;</span> @Html.ActionLink(" ", "DownloadExeSetup", "CommandMapping", new { Parameters =  }, new { @class = "fa fa-download fa-lg" })*@
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span>@CommandLineLang.lblwin64&nbsp;&nbsp;&nbsp;</span><a href="javascript:void(0)" data-val="@Utility.GetEncryptedString(Convert.ToString("win64")).Replace("+", Utility.urlseparator)" class="DownloadExeSetup"><i class="fa fa-download fa-lg" aria-hidden="true"></i></a>
+                                                            @*<span>win64&nbsp;&nbsp;&nbsp;</span> @Html.ActionLink(" ", "DownloadExeSetup", "CommandMapping", new { Parameters = Utility.GetEncryptedString(Convert.ToString("win64")).Replace("+", Utility.urlseparator) }, new { @class = "fa fa-download fa-lg" })*@
+                                                        </td>
+                                                    </tr>
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="col-md-12 sortable-grid ui-sortable">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading">
+                                <h2>
+                                    <strong>@CommandLineLang.hdrLinuxSetup</strong>
+                                </h2>
+                            </header>
+                            <div role="content">
+                                <div class="jarviswidget-editbox"></div>
+                                <div class="widget-body no-padding">
+                                    <div class="tab-content padding-10">
+                                        <div class="table-responsive" style="overflow-x:visible!important">
+                                            <table class="table wordwrap" id="tbCmndDownloadSetup">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <span>@CommandLineLang.lblRHEL6&nbsp;&nbsp;&nbsp;</span><a href="javascript:void(0)" data-val="@Utility.GetEncryptedString(Convert.ToString("redHat6")).Replace("+", Utility.urlseparator)" class="DownloadExeSetup"><i class="fa fa-download fa-lg " aria-hidden="true"></i></a>
+                                                            @*<span>RHEL 6&nbsp;&nbsp;&nbsp;</span> @Html.ActionLink(" ", "DownloadExeSetup", "CommandMapping", new { Parameters = Utility.GetEncryptedString(Convert.ToString("redHat6")).Replace("+", Utility.urlseparator) }, new { @class = "fa fa-download fa-lg" })*@
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span>@CommandLineLang.lblRHEL7&nbsp;&nbsp;&nbsp;</span><a href="javascript:void(0)" data-val="@Utility.GetEncryptedString(Convert.ToString("redHat7")).Replace("+", Utility.urlseparator)" class="DownloadExeSetup"><i class="fa fa-download fa-lg " aria-hidden="true"></i></a>
+                                                            @*<span>RHEL 7&nbsp;&nbsp;&nbsp;</span> @Html.ActionLink(" ", "DownloadExeSetup", "CommandMapping", new { Parameters = Utility.GetEncryptedString(Convert.ToString("redHat7")).Replace("+", Utility.urlseparator) }, new { @class = "fa fa-download fa-lg" })*@
+                                                        </td>
+                                                    </tr>
+                                                    @*<tr>
+                                                            <td> <span>RHEL 6&nbsp;&nbsp;&nbsp;<a href="~/CommandLineEXE/linux/redHat6.zip"><i class="fa fa-download fa-lg" aria-hidden="true"></i></a></span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><span>RHEL 7&nbsp;&nbsp;&nbsp;<a href="~/CommandLineEXE/linux/redhat7.zip"><i class="fa fa-download fa-lg" aria-hidden="true"></i></a></span></td>
+                                                        </tr>*@
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<script>
+    $(document).ready(function () {
+        $(".DownloadExeSetup").click(function () {
+            var file = $(this).attr("data-val");
+            $(this).attr("href", "/CommandMapping/DownloadExeSetup?Parameters=" + file)
+            $(this).click();
+            return false;
+        });
+
+    });
+</script>
+@if (ViewBag.SelectedIndividualTab == "EXE Setup")
+{
+    <script>
+        $(document).ready(function () {
+            $("#IdRTabCommandDownloadSetup").addClass("tabBorder");
+            $("#RTabCommandUpload").hide();
+            $("#RTabCommandDownload").hide();
+            $("#divPartialCommandDownloadSetup").html();
+    });
+    </script>
+}

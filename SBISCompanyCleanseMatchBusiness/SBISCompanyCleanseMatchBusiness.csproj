@@ -1,0 +1,399 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A1667DBA-0EE9-4617-8CF7-B5510CF2321D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SBISCompanyCleanseMatchBusiness</RootNamespace>
+    <AssemblyName>SBISCompanyCleanseMatchBusiness</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>%24/CCM Application/SBISCCMApplications-DEV/SBISCompanyCleanseMatchBusiness</SccProjectName>
+    <SccLocalPath>.</SccLocalPath>
+    <SccAuxPath>https://dev.azure.com/sequelbisolutions</SccAuxPath>
+    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\SBISCCMWeb\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="General.cs" />
+    <Compile Include="Objects\Business\AutoAcceptanceDirectivesBusiness.cs" />
+    <Compile Include="Objects\Business\BenificialOwnershipBusiness.cs" />
+    <Compile Include="Objects\Business\BusinessParent.cs" />
+    <Compile Include="Objects\Business\ColumnMappingBusiness.cs" />
+    <Compile Include="Objects\Business\ComplainceScreeningBusiness.cs" />
+    <Compile Include="Objects\Business\CVRefBusiness.cs" />
+    <Compile Include="Objects\Business\DandBEnrichmentDataBusiness.cs" />
+    <Compile Include="Objects\Business\DashboardBusiness.cs" />
+    <Compile Include="Objects\Business\DashboardMetricsBusiness.cs" />
+    <Compile Include="Objects\Business\DataBlockBusiness.cs" />
+    <Compile Include="Objects\Business\DnbApiSettingBusiness.cs" />
+    <Compile Include="Objects\Business\DPMFTPConfigurationBusiness.cs" />
+    <Compile Include="Objects\Business\DUNSregistrationBusiness.cs" />
+    <Compile Include="Objects\Business\APICallLogBusiness.cs" />
+    <Compile Include="Objects\Business\ElmahBusiness.cs" />
+    <Compile Include="Objects\Business\ExportJobSettingsBusiness.cs" />
+    <Compile Include="Objects\Business\ExternalSourceConfigurationBusiness.cs" />
+    <Compile Include="Objects\Business\FeedbackBusiness.cs" />
+    <Compile Include="Objects\Business\GoogleAPIBusiness.cs" />
+    <Compile Include="Objects\Business\ImportFileConfigurationBusiness.cs" />
+    <Compile Include="Objects\Business\ImportJobDataBusiness.cs" />
+    <Compile Include="Objects\Business\ImportJobQueueBusiness.cs" />
+    <Compile Include="Objects\Business\InvestigateBusiness.cs" />
+    <Compile Include="Objects\Business\iResearchBusiness.cs" />
+    <Compile Include="Objects\Business\MasterClientApplicationBusiness.cs" />
+    <Compile Include="Objects\Business\MasterClientBusiness.cs" />
+    <Compile Include="Objects\Business\MasterHelpDataBussiness.cs" />
+    <Compile Include="Objects\Business\MasterRoleBussiness.cs" />
+    <Compile Include="Objects\Business\MasterUserBussiness.cs" />
+    <Compile Include="Objects\Business\MatchBusiness.cs" />
+    <Compile Include="Objects\Business\MinConfidenceOverrideBusiness.cs" />
+    <Compile Include="Objects\Business\MonitoringBusiness.cs" />
+    <Compile Include="Objects\Business\MultiPassBusiness.cs" />
+    <Compile Include="Objects\Business\NotificationBusiness.cs" />
+    <Compile Include="Objects\Business\OI\CompanyInformationBusiness.cs" />
+    <Compile Include="Objects\Business\OI\OIAPICallAuditBusiness.cs" />
+    <Compile Include="Objects\Business\OI\OIAutoAcceptanceBusiness.cs" />
+    <Compile Include="Objects\Business\OI\OICompanyBusiness.cs" />
+    <Compile Include="Objects\Business\OI\OIDashboardBusiness.cs" />
+    <Compile Include="Objects\Business\OI\OIExportJobSettingsBusiness.cs" />
+    <Compile Include="Objects\Business\OI\OIImportDataBusiness.cs" />
+    <Compile Include="Objects\Business\OI\OISettingBusiness.cs" />
+    <Compile Include="Objects\Business\OI\OICompanyMatchBusiness.cs" />
+    <Compile Include="Objects\Business\OI\OISFDCClientsBusiness.cs" />
+    <Compile Include="Objects\Business\OI\OIUserMatchFilterBusiness.cs" />
+    <Compile Include="Objects\Business\OI\OIUserSessionBusiness.cs" />
+    <Compile Include="Objects\Business\PreviewMatchDataBusiness.cs" />
+    <Compile Include="Objects\Business\ReportBusiness.cs" />
+    <Compile Include="Objects\Business\SettingBusiness.cs" />
+    <Compile Include="Objects\Business\CompanyBusiness.cs" />
+    <Compile Include="Objects\Business\SystemNotificationBusiness.cs" />
+    <Compile Include="Objects\Business\TagBusiness.cs" />
+    <Compile Include="Objects\Business\ThirdPartyAPICredentialsBusiness.cs" />
+    <Compile Include="Objects\Business\ThirdPartyEnrichmentsBusiness.cs" />
+    <Compile Include="Objects\Business\TicketBusiness.cs" />
+    <Compile Include="Objects\Business\UnprocessedInputBusiness.cs" />
+    <Compile Include="Objects\Business\UserCommentsBusiness.cs" />
+    <Compile Include="Objects\Business\UserPreferenceBusiness.cs" />
+    <Compile Include="Objects\Business\UserSessionBusiness.cs" />
+    <Compile Include="Objects\Business\CleanseMatchExclusionsBusiness.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\AcceptanceCriteriaAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\AdditionalAcceptanceEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\AutoAcceptanceDirectivesAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\AutoAcceptanceDirectivesEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\BackGroundProcessListViewModel.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CDSEnvironmentAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CDSEnvironmentEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CleanseMatchExclusionsAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CleanseMatchExclusionsEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ClientApplicationEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ClientApplicationAadpter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ClientApplicationListAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ClientApplicationListEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CommandDownloadMappingAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CommandDownloadMappingEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CommandUploadMappingAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CommandUploadMappingEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ComplainceScreeningAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ComplainceScreeningEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CountryAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CountryEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CountryGroupAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CountryGroupEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CustomAttributAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CustomAttributeEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CVRefAadpter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CVRefEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DandBEnrichmentDataAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DandBEnrichmentDataEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DashboardAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DashboardEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DashboardMetricsAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DashboardMetricsEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DataBlockEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DataBlocksAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DataImportProcessEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DataSourceConfigurationAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DataSourceConfigurationEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DnbAPIAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DnbAPIEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DnBAPIGroupEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DnBAPIGroupAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DPMFTPConfigurationAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DPMFTPConfigurationEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DUNSregistrationAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\DUNSregistrationEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\APICallLogAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ExportJobDomainEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ExportJobSettingsAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ExportJobSettingsEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\FeedbackAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\APICallLogEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\GlobalThirdPartyAPICredentialsAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\GlobalThirdPartyAPICredentialsEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\GoogleAPIAdapters.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ImportFileConfigurationEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ImportJobDataAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ImportJobDataEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\InvestigateUserAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\InvestigateViewEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\LicenseAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\LicenseEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MultiPassGroupConfiguration.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ResearchInvestigationRequestEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ResearchInvestigationResponseEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ImportJobDomainAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ImportJobDomainAdapterMatchRefreshAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ImportJobDomainEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ImportJobQueueAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ImportJobQueueEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\GoogleAPIEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\iResearchEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\IResearchInvestigationAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\IResearchInvestigationEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OIAPICallAuditAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OIAPICallAuditEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OIBuildListSearchModelEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OICompanyInformationEntity.CS" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OIExportToExcel.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OISearchListEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OISFDCClientsAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OISFDCClientsEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OIUserMatchFilterAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OIAutoAcceptanceAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OIUserMatchFilterEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OIAutoAcceptanceEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OIExportJobSettingsAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OIExportJobSettingsEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OIInpCompanyEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\InpCompanyEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MasterUsersAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MasterUsersEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MatchCodeAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MatchCodeEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MatchGradeAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MatchGradeEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MDPCodeAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MDPCodeEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MenuAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MenuEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MinConfidenceOverrideAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MinConfidenceOverrideEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MonitoringProductAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MonitoringProductEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OISettingEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OICompanyAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OICompanyEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OIUserSessionFilterEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OI\OIUserSessionFilterAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\PreviewAutoAcceptanceRuleAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\PreviewAutoAcceptanceRuleEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\PreviewMatchDataAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ReMatchRecordsEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ScreenResponseEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\SystemNotificationAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\SystemNotificationEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\NotificationProfileAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\NotificationProfileEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OverrideAPICredentialsAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\OverrideAPICredentialsEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ReferanceDataAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ReferanceEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\SAMLSSOSettingEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\SearchCriteriaRequest.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\SearchListEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\SettingAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\SettingEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MatchAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CompanyAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\CompanyEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\MatchEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\StoredProcedureEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\StoredProceduresParameterEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\TagsAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\TagsEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ThirdPartyAPIAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ThirdPartyAPICredentialsAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ThirdPartyAPICredentialsEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ThirdPartyAPIEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ThirdPartyAPIForEnrichmentAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ThirdPartyAPIForEnrichmentEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ThirdPartyEnrichmentsEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\TicketAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\TicketAuditAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\TicketAuditEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\TicketEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UnprocessedInputAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UnprocessedInputEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UserCommentsAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UserCommentsEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UserMachineAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UserMachineEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UserPreferenceAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UserPreferenceEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UsersAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UsersEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UserSessionFilterAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UserSessionFilterEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\FeedbackEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ExportJobDomainAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ExportJobDomainAdapterMatchRefreshAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UXBeneficialOwnershipURLEntity.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UXDefaultCredentialsAdapter.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\UXDefaultCredentialsEntity.cs" />
+    <Compile Include="Objects\Helpers\CommonConvertMethods.cs" />
+    <Compile Include="Objects\Helpers\DatatypeHelpers.cs" />
+    <Compile Include="Objects\Helpers\EnumHelper.cs" />
+    <Compile Include="Objects\Helpers\ObjectToDictionaryHelper.cs" />
+    <Compile Include="Objects\Helpers\SqlHelper.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\SQLServerDatatype.cs" />
+    <Compile Include="Objects\EntitiesAndAdapters\ImportFileConfigurationAdapter.cs" />
+    <Compile Include="Objects\MasterEntitiesAndAdepters\MasterClientApplicationAdapter.cs" />
+    <Compile Include="Objects\MasterEntitiesAndAdepters\MasterClientApplicationEntity.cs" />
+    <Compile Include="Objects\MasterEntitiesAndAdepters\MasterClientsAdapter.cs" />
+    <Compile Include="Objects\MasterEntitiesAndAdepters\MasterClientsEntity.cs" />
+    <Compile Include="Objects\MasterEntitiesAndAdepters\MasterHelpDataAdepters.cs" />
+    <Compile Include="Objects\MasterEntitiesAndAdepters\MasterHelpDataEntity.cs" />
+    <Compile Include="Objects\MasterEntitiesAndAdepters\MasterRoleAdapter.cs" />
+    <Compile Include="Objects\MasterEntitiesAndAdepters\MasterRoleEntity.cs" />
+    <Compile Include="Objects\MasterEntitiesAndAdepters\MasterUserAdapter.cs" />
+    <Compile Include="Objects\MasterEntitiesAndAdepters\MasterUserEntity.cs" />
+    <Compile Include="Objects\Repositories\AutoAcceptanceDirectivesRepository.cs" />
+    <Compile Include="Objects\Repositories\BenificialOwnershipRepository.cs" />
+    <Compile Include="Objects\Repositories\CleanseMatchExclusionsRepository.cs" />
+    <Compile Include="Objects\Repositories\ColumnMappingRepository.cs" />
+    <Compile Include="Objects\Repositories\ComplainceScreeningRepository.cs" />
+    <Compile Include="Objects\Repositories\CVRefRepository.cs" />
+    <Compile Include="Objects\Repositories\DandBEnrichmentDataRepository.cs" />
+    <Compile Include="Objects\Repositories\DashboardMetricsRepository.cs" />
+    <Compile Include="Objects\Repositories\DashboardRepository.cs" />
+    <Compile Include="Objects\Repositories\DataBlockRepository.cs" />
+    <Compile Include="Objects\Repositories\DnbApiSettingRepository.cs" />
+    <Compile Include="Objects\Repositories\DPMFTPConfigurationRepository.cs" />
+    <Compile Include="Objects\Repositories\DUNSregistrationRepository.cs" />
+    <Compile Include="Objects\Repositories\APICallLogRepository.cs" />
+    <Compile Include="Objects\Repositories\ElmahRepository.cs" />
+    <Compile Include="Objects\Repositories\ExportJobSettingsRepository.cs" />
+    <Compile Include="Objects\Repositories\ExternalSourceConfigurationRepository.cs" />
+    <Compile Include="Objects\Repositories\FeedbackRepository.cs" />
+    <Compile Include="Objects\Repositories\GoogleAPIRepository.cs" />
+    <Compile Include="Objects\Repositories\ImportFileConfigurationRepository.cs" />
+    <Compile Include="Objects\Repositories\ImportJobDataRepository.cs" />
+    <Compile Include="Objects\Repositories\ImportJobQueueRepository.cs" />
+    <Compile Include="Objects\Repositories\InvestigateRepository.cs" />
+    <Compile Include="Objects\Repositories\iResearchRepository.cs" />
+    <Compile Include="Objects\Repositories\MasterClientApplicationRepository.cs" />
+    <Compile Include="Objects\Repositories\MasterClientRepository.cs" />
+    <Compile Include="Objects\Repositories\MasterHelpDataRepository.cs" />
+    <Compile Include="Objects\Repositories\MasterRoleRepository.cs" />
+    <Compile Include="Objects\Repositories\MasterUserRepository.cs" />
+    <Compile Include="Objects\Repositories\MinConfidenceOverrideRepository.cs" />
+    <Compile Include="Objects\Repositories\MonitoringRepository.cs" />
+    <Compile Include="Objects\Repositories\MultiPassRepository.cs" />
+    <Compile Include="Objects\Repositories\NotificationRepository.cs" />
+    <Compile Include="Objects\Repositories\OI\CompanyInformationRepository.cs" />
+    <Compile Include="Objects\Repositories\OI\OIAPICallAuditRepository.cs" />
+    <Compile Include="Objects\Repositories\OI\OIAutoAcceptanceRepository.cs" />
+    <Compile Include="Objects\Repositories\OI\OICompanyRepository.cs" />
+    <Compile Include="Objects\Repositories\OI\OIDashboardRepository.cs" />
+    <Compile Include="Objects\Repositories\OI\OIExportJobSettingsRepository.cs" />
+    <Compile Include="Objects\Repositories\OI\OIImportDataRepository.cs" />
+    <Compile Include="Objects\Repositories\OI\OISettingRepository.cs" />
+    <Compile Include="Objects\Repositories\OI\OICompanyMatchRepository.cs" />
+    <Compile Include="Objects\Repositories\OI\OISFDCClientsRepository.cs" />
+    <Compile Include="Objects\Repositories\OI\OIUserMatchFilterRepository.cs" />
+    <Compile Include="Objects\Repositories\OI\OIUserSessionRepository.cs" />
+    <Compile Include="Objects\Repositories\PreviewMatchDataRepository.cs" />
+    <Compile Include="Objects\Repositories\RepositoryParent.cs" />
+    <Compile Include="Objects\Repositories\SettingRepository.cs" />
+    <Compile Include="Objects\Repositories\CompanyRepository.cs" />
+    <Compile Include="Objects\Repositories\MatchRepository.cs" />
+    <Compile Include="Objects\Repositories\SystemNotificationRepository.cs" />
+    <Compile Include="Objects\Repositories\TagsRepository.cs" />
+    <Compile Include="Objects\Repositories\ThirdPartyAPICredentialsRepository.cs" />
+    <Compile Include="Objects\Repositories\ThirdPartyEnrichmentsRepository.cs" />
+    <Compile Include="Objects\Repositories\TicketRepository.cs" />
+    <Compile Include="Objects\Repositories\UnprocessedInputRepository.cs" />
+    <Compile Include="Objects\Repositories\UserCommentsRepository.cs" />
+    <Compile Include="Objects\Repositories\UserPreferenceRepository.cs" />
+    <Compile Include="Objects\Repositories\UserSessionRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

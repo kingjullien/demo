@@ -1,0 +1,395 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility
+@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Models
+@model IResearchInvestigationEntity
+
+<div class="modal" id="InvestigationDetailsModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">@iResearchInvestigationLang.hdrInvestigationDetails</h4>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane fade active in">
+                    <article class="sortable-grid ui-sortable keyword">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading">
+                                <h2>
+                                    <strong>@iResearchInvestigationLang.hdrRequestDetails</strong>
+                                </h2>
+                            </header>
+                            <div class="row">
+                                <div class="col-md-6 width50">
+                                    @if (Model.RequestType.ToLower() == "mini")
+                                    {
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblRequestType : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @Model.RequestType
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong>@iResearchInvestigationLang.lblPrimaryName : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @Model.RequestBodylst.organization.primaryName
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblRequestorEmail : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @(Model.RequestBodylst.requestorEmails != null && Model.RequestBodylst.requestorEmails.Count > 0 ? Model.RequestBodylst.requestorEmails[0].email : "")
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblSubmittedDate : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @Model.RequestDateTime.ToDatetimeShort()
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblRequestType : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @Model.RequestType
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblPrimaryName : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @Model.RequestBodylst.organization.primaryName
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblDUNS : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @(Model.RequestBodylst.organization != null ? Model.RequestBodylst.organization.duns : "")
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblTradeStyleName : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @(Model.RequestBodylst.organization != null ? Model.RequestBodylst.organization.tradeStyleName : "")
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblResearchComments : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5 WordBreak">
+                                                @{
+                                                    System.Text.StringBuilder commnt = new System.Text.StringBuilder();
+                                                    if (Model.RequestBodylst.researchComments != null)
+                                                    {
+                                                        foreach (var item in Model.RequestBodylst.researchComments)
+                                                        {
+                                                            if (!string.IsNullOrEmpty(item.comment))
+                                                            {
+                                                                commnt.AppendLine(item.comment);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                @commnt.ToString()
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblSubmittedDate : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @Model.RequestDateTime.ToDatetimeShort()
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+
+                                <div class="col-md-6 width50">
+                                    @if (Model.RequestType.ToLower() == "mini")
+                                    {
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong>@iResearchInvestigationLang.lblSrcRecordId : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @Model.SrcRecordId
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblPrimaryAddress : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @if (Model.RequestBodylst.organization.primaryAddress != null && Model.RequestBodylst.organization.primaryAddress.streetAddress != null && Model.RequestBodylst.organization.primaryAddress.addressLocality != null && Model.RequestBodylst.organization.primaryAddress.addressRegion != null && Model.RequestBodylst.organization.primaryAddress.postalCode != null && Model.RequestBodylst.organization.primaryAddress.addressCountry != null)
+                                                {
+                                                    <span>
+                                                        @CommonMethod.DisplayFormattedAddress(Model.RequestBodylst.organization.primaryAddress.streetAddress.line1,
+                                                     Model.RequestBodylst.organization.primaryAddress.addressLocality.name,
+                                                     Model.RequestBodylst.organization.primaryAddress.addressRegion.name,
+                                                     Model.RequestBodylst.organization.primaryAddress.postalCode, Model.RequestBodylst.organization.primaryAddress.addressCountry.isoAlpha2Code)
+                                                    </span>
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblResearchcomment : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @(Model.RequestBodylst.researchComments != null ? Model.RequestBodylst.researchComments[0].comment : "")
+                                            </div>
+                                        </div>
+
+
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblResearchSubtype : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @{
+                                                    string country = string.Empty;
+                                                    if (Model.RequestBodylst.organization.primaryAddress != null && Model.RequestBodylst.organization.primaryAddress.addressCountry != null)
+                                                    {
+                                                        country = Model.RequestBodylst.organization.primaryAddress.addressCountry.isoAlpha2Code;
+                                                    }
+                                                    else
+                                                    {
+                                                        country = "US";
+                                                    }
+                                                    List<DropDownReturn> selectLists = CommonMethod.GetiResearchMarketApplicability(country, this.LayoutModel.CurrentClient.ApplicationDBConnectionString, 1);
+                                                    System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                                                    foreach (var item in Model.RequestBodylst.researchSubTypes)
+                                                    {
+                                                        DropDownReturn listItem = selectLists.Where(x => x.Value == Convert.ToString(item)).FirstOrDefault();
+                                                        if (listItem != null)
+                                                        {
+                                                            sb.AppendLine((!string.IsNullOrEmpty(sb.ToString()) ? ", " : "") + listItem.Text);
+                                                        }
+                                                        else
+                                                        {
+                                                            sb.AppendLine(Convert.ToString(item));
+                                                        }
+                                                    }
+                                                }
+                                                @sb.ToString()
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblPrimaryAddress : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @if (Model.RequestBodylst.organization.primaryAddress != null && Model.RequestBodylst.organization.primaryAddress.streetAddress != null && Model.RequestBodylst.organization.primaryAddress.addressLocality != null && Model.RequestBodylst.organization.primaryAddress.addressRegion != null && Model.RequestBodylst.organization.primaryAddress.postalCode != null && Model.RequestBodylst.organization.primaryAddress.addressCountry != null)
+                                                {
+                                                    <span>
+                                                        @CommonMethod.DisplayFormattedAddress(Model.RequestBodylst.organization.primaryAddress.streetAddress.line1,
+                                                     Model.RequestBodylst.organization.primaryAddress.addressLocality.name,
+                                                     Model.RequestBodylst.organization.primaryAddress.addressRegion.name,
+                                                     Model.RequestBodylst.organization.primaryAddress.postalCode, Model.RequestBodylst.organization.primaryAddress.addressCountry.isoAlpha2Code)
+                                                    </span>
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblIsActive : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @(Model.RequestBodylst.organization != null ? Model.RequestBodylst.organization.isActiveBusiness.ToString() : "")
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblDuplicateDuns : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @(Model.RequestBodylst.organization != null && Model.RequestBodylst.organization.duplicateDUNS != null ? string.Join(",", Model.RequestBodylst.organization.duplicateDUNS) : "")
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblRequestorEmail : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @(Model.RequestBodylst.requestorEmails != null && Model.RequestBodylst.requestorEmails.Count > 0 ? Model.RequestBodylst.requestorEmails[0].email : "")
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="tab-pane fade active in">
+                    <article class="sortable-grid ui-sortable keyword">
+                        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                            <header role="heading">
+                                <h2>
+                                    <strong>@iResearchInvestigationLang.hdrResponseDetails</strong>
+                                </h2>
+                            </header>
+                            <div class="row">
+                                @if (Model.CaseStatus.ToLower() == "failed")
+                                {
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblCasestatus : </strong>
+                                            </div>
+                                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 padding-5 ColorF">
+                                                @Model.CaseStatus
+                                            </div>
+                                        </div>
+                                        @{
+                                            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                                            if (Model.RequestResponseJSONlst.error != null)
+                                            {
+                                                if (Model.RequestResponseJSONlst.error.errorDetails != null && Model.RequestResponseJSONlst.error.errorDetails.Count > 0)
+                                                {
+                                                    foreach (var err in Model.RequestResponseJSONlst.error.errorDetails)
+                                                    {
+                                                        sb.AppendLine(err.parameter + " : " + err.description);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    sb.AppendLine(Model.RequestResponseJSONlst.error.errorMessage);
+                                                }
+                                            }
+                                        }
+                                        <div class="row">
+                                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 padding-5">
+                                                <strong>@iResearchInvestigationLang.lblErrormessage: </strong>
+                                            </div>
+                                            <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 padding-5">
+                                                <span>@sb.ToString()</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-md-6 width50">
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="padding: 5px 0!important;">
+                                                <strong> @iResearchInvestigationLang.lblResearchRequestID : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @Model.ResearchRequestId
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblCasestatus : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @if (!string.IsNullOrEmpty(Model.CaseStatus))
+                                                {
+                                                    if (Model.CaseStatus.ToLower() != "closed" && Model.CaseStatus.ToLower() != "failed")
+                                                    {
+                                                        <span class="ColorGreen">@Model.CaseStatus &nbsp;&nbsp; </span>
+                                                        <a href="javascript:void(0)" class="clsGetStatus" data-ResearchRequestId="@Model.ResearchRequestId">@iResearchInvestigationLang.lblGetStatus</a>
+                                                    }
+                                                    else if (Model.CaseStatus.ToLower() != "opened")
+                                                    {
+                                                        <span class="ColorF">@Model.CaseStatus</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="colorInProgress">@Model.CaseStatus</span>
+                                                    }
+                                                }
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblResolutionDUNS : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @Model.ResolutionDUNS
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 width50">
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong>@iResearchInvestigationLang.lblCaseId : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @Model.CaseId
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblCaseResolution : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @(!string.IsNullOrEmpty(Model.CaseResolution) ? Model.CaseResolution + (!string.IsNullOrEmpty(Model.CaseSubResolution) ? " - " + Model.CaseSubResolution : "") : Model.CaseSubResolution)
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 padding-5">
+                                                <strong> @iResearchInvestigationLang.lblResolutionDate : </strong>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 padding-5">
+                                                @Model.LastestStatusDateTime.ToDatetimeShort()
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

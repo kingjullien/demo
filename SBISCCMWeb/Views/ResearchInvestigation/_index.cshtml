@@ -1,0 +1,181 @@
+﻿@using SBISCCMWeb.Utility
+@using SBISCCMWeb.Models
+@using SBISCCMWeb.LanguageResources;
+@model IResearchInvestigationViewModel
+@{
+    int Total = 0;
+    int OpenCases = Model.InvestigationStats.Select(x => x.NbrOpenedCases).Sum();
+    int CloseCases = Model.InvestigationStats.Select(x => x.NbrClosedCases).Sum();
+    int FailedCases = Model.InvestigationStats.Select(x => x.NbrFailedCases).Sum();
+    int AvgResolutionTime = Model.InvestigationStats.Select(x => x.AverageResolutionTime_Minutes).Sum();
+    Total = OpenCases + CloseCases + FailedCases;
+}
+
+<div class=" margin-top-10 margin-bottom-10">
+    <div class="col-md-2">
+        <div class="box_content">
+            <h2>@Total</h2>
+            <div class="status">
+                <p> @iResearchInvestigationLang.lblTotalCases</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="box_content">
+            <h2>@OpenCases</h2>
+            <div class="status">
+                <p> @iResearchInvestigationLang.lblOpenCases</p>
+                @*@if (OpenCases > 0)
+                    {
+                        <a href="javascript:void(0);" id="btnGetAllReSearchStatus">@iResearchInvestigationLang.lblUpdateStatus</a>
+                    }
+                    else
+                    {
+                        <a href="javascript:void(0);" id="btnGetAllReSearchStatusDisabled">@iResearchInvestigationLang.lblUpdateStatus</a>
+                    }*@
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="box_content">
+            <h2>@CloseCases</h2>
+            <div class="status">
+                <p> @iResearchInvestigationLang.lblCloseCases</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="box_content">
+            <h2>@FailedCases</h2>
+            <div class="status">
+                <p> @iResearchInvestigationLang.lblFailedCases</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="box_content">
+            <h2>@String.Format("{0:0.00}", TimeSpan.FromMinutes(AvgResolutionTime).TotalDays)@*<span>(In minutes)</span>*@</h2>
+            <div class="status">
+                <p> @iResearchInvestigationLang.lblAvgResolutionTime</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <form id="frmExportToCSV" action="~/ResearchInvestigation/DownloadCSV">
+        <table class="table table-bordered iResearchInvsetigationTB">
+            <thead>
+                <tr>
+
+                    <th>
+                        @iResearchInvestigationLang.lblSrcRecordId
+                    </th>
+                    <th>
+                        @iResearchInvestigationLang.lblPrimaryName
+                    </th>
+                    <th>
+                        @iResearchInvestigationLang.lblPrimaryAddress
+                    </th>
+                    <th>
+                        @iResearchInvestigationLang.lblDUNSNumber
+                    </th>
+                    <th>
+                        @iResearchInvestigationLang.lblRequestType
+                    </th>
+                    <th width="5%">@iResearchInvestigationLang.lblDate</th>
+                    <th>@iResearchInvestigationLang.lblCaseResolution</th>
+                    <th width="10%">@iResearchInvestigationLang.lblStatus</th>
+                    <th class="nosort">@iResearchInvestigationLang.lblDetails</th>
+                    <th class="nosort"></th>
+                    @*<th class="WordBreak">@iResearchInvestigationLang.lblMessage</th>*@
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.lstResearchInvestigation != null && Model.lstResearchInvestigation.Count > 0)
+                {
+                    foreach (var item in Model.lstResearchInvestigation)
+                    {
+                        <tr>
+                            <td>
+                                @item.SrcRecordId
+                            </td>
+                            <td>
+                                @item.RequestBodylst.organization.primaryName
+                            </td>
+                            <td>
+                                @if (item.RequestBodylst.organization.primaryAddress != null && item.RequestBodylst.organization.primaryAddress.streetAddress != null && item.RequestBodylst.organization.primaryAddress.addressLocality != null && item.RequestBodylst.organization.primaryAddress.addressRegion != null && item.RequestBodylst.organization.primaryAddress.postalCode != null && item.RequestBodylst.organization.primaryAddress.addressCountry != null)
+                                {
+                                    <span>
+                                        @CommonMethod.DisplayFormattedAddress(item.RequestBodylst.organization.primaryAddress.streetAddress.line1,
+                                        item.RequestBodylst.organization.primaryAddress.addressLocality.name,
+                                        item.RequestBodylst.organization.primaryAddress.addressRegion.name,
+                                        item.RequestBodylst.organization.primaryAddress.postalCode, item.RequestBodylst.organization.primaryAddress.addressCountry.isoAlpha2Code)
+                                    </span>
+                                }
+                            </td>
+                            <td>
+                                @item.ResolutionDUNS
+                            </td>
+                            <td>
+                                @item.RequestType
+                            </td>
+                            @*<td>
+                                    @if (!string.IsNullOrEmpty(item.CaseStatus))
+                                    {
+                                        if (item.CaseStatus.ToLower() != "closed")
+                                        {
+                                            <span class="ColorGreen">@item.CaseStatus</span>
+                                        }
+                                        else if (item.CaseStatus.ToLower() != "opened")
+                                        {
+                                            <span class="ColorF">@item.CaseStatus</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="colorInProgress">@item.CaseStatus</span>
+                                        }
+                                    }
+                                </td>*@
+                            <td>
+                                @Convert.ToDateTime(@item.RequestDateTime).ToDatetimeShort()
+                            </td>
+                            <td>
+                                @item.CaseResolution
+                            </td>
+                            <td>
+                                @if (!string.IsNullOrEmpty(item.CaseStatus))
+                                {
+                                    if (item.CaseStatus.ToLower() != "closed" && item.CaseStatus.ToLower() != "failed")
+                                    {
+                                        <span class="ColorGreen">@item.CaseStatus &nbsp;&nbsp; </span>
+                                        <a href="javascript:void(0)" class="clsGetStatus" data-ResearchRequestId="@item.ResearchRequestId">@iResearchInvestigationLang.lblGetStatus</a>
+                                    }
+                                    else if (item.CaseStatus.ToLower() != "opened")
+                                    {
+                                        <span class="ColorF">@item.CaseStatus</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="colorInProgress">@item.CaseStatus</span>
+                                    }
+                                }
+                            </td>
+                            @*<td class="error" style="white-space:pre">@sb.ToString()</td>*@
+                            <td class="text-align-center"><a href="javascript:void(0)" class="investigation_Details" data-val="@Newtonsoft.Json.JsonConvert.SerializeObject(item)"><i class="fa fa-info-circle"></i></a></td>
+                            <td class="text-align-center">
+                                @if (!string.IsNullOrEmpty(item.CaseStatus) && item.LastestStatusDateTime > DateTime.Now.AddDays(-30))
+                                {
+                                    if (item.CaseStatus.ToLower() == "closed")
+                                    {
+                                        <a href="javascript:void(0)" class="investigation_Challenge" data-val="@Newtonsoft.Json.JsonConvert.SerializeObject(item)">@iResearchInvestigationLang.lblChallenge</a>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </form>
+</div>

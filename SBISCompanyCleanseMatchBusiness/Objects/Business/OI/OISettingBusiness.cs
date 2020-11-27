@@ -1,0 +1,81 @@
+﻿using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters;
+using SBISCompanyCleanseMatchBusiness.Objects.Repositories;
+using System.Data;
+
+namespace SBISCompanyCleanseMatchBusiness.Objects.Business
+{
+    public class OISettingBusiness : BusinessParent
+    {
+        OISettingRepository rep;
+        public OISettingBusiness(string connectionString) : base(connectionString) { rep = new OISettingRepository(Connection); }
+        public void UpdateOrbCredentials(OISettingEntity orbEntity, string Section)
+        {
+            rep.UpdateOrbCredentials(orbEntity, Section);
+        }
+        public void UpdateOrbBackgroundSetting(OISettingEntity orbEntity, string Section)
+        {
+            rep.UpdateOrbBackgroundSetting(orbEntity, Section);
+        }
+        public void UpdateOrbDataImportHandling(OISettingEntity orbEntity, string Section)
+        {
+            rep.UpdateOrbDataImportHandling(orbEntity, Section);
+        }
+        #region Reset Data
+        public void ResetOISystemData()
+        {
+            rep.ResetOISystemData();
+        }
+        #endregion
+        #region Accept From File
+        public DataTable GetOIImportDataForAcceptColumnsName()
+        {
+            return rep.GetOIImportDataForAcceptColumnsName();
+        }
+        public string AcceptLCMDataFromImport(int UserId)
+        {
+            return rep.AcceptLCMDataFromImport(UserId);
+        }
+        public string AcceptOIMatchDataFromImport(int UserId)
+        {
+            return rep.AcceptOIMatchDataFromImport(UserId);
+        }
+        #endregion
+        #region OI License
+        // MP-846 Admin database cleanup and code cleanup.-MASTER
+        public void UpdateOIAPILicenseForMaster(string CustomerSubDomain, string APIKey)
+        {
+            rep.UpdateOIAPILicenseForMaster(CustomerSubDomain, APIKey);
+        }
+        // MP-846 Admin database cleanup and code cleanup.-CLIENT
+        public void UpdateOIAPILicenseForClients(string CustomerSubDomain, string APIKey)
+        {
+            rep.UpdateOIAPILicenseForClients(CustomerSubDomain, APIKey);
+        }
+        public DataTable GetOIAPILicense(string Domain = null)
+        {
+            return rep.GetOIAPILicense(Domain);
+        }
+        #endregion
+        #region Import Data
+        public DataTable GetOIImportDataColumnsName()
+        {
+            return rep.GetOIImportDataColumnsName();
+        }
+        #endregion
+
+        #region OI Delete From Files
+        public DataTable GetStgInputDataForPurgeColumnName()
+        {
+            return rep.GetStgInputDataForPurgeColumnName();
+        }
+        public string DeleteCompanyDataFromImport(int UserId)
+        {
+            return rep.DeleteCompanyDataFromImport(UserId);
+        }
+        #endregion
+        public DataTable GetAllOrbTags(string LOBTag, string SecurityTags, string UserId)
+        {
+            return rep.GetAllOrbTags(LOBTag, SecurityTags, UserId);
+        }
+    }
+}

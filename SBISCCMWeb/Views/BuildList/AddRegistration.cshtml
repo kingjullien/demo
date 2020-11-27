@@ -1,0 +1,73 @@
+﻿@using SBISCCMWeb.LanguageResources
+@{
+    Layout = null;
+}
+<style>
+    .addRegNoPopup {
+        min-height: 450px !important;
+        max-width: 700px !important;
+    }
+</style>
+<div class="modal" id="AddRegistrationNumberModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xs">
+        <!-- Modal content-->
+        <div class="modal-content addRegNoPopup">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal" onclick="CloseRegNoPopup()">&times;</button>
+                </div>
+                <h4 class="modal-title">@BuildAListLang.hdrRegistrationDetail</h4>
+            </div>
+            <div class="modal-body">
+                <div id="divHistory">
+                    <div class="tasble-responsive container tablewidth matchtdstyle ">
+                        <table class="textBlue popuptopcolor">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <input type="text" value="" id="txtPopupRegNo" autocomplete="off" class="form-control" style="width:250px" />
+                                    </td>
+                                    <td class="col-md-4">
+                                        <input type="button" value="@BuildAListLang.lblAdd" class="btn btn-Secondary" width="100" id="btnPopupAddRegNo" onclick="window.parent.AddRegNo()" maxlength="20" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <br />
+                        <input type="hidden" value="" id="hdnRegNoRowIndex" />
+                        <table class="textBlue table-bordered table popuptopcolor MatchedItem margin-top-4 " id="tblRegNo">
+                            <thead>
+                                <tr>
+                                    <th style="width:80%">
+                                        @BuildAListLang.lblRegistrationNo
+                                    </th>
+                                    <th>
+                                        @BuildAListLang.lblEdit
+                                    </th>
+                                    <th>
+                                        @BuildAListLang.lblDelete
+                                    </th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        var regNo = window.parent.$("#txtRegNo").val();
+        if (regNo != '') {
+            var array = regNo.split(',');
+            $.each(array, function (index, value) {
+                $('#tblRegNo').append('<tr><td>' + value + '</td><td><a class="Edit" onclick="window.parent.EditRegNo(this)" >' + edit + '</a></td><td><a class="Delete" onclick="window.parent.DeleteRegNo(this)" >' + btnDelete + '</a></td></tr>');
+            });
+        }
+    });
+</script>
+

@@ -1,0 +1,31 @@
+﻿@using SBISCCMWeb.Utility
+@using SBISCCMWeb.Models
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@{
+    ViewBag.Title = "Monitor Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/Custom.css" rel="stylesheet" />
+<div id="content" style="opacity: 1;">
+        <section id="widget-grid" class="">
+            <div class="row">
+                @{Html.RenderPartial("_Index");}
+            </div>
+        </section>
+    </div>
+
+@if (TempData["DeleteMessage"] != null)
+{
+    @Html.Raw(TempData["DeleteMessage"])
+    TempData["DeleteMessage"] = null;
+}
+<div class="loaderMain" id="divProgress">
+    <div class="loaderDiv">
+        <p class="loaderTxt">Please wait while processing...</p>
+    </div>
+</div>
+<script src="~/Scripts/CustomJS-minified/MonitorProfile.js"></script>
+<script src="~/Scripts/CustomJS-minified/UserPrefrence.js"></script>
+<script src="~/Scripts/CustomJS-minified/Notification.js"></script>
+<script src="~/Scripts/CustomJS-minified/MonitoringRegistration.js"></script>

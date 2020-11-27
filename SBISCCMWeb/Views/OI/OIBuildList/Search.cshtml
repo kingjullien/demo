@@ -1,0 +1,418 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.OI
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@model OIBuildListSearchModelEntity
+
+@{
+    ViewBag.Title = OIBuildListLang.titleOIBuildList;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.InsertAfter,
+        HttpMethod = "POST",
+        OnSuccess = "OnSearch"
+    };
+}
+<script src="~/Scripts/bootbox.min.js"></script>
+<link href="~/Content/filterTable/bootstrap-filterable.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-multiselect.css" rel="stylesheet" />
+<link href="~/Content/chosen.css" rel="stylesheet" />
+<style>
+    .Delete {
+        cursor: pointer;
+    }
+
+    .ContentBorder {
+        border: 1px solid #CCC !important;
+        padding: 5px 15px 5px 15px;
+    }
+
+    .pull-left {
+        float: left;
+    }
+
+    .with_40 {
+        width: 10px;
+    }
+
+    .form header, legend {
+        font-size: 14px !important;
+    }
+
+    .jarviswidget .widget-body {
+        min-height: 50px !important;
+    }
+</style>
+
+<div id="content">
+    <section id="widget-grid" class="">
+        <div class="row ReviewFilter">
+
+            @using (Ajax.BeginForm("Search", "OIBuildList", null, ajaxOptions, new { @class = "formContent" }))
+            {
+                @Html.HiddenFor(m => m.request_fields.employees)
+                @Html.HiddenFor(m => m.request_fields.revenue)
+                @Html.AntiForgeryToken()
+                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable keyword mt-2">
+                    <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-cutton="false" role="widget">
+                        <header role="heading">
+                            <ul class="nav nav-pills pull-left Custom-pill with_40">
+                                <li>
+                                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);"><i class="fa fa-plus"></i></a>
+                                </li>
+                            </ul>
+                            <h2>
+                                <strong>@OIBuildListLang.hdrBasicInformationDetails</strong>
+                            </h2>
+                        </header>
+                        <div role="content" style="display:none;">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body no-padding">
+                                <div class="tab-content padding-10 dropzIndex">
+                                    <div id="hr1" class="tab-pane  active in">
+                                        <div class="form-group">
+
+                                            <div class="row ">
+
+                                                <div class="col-md-2 custom-dropdown-search">
+                                                    <span><strong>@OIBuildListLang.lblIndustry </strong></span>
+                                                    <div>@Html.DropDownListFor(m => m.request_fields.industry, new SelectList(CommonDropdown.GetBuildListData("industries"), "Value", "Text"), CommonMessagesLang.lblSelectIndustry, new { @class = "form-control chzn-select", @autocomplete = "off" })</div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <span><strong>@OIBuildListLang.lblEntityType </strong></span>
+                                                    @Html.DropDownListFor(m => m.request_fields.entity_type, new List<SelectListItem>
+                                                    {
+                                                    new SelectListItem{ Text="Select", Value = "" },
+                                                    new SelectListItem{ Text=OIBuildListLang.lblCompany, Value = "company" },
+                                                    new SelectListItem{ Text=OIBuildListLang.lblBranch, Value = "branch" },
+                                                    }, new { @class = "form-control", autocomplete = "off" })
+                                                </div>
+                                                <div class="col-md-2 selectContainer custom-dropdown-search">
+                                                    <span><strong>@OIBuildListLang.lblCategories</strong></span>
+                                                    <div>@Html.DropDownListFor(m => m.request_fields.category, new SelectList(CommonDropdown.GetBuildListData("categories"), "Value", "Text"), OIBuildListLang.lblSelectCategories, new { @class = "form -control chzn-select", autocomplete = "off" })</div>
+                                                </div>
+                                                <div class="col-md-2 ExportMultiSelect">
+                                                    <span><strong>@OIBuildListLang.lblEmployees</strong></span>
+                                                    <div>@Html.DropDownList("MultiSelectOptionsEmployees", new SelectList(CommonDropdown.GetEmployees(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple" })</div>
+                                                </div>
+                                                <div class="col-md-2 ExportMultiSelect">
+                                                    <strong>@OIBuildListLang.lblRevenue</strong>
+                                                    <div>@Html.DropDownList("MultiSelectOptionRevenue", new SelectList(CommonDropdown.GetRevenue(), "Value", "Text"), new { @class = "form-control selectbox", multiple = "multiple" })</div>
+                                                </div>
+                                                <div class="col-md-2 selectContainer">
+                                                    <span><strong>@OIBuildListLang.lblShowFullProfile</strong></span><br />
+                                                    <div class="activexcchck">
+                                                        @OIBuildListLang.lblTrue&nbsp;@Html.RadioButtonFor(m => m.request_fields.show_full_profile, "True", new { data_toggle = "tooltip", @class = "btnTrue" })
+                                                        &nbsp;&nbsp;
+                                                        @OIBuildListLang.lblFalse&nbsp;@Html.RadioButtonFor(m => m.request_fields.show_full_profile, "False", new { data_toggle = "tooltip" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </article>
+
+                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable widget-data companyDetail">
+                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <ul class="nav nav-pills Custom-pill pull-left with_40">
+                                <li>
+                                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);"><i class="fa fa-plus"></i></a>
+                                </li>
+                            </ul>
+                            <h2>
+                                <strong>@OIBuildListLang.hdrORBNumberAddressInformationTechnology</strong>
+                            </h2>
+
+
+                        </header>
+                        <div role="content" style="display:none;">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body no-padding">
+                                <div class="tab-content padding-10 dropzIndex">
+                                    <div id="hr1" class="tab-pane  active in">
+                                        <div class="form-group">
+                                            <section id="widget-grid" class="">
+                                                <div class="row ">
+                                                    <div class="col-sm-3">
+                                                        <div class="ContentBorder">
+                                                            <div class="jarviswidget-editbox">
+                                                                <input class="form-control" type="text">
+                                                            </div>
+                                                            <div class="widget-body">
+                                                                <fieldset>
+                                                                    <legend>
+                                                                        <strong> @OIBuildListLang.lblOrbNumber</strong>
+                                                                    </legend>
+                                                                    <div class="form-group">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6 selectContainer">
+                                                                                <strong>@OIBuildListLang.lblOrbnum</strong>
+                                                                                @Html.TextBoxFor(m => m.request_fields.orb_num, null, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off" })
+                                                                            </div>
+                                                                            <div class="col-md-6 selectContainer">
+                                                                                <strong>@OIBuildListLang.lblParentOrbnum</strong>
+                                                                                @Html.TextBoxFor(m => m.request_fields.parent_orb_num, null, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off" })
+                                                                            </div>
+                                                                            <div class="clearfix"></div>
+                                                                            <div class="col-md-6 selectContainer paddingto5">
+                                                                                <span><strong>@OIBuildListLang.lblUltimateParentOrbnum</strong></span>
+                                                                                @Html.TextBoxFor(m => m.request_fields.ultimate_parent_orb_num, null, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off" })
+                                                                            </div>
+                                                                            <div class="clearfix"></div>
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </div>
+                                                            <!-- end widget content -->
+                                                        </div>
+                                                        <!-- end widget div -->
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="ContentBorder">
+                                                            <div class="jarviswidget-editbox">
+                                                                <input class="form-control" type="text">
+                                                            </div>
+                                                            <div class="widget-body">
+                                                                <fieldset>
+                                                                    <legend>
+                                                                        <div class="row">
+                                                                            <span class="col-md-8">
+                                                                                <strong> @OIBuildListLang.lblAddressInformation</strong>
+                                                                            </span>
+                                                                        </div>
+                                                                    </legend>
+                                                                    <div class="form-group">
+                                                                        <div class="row">
+                                                                            <div class="col-md-6 selectContainer">
+                                                                                <strong>@OIBuildListLang.lblAddress</strong>
+                                                                                @Html.TextBoxFor(m => m.request_fields.address1, new { @class = "form-control", data_toggle = "tooltip", rows = 1, columns = 30, autocomplete = "off" })
+                                                                                <span id="spAddressMinLength" class="error" style="display:none;">Address required atleast three characters</span>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <span><strong>@OIBuildListLang.lblCountry</strong></span>
+                                                                                @Html.DropDownListFor(m => m.request_fields.country, (CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectCountry), new { @value = "US", @class = "form-control", data_toggle = "tooltip", autocomplete = "off" })
+                                                                            </div>
+
+                                                                            <div class="clearfix"></div>
+                                                                            <div class="col-md-4 selectContainer paddingto5">
+                                                                                <strong>@OIBuildListLang.lblCity</strong>
+                                                                                @Html.TextBoxFor(m => m.request_fields.city, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off" })
+                                                                                <span id="spAddressMinLength" class="error" style="display:none;">Address required atleast three characters</span>
+                                                                            </div>
+                                                                            <div class="col-md-4 selectContainer paddingto5">
+                                                                                <strong>@OIBuildListLang.lblState</strong>
+                                                                                @Html.TextBoxFor(m => m.request_fields.state, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off" })
+                                                                                <span id="spAddressMinLength" class="error" style="display:none;">Address required atleast three characters</span>
+                                                                            </div>
+                                                                            <div class="col-md-4 selectContainer paddingto5">
+                                                                                <strong>@OIBuildListLang.lblZipCode</strong>
+                                                                                @Html.TextBoxFor(m => m.request_fields.zip, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off" })
+                                                                                <span id="spAddressMinLength" class="error" style="display:none;">Address required atleast three characters</span>
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </div>
+                                                            <!-- end widget content -->
+                                                        </div>
+                                                        <!-- end widget div -->
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="ContentBorder">
+                                                            <div class="jarviswidget-editbox">
+                                                                <input class="form-control" type="text">
+                                                            </div>
+                                                            <div class="widget-body">
+                                                                <fieldset>
+                                                                    <legend>
+                                                                        <strong> @OIBuildListLang.lblTechnologyDetails</strong>
+                                                                    </legend>
+                                                                    <div class="form-group">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12 selectContainer custom-dropdown-search">
+                                                                                <span><strong>@OIBuildListLang.lblTechnologies</strong></span>
+                                                                                <div>@Html.DropDownListFor(m => m.request_fields.techs, new SelectList(CommonDropdown.GetBuildListData("technologies"), "Value", "Text"), CommonMessagesLang.lblSelectTechnologies, new { @class = "form-control chzn-select", autocomplete = "off" })</div>
+                                                                            </div>
+                                                                            <div class="clearfix"></div>
+                                                                            <div class="col-md-12 selectContainer paddingto5 custom-dropdown-search">
+                                                                                <span><strong>@OIBuildListLang.lblTechnologyCategories</strong></span>
+                                                                                <div>@Html.DropDownListFor(m => m.request_fields.tech_categories, new SelectList(CommonDropdown.GetBuildListData("technologies/categories"), "Value", "Text"), CommonMessagesLang.lblSelectTechnologiesCategories, new { @class = "form-control chzn-select", autocomplete = "off" })</div>
+                                                                            </div>
+                                                                            <div class="clearfix"></div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </div>
+                                                            <!-- end widget content -->
+                                                        </div>
+                                                        <!-- end widget div -->
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="ContentBorder">
+                                                            <div class="jarviswidget-editbox">
+                                                                <input class="form-control" type="text">
+                                                            </div>
+                                                            <div class="widget-body">
+                                                                <fieldset>
+                                                                    <legend>
+                                                                        <strong> @OIBuildListLang.lblSICNAICSCodes</strong>
+                                                                    </legend>
+                                                                    <div class="form-group">
+                                                                        <div class="row">
+                                                                            <div class="col-md-12 selectContainer custom-dropdown-search">
+                                                                                <strong>@OIBuildListLang.lblNAICSCodes</strong>
+                                                                                <div>@Html.DropDownListFor(m => m.request_fields.naics_codes, new SelectList(CommonDropdown.GetBuildListData("naics_codes"), "Value", "Text"), CommonMessagesLang.lblSelectNAICSCode, new { @class = "form -control chzn-select", autocomplete = "off" })</div>
+                                                                            </div>
+                                                                            <div class="clearfix"></div>
+                                                                            <div class="col-md-12 selectContainer paddingto5 custom-dropdown-search">
+                                                                                <span><strong>@OIBuildListLang.lblSICCodes</strong></span>
+                                                                                <div>@Html.DropDownListFor(m => m.request_fields.sic_codes, new SelectList(CommonDropdown.GetBuildListData("sic_codes"), "Value", "Text"), CommonMessagesLang.lblSelectSICCode, new { @class = "form-control chzn-select", autocomplete = "off" })</div>
+                                                                            </div>
+                                                                            <div class="clearfix"></div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </fieldset>
+                                                            </div>
+                                                            <!-- end widget content -->
+                                                        </div>
+                                                        <!-- end widget div -->
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable EnhanceFilter">
+                    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                        <header role="heading">
+                            <ul class="nav nav-pills Custom-pill pull-left with_40">
+                                <li>
+                                    <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);"><i class="fa fa-plus"></i></a>
+                                </li>
+                            </ul>
+                            <h2>
+                                <strong>@OIBuildListLang.hdrProfileDetails</strong>
+                            </h2>
+
+
+                        </header>
+                        <div role="content" style="display:none;">
+                            <div class="jarviswidget-editbox"></div>
+                            <div class="widget-body no-padding">
+                                <div class="tab-content padding-10 dropzIndex">
+                                    <div id="hr1" class="tab-pane  active in">
+                                        <div class="form-group">
+
+                                            <div class="row ">
+                                                @Html.AntiForgeryToken()
+                                                <div class="col-md-1 selectContainer">
+                                                    <strong>@OIBuildListLang.lblCIKCode</strong>
+                                                    @Html.TextBoxFor(m => m.request_fields.cik, null, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off" })
+                                                </div>
+                                                <div class="col-md-1 selectContaine">
+                                                    <span><strong>@OIBuildListLang.lblCUSIP</strong></span>
+                                                    @Html.TextBoxFor(m => m.request_fields.cusip, null, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off" })
+                                                </div>
+                                                <div class="col-md-2 selectContainer custom-dropdown-search">
+                                                    <span><strong>@OIBuildListLang.lblTicker</strong></span>
+                                                    <div>@Html.DropDownListFor(m => m.request_fields.ticker, new SelectList(CommonDropdown.GetBuildListData("stock_exchanges"), "Value", "Text"), CommonMessagesLang.lblSelectTicker, new { @class = "form-control chzn-select", autocomplete = "off" })</div>
+                                                </div>
+                                                <div class="col-md-2 selectContainer">
+                                                    <strong>@OIBuildListLang.lblInclude</strong>
+                                                    @Html.TextBoxFor(m => m.request_fields.include, null, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off" })
+                                                </div>
+                                                <div class="col-md-2 selectContainer">
+                                                    <strong>@OIBuildListLang.lblExchange</strong>
+                                                    @Html.TextBoxFor(m => m.request_fields.exchange, null, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off" })
+                                                </div>
+                                                <div class="col-md-2 selectContainer">
+                                                    <span><strong>@OIBuildListLang.lblImportanceScore</strong></span>
+                                                    @Html.TextBoxFor(m => m.request_fields.importance_score, null, new { @class = "form-control", data_toggle = "tooltip", autocomplete = "off" })
+                                                </div>
+                                                <div class="col-md-2 selectContainer custom-dropdown-search">
+                                                    <span><strong>@OIBuildListLang.lblRankings</strong></span>
+                                                    <div>@Html.DropDownListFor(m => m.request_fields.rankings, new SelectList(CommonDropdown.GetBuildListData("rankings"), "Value", "Text"), CommonMessagesLang.lblSelectRanking, new { @class = "form -control chzn-select", autocomplete = "off" })</div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable mb-2">
+                    <input class="btn btn-primary" type="submit" value="@OIBuildListLang.lblSearch" />
+                    <a class="btn btn-Secondary" onclick="ClearOIDataBuildList()">@OIBuildListLang.lblClear</a>
+                    <a class="btn btn-Secondary btnOISearchHistory">@OIBuildListLang.lblViewHistory</a>
+                    <a class="btn btn-Secondary pull-right" onclick="OIExportToExcel()">@OIBuildListLang.lblExporttoExcel</a>
+                </article>
+            }
+            <div class="clearfix"></div>
+            <br />
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable searchResult">
+                <div data-widget-editbutton="false" class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            <i class="fa fa-table"></i>
+                            <strong>@OIBuildListLang.hdrSearchResults</strong>
+                        </h2>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body searchBuild">
+                            <div id="example_wrapper" class="dataTables_wrapper form-inline no-footer">
+                                <div id="divStewardshipPortal" class="table-responsive">
+                                    <div id="divGrid">
+                                        @OIBuildListLang.lblNodataareavailable
+                                        @*@if (Model.results != null)
+                                            {
+                                                if (Model.request_fields.show_full_profile)
+                                                {
+                                                    Html.RenderPartial("~/Views/OI/OIBuildList/_SearchFullGrid.cshtml", Model.results);
+                                                }
+                                                else
+                                                {
+                                                    Html.RenderPartial("~/Views/OI/OIBuildList/_SearchGrid.cshtml", Model.results);
+                                                }
+                                            }*@
+                                    </div>
+                                </div>
+                            </div>
+                            </
+                        </div>
+                    </div>
+            </article>
+        </div>
+    </section>
+</div>
+<div id="GetOISearchHistoryModalMain"></div>
+@section scripts{
+    <script src="~/Scripts/bootstrap3.0.3Multiselected.min.js"></script>
+    <script src="~/Scripts/CustomJS/OI/OIBuildSearch.js"></script>
+    <script>
+        var noRecordsFound = '@OIBuildListLang.msgNoRecordsFound';
+        var noDataAreAvailable = '@OIBuildListLang.lblNodataareavailable';
+        var selectEmployees = '@OIBuildListLang.msgSelectEmployees';
+        var selectRevenue = '@OIBuildListLang.msgSelectRevenue';
+        var nothingFound = '@OIBuildListLang.msgNothingFound';
+    </script>
+
+}

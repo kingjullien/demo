@@ -1,0 +1,214 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@model List<MultiPassGroupConfiguration>
+@{
+    string tag = Convert.ToString(ViewBag.Tag);
+    bool IsUpdate = ViewBag.IsFromUpdate;
+    SelectList lstProvidersLookup = CommonDropdown.GetProviderLookups(106001, this.LayoutModel.CurrentClient.ApplicationDBConnectionString);
+}
+<style>
+    #AddMultiPassConfigModal .dropdown-menu {
+        height:65px;
+        overflow:auto;
+        position: absolute;
+        top: 100% !important;
+        transform: inherit !important;
+    }
+</style>
+@Html.Hidden("TagInGroupStep", tag)
+@Html.DropDownList("VerifiationLookupMaster", lstProvidersLookup, new { @class = "form-control verificationLookup", @autocomplete = "off", style = "display:none" })
+
+@if (IsUpdate)
+{
+    <div class="modal" id="AddMultiPassConfigModal" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <h4 class="modal-title">@DandBSettingLang.hdrMultiPassConfiguration</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="divMultiPassTagSelection" style="display:none">
+                    </div>
+                    <div id="divMultiPassGroupCreation">
+                        <article class="sortable-grid ui-sortable" id="articleAddupdateDnbGroupAPI">
+                            <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget" style="overflow:hidden;">
+                                <header role="heading">
+                                    <h2>
+                                        <strong>@DandBSettingLang.hdrVerificationGroup</strong>
+                                    </h2>
+                                </header>
+                                <div role="content">
+                                    <div class="jarviswidget-editbox"></div>
+                                    <div class="widget-body multiPassContentScroll">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <span>@DandBSettingLang.msgValidateMultipleMatchCriteria</span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <input type="radio" name="matchlast" value="yes" @(Model.Any() ? "checked" : "") /> @DandBSettingLang.lblYes
+                                                <input type="radio" name="matchlast" value="no" class="margin-left-10" @(Model.Any() ? "" : "checked") /> @DandBSettingLang.lblNo
+                                                <button class="btn btn-primary margin-left-10" id="btnAddMultiPassGroup" style='display:@(Model.Any() ? "inline-block" : "none")'>@DandBSettingLang.lblAdd</button>
+                                            </div>
+                                        </div>
+                                        <div class="row MultiPassGroupControls" style="display:@(Model.Any() ? "" : "none")">
+                                            @if (Model.Any())
+                                            {
+                                                for (int i = 0; i < Model.Count; i++)
+                                                {
+                                                    <div class="groupControls" id="@i">
+                                                        @Html.Hidden("VerifiationLookupValue" + i, Model[i].Lookups)
+                                                        <div class="col-md-4 padding-top-10">
+                                                            @Html.TextBox("VerificationGroupName" + i, Model[i].VerificationGroupName, new { @class = "form-control txtVerificationGroupName", @autocomplete = "off", @placeholder = DandBSettingLang.lblVerificationGroupName })
+                                                        </div>
+                                                        <div class="col-md-7 padding-top-10">
+                                                            @Html.DropDownList("VerifiationLookup" + i, lstProvidersLookup, new { @class = "form-control verificationLookup lookupDropdown", @autocomplete = "off", multiple = true })
+                                                        </div>
+                                                        <div class="col-md-1 margin-top-15">
+                                                            <span class="deleteMultiPassgrpControls"><i class="fa fa-trash"></i></span>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <div class="groupControls" id="0">
+                                                    <div class="col-md-4 padding-top-10">
+                                                        @Html.TextBox("VerificationGroupName0", "", new { @class = "form-control txtVerificationGroupName", @autocomplete = "off", @placeholder = DandBSettingLang.lblVerificationGroupName })
+                                                    </div>
+                                                    <div class="col-md-7 padding-top-10">
+                                                        @Html.DropDownList("VerifiationLookup0", lstProvidersLookup, new { @class = "form-control verificationLookup lookupDropdown", @autocomplete = "off", multiple = true })
+                                                    </div>
+                                                    <div class="col-md-1 padding-top-10 margin-top-15">
+                                                        <span class="deleteMultiPassgrpControls"><i class="fa fa-trash"></i></span>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <span class="multipassgroupcreationerr error"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12 text-align-right margin-bottom-10 margin-top-15">
+                                            <input type="button" class="btn btn-primary" value="@ImportDataLang.lblNext" id="AddMultiPassVerificationGroupNext" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <div id="divMultiPassPrecedence" style="display:none"></div>
+                </div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <article class="sortable-grid ui-sortable" id="articleAddupdateDnbGroupAPI">
+        <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+            <header role="heading">
+                <h2>
+                    <strong>@DandBSettingLang.hdrVerificationGroup</strong>
+                </h2>
+            </header>
+            <div role="content">
+                <div class="jarviswidget-editbox"></div>
+                <div class="widget-body multiPassContentScroll">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span>@DandBSettingLang.msgValidateMultipleMatchCriteria</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="radio" name="matchlast" value="yes" checked /> @DandBSettingLang.lblYes
+                            <input type="radio" name="matchlast" value="no" class="margin-left-10" /> @DandBSettingLang.lblNo
+                            <button class="btn btn-primary margin-left-10" id="btnAddMultiPassGroup">@DandBSettingLang.lblAdd</button>
+                        </div>
+                    </div>
+                    <div class="row MultiPassGroupControls">
+                        <div class="groupControls" id="0">
+                            <div class="col-md-4 padding-top-10">
+                                @Html.TextBox("VerificationGroupName0", "", new { @class = "form-control txtVerificationGroupName", @autocomplete = "off", @placeholder = DandBSettingLang.lblVerificationGroupName })
+                            </div>
+                            <div class="col-md-7 padding-top-10">
+                                @Html.DropDownList("VerifiationLookup0", lstProvidersLookup, new { @class = "form-control verificationLookup lookupDropdown", @autocomplete = "off", multiple = true })
+                            </div>
+                            <div class="col-md-1 margin-top-15">
+                                <span class="deleteMultiPassgrpControls"><i class="fa fa-trash"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <span class="multipassgroupcreationerr error"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-12 margin-bottom-10 margin-top-15">
+                        <div class="text-align-right">
+                            <input type="button" class="btn btn-Secondary" value="@ImportDataLang.lblPrev" id="AddMultiPassVerificationGroupPrev" />
+                            <input type="button" class="btn btn-primary margin-left-5" value="@ImportDataLang.lblNext" id="AddMultiPassVerificationGroupNext" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+}
+
+
+@if (IsUpdate && Model.Any())
+{
+    <script>
+        $(document).ready(function () {
+            var j = 0;
+
+            $(".MultiPassGroupControls").children().each(function () {
+                var grpLookups = $("#VerifiationLookupValue" + j).val().split(',');
+                if (grpLookups != null || grpLookups != "") {
+                    $("#VerifiationLookup" + j + " option").each(function () {
+                        for (var i = 0; i < grpLookups.length; i++) {
+                            if ($(this).val() == grpLookups[i]) {
+                                $(this).attr("selected", "selected");
+                            }
+                        }
+                    });
+                }
+                $("#VerifiationLookup" + j).multiselect({
+                    includeSelectAllOption: true,
+                    nonSelectedText: selectLookups,
+                    maxHeight: 300,
+                    numberDisplayed: 3,
+                    buttonClass: 'btn LookupMultiSelectbtn' + j,
+                });
+                j++;
+            });
+
+        })
+    </script>
+}
+else
+{
+    <script>
+        $(document).ready(function () {
+            $("#VerifiationLookup0").multiselect({
+                includeSelectAllOption: true,
+                nonSelectedText: selectLookups,
+                maxHeight: 300,
+                numberDisplayed: 3,
+                buttonClass: 'btn LookupMultiSelectbtn0',
+            });
+        })
+    </script>
+}
+

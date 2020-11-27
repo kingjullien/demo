@@ -1,0 +1,87 @@
+﻿@using SBISCCMWeb.LanguageResources;
+@model List<SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.SystemNotificationEntity>
+@{
+    ViewBag.Title = NotificationLang.titleNotifications;
+}
+<div id="content" style="opacity: 1;">
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12  sortable-grid ui-sortable">
+                <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            <i class="fa fa-database"></i>
+                            <strong>@NotificationLang.hdrNotifications</strong>
+                        </h2>
+                        <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                            <li>
+                                <a data-placement="bottom" title="" rel="tooltip" class="button-icon jarviswidget-toggle-btn" href="javascript:void(0);" data-original-title="Collapse"><i class="fa fa-minus "></i></a>
+                            </li>
+                        </ul>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content padding-10">
+                                <div class="tab-pane fade active in">
+                                    <div class="Notification-Containt">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>@NotificationLang.lblMessages</th>
+                                                    <th>@NotificationLang.lblDate</th>
+                                                    <th>@NotificationLang.lblDismiss</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if (Model != null && Model.Count > 0)
+                                                {
+
+
+                                                    foreach (var item in Model)
+                                                    {
+                                                        //string oldtime = "";
+                                                        //int SECOND = 1;
+                                                        //int MINUTE = 60 * SECOND;
+                                                        //int HOUR = 60 * MINUTE;
+                                                        //int DAY = 24 * HOUR;
+                                                        //int MONTH = 30 * DAY;
+                                                        //DateTime compareTo = item.StartDateTime;
+                                                        //var ts = new TimeSpan(DateTime.Now.Ticks - item.StartDateTime.Ticks);
+                                                        //double delta = Math.Abs(ts.TotalSeconds);
+                                                        //if (delta < 90 * MINUTE)
+                                                        //{
+                                                        //    oldtime = if;
+                                                        //}
+
+                                                    <tr>
+                                                        <td>@Html.Raw(item.Message)</td>
+                                                        <td>@item.StartDateTime.Month/@item.StartDateTime.Day/@item.StartDateTime.Year</td>
+                                                        @*<td>@oldtime</td>*@
+                                                        <td>
+                                                            @if (!item.isDismiss)
+                                                            {
+                                                                <a id="@item.MessageId" class="ClsDismissNotification" title="@NotificationLang.titleDismissNotification" style="cursor:pointer">Dismiss</a>
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <tr>
+                                                        <td colspan="3">@NotificationLang.lblNoDataAreAvailable</td>
+                                                    </tr>
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>

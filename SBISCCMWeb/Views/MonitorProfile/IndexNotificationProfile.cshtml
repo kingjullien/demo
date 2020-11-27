@@ -1,0 +1,82 @@
+﻿@using PagedList.Mvc;
+@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@model PagedList.IPagedList<NotificationProfileEntity>
+@{
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "divPartialNotificationProfileData",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnSuccess = "OnSuccess"
+    };
+    string NotificationSortOrder = Convert.ToString(ViewBag.SortOrder);
+    string NotificationSortBy = Convert.ToString(ViewBag.SortBy);
+
+}
+@Html.Hidden("NotificationPageValue", Convert.ToInt32(TempData["pagevalue"]))
+@Html.Hidden("NotificationSortOrder", NotificationSortOrder)
+@Html.Hidden("NotificationSortBy", NotificationSortBy)
+<div class="table-responsive">
+    @using (Ajax.BeginForm("IndexNotificationProfile", "MonitorProfile", FormMethod.Post, ajaxOptions, new { id = "form_NotificationProfile" }))
+    {
+        @Html.AntiForgeryToken()
+        <label class="select pull-right" style="padding-right:10px;">
+            Page Size :  @Html.DropDownList("pagevalue", new SelectList(SBISCCMWeb.Utility.CommonMethod.GetPageSize(), Convert.ToInt32(TempData["pageno"])), new { id = "pagevalue", @class = "pagevalueChangeNotifyProfrnc", @autocomplete = "off" })<i></i>
+        </label>
+        <table class="table table-bordered table-fixed-user">
+            <thead>
+                <tr>
+                    <th> @Ajax.ActionLink("Notification Profile Name", "IndexNotificationProfile", "MonitorProfile", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 1, sortorder = (ViewBag.SortBy == 1 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th> @Ajax.ActionLink("User Preference Name", "IndexNotificationProfile", "MonitorProfile", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 2, sortorder = (ViewBag.SortBy == 2 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th> @Ajax.ActionLink("Delivery Frequency", "IndexNotificationProfile", "MonitorProfile", new { page = ViewBag.pageno, pagevalue = ViewBag.pagevalue, sortby = 3, sortorder = (ViewBag.SortBy == 3 ? (ViewBag.SortOrder == 1 ? 2 : 1) : 1) }, ajaxOptions)</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.NotificationProfileName</td>
+                            <td>@item.DeliveryChannelUserPreferenceName</td>
+                            <td>@item.DeliveryFrequency</td>
+                            <td><a href="#" class="EditNotificationProfile" id="@item.NotificationProfileID">Edit</a></td>
+                            <td>@Html.ActionLink("Delete", "", "", new { @id = item.NotificationProfileID, @href = "javascript:void(0)", @class = "DeleteNotificationProfile" })</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="5">No record(s) Found.</td></tr>
+                }
+            </tbody>
+        </table>
+        <div class="dt-toolbar-footer">
+            <div class="col-sm-12 col-xs-12 hidden-xs">
+                <div id="datatable_tabletools_info" class="dataTables_info" role="status" aria-live="polite">
+                    <a id="pagingFormAction" href="@Url.Action("IndexNotificationProfile", "MonitorProfile", new {  page = 1, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder })" style="display:block"></a>
+                    @Html.PagedListPager(Model, page => Url.Action("IndexNotificationProfile", "MonitorProfile", new { page = page, pagevalue = ViewBag.pagevalue, sortby = ViewBag.SortBy, sortorder = ViewBag.SortOrder }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions() { ContainerDivClasses = new[] { "dataTables_paginate paging_simple_numbers" } }, new AjaxOptions() { HttpMethod = "replace", UpdateTargetId = "divPartialNotificationProfileData", LoadingElementId = "divProgress", OnSuccess = "OnSuccess()" }))
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<div class="loaderMain" id="divProgress">
+    <div class="loaderDiv">
+        <p class="loaderTxt">Please wait while processing...</p>
+    </div>
+</div>
+@if (!string.IsNullOrEmpty(Convert.ToString(TempData["ResponseErroeMessage"])))
+{
+        <script type="text/javascript">
+        bootbox.alert({
+            title: "<i class='fa fa-info-circle' aria-hidden='true'></i> Message",
+            message: '@TempData["ResponseErroeMessage"]'
+        });
+    </script>
+    TempData.Remove("ResponseErroeMessage");
+}

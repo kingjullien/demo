@@ -1,0 +1,101 @@
+﻿@using SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters
+@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@{
+    if (Helper.Branding == Branding.Matchbook.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblMatchbook + " | " + iResearchInvestigationLang.titleiResearchInvestigation;
+    }
+    else if (Helper.Branding == Branding.DandB.ToString())
+    {
+        ViewBag.Title = CommonMessagesLang.lblDunBradstreet + " | " + iResearchInvestigationLang.titleiResearchInvestigation;
+    }
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div id="content" style="padding-left:14px; padding-right:14px">
+    <section id="widget-grid" class="">
+        <div class="row">
+            <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable ">
+                <div class="jarviswidget jarviswidget-sortable  jarviswidget-color-blueDark jarviswidget-collapsed" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+                    <header role="heading">
+                        <h2>
+                            <strong>@iResearchInvestigationLang.hdrDAndBiResearch</strong>
+                        </h2>
+                        <div class="jarviswidget-ctrls" role="menu">
+                            <div class="clsAdditionActionFilter btn">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn dropdown-toggle btn-Secondary" data-toggle="dropdown" tabindex="-1">
+                                        @iResearchInvestigationLang.lblAdditionalActions <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="javascript:void(0);" id="btnGetAllReSearchStatus">@iResearchInvestigationLang.lblRefreshStatus</a></li>
+                                        <li><a href="javascript:void(0);" id="btnInvestigationFileUpload">@iResearchInvestigationLang.lblBulkInvestigation</a></li>
+                                        <li><a href="javascript:void(0);" id="btnExportToCSV">@iResearchInvestigationLang.lblExportToCSV</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+                    <div role="content">
+                        <div class="jarviswidget-editbox"></div>
+                        <div class="widget-body no-padding">
+                            <div class="tab-content padding-10 dropzIndex">
+                                <div id="" class="tab-pane fade active in">
+                                    <div class="row">
+                                        <div id="InvestigationFilterMain" class="col-md-12">
+                                            @Html.Partial("~/Views/Shared/FilterPartial.cshtml")
+                                        </div>
+                                    </div>
+                                    <div id="divPartialInvestigation">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+</div>
+<div id="InvestigationDetailsModalMain">
+
+</div>
+<div id="InvestigationFileUploadModalMain">
+
+</div>
+<div id="InvestigationColumnMappingModalMain">
+
+</div>
+<div id="InvestigationChallengeModalMain">
+
+</div>
+<script>
+    $(document).ready(function () {
+        //["TableCoulmnName","ServerColumnName","DropDownURL","ISDefault:IsMultiselect(use lowercase)","Show text/value(use lowercase)","Datatype(If Date)","Default selected values"]
+        var colArray = [["Status", "Status", "/ResearchInvestigation/GetStatusDD", "true:true", ""],
+        ["RequestType", "RequestType", "/ResearchInvestigation/GetRequestTypeDD", "false", "", "text"],
+        ["SrcRecordId", "SrcRecordId", "", "false", "text", "onlytext"],
+        ["Keyword", "Keyword", "", "false", "text", "onlytext"],
+        ["DUNSNumber", "DUNSNumber", "", "", "", "onlytext"],
+        ["RequestedDate", "RequestedDate", "/ResearchInvestigation/GetRequestedDate", "false", "text", "date"]
+        ];
+
+        //Column array,URL for FilterData, FilterParentDiv,TargetedDiv, DatatableId
+        InitFilters(colArray, "/ResearchInvestigation/FilterInvestigationRecords", "#InvestigationFilterMain", "#divPartialInvestigation", "InitDataTable('.iResearchInvsetigationTB', [10,20,30], false,[5,'desc'])");
+    });
+</script>
+<script>
+    var selectFile = '@iResearchInvestigationLang.msgSelectFile';
+    var noRecordsAvailable = '@iResearchInvestigationLang.msgNoRecordsAvailable';
+    var insertInvestigation = '@iResearchInvestigationLang.msgInsertInvestigation';
+    var requiredRequestorEmail = '@iResearchInvestigationLang.msgRequiredRequestorEmail';
+    var enterValidEmail = '@iResearchInvestigationLang.msgEnterValidEmail';
+    var unableImportBlankFile = '@iResearchInvestigationLang.msgUnableImportBlankFile';
+    var onlyExcelAllowed = '@iResearchInvestigationLang.msgOnlyExcelAllowed';
+    var error = '@iResearchInvestigationLang.msgError';
+    var alreadyBelongsToFile = '@iResearchInvestigationLang.msgAlreadyBelongsToFile';
+    var onlyFormatsAllowed = '@iResearchInvestigationLang.msgOnlyFormatsAllowed';
+</script>
+@section scripts{
+    @Scripts.Render("~/bundles/researchinvestigation")
+}

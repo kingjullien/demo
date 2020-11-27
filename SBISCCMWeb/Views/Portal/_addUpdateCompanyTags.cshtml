@@ -1,0 +1,101 @@
+﻿@using SBISCCMWeb.LanguageResources
+@using SBISCCMWeb.Utility
+@model SBISCompanyCleanseMatchBusiness.Objects.EntitiesAndAdapters.TagsEntity
+@{
+    Layout = null;
+    AjaxOptions ajaxOptions = new AjaxOptions
+    {
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        LoadingElementId = "divProgress",
+        //UpdateTargetId = "divPartialManageTags",
+        OnSuccess = "UpdateMangeTagSuccess"
+    };
+    string tagsss = Helper.oUser.UserRole;
+    string TagType = (string.IsNullOrEmpty(Model.TagTypeCode) ? "" : Model.TagTypeCode) + "@#$" + (string.IsNullOrEmpty(Model.Tag) ? "" : Model.Tag.TrimStart('[').Split(':')[0]);
+
+}
+<article class="col-md-12 sortable-grid ui-sortable" id="ArticleAddUpdateTags">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@PortalSettingLang.hdrTags</strong>
+            </h2>
+            <ul id="widget-tab-Company" class="nav pull-right nav-pills Custom-pill">
+                <li>
+                    <div class="btn btn-sm btn-Secondary" id="AddTag" title="@PortalSettingLang.titleAddTag">
+                        <span class="fa fa-plus"></span>
+                    </div>
+                </li>
+                @if (Model.TagTypeCode == "601006" || Helper.oUser.UserRole == UserRole.LOB.ToString())
+                {
+                    <li>
+                        <div class="btn btn-sm btn-Secondary" title="@PortalSettingLang.titleEditTag" disabled="disabled">
+                            <span class="fa fa-pencil"></span>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <div class="btn btn-sm btn-Secondary" id="editTag" title="@PortalSettingLang.titleEditTag">
+                            <span class="fa fa-pencil"></span>
+                        </div>
+                    </li>
+
+                }
+            </ul>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+
+                <br />
+                @using (Ajax.BeginForm("AddTags", "Tags", null, ajaxOptions, new { @class = "formCustomeAttribute m-style", id = "frmTag", @autocomplete = "off" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("Tagvalue", TagType)
+                    @Html.HiddenFor(model => model.TagId)
+                    <div class="form-group">
+                        <div class="row" style="margin-left:-15px; margin-right:-15px">
+                            <div class="col-md-3">
+                                <span><strong>@PortalSettingLang.lblTagType</strong></span>
+                                @Html.DropDownList("TagTypeCode", (CommonDropdown.GetTagTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)), CommonMessagesLang.lblSelectTagtype, new { @class = "form-control", disabled = "disabled", @autocomplete = "off" })
+                                <span id="spnTag" class="error pull-left" style="display:none;">@TagLang.lblRequiredTagType</span>
+                            </div>
+                            <div class="col-md-3 clsLobtag">
+                                <span><strong>@PortalSettingLang.lblLOBTag</strong></span>
+                                @Html.DropDownList("LOBTag", new SelectList(CommonDropdown.GetTagByTypeCode(this.LayoutModel.CurrentClient.ApplicationDBConnectionString), "Tag", "Tag", Model.LOBTag), CommonMessagesLang.lblSelectLOBTag, new { @class = "form-control", disabled = "disabled", @autocomplete = "off" })
+                            </div>
+                            <div class="col-md-3">
+                                <span><strong>@PortalSettingLang.lblTagValue</strong></span>
+                                <input type="text" id="txtTags" name="Tag" autocomplete="off" class="form-control" maxlength="23" value="@Model.TagValue" disabled="disabled" />
+                                <span id="spnSearchText" class="error pull-left" style="display:none;">@PortalSettingLang.lblTagRequire</span>
+                                <span id="spnIsValidTag" class="error pull-left" style="display:none;">@PortalSettingLang.lblValidTag</span>
+                            </div>
+                            <div class="col-md-3">
+                                <span><strong>@PortalSettingLang.lblTag</strong></span>
+                                <label class="lbltag text-left font-weight-bold pull-left" id="txttag" style="padding:9px 0 0 15px!important">@Model.Tag</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                            @if (Model.TagId > 0)
+                            {
+                                <input type="submit" id="btnSubmitTag" value="@PortalSettingLang.lblUpdate" class="btn btn-primary btnAddTags" style="display:none" />
+
+                            }
+                            else
+                            {
+                                <input type="submit" id="btnSubmitTag" value="@PortalSettingLang.lblAdd" class="btn btn-primary btnAddTags" onclick="return SaveTags()" style="display:none" />
+                            }
+
+                        </div>
+                    </div>
+                    <br />
+                }
+            </div>
+        </div>
+    </div>
+</article>

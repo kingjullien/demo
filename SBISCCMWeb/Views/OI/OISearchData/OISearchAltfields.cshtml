@@ -1,0 +1,89 @@
+﻿@using SBISCCMWeb.Utility;
+@using SBISCCMWeb.LanguageResources;
+@{
+    Layout = null;
+}
+<div class="modal" id="OISearchByAltfieldsModal" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xs" style="width:400px;">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <h4 class="modal-title">@OISearchDataLang.lblSearchByAltFields</h4>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane fade active in">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="row">
+                                <div class="col-xs-12 divOIFilterAltsearch form-group">
+                                    <div>
+                                        <div><input type="radio" name="rdSearchAltField" value="OrbNum" checked="checked" /></div>
+                                        <div class="margin-top-3"><span>@OISearchDataLang.lblOrbNumber</span></div>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div><input type="radio" name="rdSearchAltField" value="Domain" /></div>
+                                        <div class="margin-top-3"><span>@OISearchDataLang.lblDomain</span></div>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div><input type="radio" name="rdSearchAltField" value="Email" /></div>
+                                        <div class="margin-top-3"><span>@OISearchDataLang.lblEmail</span></div>&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <div><input type="radio" name="rdSearchAltField" value="EIN" /></div>
+                                        <div class="margin-top-3"><span>@OISearchDataLang.lblEIN</span></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divSearchOrbNumber">
+                                <div class="row form-group ">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                        <input type="text" id="txtOrBNumber" name="OrbNumber" class="form-control OnlyDigit" maxlength="9" autocomplete="off" placeholder="@OISearchDataLang.placeholderOrbNumber" />
+                                        <span id="spnOrbNumber" class="error" style="display:none;">@OISearchDataLang.lblRequiedOrbNumber </span>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        @Html.DropDownList("OrBNumCountry", (CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectCountry), new { @class = "form-control", @autocomplete = "off" })
+                                        <span id="spnOrBNumCountry" class="error" style="display:none;">@OISearchDataLang.lblRequiredCountry</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divSearchOIDomain" style="display:none">
+                                <div class="row form-group ">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                        <input type="text" id="txtOIDomain" name="OIDomain" autocomplete="off" class="form-control" placeholder="@OISearchDataLang.placeholderDomain" />
+                                        <span id="spnOIDomain" class="error" style="display:none;">@OISearchDataLang.lblRequiredDomain </span>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        @Html.DropDownList("DomainCountry", (CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectCountry), new { @class = "form-control", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divSearchOIEmail" style="display:none">
+                                <div class="row form-group ">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                        <input type="text" id="txtOIEmail" name="OIEmail" autocomplete="off" class="form-control" placeholder="@OISearchDataLang.placeholderEmail" />
+                                        <span id="spnOIEmail" class="error" style="display:none;">@OISearchDataLang.lblPleasefillEmail </span>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                        @Html.DropDownList("EmailCountry", (CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectCountry), new { @class = "form-control", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divSearchOIEIN" style="display:none">
+                                <div class="row form-group ">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+                                        <input type="text" id="txtOIEIN" name="OIEIN" class="form-control" autocomplete="off" placeholder="@OISearchDataLang.placeholderEIN" />
+                                        <span id="spnOIEIN" class="error" style="display:none;">@OISearchDataLang.lblRequiredEINNumber</span>
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12 ">
+                                        @Html.DropDownList("EINCountry", (CommonDropdown.GetAllCountry(this.LayoutModel.CurrentClient.ApplicationDBConnectionString)).InsertEmptyFirst(CommonMessagesLang.lblSelectCountry), new { @class = "form-control", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <button class="btn btn-primary" id="SearchAltFields">@OISearchDataLang.lblSubmit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

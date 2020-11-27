@@ -1,0 +1,101 @@
+﻿@using SBISCCMWeb.Models;
+@using SBISCCMWeb.LanguageResources;
+@using SBISCCMWeb.Utility
+@model CleanseMatchSettingsModel
+@{
+    Layout = null;
+}
+
+<article class="col-md-12 sortable-grid ui-sortable widget-data">
+    <div class="jarviswidget jarviswidget-sortable jarviswidget-color-blueDark" data-widget-custombutton="false" data-widget-fullscreenbutton="false" data-widget-deletebutton="false" data-widget-togglebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false" role="widget">
+        <header role="heading">
+            <h2>
+                <strong>@PortalSettingLang.hdrExportPageSettings</strong>
+            </h2>
+        </header>
+        <div role="content">
+            <div class="jarviswidget-editbox"></div>
+            <div class="widget-body no-padding">
+                <div class="tab-content padding-10">
+                    <div id="Process" class="tab-pane fade active in">
+                        <form id="form_ExportPageSettings">
+                            <table data-swhgcallback="" data-swhgcontainer="dgBanInputData" data-swhgajax="true" class="table table-bordered panel-group customTable">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="control-label col-md-2">@PortalSettingLang.lblPAGESIZEMATCHOUTPUT</label>
+                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                        @Html.HiddenFor(@model => Model.PAGE_SIZE_MATCH_OUTPUT)
+                                                        @Html.TextBoxFor(@model => Model.Settings[Model.PAGE_SIZE_MATCH_OUTPUT].SettingValue, Model.Settings != null ? Model.Settings[Model.PAGE_SIZE_MATCH_OUTPUT].SettingValue : "", new { @class = "form-control sideTextboxes OnlyDigit isDisabled", onkeypress = "return isNumber(event)", @autocomplete = "off" })
+                                                        <span style="display:none;" class="error" id="spnPageSizeMatchOutput">@PortalSettingLang.lblPAGESIZEMATCHOUTPUTRequire</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="control-label col-md-2">@PortalSettingLang.lblPAGESIZEENRICHMENTOUTPUT</label>
+                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                        @Html.HiddenFor(@model => Model.PAGE_SIZE_ENRICHMENT_OUTPUT)
+                                                        @Html.TextBoxFor(@model => Model.Settings[Model.PAGE_SIZE_ENRICHMENT_OUTPUT].SettingValue, Model.Settings != null ? Model.Settings[Model.PAGE_SIZE_ENRICHMENT_OUTPUT].SettingValue : "", new { @class = "form-control sideTextboxes OnlyDigit isDisabled", onkeypress = "return isNumber(event)", @autocomplete = "off" })
+                                                        <span style="display:none;" class="error" id="spnPageSizeEnrichmentOutput">@PortalSettingLang.lblPAGESIZEENRICHMENTOUTPUTRequire</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="control-label col-md-2">@PortalSettingLang.lblPAGESIZEMONITORINGOUTPUT</label>
+                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                        @Html.HiddenFor(@model => Model.PAGE_SIZE_MONITORING_OUTPUT)
+                                                        @Html.TextBoxFor(@model => Model.Settings[Model.PAGE_SIZE_MONITORING_OUTPUT].SettingValue, Model.Settings != null ? Model.Settings[Model.PAGE_SIZE_MONITORING_OUTPUT].SettingValue : "", new { @class = "form-control sideTextboxes OnlyDigit isDisabled", onkeypress = "return isNumber(event)", @autocomplete = "off" })
+                                                        <span style="display:none;" class="error" id="spnPageSizeMonitoringOutput">@PortalSettingLang.lblPAGESIZEMONITORINGOUTPUTRequire</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <div class="row">
+                                                    <label class="control-label col-md-2">@PortalSettingLang.lblPAGESIZEACTIVEDATAQUEUEOUTPUT</label>
+                                                    <div class="col-md-3 col-sm-3 col-xs-3">
+                                                        @Html.HiddenFor(@model => Model.PAGE_SIZE_ACTIVE_DATA_QUEUE_OUTPUT)
+                                                        @Html.TextBoxFor(@model => Model.Settings[Model.PAGE_SIZE_ACTIVE_DATA_QUEUE_OUTPUT].SettingValue, Model.Settings != null ? Model.Settings[Model.PAGE_SIZE_ACTIVE_DATA_QUEUE_OUTPUT].SettingValue: "", new { @class = "form-control sideTextboxes OnlyDigit isDisabled", onkeypress = "return isNumber(event)", @autocomplete = "off" })
+                                                        <span style="display:none;" class="error" id="spnPageSizeActiveDataQueueOutput">@PortalSettingLang.lblPAGESIZEACTIVEDATAQUEUEOUTPUTRequre</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            @if (Helper.oUser != null && (Helper.oUser.UserRole == UserRole.GLOBAL.ToString()))
+                                            {
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-5 text-center">
+                                                            <input type="button" value="@PortalSettingLang.lblUpdate" name="btnSubmit" id="btnSubmitExportPageSettings" class="btn btn-primary" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+@if (ViewBag.SelectedIndividualTab == "Export Page Settings")
+{
+    <script>
+        $(document).ready(function () {
+          if ($.UserRole.toLowerCase() == "lob") {
+                $(".isDisabled").attr("disabled", true)
+            }
+    });
+    </script>
+}
